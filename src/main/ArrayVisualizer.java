@@ -373,7 +373,7 @@ final public class ArrayVisualizer {
         this.category = "";
         this.heading = "";
         this.extraHeading = "";
-        this.fontSelection = "Times New Roman";
+        this.fontSelection = "Consolas";
         this.typeFace = new Font(this.fontSelection, Font.PLAIN, (int) (this.getWindowRatio() * 25));
         
         this.statSnapshot = new Statistics(this);

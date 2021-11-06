@@ -98,7 +98,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName) throws Exception {
         
-       Sort Peel = new PeelSort(arrayVisualizer);
+        Sort Peel = new PeelSort(arrayVisualizer);
         runIndividualSort(Peel, 0, array, 128, 0.5, false, shuffleName, 16);
         
         Sort ReversePeel = new ReversePeelSort(arrayVisualizer);

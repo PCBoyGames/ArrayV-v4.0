@@ -503,6 +503,29 @@ public enum Distributions {
             for(int i = 0; i < n; i++) array[i] = 2*(n%(i+1));
         }
     },
+    DIGITS_PROD {
+        public String getName() {
+            return "Product of Digits";
+        }
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int n = ArrayVisualizer.getCurrentLength();
+            int max = 0;
+            
+            for(int j = 0; j < n; j++) {
+                array[j] = 1;
+                
+                for(int i = j; i > 0; i /= 10)
+                    if(i%10 > 0) array[j] *= i%10;
+                
+                if(array[j] > max) max = array[j];
+            }
+            double scale = (double)(n-1)/max;
+            
+            for(int i = 0; i < n; i++)
+                array[i] = (int)(array[i] * scale);
+        }
+    },
     CUSTOM {
         private int[] refarray;
         private int length;

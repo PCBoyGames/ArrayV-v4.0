@@ -29,8 +29,9 @@ final public class CocktailPeelSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
+        int stacked = 0;
         for (int left = 0; left < currentLength; left++) {
-            int stacked = 0;
+            stacked = 0;
             for (int right = currentLength - 1; right > left; right--) {
                 if (Reads.compareIndices(array, left, right + stacked, 0.05, true) > 0) {
                     Highlights.markArray(3, left);
@@ -44,7 +45,9 @@ final public class CocktailPeelSort extends Sort {
                 }
             }
             left++;
-            for (int right = left + 1; right < currentLength;) {
+            stacked = 0;
+            for (int right = left + stacked + 1; right < currentLength; right++) {
+                if (right == left + stacked + 1) stacked = 0;
                 if (Reads.compareIndices(array, left, right, 0.05, true) > 0) {
                     Highlights.markArray(3, left);
                     int item = array[right];
@@ -53,8 +56,7 @@ final public class CocktailPeelSort extends Sort {
                     }
                     Writes.write(array, left, item, 0.05, true, false);
                     Highlights.clearMark(3);
-                } else {
-                    right++;
+                    stacked++;
                 }
             }
         }

@@ -27,7 +27,6 @@ final public class XSort extends Sort {
 	@Override
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		int gap = currentLength;
-		int sortbase = 1;
 		int i = 1;
 		int xleft = 1;
 		int xright = 1;

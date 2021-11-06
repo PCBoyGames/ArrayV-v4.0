@@ -4,3 +4,4 @@ __pycache__
 cache
 antiqsort_*
 network_*.svg
+dist/arrayVisualizer.jar

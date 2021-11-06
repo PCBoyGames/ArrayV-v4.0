@@ -75,6 +75,9 @@ public abstract class MultipleSortThread {
             arrayFrame.setLengthSlider(sortLength);
         }
         
+        //arrayFrame.setUniqueSlider(16);
+        //arrayVisualizer.setComparator(2);
+
         arrayManager.refreshArray(array, arrayVisualizer.getCurrentLength(), this.arrayVisualizer);
         
         arrayVisualizer.setHeading(sort.getRunAllSortsName() + " (Sort " + this.sortNumber + " of " + this.sortCount + ")");

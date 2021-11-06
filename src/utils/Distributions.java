@@ -40,6 +40,7 @@ public enum Distributions {
         public String getName() {
             return "Linear";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -52,6 +53,7 @@ public enum Distributions {
         public String getName() {
             return "Few Unique";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -86,6 +88,7 @@ public enum Distributions {
         public String getName() {
             return "Random";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -99,6 +102,7 @@ public enum Distributions {
         public String getName() {
             return "Quadratic";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -111,6 +115,7 @@ public enum Distributions {
         public String getName() {
             return "Square Root";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -123,6 +128,7 @@ public enum Distributions {
         public String getName() {
             return "Cubic (Centered)";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -137,6 +143,7 @@ public enum Distributions {
         public String getName() {
             return "Quintic (Centered)";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -151,6 +158,7 @@ public enum Distributions {
         public String getName() {
             return "Cube Root (Centered)";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -169,6 +177,7 @@ public enum Distributions {
         public String getName() {
             return "Fifth Root (Centered)";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -187,6 +196,7 @@ public enum Distributions {
         public String getName() {
             return "Sine Wave";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -201,6 +211,7 @@ public enum Distributions {
         public String getName() {
             return "Cosine Wave";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -215,6 +226,7 @@ public enum Distributions {
         public String getName() {
             return "Perlin Noise";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -265,6 +277,7 @@ public enum Distributions {
         public String getName() {
             return "Perlin Noise Curve";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -279,6 +292,7 @@ public enum Distributions {
         public String getName() {
             return "Bell Curve";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -305,6 +319,7 @@ public enum Distributions {
         public String getName() {
             return "Ruler";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -339,6 +354,7 @@ public enum Distributions {
         public String getName() {
             return "Blancmange Curve";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -369,6 +385,7 @@ public enum Distributions {
         public String getName() {
             return "Cantor Function";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -398,6 +415,7 @@ public enum Distributions {
         public String getName() {
             return "Sum of Divisors";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -433,6 +451,7 @@ public enum Distributions {
         public String getName() {
             return "Fly Straight, Damnit!";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
@@ -460,12 +479,13 @@ public enum Distributions {
         public String getName() {
             return "Decreasing Random";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
             Random random = new Random();
 
-            for(int i = 0; i < currentLen; i++){
+            for (int i = 0; i < currentLen; i++) {
                 int r = random.nextInt(currentLen - i) + i;
                 array[i] = r;
             }
@@ -475,6 +495,7 @@ public enum Distributions {
         public String getName() {
             return "Modulo Function";
         }
+
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int n = ArrayVisualizer.getCurrentLength();

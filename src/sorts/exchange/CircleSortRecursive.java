@@ -32,6 +32,7 @@ final public class CircleSortRecursive extends CircleSorting {
     }
     
     public void singleRoutine(int[] array, int length) {
+        this.end = length;
         this.circleSortRoutine(array, 0, length - 1, 0, 0.1);
     }
     

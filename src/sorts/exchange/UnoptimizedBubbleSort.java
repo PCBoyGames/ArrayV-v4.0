@@ -59,7 +59,7 @@ final public class UnoptimizedBubbleSort extends Sort {
 
                 Highlights.markArray(1, i);
                 Highlights.markArray(2, i + 1);
-                Delays.sleep(0.05);
+                Delays.sleep(0.025);
             }
         }    
     }

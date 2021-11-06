@@ -59,13 +59,15 @@ public abstract class BinaryInsertionSorting extends Sort {
             // item has to go into position lo
 
             int j = i - 1;
+            boolean change = false;
             
             while (j >= lo)
             {
                 Writes.write(array, j + 1, array[j], writeSleep, true, false);
                 j--;
+                change = true;
             }
-            Writes.write(array, lo, num, writeSleep, true, false);
+            if (change) Writes.write(array, lo, num, writeSleep, true, false);
             
             Highlights.clearAllMarks();
         }

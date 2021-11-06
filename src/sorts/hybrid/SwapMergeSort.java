@@ -59,6 +59,8 @@ final public class SwapMergeSort extends Sort {
         int right = rightStart;
 
         while (left < right) {
+            Highlights.markArray(3, left);
+            Delays.sleep(0.025);
             if (left >= end || right >= end) {
                 break;
             }

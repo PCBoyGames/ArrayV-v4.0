@@ -32,6 +32,7 @@ final public class CircleSortIterative extends IterativeCircleSorting {
     }
     
     public void singleRoutine(int[] array, int length) {
+        this.end = length;
         this.circleSortRoutine(array, length, 0.1);
     }
     

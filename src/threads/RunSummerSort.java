@@ -6,6 +6,7 @@ import sorts.select.CocktailPeelSort;
 import sorts.select.InstinctCocktailSandpaperSort;
 import sorts.select.InstinctReverseSandpaperSort;
 import sorts.select.InstinctSandpaperSort;
+import sorts.select.OptimizedReverseSandpaperSort;
 import sorts.select.PeelSort;
 import sorts.select.ReversePeelSort;
 import sorts.templates.Sort;
@@ -40,7 +41,7 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 3;
+    int numSorts = 1;
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -101,14 +102,17 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName) throws Exception {
         
-        Sort InstinctSandpaper = new InstinctSandpaperSort(arrayVisualizer);
-        runIndividualSort(InstinctSandpaper, 0, array, 64, 0.1, false, shuffleName, 16);
+        /*Sort InstinctSandpaper = new InstinctSandpaperSort(arrayVisualizer);
+        runIndividualSort(InstinctSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);
         
         Sort InstinctReverseSandpaper = new InstinctReverseSandpaperSort(arrayVisualizer);
-        runIndividualSort(InstinctReverseSandpaper, 0, array, 64, 0.1, false, shuffleName, 16);
+        runIndividualSort(InstinctReverseSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);
         
         Sort InstinctCocktailSandpaper = new InstinctCocktailSandpaperSort(arrayVisualizer);
-        runIndividualSort(InstinctCocktailSandpaper, 0, array, 64, 0.1, false, shuffleName, 16);
+        runIndividualSort(InstinctCocktailSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);*/
+        
+        Sort OptimizedReverseSandpaper = new OptimizedReverseSandpaperSort(arrayVisualizer);
+        runIndividualSort(OptimizedReverseSandpaper, 0, array, 128, 0.5, false, shuffleName, 16);
         
     }
 
@@ -136,10 +140,10 @@ final public class RunSummerSort extends MultipleSortThread {
         RunSummerSort.this.runSort(array, "Stability Test");
 		
         arrayVisualizer.setComparator(0);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUFFLED_TAIL); // 5
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUFFLED_TAIL_LEGACY); // 5
         RunSummerSort.this.runSort(array, "Scrambled End");
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUFFLED_HEAD); // 6
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUFFLED_HEAD_LEGACY); // 6
         RunSummerSort.this.runSort(array, "Scrambled Start");
 
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_MERGE); // 7

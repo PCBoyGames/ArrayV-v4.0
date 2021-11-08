@@ -225,6 +225,36 @@ public enum Shuffles {
             shuffle(array, 0, j, delay ? 2 : 0, Writes);
         }
     },
+    SHUFFLED_TAIL_LEGACY {
+        public String getName() {
+            return "Scrambled End (Legacy)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            int len = Math.max(1, currentLen/7);
+            
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, 0, currentLen-len, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SHUFFLED_HEAD_LEGACY {
+        public String getName() {
+            return "Scrambled Start (Legacy)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            int len = Math.max(1, currentLen/7);
+            
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, len, currentLen, delay ? 0.5 : 0, Writes);
+        }
+    },
     MOVED_ELEMENT {
         public String getName() {
             return "Shifted Element";

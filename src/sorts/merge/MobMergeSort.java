@@ -30,7 +30,7 @@ final public class MobMergeSort extends Sort {
     protected void bubble(int[] array, int start, int end) {
         int c = 1;
         int s;
-        int f = 1;
+        int f = start + ((end - start) / 2);
         boolean a = false;
         for (int j = end - 1; j > 0; j -= c) {
             if (f - 1 < start) {
@@ -62,7 +62,9 @@ final public class MobMergeSort extends Sort {
         while (len <= currentLength) {
             index = 0;
             while (index + len <= currentLength) {
-                bubble(array, index, index + len);
+                if (len == 2) {
+                    if (Reads.compareIndices(array, index, index + 1, 0.25, true) > 0) Writes.swap(array, index, index + 1, 0.75, true, false);
+                } else bubble(array, index, index + len);
                 index += len;
             }
             if (index != currentLength) {

@@ -1,6 +1,4 @@
-package sorts.exchange;
-
-import java.util.Stack;
+package sorts.quick;
 
 import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
@@ -21,7 +19,7 @@ public class AeosQSort extends Sort {
         this.setSortListName("AeosQsort");
         this.setRunAllSortsName("Aeos Quick Sort");
         this.setRunSortName("Aeos Quicksort");
-        this.setCategory("Exchange Sorts");
+        this.setCategory("Quick Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);
@@ -92,93 +90,37 @@ public class AeosQSort extends Sort {
 		return medianOf3(array, new int[] {med0, med1, med2});
 	}
 
-	private int mOMHelperA(int[] array, int start, int length) {
+	private int mOMHelper(int[] array, int start, int length) {
 		if(length == 1) return start;
 		
-		// This is O(sqrt(n)) length but not worth visualizing
-		int[] indices = new int[length];
-		for(int i = 0; i < length; i++) {
-			indices[i] = start + i;
-			Delays.sleep(wSleep);
-		}
-		
-		while(length > 3) {
-			length /= 3;
-			for(int i = 0; i < length; i++) {
-				indices[i] = medianOf3(array,
-						new int[] {indices[3*i], indices[3*i+1], indices[3*i+2]});
-				Delays.sleep(wSleep);
-			}
-		}
+		int[] meds = new int[3];
+		int third = length / 3;
+		meds[0] = mOMHelper(array, start, third);
+		meds[1] = mOMHelper(array, start + third, third);
+		meds[2] = mOMHelper(array, start + 2 * third, third);
 				
-		return medianOf3(array, indices);
+		return medianOf3(array, meds);
 	}
 
-	private int mOMHelperB(int[] array, int start, int length) {
-		if((length & 1) == 0) length -= 1; // even lengths bad here
+	private int medianOfMedians(int[] array, int start, int length) {
+		if(length == 1) return start;
 		
-		// These are O(log(n)) length but not worth visualizing
-		Stack<Integer> med0s = new Stack<Integer>();
-		Stack<Integer> med2s = new Stack<Integer>();
-		int med1;
+		int[] meds = new int[3];
 		
-
 		int nearPower = (int) Math.pow(3, Math.round(Math.log(length)/Math.log(3)));
+		if(nearPower == length)
+			return mOMHelper(array, start, length);
 		
-		while(length != nearPower) {
-			
-			nearPower /= 3;
-			// uncommon but can happen with numbers slightly smaller than 2*3^k
-			// (e.g., 17 < 18 or 47 < 54)
-			if(2*nearPower >= length) nearPower /= 3;
-			
-			med0s.push(mOMHelperA(array, start, nearPower));
-			Delays.sleep(wSleep);
-			med2s.push(mOMHelperA(array, start + length - nearPower, nearPower));
-			Delays.sleep(wSleep);
-			start  +=     nearPower;
-			length -= 2 * nearPower;
-			
-			nearPower = (int) Math.pow(3, Math.round(Math.log(length)/Math.log(3)));
-		}
+		nearPower /= 3;
+		// uncommon but can happen with numbers slightly smaller than 2*3^k
+		// (e.g., 17 < 18 or 47 < 54)
+		if(2*nearPower >= length) nearPower /= 3;
 		
-		med1 = mOMHelperA(array, start, length);
-
-		while(!med0s.isEmpty()) {
-			int[] meds = {med0s.pop(), med1, med2s.pop()};
-			med1 = medianOf3(array, meds);
-		}
+		meds[0] = mOMHelper(array, start, nearPower);
+		meds[2] = mOMHelper(array, start + length - nearPower, nearPower);
+		meds[1] = medianOfMedians(array, start + nearPower, length - 2 * nearPower);
 		
-		return med1;
-	}
-
-	private int medianOfMedians(int[] array, int start, int end) {
-		int length       = end - start;
-		int sectionDepth = (int) (Math.log(indexAux.length)/Math.log(3));
-		int sections     = (int)  Math.pow(3, sectionDepth);
-		int sectionSize  = length / sections;
-		int firstExtra   = length % sections;
-		
-		// sometimes occurs when trying to apply median of medians on already small partitions
-		if(sectionSize == 0)
-			return mOMHelperB(array, start, length);
-		
-		indexAux[0] = mOMHelperB(array, start, sectionSize + firstExtra);
-		for(int i = 1; i < sections; i++) {
-			indexAux[i] =
-					mOMHelperB(array, start + firstExtra + i * sectionSize, sectionSize);
-		}
-		
-		while(sections > 3) {
-			sections /= 3;
-			for(int i = 0; i < sections; i++) {
-				int[] currIndices = new int[] {indexAux[3*i], indexAux[3*i+1], indexAux[3*i+2]};
-				indexAux[i] = medianOf3(array, currIndices);
-				Delays.sleep(wSleep);
-			}
-		}
-		
-		return medianOf3(array, indexAux);
+		return medianOf3(array, meds);
 	}
 
 	private void rotate(int[] array, int start, int leftLen, int rightLen) {
@@ -212,7 +154,7 @@ public class AeosQSort extends Sort {
 		
 		for(int i = start; i < end; i++) {
 			Highlights.markArray(2, i);
-			Delays.sleep(wSleep);
+			Delays.sleep(rSleep);
 			if(Reads.compareValues(array[i], pivotEle) < 0) {
 				if(larges != 0) // usually true, but maybe false often enough to make this worth it
 					Writes.write(array, start + blockCounter * sqrt + smalls, array[i],
@@ -329,8 +271,9 @@ public class AeosQSort extends Sort {
 			if(badPartition == 0) {
 				pivotPos = medianOf9(array, start, end);
 			} else if(badPartition > 0) {
-				pivotPos = medianOfMedians(array, start, end);
-				clearArray(indexAux);
+				int length = end - start;
+				if((length & 1) == 0) length -= 1; // even lengths bad
+				pivotPos = medianOfMedians(array, start, length);
 			} else {
 				pivotPos = medianOfFewUnique(array, start, end);
 				badPartition = ~badPartition; // few uniques case should be over now

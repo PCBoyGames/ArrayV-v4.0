@@ -3,6 +3,9 @@ package threads;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
 import sorts.select.CocktailPeelSort;
+import sorts.select.InstinctCocktailSandpaperSort;
+import sorts.select.InstinctReverseSandpaperSort;
+import sorts.select.InstinctSandpaperSort;
 import sorts.select.PeelSort;
 import sorts.select.ReversePeelSort;
 import sorts.templates.Sort;
@@ -98,14 +101,14 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName) throws Exception {
         
-        Sort Peel = new PeelSort(arrayVisualizer);
-        runIndividualSort(Peel, 0, array, 128, 0.5, false, shuffleName, 16);
+        Sort InstinctSandpaper = new InstinctSandpaperSort(arrayVisualizer);
+        runIndividualSort(InstinctSandpaper, 0, array, 64, 0.1, false, shuffleName, 16);
         
-        Sort ReversePeel = new ReversePeelSort(arrayVisualizer);
-        runIndividualSort(ReversePeel, 0, array, 128, 0.5, false, shuffleName, 16);
+        Sort InstinctReverseSandpaper = new InstinctReverseSandpaperSort(arrayVisualizer);
+        runIndividualSort(InstinctReverseSandpaper, 0, array, 64, 0.1, false, shuffleName, 16);
         
-        Sort CocktailPeel = new CocktailPeelSort(arrayVisualizer);
-        runIndividualSort(CocktailPeel, 0, array, 128, 0.5, false, shuffleName, 16);
+        Sort InstinctCocktailSandpaper = new InstinctCocktailSandpaperSort(arrayVisualizer);
+        runIndividualSort(InstinctCocktailSandpaper, 0, array, 64, 0.1, false, shuffleName, 16);
         
     }
 

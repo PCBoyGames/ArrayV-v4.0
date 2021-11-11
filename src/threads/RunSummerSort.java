@@ -2,8 +2,13 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.OptimizedBubbleBogoSort;
+import sorts.exchange.OptimizedPushSort;
+import sorts.exchange.PDIterativePopPopSort;
 import sorts.exchange.PDIterativePopSort;
 import sorts.exchange.PDIterativePopSortUnstable;
+import sorts.exchange.PushSort;
+import sorts.merge.BubbleBogoMergeSort;
 import sorts.select.CocktailPeelSort;
 import sorts.select.InstinctCocktailSandpaperSort;
 import sorts.select.InstinctReverseSandpaperSort;
@@ -44,7 +49,7 @@ SOFTWARE.
 
 final public class RunSummerSort extends MultipleSortThread {
     int numSorts = 2;
-    boolean alternate_distributions = true;
+    boolean alternate_distributions = false;
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -115,14 +120,26 @@ final public class RunSummerSort extends MultipleSortThread {
         Sort InstinctCocktailSandpaper = new InstinctCocktailSandpaperSort(arrayVisualizer);
         runIndividualSort(InstinctCocktailSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);
         
-        Sort OptimizedReverseSandpaper = new OptimizedReverseSandpaperSort(arrayVisualizer);
-        runIndividualSort(OptimizedReverseSandpaper, 0, array, 128, 0.5, false, shuffleName, 16);*/
-        
         Sort PDIPopU = new PDIterativePopSortUnstable(arrayVisualizer);
         runIndividualSort(PDIPopU, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
         Sort PDIPop = new PDIterativePopSort(arrayVisualizer);
         runIndividualSort(PDIPop, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        
+        Sort PDIPopPop = new PDIterativePopPopSort(arrayVisualizer);
+        runIndividualSort(PDIPopPop, 0, array, 256, 1, false, shuffleName, 16, alt);
+        
+        Sort BubbleBogoMerge = new BubbleBogoMergeSort(arrayVisualizer);
+        runIndividualSort(BubbleBogoMerge, 0, array, 256, 1, false, shuffleName, 16, alt);
+        
+        Sort OptimizedBubbleBogo = new OptimizedBubbleBogoSort(arrayVisualizer);
+        runIndividualSort(OptimizedBubbleBogo, 0, array, 256, 1, false, shuffleName, 16, alt);*/
+        
+        Sort Push = new PushSort(arrayVisualizer);
+        runIndividualSort(Push, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        
+        Sort OptimizedPush = new OptimizedPushSort(arrayVisualizer);
+        runIndividualSort(OptimizedPush, 0, array, 512, 0.5, false, shuffleName, 16, alt);
         
     }
 

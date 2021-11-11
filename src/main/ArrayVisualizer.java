@@ -181,6 +181,8 @@ final public class ArrayVisualizer {
 
     private volatile boolean hidden;
     private volatile boolean frameSkipped;
+    
+    private volatile boolean moreStats = false;
 
     public ArrayVisualizer() {
         this.window = new JFrame();
@@ -523,10 +525,19 @@ final public class ArrayVisualizer {
         this.mainRender.drawString(this.statSnapshot.getComparisonCount(), xOffset, (int) (windowRatio * 185) + yOffset);
         this.mainRender.drawString(this.statSnapshot.getSwapCount(),       xOffset, (int) (windowRatio * 210) + yOffset);
         this.mainRender.drawString(this.statSnapshot.getReversalCount(),   xOffset, (int) (windowRatio * 235) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getMainWriteCount(),  xOffset, (int) (windowRatio * 275) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getAuxWriteCount(),   xOffset, (int) (windowRatio * 300) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getAuxAllocAmount(),  xOffset, (int) (windowRatio * 325) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getSegments(),        xOffset, (int) (windowRatio * 355) + yOffset);
+        if (moreStats) {
+            this.mainRender.drawString(this.statSnapshot.getRecursionCount(),  xOffset, (int) (windowRatio * 260) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getRecursionDepth(),  xOffset, (int) (windowRatio * 285) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getMainWriteCount(),  xOffset, (int) (windowRatio * 325) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getAuxWriteCount(),   xOffset, (int) (windowRatio * 350) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getAuxAllocAmount(),  xOffset, (int) (windowRatio * 375) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getSegments(),        xOffset, (int) (windowRatio * 400) + yOffset);
+        } else {
+            this.mainRender.drawString(this.statSnapshot.getMainWriteCount(),  xOffset, (int) (windowRatio * 275) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getAuxWriteCount(),   xOffset, (int) (windowRatio * 300) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getAuxAllocAmount(),  xOffset, (int) (windowRatio * 325) + yOffset);
+            this.mainRender.drawString(this.statSnapshot.getSegments(),        xOffset, (int) (windowRatio * 355) + yOffset);
+        }
     }
 
     public void updateNow() {
@@ -557,7 +568,7 @@ final public class ArrayVisualizer {
             if (this.getCurrentLength() >= Math.pow(2, 23)) {
                 int warning = JOptionPane.showOptionDialog(this.getMainWindow(), "Warning! "
                 + "Your computer's GPU probably can't handle more than 2^23 elements at any "
-                + "framrate not significantly less than 1. Would you still like "
+                + "frame rate not significantly less than 1. Would you still like "
                 + "to re-enable graphics?", "Warning!", 2, JOptionPane.WARNING_MESSAGE,
                 null, new String[] { "Yes", "Please save my GPU!" }, "Please save my GPU!");
                 if (warning != 0) {

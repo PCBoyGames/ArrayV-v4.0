@@ -39,6 +39,8 @@ SOFTWARE.
  */
 final public class Writes {
     private volatile long reversals;
+    private volatile long recursions;
+    private volatile long depth;
     private volatile long swaps;
     private volatile long auxWrites;
     private volatile long writes;
@@ -67,6 +69,7 @@ final public class Writes {
     }
     
     public void resetStatistics() {
+        this.recursions = 0;
         this.reversals = 0;
         this.swaps = 0;
         this.auxWrites = 0;
@@ -82,6 +85,28 @@ final public class Writes {
         else {
             if(reversals == 1) return this.reversals + " Reversal";
             else               return this.formatter.format(this.reversals) + " Reversals";
+        }
+    }
+    
+    public String getRecursions() {
+        if(this.recursions < 0) {
+            this.recursions = Long.MIN_VALUE;
+            return "Over " + this.formatter.format(Long.MAX_VALUE);
+        }
+        else {
+            if(recursions == 1) return this.recursions + " Recursion";
+            else               return this.formatter.format(this.recursions) + " Recursions";
+        }
+    }
+    
+    public String getRecursionDepth() {
+        if(this.depth < 0) {
+            this.depth = Long.MIN_VALUE;
+            return "Over " + this.formatter.format(Long.MAX_VALUE);
+        }
+        else {
+            if(depth == 1) return this.depth + " Layer deep (at most)";
+            else               return this.formatter.format(this.depth) + " Layers deep (at most)";
         }
     }
     
@@ -205,6 +230,18 @@ final public class Writes {
         for(int i = start; i < start + ((length - start + 1) / 2); i++) {
             this.swap(array, i, start + length - i, sleep, mark, auxwrite);
         }
+    }
+    
+    public void recursion() {
+        this.recursions++;
+    }
+    
+    public void recursion(int k) {
+        this.recursions += k;
+    }
+    
+    public void recordDepth(int k) {
+    	if(this.depth < k) this.depth = k;
     }
 
     public void write(int[] array, int at, int equals, double pause, boolean mark, boolean auxwrite) {

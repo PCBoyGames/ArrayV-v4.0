@@ -17,6 +17,8 @@ final public class Statistics {
     private String comparisonCount;
     private String swapCount;
     private String reversalCount;
+    private String recursionCount;
+    private String recursionDepth;
     
     private String mainWriteCount;
     private String auxWriteCount;
@@ -61,6 +63,8 @@ final public class Statistics {
         this.comparisonCount = ArrayVisualizer.getReads().getStats();
         this.swapCount = ArrayVisualizer.getWrites().getSwaps();
         this.reversalCount = ArrayVisualizer.getWrites().getReversals();
+        this.recursionCount = ArrayVisualizer.getWrites().getRecursions();
+        this.recursionDepth = ArrayVisualizer.getWrites().getRecursionDepth();
         
         this.mainWriteCount = ArrayVisualizer.getWrites().getMainWrites();
         this.auxWriteCount = ArrayVisualizer.getWrites().getAuxWrites();
@@ -96,6 +100,12 @@ final public class Statistics {
     }
     public String getReversalCount() {
         return this.reversalCount;
+    }
+    public String getRecursionCount() {
+        return this.recursionCount;
+    }
+    public String getRecursionDepth() {
+        return this.recursionDepth;
     }
     public String getMainWriteCount() {
         return this.mainWriteCount;

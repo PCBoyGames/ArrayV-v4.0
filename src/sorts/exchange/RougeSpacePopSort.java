@@ -12,12 +12,12 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RogueSpacePopSort extends Sort {
-    public RogueSpacePopSort(ArrayVisualizer arrayVisualizer) {
+final public class RougeSpacePopSort extends Sort {
+    public RougeSpacePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Rogue-Space Pop");
-        this.setRunAllSortsName("Rogue-Space Pop Sort");
-        this.setRunSortName("Rogue-Space Pop Sort");
+        this.setSortListName("Rouge-Space Pop");
+        this.setRunAllSortsName("Rouge-Space Pop Sort");
+        this.setRunSortName("Rouge-Space Pop Sort");
         this.setCategory("Impractical Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -60,7 +60,7 @@ final public class RogueSpacePopSort extends Sort {
         int len = 2;
         int index = 0;
         int dir = -1;
-        while (len <= currentLength / 2) {
+        while (len <= currentLength) {
             index = 0;
             dir = -1;
             while (index + len <= currentLength) {

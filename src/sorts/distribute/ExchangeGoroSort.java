@@ -39,7 +39,6 @@ public final class ExchangeGoroSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        this.delay = 1;
         while (!this.isArraySorted(array, currentLength)) {
             int i1 = randInt(0, currentLength + 1);
             int i2 = randInt(0, currentLength + 1);

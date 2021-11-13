@@ -30,8 +30,7 @@ final public class SplitCenterSort extends Sort {
 		int i = 1;
 		for (int r = 1; r < currentLength; r++) {
 			i = (int) Math.floor(currentLength / 2);
-			i -= way;
-			while (i <= currentLength && i >= 1) {
+			while (i < currentLength && i > 0) {
 				Highlights.markArray(1, i - 1);
 				Highlights.markArray(2, i);
 				Delays.sleep(0.005);
@@ -42,5 +41,6 @@ final public class SplitCenterSort extends Sort {
 			}
 			way *= -1;
 		}
+		
 	}
 }

@@ -25,21 +25,81 @@ final public class SplitCenterMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setQuestion("Enter the base for this sort:", 2);;
     }
     
     protected void method(int[] array, int start, int len) {
         int way = 1;
         int i = start;
         int swapless = 0;
+        int runs = 0;
+        int first = start;
+        int nextfirst = start;
+        int last = start + len - 1;
+        int nextlast = start + len - 1;
         boolean anyswaps = false;
-        while (swapless < 2) {
+        while (swapless < 2 && runs < len) {
             anyswaps = false;
             i = (int) Math.floor(len / 2) + start;
-            i -= way;
-            while (i < start + len - 1 && i >= start) {
+            while (i < last && i >= first) {
                 if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
                     Writes.swap(array, i, i + 1, 0.01, true, false);
+                    anyswaps = true;
+                    if (way == 1) nextlast = i + 1;
+                    else nextfirst = i + 1;
+                }
+                i += way;
+            }
+            if (way == 1) last = nextlast;
+            else first = nextfirst;
+            way *= -1;
+            if (!anyswaps) {
+                swapless++;
+            } else {
+                swapless = 0;
+            }
+            runs++;
+        }
+        if (len <= 4) {
+            int c = 1;
+            int s;
+            int f = start + (len / 2);
+            boolean a = false;
+            for (int j = start + len - 1; j > 0; j -= c) {
+                if (f - 1 < start) {
+                    s = start;
+                } else {
+                    s = f - 1;
+                }
+                a = false;
+                c = 1;
+                for (int k = s; k < j; k++) {
+                    if (Reads.compareIndices(array, k, k + 1, 0.025, true) > 0) {
+                        Writes.swap(array, k, k + 1, 0.075, true, false);
+                        if (!a) {
+                            f = k;
+                        }
+                        a = true;
+                        c = 1;
+                    } else {
+                        c++;
+                    }
+                }
+            }
+        }
+    }
+    
+    protected void alternatemethod(int[] array, int currentLength) {
+        int way = 1;
+        int i = 1;
+        int swapless = 0;
+        int runs = 1;
+        boolean anyswaps = false;
+        while (swapless < 2 && runs < currentLength) {
+            anyswaps = false;
+            i = (int) Math.floor(currentLength / 2);
+            while (i < currentLength && i > 0) {
+                if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) {
+                    Writes.swap(array, i - 1, i, 0.005, true, false);
                     anyswaps = true;
                 }
                 i += way;
@@ -50,26 +110,13 @@ final public class SplitCenterMergeSort extends Sort {
             } else {
                 swapless = 0;
             }
+            runs++;
         }
-        if (len <= 4) {
-            for (i = start; i + 1 < start + len; i++) {
-                if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
-                    Writes.swap(array, i, i + 1, 0.01, true, false);
-                }
-            }
-        }
-    }
-    
-    @Override
-    public int validateAnswer(int answer) {
-        if (answer < 2)
-            return 2;
-        return answer;
     }
 
     @Override
-    public void runSort(int[] array, int currentLength, int base) {
-        int len = base;
+    public void runSort(int[] array, int currentLength, int bucketCount) {
+        int len = 2;
         int index = 0;
         while (len < currentLength) {
             index = 0;
@@ -77,8 +124,9 @@ final public class SplitCenterMergeSort extends Sort {
                 method(array, index, len);
                 index += len;
             }
-            len *= base;
+            len *= 2;
         }
-        method(array, 0, currentLength);
+        if (len == currentLength) method(array, 0, currentLength);
+        else alternatemethod(array, currentLength);
     }
 }

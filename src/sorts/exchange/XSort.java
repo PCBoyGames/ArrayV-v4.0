@@ -35,7 +35,7 @@ final public class XSort extends Sort {
 		while (!testpass) {
 			anyswaps = false;
 			i = 1;
-			while ((i - 1) + gap <= currentLength) {
+			while ((i - 1) + gap < currentLength) {
 				if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
 					Writes.swap(array, i - 1, (i - 1) + gap, 0.001, true, false);
 					anyswaps = true;

@@ -2,20 +2,7 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
-import sorts.exchange.OptimizedBubbleBogoSort;
-import sorts.exchange.OptimizedPushSort;
-import sorts.exchange.PDIterativePopPopSort;
-import sorts.exchange.PDIterativePopSort;
-import sorts.exchange.PDIterativePopSortUnstable;
-import sorts.exchange.PushSort;
-import sorts.merge.BubbleBogoMergeSort;
-import sorts.select.CocktailPeelSort;
-import sorts.select.InstinctCocktailSandpaperSort;
-import sorts.select.InstinctReverseSandpaperSort;
-import sorts.select.InstinctSandpaperSort;
-import sorts.select.OptimizedReverseSandpaperSort;
-import sorts.select.PeelSort;
-import sorts.select.ReversePeelSort;
+import sorts.hybrid.InPlaceStableCycleSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -48,7 +35,7 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 2;
+    int numSorts = 1;
     boolean alternate_distributions = false;
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -111,35 +98,8 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
-        /*Sort InstinctSandpaper = new InstinctSandpaperSort(arrayVisualizer);
-        runIndividualSort(InstinctSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);
-        
-        Sort InstinctReverseSandpaper = new InstinctReverseSandpaperSort(arrayVisualizer);
-        runIndividualSort(InstinctReverseSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);
-        
-        Sort InstinctCocktailSandpaper = new InstinctCocktailSandpaperSort(arrayVisualizer);
-        runIndividualSort(InstinctCocktailSandpaper, 0, array, 64, 0.5, false, shuffleName, 16);
-        
-        Sort PDIPopU = new PDIterativePopSortUnstable(arrayVisualizer);
-        runIndividualSort(PDIPopU, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
-        Sort PDIPop = new PDIterativePopSort(arrayVisualizer);
-        runIndividualSort(PDIPop, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
-        Sort PDIPopPop = new PDIterativePopPopSort(arrayVisualizer);
-        runIndividualSort(PDIPopPop, 0, array, 256, 1, false, shuffleName, 16, alt);
-        
-        Sort BubbleBogoMerge = new BubbleBogoMergeSort(arrayVisualizer);
-        runIndividualSort(BubbleBogoMerge, 0, array, 256, 1, false, shuffleName, 16, alt);
-        
-        Sort OptimizedBubbleBogo = new OptimizedBubbleBogoSort(arrayVisualizer);
-        runIndividualSort(OptimizedBubbleBogo, 0, array, 256, 1, false, shuffleName, 16, alt);*/
-        
-        Sort Push = new PushSort(arrayVisualizer);
-        runIndividualSort(Push, 0, array, 512, 0.5, false, shuffleName, 16, alt);
-        
-        Sort OptimizedPush = new OptimizedPushSort(arrayVisualizer);
-        runIndividualSort(OptimizedPush, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        Sort InPlaceStableCycle = new InPlaceStableCycleSort(arrayVisualizer);
+        runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);
         
     }
 
@@ -340,7 +300,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
                     arrayManager.toggleMutableLength(false);
 
-                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
+                    arrayVisualizer.setCategory("aphitorite");
 
                     RunSummerSort.this.executeSortList(array);
                     

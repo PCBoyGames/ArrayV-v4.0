@@ -55,6 +55,7 @@ final public class Writes {
     
     public Writes(ArrayVisualizer ArrayVisualizer) {
         this.reversals = 0;
+        this.depth = 0;
         this.swaps = 0;
         this.auxWrites = 0;
         this.writes = 0;
@@ -70,6 +71,7 @@ final public class Writes {
     
     public void resetStatistics() {
         this.recursions = 0;
+        this.depth = 0;
         this.reversals = 0;
         this.swaps = 0;
         this.auxWrites = 0;

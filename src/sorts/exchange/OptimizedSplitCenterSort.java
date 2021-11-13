@@ -32,12 +32,12 @@ final public class OptimizedSplitCenterSort extends Sort {
         int way = 1;
         int i = 1;
         int swapless = 0;
+        int runs = 1;
         boolean anyswaps = false;
-        while (swapless < 2) {
+        while (swapless < 2 && runs < currentLength) {
             anyswaps = false;
             i = (int) Math.floor(currentLength / 2);
-            i -= way;
-            while (i < currentLength && i >= 1) {
+            while (i < currentLength && i > 0) {
                 if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) {
                     Writes.swap(array, i - 1, i, 0.005, true, false);
                     anyswaps = true;
@@ -50,6 +50,7 @@ final public class OptimizedSplitCenterSort extends Sort {
             } else {
                 swapless = 0;
             }
+            runs++;
         }
     }
 }

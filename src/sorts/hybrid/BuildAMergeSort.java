@@ -39,27 +39,15 @@ final public class BuildAMergeSort extends Sort {
     }
     
     protected void method(int[] array, int start, int len) {
-        if (start != 0) {
-            for (int g = 0; g < len; g++) {
-                Writes.swap(array, g, start + g, 0.125, true, false);
-            }
-        }
-        try {
-            sort.runSort(array, len, NUMBER_Base);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (start != 0) {
-            for (int g = 0; g < len; g++) {
-                Writes.swap(array, g, start + g, 0.125, true, false);
-            }
-        }
+        if (start != 0) for (int g = 0; g < len; g++) Writes.swap(array, g, start + g, 0.125, true, false);
+        try {sort.runSort(array, len, NUMBER_Base);}
+        catch (Exception e) {e.printStackTrace();}
+        if (start != 0) for (int g = 0; g < len; g++) Writes.swap(array, g, start + g, 0.125, true, false);
     }
     
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 2)
-            return 2;
+        if (answer < 2) return 2;
         return answer;
     }
 

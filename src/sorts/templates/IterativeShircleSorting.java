@@ -19,12 +19,12 @@ public abstract class IterativeShircleSorting extends Sort {
     protected int shircleSortRoutine(int[] array, int length, double sleep) {
         int swapCount = 0;
         for (int gap = length / 2; gap > 0; gap /= 2) {
-            for (int start = 0; start + gap < this.end; start += 2 * gap) {
+            for (int start = 0; start + gap < end; start += 2 * gap) {
                 int high = start + 2 * gap - 1;
                 int low = start;
                 int pull, item;
                 while (low < high) {
-					while (high < this.end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
+					while (high < end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
 						pull = low;
                         item = array[pull];
                         Highlights.markArray(2, low);

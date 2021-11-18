@@ -43,9 +43,7 @@ final public class ShellLowSort extends Sort {
                 j -= h;
                 w = true;
             }
-            if (w) {
-                Writes.write(array, j, v, 0.25, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
     
@@ -64,9 +62,7 @@ final public class ShellLowSort extends Sort {
                     if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
                         primetestrunning = primetestrunning / primetesti;
                         primetest = true;
-                    } else {
-                        primetesti++;
-                    }
+                    } else primetesti++;
                 }
             }
             gap /= primetesti;

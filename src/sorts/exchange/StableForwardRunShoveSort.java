@@ -41,14 +41,10 @@ final public class StableForwardRunShoveSort extends Sort {
                 if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
                     pull = left;
                     while (pull < right) {
-                        if (Reads.compareValues(array[pull - 1], array[pull]) != 0) {
-                            Writes.swap(array, pull - 1, pull, 0.0125, true, false);
-                        }
+                        if (Reads.compareValues(array[pull - 1], array[pull]) != 0) Writes.swap(array, pull - 1, pull, 0.0125, true, false);
                         pull++;
                     }
-                } else {
-                    right--;
-                }
+                } else right--;
             }
             left++;
         }

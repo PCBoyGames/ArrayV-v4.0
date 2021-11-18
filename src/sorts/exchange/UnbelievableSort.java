@@ -31,9 +31,6 @@ final public class UnbelievableSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        for (int i = 0; i < currentLength; i++)
-            for (int j = 0; j < currentLength; j++) 
-                if (Reads.compareIndices(array, i, j, 0.05, true) < 0) 
-                    Writes.swap(array, i, j, 0.1, true, false);
+        for (int i = 0; i < currentLength; i++) for (int j = 0; j < currentLength; j++) if (Reads.compareIndices(array, i, j, 0.05, true) < 0) Writes.swap(array, i, j, 0.1, true, false);
     }
 }

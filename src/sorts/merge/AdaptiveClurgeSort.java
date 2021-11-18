@@ -113,10 +113,7 @@ final public class AdaptiveClurgeSort extends Sort {
             }
             len *= 2;
         }
-        if (len == currentLength) {
-            method(array, 0, currentLength);
-        } else {
-            nonpow2(array, 0, currentLength, len / 2);
-        }
+        if (len == currentLength) method(array, 0, currentLength);
+        else nonpow2(array, 0, currentLength, len / 2);
     }
 }

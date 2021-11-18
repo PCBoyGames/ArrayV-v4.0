@@ -80,11 +80,8 @@ final public class RecursivePushSort extends Sort {
             Highlights.markArray(3, m);
             Highlights.markArray(2, b);
             Delays.sleep(1);
-            if (Reads.compareValues(value, array[m]) < 0) {
-                b = m;
-            } else {
-                a = m + 1;
-            }
+            if (Reads.compareValues(value, array[m]) < 0) b = m;
+            else a = m + 1;
         }
         Highlights.clearMark(3);
         return a;
@@ -97,9 +94,7 @@ final public class RecursivePushSort extends Sort {
                 int left = binarySearch(array, 0, i - 1, item);
                 Highlights.clearAllMarks();
                 Highlights.markArray(2, left);
-                for (int right = i; right > left; right--) {
-                    Writes.write(array, right, array[right - 1], 0.05, true, false);
-                }
+                for (int right = i; right > left; right--) Writes.write(array, right, array[right - 1], 0.05, true, false);
                 Writes.write(array, left, item, 0.05, true, false);
                 Highlights.clearAllMarks();
             } else {

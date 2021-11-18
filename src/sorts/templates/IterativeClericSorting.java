@@ -23,7 +23,7 @@ public abstract class IterativeClericSorting extends Sort {
                 int high = start + 2 * gap - 1;
                 int low = start;
                 while (low < high) {
-					if (high < this.end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
+					if (high < end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
                         Highlights.markArray(3, low);
                         Highlights.markArray(4, high);
 						Writes.reversal(array, low, high, sleep, true, false);

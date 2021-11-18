@@ -48,9 +48,7 @@ final public class NaturalHeadPullSort extends Sort {
                         pull--;
                     }
                     i++;
-                } else {
-                    currentswap = false;
-                }
+                } else currentswap = false;
             }
             verifyi = 1;
             verifypass = true;
@@ -58,11 +56,8 @@ final public class NaturalHeadPullSort extends Sort {
                 Highlights.markArray(1, verifyi - 1);
                 Highlights.markArray(2, verifyi);
                 Delays.sleep(0.01);
-                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) {
-                    verifyi++;
-                } else {
-                    verifypass = false;
-                }
+                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) verifyi++;
+                else verifypass = false;
             }
         }
     }

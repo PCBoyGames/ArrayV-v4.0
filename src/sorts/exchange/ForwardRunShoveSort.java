@@ -44,9 +44,7 @@ final public class ForwardRunShoveSort extends Sort {
                         Writes.swap(array, pull - 1, pull, 0.0125, true, false);
                         pull++;
                     }
-                } else {
-                    right--;
-                }
+                } else right--;
             }
             left++;
         }

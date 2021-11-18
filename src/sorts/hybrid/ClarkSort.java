@@ -50,12 +50,8 @@ final public class ClarkSort extends Sort {
         int index;
         boolean anyswaps = true;
         boolean swapA = false;
-        while (len < currentLength) {
-            len *= 2;
-        }
-        if (len > currentLength) {
-            len /= 2;
-        }
+        while (len < currentLength) len *= 2;
+        if (len > currentLength) len /= 2;
         int max = len;
         int first = len;
         mergefinal = new PDMergeSort(arrayVisualizer);
@@ -73,13 +69,9 @@ final public class ClarkSort extends Sort {
                 }
                 len /= 2;
             }
-            if (anyswaps) {
-                first /= 4;
-            }
+            if (anyswaps) first /= 4;
         }
         Highlights.clearMark(2);
-        if (first != max) {
-            mergefinal.runSort(array, currentLength, 0);
-        }
+        if (first != max) mergefinal.runSort(array, currentLength, 0);
     }
 }

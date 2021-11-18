@@ -41,14 +41,10 @@ final public class ReversePushSort extends Sort {
                 Highlights.markArray(2, i - 1);
                 Delays.sleep(0.01);
                 if (Reads.compareValues(array[(i - 1) - gap], array[i - 1]) > 0) {
-                    for (int j = 1; j <= gap; j++) {
-                        Writes.swap(array, i - 1, (i - 1) - j, 0.01, true, false);
-                    }
+                    for (int j = 1; j <= gap; j++) Writes.swap(array, i - 1, (i - 1) - j, 0.01, true, false);
                     anyswaps = true;
                     gap++;
-                } else {
-                    i--;
-                }
+                } else i--;
             }
         }
     }

@@ -1,6 +1,7 @@
 package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
+
 /*
 
 PORTED TO ARRAYV BY PCBOYGAMES
@@ -24,6 +25,7 @@ final public class XSort extends Sort {
 		this.setUnreasonableLimit(1024);
 		this.setBogoSort(false);
 	}
+	
 	@Override
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		int gap = currentLength;
@@ -43,9 +45,7 @@ final public class XSort extends Sort {
 					xright = i + gap - 1;
 					if (gap != 1) {
 						for (int r = 0; r < gap - 1; r++) {
-							if (Reads.compareValues(array[xleft - 1], array[xright - 1]) > 0) {
-								Writes.swap(array, xleft - 1, xright - 1, 0.001, true, false);
-							}
+							if (Reads.compareValues(array[xleft - 1], array[xright - 1]) > 0) Writes.swap(array, xleft - 1, xright - 1, 0.001, true, false);
 							xleft++;
 							xright--;
 						}
@@ -53,13 +53,8 @@ final public class XSort extends Sort {
 				}
 				i++;
 			}
-			if (gap == 1 && !anyswaps) {
-				testpass = true;
-			} else {
-				if (gap != 1 && !anyswaps) {
-					gap--;
-				}
-			}
+			if (gap == 1 && !anyswaps) testpass = true;
+			else if (gap != 1 && !anyswaps) gap--;
 		}
 	}
 }

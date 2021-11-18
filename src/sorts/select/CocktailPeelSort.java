@@ -36,9 +36,7 @@ final public class CocktailPeelSort extends Sort {
                 if (Reads.compareIndices(array, left, right + stacked, 0.05, true) > 0) {
                     Highlights.markArray(3, left);
                     int item = array[right + stacked];
-                    for (int pull = right + stacked; pull > left; pull--) {
-                        Writes.write(array, pull, array[pull - 1], 0.05, true, false);
-                    }
+                    for (int pull = right + stacked; pull > left; pull--) Writes.write(array, pull, array[pull - 1], 0.05, true, false);
                     Writes.write(array, left, item, 0.05, true, false);
                     stacked++;
                     Highlights.clearMark(3);
@@ -49,9 +47,7 @@ final public class CocktailPeelSort extends Sort {
                 if (Reads.compareIndices(array, left, right, 0.05, true) > 0) {
                     Highlights.markArray(3, left);
                     int item = array[right];
-                    for (int pull = right; pull > left; pull--) {
-                        Writes.write(array, pull, array[pull - 1], 0.05, true, false);
-                    }
+                    for (int pull = right; pull > left; pull--) Writes.write(array, pull, array[pull - 1], 0.05, true, false);
                     Writes.write(array, left, item, 0.05, true, false);
                     Highlights.clearMark(3);
                 }

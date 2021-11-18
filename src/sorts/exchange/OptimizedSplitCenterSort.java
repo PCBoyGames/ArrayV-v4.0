@@ -45,11 +45,8 @@ final public class OptimizedSplitCenterSort extends Sort {
                 i += way;
             }
             way *= -1;
-            if (!anyswaps) {
-                swapless++;
-            } else {
-                swapless = 0;
-            }
+            if (!anyswaps) swapless++;
+            else swapless = 0;
             runs++;
         }
     }

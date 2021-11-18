@@ -34,18 +34,11 @@ final public class EcoloSort extends Sort {
         int way = 1;
         int i = 1;
         while (left <= right) {
-            if (way == 1) {
-                i = left;
-            } else {
-                i = right;
-            }
+            if (way == 1) i = left;
+            else i = right;
             while ((way == 1 && i < right) || (way == -1 && i > left)) {
-                if (Reads.compareIndices(array, left - 1, i - 1, 0.05, true) > 0) {
-                    Writes.swap(array, left - 1, i - 1, 0.05, true, false);
-                }
-                if (Reads.compareIndices(array, i - 1, right - 1, 0.05, true) > 0) {
-                    Writes.swap(array, i - 1, right - 1, 0.05, true, false);
-                }
+                if (Reads.compareIndices(array, left - 1, i - 1, 0.05, true) > 0) Writes.swap(array, left - 1, i - 1, 0.05, true, false);
+                if (Reads.compareIndices(array, i - 1, right - 1, 0.05, true) > 0) Writes.swap(array, i - 1, right - 1, 0.05, true, false);
                 i += way;
             }
             left++;

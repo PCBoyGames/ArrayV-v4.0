@@ -30,16 +30,14 @@ final public class BaseNOddEvenSort extends Sort {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1)
-            return 1;
+        if (answer < 1) return 1;
         return answer;
     }
 
     @Override
-    public void runSort(int[] array, int currentLength, int bucketCount) {
+    public void runSort(int[] array, int currentLength, int base) {
         int i = 0;
         int offset = 0;
-        int base = bucketCount;
         boolean anyswaps = false;
         boolean reset = true;
         while (reset) {
@@ -57,9 +55,7 @@ final public class BaseNOddEvenSort extends Sort {
             offset++;
             if (offset > base - 1) {
                 offset = 0;
-                if (!anyswaps) {
-                    reset = false;
-                }
+                if (!anyswaps) reset = false;
                 anyswaps = false;
             }
         }

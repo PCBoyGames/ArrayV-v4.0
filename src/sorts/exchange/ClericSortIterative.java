@@ -28,8 +28,8 @@ final public class ClericSortIterative extends IterativeClericSorting {
     }
     
     public void singleRoutine(int[] array, int length) {
-        this.end = length;
-        this.clericSortRoutine(array, length, 0.05);
+        end = length;
+        clericSortRoutine(array, length, 0.05);
     }
     
     @Override
@@ -38,8 +38,6 @@ final public class ClericSortIterative extends IterativeClericSorting {
     	int n = 1;
     	for(; n < sortLength; n*=2);
         int numberOfSwaps = 0;
-        do {
-            numberOfSwaps = this.clericSortRoutine(array, n, 0.05);
-        } while (numberOfSwaps != 0);
+        do numberOfSwaps = clericSortRoutine(array, n, 0.05); while (numberOfSwaps != 0);
     }
 }

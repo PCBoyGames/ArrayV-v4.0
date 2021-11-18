@@ -30,8 +30,7 @@ final public class StrangeSort extends Sort {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 2)
-            return 2;
+        if (answer < 2) return 2;
         return answer;
     }
 
@@ -57,9 +56,7 @@ final public class StrangeSort extends Sort {
                         if (mult == 1 / base) {
                             bound *= base;
                             mult = bound;
-                        } else {
-                            mult /= base;
-                        }
+                        } else mult /= base;
                         anyswaps = true;
                     } else {
                         bound *= base;

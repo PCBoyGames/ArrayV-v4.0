@@ -30,8 +30,7 @@ public final class LuckyBubbleSort extends BogoSorting {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 100)
-            return 50;
+        if (answer < 1 || answer > 100) return 50;
         return answer;
     }
 
@@ -46,9 +45,7 @@ public final class LuckyBubbleSort extends BogoSorting {
                 Delays.sleep(0.01);
                 if (Reads.compareValues(array[i], array[i + 1]) > 0) {
                     anyswaps = true;
-                    if (BogoSorting.randInt(1, 101) <= luck) {
-                        Writes.swap(array, i, i + 1, 0.01, true, false);
-                    }
+                    if (randInt(1, 101) <= luck) Writes.swap(array, i, i + 1, 0.01, true, false);
                 }
             }
         }

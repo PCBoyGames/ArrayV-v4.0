@@ -34,11 +34,8 @@ final public class AdaptiveSquareClamberSort extends Sort {
             Highlights.markArray(3, m);
             Highlights.markArray(2, b);
             Delays.sleep(1);
-            if (Reads.compareValues(value, array[m]) < 0) {
-                b = m;
-            } else {
-                a = m + 1;
-            }
+            if (Reads.compareValues(value, array[m]) < 0) b = m;
+            else a = m + 1;
         }
         Highlights.clearMark(3);
         return a;

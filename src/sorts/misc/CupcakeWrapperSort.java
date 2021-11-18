@@ -31,11 +31,7 @@ final public class CupcakeWrapperSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int right = currentLength;
         for (int limit = currentLength - 1; limit >= 0; limit--) {
-            for (right = limit; right > 0; right--) {
-                if (Reads.compareIndices(array, 0, right, 0.25, true) > 0) {
-                    Writes.reversal(array, 0, right, 0.25, true, false);
-                }
-            }
+            for (right = limit; right > 0; right--) if (Reads.compareIndices(array, 0, right, 0.25, true) > 0) Writes.reversal(array, 0, right, 0.25, true, false);
             Writes.reversal(array, 0, currentLength - 1, 0.25, true, false);
             Writes.reversal(array, 0, currentLength - 2, 0.25, true, false);
         }

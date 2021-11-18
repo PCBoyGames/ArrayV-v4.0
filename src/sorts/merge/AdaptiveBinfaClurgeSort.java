@@ -34,11 +34,8 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
             Highlights.markArray(3, m);
             Highlights.markArray(2, b);
             Delays.sleep(4);
-            if (Reads.compareValues(value, array[m]) < 0) {
-                b = m;
-            } else {
-                a = m + 1;
-            }
+            if (Reads.compareValues(value, array[m]) < 0) b = m;
+            else a = m + 1;
         }
         Highlights.clearMark(3);
         return a;
@@ -93,9 +90,7 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
                 Highlights.markArray(3, searchbound);
                 Delays.sleep(1);
                 int set = searchbound != start ? searchbound - 1 : start;
-                if (Reads.compareValues(array[set], array[right]) > 0) {
-                    searchbound = start;
-                }
+                if (Reads.compareValues(array[set], array[right]) > 0) searchbound = start;
                 int check = 0;
                 int comp = Reads.compareValues(array[searchbound], array[right]);
                 while (check < Math.cbrt(len) && comp <= 0) {
@@ -134,10 +129,7 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
             }
             len *= 2;
         }
-        if (len == currentLength) {
-            method(array, 0, currentLength);
-        } else {
-            nonpow2(array, 0, currentLength, len / 2);
-        }
+        if (len == currentLength) method(array, 0, currentLength);
+        else nonpow2(array, 0, currentLength, len / 2);
     }
 }

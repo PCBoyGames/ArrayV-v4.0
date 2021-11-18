@@ -65,7 +65,7 @@ final public class SafeStalinSort extends Sort {
     }
 
     protected void insert(int[] array, int i, int x, int len) {
-        Writes.reversearraycopy(array, i, array, i + 1, len - i, 0, false, false);
+        Writes.arraycopy(array, i, array, i + 1, len - i, 0, false, false);
         Writes.write(array, i, x, 1, true, false);
     }
     
@@ -86,9 +86,7 @@ final public class SafeStalinSort extends Sort {
                         remove(array, i, currentLength--);
                         getlen--;
                         auxlen++;
-                    } else {
-                        i++;
-                    }
+                    } else i++;
                 }
                 Highlights.clearMark(2);
                 for (int j = 0; j < auxlen; j++) {
@@ -102,11 +100,8 @@ final public class SafeStalinSort extends Sort {
             pass = true;
             while (!(verifyI == currentLength || !pass)) {
                 int compare = Reads.compareIndices(array, verifyI - 1, verifyI, 0.5, true);
-                if (compare <= 0) {
-                    verifyI++;
-                } else {
-                    pass = false;
-                }
+                if (compare <= 0) verifyI++;
+                else pass = false;
             }
             if (!pass) {
                 i = verifyI;

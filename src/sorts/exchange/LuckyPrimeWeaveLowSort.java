@@ -29,8 +29,7 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
 	
 	@Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 100)
-            return 50;
+        if (answer < 1 || answer > 100) return 50;
         return answer;
     }
 	
@@ -63,9 +62,7 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
 				Highlights.markArray(2, (i - 1) + gap);
 				Delays.sleep(0.125);
 				if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
-					if (BogoSorting.randInt(1, 101) <= luck) {
-						Writes.swap(array, i - 1, (i - 1) + gap, 0.125, true, false);
-					}
+					if (randInt(1, 101) <= luck) Writes.swap(array, i - 1, (i - 1) + gap, 0.125, true, false);
 					anyswaps = true;
 				}
 				i += move;
@@ -84,9 +81,7 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
 								if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
 									primetestrunning = primetestrunning / primetesti;
 									primetest = true;
-								} else {
-									primetesti++;
-								}
+								} else primetesti++;
 							}
 						}
 						move = move / primetesti;
@@ -101,9 +96,7 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
 								if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
 									primetestrunning = primetestrunning / primetesti;
 									primetest = true;
-								} else {
-									primetesti++;
-								}
+								} else primetesti++;
 							}
 						}
 						gap = move / primetesti;
@@ -113,31 +106,23 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
 					}
 					check = 0;
 				}
-			} else {
-				noswapsfor = 0;
-			}
+			} else noswapsfor = 0;
 			if (gap == 1) {
-				if (lastbound > 1) {
-					boundi = lastbound - 1;
-				} else {
-					boundi = 1;
-				}
+				if (lastbound > 1) boundi = lastbound - 1;
+				else boundi = 1;
 				testpass = true;
 				while (boundi < currentLength && testpass) {
 					Highlights.markArray(1, boundi - 1);
 					Highlights.markArray(2, boundi);
 					Delays.sleep(0.125);
-					if (Reads.compareValues(array[boundi - 1], array[boundi]) <= 0) {
-						boundi++;
-					} else {
+					if (Reads.compareValues(array[boundi - 1], array[boundi]) <= 0) boundi++;
+					else {
 						testpass = false;
 						lastbound = boundi;
 						check = boundi;
 					}
 				}
-			} else {
-				check = (check % move) + 1;
-			}
+			} else check = (check % move) + 1;
 		}
 	}
 }

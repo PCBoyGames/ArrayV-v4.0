@@ -31,9 +31,7 @@ public final class ExchangeGoroSort extends BogoSorting {
     protected void bogoCompSwap(int[] array, int a, int b) {
         for (int i = a; i < b; i++) {
             int j = randInt(i, b);
-            if (Reads.compareIndices(array, i, j, delay, true) > 0) {
-                Writes.swap(array, i, j, delay, true, false);
-            }
+            if (Reads.compareIndices(array, i, j, delay, true) > 0) Writes.swap(array, i, j, delay, true, false);
         }
     }
 

@@ -120,11 +120,8 @@ final public class OptimizedWhy2Sort extends Sort {
             }
             len *= 2;
         }
-        if (itr < 20) {
-            method(array, start, end, pdir, itr + 1);
-        } else {
-            pd(array, start, end, pdir);
-        }
+        if (itr < 20) method(array, start, end, pdir, itr + 1);
+        else pd(array, start, end, pdir);
     }
     
     @Override

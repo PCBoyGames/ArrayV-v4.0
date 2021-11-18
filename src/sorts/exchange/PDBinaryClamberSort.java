@@ -34,11 +34,8 @@ final public class PDBinaryClamberSort extends Sort {
             Highlights.markArray(3, m);
             Highlights.markArray(2, b);
             Delays.sleep(1);
-            if (Reads.compareValues(value, array[m]) < 0) {
-                b = m;
-            } else {
-                a = m + 1;
-            }
+            if (Reads.compareValues(value, array[m]) < 0) b = m;
+            else a = m + 1;
         }
         Highlights.clearMark(3);
         return a;
@@ -52,20 +49,13 @@ final public class PDBinaryClamberSort extends Sort {
             Highlights.markArray(1, reverse);
             Highlights.markArray(2, reverse + 1);
             Delays.sleep(1);
-            if (Reads.compareValues(array[reverse], array[reverse + 1]) > 0) {
-                reverse++;
-            } else {
-                break;
-            }
+            if (Reads.compareValues(array[reverse], array[reverse + 1]) > 0) reverse++;
+            else break;
         }
-        if (reverse > 2) {
-            Writes.reversal(array, 0, reverse, 0.2, true, false);
-        } else {
-            if (reverse > 0) {
-                Writes.swap(array, 0, reverse, 0.2, true, false);
-            } else {
-                pd = false;
-            }
+        if (reverse > 2) Writes.reversal(array, 0, reverse, 0.2, true, false);
+        else {
+            if (reverse > 0) Writes.swap(array, 0, reverse, 0.2, true, false);
+            else pd = false;
         }
         int left = 0;
         int right = pd ? reverse + 1 : 2;

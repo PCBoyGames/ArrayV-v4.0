@@ -49,7 +49,7 @@ final public class MultiPopSort extends BogoSorting {
 		for(int s = start, e = end; s < e;) {
             int consecSorted = 1;
             for(int i = s; i < e; i++) {
-                if(Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
+                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
                     Writes.swap(array, i - 1, i, 0.1, true, false);
                     consecSorted = 1;
                 } else consecSorted++;
@@ -57,7 +57,7 @@ final public class MultiPopSort extends BogoSorting {
             e -= consecSorted;
             consecSorted = 1;
             for(int i = e; i > s; i--) {
-                if(Reads.compareIndices(array, i - 2, i - 1, 0.1, true) == dir) {
+                if (Reads.compareIndices(array, i - 2, i - 1, 0.1, true) == dir) {
                     Writes.swap(array, i - 2, i - 1, 0.1, true, false);
                     consecSorted = 1;
                 } else consecSorted++;
@@ -71,13 +71,13 @@ final public class MultiPopSort extends BogoSorting {
         while (!sorted) {
             sorted = true;
             for (int i = start + 1; i < end; i += 2) {
-                if(Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
+                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
                     Writes.swap(array, i - 1, i, 0.1, true, false);
                     sorted = false;
                 }
             }
             for (int i = start; i < end; i += 2) {
-                if(Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
+                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
                     Writes.swap(array, i - 1, i, 0.1, true, false);
                     sorted = false;
                 }
@@ -159,9 +159,7 @@ final public class MultiPopSort extends BogoSorting {
             anyswaps = false;
             while (right <= end) {
                 if (Reads.compareIndices(array, left - 1, right - 1, 0, false) == dir) {
-                    if (!anyswaps && left != start) {
-                        first = left;
-                    }
+                    if (!anyswaps && left != start) first = left;
                     pull = right - 1;
                     while (pull >= left) {
                         Writes.swap(array, pull - 1, pull, 0.1, true, false);
@@ -172,11 +170,8 @@ final public class MultiPopSort extends BogoSorting {
                 }
                 right++;
             }
-            if (anyswaps) {
-                left = first;
-            } else {
-                left++;
-            }
+            if (anyswaps) left = first;
+            else left++;
         }
     }
 	

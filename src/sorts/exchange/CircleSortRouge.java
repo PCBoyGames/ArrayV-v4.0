@@ -42,11 +42,8 @@ final public class CircleSortRouge extends Sort {
             left++;
             right--;
         }
-        if (anyswaps) {
-            return anyswaps;
-        } else {
-            return swaphere;
-        }
+        if (anyswaps) return anyswaps;
+        else return swaphere;
     }
 
     @Override

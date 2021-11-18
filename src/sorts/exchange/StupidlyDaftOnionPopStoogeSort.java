@@ -33,9 +33,7 @@ final public class StupidlyDaftOnionPopStoogeSort extends Sort {
     protected void stooge(int[] array, int left, int right, int dir) {
         if ((right - left) + 1 > 1) {
             if (right - left == 1 || !TOGGLE_stable) {
-                if (Reads.compareIndices(array, left, right, 0.005, true) == dir) {
-                    Writes.swap(array, left, right, 0.01, true, false);
-                }
+                if (Reads.compareIndices(array, left, right, 0.005, true) == dir) Writes.swap(array, left, right, 0.01, true, false);
             }
             if ((right - left) + 1 > 2) {
                 stooge(array, left, right - (int) Math.floor(((right - left) + 1) / 3), dir);

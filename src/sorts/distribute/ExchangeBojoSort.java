@@ -38,9 +38,7 @@ public final class ExchangeBojoSort extends BogoSorting {
                 i1 = i2;
                 i2 = temp;
             }
-            if (Reads.compareIndices(array, i1, i2, delay, true) > 0) {
-                Writes.reversal(array, i1, i2, delay, true, false);
-            }
+            if (Reads.compareIndices(array, i1, i2, delay, true) > 0) Writes.reversal(array, i1, i2, delay, true, false);
         }
     }
 }

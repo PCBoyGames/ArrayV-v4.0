@@ -33,9 +33,7 @@ final public class MoreUnoptimizedBubbleSort extends Sort {
 
         for (int j = 0; j < sortLength - 1; j++) {
             for(int i = 0; i < sortLength - 1; i++) {             
-                if(Reads.compareValues(array[i], array[i + 1]) == 1){
-                    Writes.swap(array, i, i + 1, 0.075, true, false);
-                }
+                if (Reads.compareValues(array[i], array[i + 1]) == 1) Writes.swap(array, i, i + 1, 0.075, true, false);
                 Highlights.markArray(1, i);
                 Highlights.markArray(2, i + 1);
                 Delays.sleep(0.025);

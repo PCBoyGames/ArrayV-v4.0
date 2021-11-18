@@ -30,8 +30,7 @@ public final class LuckyNoisySort extends BogoSorting {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 100)
-            return 50;
+        if (answer < 1 || answer > 100) return 50;
         return answer;
     }
 
@@ -50,16 +49,10 @@ public final class LuckyNoisySort extends BogoSorting {
                     Highlights.markArray(2, right - 1);
                     Delays.sleep(0.005);
                     if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                        if (BogoSorting.randInt(1, 101) <= luck) {
-                            Writes.swap(array, left - 1, right - 1, 0.005, true, false);
-                        }
-                        if (right - 1 > verifyi) {
-                            right--;
-                        }
+                        if (randInt(1, 101) <= luck) Writes.swap(array, left - 1, right - 1, 0.005, true, false);
+                        if (right - 1 > verifyi) right--;
                         left = verifyi;
-                    } else {
-                        left++;
-                    }
+                    } else left++;
                 }
                 right += 16;
             }
@@ -69,11 +62,8 @@ public final class LuckyNoisySort extends BogoSorting {
                 Highlights.markArray(1, verifyi - 1);
                 Highlights.markArray(2, verifyi);
                 Delays.sleep(0.005);
-                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) {
-                    verifyi++;
-                } else {
-                    verifypass = false;
-                }
+                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) verifyi++;
+                else verifypass = false;
             }
         }
     }

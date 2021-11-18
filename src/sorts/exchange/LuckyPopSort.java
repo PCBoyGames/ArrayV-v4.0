@@ -38,9 +38,7 @@ final public class LuckyPopSort extends BogoSorting {
                 Delays.sleep(0.05);
                 if (Reads.compareValues(array[i - 1], array[i]) == dir) {
                     anyswaps = true;
-                    if (BogoSorting.randInt(1, 101) <= luck) {
-                        Writes.swap(array, i - 1, i, 0.05, true, false);
-                    }
+                    if (randInt(1, 101) <= luck) Writes.swap(array, i - 1, i, 0.05, true, false);
                 }
             }
         }
@@ -49,8 +47,7 @@ final public class LuckyPopSort extends BogoSorting {
     
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 100)
-            return 50;
+        if (answer < 1 || answer > 100) return 50;
         return answer;
     }
     

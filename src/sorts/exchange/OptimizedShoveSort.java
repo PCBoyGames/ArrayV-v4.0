@@ -42,18 +42,13 @@ final public class OptimizedShoveSort extends Sort {
                     Writes.swap(array, pull - 1, pull, 0.0125, true, false);
                     pull++;
                 }
-                if (left > 1) {
-                    left--;
-                }
+                if (left > 1) left--;
                 running++;
                 if (running >= currentLength - left) {
                     Writes.reversal(array, left, currentLength - 1, 1.25, true, false);
                     running = 0;
                 }
-            } else {
-                left++;
-            }
-            
+            } else left++;
         }
     }
 }

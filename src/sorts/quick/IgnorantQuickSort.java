@@ -42,9 +42,7 @@ final public class IgnorantQuickSort extends Sort {
                 Highlights.markArray(2, right - 1);
                 Delays.sleep(0.01);
                 if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                    if (!anyswaps && left != 1) {
-                        first = left;
-                    }
+                    if (!anyswaps && left != 1) first = left;
                     pull = right - 1;
                     while (pull >= left) {
                         Writes.swap(array, pull - 1, pull, 0.1, true, false);
@@ -55,11 +53,8 @@ final public class IgnorantQuickSort extends Sort {
                 }
                 right++;
             }
-            if (anyswaps) {
-                left = first;
-            } else {
-                left++;
-            }
+            if (anyswaps) left = first;
+            else left++;
         }
     }
 }

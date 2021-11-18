@@ -24,6 +24,7 @@ final public class OddEvenWeaveLowSort extends Sort {
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
 	}
+	
 	@Override
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		int check = 1;
@@ -70,9 +71,7 @@ final public class OddEvenWeaveLowSort extends Sort {
 								if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
 									primetestrunning = primetestrunning / primetesti;
 									primetest = true;
-								} else {
-									primetesti++;
-								}
+								} else primetesti++;
 							}
 						}
 						move = move / primetesti;
@@ -87,9 +86,7 @@ final public class OddEvenWeaveLowSort extends Sort {
 								if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
 									primetestrunning = primetestrunning / primetesti;
 									primetest = true;
-								} else {
-									primetesti++;
-								}
+								} else primetesti++;
 							}
 						}
 						gap = move / primetesti;
@@ -99,31 +96,23 @@ final public class OddEvenWeaveLowSort extends Sort {
 					}
 					check = 0;
 				}
-			} else {
-				noswapsfor = 0;
-			}
+			} else noswapsfor = 0;
 			if (gap == 1) {
-				if (lastbound > 1) {
-					boundi = lastbound - 1;
-				} else {
-					boundi = 1;
-				}
+				if (lastbound > 1) boundi = lastbound - 1;
+				else boundi = 1;
 				testpass = true;
 				while (boundi < currentLength && testpass) {
 					Highlights.markArray(1, boundi - 1);
 					Highlights.markArray(2, boundi);
 					Delays.sleep(0.25);
-					if (Reads.compareValues(array[boundi - 1], array[boundi]) <= 0) {
-						boundi++;
-					} else {
+					if (Reads.compareValues(array[boundi - 1], array[boundi]) <= 0) boundi++;
+					else {
 						testpass = false;
 						lastbound = boundi;
 						check = boundi;
 					}
 				}
-			} else {
-				check = (check % move) + 1;
-			}
+			} else check = (check % move) + 1;
 		}
 	}
 }

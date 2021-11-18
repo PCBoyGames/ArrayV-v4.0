@@ -30,8 +30,7 @@ final public class NoisySort extends Sort {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1)
-            return 1;
+        if (answer < 1) return 1;
         return answer;
     }
 
@@ -52,37 +51,21 @@ final public class NoisySort extends Sort {
                     Delays.sleep(0.005);
                     if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
                         Writes.swap(array, left - 1, right - 1, 0.005, true, false);
-                        if (right - 1 > verifyi) {
-                            right--;
-                        }
+                        if (right - 1 > verifyi) right--;
                         left = verifyi;
-                    } else {
-                        left++;
-                    }
+                    } else left++;
                 }
                 right += base;
             }
-            if (verifyi - 1 > 0) {
-                verifyi--;
-            }
+            if (verifyi - 1 > 0) verifyi--;
             verifypass = true;
             while (verifyi < currentLength && verifypass) {
                 Highlights.markArray(1, verifyi - 1);
                 Highlights.markArray(2, verifyi);
                 Delays.sleep(0.005);
-                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) {
-                    verifyi++;
-                } else {
-                    verifypass = false;
-                }
+                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) verifyi++;
+                else verifypass = false;
             }
         }
-        
-        
-        //Highlights.markArray(1, (int) (offset + mult / base) - 1);
-        //Highlights.markArray(2, (int) (offset + mult) - 1);
-        //Delays.sleep(0.1);
-        //if (Reads.compareValues(array[(int) (offset + mult / base) - 1], array[(int) (offset + mult) - 1]) > 0) {
-        //Writes.swap(array, (int) (offset + mult / base) - 1, (int) (offset + mult) - 1, 0.1, true, false);
     }
 }

@@ -33,9 +33,8 @@ public final class WatermelonWavesSort extends BogoSorting {
         while (!this.isArraySorted(array, currentLength)) {
             i = BogoSorting.randInt(0, currentLength - 1);
             while (i < currentLength - 1) {
-                if (Reads.compareIndices(array, i, i + 1, 0.001, true) == 0) {
-                    break;
-                } else {
+                if (Reads.compareIndices(array, i, i + 1, 0.001, true) == 0) break;
+                else {
                     Writes.swap(array, i, i + 1, 0.001, true, false);
                     i++;
                 }

@@ -33,18 +33,12 @@ final public class AdaptiveTriClamberSort extends Sort {
         Highlights.markArray(2, h);
         Highlights.markArray(3, mid);
         Delays.sleep(1);
-        if (Reads.compareValues(val, arr[l]) < 0) {
-            return l;
-        } else {
+        if (Reads.compareValues(val, arr[l]) < 0) return l;
+        else {
             if (Reads.compareValues(val, arr[h]) < 0) {
-                if (Reads.compareValues(val, arr[mid]) < 0) {
-                    return this.triSearch(arr, l+1, mid-1, val);
-                } else {
-                    return this.triSearch(arr, mid+1, h-1, val);
-                }
-            } else {
-                return h+1;
-            }
+                if (Reads.compareValues(val, arr[mid]) < 0) return triSearch(arr, l+1, mid-1, val);
+                else return triSearch(arr, mid+1, h-1, val);
+            } else return h+1;
         }
     }
 

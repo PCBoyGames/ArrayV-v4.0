@@ -35,9 +35,7 @@ public final class InstinctCocktailSandpaperSort extends Sort {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.05);
                 Writes.swap(array, i, j, 0.05, true, false);
-                if (Reads.compareIndices(array, i, j, 0.05, true) > 0) {
-                    Writes.swap(array, i, j, 0.05, true, false);
-                }
+                if (Reads.compareIndices(array, i, j, 0.05, true) > 0) Writes.swap(array, i, j, 0.05, true, false);
             }
             i++;
             for (int j = currentLength - 1; j > i; j--) {
@@ -45,9 +43,7 @@ public final class InstinctCocktailSandpaperSort extends Sort {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.05);
                 Writes.swap(array, i, j, 0.05, true, false);
-                if (Reads.compareIndices(array, i, j, 0.05, true) > 0) {
-                    Writes.swap(array, i, j, 0.05, true, false);
-                }
+                if (Reads.compareIndices(array, i, j, 0.05, true) > 0) Writes.swap(array, i, j, 0.05, true, false);
             }
         }
     }

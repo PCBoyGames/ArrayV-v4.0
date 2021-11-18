@@ -29,9 +29,6 @@ final public class ClamberSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        for (int i = 1; i < currentLength; i++)
-            for (int j = 0; j < i; j++) 
-                if (Reads.compareIndices(array, i, j, 0.1, true) < 0) 
-                    Writes.swap(array, i, j, 0.1, true, false);
+        for (int i = 1; i < currentLength; i++) for (int j = 0; j < i; j++) if (Reads.compareIndices(array, i, j, 0.1, true) < 0) Writes.swap(array, i, j, 0.1, true, false);
     }
 }

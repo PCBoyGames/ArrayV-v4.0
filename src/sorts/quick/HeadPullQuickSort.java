@@ -51,11 +51,8 @@ final public class HeadPullQuickSort extends Sort {
                 }
                 right++;
             }
-            if (anyswaps) {
-                left = 1;
-            } else {
-                left++;
-            }
+            if (anyswaps) left = 1;
+            else left++;
         }
     }
 }

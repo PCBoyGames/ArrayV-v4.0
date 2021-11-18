@@ -49,15 +49,12 @@ final public class StablePlaygroundSort extends Sort {
             Highlights.markArray(2, right);
             Delays.sleep(0.005);
             if (Reads.compareValues(array[target], array[right]) < 0) {
-                if (lowesthigh == -1) {
-                    lowesthigh = right;
-                } else {
+                if (lowesthigh == -1) lowesthigh = right;
+                else {
                     Highlights.markArray(1, lowesthigh);
                     Highlights.markArray(2, right);
                     Delays.sleep(0.005);
-                    if (Reads.compareValues(array[lowesthigh], array[right]) > 0) {
-                        lowesthigh = right;
-                    }
+                    if (Reads.compareValues(array[lowesthigh], array[right]) > 0) lowesthigh = right;
                 }
             }
             right++;
@@ -69,16 +66,11 @@ final public class StablePlaygroundSort extends Sort {
         int dir = 0;
         int chase = 0;
         if (Math.abs(target - item) != 1) {
-            if (target - item > 0) {
-                dir = 1;
-            } else {
-                dir = -1;
-            }
+            if (target - item > 0) dir = 1;
+            else dir = -1;
             chase = item;
             while (Math.abs(target - chase) != 1) {
-                if (Reads.compareValues(array[chase], array[chase + dir]) != 0) {
-                    Writes.swap(array, chase, chase + dir, 0.005, true, false);
-                }
+                if (Reads.compareValues(array[chase], array[chase + dir]) != 0) Writes.swap(array, chase, chase + dir, 0.005, true, false);
                 chase += dir;
             }
         }
@@ -87,9 +79,7 @@ final public class StablePlaygroundSort extends Sort {
     protected void quit(int[] array, int bound, int item) {
         int pull = item;
         while (pull + 1 < bound) {
-            if (Reads.compareValues(array[pull], array[pull + 1]) != 0) {
-                Writes.swap(array, pull, pull + 1, 0.005, true, false);
-            }
+            if (Reads.compareValues(array[pull], array[pull + 1]) != 0) Writes.swap(array, pull, pull + 1, 0.005, true, false);
             pull++;
         }
     }
@@ -107,9 +97,7 @@ final public class StablePlaygroundSort extends Sort {
                 if (target != -1) {
                     chase(array, lasttarget, target);
                     lasttarget = target;
-                } else {
-                    quit(array, bound, lasttarget);
-                }
+                } else quit(array, bound, lasttarget);
             }
             bound--;
         }

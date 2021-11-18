@@ -43,9 +43,7 @@ final public class SwaplessIgnorantQuickSort extends Sort {
                 Highlights.markArray(2, right - 1);
                 Delays.sleep(0.01);
                 if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                    if (!anyswaps && left != 1) {
-                        first = left;
-                    }
+                    if (!anyswaps && left != 1) first = left;
                     pull = right - 1;
                     item = array[pull];
                     Highlights.clearMark(2);
@@ -59,11 +57,8 @@ final public class SwaplessIgnorantQuickSort extends Sort {
                 }
                 right++;
             }
-            if (anyswaps) {
-                left = first;
-            } else {
-                left++;
-            }
+            if (anyswaps) left = first;
+            else left++;
         }
     }
 }

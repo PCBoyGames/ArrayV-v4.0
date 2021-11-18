@@ -63,9 +63,7 @@ final public class HeadPullSort extends Sort {
 					pull--;
 				}
 				i = 1;
-			} else {
-				i++;
-			}
+			} else i++;
 		}
 	}
 }

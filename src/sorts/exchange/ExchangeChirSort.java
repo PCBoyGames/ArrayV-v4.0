@@ -30,18 +30,14 @@ public final class ExchangeChirSort extends BogoSorting {
     protected void bogoCompSwap(int[] array, int a, int b) {
         for (int i = a; i < b; i++) {
             int j = randInt(i, b);
-            if (Reads.compareIndices(array, i, j, delay, true) > 0) {
-                Writes.swap(array, i, j, delay, true, false);
-            }
+            if (Reads.compareIndices(array, i, j, delay, true) > 0) Writes.swap(array, i, j, delay, true, false);
         }
     }
     
     protected void bogoCompSwapBW(int[] array, int a, int b) {
         for (int i = b - 1; i > a; i--) {
             int j = randInt(a, i);
-            if (Reads.compareIndices(array, i, j, delay, true) < 0) {
-                Writes.swap(array, i, j, delay, true, false);
-            }
+            if (Reads.compareIndices(array, i, j, delay, true) < 0) Writes.swap(array, i, j, delay, true, false);
         }
     }
     
@@ -53,11 +49,8 @@ public final class ExchangeChirSort extends BogoSorting {
             // Exchange Bogo
             if (choice == 1) {
                 int d = randInt(1, 3);
-                if (d == 1) {
-                    bogoCompSwap(array, 0, currentLength);
-                } else {
-                    bogoCompSwapBW(array, 0, currentLength);
-                }
+                if (d == 1) bogoCompSwap(array, 0, currentLength);
+                else bogoCompSwapBW(array, 0, currentLength);
             }
             
             // Exchange Bozo
@@ -70,18 +63,14 @@ public final class ExchangeChirSort extends BogoSorting {
                     i1 = i2;
                     i2 = temp;
                 }
-                if (Reads.compareIndices(array, i1, i2, delay, true) > 0) {
-                    Writes.swap(array, i1, i2, delay, true, false);
-                }
+                if (Reads.compareIndices(array, i1, i2, delay, true) > 0) Writes.swap(array, i1, i2, delay, true, false);
             }
             
             // Exchange Bovo
             if (choice == 3) {
                 int pull = randInt(0, currentLength - 1);
                 while (pull >= 0) {
-                    if (Reads.compareIndices(array, pull, pull + 1, delay, true) > 0) {
-                        Writes.swap(array, pull, pull + 1, delay, true, false);
-                    }
+                    if (Reads.compareIndices(array, pull, pull + 1, delay, true) > 0) Writes.swap(array, pull, pull + 1, delay, true, false);
                     pull--;
                 }
             }
@@ -90,9 +79,7 @@ public final class ExchangeChirSort extends BogoSorting {
             if (choice == 4) {
                 int pull = randInt(0, currentLength - 1);
                 while (pull + 1 < currentLength) {
-                    if (Reads.compareIndices(array, pull, pull + 1, delay, true) > 0) {
-                        Writes.swap(array, pull, pull + 1, delay, true, false);
-                    }
+                    if (Reads.compareIndices(array, pull, pull + 1, delay, true) > 0) Writes.swap(array, pull, pull + 1, delay, true, false);
                     pull++;
                 }
             }
@@ -107,37 +94,21 @@ public final class ExchangeChirSort extends BogoSorting {
                     i1 = i2;
                     i2 = temp;
                 }
-                if (Reads.compareIndices(array, i1, i2, delay, true) > 0) {
-                    Writes.reversal(array, i1, i2, delay, true, false);
-                }
+                if (Reads.compareIndices(array, i1, i2, delay, true) > 0) Writes.reversal(array, i1, i2, delay, true, false);
             }
             
             // Bubble Bogo
             if (choice == 6) {
                 int i = randInt(0, currentLength - 1);
-                if (Reads.compareIndices(array, i, i + 1, delay, true) > 0) {
-                    Writes.swap(array, i, i + 1, delay, true, false);
-                }
+                if (Reads.compareIndices(array, i, i + 1, delay, true) > 0) Writes.swap(array, i, i + 1, delay, true, false);
             }
             
             // Exchange Bomo
             if (choice == 7) {
                 int start = randInt(0, currentLength - 1);
                 int end = randInt(0, currentLength - 1);
-                if (start > end) {
-                    for (int i = start; i > end + 1; i--) {
-                        if (Reads.compareIndices(array, i - 1, i, delay, true) > 0) {
-                            Writes.swap(array, i, i - 1, delay, true, false);
-                        }
-                    }
-                }
-                if (end > start) {
-                    for (int i = start; i < end + 1; i++) {
-                        if (Reads.compareIndices(array, i, i + 1, delay, true) > 0) {
-                            Writes.swap(array, i, i + 1, delay, true, false);
-                        }
-                    }
-                }
+                if (start > end) for (int i = start; i > end + 1; i--) if (Reads.compareIndices(array, i - 1, i, delay, true) > 0) Writes.swap(array, i, i - 1, delay, true, false);
+                if (end > start) for (int i = start; i < end + 1; i++) if (Reads.compareIndices(array, i, i + 1, delay, true) > 0) Writes.swap(array, i, i + 1, delay, true, false);
             }
             
             // Exchange Goro
@@ -151,11 +122,8 @@ public final class ExchangeChirSort extends BogoSorting {
                     i2 = temp;
                 }
                 int d = randInt(1, 3);
-                if (d == 1) {
-                    bogoCompSwap(array, i1, i2);
-                } else {
-                    bogoCompSwapBW(array, i1, i2);
-                }
+                if (d == 1) bogoCompSwap(array, i1, i2);
+                else bogoCompSwapBW(array, i1, i2);
             }
         }
     }

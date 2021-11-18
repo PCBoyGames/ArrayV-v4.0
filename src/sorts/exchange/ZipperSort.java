@@ -40,9 +40,7 @@ final public class ZipperSort extends Sort {
                     Writes.swap(array, i, i + gap, 0.1, true, false);
                     if (gap == 1) first = i;
                     gap++;
-                } else {
-                    i++;
-                }
+                } else i++;
             }
         }
     }

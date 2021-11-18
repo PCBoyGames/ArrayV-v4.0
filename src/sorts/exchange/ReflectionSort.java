@@ -32,6 +32,7 @@ final public class ReflectionSort extends Sort {
 		this.setUnreasonableLimit(2048);
 		this.setBogoSort(false);
 	}
+	
 	@Override
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		boolean anyswap = true;
@@ -47,9 +48,7 @@ final public class ReflectionSort extends Sort {
 					Writes.swap(array, i, i + 1, 0.125, true, false);
 					i = (currentLength - 1) - i;
 					anyswap = true;
-				} else {
-					i++;
-				}
+				} else i++;
 			}
 			i = currentLength;
 			anyswap = false;
@@ -61,9 +60,7 @@ final public class ReflectionSort extends Sort {
 					Writes.swap(array, i - 1, i, 0.125, true, false);
 					i = (currentLength - 1) - i;
 					anyswap = true;
-				} else {
-					i--;
-				}
+				} else i--;
 			}
 		}
 	}

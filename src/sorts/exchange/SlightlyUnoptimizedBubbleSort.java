@@ -32,10 +32,7 @@ final public class SlightlyUnoptimizedBubbleSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i = length - 1; i > 0; i--) {
             for(int j = 0; j < i; j++) {
-                if(Reads.compareValues(array[j], array[j + 1]) == 1){
-                    Writes.swap(array, j, j + 1, 0.075, true, false);
-                }
-                
+                if (Reads.compareValues(array[j], array[j + 1]) == 1) Writes.swap(array, j, j + 1, 0.075, true, false);
                 Highlights.markArray(1, j);
                 Highlights.markArray(2, j + 1);
                 Delays.sleep(0.025);

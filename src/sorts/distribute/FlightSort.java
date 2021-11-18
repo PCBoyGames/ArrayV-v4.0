@@ -32,12 +32,8 @@ public final class FlightSort extends Sort {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for(int i = 0; i < currentLength; i++) {
-            if(array[i] < min) {
-                min = array[i];
-            }
-            if(array[i] > max) {
-                max = array[i];
-            }
+            if(array[i] < min) min = array[i];
+            if(array[i] > max) max = array[i];
         }
         int mi = min;
         int size = max - mi + 1;
@@ -54,9 +50,7 @@ public final class FlightSort extends Sort {
                 Delays.sleep(1);
                 int diff = (count + mi) - array[j];
                 if (diff != 0) {
-                    for (int k = 0; k < Math.abs(diff); k++) {
-                        Writes.write(array, j, diff < 0 ? array[j] - 1 : array[j] + 1, 0.25, true, false);
-                    }
+                    for (int k = 0; k < Math.abs(diff); k++) Writes.write(array, j, diff < 0 ? array[j] - 1 : array[j] + 1, 0.25, true, false);
                 }
                 j++;
             }

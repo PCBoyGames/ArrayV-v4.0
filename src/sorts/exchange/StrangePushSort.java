@@ -30,8 +30,7 @@ final public class StrangePushSort extends Sort {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 2)
-            return 2;
+        if (answer < 2) return 2;
         return answer;
     }
 
@@ -49,14 +48,10 @@ final public class StrangePushSort extends Sort {
                 Highlights.markArray(2, (i - 1) + gap);
                 Delays.sleep(0.01);
                 if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
-                    for (int j = 1; j <= gap; j++) {
-                        Writes.swap(array, i - 1, (i - 1) + j, 0.01, true, false);
-                    }
+                    for (int j = 1; j <= gap; j++) Writes.swap(array, i - 1, (i - 1) + j, 0.01, true, false);
                     anyswaps = true;
                     gap *= base;
-                } else {
-                    i++;
-                }
+                } else i++;
             }
         }
     }

@@ -30,8 +30,7 @@ public final class LuckyRougeSort extends BogoSorting {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 100)
-            return 50;
+        if (answer < 1 || answer > 100) return 50;
         return answer;
     }
 
@@ -47,9 +46,7 @@ public final class LuckyRougeSort extends BogoSorting {
                 Delays.sleep(1);
                 if (Reads.compareValues(array[i], array[i + gap]) > 0) {
                     anyswaps = true;
-                    if (BogoSorting.randInt(1, 101) <= luck) {
-                        Writes.swap(array, i, i + gap, 1, true, false);
-                    }
+                    if (randInt(1, 101) <= luck) Writes.swap(array, i, i + gap, 1, true, false);
                 }
             }
             if (!anyswaps && gap != 1) {

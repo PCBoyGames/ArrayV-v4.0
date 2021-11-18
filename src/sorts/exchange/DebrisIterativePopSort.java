@@ -39,11 +39,8 @@ final public class DebrisIterativePopSort extends Sort {
         while (anyrev) {
             anyrev = false;
             firstfound = false;
-            if (first > s) {
-                i = first - 1;
-            } else {
-                i = s;
-            }
+            if (first > s) i = first - 1;
+            else i = s;
             while (i < last) {
                 start = i;
                 while (Reads.compareIndices(array, i, i + 1, 0.025, true) == dir && i < last) {
@@ -56,20 +53,14 @@ final public class DebrisIterativePopSort extends Sort {
                 }
                 end = i;
                 if (start != end) {
-                    if (end - start < 3) {
-                        Writes.swap(array, start, end, 0.075, true, false);
-                    } else {
-                        Writes.reversal(array, start, end, 0.075, true, false);
-                    }
+                    if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
+                    else Writes.reversal(array, start, end, 0.075, true, false);
                     anyrev = true;
                 }
                 i++;
             }
-            if (nextlast + 1 < e - 1) {
-                last = nextlast + 1;
-            } else {
-                last = e - 1;
-            }
+            if (nextlast + 1 < e - 1) last = nextlast + 1;
+            else last = e - 1;
         }
     }
     
@@ -86,9 +77,7 @@ final public class DebrisIterativePopSort extends Sort {
                 index += len;
                 dir *= -1;
             }
-            if (index != currentLength) {
-                bubble(array, index, currentLength, dir);
-            }
+            if (index != currentLength) bubble(array, index, currentLength, dir);
             len *= 2;
         }
         bubble(array, 0, currentLength, 1);

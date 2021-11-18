@@ -26,18 +26,18 @@ final public class ShircleSortIterative extends IterativeShircleSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
+    
     public void singleRoutine(int[] array, int length) {
-        this.end = length;
-        this.shircleSortRoutine(array, length, 0.01);
+        end = length;
+        shircleSortRoutine(array, length, 0.01);
     }
+    
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-    	this.end = sortLength;
+    	end = sortLength;
     	int n = 1;
     	for(; n < sortLength; n*=2);
         int numberOfSwaps = 0;
-        do {
-            numberOfSwaps = this.shircleSortRoutine(array, n, 0.01);
-        } while (numberOfSwaps != 0);
+        do numberOfSwaps = shircleSortRoutine(array, n, 0.01); while (numberOfSwaps != 0);
     }
 }

@@ -43,16 +43,13 @@ final public class FateSort extends Sort {
                 Highlights.markArray(2, right - 1);
                 Delays.sleep(0.125);
                 if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                    if (highestlow == 0) {
-                        highestlow = right;
-                    } else {
+                    if (highestlow == 0) highestlow = right;
+                    else {
                         Highlights.markArray(1, highestlow - 1);
                         Highlights.markArray(2, right - 1);
                         Highlights.markArray(3, left - 1);
                         Delays.sleep(0.125);
-                        if (Reads.compareValues(array[highestlow - 1], array[right - 1]) < 0) {
-                            highestlow = right;
-                        }
+                        if (Reads.compareValues(array[highestlow - 1], array[right - 1]) < 0) highestlow = right;
                         Highlights.clearMark(3);
                     }
                 }
@@ -62,9 +59,7 @@ final public class FateSort extends Sort {
                 highestswap = highestlow;
             }
             if (highestlow != 0) {
-                if (firstswap == 0) {
-                    firstswap = left;
-                }
+                if (firstswap == 0) firstswap = left;
                 Writes.swap(array, left - 1, highestlow - 1, 0.125, true, false);
             }
             left++;

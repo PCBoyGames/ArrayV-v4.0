@@ -45,9 +45,7 @@ final public class InOrderShoveSort extends Sort {
                         pull++;
                     }
                     right = left + 1;
-                } else {
-                    right++;
-                }
+                } else right++;
             }
             left++;
         } 

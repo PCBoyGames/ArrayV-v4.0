@@ -40,24 +40,18 @@ final public class FallSort extends Sort {
                 Highlights.markArray(2, right - 1);
                 Delays.sleep(0.001);
                 if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                    if (highestlow == 0) {
-                        highestlow = right;
-                    } else {
+                    if (highestlow == 0) highestlow = right;
+                    else {
                         Highlights.markArray(1, highestlow - 1);
                         Highlights.markArray(2, right - 1);
                         Delays.sleep(0.001);
-                        if (Reads.compareValues(array[highestlow - 1], array[right - 1]) < 0) {
-                            highestlow = right;
-                        }
+                        if (Reads.compareValues(array[highestlow - 1], array[right - 1]) < 0) highestlow = right;
                     }
                 }
                 right++;
             }
-            if (highestlow == 0) {
-                left++;
-            } else {
-                Writes.swap(array, left - 1, highestlow - 1, 0.001, true, false);
-            }
+            if (highestlow == 0) left++;
+            else Writes.swap(array, left - 1, highestlow - 1, 0.001, true, false);
         }
     }
 }

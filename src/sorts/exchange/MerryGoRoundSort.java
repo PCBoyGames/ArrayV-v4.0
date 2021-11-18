@@ -45,12 +45,8 @@ final public class MerryGoRoundSort extends Sort {
 						Writes.swap(seats, dizzy - 1, dizzy, 0.001, true, false);
 						dizzy += 2;
 					}
-					if (im > 1) {
-						im--;
-					}
-				} else {
-					im += 2;
-				}
+					if (im > 1) im--;
+				} else im += 2;
 			}
 			if (!can_someone_please) {
 				very = 1;
@@ -59,11 +55,8 @@ final public class MerryGoRoundSort extends Sort {
 					Highlights.markArray(1, very - 1);
 					Highlights.markArray(2, very);
 					Delays.sleep(0.001);
-					if (Reads.compareValues(seats[very - 1], seats[very]) <= 0) {
-						very++;
-					} else {
-						stop_the_ride = false;
-					}
+					if (Reads.compareValues(seats[very - 1], seats[very]) <= 0) very++;
+					else stop_the_ride = false;
 				}
 			}
 		}

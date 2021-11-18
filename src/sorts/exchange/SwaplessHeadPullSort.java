@@ -69,9 +69,7 @@ final public class SwaplessHeadPullSort extends Sort {
                 }
                 Writes.write(array, 0, item, 0.1, true, false);
                 i = 1;
-            } else {
-                i++;
-            }
+            } else i++;
         }
     }
 }

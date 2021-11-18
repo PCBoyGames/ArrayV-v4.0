@@ -1730,7 +1730,7 @@ public enum Shuffles {
         Random random = new Random();
         for(int i = start; i < end; i++){
             int randomIndex = random.nextInt(end - i) + i;
-            Writes.swap(array, i, randomIndex, sleep, true, false);
+            if (randomIndex != i) Writes.swap(array, i, randomIndex, sleep, true, false);
         }
     }
 

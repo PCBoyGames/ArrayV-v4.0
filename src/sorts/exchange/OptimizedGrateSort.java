@@ -43,18 +43,13 @@ public final class OptimizedGrateSort extends Sort {
 					if (testi < left) {
 						bound--;
 						testi = right;
-						if (bound < right) {
-							higherval = true;
-						}
+						if (bound < right) higherval = true;
 					} else {
 						Highlights.markArray(1, testi);
 						Highlights.markArray(2, bound);
 						Delays.sleep(0.125);
-						if (Reads.compareValues(array[testi], array[bound]) > 0) {
-							higherval = true;
-						} else {
-							testi--;
-						}
+						if (Reads.compareValues(array[testi], array[bound]) > 0) higherval = true;
+						else testi--;
 					}
 				}
 			}
@@ -65,9 +60,7 @@ public final class OptimizedGrateSort extends Sort {
 					Highlights.markArray(2, j);
 					Delays.sleep(0.125);
 					if (Reads.compareValues(array[i], array[j]) > 0) {
-						if (sorted) {
-							firstswap = i;
-						}
+						if (sorted) firstswap = i;
 						lastswap = i;
 						sorted = false;
 						Writes.swap(array, i, j, 0.125, true, false);

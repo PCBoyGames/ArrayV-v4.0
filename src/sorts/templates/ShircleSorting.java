@@ -17,14 +17,13 @@ public abstract class ShircleSorting extends Sort {
     }
 	protected int end;
     protected int shircleSortRoutine(int[] array, int lo, int hi, int swapCount, double sleep) {        
-        if (lo == hi)
-            return swapCount;
+        if (lo == hi) return swapCount;
         int high = hi;
         int low = lo;
         int mid = (hi - lo) / 2;
         int pull, item;
         while (lo < hi) {
-			while (hi < this.end && Reads.compareIndices(array, lo, hi, sleep / 2, true) > 0) {
+			while (hi < end && Reads.compareIndices(array, lo, hi, sleep / 2, true) > 0) {
                 pull = lo;
                 item = array[pull];
                 Highlights.markArray(2, lo);
@@ -40,9 +39,8 @@ public abstract class ShircleSorting extends Sort {
             lo++;
             hi--;
         }
-        swapCount = this.shircleSortRoutine(array, low, low + mid, swapCount, sleep);
-		if(low + mid + 1 < this.end)
-			swapCount = this.shircleSortRoutine(array, low + mid + 1, high, swapCount, sleep);
+        swapCount = shircleSortRoutine(array, low, low + mid, swapCount, sleep);
+		if(low + mid + 1 < end) swapCount = shircleSortRoutine(array, low + mid + 1, high, swapCount, sleep);
         return swapCount;
     }
 }

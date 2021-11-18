@@ -38,11 +38,8 @@ final public class BuildAnInsertionSort extends Sort {
     }
     
     protected void method(int[] array, int len) {
-        try {
-            sort.runSort(array, len, NUMBER_Base);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        try {sort.runSort(array, len, NUMBER_Base);}
+        catch (Exception e) {e.printStackTrace();}
     }
 
     @Override

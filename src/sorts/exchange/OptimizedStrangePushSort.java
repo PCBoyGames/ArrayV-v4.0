@@ -30,8 +30,7 @@ final public class OptimizedStrangePushSort extends Sort {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 2)
-            return 2;
+        if (answer < 2) return 2;
         return answer;
     }
 

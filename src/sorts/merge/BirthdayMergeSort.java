@@ -44,9 +44,7 @@ final public class BirthdayMergeSort extends BogoSorting {
             for (int i = 0; i < holes[count]; i++) {
                 Highlights.markArray(1, j);
                 Delays.sleep(1);
-                while (count + mi != array[j]) {
-                    Writes.write(array, j, randInt(min, max + 1), 0.1, true, false);
-                }
+                while (count + mi != array[j]) Writes.write(array, j, randInt(min, max + 1), 0.1, true, false);
                 j++;
             }
         }
@@ -58,12 +56,8 @@ final public class BirthdayMergeSort extends BogoSorting {
         min = Integer.MAX_VALUE;
         max = Integer.MIN_VALUE;
         for(int i = 0; i < currentLength; i++) {
-            if(array[i] < min) {
-                min = array[i];
-            }
-            if(array[i] > max) {
-                max = array[i];
-            }
+            if(array[i] < min) min = array[i];
+            if(array[i] > max) max = array[i];
         }
         int len = 2;
         int index = 0;

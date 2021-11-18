@@ -42,9 +42,7 @@ public final class OptimizedReverseGrateSort extends Sort {
 					Highlights.markArray(2, j);
 					Delays.sleep(0.125);
 					if (Reads.compareValues(array[i], array[j]) > 0) {
-						if (sorted) {
-							firstswap = i;
-						}
+						if (sorted) firstswap = i;
 						lastswap = i;
 						sorted = false;
 						Writes.swap(array, i, j, 0.125, true, false);

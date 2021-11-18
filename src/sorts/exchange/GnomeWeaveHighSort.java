@@ -34,6 +34,7 @@ final public class GnomeWeaveHighSort extends Sort {
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
 	}
+	
 	@Override
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		int gap = currentLength;
@@ -56,17 +57,13 @@ final public class GnomeWeaveHighSort extends Sort {
 				Delays.sleep(0.25);
 				if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
 					Writes.swap(array, i - 1, (i - 1) + gap, 0.25, true, false);
-					if (i - gap > 0) {
-						i -= gap;
-					}
+					if (i - gap > 0) i -= gap;
 				} else {
 					bound += gap;
 					i = bound;
 				}
 			}
-			if (gap == 1) {
-				finalgap = true;
-			}
+			if (gap == 1) finalgap = true;
 			if (icheck + 1 > gap && !finalgap) {
 				primetestrunning = gap;
 				while (primetestrunning != 1) {
@@ -76,16 +73,12 @@ final public class GnomeWeaveHighSort extends Sort {
 						if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
 							primetestrunning = primetestrunning / primetesti;
 							primetest = true;
-						} else {
-							primetesti++;
-						}
+						} else primetesti++;
 					}
 				}
 				gap = gap / primetesti;
 				icheck = 1;
-			} else {
-				icheck++;
-			}
+			} else icheck++;
 		}
 	}
 }

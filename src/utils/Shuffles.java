@@ -373,7 +373,6 @@ public enum Shuffles {
             boolean delay = ArrayVisualizer.shuffleEnabled();
             Reads Reads = ArrayVisualizer.getReads();
             
-            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
             int offset = 1;
             double mult = 1.0;
             int bound = 1;
@@ -1732,7 +1731,7 @@ public enum Shuffles {
         Random random = new Random();
         for(int i = start; i < end; i++){
             int randomIndex = random.nextInt(end - i) + i;
-            Writes.swap(array, i, randomIndex, sleep, true, false);
+            if (randomIndex != i) Writes.swap(array, i, randomIndex, sleep, true, false);
         }
     }
     

@@ -2,7 +2,9 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.ZipperSort;
 import sorts.hybrid.InPlaceStableCycleSort;
+import sorts.merge.OptimizedBubbleBogoMergeSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -98,8 +100,14 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
-        Sort InPlaceStableCycle = new InPlaceStableCycleSort(arrayVisualizer);
+        /*Sort InPlaceStableCycle = new InPlaceStableCycleSort(arrayVisualizer);
         runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);
+        
+        Sort OptimizedBubbleBogoMerge = new OptimizedBubbleBogoMergeSort(arrayVisualizer);
+        runIndividualSort(OptimizedBubbleBogoMerge, 0, array, 256, 1, false, shuffleName, 16, alt);*/
+        
+        Sort Zipper = new ZipperSort(arrayVisualizer);
+        runIndividualSort(Zipper, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
     }
 
@@ -300,7 +308,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
                     arrayManager.toggleMutableLength(false);
 
-                    arrayVisualizer.setCategory("aphitorite");
+                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
 
                     RunSummerSort.this.executeSortList(array);
                     

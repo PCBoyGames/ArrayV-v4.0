@@ -195,20 +195,26 @@ final public class Writes {
         if (!auxwrite && b >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Warning: write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ")");
         }
+        
+        if (a == b) System.err.println("Self-swap at " + a + ".");
+        
+        else {
+        
+            if(mark) this.markSwap(a, b);
 
-        if(mark) this.markSwap(a, b);
+            Timer.startLap("Swap");
 
-        Timer.startLap("Swap");
+            int temp = array[a];
+            array[a] = array[b];
+            array[b] = temp;
 
-        int temp = array[a];
-        array[a] = array[b];
-        array[b] = temp;
+            Timer.stopLap();
 
-        Timer.stopLap();
-
-        this.updateSwap(auxwrite);
-        ArrayVisualizer.updateNow();
-        Delays.sleep(pause);
+            this.updateSwap(auxwrite);
+            ArrayVisualizer.updateNow();
+            Delays.sleep(pause);
+            
+            }
     }
 
     public void multiSwap(int[] array, int pos, int to, double sleep, boolean mark, boolean auxwrite) {

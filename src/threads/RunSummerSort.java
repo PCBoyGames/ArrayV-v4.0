@@ -2,9 +2,13 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.OptimizedZipperSort;
 import sorts.exchange.ZipperSort;
 import sorts.hybrid.InPlaceStableCycleSort;
 import sorts.merge.OptimizedBubbleBogoMergeSort;
+import sorts.quick.SingularityQuickSort;
+import sorts.insert.GambitInsertionSort;
+import sorts.insert.OptimizedGambitInsertionSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -37,7 +41,7 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 1;
+    int numSorts = 2;
     boolean alternate_distributions = false;
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -108,6 +112,9 @@ final public class RunSummerSort extends MultipleSortThread {
         
         Sort Zipper = new ZipperSort(arrayVisualizer);
         runIndividualSort(Zipper, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        
+        Sort OptimizedZipper = new OptimizedZipperSort(arrayVisualizer);
+        runIndividualSort(OptimizedZipper, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
     }
 

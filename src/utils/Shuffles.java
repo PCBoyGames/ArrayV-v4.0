@@ -76,9 +76,12 @@ public enum Shuffles {
             Random random = new Random();
 
             for(int i = 0; i < Math.max(currentLen / 20, 1); i++){
-                Writes.swap(array, random.nextInt(currentLen), random.nextInt(currentLen), 0, true, false);
-
-                if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(10);
+                int a = random.nextInt(currentLen);
+                int b = random.nextInt(currentLen);
+                if (a != b) {
+                    Writes.swap(array, a, b, 0, true, false);
+                    if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(10);
+                } else i--;
             }
         }
     },
@@ -275,7 +278,7 @@ public enum Shuffles {
 
             for(int i = 1; i < currentLen; i += 2){
                 int randomIndex = (((random.nextInt(currentLen - i) / 2)) * 2) + i;
-                Writes.swap(array, i, randomIndex, 0, true, false);
+                if (i != randomIndex) Writes.swap(array, i, randomIndex, 0, true, false);
 
                 if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(2);
             }

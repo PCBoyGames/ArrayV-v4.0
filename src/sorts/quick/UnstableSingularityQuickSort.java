@@ -12,15 +12,15 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SingularityQuickSort extends Sort {
+final public class UnstableSingularityQuickSort extends Sort {
     
     int depthlimit;
     
-    public SingularityQuickSort(ArrayVisualizer arrayVisualizer) {
+    public UnstableSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Singularity Quick");
-        this.setRunAllSortsName("Singularity Quick Sort");
-        this.setRunSortName("Singularity Quicksort");
+        this.setSortListName("Unstable Singularity Quick");
+        this.setRunAllSortsName("Unstable Singularity Quick Sort");
+        this.setRunSortName("Unstable Singularity Quicksort");
         this.setCategory("Quick Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -37,38 +37,17 @@ final public class SingularityQuickSort extends Sort {
         return n;
     }
     
-    protected void stableSegmentReversal(int[] array, int start, int end) {
-        if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
-        else Writes.reversal(array, start, end, 0.075, true, false);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
-            while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
-            right = i;
-            if (left != right) {
-                if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);
-                else Writes.reversal(array, left, right, 0.75, true, false);
-            }
-            i++;
-        }
-    }
-    
-    protected int pd(int[] array, int start, int end) {
+    protected int unstablepd(int[] array, int start, int end) {
         int reverse = start;
-        boolean lessunique = false;
         boolean different = false;
         int cmp = Reads.compareIndices(array, reverse, reverse + 1, 0.5, true);
         while (cmp >= 0 && reverse + 1 < end) {
-            if (cmp == 0) lessunique = true;
-            else different = true;
+            if (cmp == 1) different = true;
             reverse++;
             cmp = Reads.compareIndices(array, reverse, reverse + 1, 0.5, true);
         }
         if (reverse > start && different) {
-            if (lessunique) stableSegmentReversal(array, start, reverse);
-            else if (reverse < start + 4) Writes.swap(array, start, reverse, 0.75, true, false);
+            if (reverse < start + 4) Writes.swap(array, start, reverse, 0.75, true, false);
             else Writes.reversal(array, start, reverse, 0.75, true, false);
         }
         return reverse;
@@ -112,36 +91,35 @@ final public class SingularityQuickSort extends Sort {
             int left = offset;
             while (Reads.compareIndices(array, left - 1, left, 0.05, true) <= 0 && left < end) left++;
             if (left < end) {
-                int right = left + 1;
-                int pull = 1;
                 int pivot = array[left - 1];
+                int pivotpos = left - 1;
+                int right = left + 1;
+                int item = 1;
                 boolean brokeloop = false;
                 boolean brokencond = false;
+                boolean founditem = false;
                 while (right <= end) {
                     if (Reads.compareValues(pivot, array[right - 1]) > 0) {
+                        Highlights.markArray(3, pivotpos);
                         Highlights.clearMark(2);
                         if (right - left == 1) {
-                            Writes.write(array, left - 1, array[left], 0.1, true, false);
+                            if (!founditem) item = array[left - 1];
+                            founditem = true;
+                            Writes.write(array, left - 1, array[left], 0.5, true, false);
                         } else brokeloop = true;
                         if (brokeloop && !brokencond) {
-                            Writes.write(array, left - 1, pivot, 0.1, true, false);
+                            Writes.write(array, left - 1, item, 0.5, true, false);
                             brokencond = true;
                         }
-                        if (right - left > 1) {
-                            pull = right - 1;
-                            int item = array[pull];
-                            Highlights.clearMark(2);
-                            while (pull >= left) {
-                                Writes.write(array, pull, array[pull - 1], 0.1, true, false);
-                                pull--;
-                            }
-                            Writes.write(array, pull, item, 0.1, true, false);
-                        }
+                        if (right - left > 1) Writes.swap(array, left - 1, right - 1, 0.5, true, false);
+                        if (pivotpos == left - 1) pivotpos = right - 1;
                         left++;
                     }
                     right++;
                 }
-                if (right > end && !brokeloop) Writes.write(array, left - 1, pivot, 0.1, true, false);
+                if (right > end && !brokeloop) Writes.write(array, left - 1, item, 0.5, true, false);
+                Highlights.clearAllMarks();
+                if (pivotpos != left - 1) Writes.swap(array, pivotpos, left - 1, 0.5, true, false);
                 boolean lsmall = left - start < end - (left + 1);
                 if (lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
@@ -165,7 +143,7 @@ final public class SingularityQuickSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         depthlimit = (int) Math.min(Math.sqrt(currentLength), 2 * log2(currentLength));
-        int realstart = pd(array, 0, currentLength);
+        int realstart = unstablepd(array, 0, currentLength);
         if (realstart + 1 < currentLength) singularityQuick(array, 1, realstart + 1, currentLength, 0, 0);
     }
 }

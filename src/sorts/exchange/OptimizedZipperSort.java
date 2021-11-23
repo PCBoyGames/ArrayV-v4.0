@@ -27,22 +27,6 @@ final public class OptimizedZipperSort extends Sort {
         this.setBogoSort(false);
     }
     
-    protected int unstablepd(int[] array, int start, int end) {
-        int reverse = start;
-        boolean different = false;
-        int cmp = Reads.compareIndices(array, reverse, reverse + 1, 0.5, true);
-        while (cmp >= 0 && reverse + 1 < end) {
-            if (cmp == 1) different = true;
-            reverse++;
-            cmp = Reads.compareIndices(array, reverse, reverse + 1, 0.5, true);
-        }
-        if (reverse > start && different) {
-            if (reverse < start + 4) Writes.swap(array, start, reverse, 0.75, true, false);
-            else Writes.reversal(array, start, reverse, 0.75, true, false);
-        }
-        return reverse;
-    }
-    
     protected int log2(int x) {
         int n = 1;
         while (1 << n < x) n++;
@@ -66,7 +50,7 @@ final public class OptimizedZipperSort extends Sort {
     
     private void ending(int[] array, int first, int currentLength) {
         int right = first;
-        if (right < 0) right++;
+        if (right < 1) right++;
         while (right < currentLength) {
             Highlights.markArray(1, right - 1);
             Highlights.markArray(2, right);
@@ -86,9 +70,8 @@ final public class OptimizedZipperSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int i = 0;
         int gap = currentLength;
-        int run = 0;
         int first = 0;
-        while (gap > Math.max(2 * log2(currentLength), Math.sqrt(currentLength)) || run < Math.min(2 * log2(currentLength), Math.sqrt(currentLength))) {
+        while (gap > Math.max(2 * log2(currentLength), Math.sqrt(currentLength))) {
             gap = 1;
             i = first > 1 ? first - 1 : 0;
             while (i + gap < currentLength) {
@@ -98,8 +81,7 @@ final public class OptimizedZipperSort extends Sort {
                     gap++;
                 } else i++;
             }
-            run++;
         }
-        ending(array, first, currentLength);
+        if (gap != 1) ending(array, first, currentLength);
     }
 }

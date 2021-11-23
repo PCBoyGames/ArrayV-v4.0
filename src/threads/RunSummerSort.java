@@ -7,6 +7,7 @@ import sorts.exchange.ZipperSort;
 import sorts.hybrid.InPlaceStableCycleSort;
 import sorts.merge.OptimizedBubbleBogoMergeSort;
 import sorts.quick.SingularityQuickSort;
+import sorts.quick.UnstableSingularityQuickSort;
 import sorts.insert.GambitInsertionSort;
 import sorts.insert.OptimizedGambitInsertionSort;
 import sorts.templates.Sort;
@@ -105,16 +106,13 @@ final public class RunSummerSort extends MultipleSortThread {
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
         /*Sort InPlaceStableCycle = new InPlaceStableCycleSort(arrayVisualizer);
-        runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);
+        runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);*/
         
-        Sort OptimizedBubbleBogoMerge = new OptimizedBubbleBogoMergeSort(arrayVisualizer);
-        runIndividualSort(OptimizedBubbleBogoMerge, 0, array, 256, 1, false, shuffleName, 16, alt);*/
+        Sort SingularityQuick = new SingularityQuickSort(arrayVisualizer);
+        runIndividualSort(SingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
-        Sort Zipper = new ZipperSort(arrayVisualizer);
-        runIndividualSort(Zipper, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
-        Sort OptimizedZipper = new OptimizedZipperSort(arrayVisualizer);
-        runIndividualSort(OptimizedZipper, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        Sort UnstableSingularityQuick = new UnstableSingularityQuickSort(arrayVisualizer);
+        runIndividualSort(UnstableSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
     }
 

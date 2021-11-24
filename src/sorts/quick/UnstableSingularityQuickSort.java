@@ -105,7 +105,7 @@ final public class UnstableSingularityQuickSort extends Sort {
                         if (right - left == 1) {
                             if (!founditem) item = array[left - 1];
                             founditem = true;
-                            Writes.write(array, left - 1, array[left], 0.5, true, false);
+                            Writes.write(array, left - 1, array[left], 0.1, true, false);
                         } else brokeloop = true;
                         if (brokeloop && !brokencond) {
                             Writes.write(array, left - 1, item, 0.5, true, false);

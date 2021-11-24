@@ -2,15 +2,11 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
-import sorts.exchange.OptimizedZipperSort;
-import sorts.exchange.ZipperSort;
 import sorts.hybrid.InPlaceStableCycleSort;
-import sorts.merge.OptimizedBubbleBogoMergeSort;
-import sorts.quick.MagneticaQuickSort;
 import sorts.quick.SingularityQuickSort;
+import sorts.quick.UnboundedSingularityQuickSort;
+import sorts.quick.UnboundedUnstableSingularityQuickSort;
 import sorts.quick.UnstableSingularityQuickSort;
-import sorts.insert.GambitInsertionSort;
-import sorts.insert.OptimizedGambitInsertionSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -43,7 +39,7 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 2;
+    int numSorts = 4;
     boolean alternate_distributions = false;
     boolean seeds = true;
     
@@ -109,16 +105,19 @@ final public class RunSummerSort extends MultipleSortThread {
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
         /*Sort InPlaceStableCycle = new InPlaceStableCycleSort(arrayVisualizer);
-        runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);
-        
-        Sort Magnetica = new MagneticaQuickSort(arrayVisualizer);
-        runIndividualSort(Magnetica, 0, array, 512, 1, false, shuffleName, 16, alt);*/
+        runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);*/
         
         Sort SingularityQuick = new SingularityQuickSort(arrayVisualizer);
         runIndividualSort(SingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
+        Sort UnboundedSingularityQuick = new UnboundedSingularityQuickSort(arrayVisualizer);
+        runIndividualSort(UnboundedSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        
         Sort UnstableSingularityQuick = new UnstableSingularityQuickSort(arrayVisualizer);
         runIndividualSort(UnstableSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        
+        Sort UnboundedUnstableSingularityQuick = new UnboundedUnstableSingularityQuickSort(arrayVisualizer);
+        runIndividualSort(UnboundedUnstableSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
         
     }
 
@@ -327,6 +326,8 @@ final public class RunSummerSort extends MultipleSortThread {
 
                     arrayVisualizer.setCategory("PCBSAM for ArrayV");
                     arrayVisualizer.setHeading("");
+                    
+                    arrayVisualizer.updateNow();
 
                     RunSummerSort.this.executeSortList(array);
                     

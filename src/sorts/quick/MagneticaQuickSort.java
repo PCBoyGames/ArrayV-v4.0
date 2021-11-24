@@ -30,16 +30,14 @@ final public class MagneticaQuickSort extends Sort {
     protected void magnetica(int[] array, int left, int right) {
         int i, j, pl, pr;
         int[] stack = Writes.createExternalArray(right - left + 1);
-        int stackptr = 0;
+        int stackptr = 2;
         int p;
-        stackptr++; 
-        Writes.write(stack, stackptr, left, 0, false, true);
-        stackptr++; 
-        Writes.write(stack, stackptr, right, 0, false, true);
+        Writes.write(stack, 1, left, 0, false, true);
+        Writes.write(stack, 2, right, 0, false, true);
         do {
             right = stack[stackptr];
             left = stack[stackptr - 1];
-            stackptr = stackptr - 2;
+            stackptr -= 2;
             do {
                 j = right;
                 pl = left;
@@ -47,24 +45,24 @@ final public class MagneticaQuickSort extends Sort {
                 Writes.swap(array, (left + right) >> 1, pr, 2, true, false);
                 p = array[pr];
                 for (; pr < j; ) {
-                    pr = pr + 1;
+                    pr++;
                     int cmp = Reads.compareValues(p, array[pr]);
                     if (cmp > 0) {
                         Highlights.markArray(3, j);
                         Writes.swap(array, pl, pr, 2, true, false);
-                        pl = pl + 1;
+                        pl++;
                     } else if (cmp < 0) {
-                        for (; Reads.compareValues(p, array[j]) < 0; ) j = j - 1;
+                        for (; Reads.compareValues(p, array[j]) < 0; ) j--;
                         Highlights.markArray(3, pl);
                         if (pr < j) Writes.swap(array, pr, j, 2, true, false);
-                        j = j - 1;
-                        pr = pr - 1;
+                        j--;
+                        pr --;
                     }
                 }
                 j = pl - 1;
                 i = pr + 1;
                 if (i < right) {
-                    stackptr = stackptr + 2;
+                    stackptr += 2;
                     Writes.write(stack, stackptr - 1, i, 0, false, true);
                     Writes.write(stack, stackptr, right, 0, false, true);;
                 }

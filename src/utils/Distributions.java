@@ -106,7 +106,7 @@ public enum Distributions {
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(currentLen);
+            Random random = new Random(1);
 
             for(int i = 0; i < currentLen; i++)
                 array[i] = random.nextInt(currentLen);
@@ -295,7 +295,7 @@ public enum Distributions {
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(currentLen);
+            Random random = new Random(1);
 
             int[] perlinNoise = new int[currentLen];
 
@@ -564,7 +564,7 @@ public enum Distributions {
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(currentLen);
+            Random random = new Random(1);
 
             for (int i = 0; i < currentLen; i++) {
                 int r = random.nextInt(currentLen - i) + i;

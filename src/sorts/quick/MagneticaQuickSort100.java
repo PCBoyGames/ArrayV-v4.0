@@ -12,12 +12,12 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class MagneticaQuickSort extends Sort {
-    public MagneticaQuickSort(ArrayVisualizer arrayVisualizer) {
+final public class MagneticaQuickSort100 extends Sort {
+    public MagneticaQuickSort100(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Magnetica Quick");
-        this.setRunAllSortsName("Magnetica Quick Sort");
-        this.setRunSortName("Magnetica Quicksort");
+        this.setSortListName("Magnetica Quick (1.00)");
+        this.setRunAllSortsName("Magnetica Quick Sort (1.00)");
+        this.setRunSortName("Magnetica Quicksort (1.00)");
         this.setCategory("Quick Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -64,7 +64,7 @@ final public class MagneticaQuickSort extends Sort {
                 if (i < right) {
                     stackptr += 2;
                     Writes.write(stack, stackptr - 1, i, 0, false, true);
-                    Writes.write(stack, stackptr, right, 0, false, true);;
+                    Writes.write(stack, stackptr, right, 0, false, true);
                 }
                 right = j;
             } while (left < right);

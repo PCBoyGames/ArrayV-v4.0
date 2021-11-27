@@ -341,7 +341,7 @@ public enum Shuffles {
     },
     SEEDED_MOVED_ELEMENT {
         public String getName() {
-            return "Shifted Element";
+            return "Shifted Element (Seeded)";
         }
         @Override
         public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
@@ -357,6 +357,84 @@ public enum Shuffles {
             else {
                 IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
             }
+        }
+    },
+    MOVED_BLOCK {
+        public String getName() {
+            return "Shifted Block";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random();
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = blockSize * random.nextInt((currentLen/blockSize));
+                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
+                if (dest < start) {
+                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                }
+                else {
+                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                }
+                Highlights.clearMark(2);
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
+        }
+    },
+    SEEDED_MOVED_BLOCK {
+        public String getName() {
+            return "Shifted Block (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = blockSize * random.nextInt((currentLen/blockSize));
+                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
+                if (dest < start) {
+                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                }
+                else {
+                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                }
+                Highlights.clearMark(2);
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
         }
     },
     FIRST_LAST {
@@ -389,6 +467,18 @@ public enum Shuffles {
                 Writes.write(array, i, array[i - 1], delay ? 1 : 0, true, false);
             }
             Writes.write(array, 0, item, delay ? 1 : 0, true, false);
+        }
+    },
+    SWAPPED_ENDS {
+        public String getName() {
+            return "Swapped Ends";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            
+            Writes.swap(array, 0, currentLen - 1, delay ? 15 : 0, true, false);
         }
     },
     NOISY {

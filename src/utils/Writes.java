@@ -233,10 +233,17 @@ final public class Writes {
     }
 
     public void reversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
-        this.reversals++;
+        if (length - start < 0) System.err.println("There is a reversal of negative length.");
+        else if (length - start == 0) System.err.println("Self-reversal at " + start + ".");
+        else if (length - start < 3) {
+            System.err.println("A reversal of gap " + (length - start) + " can be done in a single swap.");
+            this.swap(array, start, length, sleep, mark, auxwrite);
+        } else {
+            this.reversals++;
 
-        for(int i = start; i < start + ((length - start + 1) / 2); i++) {
-            this.swap(array, i, start + length - i, sleep, mark, auxwrite);
+            for(int i = start; i < start + ((length - start + 1) / 2); i++) {
+                this.swap(array, i, start + length - i, sleep, mark, auxwrite);
+            }
         }
     }
     

@@ -2,11 +2,8 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.SnowballIterativePopSort;
 import sorts.hybrid.InPlaceStableCycleSort;
-import sorts.quick.SingularityQuickSort;
-import sorts.quick.UnboundedSingularityQuickSort;
-import sorts.quick.UnboundedUnstableSingularityQuickSort;
-import sorts.quick.UnstableSingularityQuickSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -39,9 +36,9 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 4;
+    int numSorts = 1;
     boolean alternate_distributions = false;
-    boolean seeds = true;
+    boolean seeds = false;
     
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -107,17 +104,8 @@ final public class RunSummerSort extends MultipleSortThread {
         /*Sort InPlaceStableCycle = new InPlaceStableCycleSort(arrayVisualizer);
         runIndividualSort(InPlaceStableCycle, 0, array, 1024, 1, false, shuffleName, 16, alt);*/
         
-        Sort SingularityQuick = new SingularityQuickSort(arrayVisualizer);
-        runIndividualSort(SingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
-        Sort UnboundedSingularityQuick = new UnboundedSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnboundedSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
-        Sort UnstableSingularityQuick = new UnstableSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnstableSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
-        Sort UnboundedUnstableSingularityQuick = new UnboundedUnstableSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnboundedUnstableSingularityQuick, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        Sort SnowballIterativePop = new SnowballIterativePopSort(arrayVisualizer);
+        runIndividualSort(SnowballIterativePop, 0, array, 512, 0.25, false, shuffleName, 16, alt);
         
     }
 

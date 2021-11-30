@@ -57,6 +57,6 @@ final public class AdaptiveBinaryClamberSort extends Sort {
                 }
             }
             right++;
-        } 
+        }
     }
 }

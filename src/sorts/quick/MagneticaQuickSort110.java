@@ -20,7 +20,7 @@ final public class MagneticaQuickSort110 extends Sort {
     public MagneticaQuickSort110(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Magnetica Quick (1.10)");
-        this.setRunAllSortsName("Magnetica Quick Sort (1.10)");
+        this.setRunAllSortsName("Magnetica Quick Sort (1.10, Nov. 26)");
         this.setRunSortName("Magnetica Quicksort (1.10)");
         this.setCategory("Quick Sorts");
         this.setComparisonBased(true);

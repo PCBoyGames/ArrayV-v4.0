@@ -87,7 +87,7 @@ final public class UnstableSingularityQuickSort extends Sort {
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int rep) {
         Writes.recordDepth(depth);
         Highlights.clearAllMarks();
-        if (end - start > 7 && depth < depthlimit && rep < 4) {
+        if (end - start > (depthlimit / 2) - 1 && depth < depthlimit && rep < depthlimit / 4) {
             int left = offset;
             while (Reads.compareIndices(array, left - 1, left, 0.05, true) <= 0 && left < end) left++;
             if (left < end) {
@@ -123,17 +123,17 @@ final public class UnstableSingularityQuickSort extends Sort {
                 boolean lsmall = left - start < end - (left + 1);
                 if (lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, start, start, left - 1, depth + 1, rep + 1);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, start, left - 1, depth + 1, rep + 1);
                     else singularityQuick(array, start, start, left - 1, depth + 1, 0);
                 }
                 if (end - (left + 1) > 0) {
                     Writes.recursion();
-                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, left + 1, left + 1, end, depth + 1, rep + 1);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, left + 1, left + 1, end, depth + 1, rep + 1);
                     else singularityQuick(array, left + 1, left + 1, end, depth + 1, 0);
                 }
                 if (!lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, start, start, left - 1, depth + 1, rep + 1);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, start, left - 1, depth + 1, rep + 1);
                     else singularityQuick(array, start, start, left - 1, depth + 1, 0);
                 }
             }

@@ -2,8 +2,7 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
-import sorts.quick.MagneticaQuickSort100;
-import sorts.quick.MagneticaQuickSort110;
+import sorts.quick.UnstableSingularityQuickSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -36,9 +35,9 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 2;
-    boolean alternate_distributions = true;
-    boolean seeds = true;
+    int numSorts = 1;
+    boolean alternate_distributions = false;
+    boolean seeds = false;
     
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -101,11 +100,8 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
-        Sort Mag100 = new MagneticaQuickSort100(arrayVisualizer);
-        runIndividualSort(Mag100, 19, array, 512, 1, false, shuffleName, 16, alt);
-        
-        Sort Mag110 = new MagneticaQuickSort110(arrayVisualizer);
-        runIndividualSort(Mag110, 19, array, 512, 1, false, shuffleName, 16, alt);
+        Sort UnstableSingularity = new UnstableSingularityQuickSort(arrayVisualizer);
+        runIndividualSort(UnstableSingularity, 0, array, 100000, 1, false, shuffleName, 16, alt);
         
     }
 
@@ -312,7 +308,7 @@ final public class RunSummerSort extends MultipleSortThread {
                     arrayVisualizer.updateNow();
                     Thread.sleep(3000);
 
-                    arrayVisualizer.setCategory("Sanmayce");
+                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
                     arrayVisualizer.setHeading("");
                     
                     arrayVisualizer.updateNow();

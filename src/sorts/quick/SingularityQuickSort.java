@@ -108,7 +108,7 @@ final public class SingularityQuickSort extends Sort {
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int rep) {
         Writes.recordDepth(depth);
         Highlights.clearAllMarks();
-        if (end - start > 7 && depth < depthlimit && rep < 4) {
+        if (end - start > (depthlimit / 2) - 1 && depth < depthlimit && rep < depthlimit / 4) {
             int left = offset;
             while (Reads.compareIndices(array, left - 1, left, 0.05, true) <= 0 && left < end) left++;
             if (left < end) {

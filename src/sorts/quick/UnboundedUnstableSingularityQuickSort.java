@@ -27,14 +27,15 @@ final public class UnboundedUnstableSingularityQuickSort extends Sort {
         this.setBogoSort(false);
     }
     
-    protected void singularityQuick(int[] array, int start, int end, int depth) {
+    protected void singularityQuick(int[] array, int start, int offset, int end, int depth) {
         Writes.recordDepth(depth);
         Highlights.clearAllMarks();
-        int left = start;
+        int left = offset;
         while (Reads.compareIndices(array, left - 1, left, 0.05, true) <= 0 && left < end) left++;
         if (left < end) {
             int pivot = array[left - 1];
             int pivotpos = left - 1;
+            int originalpos = left - 1;
             int right = left + 1;
             int item = 1;
             boolean brokeloop = false;
@@ -65,21 +66,21 @@ final public class UnboundedUnstableSingularityQuickSort extends Sort {
             boolean lsmall = left - start < end - (left + 1);
             if (lsmall && (left - 1) - start > 0) {
                 Writes.recursion();
-                singularityQuick(array, start, left - 1, depth + 1);
+                singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1);
             }
             if (end - (left + 1) > 0) {
                 Writes.recursion();
-                singularityQuick(array, left + 1, end, depth + 1);
+                singularityQuick(array, left + 1, left + 1, end, depth + 1);
             }
             if (!lsmall && (left - 1) - start > 0) {
                 Writes.recursion();
-                singularityQuick(array, start, left - 1, depth + 1);
+                singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1);
             }
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        singularityQuick(array, 1, currentLength, 0);
+        singularityQuick(array, 1, 1, currentLength, 0);
     }
 }

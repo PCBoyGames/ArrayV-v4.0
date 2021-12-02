@@ -1,5 +1,7 @@
 package sorts.quick;
 
+import java.util.Random;
+
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
@@ -53,6 +55,14 @@ final public class UnstableSingularityQuickSort extends Sort {
         return reverse;
     }
     
+    protected void shuffle(int[] array, int start, int end, int extra) {
+        Random random = new Random(extra * (extra - start));
+        for (int i = start; i < end; i++) {
+            int randomIndex = random.nextInt(end - i) + i;
+            if (randomIndex != i) Writes.swap(array, i, randomIndex, 0.1, true, false);
+        }
+    }
+    
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -84,15 +94,22 @@ final public class UnstableSingularityQuickSort extends Sort {
         }
     }
     
-    protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int rep) {
-        Writes.recordDepth(depth);
+    protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int realdepth, int rep) {
+        Writes.recordDepth(realdepth);
+        if (end - start > (depthlimit / 2) - 1 && (depth == depthlimit || rep == 4)) {
+            shuffle(array, start - 1, end - 1, offset);
+            offset = start;
+            depth = 0;
+            rep = 0;
+        }
         Highlights.clearAllMarks();
-        if (end - start > (depthlimit / 2) - 1 && depth < depthlimit && rep < depthlimit / 4) {
+        if (end - start > (depthlimit / 2) - 1 && depth < depthlimit) {
             int left = offset;
             while (Reads.compareIndices(array, left - 1, left, 0.05, true) <= 0 && left < end) left++;
             if (left < end) {
                 int pivot = array[left - 1];
                 int pivotpos = left - 1;
+                int originalpos = left - 1;
                 int right = left + 1;
                 int item = 1;
                 boolean brokeloop = false;
@@ -123,27 +140,44 @@ final public class UnstableSingularityQuickSort extends Sort {
                 boolean lsmall = left - start < end - (left + 1);
                 if (lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, start, left - 1, depth + 1, rep + 1);
-                    else singularityQuick(array, start, start, left - 1, depth + 1, 0);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, rep + 1);
+                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, 0);
                 }
                 if (end - (left + 1) > 0) {
                     Writes.recursion();
-                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, left + 1, left + 1, end, depth + 1, rep + 1);
-                    else singularityQuick(array, left + 1, left + 1, end, depth + 1, 0);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, left + 1, left + 1, end, depth + 1, realdepth + 1, rep + 1);
+                    else singularityQuick(array, left + 1, left + 1, end, depth + 1, realdepth + 1, 0);
                 }
                 if (!lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, start, left - 1, depth + 1, rep + 1);
-                    else singularityQuick(array, start, start, left - 1, depth + 1, 0);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, rep + 1);
+                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, 0);
                 }
             }
         } else binsert(array, start, end);
+    }
+    
+    protected void insert(int[] array, int start, int end) {
+        for (int i = end; i >= start; i--) {
+			int current = array[i];
+			int pos = i + 1;
+            boolean change = false;
+			while (pos <= end && Reads.compareValues(array[pos], current) < 0) {
+				Writes.write(array, pos - 1, array[pos], 0.01, true, false);
+				pos++;
+                change = true;
+			}
+			if (change) Writes.write(array, pos - 1, current, 0.01, true, false);
+		}
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         depthlimit = (int) Math.min(Math.sqrt(currentLength), 2 * log2(currentLength));
         int realstart = unstablepd(array, 0, currentLength);
-        if (realstart + 1 < currentLength) singularityQuick(array, 1, realstart + 1, currentLength, 0, 0);
+        if (realstart + 1 < currentLength) {
+            singularityQuick(array, 1, realstart + 1, currentLength, 0, 0, 0);
+            insert(array, 0, currentLength - 1);
+        }
     }
 }

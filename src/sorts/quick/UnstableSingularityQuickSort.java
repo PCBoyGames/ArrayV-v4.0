@@ -140,8 +140,8 @@ final public class UnstableSingularityQuickSort extends Sort {
                 boolean lsmall = left - start < end - (left + 1);
                 if (lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, rep + 1);
-                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, 0);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, realdepth + 1, rep + 1);
+                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, realdepth + 1, 0);
                 }
                 if (end - (left + 1) > 0) {
                     Writes.recursion();
@@ -150,25 +150,11 @@ final public class UnstableSingularityQuickSort extends Sort {
                 }
                 if (!lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, rep + 1);
-                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, realdepth + 1, 0);
+                    if (end - (depthlimit / 4) <= left || left <= start + (depthlimit / 4)) singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, realdepth + 1, rep + 1);
+                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, realdepth + 1, 0);
                 }
             }
         } else binsert(array, start, end);
-    }
-    
-    protected void insert(int[] array, int start, int end) {
-        for (int i = end; i >= start; i--) {
-			int current = array[i];
-			int pos = i + 1;
-            boolean change = false;
-			while (pos <= end && Reads.compareValues(array[pos], current) < 0) {
-				Writes.write(array, pos - 1, array[pos], 0.01, true, false);
-				pos++;
-                change = true;
-			}
-			if (change) Writes.write(array, pos - 1, current, 0.01, true, false);
-		}
     }
 
     @Override
@@ -177,7 +163,6 @@ final public class UnstableSingularityQuickSort extends Sort {
         int realstart = unstablepd(array, 0, currentLength);
         if (realstart + 1 < currentLength) {
             singularityQuick(array, 1, realstart + 1, currentLength, 0, 0, 0);
-            insert(array, 0, currentLength - 1);
         }
     }
 }

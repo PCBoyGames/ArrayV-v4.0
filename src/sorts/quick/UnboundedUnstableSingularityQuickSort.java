@@ -66,7 +66,7 @@ final public class UnboundedUnstableSingularityQuickSort extends Sort {
             boolean lsmall = left - start < end - (left + 1);
             if (lsmall && (left - 1) - start > 0) {
                 Writes.recursion();
-                singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1);
+                singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1);
             }
             if (end - (left + 1) > 0) {
                 Writes.recursion();
@@ -74,7 +74,7 @@ final public class UnboundedUnstableSingularityQuickSort extends Sort {
             }
             if (!lsmall && (left - 1) - start > 0) {
                 Writes.recursion();
-                singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1);
+                singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1);
             }
         }
     }

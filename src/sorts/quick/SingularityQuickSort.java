@@ -146,8 +146,8 @@ final public class SingularityQuickSort extends Sort {
                 boolean lsmall = left - start < end - (left + 1);
                 if (lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, rep + 1);
-                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, 0);
+                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, rep + 1);
+                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, 0);
                 }
                 if (end - (left + 1) > 0) {
                     Writes.recursion();
@@ -156,8 +156,8 @@ final public class SingularityQuickSort extends Sort {
                 }
                 if (!lsmall && (left - 1) - start > 0) {
                     Writes.recursion();
-                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, rep + 1);
-                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos : start, left - 1, depth + 1, 0);
+                    if (end - 4 <= left || left <= start + 4) singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, rep + 1);
+                    else singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1, 0);
                 }
             }
         } else binsert(array, start, end);

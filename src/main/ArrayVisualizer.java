@@ -182,7 +182,7 @@ final public class ArrayVisualizer {
     private volatile boolean hidden;
     private volatile boolean frameSkipped;
     
-    private volatile boolean moreStats = false;
+    private volatile boolean moreStats = true;
 
     public ArrayVisualizer() {
         this.window = new JFrame();

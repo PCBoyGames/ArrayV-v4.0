@@ -16,8 +16,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 final public class MagneticaQuickSort extends Sort {
     
     InsertionSort insert = new InsertionSort(arrayVisualizer);
-    
-    boolean midpivot = false;
+
     boolean medianpivot = false;
     
     boolean standalone = false;
@@ -119,8 +118,7 @@ final public class MagneticaQuickSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int variant) {
-        if (variant == 1 || variant == 2) midpivot = true;
-        else medianpivot = true;
+        if (variant == 3 || variant == 4) medianpivot = true;
         if (variant == 1 || variant == 3) standalone = true;
         else insertion = true; 
         magnetica(array, 0, currentLength - 1);

@@ -42,7 +42,7 @@ final public class RunSummerSort extends MultipleSortThread {
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        sortCount = numSorts * 50;
+        sortCount = numSorts * 48;
         categoryCount = sortCount;
     }
 
@@ -101,7 +101,7 @@ final public class RunSummerSort extends MultipleSortThread {
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
         Sort UnstableSingularity = new UnstableSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnstableSingularity, 0, array, 100000, 1, false, shuffleName, 16, alt);
+        runIndividualSort(UnstableSingularity, 0, array, 1048576, 1e9, false, shuffleName, 16, alt);
         
     }
 
@@ -165,7 +165,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REVERSE)
                                          .addSingle(Shuffles.SMOOTH); // 16
-        RunSummerSort.this.runSort(array, "Smooth Heap", true);
+        //RunSummerSort.this.runSort(array, "Smooth Heap", true);
 
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REVERSE)
                                          .addSingle(Shuffles.POPLAR); // 17
@@ -191,7 +191,7 @@ final public class RunSummerSort extends MultipleSortThread {
         RunSummerSort.this.runSort(array, "Perlin Noise Curve", false);
 
         arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_PERLIN_NOISE : Distributions.PERLIN_NOISE); // 24
-        RunSummerSort.this.runSort(array, "Perlin Noise", false);
+        //RunSummerSort.this.runSort(array, "Perlin Noise", false);
 
         arrayVisualizer.getArrayManager().setDistribution(Distributions.LINEAR); // 25
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.TRIANGULAR);

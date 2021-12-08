@@ -33,7 +33,8 @@ SOFTWARE.
 //TODO: Create abstract "fetcher" class for both sound effects and custom image
 final public class ImgFetcher extends Fetcher {
     public ImgFetcher() {
-        super("pic.jpg");
+        //super("pic.jpg");
+        super("madhouse.png");
     }
     
     public ImgFetcher(File file) {

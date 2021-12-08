@@ -71,7 +71,8 @@ final public class CustomImage extends Visual {
     private volatile ImageFrame pictureMenu;
     private volatile LoadingDialog infoMsg;
     
-    final private String defaultArtwork = "Summer Sorting by aphitorite";
+    //final private String defaultArtwork = "Summer Sorting by aphitorite";
+    final private String defaultArtwork = "The Madhouse Logo";
     private String currentImage;
     private File imageFile;
     
@@ -151,7 +152,8 @@ final public class CustomImage extends Visual {
         if(showInfoMsg) {
             String message;
             if(defaultImage) {
-                message = "resources/image/pic.jpg";
+                //message = "resources/image/pic.jpg";
+                message = "resources/image/madhouse.png";
             }
             else {
                 message = this.currentImage;
@@ -180,7 +182,8 @@ final public class CustomImage extends Visual {
         catch (IllegalArgumentException e) {
             success = false;
             if(defaultImage) {
-                JErrorPane.invokeCustomErrorMessage("image/pic.jpg missing: Couldn't find the default image for the program's 'Custom Image' visual!");
+                //JErrorPane.invokeCustomErrorMessage("image/pic.jpg missing: Couldn't find the default image for the program's 'Custom Image' visual!");
+                JErrorPane.invokeCustomErrorMessage("image/madhouse.png missing: Couldn't find the default image for the program's 'Custom Image' visual!");
             }
             else {
                 JErrorPane.invokeCustomErrorMessage(this.currentImage + " missing: ArrayV couldn't find your picture at the given location!");
@@ -207,7 +210,8 @@ final public class CustomImage extends Visual {
             catch (Exception e) {
                 success = false;
                 if(defaultImage) {
-                    JErrorPane.invokeCustomErrorMessage("image/pic.jpg invalid or corrupt: The file for the program's 'Custom Image' visual was not recognized as a valid image!");
+                    //JErrorPane.invokeCustomErrorMessage("image/pic.jpg invalid or corrupt: The file for the program's 'Custom Image' visual was not recognized as a valid image!");
+                    JErrorPane.invokeCustomErrorMessage("image/madhouse.png invalid or corrupt: The file for the program's 'Custom Image' visual was not recognized as a valid image!");
                 }
                 else {
                     JErrorPane.invokeCustomErrorMessage(this.currentImage + " invalid or corrupt: Your picture was not recognized as a valid image!");

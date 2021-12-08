@@ -13,6 +13,13 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class UnboundedSingularityQuickSort extends Sort {
+    
+    SingularityQuickSort justsortit = new SingularityQuickSort(arrayVisualizer);
+    
+    int full;
+    
+    boolean sorted = false;
+    
     public UnboundedSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Singularity Quick (Unbounded)");
@@ -32,7 +39,8 @@ final public class UnboundedSingularityQuickSort extends Sort {
         Highlights.clearAllMarks();
         int left = offset;
         while (Reads.compareIndices(array, left - 1, left, 0.05, true) <= 0 && left < end) left++;
-        if (left < end) {
+        // I have to bound it just a little, else the stack overflows.
+        if (left < end && depth < 2047 && !sorted) {
             int right = left + 1;
             int pull = 1;
             int pivot = array[left - 1];
@@ -77,11 +85,15 @@ final public class UnboundedSingularityQuickSort extends Sort {
                 Writes.recursion();
                 singularityQuick(array, start, originalpos - 1 > start ? originalpos - 1 : start, left - 1, depth + 1);
             }
+        } else if (!sorted) {
+            justsortit.runSort(array, full, 0);
+            sorted = true;
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
+        full = currentLength;
         singularityQuick(array, 1, 1, currentLength, 0);
     }
 }

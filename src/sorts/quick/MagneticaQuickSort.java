@@ -34,14 +34,14 @@ final public class MagneticaQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setQuestion("Enter variant:\n1: Mid Pivot Standalone\n2: Mid Pivot + Insertion\n3: Mo3/7 Pivot Standalone\n4: Mo3/7 Pivot + Insertion\n(Default is 1)", 3);
+        this.setQuestion("Enter variant:\n1: Mid Pivot Standalone\n2: Mid Pivot + Insertion\n3: Mo3/7 Pivot Standalone\n4: Mo3/7 Pivot + Insertion\n(Default is 4)", 4);
     }
     
     protected void magnetica(int[] array, int left, int right) {
         int threshold = insertion ? 17 : 0;
         int i, j, pl, pr;
         int entries = right - left + 1;
-        int[] stack = Writes.createExternalArray(right - left + 1);
+        int[] stack = new int[entries];
         int stackptr = 2;
         int p;
         int lback = left;

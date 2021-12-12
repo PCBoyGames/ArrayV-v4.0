@@ -39,7 +39,7 @@ final public class FateSort extends Sort {
             right = left + 1;
             highestlow = 0;
             while (right <= bound) {
-                Highlights.markArray(1, left - 1);
+                Highlights.markArray(1, left > 1 ? left - 1 : 0);
                 Highlights.markArray(2, right - 1);
                 Delays.sleep(0.125);
                 if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {

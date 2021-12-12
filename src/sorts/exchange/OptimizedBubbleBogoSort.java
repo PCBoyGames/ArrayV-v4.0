@@ -29,6 +29,7 @@ final public class OptimizedBubbleBogoSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
+        delay = 0.05;
         int start = 0;
         int end = currentLength - 1;
         while (Reads.compareIndices(array, start, start + 1, delay, true) <= 0 && start <= end) start++;

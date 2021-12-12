@@ -43,6 +43,7 @@ public final class ExchangeChirSort extends BogoSorting {
     
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
+        delay = 0.1;
         while (!isArraySorted(array, currentLength)) {
             int choice = randInt(1, 9);
             

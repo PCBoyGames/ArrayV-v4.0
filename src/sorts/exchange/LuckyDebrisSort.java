@@ -39,26 +39,13 @@ public final class LuckyDebrisSort extends BogoSorting {
         int i = 0;
         int start = 0;
         int end = 0;
-        int first = 1;
-        int last = currentLength - 1;
-        int nextlast = currentLength - 1;
-        boolean firstfound = false;
         boolean anyrev = true;
         while (anyrev) {
             anyrev = false;
-            firstfound = false;
-            if (first > 0) i = first - 1;
-            else i = 0;
-            while (i < last) {
+            i = 0;
+            while (i < currentLength - 1) {
                 start = i;
-                while (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0 && i < last) {
-                    if (!firstfound) {
-                        first = i;
-                        firstfound = true;
-                    }
-                    nextlast = i + 1;
-                    i++;
-                }
+                while (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0 && i < currentLength - 1) i++;
                 end = i;
                 if (start != end) {
                     if (randInt(1, 101) <= luck) {
@@ -69,8 +56,6 @@ public final class LuckyDebrisSort extends BogoSorting {
                 }
                 i++;
             }
-            if (nextlast + 1 < currentLength) last = nextlast + 1;
-            else last = currentLength - 1;
         }
     }
 }

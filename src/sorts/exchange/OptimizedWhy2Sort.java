@@ -97,6 +97,7 @@ final public class OptimizedWhy2Sort extends Sort {
     }
     
     protected void method(int[] array, int start, int end, int pdir, int itr) {
+        Writes.recordDepth(itr - 1);
         globalpdir = pdir;
         int len = 2;
         int index = start;
@@ -109,18 +110,27 @@ final public class OptimizedWhy2Sort extends Sort {
                     int cmp = Reads.compareIndices(array, index, index + 1, 0.001, true);
                     if (cmp == dir * pdir) Writes.swap(array, index, index + 1, 0.001, true, false);
                     else if (cmp == 0) lessunique = true;
-                } else if (itr < 20) method(array, index, index + len, pdir, itr + 1);
+                } else if (itr < 20) {
+                    Writes.recursion();
+                    method(array, index, index + len, pdir, itr + 1);
+                }
                 else pd(array, index, index + len, dir * pdir);
                 index += len;
                 dir *= -1;
             }
             if (index != end) {
-                if (itr < 20) method(array, index, end, dir * pdir, itr + 1);
+                if (itr < 20) {
+                    Writes.recursion();
+                    method(array, index, end, dir * pdir, itr + 1);
+                }
                 else pd(array, index, end, dir * pdir);
             }
             len *= 2;
         }
-        if (itr < 20) method(array, start, end, pdir, itr + 1);
+        if (itr < 20) {
+            Writes.recursion();
+            method(array, start, end, pdir, itr + 1);
+        }
         else pd(array, start, end, pdir);
     }
     

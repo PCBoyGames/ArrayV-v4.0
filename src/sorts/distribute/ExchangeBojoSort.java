@@ -29,16 +29,23 @@ public final class ExchangeBojoSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
+        delay = 0.001;
         while (!this.isArraySorted(array, currentLength)) {
-            int i1 = randInt(0, currentLength);
-            int i2 = randInt(0, currentLength);
-            int temp;
-            if (i1 > i2) {
-                temp = i1;
-                i1 = i2;
-                i2 = temp;
+            boolean noswap = true;
+            while (noswap) {
+                int i1 = randInt(0, currentLength);
+                int i2 = randInt(0, currentLength);
+                int temp;
+                if (i1 > i2) {
+                    temp = i1;
+                    i1 = i2;
+                    i2 = temp;
+                }
+                if (Reads.compareIndices(array, i1, i2, delay, true) > 0) {
+                    Writes.reversal(array, i1, i2, delay, true, false);
+                    noswap = false;
+                }
             }
-            if (Reads.compareIndices(array, i1, i2, delay, true) > 0) Writes.reversal(array, i1, i2, delay, true, false);
         }
     }
 }

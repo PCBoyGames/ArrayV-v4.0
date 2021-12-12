@@ -1,5 +1,7 @@
 package sorts.quick;
 
+import java.util.Random;
+
 import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
@@ -16,7 +18,9 @@ PORTED TO ARRAYV BY PCBOYGAMES
 final public class MagneticaQuickSort extends Sort {
     
     InsertionSort insert = new InsertionSort(arrayVisualizer);
+    Random random = new Random();
 
+    boolean randompivot = false;
     boolean medianpivot = false;
     
     boolean standalone = false;
@@ -34,7 +38,7 @@ final public class MagneticaQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setQuestion("Enter variant:\n1: Mid Pivot Standalone\n2: Mid Pivot + Insertion\n3: Mo3/7 Pivot Standalone\n4: Mo3/7 Pivot + Insertion\n(Default is 4)", 4);
+        this.setQuestion("Enter variant:\n1: Mid Pivot Standalone\n2: Mid Pivot + Insertion\n3: Mo3/7 Pivot Standalone\n4: Mo3/7 Pivot + Insertion\n5: Random Pivot Standalone\n6: Random Pivot + Insertion\n(Default is 4)", 4);
     }
     
     protected void magnetica(int[] array, int left, int right) {
@@ -70,7 +74,8 @@ final public class MagneticaQuickSort extends Sort {
                         insert.customInsertSort(array, midmid, midmid + 7, 0.5, false);
                         Writes.swap(array, midmid + 3, pr, 2, true, false);
                     }
-                } else Writes.swap(array, (left + right) >> 1, pr, 2, true, false);
+                } else if (randompivot) Writes.swap(array, random.nextInt(right - left) + left, pr, 2, true, false);
+                else Writes.swap(array, (left + right) >> 1, pr, 2, true, false);
                 p = array[pr];
                 for (; pr < j; ) {
                     pr++;
@@ -112,14 +117,15 @@ final public class MagneticaQuickSort extends Sort {
     
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 4) return 1;
+        if (answer < 1 || answer > 6) return 4;
         return answer;
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int variant) {
         if (variant == 3 || variant == 4) medianpivot = true;
-        if (variant == 1 || variant == 3) standalone = true;
+        if (variant == 5 || variant == 6) randompivot = true;
+        if (variant == 1 || variant == 3 || variant == 5) standalone = true;
         else insertion = true; 
         magnetica(array, 0, currentLength - 1);
     }

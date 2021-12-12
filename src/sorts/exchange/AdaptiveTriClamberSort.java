@@ -27,7 +27,8 @@ final public class AdaptiveTriClamberSort extends Sort {
         this.setBogoSort(false);
     }
     
-    protected int triSearch(int[] arr, int l, int h, int val) {
+    protected int triSearch(int[] arr, int l, int h, int val, int depth) {
+        Writes.recordDepth(depth);
         int mid = l + ((h-l) / 2);
         Highlights.markArray(1, l);
         Highlights.markArray(2, h);
@@ -36,8 +37,14 @@ final public class AdaptiveTriClamberSort extends Sort {
         if (Reads.compareValues(val, arr[l]) < 0) return l;
         else {
             if (Reads.compareValues(val, arr[h]) < 0) {
-                if (Reads.compareValues(val, arr[mid]) < 0) return triSearch(arr, l+1, mid-1, val);
-                else return triSearch(arr, mid+1, h-1, val);
+                if (Reads.compareValues(val, arr[mid]) < 0) {
+                    Writes.recursion();
+                    return triSearch(arr, l+1, mid-1, val, depth + 1);
+                }
+                else {
+                    Writes.recursion();
+                    return triSearch(arr, mid+1, h-1, val, depth + 1);
+                }
             } else return h+1;
         }
     }
@@ -51,7 +58,7 @@ final public class AdaptiveTriClamberSort extends Sort {
             Highlights.markArray(2, right);
             Delays.sleep(1);
             if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-                left = triSearch(array, 0, right - 1, array[right]);
+                left = triSearch(array, 0, right - 1, array[right], 0);
                 Highlights.clearMark(3);
                 while (left < right) {
                     Writes.swap(array, left, right, 0.2, true, false);

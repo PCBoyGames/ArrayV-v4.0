@@ -16,7 +16,8 @@ public abstract class ShircleSorting extends Sort {
         super(arrayVisualizer);
     }
 	protected int end;
-    protected int shircleSortRoutine(int[] array, int lo, int hi, int swapCount, double sleep) {        
+    protected int shircleSortRoutine(int[] array, int lo, int hi, int swapCount, double sleep, int depth) { 
+        Writes.recordDepth(depth);       
         if (lo == hi) return swapCount;
         int high = hi;
         int low = lo;
@@ -39,8 +40,12 @@ public abstract class ShircleSorting extends Sort {
             lo++;
             hi--;
         }
-        swapCount = shircleSortRoutine(array, low, low + mid, swapCount, sleep);
-		if(low + mid + 1 < end) swapCount = shircleSortRoutine(array, low + mid + 1, high, swapCount, sleep);
+        Writes.recursion();
+        swapCount = shircleSortRoutine(array, low, low + mid, swapCount, sleep, depth + 1);
+		if(low + mid + 1 < end) {
+            Writes.recursion();
+            swapCount = shircleSortRoutine(array, low + mid + 1, high, swapCount, sleep, depth + 1);
+        }
         return swapCount;
     }
 }

@@ -29,7 +29,7 @@ final public class ShircleSortRecursive extends ShircleSorting {
     
     public void singleRoutine(int[] array, int length) {
         end = length;
-        shircleSortRoutine(array, 0, length - 1, 0, 0.01);
+        shircleSortRoutine(array, 0, length - 1, 0, 0.01, 0);
     }
     
     @Override
@@ -38,6 +38,6 @@ final public class ShircleSortRecursive extends ShircleSorting {
     	int n = 1;
     	for(; n < sortLength; n*=2);
         int numberOfSwaps = 0;
-        do numberOfSwaps = shircleSortRoutine(array, 0, n - 1, 0, 0.01); while (numberOfSwaps != 0);
+        do numberOfSwaps = shircleSortRoutine(array, 0, n - 1, 0, 0.01, 0); while (numberOfSwaps != 0);
     }
 }

@@ -29,7 +29,7 @@ final public class ClericSortRecursive extends ClericSorting {
     
     public void singleRoutine(int[] array, int length) {
         end = length;
-        clericSortRoutine(array, 0, length - 1, 0, 0.05);
+        clericSortRoutine(array, 0, length - 1, 0, 0.05, 0);
     }
     
     @Override
@@ -38,6 +38,6 @@ final public class ClericSortRecursive extends ClericSorting {
     	int n = 1;
     	for(; n < sortLength; n*=2);
         int numberOfSwaps = 0;
-        do numberOfSwaps = clericSortRoutine(array, 0, n - 1, 0, 0.05); while (numberOfSwaps != 0);
+        do numberOfSwaps = clericSortRoutine(array, 0, n - 1, 0, 0.05, 0); while (numberOfSwaps != 0);
     }
 }

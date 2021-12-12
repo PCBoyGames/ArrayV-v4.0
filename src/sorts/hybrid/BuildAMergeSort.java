@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // Replace this with the path of the target algorithm.
-import sorts.distribute.BirthdaySort;
+import sorts.distribute.FlightSort;
 
 /*
 
@@ -18,7 +18,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class BuildAMergeSort extends Sort {
     
     // Replace both filenames with the filename of the target algorithm.
-    BirthdaySort sort = new BirthdaySort(arrayVisualizer);
+    FlightSort sort = new FlightSort(arrayVisualizer);
     
     // Optional for most sorts, but required for some.
     int NUMBER_Base = 2;

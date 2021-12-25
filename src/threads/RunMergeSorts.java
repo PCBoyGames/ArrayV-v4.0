@@ -56,7 +56,6 @@ final public class RunMergeSorts extends MultipleSortThread {
     private Sort NewShuffleMergeSort;
     private Sort OptimizedPancakeSort;
     private Sort RotateMergeSortParallel;
-    private Sort StacklessRotateMergeSort;
     private Sort WeavedMergeSort;
     
     public RunMergeSorts(ArrayVisualizer arrayVisualizer) {
@@ -88,7 +87,6 @@ final public class RunMergeSorts extends MultipleSortThread {
         NewShuffleMergeSort       = new       NewShuffleMergeSort(this.arrayVisualizer);
         OptimizedPancakeSort      = new      OptimizedPancakeSort(this.arrayVisualizer);
         RotateMergeSortParallel   = new   RotateMergeSortParallel(this.arrayVisualizer);
-        StacklessRotateMergeSort  = new  StacklessRotateMergeSort(this.arrayVisualizer);
         WeavedMergeSort           = new           WeavedMergeSort(this.arrayVisualizer);
     }
 

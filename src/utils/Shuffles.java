@@ -962,6 +962,40 @@ public enum Shuffles {
             this.shuffle(array, currentLen/2, currentLen, delay ? 0.5 : 0, Writes);
         }
     },
+    PERFECT_QUICK {
+        public String getName() {
+            return "Quick Partitions";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            this.sort(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            
+            for (int point = currentLen; point >= 1; point /= 2) {
+                this.classicshuffle(array, (point / 2), point, delay ? 0.5 : 0, Writes);
+            }
+        }
+    },
+    SEEDED_PERFECT_QUICK {
+        public String getName() {
+            return "Quick Partitions (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            this.sort(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            
+            for (int point = currentLen; point >= 1; point /= 2) {
+                this.shuffle(array, (point / 2), point, delay ? 0.5 : 0, Writes);
+            }
+        }
+    },
     STRANGE_PASS {
         public String getName() {
             return "First Strange Pass";

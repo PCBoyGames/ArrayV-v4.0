@@ -143,7 +143,7 @@ public abstract class BogoSorting extends Sort {
      */
     protected boolean isRangeSorted(int[] array, int start, int end, boolean mark, boolean markLast) {
         for (int i = start; i < end - 1; ++i) {
-            if (Reads.compareIndices(array, i, i + 1, this.delay, mark) > 0) {
+            if (Reads.compareIndices(array, i, i + 1, 0, mark) > 0) {
                 if (markLast) Highlights.markArray(3, i + 1);
                 return false;
             }
@@ -196,11 +196,11 @@ public abstract class BogoSorting extends Sort {
      */
     protected boolean isRangePartitioned(int[] array, int start, int pivot, int end) {
         for (int i = start; i < pivot; i++) {
-            if (Reads.compareIndices(array, i, pivot, this.delay, true) > 0)
+            if (Reads.compareIndices(array, i, pivot, 0, true) > 0)
                 return false;
         }
         for (int i = pivot + 1; i < end; i++) {
-            if (Reads.compareIndices(array, pivot, i, this.delay, true) > 0)
+            if (Reads.compareIndices(array, pivot, i, 0, true) > 0)
                 return false;
         }
         return true;
@@ -246,15 +246,11 @@ public abstract class BogoSorting extends Sort {
         Highlights.markArray(1, start);
         int lowMax = array[start];
         for (int i = start+1; i < mid; ++i) {
-            Highlights.markArray(1, i);
-            Delays.sleep(this.delay);
             if (Reads.compareValues(lowMax, array[i]) < 0)
                 lowMax = array[i];
         }
 
         for (int i = mid; i < end; ++i) {
-            Highlights.markArray(1, i);
-            Delays.sleep(this.delay);
             if (Reads.compareValues(lowMax, array[i]) > 0)
                 return false;
         }

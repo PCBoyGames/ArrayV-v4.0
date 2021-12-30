@@ -62,7 +62,8 @@ public final class QuickBogoSort extends BogoSorting {
         return pivot;
     }
 
-    private void quickBogo(int[] array, int start, int end) {
+    private void quickBogo(int[] array, int start, int end, int depth) {
+        Writes.recordDepth(depth);
         if (start >= end-1)
             return;
 
@@ -73,12 +74,14 @@ public final class QuickBogoSort extends BogoSorting {
         while (!isRangePartitioned(array, start, pivot, end))
             pivot = quickBogoSwap(array, start, pivot, end);
 
-        quickBogo(array, start, pivot);
-        quickBogo(array, pivot+1, end);
+        Writes.recursion();
+        quickBogo(array, start, pivot, depth + 1);
+        Writes.recursion();
+        quickBogo(array, pivot+1, end, depth + 1);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        quickBogo(array, 0, sortLength);
+        quickBogo(array, 0, sortLength, 0);
     }
 }

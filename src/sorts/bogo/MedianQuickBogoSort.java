@@ -49,7 +49,8 @@ public final class MedianQuickBogoSort extends BogoSorting {
         this.setBogoSort(true);
     }
 
-    private void medianQuickBogo(int[] array, int start, int end) {
+    private void medianQuickBogo(int[] array, int start, int end, int depth) {
+        Writes.recordDepth(depth);
         if (start >= end-1)
             return;
 
@@ -57,12 +58,14 @@ public final class MedianQuickBogoSort extends BogoSorting {
         while (!isRangeSplit(array, start, mid, end))
             this.bogoSwap(array, start, end, false);
 
-        medianQuickBogo(array, start, mid);
-        medianQuickBogo(array, mid, end);
+        Writes.recursion();
+        medianQuickBogo(array, start, mid, depth + 1);
+        Writes.recursion();
+        medianQuickBogo(array, mid, end, depth + 1);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        medianQuickBogo(array, 0, sortLength);
+        medianQuickBogo(array, 0, sortLength, 0);
     }
 }

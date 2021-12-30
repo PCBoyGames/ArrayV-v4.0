@@ -41,8 +41,9 @@ final public class BitonicSortRecursive extends Sort {
         if (dir == (cmp == 1)) Writes.swap(A, i, j, 0.5, true, false);
     }
 
-    private void bitonicMerge(int[] A, int lo, int n, boolean dir)
+    private void bitonicMerge(int[] A, int lo, int n, boolean dir, int depth)
     {
+        Writes.recordDepth(depth);
         if (n > 1)
         {
             int m = greatestPowerOfTwoLessThan(n);
@@ -51,19 +52,24 @@ final public class BitonicSortRecursive extends Sort {
                 this.compare(A, i, i+m, dir);
             }
 
-            this.bitonicMerge(A, lo, m, dir);
-            this.bitonicMerge(A, lo + m, n - m, dir);
+            Writes.recursion();
+            this.bitonicMerge(A, lo, m, dir, depth + 1);
+            Writes.recursion();
+            this.bitonicMerge(A, lo + m, n - m, dir, depth + 1);
         }
     }
 
-    private void bitonicSort(int[] A, int lo, int n, boolean dir)
+    private void bitonicSort(int[] A, int lo, int n, boolean dir, int depth)
     {
+        Writes.recordDepth(depth);
         if (n > 1)
         {
             int m = n / 2;
-            this.bitonicSort(A, lo, m, !dir);
-            this.bitonicSort(A, lo + m, n - m, dir);
-            this.bitonicMerge(A, lo, n, dir);
+            Writes.recursion();
+            this.bitonicSort(A, lo, m, !dir, depth + 1);
+            Writes.recursion();
+            this.bitonicSort(A, lo + m, n - m, dir, depth + 1);
+            this.bitonicMerge(A, lo, n, dir, depth);
         }
     }
 
@@ -75,6 +81,6 @@ final public class BitonicSortRecursive extends Sort {
     
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        this.bitonicSort(array, 0, sortLength, this.direction);
+        this.bitonicSort(array, 0, sortLength, this.direction, 0);
     }
 }

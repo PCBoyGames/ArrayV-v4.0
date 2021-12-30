@@ -2,7 +2,6 @@ package sorts.hybrid;
 
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
-import sorts.hybrid.OptimizedPDMergeSort;
 
 /*
 
@@ -14,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class ClarkSort extends Sort {
-    OptimizedPDMergeSort mergefinal = new OptimizedPDMergeSort(arrayVisualizer);
+    QuadSort mergefinal = new QuadSort(arrayVisualizer);
     public ClarkSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Clark");

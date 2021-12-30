@@ -93,6 +93,8 @@ final public class ShuffleInfo {
     }
 
     public void shuffle(int[] array, ArrayVisualizer arrayVisualizer) {
+    	arrayVisualizer.statSnapshot.bigo = false;
+    	Statistics.resetAuxStats();
         if (this.isDistribution) {
             Writes Writes = arrayVisualizer.getWrites();
             int currentLen = arrayVisualizer.getCurrentLength();

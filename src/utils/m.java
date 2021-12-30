@@ -1,5 +1,7 @@
 package utils;
 
+import java.math.BigInteger;
+
 public final class m {
 
     /**
@@ -116,5 +118,12 @@ public final class m {
 
     public final double inf = Double.POSITIVE_INFINITY;
     public final double NaN = Double.NaN;
+    public static long flog2(BigInteger factorial) {
+        return 0;
+    }
+
+    public static int flog(BigInteger pow, int base) {
+        return 0;
+    }
 
 }

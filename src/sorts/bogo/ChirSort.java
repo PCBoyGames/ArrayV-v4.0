@@ -106,7 +106,7 @@ public final class ChirSort extends BogoSorting {
             
             // Baka (suited for number 9)
             if (choice == 9) {
-                Writes.swap(array, 0, randInt(0, currentLength - 1), delay, true, false);
+                Writes.swap(array, 0, randInt(1, currentLength), delay, true, false);
             }
             
             // Nibi

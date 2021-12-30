@@ -38,13 +38,13 @@ SOFTWARE.
  * @author S630690
  */
 final public class Writes {
-    private volatile long reversals;
-    private volatile long recursions;
-    private volatile long depth;
-    private volatile long swaps;
-    private volatile long auxWrites;
-    private volatile long writes;
-    private volatile long allocAmount;
+    public volatile long reversals;
+    public volatile long recursions;
+    public volatile long depth;
+    public volatile long swaps;
+    public volatile long auxWrites;
+    public volatile long writes;
+    public volatile long allocAmount;
 
     private DecimalFormat formatter;
 
@@ -190,10 +190,10 @@ final public class Writes {
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean auxwrite) {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
         if (!auxwrite && a >= ArrayVisualizer.getCurrentLength()) {
-            System.err.println("Warning: write to index " + a + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ")");
+            System.err.println("Write to index " + a + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
         }
         if (!auxwrite && b >= ArrayVisualizer.getCurrentLength()) {
-            System.err.println("Warning: write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ")");
+            System.err.println("Write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
         }
         
         if (a == b) System.err.println("Self-swap at " + a + ".");
@@ -262,7 +262,7 @@ final public class Writes {
     public void write(int[] array, int at, int equals, double pause, boolean mark, boolean auxwrite) {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
         if (!auxwrite && at >= ArrayVisualizer.getCurrentLength()) {
-            System.err.println("Warning: write to index " + at + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ")");
+            System.err.println("Write to index " + at + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
         }
 
         if(mark) Highlights.markArray(1, at);

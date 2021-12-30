@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-// Currently not applicable.
-// import utils.Statistics;
-
 class XY {
 	public int x;
 	public int y;

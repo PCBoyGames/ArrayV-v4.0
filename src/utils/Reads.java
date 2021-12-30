@@ -2,7 +2,7 @@ package utils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+import java.math.BigInteger;
 import main.ArrayVisualizer;
 
 /*
@@ -32,7 +32,7 @@ SOFTWARE.
  */
 
 final public class Reads {
-    private volatile long comparisons;
+    private volatile BigInteger comparisons;
     public volatile ArrayList<Integer> networkIndices;
 
     private ArrayVisualizer ArrayVisualizer;
@@ -46,7 +46,7 @@ final public class Reads {
     public Reads(ArrayVisualizer arrayVisualizer) {
         this.ArrayVisualizer = arrayVisualizer;
 
-        this.comparisons = 0;
+        this.resetStatistics();
         this.networkIndices = new ArrayList<>();
 
         this.Delays = ArrayVisualizer.getDelays();
@@ -57,35 +57,50 @@ final public class Reads {
     }
 
     public void resetStatistics() {
-        this.comparisons = 0;
+        this.comparisons = BigInteger.ZERO;
     }
 
     public void addComparison() {
-        this.comparisons++;
+        this.comparisons = this.comparisons.add(BigInteger.ONE);
+    }
+
+    public void addComparisons(int value) {
+        this.comparisons = this.comparisons.add(BigInteger.valueOf((long)value));
+    }
+
+    public void addComparisons(long value) {
+        this.comparisons = this.comparisons.add(BigInteger.valueOf(value));
+    }
+
+    public void addComparisons(BigInteger value) {
+        this.comparisons = this.comparisons.add(value);
     }
 
     public String getStats() {
-        if(this.comparisons < 0) {
-            this.comparisons = Long.MIN_VALUE;
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+        if(this.comparisons.signum() == -1) {
+            return "\u03a9 Comparisons";
         }
         else {
-            if(this.comparisons == 1) return this.comparisons + " Comparison";
-            else                      return this.formatter.format(this.comparisons) + " Comparisons";
+            if(this.comparisons.equals(BigInteger.ONE)) return this.comparisons + " Comparison";
+            else                      return String.format("%,d",this.comparisons) + " Comparisons";
         }
     }
 
-    public long getComparisons() {
+    public BigInteger getComparisons() {
         return this.comparisons;
     }
 
     public void setComparisons(long value) {
+        this.comparisons = BigInteger.valueOf(value);
+    }
+
+    public void setComparisons(BigInteger value) {
         this.comparisons = value;
     }
 
     public int compareValues(int left, int right) {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-        this.comparisons++;
+        this.addComparison();
 
         if (ArrayVisualizer.doingStabilityCheck()) {
             left  = ArrayVisualizer.getStabilityValue(left);
@@ -115,7 +130,7 @@ final public class Reads {
 
     public int compareOriginalValues(int left, int right) {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-        this.comparisons++;
+        this.addComparison();
 
         int cmpVal = 0;
 
@@ -215,6 +230,66 @@ final public class Reads {
         return max;
     }
 
+    public int analyzeMax(int[] array, int start, int end, double sleep, boolean mark) {
+        ArrayVisualizer.toggleAnalysis(true);
+        ArrayVisualizer.updateNow();
+
+        int max = 0;
+
+        for(int i = start; i < end; i++) {
+            if (ArrayVisualizer.sortCanceled()) throw new StopSort();
+            
+            int val = array[i];
+            if(ArrayVisualizer.doingStabilityCheck())
+                val = ArrayVisualizer.getStabilityValue(val);
+            
+            Timer.startLap("Analysis");
+
+            if(val > max) max = val;
+
+            Timer.stopLap();
+
+            if(mark) {
+                Highlights.markArray(1, i);
+                Delays.sleep(sleep);
+            }
+        }
+
+        ArrayVisualizer.toggleAnalysis(false);
+        ArrayVisualizer.updateNow();
+
+        return max;
+    }
+
+    public int analyzeRawMax(int[] array, int start, int end, double sleep, boolean mark) {
+        ArrayVisualizer.toggleAnalysis(true);
+        ArrayVisualizer.updateNow();
+
+        int max = 0;
+
+        for(int i = start; i < end; i++) {
+            if (ArrayVisualizer.sortCanceled()) throw new StopSort();
+            
+            int val = array[i];
+            
+            Timer.startLap("Analysis");
+
+            if(val > max) max = val;
+
+            Timer.stopLap();
+
+            if(mark) {
+                Highlights.markArray(1, i);
+                Delays.sleep(sleep);
+            }
+        }
+
+        ArrayVisualizer.toggleAnalysis(false);
+        ArrayVisualizer.updateNow();
+
+        return max;
+    }
+
     public int analyzeMin(int[] array, int length, double sleep, boolean mark) {
         ArrayVisualizer.toggleAnalysis(true);
         ArrayVisualizer.updateNow();
@@ -227,6 +302,66 @@ final public class Reads {
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
+            
+            Timer.startLap("Analysis");
+
+            if(val < min) min = val;
+
+            Timer.stopLap();
+
+            if(mark) {
+                Highlights.markArray(1, i);
+                Delays.sleep(sleep);
+            }
+        }
+
+        ArrayVisualizer.toggleAnalysis(false);
+        ArrayVisualizer.updateNow();
+
+        return min;
+    }
+
+    public int analyzeMin(int[] array, int start, int end, double sleep, boolean mark) {
+        ArrayVisualizer.toggleAnalysis(true);
+        ArrayVisualizer.updateNow();
+
+        int min = 0;
+
+        for(int i = start; i < end; i++) {
+            if (ArrayVisualizer.sortCanceled()) throw new StopSort();
+            
+            int val = array[i];
+            if(ArrayVisualizer.doingStabilityCheck())
+                val = ArrayVisualizer.getStabilityValue(val);
+            
+            Timer.startLap("Analysis");
+
+            if(val < min) min = val;
+
+            Timer.stopLap();
+
+            if(mark) {
+                Highlights.markArray(1, i);
+                Delays.sleep(sleep);
+            }
+        }
+
+        ArrayVisualizer.toggleAnalysis(false);
+        ArrayVisualizer.updateNow();
+
+        return min;
+    }
+
+    public int analyzeRawMin(int[] array, int start, int end, double sleep, boolean mark) {
+        ArrayVisualizer.toggleAnalysis(true);
+        ArrayVisualizer.updateNow();
+
+        int min = 0;
+
+        for(int i = start; i < end; i++) {
+            if (ArrayVisualizer.sortCanceled()) throw new StopSort();
+            
+            int val = array[i];
             
             Timer.startLap("Analysis");
 

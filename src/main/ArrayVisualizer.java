@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -133,7 +134,7 @@ final public class ArrayVisualizer {
 
     private volatile boolean POINTER;
 
-    private Statistics statSnapshot;
+    public Statistics statSnapshot;
     private String fontSelection;
 
     private volatile boolean TEXTDRAW;
@@ -182,7 +183,7 @@ final public class ArrayVisualizer {
     private volatile boolean hidden;
     private volatile boolean frameSkipped;
     
-    private volatile boolean moreStats = true;
+    private volatile boolean moreStats = false;
 
     public ArrayVisualizer() {
         this.window = new JFrame();
@@ -505,6 +506,14 @@ final public class ArrayVisualizer {
         System.arraycopy(this.DistributionSorts, 0, this.AllSorts, this.ComparisonSorts.length, this.DistributionSorts.length);
     }
     
+    private <T> ArrayList<T> arrList(T... vals){
+    	ArrayList<T> x = new ArrayList<>();
+    	for(T i : vals) {
+    		x.add(i);
+    	}
+    	return x;
+    }
+    
     private void drawStats(Color textColor, boolean dropShadow) {
         int xOffset = 15;
         int yOffset = 30;
@@ -516,29 +525,56 @@ final public class ArrayVisualizer {
         double windowRatio = this.getWindowRatio();
         
         this.mainRender.setColor(textColor);
-        
-        this.mainRender.drawString(this.statSnapshot.getSortIdentity(),    xOffset, (int) (windowRatio *  30) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getArrayLength(),     xOffset, (int) (windowRatio *  55) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getSortDelay(),       xOffset, (int) (windowRatio *  95) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getVisualTime(),      xOffset, (int) (windowRatio * 120) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getEstSortTime(),     xOffset, (int) (windowRatio * 145) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getComparisonCount(), xOffset, (int) (windowRatio * 185) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getSwapCount(),       xOffset, (int) (windowRatio * 210) + yOffset);
-        this.mainRender.drawString(this.statSnapshot.getReversalCount(),   xOffset, (int) (windowRatio * 235) + yOffset);
-        if (moreStats) {
-            this.mainRender.drawString(this.statSnapshot.getRecursionCount(),  xOffset, (int) (windowRatio * 260) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getRecursionDepth(),  xOffset, (int) (windowRatio * 285) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getMainWriteCount(),  xOffset, (int) (windowRatio * 325) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getAuxWriteCount(),   xOffset, (int) (windowRatio * 350) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getAuxAllocAmount(),  xOffset, (int) (windowRatio * 375) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getSegments(),        xOffset, (int) (windowRatio * 400) + yOffset);
-        } else {
-            this.mainRender.drawString(this.statSnapshot.getMainWriteCount(),  xOffset, (int) (windowRatio * 275) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getAuxWriteCount(),   xOffset, (int) (windowRatio * 300) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getAuxAllocAmount(),  xOffset, (int) (windowRatio * 325) + yOffset);
-            this.mainRender.drawString(this.statSnapshot.getSegments(),        xOffset, (int) (windowRatio * 355) + yOffset);
+        ArrayList<String> Stats = arrList(
+        		this.statSnapshot.getSortIdentity(),
+        		this.statSnapshot.getArrayLength(),
+        		
+        		this.statSnapshot.getSortDelay(),
+        		this.statSnapshot.getVisualTime(),
+        		this.statSnapshot.getEstSortTime(),
+        		
+        		this.statSnapshot.getComparisonCount(),
+        		this.statSnapshot.getSwapCount(),
+        		this.statSnapshot.getReversalCount(),
+        		this.statSnapshot.getRecursionCount(),
+        		this.statSnapshot.getRecursionDepth(),
+        		
+        		this.statSnapshot.getMainWriteCount(),
+        		this.statSnapshot.getAuxWriteCount(),
+        		this.statSnapshot.getAuxAllocAmount(),
+        		
+        		this.statSnapshot.getSegments()
+        );
+        ArrayList<Integer> magicNumbers = arrList(
+        		30, // starting offset/small brewak
+        		25, // common linebreak
+        		40, // new info paragraph
+        		25,
+        		25,
+        		40,
+        		25,
+        		25,
+        		25,
+        		25,
+        		40,
+        		25,
+        		25,
+        		30
+        );
+        if(this.statSnapshot.getBigO() != "") {
+        	Stats.add(10, this.statSnapshot.getBigO());
+        	magicNumbers.add(10, 25);
+        }
+        for(String z : this.statSnapshot.parseMap()) {
+        	Stats.add(10, z);
+        	magicNumbers.add(10, 25);
+        }
+        for(int i=0, offset = 0; i<Stats.size(); i++) {
+        	offset += magicNumbers.get(i);
+        	this.mainRender.drawString(Stats.get(i), xOffset, (int) (windowRatio * offset) + yOffset);
         }
     }
+
 
     public void updateNow() {
         this.updateNow(1);
@@ -985,7 +1021,7 @@ final public class ArrayVisualizer {
         this.Delays.setSleepRatio(1);
 
         double sleepRatio = 256d/this.sortLength;
-        long tempComps = this.Reads.getComparisons();
+        BigInteger tempComps = this.Reads.getComparisons();
         this.Reads.setComparisons(0);
         
         String temp = this.heading;
@@ -1086,6 +1122,7 @@ final public class ArrayVisualizer {
             this.Highlights.toggleFancyFinish(false);
         }
         this.Highlights.resetFancyFinish();
+        if (moreStats) this.statSnapshot.calculateBigO(this.Reads.getComparisons());
     }
 
     public String formatTimes() {

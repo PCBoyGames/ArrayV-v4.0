@@ -38,7 +38,9 @@ public final class BuwuSort extends BogoSorting {
     	Writes.recordDepth(r++);
     	this.omegaPush(array, start, end+1);
     	this.omegaPushBW(array, start, end);
+		Writes.recursion();
     	this.omegaSwap(array, start+1, end-1, r);
+		Writes.recursion();
     	this.omegaSwap(array, start+1, end-1, r);
     }
     private void omegaOmegaPush(int[] array, int start, int end, int depth) { // Clamber-esque push, because I want it to be the worst possible.
@@ -64,10 +66,13 @@ public final class BuwuSort extends BogoSorting {
     		r2 = randInt(r, length);
     	for(int i=0; i<r; i++) {
     		this.wotateOwO(array, r2, r, rec);
-    		if(r != r2 && Reads.compareValues(array[r], array[r2]) == 1)
+    		if(r != r2 && Reads.compareValues(array[r], array[r2]) == 1) {
+				Writes.recursion();
     			this.buwuRotate(array, r-i, rec);
-    		else
+			} else {
+				Writes.recursion();
     			this.buwuRotate(array, r2-i,rec);
+			}
     	}
     }
     @Override

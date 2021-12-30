@@ -31,19 +31,22 @@ public final class BubbleBogoMergeSort extends BogoSorting {
         }
     }
     
-    protected void sort(int[] array, int a, int b) {
+    protected void sort(int[] array, int a, int b, int depth) {
+        Writes.recordDepth(depth);
         if(b - a < 2)
             return;
         int m = a + (b - a) / 2;
-        sort(array, a, m);
-        sort(array, m, b);
+        Writes.recursion();
+        sort(array, a, m, depth + 1);
+        Writes.recursion();
+        sort(array, m, b, depth + 1);
         bubbleBogoSort(array, a, b);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         delay = 0.05;
-        sort(array, 0, sortLength);
+        sort(array, 0, sortLength, 0);
 
     }
 

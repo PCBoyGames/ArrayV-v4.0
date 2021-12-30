@@ -109,7 +109,7 @@ final public class RecursivePushSort extends Sort {
         int lastcheck = sorted(array, 0, currentLength);
         int runs = 1;
         while (lastcheck != currentLength && runs < Math.cbrt(currentLength)) {
-            method(array, lastcheck + 1, currentLength, 1);
+            method(array, lastcheck + 1, currentLength, 0);
             lastcheck = sorted(array, lastcheck, currentLength);
             runs++;
         }

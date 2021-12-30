@@ -34,6 +34,13 @@ public final class ExchangeGoroSort extends BogoSorting {
             if (Reads.compareIndices(array, i, j, delay, true) > 0) Writes.swap(array, i, j, delay, true, false);
         }
     }
+    
+    protected void bogoCompSwapBW(int[] array, int a, int b) {
+        for (int i = b - 1; i > a; i--) {
+            int j = randInt(a, i);
+            if (Reads.compareIndices(array, i, j, delay, true) < 0) Writes.swap(array, i, j, delay, true, false);
+        }
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
@@ -47,7 +54,9 @@ public final class ExchangeGoroSort extends BogoSorting {
                 i1 = i2;
                 i2 = temp;
             }
-            bogoCompSwap(array, i1, i2);
+            boolean d = randBoolean();
+            if (d) bogoCompSwap(array, i1, i2);
+            else bogoCompSwapBW(array, i1, i2);
         }
     }
 }

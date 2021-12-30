@@ -113,7 +113,11 @@ import sorts.exchange.WhySort;
 import sorts.exchange.XSort;
 import sorts.exchange.ZipperSort;
 import sorts.hybrid.ClarkSort;
+import sorts.hybrid.MystifySort;
+import sorts.hybrid.OptimizedMystifySort;
 import sorts.hybrid.RecursivePushSort;
+import sorts.hybrid.ShockSort;
+import sorts.hybrid.ShockSortAlt;
 import sorts.hybrid.TumbleweedSort;
 import sorts.insert.ExpandingRoomSort;
 import sorts.insert.OptimizedGambitInsertionSort;
@@ -185,9 +189,9 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 1;
+    int numSorts = 2;
     boolean alternate_distributions = false;
-    boolean seeds = false;
+    boolean seeds = true;
     
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -251,8 +255,11 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
-        Sort Cospo = new CospoSort(arrayVisualizer);
-        runIndividualSort(Cospo, 0, array, 128, 1, false, shuffleName, 16, alt);
+        Sort Mystify = new MystifySort(arrayVisualizer);
+        runIndividualSort(Mystify, 2, array, 512, 2, false, shuffleName, 16, alt);
+        
+        Sort OptimizedMystify = new OptimizedMystifySort(arrayVisualizer);
+        runIndividualSort(OptimizedMystify, 2, array, 512, 2, false, shuffleName, 16, alt);
         
         /*
         
@@ -607,6 +614,12 @@ final public class RunSummerSort extends MultipleSortThread {
         
         Sort Shepherd = new ShepherdSort(arrayVisualizer);
         runIndividualSort(Shepherd, 0, array, 512, 1, false, shuffleName, 16, alt);
+        
+        Sort Shock = new ShockSort(arrayVisualizer);
+        runIndividualSort(Shock, 0, array, 512, 1, false, shuffleName, 16, alt);
+        
+        Sort ShockAlt = new ShockSortAlt(arrayVisualizer);
+        runIndividualSort(ShockAlt, 0, array, 512, 1, false, shuffleName, 16, alt);
         
         Sort ShoveSandpaper = new ShoveSandpaperSort(arrayVisualizer);
         runIndividualSort(ShoveSandpaper, 0, array, 128, 2, false, shuffleName, 16, alt);

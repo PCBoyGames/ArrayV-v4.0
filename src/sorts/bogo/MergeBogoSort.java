@@ -63,12 +63,15 @@ public final class MergeBogoSort extends BogoSorting {
         }
     }
 
-    private void mergeBogo(int[] array, int[] tmp, int start, int end) {
+    private void mergeBogo(int[] array, int[] tmp, int start, int end, int depth) {
+        Writes.recordDepth(depth);
         if (start >= end-1) return;
 
         int mid = (start+end)/2;
-        mergeBogo(array, tmp, start, mid);
-        mergeBogo(array, tmp, mid, end);
+        Writes.recursion();
+        mergeBogo(array, tmp, start, mid, depth + 1);
+        Writes.recursion();
+        mergeBogo(array, tmp, mid, end, depth + 1);
 
         Writes.arraycopy(array, start, tmp, start, end-start, this.delay, true, true);
 
@@ -80,7 +83,7 @@ public final class MergeBogoSort extends BogoSorting {
     public void runSort(int[] array, int sortLength, int bucketCount) {
         int[] tmp = Writes.createExternalArray(sortLength);
 
-        mergeBogo(array, tmp, 0, sortLength);
+        mergeBogo(array, tmp, 0, sortLength, 0);
 
         Writes.deleteExternalArray(tmp);
     }

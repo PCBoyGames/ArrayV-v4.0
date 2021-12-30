@@ -37,8 +37,9 @@ final public class ApollyonSort extends CircleSorting {
         if (dir == (cmp == 1)) Writes.swap(A, i, j, 0.5, true, false);
     }
 
-    private void apollyonMerge(int[] A, int lo, int n, boolean dir)
+    private void apollyonMerge(int[] A, int lo, int n, boolean dir, int depth)
     {
+        Writes.recordDepth(depth);
         if (n > 1)
         {
             int m = greatestPowerOfTwoLessThan(n);
@@ -47,18 +48,21 @@ final public class ApollyonSort extends CircleSorting {
                 this.compare(A, i, i+m, dir);
             }
 
-            this.apollyonMerge(A, lo, m, dir);
-            this.apollyonMerge(A, lo + m, n - m, dir);
+            Writes.recursion();
+            this.apollyonMerge(A, lo, m, dir, depth + 1);
+            Writes.recursion();
+            this.apollyonMerge(A, lo + m, n - m, dir, depth + 1);
         }
     }
 
-    private void apollyonSort(int[] A, int lo, int n, boolean dir)
+    private void apollyonSort(int[] A, int lo, int n, boolean dir, int depth)
     {
         if (n > 1)
         {
             int m = n / 2;
-            this.apollyonSort(A, lo, m, !dir);
-            this.apollyonMerge(A, lo, n, dir);
+            Writes.recursion();
+            this.apollyonSort(A, lo, m, !dir, depth + 1);
+            this.apollyonMerge(A, lo, n, dir, depth);
         }
     }
 
@@ -77,7 +81,7 @@ final public class ApollyonSort extends CircleSorting {
         threshold /= 2;
         int iterations = 0;
         
-        this.apollyonSort(array, 0, sortLength, this.direction);
+        this.apollyonSort(array, 0, sortLength, this.direction, 0);
         
         while (this.circleSortRoutine(array, 0, sortLength - 1, 0, 1) != 0) {
             iterations++;

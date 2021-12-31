@@ -1,4 +1,4 @@
-package utils.shuffle_utils;
+package utils.shuffleutils;
 
 import java.awt.Point;
 import java.io.File;

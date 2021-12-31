@@ -9,9 +9,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
@@ -45,10 +44,7 @@ public class SortingNetworkGenerator {
         }
 
         boolean overlaps(Comparator other) {
-            return (this.i1 < other.i1 && other.i1 < this.i2) ||
-                   (this.i1 < other.i2 && other.i2 < this.i2) ||
-                   (other.i1 < this.i1 && this.i1 < other.i2) ||
-                   (other.i1 < this.i2 && this.i2 < other.i2);
+            return this.i2 > other.i1 && other.i2 > this.i1;
         }
 
         boolean hasSameInput(Comparator other) {
@@ -97,13 +93,14 @@ public class SortingNetworkGenerator {
 
     private static boolean encodeNetwork0(final Comparator[] comparators, final int n, final PrintWriter out) {
         int scale = 1;
-        int xScale = scale * 35;
+        int xScale = scale * 36;
         int yScale = scale * 20;
         boolean small = comparators.length < 500_000;
 
         int h = (n + 1) * yScale;
-        double w = xScale;
-        Map<Comparator, Double> group = new HashMap<>();
+        int w = xScale;
+        List<Comparator> groupComparators = new ArrayList<>();
+        List<Integer> groupPositions = new ArrayList<>();
 
         WriterBuilderProxy writer;
         ProgressMonitor monitor;
@@ -125,34 +122,39 @@ public class SortingNetworkGenerator {
                 0, comparators.length * 2
             );
             for (Comparator c : comparators) {
-                for (Comparator other : group.keySet()) {
+                for (Comparator other : groupComparators) {
                     if (c.hasSameInput(other)) {
-                        for (double pos : group.values()) {
-                            if (pos > w) {
-                                w = pos;
+                        for (int otherX : groupPositions) {
+                            if (otherX > w) {
+                                w = otherX;
                             }
                         }
                         w += xScale;
-                        group.clear();
+                        groupComparators.clear();
+                        groupPositions.clear();
                         break;
                     }
                 }
-                double cx = w;
-                for (Entry<Comparator, Double> entry : group.entrySet()) {
-                    Comparator other = entry.getKey();
-                    double otherPos = entry.getValue();
-                    if (otherPos >= cx && c.overlaps(other)) {
-                        cx = otherPos + xScale / 3.0;
+                int cx = w;
+                Iterator<Integer> groupPositionIterator = groupPositions.iterator();
+                for (Comparator other : groupComparators) {
+                    // We don't need hasNext checks because groupPositions and
+                    // groupComparators have the same length
+                    int otherX = groupPositionIterator.next();
+                    if (otherX >= cx && c.overlaps(other)) {
+                        cx = otherX + xScale / 3;
                     }
                 }
-                group.put(c, cx);
+                groupComparators.add(c);
+                groupPositions.add(cx);
 
                 if ((++progress & 1023) == 0) {
                     monitor.setProgress(progress);
                     if (monitor.isCanceled()) return true;
                 }
             }
-            group.clear();
+            groupComparators.clear();
+            groupPositions.clear();
             monitor.setNote("Writing SVG");
             out.write("<svg width='" + (w + xScale) + "' height='" + h + "' xmlns='http://www.w3.org/2000/svg'>");
             w = xScale;
@@ -161,40 +163,46 @@ public class SortingNetworkGenerator {
         }
 
         for (Comparator c : comparators) {
-            for (Comparator other : group.keySet()) {
+            for (Comparator other : groupComparators) {
                 if (c.hasSameInput(other)) {
-                    for (double pos : group.values()) {
-                        if (pos > w) {
-                            w = pos;
+                    for (int otherX : groupPositions) {
+                        if (otherX > w) {
+                            w = otherX;
                         }
                     }
                     w += xScale;
-                    group.clear();
+                    groupComparators.clear();
+                    groupPositions.clear();
                     break;
                 }
             }
 
-            double cx = w;
-            for (Entry<Comparator, Double> entry : group.entrySet()) {
-                Comparator other = entry.getKey();
-                double otherPos = entry.getValue();
-                if (otherPos >= cx && c.overlaps(other)) {
-                    cx = otherPos + xScale / 3.0;
+            int cx = w;
+            Iterator<Integer> groupPositionIterator = groupPositions.iterator();
+            for (Comparator other : groupComparators) {
+                // We don't need hasNext checks because groupPositions and
+                // groupComparators have the same length
+                int otherX = groupPositionIterator.next();
+                if (otherX >= cx && c.overlaps(other)) {
+                    cx = otherX + xScale / 3;
                 }
             }
 
             int y0 = (c.i1 + 1) * yScale;
-            int y1 = y0;
+            int y1 = (c.i2 + 1) * yScale;
             writer.write("<circle cx='" + cx + "' cy='" + y0 + "' r='3' style='stroke:black;stroke-width:1;fill=yellow'/>" +
                          "<line x1='" + cx + "' y1='" + y0 + "' x2='" + cx + "' y2='" + y1 + "' style='stroke:black;stroke-width:1'/>" +
                          "<circle cx='" + cx + "' cy='" + y1 + "' r='3' style='stroke:black;stroke-width:1;fill=yellow'/>");
-            group.put(c, cx);
+            groupComparators.add(c);
+            groupPositions.add(cx);
 
             if ((++progress & 1023) == 0) {
                 monitor.setProgress(progress);
                 if (monitor.isCanceled()) return true;
             }
         }
+        groupComparators.clear();
+        groupPositions.clear();
 
         w += xScale;
         for (int i = 0; i < n; i++) {

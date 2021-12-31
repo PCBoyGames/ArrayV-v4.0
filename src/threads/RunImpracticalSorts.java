@@ -10,34 +10,34 @@ import sorts.exchange.SillySort;
 import sorts.exchange.SlowSort;
 import sorts.exchange.SnuffleSort;
 import sorts.exchange.FireSort;
-import sorts.exchange.NapoleonSort;
 import sorts.exchange.ReflectionSort;
 import sorts.exchange.StupidFireSort;
 import sorts.insert.HanoiSort;
 import sorts.insert.StableHanoiSort;
-import sorts.bogo.BogoBogoSort;
-import sorts.bogo.BogoSort;
-import sorts.bogo.BozoSort;
+import sorts.exchange.NapoleonSort;
+import sorts.bogo.SelectionBogoSort;
 import sorts.bogo.BubbleBogoSort;
 import sorts.bogo.CocktailBogoSort;
-import sorts.bogo.DeterministicBogoSort;
-import sorts.bogo.ExchangeBogoSort;
-import sorts.bogo.GuessSort;
-import sorts.bogo.LessBogoSort;
 import sorts.bogo.MarkovSort;
+import sorts.bogo.LessBogoSort;
+import sorts.bogo.ExchangeBogoSort;
 import sorts.bogo.MedianQuickBogoSort;
-import sorts.bogo.MergeBogoSort;
-import sorts.bogo.OptimizedGuessSort;
 import sorts.bogo.QuickBogoSort;
-import sorts.bogo.RandomGuessSort;
-import sorts.bogo.SelectionBogoSort;
-import sorts.bogo.SliceBogoSort;
-import sorts.bogo.SmartBogoBogoSort;
+import sorts.bogo.MergeBogoSort;
 import sorts.bogo.SmartGuessSort;
+import sorts.bogo.BozoSort;
+import sorts.bogo.DeterministicBogoSort;
+import sorts.bogo.SmartBogoBogoSort;
+import sorts.bogo.SliceBogoSort;
+import sorts.bogo.BogoSort;
+import sorts.bogo.OptimizedGuessSort;
+import sorts.bogo.RandomGuessSort;
+import sorts.bogo.GuessSort;
+import sorts.bogo.BogoBogoSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 ArrayV 4.0 Team
@@ -128,11 +128,11 @@ final public class RunImpracticalSorts extends MultipleSortThread {
         OptimizedGuessSort        = new        OptimizedGuessSort(this.arrayVisualizer);
         RandomGuessSort           = new           RandomGuessSort(this.arrayVisualizer);
         GuessSort                 = new                 GuessSort(this.arrayVisualizer);
-        BogoBogoSort              = new              BogoBogoSort(this.arrayVisualizer);        
-        FireSort                  = new                  FireSort(this.arrayVisualizer);        
-        QuadStoogeSort            = new            QuadStoogeSort(this.arrayVisualizer);        
-        ReflectionSort            = new            ReflectionSort(this.arrayVisualizer);        
-        StupidFireSort            = new            StupidFireSort(this.arrayVisualizer);        
+        BogoBogoSort              = new              BogoBogoSort(this.arrayVisualizer);
+        FireSort                  = new                  FireSort(this.arrayVisualizer);
+        QuadStoogeSort            = new            QuadStoogeSort(this.arrayVisualizer);
+        ReflectionSort            = new            ReflectionSort(this.arrayVisualizer);
+        StupidFireSort            = new            StupidFireSort(this.arrayVisualizer);
     }
 
     @Override
@@ -150,7 +150,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
         RunImpracticalSorts.this.runIndividualSort(HanoiSort,                 0, array, 8,   0.025,  true);
         RunImpracticalSorts.this.runIndividualSort(StableHanoiSort,           0, array, 8,   0.025,  true);
         RunImpracticalSorts.this.runIndividualSort(NapoleonSort,              0, array, 6,   0.005,  true);
-        
+
         // Bogosorts
         Sounds.toggleSofterSounds(true);
         // the not-bad ones
@@ -178,14 +178,14 @@ final public class RunImpracticalSorts extends MultipleSortThread {
         RunImpracticalSorts.this.runIndividualSort(BogoBogoSort,              0, array,  4,  1e-9,   true);
         Sounds.toggleSofterSounds(false);
     }
-    
+
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
         if(arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
-        arrayVisualizer.setSortingThread(new Thread() {
+        arrayVisualizer.setSortingThread(new Thread("ImpracticalSorts") {
             @Override
             public void run() {
                 try{
@@ -196,13 +196,13 @@ final public class RunImpracticalSorts extends MultipleSortThread {
                     else {
                         RunImpracticalSorts.this.sortNumber = 1;
                     }
-                    
+
                     arrayManager.toggleMutableLength(false);
 
                     arrayVisualizer.setCategory("Impractical Sorts");
 
                     RunImpracticalSorts.this.executeSortList(array);
-                    
+
                     if(runAllActive) {
                         Thread.sleep(3000);
                     }
@@ -210,7 +210,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
                         arrayVisualizer.setCategory("Run Impractical Sorts");
                         arrayVisualizer.setHeading("Done");
                     }
-                    
+
                     arrayManager.toggleMutableLength(true);
                 }
                 catch (Exception e) {

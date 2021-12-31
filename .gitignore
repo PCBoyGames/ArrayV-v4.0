@@ -4,4 +4,6 @@ __pycache__
 cache
 antiqsort_*
 network_*.svg
-dist/arrayVisualizer.jar
+sorting_networks
+dist/*
+!dist/build.xml

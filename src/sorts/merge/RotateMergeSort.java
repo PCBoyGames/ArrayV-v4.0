@@ -83,7 +83,7 @@ final public class RotateMergeSort extends Sort {
 		return a;
 	}
     
-    private void rotateMerge(int[] array, int a, int m, int b) {
+    public void rotateMerge(int[] array, int a, int m, int b) {
 		int m1, m2, m3;
 		
 		if(m-a >= b-m) {

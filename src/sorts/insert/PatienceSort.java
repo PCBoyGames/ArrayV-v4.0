@@ -1,5 +1,6 @@
 package sorts.insert;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
@@ -53,7 +54,7 @@ final public class PatienceSort extends Sort {
 		int at = list.size() / 2;
 		int change = list.size() / 4;
 		
-		long compsBefore = Reads.getComparisons();
+		BigInteger compsBefore = Reads.getComparisons();
 		while(list.get(at).compare(find) != 0 && change > 0){
 			Reads.setComparisons(compsBefore);
 			Highlights.markArray(1, at);

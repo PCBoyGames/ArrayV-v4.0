@@ -6,6 +6,7 @@ import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 import sorts.merge.RotateMergeSort;
 import sorts.templates.Sort;
+import utils.ArrayVList;
 
 // Image Sorting: Chaos
 final public class ImageSort extends Sort {
@@ -50,7 +51,7 @@ final public class ImageSort extends Sort {
 	}
     
     public boolean imageSeek(int[] array, int start, int end) {
-    	ArrayList<Integer> z = Writes.createArrayList();
+    	ArrayVList z = Writes.createArrayList();
     	for(int i=start; i<end; i++) {
     		int q=1, c = 1; // c
     		for(int j=i+1; j<end; j++) {

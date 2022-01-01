@@ -4,6 +4,7 @@ import java.util.PriorityQueue;
 
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
+import utils.IndexedRotations;
 
 public class BottomDownMergeSort extends Sort {
 
@@ -47,6 +48,15 @@ public class BottomDownMergeSort extends Sort {
     }
     private void merge(PriorityQueue<ArrayCopy> q, int start, int mid, int end) {
     	int l = start, r = mid, t = start, b = 0;
+    	if(end-start > 0) {
+    		if(Reads.compareValues(main[mid-1], main[mid]) == -1) {
+    			return;
+    		}
+    		if(Reads.compareValues(main[start], main[end-1]) == 1) {
+    			IndexedRotations.cycleReverse(main, start, mid, end, 0.25, true, false);
+    			return;
+    		}
+    	} else return;
     	while(l < mid && r < end) {
     		Highlights.markArray(1, l);
     		Highlights.markArray(2, r);
@@ -58,18 +68,19 @@ public class BottomDownMergeSort extends Sort {
     			b = (b >>> 1) - 1;
     		}
     	}
+    	if(l == r)
+    		return;
+    	int z = t;
     	while(l < mid) {
     		Highlights.markArray(1, l);
-			Writes.write(scratch, t++, main[l++], 1, true, true);
-			b = (b >>> 1) + b;
+			Writes.write(main, z++, main[l++], 1, true, false);
+			b = (b >>> 1) + b + 1;
     	}
-    	while(r < end) {
-    		Highlights.markArray(2, r);
-			Writes.write(scratch, t++, main[r++], 1, true, false);
-			b = (b >>> 1) - 1;
+    	while(r++ < end) {
+    		b = (b >>> 1) - 1;
     	}
     	Highlights.clearAllMarks();
-    	q.offer(new ArrayCopy(start, end, b));
+    	q.offer(new ArrayCopy(start, t, b));
     }
 
     @Override

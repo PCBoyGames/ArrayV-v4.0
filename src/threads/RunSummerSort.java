@@ -120,6 +120,7 @@ import sorts.hybrid.ShockSort;
 import sorts.hybrid.ShockSortAlt;
 import sorts.hybrid.TumbleweedSort;
 import sorts.insert.ExpandingRoomSort;
+import sorts.insert.FurtherRandomShellSort;
 import sorts.insert.OptimizedGambitInsertionSort;
 import sorts.insert.OptimizedRoomSort;
 import sorts.insert.RandomShellSort;
@@ -189,9 +190,9 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 2;
+    int numSorts = 1;
     boolean alternate_distributions = false;
-    boolean seeds = true;
+    boolean seeds = false;
     
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -255,11 +256,8 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
         
-        Sort Mystify = new MystifySort(arrayVisualizer);
-        runIndividualSort(Mystify, 2, array, 512, 2, false, shuffleName, 16, alt);
-        
-        Sort OptimizedMystify = new OptimizedMystifySort(arrayVisualizer);
-        runIndividualSort(OptimizedMystify, 2, array, 512, 2, false, shuffleName, 16, alt);
+        Sort FurtherRandomShell = new FurtherRandomShellSort(arrayVisualizer);
+        runIndividualSort(FurtherRandomShell, 0, array, 512, 1, false, shuffleName, 16, alt);
         
         /*
         
@@ -477,6 +475,9 @@ final public class RunSummerSort extends MultipleSortThread {
         Sort MoreOptimizedBubbleSort = new MoreOptimizedBubbleSort(arrayVisualizer);
         runIndividualSort(MoreOptimizedBubbleSort, 0, array, 512, 1, false, shuffleName, 16, alt);
         
+        Sort Mystify = new MystifySort(arrayVisualizer);
+        runIndividualSort(Mystify, 2, array, 512, 2, false, shuffleName, 16, alt);
+        
         Sort NaturalHeadPull = new NaturalHeadPullSort(arrayVisualizer);
         runIndividualSort(NaturalHeadPull, 0, array, 128, 1, false, shuffleName, 16, alt);
         
@@ -509,6 +510,9 @@ final public class RunSummerSort extends MultipleSortThread {
         
         Sort OptimizedIterativePop = new IterativePopSort(arrayVisualizer);
         runIndividualSort(OptimizedIterativePop, 0, array, 256, 1, false, shuffleName, 16, alt);
+        
+        Sort OptimizedMystify = new OptimizedMystifySort(arrayVisualizer);
+        runIndividualSort(OptimizedMystify, 2, array, 512, 2, false, shuffleName, 16, alt);
         
         Sort OptimizedOddEven = new OptimizedOddEvenSort(arrayVisualizer);
         runIndividualSort(OptimizedOddEven, 0, array, 512, 1, false, shuffleName, 16, alt);

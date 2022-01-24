@@ -1,6 +1,7 @@
 package sorts.select;
 
 import main.ArrayVisualizer;
+import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
 final public class FibonacciHeapSort extends Sort {

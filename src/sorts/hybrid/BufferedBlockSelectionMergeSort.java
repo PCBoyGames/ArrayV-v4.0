@@ -3,7 +3,6 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import sorts.insert.BinaryInsertionSort;
-import java.util.Arrays;
 
 /*
  * 

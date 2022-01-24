@@ -98,20 +98,6 @@ public enum Distributions {
                 array[i] = random.nextInt(currentLen);
         }
     },
-    SEEDED_RANDOM {
-        public String getName() {
-            return "Random (Seeded)";
-        }
-
-        @Override
-        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(1);
-
-            for(int i = 0; i < currentLen; i++)
-                array[i] = random.nextInt(currentLen);
-        }
-    },
     SQUARE {
         public String getName() {
             return "Quadratic";
@@ -245,57 +231,6 @@ public enum Distributions {
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int currentLen = ArrayVisualizer.getCurrentLength();
             Random random = new Random();
-
-            int[] perlinNoise = new int[currentLen];
-
-            float step = 1f / currentLen;
-            float randomStart = (float) (random.nextInt(currentLen));
-            int octave = (int) (Math.log(currentLen) / Math.log(2));
-
-            for(int i = 0; i < currentLen; i++) {
-                int value = (int) (PerlinNoise.returnFracBrownNoise(randomStart, octave) * currentLen);
-                perlinNoise[i] = value;
-                randomStart += step;
-            }
-
-            int minimum = Integer.MAX_VALUE;
-            for(int i = 0; i < currentLen; i++) {
-                if(perlinNoise[i] < minimum) {
-                    minimum = perlinNoise[i];
-                }
-            }
-            minimum = Math.abs(minimum);
-            for(int i = 0; i < currentLen; i++) {
-                perlinNoise[i] += minimum;
-            }
-
-            double maximum = Double.MIN_VALUE;
-            for(int i = 0; i < currentLen; i++) {
-                if(perlinNoise[i] > maximum) {
-                    maximum = perlinNoise[i];
-                }
-            }
-            double scale = currentLen / maximum;
-            if(scale < 1.0 || scale > 1.8) {
-                for(int i = 0; i < currentLen; i++) {
-                    perlinNoise[i] = (int) (perlinNoise[i] * scale);
-                }
-            }
-
-            for(int i = 0; i < currentLen; i++) {
-                array[i] = Math.min(perlinNoise[i], currentLen-1);
-            }
-        }
-    },
-    SEEDED_PERLIN_NOISE {
-        public String getName() {
-            return "Perlin Noise (Seeded)";
-        }
-
-        @Override
-        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(1);
 
             int[] perlinNoise = new int[currentLen];
 
@@ -556,22 +491,6 @@ public enum Distributions {
             }
         }
     },
-    SEEDED_REVLOG {
-        public String getName() {
-            return "Decreasing Random (Seeded)";
-        }
-
-        @Override
-        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(1);
-
-            for (int i = 0; i < currentLen; i++) {
-                int r = random.nextInt(currentLen - i) + i;
-                array[i] = r;
-            }
-        }
-    },
     MODULO {
         public String getName() {
             return "Modulo Function";
@@ -605,6 +524,87 @@ public enum Distributions {
             
             for(int i = 0; i < n; i++)
                 array[i] = (int)(array[i] * scale);
+        }
+    },
+    SEEDED_RANDOM {
+        public String getName() {
+            return "Random (Seeded)";
+        }
+
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            Random random = new Random(1);
+
+            for(int i = 0; i < currentLen; i++)
+                array[i] = random.nextInt(currentLen);
+        }
+    },
+    SEEDED_PERLIN_NOISE {
+        public String getName() {
+            return "Perlin Noise (Seeded)";
+        }
+
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            Random random = new Random(1);
+
+            int[] perlinNoise = new int[currentLen];
+
+            float step = 1f / currentLen;
+            float randomStart = (float) (random.nextInt(currentLen));
+            int octave = (int) (Math.log(currentLen) / Math.log(2));
+
+            for(int i = 0; i < currentLen; i++) {
+                int value = (int) (PerlinNoise.returnFracBrownNoise(randomStart, octave) * currentLen);
+                perlinNoise[i] = value;
+                randomStart += step;
+            }
+
+            int minimum = Integer.MAX_VALUE;
+            for(int i = 0; i < currentLen; i++) {
+                if(perlinNoise[i] < minimum) {
+                    minimum = perlinNoise[i];
+                }
+            }
+            minimum = Math.abs(minimum);
+            for(int i = 0; i < currentLen; i++) {
+                perlinNoise[i] += minimum;
+            }
+
+            double maximum = Double.MIN_VALUE;
+            for(int i = 0; i < currentLen; i++) {
+                if(perlinNoise[i] > maximum) {
+                    maximum = perlinNoise[i];
+                }
+            }
+            double scale = currentLen / maximum;
+            if(scale < 1.0 || scale > 1.8) {
+                for(int i = 0; i < currentLen; i++) {
+                    perlinNoise[i] = (int) (perlinNoise[i] * scale);
+                }
+            }
+
+            for(int i = 0; i < currentLen; i++) {
+                array[i] = Math.min(perlinNoise[i], currentLen-1);
+            }
+        }
+    },
+    SEEDED_REVLOG {
+        public String getName() {
+            return "Decreasing Random (Seeded)";
+        }
+
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            Random random = new Random(1);
+
+            for (int i = 0; i < currentLen; i++) {
+                int r = random.nextInt(currentLen - i) + i;
+                array[i] = r;
+            }
         }
     },
     CUSTOM {

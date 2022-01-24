@@ -2,9 +2,7 @@ package sorts.hybrid;
 
 import main.ArrayVisualizer;
 import sorts.select.MaxHeapSort;
-import sorts.hybrid.FifthMergeSort;
 import sorts.templates.BlockMergeSorting;
-import utils.IndexedRotations;
 
 /*
  * 

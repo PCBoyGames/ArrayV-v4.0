@@ -1,6 +1,5 @@
 package sorts.exchange;
 
-import sorts.templates.Sort;
 import sorts.templates.BogoSorting;
 import main.ArrayVisualizer;
 

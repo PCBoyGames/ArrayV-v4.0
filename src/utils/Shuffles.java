@@ -55,17 +55,6 @@ public enum Shuffles {
             classicshuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
         }
     },
-    SEEDED_RANDOM {
-        public String getName() {
-            return "Randomly (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            shuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
-        }
-    },
     REVERSE {
         public String getName() {
             return "Backwards";
@@ -85,25 +74,6 @@ public enum Shuffles {
         public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int currentLen = ArrayVisualizer.getCurrentLength();
             Random random = new Random();
-
-            for(int i = 0; i < Math.max(currentLen / 20, 1); i++){
-                int a = random.nextInt(currentLen);
-                int b = random.nextInt(currentLen);
-                if (a != b) {
-                    Writes.swap(array, a, b, 0, true, false);
-                    if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(10);
-                } else i--;
-            }
-        }
-    },
-    SEEDED_ALMOST {
-        public String getName() {
-            return "Slight Shuffle (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(1);
 
             for(int i = 0; i < Math.max(currentLen / 20, 1); i++){
                 int a = random.nextInt(currentLen);
@@ -153,20 +123,6 @@ public enum Shuffles {
                 Writes.swap(array, i, random.nextInt(currentLen), delay ? 1 : 0, true, false);
         }
     },
-    SEEDED_NAIVE {
-        public String getName() {
-            return "Naive Randomly (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-
-            for(int i = 0; i < currentLen; i++)
-                Writes.swap(array, i, random.nextInt(currentLen), delay ? 1 : 0, true, false);
-        }
-    },
     SHUFFLED_TAIL {
         public String getName() {
             return "Scrambled Tail";
@@ -188,29 +144,6 @@ public enum Shuffles {
             }
             Writes.arraycopy(aux, 0, array, j, k, delay ? 1 : 0, true, false);
             classicshuffle(array, j, currentLen, delay ? 2 : 0, Writes);
-        }
-    },
-    SEEDED_SHUFFLED_TAIL {
-        public String getName() {
-            return "Scrambled Tail (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            Random random = new Random(1);
-            int[] aux = new int[currentLen];
-            int i = 0, j = 0, k = 0;
-            while (i < currentLen) {
-                Highlights.markArray(2, i);
-                if (random.nextDouble() < 1/7d)
-                    Writes.write(aux, k++, array[i++], delay ? 1 : 0, false, true);
-                else
-                    Writes.write(array, j++, array[i++], delay ? 1 : 0, true, false);
-            }
-            Writes.arraycopy(aux, 0, array, j, k, delay ? 1 : 0, true, false);
-            shuffle(array, j, currentLen, delay ? 2 : 0, Writes);
         }
     },
     SHUFFLED_HEAD {
@@ -236,29 +169,6 @@ public enum Shuffles {
             classicshuffle(array, 0, j, delay ? 2 : 0, Writes);
         }
     },
-    SEEDED_SHUFFLED_HEAD {
-        public String getName() {
-            return "Scrambled Head (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            Random random = new Random(1);
-            int[] aux = new int[currentLen];
-            int i = currentLen - 1, j = currentLen - 1, k = 0;
-            while (i >= 0) {
-                Highlights.markArray(2, i);
-                if (random.nextDouble() < 1/7d)
-                    Writes.write(aux, k++, array[i--], delay ? 1 : 0, false, true);
-                else
-                    Writes.write(array, j--, array[i--], delay ? 1 : 0, true, false);
-            }
-            Writes.arraycopy(aux, 0, array, 0, k, delay ? 1 : 0, true, false);
-            shuffle(array, 0, j, delay ? 2 : 0, Writes);
-        }
-    },
     SHUFFLED_TAIL_LEGACY {
         public String getName() {
             return "Scrambled End (Legacy)";
@@ -274,21 +184,6 @@ public enum Shuffles {
             this.sort(array, 0, currentLen-len, delay ? 0.5 : 0, Writes);
         }
     },
-    SEEDED_SHUFFLED_TAIL_LEGACY {
-        public String getName() {
-            return "Scrambled End (Legacy) (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            int len = Math.max(1, currentLen/7);
-            
-            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-            Highlights.clearMark(2);
-            this.sort(array, 0, currentLen-len, delay ? 0.5 : 0, Writes);
-        }
-    },
     SHUFFLED_HEAD_LEGACY {
         public String getName() {
             return "Scrambled Start (Legacy)";
@@ -300,21 +195,6 @@ public enum Shuffles {
             int len = Math.max(1, currentLen/7);
             
             this.classicshuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-            Highlights.clearMark(2);
-            this.sort(array, len, currentLen, delay ? 0.5 : 0, Writes);
-        }
-    },
-    SEEDED_SHUFFLED_HEAD_LEGACY {
-        public String getName() {
-            return "Scrambled Start (Legacy) (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            int len = Math.max(1, currentLen/7);
-            
-            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
             Highlights.clearMark(2);
             this.sort(array, len, currentLen, delay ? 0.5 : 0, Writes);
         }
@@ -388,93 +268,6 @@ public enum Shuffles {
             boolean delay = ArrayVisualizer.shuffleEnabled();
             Random random = new Random();
 
-            int[] backtrack = new int[currentLen];
-            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
-            boolean anyswaps = false;
-            while (!anyswaps) {
-                int start = random.nextInt(currentLen);
-                int dest = random.nextInt(currentLen);
-                if (dest > start) {
-                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
-                }
-                for (int i = 0; i < currentLen; i++) {
-                    if (array[i] != backtrack[i]) {
-                        anyswaps = true;
-                        break;
-                    }
-                }
-            }
-        }
-    },
-    SEEDED_MOVED_ELEMENT {
-        public String getName() {
-            return "Shifted Element (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-            
-            int[] backtrack = new int[currentLen];
-            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
-            boolean anyswaps = false;
-            while (!anyswaps) {
-                int start = random.nextInt(currentLen);
-                int dest = random.nextInt(currentLen);
-                if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
-                }
-                else {
-                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
-                }
-                for (int i = 0; i < currentLen; i++) {
-                    if (array[i] != backtrack[i]) {
-                        anyswaps = true;
-                        break;
-                    }
-                }
-            }
-        }
-    },
-    SEEDED_MOVED_ELEMENT_LEFT {
-        public String getName() {
-            return "Left Shifted Element (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-            
-            int[] backtrack = new int[currentLen];
-            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
-            boolean anyswaps = false;
-            while (!anyswaps) {
-                int start = random.nextInt(currentLen);
-                int dest = random.nextInt(currentLen);
-                if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
-                }
-                for (int i = 0; i < currentLen; i++) {
-                    if (array[i] != backtrack[i]) {
-                        anyswaps = true;
-                        break;
-                    }
-                }
-            }
-        }
-    },
-    SEEDED_MOVED_ELEMENT_RIGHT {
-        public String getName() {
-            return "Right Shifted Element (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-            
             int[] backtrack = new int[currentLen];
             Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
             boolean anyswaps = false;
@@ -601,114 +394,6 @@ public enum Shuffles {
             return val >> 1;
         }
     },
-    SEEDED_MOVED_BLOCK {
-        public String getName() {
-            return "Shifted Block (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            int blockSize = pow2lte((int)Math.sqrt(currentLen));
-            currentLen -= currentLen%blockSize;
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-            
-            int[] backtrack = new int[currentLen];
-            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
-            boolean anyswaps = false;
-            while (!anyswaps) {
-                int start = blockSize * random.nextInt((currentLen/blockSize));
-                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
-                if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
-                }
-                else {
-                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
-                }
-                for (int i = 0; i < currentLen; i++) {
-                    if (array[i] != backtrack[i]) {
-                        anyswaps = true;
-                        break;
-                    }
-                }
-            }
-        }
-        private int pow2lte(int value) {
-            int val;
-            for (val = 1; val <= value; val <<= 1);
-            return val >> 1;
-        }
-    },
-    SEEDED_MOVED_BLOCK_LEFT {
-        public String getName() {
-            return "Left Shifted Block (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            int blockSize = pow2lte((int)Math.sqrt(currentLen));
-            currentLen -= currentLen%blockSize;
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-            
-            int[] backtrack = new int[currentLen];
-            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
-            boolean anyswaps = false;
-            while (!anyswaps) {
-                int start = blockSize * random.nextInt((currentLen/blockSize));
-                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
-                if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
-                }
-                for (int i = 0; i < currentLen; i++) {
-                    if (array[i] != backtrack[i]) {
-                        anyswaps = true;
-                        break;
-                    }
-                }
-            }
-        }
-        private int pow2lte(int value) {
-            int val;
-            for (val = 1; val <= value; val <<= 1);
-            return val >> 1;
-        }
-    },
-    SEEDED_MOVED_BLOCK_RIGHT {
-        public String getName() {
-            return "Right Shifted Block (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            int blockSize = pow2lte((int)Math.sqrt(currentLen));
-            currentLen -= currentLen%blockSize;
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-            
-            int[] backtrack = new int[currentLen];
-            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
-            boolean anyswaps = false;
-            while (!anyswaps) {
-                int start = blockSize * random.nextInt((currentLen/blockSize));
-                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
-                if (dest > start) {
-                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
-                }
-                for (int i = 0; i < currentLen; i++) {
-                    if (array[i] != backtrack[i]) {
-                        anyswaps = true;
-                        break;
-                    }
-                }
-            }
-        }
-        private int pow2lte(int value) {
-            int val;
-            for (val = 1; val <= value; val <<= 1);
-            return val >> 1;
-        }
-    },
     FIRST_LAST {
         public String getName() {
             return "First Item Last";
@@ -769,22 +454,6 @@ public enum Shuffles {
             classicshuffle(array, i, currentLen, delay ? 0.5 : 0, Writes);
         }
     },
-    SEEDED_NOISY {
-        public String getName() {
-            return "Noisy (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Random random = new Random(1);
-
-            int i, size = Math.max(4, (int)(Math.sqrt(currentLen)/2));
-            for(i = 0; i+size <= currentLen; i += random.nextInt(size-1)+1)
-                shuffle(array, i, i+size, delay ? 0.5 : 0, Writes);
-            shuffle(array, i, currentLen, delay ? 0.5 : 0, Writes);
-        }
-    },
     SHUFFLED_ODDS {
         public String getName() {
             return "Scrambled Odds";
@@ -793,23 +462,6 @@ public enum Shuffles {
         public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int currentLen = ArrayVisualizer.getCurrentLength();
             Random random = new Random();
-
-            for(int i = 1; i < currentLen; i += 2){
-                int randomIndex = (((random.nextInt(currentLen - i) / 2)) * 2) + i;
-                if (i != randomIndex) Writes.swap(array, i, randomIndex, 0, true, false);
-
-                if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(2);
-            }
-        }
-    },
-    SEEDED_SHUFFLED_ODDS {
-        public String getName() {
-            return "Scrambled Odds (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            Random random = new Random(1);
 
             for(int i = 1; i < currentLen; i += 2){
                 int randomIndex = (((random.nextInt(currentLen - i) / 2)) * 2) + i;
@@ -855,21 +507,6 @@ public enum Shuffles {
             this.sort(array, currentLen / 2, currentLen, delay ? 0.5 : 0, Writes);
         }
     },
-    SEEDED_REAL_FINAL_MERGE {
-        public String getName() {
-            return "Shuffled Final Merge (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-            Highlights.clearMark(2);
-            this.sort(array, 0, currentLen / 2, delay ? 0.5 : 0, Writes);
-            this.sort(array, currentLen / 2, currentLen, delay ? 0.5 : 0, Writes);
-        }
-    },
     REAL_SAWTOOTH {
         public String getName() {
             return "Shuffled Sawtooth";
@@ -880,23 +517,6 @@ public enum Shuffles {
             boolean delay = ArrayVisualizer.shuffleEnabled();
             
             this.classicshuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-            Highlights.clearMark(2);
-            this.sort(array, 0, currentLen / 4, delay ? 0.5 : 0, Writes);
-            this.sort(array, currentLen / 4, currentLen / 2, delay ? 0.5 : 0, Writes);
-            this.sort(array, currentLen / 2, 3 * currentLen / 4, delay ? 0.5 : 0, Writes);
-            this.sort(array, 3 * currentLen / 4, currentLen, delay ? 0.5 : 0, Writes);
-        }
-    },
-    SEEDED_REAL_SAWTOOTH {
-        public String getName() {
-            return "Shuffled Sawtooth (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            
-            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
             Highlights.clearMark(2);
             this.sort(array, 0, currentLen / 4, delay ? 0.5 : 0, Writes);
             this.sort(array, currentLen / 4, currentLen / 2, delay ? 0.5 : 0, Writes);
@@ -918,20 +538,6 @@ public enum Shuffles {
             this.sort(array, 0, currentLen / 2, delay ? 2/3d : 0, Writes);
         }
     },
-    SEEDED_SHUFFLED_HALF {
-        public String getName() {
-            return "Shuffled Half (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            this.shuffle(array, 0, currentLen, delay ? 2/3d : 0, Writes);
-            Highlights.clearMark(2);
-            this.sort(array, 0, currentLen / 2, delay ? 2/3d : 0, Writes);
-        }
-    },
     PARTITIONED {
         public String getName() {
             return "Partitioned";
@@ -945,21 +551,6 @@ public enum Shuffles {
             Highlights.clearMark(2);
             this.classicshuffle(array, 0, currentLen/2, delay ? 0.5 : 0, Writes);
             this.classicshuffle(array, currentLen/2, currentLen, delay ? 0.5 : 0, Writes);
-        }
-    },
-    SEEDED_PARTITIONED {
-        public String getName() {
-            return "Partitioned (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            this.sort(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-            Highlights.clearMark(2);
-            this.shuffle(array, 0, currentLen/2, delay ? 0.5 : 0, Writes);
-            this.shuffle(array, currentLen/2, currentLen, delay ? 0.5 : 0, Writes);
         }
     },
     PERFECT_QUICK {
@@ -979,23 +570,6 @@ public enum Shuffles {
             }
         }
     },
-    SEEDED_PERFECT_QUICK {
-        public String getName() {
-            return "Quick Partitions (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            this.sort(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-            Highlights.clearMark(2);
-            
-            for (int point = currentLen; point >= 1; point /= 2) {
-                this.shuffle(array, (point / 2), point, delay ? 0.5 : 0, Writes);
-            }
-        }
-    },
     STRANGE_PASS {
         public String getName() {
             return "First Strange Pass";
@@ -1006,6 +580,7 @@ public enum Shuffles {
             boolean delay = ArrayVisualizer.shuffleEnabled();
             Reads Reads = ArrayVisualizer.getReads();
             
+            this.classicshuffle(array, 0, currentLen, delay ? 0.05 : 0, Writes);
             int offset = 1;
             double mult = 1.0;
             int bound = 1;
@@ -1014,7 +589,7 @@ public enum Shuffles {
                 bound = 1;
                 while (offset + mult <= currentLen) {
                     if (Reads.compareIndices(array, (int) (offset + mult / 2) - 1, (int) (offset + mult) - 1, delay ? 0.05 : 0, true) > 0) {
-                        Writes.swap(array, (int) (offset + mult / 2) - 1, (int) (offset + mult) - 1, 0.05, true, false);
+                        Writes.swap(array, (int) (offset + mult / 2) - 1, (int) (offset + mult) - 1, delay ? 0.05 : 0, true, false);
                         if (mult == 1 / 2) {
                             bound *= 2;
                             mult = bound;
@@ -1450,43 +1025,6 @@ public enum Shuffles {
             if(low + mid + 1 < end) circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes);
         }
     },
-    SEEDED_CIRCLE {
-        public String getName() {
-            return "First Circle Pass (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Reads Reads = ArrayVisualizer.getReads();
-
-            shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-
-            int n = 1;
-            for(; n < currentLen; n*=2);
-
-            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.5 : 0, Reads, Writes);
-        }
-
-        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes) {
-            if (lo == hi) return;
-
-            int high = hi;
-            int low = lo;
-            int mid = (hi - lo) / 2;
-
-            while (lo < hi) {
-                if (hi < end && Reads.compareIndices(array, lo, hi, sleep / 2, true) > 0)
-                    Writes.swap(array, lo, hi, sleep, true, false);
-
-                lo++;
-                hi--;
-            }
-
-            circleSortRoutine(array, low, low + mid, end, sleep/2, Reads, Writes);
-            if(low + mid + 1 < end) circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes);
-        }
-    },
     PAIRWISE {
         public String getName() {
             return "Final Pairwise Pass";
@@ -1498,45 +1036,6 @@ public enum Shuffles {
             Reads Reads = ArrayVisualizer.getReads();
 
             classicshuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
-
-            //create pairs
-            for(int i = 1; i < currentLen; i+=2)
-                if(Reads.compareIndices(array, i - 1, i, delay ? 0.5 : 0, true) > 0)
-                    Writes.swap(array, i-1, i, delay ? 0.5 : 0, true, false);
-
-            Highlights.clearMark(2);
-
-            int[] temp = new int[currentLen];
-
-            //sort the smaller and larger of the pairs separately with pigeonhole sort
-            for(int m = 0; m < 2; m++) {
-                for(int k = m; k < currentLen; k+=2)
-                    Writes.write(temp, array[k], temp[array[k]] + 1, 0, false, true);
-
-                int i = 0, j = m;
-                while(true) {
-                    while(i < currentLen && temp[i] == 0) i++;
-                    if(i >= currentLen) break;
-
-                    Writes.write(array, j, i, delay ? 0.5 : 0, true, false);
-
-                    j+=2;
-                    Writes.write(temp, i, temp[i] - 1, 0, false, true);
-                }
-            }
-        }
-    },
-    SEEDED_PAIRWISE {
-        public String getName() {
-            return "Final Pairwise Pass (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            Reads Reads = ArrayVisualizer.getReads();
-
-            shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
 
             //create pairs
             for(int i = 1; i < currentLen; i+=2)
@@ -2156,61 +1655,6 @@ public enum Shuffles {
             }
         }
     },
-    SEEDED_GRAIL_BAD {
-        public String getName() {
-            return "Grailsort Adversary (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-
-            if(currentLen <= 16) Writes.reversal(array, 0, currentLen-1, delay ? 1 : 0, true, false);
-            else {
-                int blockLen = 1;
-                while(blockLen * blockLen < currentLen) blockLen *= 2;
-
-                int numKeys = (currentLen - 1) / blockLen + 1;
-                int keys = blockLen + numKeys;
-
-                shuffle(array, 0, currentLen, delay ? 0.25 : 0, Writes);
-                sort(array, 0, keys, delay ? 0.25 : 0, Writes);
-                Writes.reversal(array, 0, keys-1, delay ? 0.25 : 0, true, false);
-                Highlights.clearMark(2);
-                sort(array, keys, currentLen, delay ? 0.25 : 0, Writes);
-
-                push(array, keys, currentLen, blockLen, delay ? 0.25 : 0, Writes);
-            }
-        }
-
-        public void rotate(int[] array, int a, int m, int b, double sleep, Writes Writes) {
-            Writes.reversal(array, a, m-1, sleep, true, false);
-            Writes.reversal(array, m, b-1, sleep, true, false);
-            Writes.reversal(array, a, b-1, sleep, true, false);
-        }
-
-        public void push(int[] array, int a, int b, int bLen, double sleep, Writes Writes) {
-            int len = b-a,
-                b1 = b - len%bLen, len1 = b1-a;
-            if(len1 <= 2*bLen) return;
-
-            int m = bLen;
-            while(2*m < len) m *= 2;
-            m += a;
-
-            if(b1-m < bLen) push(array, a, m, bLen, sleep, Writes);
-            else {
-                m = a+b1-m;
-                rotate(array, m-(bLen-2), b1-(bLen-1), b1, sleep, Writes);
-                Writes.multiSwap(array, a, m, sleep/2, true, false);
-                rotate(array, a, m, b1, sleep, Writes);
-                m = a+b1-m;
-
-                push(array, a, m, bLen, sleep/2, Writes);
-                push(array, m, b, bLen, sleep/2, Writes);
-            }
-        }
-    },
     SHUF_MERGE_BAD {
         public String getName() {
             return "Shuffle Merge Adversary";
@@ -2358,38 +1802,6 @@ public enum Shuffles {
             return val >> 1;
         }
     },
-    SEEDED_BLOCK_RANDOMLY {
-        @Override
-        public String getName() {
-            return "Randomly w/ Blocks (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            int blockSize = pow2lte((int)Math.sqrt(currentLen));
-            currentLen -= currentLen%blockSize;
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            double sleep = delay ? 1 : 0;
-
-            Random random = new Random(1);
-            for (int i = 0; i < currentLen; i += blockSize) {
-                int randomIndex = random.nextInt((currentLen - i) / blockSize) * blockSize + i;
-                blockSwap(array, i, randomIndex, blockSize, Writes, sleep);
-            }
-        }
-
-        private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
-            for (int i = 0; i < len; i++) {
-                Writes.swap(array, a + i, b + i, sleep, true, false);
-            }
-        }
-
-        private int pow2lte(int value) {
-            int val;
-            for (val = 1; val <= value; val <<= 1);
-            return val >> 1;
-        }
-    },
     CRAZY_BLOCK_RANDOMLY {
         @Override
         public String getName() {
@@ -2404,45 +1816,6 @@ public enum Shuffles {
             double sleep = delay ? 1 : 0;
             
             Random random = new Random();
-            for (int i = 0; i < currentLen; i += blockSize) {
-                int randomIndex = random.nextInt((currentLen - i) / blockSize) * blockSize + i;
-                blockSwap(array, i, randomIndex, blockSize, Writes, sleep);
-            }
-
-            for (int i = 0; i < currentLen; i += blockSize) {
-                if (random.nextBoolean()) {
-                    Writes.reversal(array, i, i + blockSize - 1, sleep * 4, true, false);
-                }
-            }
-
-        }
-
-        private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
-            for (int i = 0; i < len; i++) {
-                Writes.swap(array, a + i, b + i, sleep, true, false);
-            }
-        }
-
-        private int pow2lte(int value) {
-            int val;
-            for (val = 1; val <= value; val <<= 1);
-            return val >> 1;
-        }
-    },
-    SEEDED_CRAZY_BLOCK_RANDOMLY {
-        @Override
-        public String getName() {
-            return "Randomly w/ Crazy Blocks (Seeded)";
-        }
-        @Override
-        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
-            int currentLen = ArrayVisualizer.getCurrentLength();
-            int blockSize = pow2lte((int)Math.sqrt(currentLen));
-            currentLen -= currentLen%blockSize;
-            boolean delay = ArrayVisualizer.shuffleEnabled();
-            double sleep = delay ? 1 : 0;
-            
-            Random random = new Random(1);
             for (int i = 0; i < currentLen; i += blockSize) {
                 int randomIndex = random.nextInt((currentLen - i) / blockSize) * blockSize + i;
                 blockSwap(array, i, randomIndex, blockSize, Writes, sleep);
@@ -2599,6 +1972,669 @@ public enum Shuffles {
             quickSort(array, table, 0, currentLength, Reads, Writes, Highlights);
         }
         
+    },
+    SEEDED_RANDOM {
+        public String getName() {
+            return "Randomly (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            shuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
+        }
+    },
+    SEEDED_ALMOST {
+        public String getName() {
+            return "Slight Shuffle (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            Random random = new Random(1);
+
+            for(int i = 0; i < Math.max(currentLen / 20, 1); i++){
+                int a = random.nextInt(currentLen);
+                int b = random.nextInt(currentLen);
+                if (a != b) {
+                    Writes.swap(array, a, b, 0, true, false);
+                    if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(10);
+                } else i--;
+            }
+        }
+    },
+    SEEDED_NAIVE {
+        public String getName() {
+            return "Naive Randomly (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+
+            for(int i = 0; i < currentLen; i++)
+                Writes.swap(array, i, random.nextInt(currentLen), delay ? 1 : 0, true, false);
+        }
+    },
+    SEEDED_SHUFFLED_TAIL {
+        public String getName() {
+            return "Scrambled Tail (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            Random random = new Random(1);
+            int[] aux = new int[currentLen];
+            int i = 0, j = 0, k = 0;
+            while (i < currentLen) {
+                Highlights.markArray(2, i);
+                if (random.nextDouble() < 1/7d)
+                    Writes.write(aux, k++, array[i++], delay ? 1 : 0, false, true);
+                else
+                    Writes.write(array, j++, array[i++], delay ? 1 : 0, true, false);
+            }
+            Writes.arraycopy(aux, 0, array, j, k, delay ? 1 : 0, true, false);
+            shuffle(array, j, currentLen, delay ? 2 : 0, Writes);
+        }
+    },
+    SEEDED_SHUFFLED_HEAD {
+        public String getName() {
+            return "Scrambled Head (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            Random random = new Random(1);
+            int[] aux = new int[currentLen];
+            int i = currentLen - 1, j = currentLen - 1, k = 0;
+            while (i >= 0) {
+                Highlights.markArray(2, i);
+                if (random.nextDouble() < 1/7d)
+                    Writes.write(aux, k++, array[i--], delay ? 1 : 0, false, true);
+                else
+                    Writes.write(array, j--, array[i--], delay ? 1 : 0, true, false);
+            }
+            Writes.arraycopy(aux, 0, array, 0, k, delay ? 1 : 0, true, false);
+            shuffle(array, 0, j, delay ? 2 : 0, Writes);
+        }
+    },
+    SEEDED_SHUFFLED_TAIL_LEGACY {
+        public String getName() {
+            return "Scrambled End (Legacy) (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            int len = Math.max(1, currentLen/7);
+            
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, 0, currentLen-len, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SEEDED_SHUFFLED_HEAD_LEGACY {
+        public String getName() {
+            return "Scrambled Start (Legacy) (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            int len = Math.max(1, currentLen/7);
+            
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, len, currentLen, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SEEDED_MOVED_ELEMENT {
+        public String getName() {
+            return "Shifted Element (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = random.nextInt(currentLen);
+                int dest = random.nextInt(currentLen);
+                if (dest < start) {
+                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                }
+                else {
+                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                }
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+    },
+    SEEDED_MOVED_ELEMENT_LEFT {
+        public String getName() {
+            return "Left Shifted Element (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = random.nextInt(currentLen);
+                int dest = random.nextInt(currentLen);
+                if (dest < start) {
+                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                }
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+    },
+    SEEDED_MOVED_ELEMENT_RIGHT {
+        public String getName() {
+            return "Right Shifted Element (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = random.nextInt(currentLen);
+                int dest = random.nextInt(currentLen);
+                if (dest > start) {
+                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                }
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+    },
+    SEEDED_MOVED_BLOCK {
+        public String getName() {
+            return "Shifted Block (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = blockSize * random.nextInt((currentLen/blockSize));
+                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
+                if (dest < start) {
+                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                }
+                else {
+                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                }
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
+        }
+    },
+    SEEDED_MOVED_BLOCK_LEFT {
+        public String getName() {
+            return "Left Shifted Block (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = blockSize * random.nextInt((currentLen/blockSize));
+                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
+                if (dest < start) {
+                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                }
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
+        }
+    },
+    SEEDED_MOVED_BLOCK_RIGHT {
+        public String getName() {
+            return "Right Shifted Block (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            
+            int[] backtrack = new int[currentLen];
+            Writes.arraycopy(array, 0, backtrack, 0, currentLen, 0, false, true);
+            boolean anyswaps = false;
+            while (!anyswaps) {
+                int start = blockSize * random.nextInt((currentLen/blockSize));
+                int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
+                if (dest > start) {
+                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                }
+                for (int i = 0; i < currentLen; i++) {
+                    if (array[i] != backtrack[i]) {
+                        anyswaps = true;
+                        break;
+                    }
+                }
+            }
+        }
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
+        }
+    },
+    SEEDED_NOISY {
+        public String getName() {
+            return "Noisy (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+
+            int i, size = Math.max(4, (int)(Math.sqrt(currentLen)/2));
+            for(i = 0; i+size <= currentLen; i += random.nextInt(size-1)+1)
+                shuffle(array, i, i+size, delay ? 0.5 : 0, Writes);
+            shuffle(array, i, currentLen, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SEEDED_SHUFFLED_ODDS {
+        public String getName() {
+            return "Scrambled Odds (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            Random random = new Random(1);
+
+            for(int i = 1; i < currentLen; i += 2){
+                int randomIndex = (((random.nextInt(currentLen - i) / 2)) * 2) + i;
+                if (i != randomIndex) Writes.swap(array, i, randomIndex, 0, true, false);
+
+                if(ArrayVisualizer.shuffleEnabled()) Delays.sleep(2);
+            }
+        }
+    },
+    SEEDED_REAL_FINAL_MERGE {
+        public String getName() {
+            return "Shuffled Final Merge (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, 0, currentLen / 2, delay ? 0.5 : 0, Writes);
+            this.sort(array, currentLen / 2, currentLen, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SEEDED_REAL_SAWTOOTH {
+        public String getName() {
+            return "Shuffled Sawtooth (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, 0, currentLen / 4, delay ? 0.5 : 0, Writes);
+            this.sort(array, currentLen / 4, currentLen / 2, delay ? 0.5 : 0, Writes);
+            this.sort(array, currentLen / 2, 3 * currentLen / 4, delay ? 0.5 : 0, Writes);
+            this.sort(array, 3 * currentLen / 4, currentLen, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SEEDED_SHUFFLED_HALF {
+        public String getName() {
+            return "Shuffled Half (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            this.shuffle(array, 0, currentLen, delay ? 2/3d : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, 0, currentLen / 2, delay ? 2/3d : 0, Writes);
+        }
+    },
+    SEEDED_PARTITIONED {
+        public String getName() {
+            return "Partitioned (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            this.sort(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.shuffle(array, 0, currentLen/2, delay ? 0.5 : 0, Writes);
+            this.shuffle(array, currentLen/2, currentLen, delay ? 0.5 : 0, Writes);
+        }
+    },
+    SEEDED_PERFECT_QUICK {
+        public String getName() {
+            return "Quick Partitions (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            this.sort(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            
+            for (int point = currentLen; point >= 1; point /= 2) {
+                this.shuffle(array, (point / 2), point, delay ? 0.5 : 0, Writes);
+            }
+        }
+    },
+    SEEDED_STRANGE_PASS {
+        public String getName() {
+            return "First Strange Pass (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Reads Reads = ArrayVisualizer.getReads();
+            
+            this.shuffle(array, 0, currentLen, delay ? 0.05 : 0, Writes);
+            int offset = 1;
+            double mult = 1.0;
+            int bound = 1;
+            while (offset != currentLen) {
+                mult = 1;
+                bound = 1;
+                while (offset + mult <= currentLen) {
+                    if (Reads.compareIndices(array, (int) (offset + mult / 2) - 1, (int) (offset + mult) - 1, delay ? 0.05 : 0, true) > 0) {
+                        Writes.swap(array, (int) (offset + mult / 2) - 1, (int) (offset + mult) - 1, delay ? 0.05 : 0, true, false);
+                        if (mult == 1 / 2) {
+                            bound *= 2;
+                            mult = bound;
+                        } else {
+                            mult /= 2;
+                        }
+                    } else {
+                        bound *= 2;
+                        mult = bound;
+                    }
+                }
+                offset++;
+            }
+        }
+    },
+    SEEDED_CIRCLE {
+        public String getName() {
+            return "First Circle Pass (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Reads Reads = ArrayVisualizer.getReads();
+
+            shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+
+            int n = 1;
+            for(; n < currentLen; n*=2);
+
+            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.5 : 0, Reads, Writes);
+        }
+
+        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes) {
+            if (lo == hi) return;
+
+            int high = hi;
+            int low = lo;
+            int mid = (hi - lo) / 2;
+
+            while (lo < hi) {
+                if (hi < end && Reads.compareIndices(array, lo, hi, sleep / 2, true) > 0)
+                    Writes.swap(array, lo, hi, sleep, true, false);
+
+                lo++;
+                hi--;
+            }
+
+            circleSortRoutine(array, low, low + mid, end, sleep/2, Reads, Writes);
+            if(low + mid + 1 < end) circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes);
+        }
+    },
+    SEEDED_PAIRWISE {
+        public String getName() {
+            return "Final Pairwise Pass (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Reads Reads = ArrayVisualizer.getReads();
+
+            shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+
+            //create pairs
+            for(int i = 1; i < currentLen; i+=2)
+                if(Reads.compareIndices(array, i - 1, i, delay ? 0.5 : 0, true) > 0)
+                    Writes.swap(array, i-1, i, delay ? 0.5 : 0, true, false);
+
+            Highlights.clearMark(2);
+
+            int[] temp = new int[currentLen];
+
+            //sort the smaller and larger of the pairs separately with pigeonhole sort
+            for(int m = 0; m < 2; m++) {
+                for(int k = m; k < currentLen; k+=2)
+                    Writes.write(temp, array[k], temp[array[k]] + 1, 0, false, true);
+
+                int i = 0, j = m;
+                while(true) {
+                    while(i < currentLen && temp[i] == 0) i++;
+                    if(i >= currentLen) break;
+
+                    Writes.write(array, j, i, delay ? 0.5 : 0, true, false);
+
+                    j+=2;
+                    Writes.write(temp, i, temp[i] - 1, 0, false, true);
+                }
+            }
+        }
+    },
+    SEEDED_GRAIL_BAD {
+        public String getName() {
+            return "Grailsort Adversary (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            if(currentLen <= 16) Writes.reversal(array, 0, currentLen-1, delay ? 1 : 0, true, false);
+            else {
+                int blockLen = 1;
+                while(blockLen * blockLen < currentLen) blockLen *= 2;
+
+                int numKeys = (currentLen - 1) / blockLen + 1;
+                int keys = blockLen + numKeys;
+
+                shuffle(array, 0, currentLen, delay ? 0.25 : 0, Writes);
+                sort(array, 0, keys, delay ? 0.25 : 0, Writes);
+                Writes.reversal(array, 0, keys-1, delay ? 0.25 : 0, true, false);
+                Highlights.clearMark(2);
+                sort(array, keys, currentLen, delay ? 0.25 : 0, Writes);
+
+                push(array, keys, currentLen, blockLen, delay ? 0.25 : 0, Writes);
+            }
+        }
+
+        public void rotate(int[] array, int a, int m, int b, double sleep, Writes Writes) {
+            Writes.reversal(array, a, m-1, sleep, true, false);
+            Writes.reversal(array, m, b-1, sleep, true, false);
+            Writes.reversal(array, a, b-1, sleep, true, false);
+        }
+
+        public void push(int[] array, int a, int b, int bLen, double sleep, Writes Writes) {
+            int len = b-a,
+                b1 = b - len%bLen, len1 = b1-a;
+            if(len1 <= 2*bLen) return;
+
+            int m = bLen;
+            while(2*m < len) m *= 2;
+            m += a;
+
+            if(b1-m < bLen) push(array, a, m, bLen, sleep, Writes);
+            else {
+                m = a+b1-m;
+                rotate(array, m-(bLen-2), b1-(bLen-1), b1, sleep, Writes);
+                Writes.multiSwap(array, a, m, sleep/2, true, false);
+                rotate(array, a, m, b1, sleep, Writes);
+                m = a+b1-m;
+
+                push(array, a, m, bLen, sleep/2, Writes);
+                push(array, m, b, bLen, sleep/2, Writes);
+            }
+        }
+    },
+    SEEDED_BLOCK_RANDOMLY {
+        @Override
+        public String getName() {
+            return "Randomly w/ Blocks (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            double sleep = delay ? 1 : 0;
+
+            Random random = new Random(1);
+            for (int i = 0; i < currentLen; i += blockSize) {
+                int randomIndex = random.nextInt((currentLen - i) / blockSize) * blockSize + i;
+                blockSwap(array, i, randomIndex, blockSize, Writes, sleep);
+            }
+        }
+
+        private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
+            for (int i = 0; i < len; i++) {
+                Writes.swap(array, a + i, b + i, sleep, true, false);
+            }
+        }
+
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
+        }
+    },
+    SEEDED_CRAZY_BLOCK_RANDOMLY {
+        @Override
+        public String getName() {
+            return "Randomly w/ Crazy Blocks (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            int blockSize = pow2lte((int)Math.sqrt(currentLen));
+            currentLen -= currentLen%blockSize;
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            double sleep = delay ? 1 : 0;
+            
+            Random random = new Random(1);
+            for (int i = 0; i < currentLen; i += blockSize) {
+                int randomIndex = random.nextInt((currentLen - i) / blockSize) * blockSize + i;
+                blockSwap(array, i, randomIndex, blockSize, Writes, sleep);
+            }
+
+            for (int i = 0; i < currentLen; i += blockSize) {
+                if (random.nextBoolean()) {
+                    Writes.reversal(array, i, i + blockSize - 1, sleep * 4, true, false);
+                }
+            }
+
+        }
+
+        private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
+            for (int i = 0; i < len; i++) {
+                Writes.swap(array, a + i, b + i, sleep, true, false);
+            }
+        }
+
+        private int pow2lte(int value) {
+            int val;
+            for (val = 1; val <= value; val <<= 1);
+            return val >> 1;
+        }
     };
 
     public void sort(int[] array, int start, int end, double sleep, Writes Writes) {

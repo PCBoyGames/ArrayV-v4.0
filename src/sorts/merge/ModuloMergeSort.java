@@ -1,6 +1,5 @@
 package sorts.merge;
 
-import java.lang.Math;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 

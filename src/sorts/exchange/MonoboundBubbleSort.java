@@ -19,18 +19,6 @@ final public class MonoboundBubbleSort extends Sort {
         this.setBogoSort(false);
     }
     
-    private void shift(int[] array, int from, int to, double sleep) {
-    	if(from == to)
-    		return;
-		int k = array[from];
-    	if(from < to) {
-        	Writes.arraycopy(array, from+1, array, from, to-from, sleep/2d, true, false);
-    	} else {
-        	Writes.reversearraycopy(array, to, array, to+1, from-to, sleep/2d, true, false);
-    	}
-    	Writes.write(array, to, k, sleep, true, false);
-    }
-    
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i = length - 1; i > 0; --i) {

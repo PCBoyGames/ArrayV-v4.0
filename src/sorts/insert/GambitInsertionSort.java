@@ -4,7 +4,6 @@
 package sorts.insert;
 
 import main.ArrayVisualizer;
-import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
 /**

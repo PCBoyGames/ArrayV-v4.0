@@ -38,7 +38,7 @@ final public class OptimizedStoogeSortStudio extends Sort {
 		return false;
 	}
 	
-	private boolean stoogeSort(int[] array, int a, int m, int b, boolean merge) {
+	public boolean stoogeSort(int[] array, int a, int m, int b, boolean merge) {
 		if(a >= m)
 			return false;
 		if(b-a == 2)

@@ -20,7 +20,7 @@ final public class LRQuickSort extends Sort {
     }
 
     // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
-    private void quickSort(int[] a, int p, int r) {       
+    public void quickSort(int[] a, int p, int r) {       
         int pivot = p + (r - p + 1) / 2;
         int x = a[pivot];
         

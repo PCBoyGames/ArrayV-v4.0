@@ -1,7 +1,6 @@
 package sorts.exchange;
 
 import main.ArrayVisualizer;
-import panes.JErrorPane;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 

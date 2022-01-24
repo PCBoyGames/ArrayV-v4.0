@@ -36,33 +36,6 @@ final public class IntroSort extends Sort {
         return (int) (Math.floor(Math.log(a) / Math.log(2)));
     }
     
-    // Swaps the median of arr[left], arr[mid], and arr[right] to index left.
-    // taken from gcc source code found here: https://gcc.gnu.org/onlinedocs/gcc-4.7.2/libstdc++/api/a01462_source.html
-    private int gccmedianof3(int[] arr, int left, int mid, int right) {
-        if (Reads.compareValues(arr[left], arr[mid]) < 0) {
-            if (Reads.compareValues(arr[mid], arr[right]) < 0) {
-                Writes.swap(arr, left, mid, 1, true, false);
-            }
-            else if (Reads.compareValues(arr[left], arr[right]) < 0) {
-                Writes.swap(arr, left, right, 1, true, false);
-            }
-        }
-        else if (Reads.compareValues(arr[left], arr[right]) < 0) {
-            middle = left;
-            Highlights.markArray(3, left);
-            return arr[left];
-        }
-        else if (Reads.compareValues(arr[mid], arr[right]) < 0) {
-            Writes.swap(arr, left, right, 1, true, false);
-        }
-        else {
-            Writes.swap(arr, left, mid, 1, true, false);
-        }
-        middle = left;
-        Highlights.markArray(3, left);
-        return arr[left];
-    }
-    
     private int medianof3(int[] arr, int left, int mid, int right) {
         if(Reads.compareValues(arr[right], arr[left]) == -1) {
             Writes.swap(arr, left, right, 1, true, false); 

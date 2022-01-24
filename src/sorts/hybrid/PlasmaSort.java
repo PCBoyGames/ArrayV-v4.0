@@ -1,11 +1,8 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.insert.BinaryInsertionSort;
 import sorts.insert.InsertionSort;
-import sorts.merge.ReverseLazyStableSort;
 import sorts.templates.Sort;
-import utils.Highlights;
 import utils.Rotations;
 
 /*
@@ -38,8 +35,6 @@ final public class PlasmaSort extends Sort {
     int[] keys;
 
     private InsertionSort insertSorter;
-    private LazierSort finalMerger;
-
     public PlasmaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         
@@ -260,7 +255,7 @@ final public class PlasmaSort extends Sort {
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         insertSorter = new InsertionSort(arrayVisualizer);
-        finalMerger = new LazierSort(arrayVisualizer);
+        new LazierSort(arrayVisualizer);
         
         if (sortLength < 24) {
             insertSorter.customInsertSort(array, 0, sortLength, 0.333, false);

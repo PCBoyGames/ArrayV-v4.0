@@ -32,14 +32,6 @@ final public class MoreOptimizedIndexSort12 extends Sort {
         this.setBogoSort(false);
     }
     private BigInteger bitlist;
-    private boolean includes(int[] table, int index) {
-    	for(int i=0; i<table.length; i++) {
-    		if(table[i] == index)
-    			return true;
-    	}
-    	return false;
-    }
-	
     private boolean bitIsSet(BigInteger b, int loc) {
 		return b.testBit(loc);
 	}

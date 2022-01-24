@@ -40,9 +40,6 @@ final public class SimplifiedHanoiSort extends Sort {
     		arr = array;
     		sz = -1;
     	}
-    	public Rod() {
-    		this(0);
-    	}
     	public boolean empty() {
     		return sz < 0;
     	}

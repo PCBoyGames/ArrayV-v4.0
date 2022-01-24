@@ -51,7 +51,6 @@ public final class MilkSort extends Sort {
 	}
 	@Override
 	public void runSort(int[] array, int length, int bucketCount) {
-		InsertionSort i = new InsertionSort(arrayVisualizer);
 		Milk(array, 0, length);
 	}
 }

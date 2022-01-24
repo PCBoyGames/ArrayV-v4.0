@@ -37,8 +37,6 @@ final public class Reads {
 
     private ArrayVisualizer ArrayVisualizer;
 
-    private DecimalFormat formatter;
-
     private Delays Delays;
     private Highlights Highlights;
     private Timer Timer;
@@ -53,7 +51,7 @@ final public class Reads {
         this.Highlights = ArrayVisualizer.getHighlights();
         this.Timer = ArrayVisualizer.getTimer();
 
-        this.formatter = ArrayVisualizer.getNumberFormat();
+        ArrayVisualizer.getNumberFormat();
     }
 
     public void resetStatistics() {

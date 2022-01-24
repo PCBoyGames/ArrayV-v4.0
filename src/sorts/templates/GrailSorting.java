@@ -129,7 +129,7 @@ public abstract class GrailSorting extends Sort {
     }
 
     // cost: 2 * len + numKeys^2 / 2
-    private int grailFindKeys(int[] arr, int pos, int len, int numKeys) {
+    protected int grailFindKeys(int[] arr, int pos, int len, int numKeys) {
         int dist = 1, foundKeys = 1, firstKey = 0;  // first key is always here
 
         while(dist < len && foundKeys < numKeys) {

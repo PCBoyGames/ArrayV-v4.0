@@ -18,7 +18,7 @@ final public class MultiPopSort extends BogoSorting {
         this.setSortListName("Multilingual Pop");
         this.setRunAllSortsName("Multilingual Pop Sort");
         this.setRunSortName("Multilingual Pop Sort");
-        this.setCategory("Exchange Sorts");
+        this.setCategory("Impractical Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);
@@ -28,20 +28,23 @@ final public class MultiPopSort extends BogoSorting {
     }
     
     protected void bubble(int[] array, int start, int end, int dir) {
-        int i = start;
-        int j = start;
-        int lastswap = end - 1;
-        while (lastswap >= start + 1) {
-            i = start;
-            j = start;
-            while (i <= lastswap) {
-                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
-                    Writes.swap(array, i - 1, i, 0.1, true, false);
-                    j = i;
-                }
-                i++;
+        int c = 1;
+        int s;
+        int f = 1;
+        boolean a = false;
+        for (int j = end; j > 0; j -= c) {
+            if (f - 1 <= start) s = start;
+            else s = f - 1;
+            a = false;
+            c = 1;
+            for (int i = s; i < j; i++) {
+                if (Reads.compareIndices(array, i - 1, i, 0.025, true) == dir) {
+                    Writes.swap(array, i - 1, i, 0.075, true, false);
+                    if (!a) f = i;
+                    a = true;
+                    c = 1;
+                } else c++;
             }
-            lastswap = j;
         }
     }
 	
@@ -67,20 +70,18 @@ final public class MultiPopSort extends BogoSorting {
 	}
 	
 	protected void oddeven(int[] array, int start, int end, int dir) {
-		boolean sorted = false;
-        while (!sorted) {
-            sorted = true;
-            for (int i = start + 1; i < end; i += 2) {
-                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
-                    Writes.swap(array, i - 1, i, 0.1, true, false);
-                    sorted = false;
-                }
-            }
-            for (int i = start; i < end; i += 2) {
-                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
-                    Writes.swap(array, i - 1, i, 0.1, true, false);
-                    sorted = false;
-                }
+		int i = start;
+        int run = 0;
+        int count = 0;
+        while (i + 1 <= end && count < end - start) {
+            count++;
+            if (i > start) i--;
+            while (Reads.compareIndices(array, i - 1, i, 0.025, true) == dir * -1 && i + 1 < end) i++;
+            if (i + 1 < end) Writes.swap(array, i - 1, i, 0.075, true, false);
+            run = i + 2;
+            while (run + 1 <= end) {
+                if (Reads.compareIndices(array, run - 1, run, 0.025, true) == dir) Writes.swap(array, run - 1, run, 0.075, true, false);
+                run += 2;
             }
         }
 	}

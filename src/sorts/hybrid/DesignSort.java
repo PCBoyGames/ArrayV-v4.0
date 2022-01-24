@@ -3,7 +3,6 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
-//import utils.Range;
 
 public class DesignSort extends Sort {
 	public DesignSort(ArrayVisualizer arrayVisualizer) {

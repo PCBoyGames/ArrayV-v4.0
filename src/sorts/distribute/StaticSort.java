@@ -1,7 +1,5 @@
 package sorts.distribute;
 
-import java.util.ArrayList;
-
 import main.ArrayVisualizer;
 import sorts.insert.UnstableInsertionSort;
 import sorts.select.MaxHeapSort;

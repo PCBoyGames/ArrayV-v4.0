@@ -9,12 +9,11 @@ Idea made by Control#2866 in The Studio Discord Server (https://discord.com/invi
 
 final public class MatrixSort extends Sort {
     private class MatrixShape {
-        int width, height;
+        int width;
         boolean unbalanced, insertLast;
 
         public MatrixShape(int width, int height, boolean insertLast) {
             this.width = width;
-            this.height = height;
             this.unbalanced = (width == 1) ^ (height == 1);
             this.insertLast = this.unbalanced || insertLast;
         }
@@ -33,11 +32,6 @@ final public class MatrixSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-    }
-
-    private int dirCompare(int[] array, int left, int right, boolean dir) {
-        int res = Reads.compareIndices(array, left, right, 0.5, true);
-        return dir ? res : (res * -1);
     }
 
     private void gapReverse(int[] array, int start, int end, int gap) {

@@ -9,9 +9,9 @@ import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
 final public class HeadQuicksort extends Sort {
-    public HeadQuicksort(ArrayVisualizer arrayVisualizer) {
+	public HeadQuicksort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+        arrayVisualizer.getTimer();
         this.setSortListName("Head-Quick");
         this.setRunAllSortsName("Head-Quick Sort");
         this.setRunSortName("Head-Quicksort");
@@ -38,7 +38,7 @@ final public class HeadQuicksort extends Sort {
     	}
     	
     	public int branchlessCompare(int a, int b) {
-    		return -((a-b)>>>31)|((b-a)>>>31);
+    		return ((a-b)>>31)|-((b-a)>>31);
     	}
     	
     	@Override
@@ -46,11 +46,6 @@ final public class HeadQuicksort extends Sort {
     		return branchlessCompare(length(),head.length());
     	}
     }
-	
-    private void multiSwap(int[] array, int a, int b, int len) { // stolen from Rotate Merge
-		for(int i = 0; i < len; i++)
-			Writes.swap(array, a+i, b+i, 1, true, false);
-	}
     
     public void merge(int[] array, int[] tmp, int start, int mid, int end) {
         if(start >= mid) return;
@@ -123,7 +118,7 @@ final public class HeadQuicksort extends Sort {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while (Reads.compareValues(a[j], x) == 1){
+            while (i <= j && Reads.compareValues(a[j], x) == 1){
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
@@ -163,5 +158,6 @@ final public class HeadQuicksort extends Sort {
         		this.quickSort(array, q, poll.start, poll.end, poll.depth + 1);
         	}
         }
+        Writes.deleteExternalArray(tmp);
     }
 }

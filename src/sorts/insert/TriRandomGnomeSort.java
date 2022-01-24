@@ -1,7 +1,5 @@
 package sorts.insert;
 
-import java.util.Random;
-
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
@@ -51,36 +49,8 @@ final public class TriRandomGnomeSort extends BogoSorting {
         this.setBogoSort(false);
     }
     
-    //util
-    private QRange randomQR(QRange... ranges) {
-    	int y = randInt(0, ranges.length);
-    	while(!ranges[y].usable) {
-    		y = randInt(0, ranges.length);
-    	}
-    	return ranges[y];
-    }
-    
     private static int randInt(QRange range) {
     	return randInt(range.start, range.end);
-    }
-    
-    private int search(int[] array, int start, int end, int key, double sleep) {
-    	if(end-start == 0)
-    		return start;
-    	if(Reads.compareValues(array[end-1], key) == -1) {
-    		return end;
-    	}
-    	if(Reads.compareValues(array[start], key) == 1) {
-    		return start;
-    	}
-    	int search;
-    	do {
-    		search = randInt(start, end);
-    		Highlights.markArray(1, search);
-    		Delays.sleep(sleep);
-    	} while((search>start && Reads.compareValues(array[search-1], key) == 1)
-    		 || Reads.compareValues(array[search], key) == -1);
-    	return search;
     }
     
     private int searchBin(int[] array, int start, int end, int key, double sleep) {

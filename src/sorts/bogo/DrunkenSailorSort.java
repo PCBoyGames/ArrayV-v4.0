@@ -2,7 +2,6 @@ package sorts.bogo;
 
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
-import utils.Rotations;
 
 final public class DrunkenSailorSort extends BogoSorting {
     public DrunkenSailorSort(ArrayVisualizer arrayVisualizer) {

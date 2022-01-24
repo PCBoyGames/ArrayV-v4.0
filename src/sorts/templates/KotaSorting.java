@@ -863,11 +863,6 @@ public abstract class KotaSorting extends Sort {
 		return false;
 	}
 	
-	//@param ignoredValues
-	private void kotaSortLimited(int[] array, int start, int end) {
-		
-	}
-	
 	protected void kotaSort(int[] array, int start, int end) {
 		int length = end - start;
 		if(length <= 128) {

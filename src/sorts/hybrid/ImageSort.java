@@ -1,7 +1,5 @@
 package sorts.hybrid;
 
-import java.util.ArrayList;
-
 import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 import sorts.merge.RotateMergeSort;

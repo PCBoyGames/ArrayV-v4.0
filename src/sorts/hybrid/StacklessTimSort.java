@@ -1,6 +1,5 @@
 package sorts.hybrid;
 
-import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 import main.ArrayVisualizer;
 

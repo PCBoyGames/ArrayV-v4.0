@@ -243,8 +243,6 @@ final public class RemiSort extends MultiWayMergeSorting {
 			return;
 		}
 		
-		int bCnt = (length-rLen)/bLen;
-		
 		int[] keys = Writes.createExternalArray(rLen);
 		int[] buf  = Writes.createExternalArray(rLen);
 		

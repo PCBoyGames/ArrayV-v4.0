@@ -129,7 +129,7 @@ public abstract class GrailSorting extends Sort {
     }
 
     // cost: 2 * len + numKeys^2 / 2
-    protected int grailFindKeys(int[] arr, int pos, int len, int numKeys) {
+    public int grailFindKeys(int[] arr, int pos, int len, int numKeys) {
         int dist = 1, foundKeys = 1, firstKey = 0;  // first key is always here
 
         while(dist < len && foundKeys < numKeys) {
@@ -159,7 +159,7 @@ public abstract class GrailSorting extends Sort {
     }
 
     // cost: min(len1, len2)^2 + max(len1, len2)
-    protected void grailMergeWithoutBuffer(int[] arr, int pos, int len1, int len2) {
+    public void grailMergeWithoutBuffer(int[] arr, int pos, int len1, int len2) {
         if(len1 < len2) {
             while(len1 != 0) {
                 //Binary Search left

@@ -54,10 +54,10 @@ public abstract class KotaSorting extends Sort {
 	private int[] tags;
 	private int[] cache;
 	
-	private int bufPos;
-	private int blockLen;
+	public int bufPos;
+	public int blockLen;
 	private int tagLen;
-	private int bufLen;
+	public int bufLen;
 	private int effMem;
 	
 	private boolean ext;
@@ -435,7 +435,7 @@ public abstract class KotaSorting extends Sort {
 		else       this.blockSelect(array, selStart, tagCount);
 	}
 	
-	private void blockMergeBW(int[] array, int a, int m, int b, boolean auxTag) {
+	public void blockMergeBW(int[] array, int a, int m, int b, boolean auxTag) {
 		int i = m-1, j = b-1, k, first;
 		int leftAD = 0, rightAD = this.bufLen;
 		int left = i, right = j+this.bufLen;

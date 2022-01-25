@@ -28,4 +28,8 @@ public class IndexedRotations {
     public static void bridge(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.bridge(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
+    
+    public static void neon(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
+        Rotations.neon(array, start, mid - start, end - mid, pause, mark, auxwrite);
+    }
 }

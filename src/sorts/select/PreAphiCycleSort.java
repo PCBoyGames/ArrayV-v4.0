@@ -30,10 +30,9 @@ final public class PreAphiCycleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
-    @Override
-    public void runSort(int[] array, int length, int bucketCount) {
-        for (int cycleStart = 0; cycleStart < length - 1; cycleStart++) {
+    
+    public void cycleSort(int[] array, int start, int end, int blank) {
+        for (int cycleStart = start; cycleStart < end - 1; cycleStart++) {
             int val = array[cycleStart];
             
             /*
@@ -44,7 +43,7 @@ final public class PreAphiCycleSort extends Sort {
             int pos = cycleStart;
             Highlights.markArray(3, pos);
             
-            for (int i = cycleStart + 1; i < length; i++) {
+            for (int i = cycleStart + 1; i < end; i++) {
                 Highlights.markArray(2, i);
                 Delays.sleep(0.01);
                 
@@ -81,7 +80,7 @@ final public class PreAphiCycleSort extends Sort {
                 pos = cycleStart;
                 Highlights.markArray(3, pos);
                 
-                for (int i = cycleStart + 1; i < length; i++) {
+                for (int i = cycleStart + 1; i < end; i++) {
                     Highlights.markArray(2, i);
                     Delays.sleep(0.01);
                     
@@ -102,5 +101,10 @@ final public class PreAphiCycleSort extends Sort {
                 val = tmp;
             }
         }
+    }
+
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+        cycleSort(array, 0, length, 0);
     }
 }

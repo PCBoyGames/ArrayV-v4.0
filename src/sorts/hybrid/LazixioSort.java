@@ -56,7 +56,7 @@ final public class LazixioSort extends GrailSorting {
     
     @Override
     protected void grailRotate(int[] array, int pos, int len1, int len2) {
-    	Rotations.cycleReverse(array, pos, len1, len2, 0.5, true, false);
+    	Rotations.neon(array, pos, len1, len2, 0.5, true, false);
     }
     
     // taken from PDIPop

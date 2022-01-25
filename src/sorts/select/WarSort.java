@@ -45,8 +45,8 @@ public final class WarSort extends Sort {
             int[] extB = Writes.createExternalArray((int) Math.ceil(currentLength / 2));
             int extBlen = 0;
             for (int j = 0; j < Math.ceil(currentLength / 2); j++) {
-                extA[j] = -1; // For decoration and for clarity!
-                extB[j] = -1;
+                Writes.visualClear(extA, j);
+                Writes.visualClear(extB, j);
             }
             arrayVisualizer.setExtraHeading(" / Splitting");
             while (i < currentLength) {
@@ -70,27 +70,27 @@ public final class WarSort extends Sort {
                     if (cmp >= 0) {
                         if (changesinitems(array[i], extA[extAlen - 1])) changes = true;
                         Writes.write(array, i, extA[extAlen - 1], 0.25, true, false);
-                        extA[extAlen - 1] = -1; // For decoration and for clarity!
+                        Writes.visualClear(extA, extAlen - 1);
                         extAlen--;
                     }
                     if (cmp == 0) i--;
                     if (cmp <= 0) {
                         if (changesinitems(array[i], extB[extBlen - 1])) changes = true;
                         Writes.write(array, i, extB[extBlen - 1], 0.25, true, false);
-                        extB[extBlen - 1] = -1;
+                        Writes.visualClear(extB, extBlen - 1);
                         extBlen--;
                     }
                 } else {
                     if (extAlen > 0) {
                         if (changesinitems(array[i], extA[extAlen - 1])) changes = true;
                         Writes.write(array, i, extA[extAlen - 1], 0.25, true, false);
-                        extA[extAlen - 1] = -1;
+                        Writes.visualClear(extA, extAlen - 1);
                         extAlen--;
                     }
                     if (extBlen > 0) {
                         if (changesinitems(array[i], extB[extBlen - 1])) changes = true;
                         Writes.write(array, i, extB[extBlen - 1], 0.25, true, false);
-                        extB[extBlen - 1] = -1;
+                        Writes.visualClear(extB, extBlen - 1);
                         extBlen--;
                     }
                 }

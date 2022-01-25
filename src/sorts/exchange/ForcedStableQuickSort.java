@@ -1,7 +1,5 @@
 package sorts.exchange;
 
-import java.util.ArrayList;
-
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 

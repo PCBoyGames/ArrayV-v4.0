@@ -1792,7 +1792,7 @@ public enum Shuffles {
 
         private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
             for (int i = 0; i < len; i++) {
-                Writes.swap(array, a + i, b + i, sleep, true, false);
+                if (a != b) Writes.swap(array, a + i, b + i, sleep, true, false);
             }
         }
 
@@ -1831,7 +1831,7 @@ public enum Shuffles {
 
         private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
             for (int i = 0; i < len; i++) {
-                Writes.swap(array, a + i, b + i, sleep, true, false);
+                if (a != b) Writes.swap(array, a + i, b + i, sleep, true, false);
             }
         }
 
@@ -2587,7 +2587,7 @@ public enum Shuffles {
 
         private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
             for (int i = 0; i < len; i++) {
-                Writes.swap(array, a + i, b + i, sleep, true, false);
+                if (a != b) Writes.swap(array, a + i, b + i, sleep, true, false);
             }
         }
 
@@ -2626,7 +2626,7 @@ public enum Shuffles {
 
         private void blockSwap(int[] array, int a, int b, int len, Writes Writes, double sleep) {
             for (int i = 0; i < len; i++) {
-                Writes.swap(array, a + i, b + i, sleep, true, false);
+                if (a != b) Writes.swap(array, a + i, b + i, sleep, true, false);
             }
         }
 

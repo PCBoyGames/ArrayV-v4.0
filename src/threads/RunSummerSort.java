@@ -2,9 +2,7 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
-import sorts.exchange.MeanPartitionSort;
-import sorts.exchange.OOPSMeanPartitionSort;
-import sorts.exchange.StableMeanPartitionSort;
+import sorts.misc.OptimizedSafeStalinSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -37,7 +35,7 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 3;
+    int numSorts = 1;
     boolean alternate_distributions = false;
     boolean seeds = false;
     
@@ -112,14 +110,15 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort RougeCircle = new CircleSortRouge(arrayVisualizer);
         //runIndividualSort(RougeCircle, 0, array, 256, 1, false, shuffleName, 16, alt);
         
-        Sort MeanPartitionSort = new MeanPartitionSort(arrayVisualizer);
-        runIndividualSort(MeanPartitionSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort Stack = new StackSort(arrayVisualizer);
+        //runIndividualSort(Stack, 0, array, 512, 1, false, shuffleName, 16, alt);
         
-        Sort StableMeanPartitionSort = new StableMeanPartitionSort(arrayVisualizer);
-        runIndividualSort(StableMeanPartitionSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort SafeStalin = new SafeStalinSort(arrayVisualizer);
+        //runIndividualSort(SafeStalin, 0, array, 64, 4, false, shuffleName, 16, alt);
         
-        Sort OOPSMeanPartitionSort = new OOPSMeanPartitionSort(arrayVisualizer);
-        runIndividualSort(OOPSMeanPartitionSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+        Sort OptimizedSafeStalin = new OptimizedSafeStalinSort(arrayVisualizer);
+        runIndividualSort(OptimizedSafeStalin, 0, array, 64, 2, false, shuffleName, 16, alt);
+        
         
     }
 

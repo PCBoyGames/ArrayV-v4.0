@@ -56,7 +56,7 @@ final public class SafeStalinSort extends Sort {
 
     protected void remove(int[] array, int i, int len) {
         Writes.arraycopy(array, i + 1, array, i, len - i - 1, 0, false, false);
-        array[len - 1] = -1;
+        Writes.visualClear(array, len - 1);
         Delays.sleep(1);
     }
 

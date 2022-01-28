@@ -42,7 +42,6 @@ final public class RunDistributionSorts extends MultipleSortThread {
     private Sort StaticSort;
     private Sort IndexSort;
     private Sort AmericanFlagSort;
-    private Sort DivisorSort;
     private Sort LSDRadixSort;
     private Sort InPlaceLSDRadixSort;
     private Sort MSDRadixSort;
@@ -74,7 +73,6 @@ final public class RunDistributionSorts extends MultipleSortThread {
         StaticSort                = new                StaticSort(this.arrayVisualizer);
         IndexSort                 = new                 IndexSort(this.arrayVisualizer);
         AmericanFlagSort          = new          AmericanFlagSort(this.arrayVisualizer);
-        DivisorSort               = new               DivisorSort(this.arrayVisualizer);
         LSDRadixSort              = new              LSDRadixSort(this.arrayVisualizer);
         InPlaceLSDRadixSort       = new       InPlaceLSDRadixSort(this.arrayVisualizer);
         MSDRadixSort              = new              MSDRadixSort(this.arrayVisualizer);
@@ -106,7 +104,6 @@ final public class RunDistributionSorts extends MultipleSortThread {
         RunDistributionSorts.this.runIndividualSort(OptimizedIndexSort,          0, array, 2048, 1,    false);
         RunDistributionSorts.this.runIndividualSort(AmericanFlagSort,          128, array, 2048, 0.75, false);
         RunDistributionSorts.this.runIndividualSort(StacklessAmericanFlagSort, 128, array, 2048, 0.75, false);
-        // RunDistributionSorts.this.runIndividualSort(DivisorSort,            128, array, 2048, 0.5,  false);
         RunDistributionSorts.this.runIndividualSort(LSDRadixSort,                4, array, 2048, 1.5,  false);
 
         Sounds.toggleSofterSounds(true);

@@ -12,7 +12,7 @@ final public class UnholyHalfSort extends Sort {
         this.setSortListName("Unholy Half");
         this.setRunAllSortsName("Unholy Half Sort");
         this.setRunSortName("Unholy Halfsort");
-        this.setCategory("Block Merge Sorts");
+        this.setCategory("Hybrid Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);

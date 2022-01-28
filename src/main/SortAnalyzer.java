@@ -52,8 +52,8 @@ SOFTWARE.
  */
 
 final public class SortAnalyzer {
-    private ArrayList<Sort> comparisonSorts;
-    private ArrayList<Sort> distributionSorts;
+    public ArrayList<Sort> comparisonSorts;
+    public ArrayList<Sort> distributionSorts;
     private ArrayList<String> invalidSorts;
     private ArrayList<String> suggestions;
     

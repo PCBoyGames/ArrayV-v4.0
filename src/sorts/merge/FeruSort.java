@@ -59,8 +59,8 @@ public class FeruSort extends GrailSorting {
         	Writes.arraycopy(array, bufS, array, start+(end-mid), mid-start, 1, true, false);
     	} else {
     		Writes.arraycopy(array, mid, array, bufS, end-mid, 1, true, false);
-        	Writes.reversearraycopy(array, start, array, start+(end-mid), mid-start, 1, true, false);
-        	Writes.reversearraycopy(array, bufS, array, start, end-mid, 1, true, false);
+        	Writes.arraycopy(array, start, array, start+(end-mid), mid-start, 1, true, false);
+        	Writes.arraycopy(array, bufS, array, start, end-mid, 1, true, false);
     	}
     }
     private int binSearch(int[] array, int start, int end, int key, boolean isLeft) {

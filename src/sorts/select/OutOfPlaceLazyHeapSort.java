@@ -79,28 +79,6 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
 		// this.merge(to, from, start, j, end);
 	}
 	
-	private void merge(int[] from, int[] to, int start, int mid, int end) {
-		int l = start, r = mid, t = start;
-		while(l < mid && r < end) {
-			Highlights.markArray(2, l);
-			Highlights.markArray(3, r);
-			if(Reads.compareValues(from[l], from[r]) <= 0) {
-				Writes.write(to, t++, from[l++], 1, true, false);
-			} else {
-				Writes.write(to, t++, from[r++], 1, true, false);
-			}
-		}
-		while(l < mid) {
-			Highlights.markArray(2, l);
-			Writes.write(to, t++, from[l++], 1, true, false);
-		}
-		while(r < end) {
-			Highlights.markArray(3, r);
-			Writes.write(to, t++, from[r++], 1, true, false);
-		} 
-		Highlights.clearAllMarks();
-	}
-	
 	@Override
 	public void runSort(int[] array, int length, int bucketCount) {
 		int s = (int)Math.sqrt(length-1)+1,

@@ -9,6 +9,7 @@ import main.ArrayManager;
 import main.ArrayVisualizer;
 import panes.JEnhancedOptionPane;
 import panes.JErrorPane;
+import sorts.bogo.PathOwOgenSort;
 import sorts.templates.Sort;
 import utils.Delays;
 import utils.SortingNetworkGenerator;
@@ -85,6 +86,14 @@ final public class RunComparisonSort {
                     Class<?> sortClass = arrayVisualizer.getComparisonSorts()[selection].sortClass;
                     Constructor<?> newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
                     Sort sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer);
+                    if(sort instanceof PathOwOgenSort.Sowort) {
+                    	newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class, int.class, boolean.class});
+                    	try {
+                    		sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer, selection, true);
+                    	} catch(Exception f) {
+                    		return;
+                    	}
+                    }
 
                     int extra = 0;
 
@@ -125,6 +134,16 @@ final public class RunComparisonSort {
                     }
                     else {
                         goAhead = true;
+                    }
+                    if (goAhead) {
+                        if (sort.getRunSortName() == "PathOwOgen Sort") {
+                            Object[] options = { "Yes...?", "No...?" };
+                                int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), "You know what you're in for, right?", "Just a quick question.", 2, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                                if (warning == 0) goAhead = true;
+                                else goAhead = false;
+                        } else {
+                            goAhead = true;
+                        }
                     }
 
                     if(goAhead) {

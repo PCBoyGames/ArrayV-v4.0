@@ -53,7 +53,6 @@ final public class RunExchangeSorts extends MultipleSortThread {
     private Sort LLQuickSortMiddlePivot;
     private Sort LRQuickSort;
     private Sort DualPivotQuickSort;
-    private Sort MeanQuickSort;
     private Sort StableQuickSort;
     private Sort StableQuickSortMiddlePivot;
     private Sort ForcedStableQuickSort;
@@ -113,7 +112,6 @@ final public class RunExchangeSorts extends MultipleSortThread {
         LLQuickSortMiddlePivot        = new        LLQuickSortMiddlePivot(this.arrayVisualizer);
         LRQuickSort                   = new                   LRQuickSort(this.arrayVisualizer);
         DualPivotQuickSort            = new            DualPivotQuickSort(this.arrayVisualizer);
-        MeanQuickSort                 = new                 MeanQuickSort(this.arrayVisualizer);
         StableQuickSort               = new               StableQuickSort(this.arrayVisualizer);
         StableQuickSortMiddlePivot    = new    StableQuickSortMiddlePivot(this.arrayVisualizer);
         ooPQuickSort                  = new                  ooPQuicksort(this.arrayVisualizer);
@@ -184,7 +182,6 @@ final public class RunExchangeSorts extends MultipleSortThread {
         RunExchangeSorts.this.runIndividualSort(DualPivotQuickSort,            0,   array, 2048, 1,     false);
         RunExchangeSorts.this.runIndividualSort(StacklessQuickSort,            0,   array, 2048, 1,     false);
         RunExchangeSorts.this.runIndividualSort(IterativeQuickSort,            0,   array, 2048, 1,     false);
-        // RunExchangeSorts.this.runIndividualSort(MeanQuickSort,                0,   array, 2048, 1,     false);
         RunExchangeSorts.this.runIndividualSort(StableQuickSort,               0,   array, 2048, arrayManager.containsShuffle(Shuffles.RANDOM) ? 1 : 6.5,    false);
         RunExchangeSorts.this.runIndividualSort(StableQuickSortMiddlePivot,    0,   array, 2048, 1,     false);
         RunExchangeSorts.this.runIndividualSort(ooPQuickSort,                  0,   array, 2048, 1,     false);

@@ -35,9 +35,9 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 1;
+    int numSorts = 8;
     boolean alternate_distributions = false;
-    boolean seeds = false;
+    boolean seeds = true;
     
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -110,14 +110,8 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort RougeCircle = new CircleSortRouge(arrayVisualizer);
         //runIndividualSort(RougeCircle, 0, array, 256, 1, false, shuffleName, 16, alt);
         
-        //Sort Stack = new StackSort(arrayVisualizer);
-        //runIndividualSort(Stack, 0, array, 512, 1, false, shuffleName, 16, alt);
-        
-        //Sort SafeStalin = new SafeStalinSort(arrayVisualizer);
-        //runIndividualSort(SafeStalin, 0, array, 64, 4, false, shuffleName, 16, alt);
-        
-        Sort OptimizedSafeStalin = new OptimizedSafeStalinSort(arrayVisualizer);
-        runIndividualSort(OptimizedSafeStalin, 0, array, 64, 2, false, shuffleName, 16, alt);
+        Sort Neon = new OptimizedSafeStalinSort(arrayVisualizer);
+        runIndividualSort(Neon, 0, array, 64, 2, false, shuffleName, 16, alt);
         
         
     }
@@ -322,7 +316,7 @@ final public class RunSummerSort extends MultipleSortThread {
                     arrayVisualizer.updateNow();
                     Thread.sleep(3000);
 
-                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
+                    arrayVisualizer.setCategory("Optimized Safe Stalin");
                     arrayVisualizer.setHeading("");
                     
                     arrayVisualizer.updateNow();

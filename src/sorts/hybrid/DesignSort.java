@@ -229,7 +229,7 @@ public class DesignSort extends Sort {
 				Writes.deleteExternalArray(temp);
 			} else {
 				int[] temp = Writes.createExternalArray(end-mid);
-				Writes.reversearraycopy(array, mid, temp, 0, end-mid, 1, true, true);
+				Writes.arraycopy(array, mid, temp, 0, end-mid, 1, true, true);
 				int l = mid-1, r = end-mid-1, t = end-1;
 				while(r >= 0 && l >= start) {
 					if(Reads.compareValues(array[l], temp[r]) > 0) {

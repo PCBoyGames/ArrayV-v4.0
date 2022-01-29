@@ -2,6 +2,8 @@ package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -524,6 +526,41 @@ public enum Distributions {
             
             for(int i = 0; i < n; i++)
                 array[i] = (int)(array[i] * scale);
+        }
+    },
+    TOTIENT { // O(n)
+        @Override
+        public String getName() {
+            return "Euler Totient Function";
+        }
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int n = ArrayVisualizer.getCurrentLength();
+
+            int[] minPrimeFactors = new int[n];
+            List<Integer> primes = new ArrayList<Integer>();
+
+            array[0] = 0;
+            array[1] = 1;
+            for (int i = 2; i < n; i++) {
+                if (minPrimeFactors[i] == 0) {
+                    primes.add(i);
+
+                    minPrimeFactors[i] = i;
+                    array[i] = i - 1;
+                }
+
+                for (int prime : primes) {
+                    if (i * prime >= n) break;
+
+                    boolean last = prime == minPrimeFactors[i];
+
+                    minPrimeFactors[i * prime] = prime;
+                    array[i * prime] = array[i] * (last ? prime : prime - 1);
+
+                    if (last) break;
+                }
+            }
         }
     },
     SEEDED_RANDOM {

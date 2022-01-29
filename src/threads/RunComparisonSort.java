@@ -136,7 +136,7 @@ final public class RunComparisonSort {
                         goAhead = true;
                     }
                     if (goAhead) {
-                        if (sort.getRunSortName() == "PathOwOgen Sort") {
+                        if (sort.getRunSortName() == "PathOwOgen Sort" || sort.getRunSortName() == "Nihilism Sort") {
                             Object[] options = { "Yes...?", "No...?" };
                                 int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), "You know what you're in for, right?", "Just a quick question.", 2, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                                 if (warning == 0) goAhead = true;

@@ -3,6 +3,7 @@ package sorts.quick;
 import java.util.Random;
 
 import main.ArrayVisualizer;
+import sorts.insert.PDBinaryInsertionSort;
 import sorts.templates.Sort;
 
 /*
@@ -51,7 +52,7 @@ final public class UnstableSingularityQuickSort extends Sort {
             cmp = Reads.compareIndices(array, reverse, reverse + 1, 0.5, true);
         }
         if (reverse > start && different) {
-            if (reverse < start + 4) Writes.swap(array, start, reverse, 0.75, true, false);
+            if (reverse < start + 3) Writes.swap(array, start, reverse, 0.75, true, false);
             else Writes.reversal(array, start, reverse, 0.75, true, false);
         }
         return reverse;
@@ -65,35 +66,9 @@ final public class UnstableSingularityQuickSort extends Sort {
         }
     }
     
-    protected int binarySearch(int[] array, int a, int b, int value) {
-        while (a < b) {
-            int m = a + ((b - a) / 2);
-            Highlights.markArray(1, a);
-            Highlights.markArray(3, m);
-            Highlights.markArray(2, b);
-            Delays.sleep(0.1);
-            if (Reads.compareValues(value, array[m]) < 0) b = m;
-            else a = m + 1;
-        }
-        Highlights.clearMark(3);
-        return a;
-    }
-    
     protected void binsert(int[] array, int start, int end) {
-        for (int i = start; i < end; i++) {
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                int item = array[i];
-                int left = binarySearch(array, start - 1, i - 1, item);
-                Highlights.clearAllMarks();
-                Highlights.markArray(2, left);
-                for (int right = i; right > left; right--) Writes.write(array, right, array[right - 1], 0.01, true, false);
-                Writes.write(array, left, item, 0.01, true, false);
-                Highlights.clearAllMarks();
-            } else {
-                Highlights.markArray(1, i);
-                Delays.sleep(0.05);
-            }
-        }
+        PDBinaryInsertionSort bin = new PDBinaryInsertionSort(arrayVisualizer);
+        bin.pdbinsert(array, start - 1, end, 0.1, false);
     }
     
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int realdepth, int rep) {

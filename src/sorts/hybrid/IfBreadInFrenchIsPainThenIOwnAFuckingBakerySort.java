@@ -9,7 +9,7 @@
      this.setSortListName("If Bread In French Is Pain Then \uD835\uDC70 \uD835\uDC76\uD835\uDC7E\uD835\uDC75 \uD835\uDC68 \uD835\uDC6D\uD835\uDC7C\uD835\uDC6A\uD835\uDC72\uD835\uDC70\uD835\uDC75\uD835\uDC6E \uD835\uDC69\uD835\uDC68\uD835\uDC72\uD835\uDC6C\uD835\uDC79\uD835\uDC80");
      this.setRunAllSortsName("If Bread In French Is Pain Then I Own A Fucking Bakery Sort");
      this.setRunSortName("IBIFIPTIOAFB-Sort");
-     this.setCategory("Wildly Impractical Sorts");
+     this.setCategory("Esoteric Sorts");
      this.setComparisonBased(true);
      this.setBucketSort(false);
      this.setRadixSort(false);

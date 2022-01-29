@@ -11,7 +11,7 @@ public final class PullSelectionSortA extends Sort {
         this.setSortListName("Pull Selection A");
         this.setRunAllSortsName("Pull Selection Sort (Type A)");
         this.setRunSortName("A-Pull Selection Sort");
-        this.setCategory("Wildly Impractical Sorts");
+        this.setCategory("Esoteric Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);

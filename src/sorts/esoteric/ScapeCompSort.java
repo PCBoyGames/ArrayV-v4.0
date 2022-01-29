@@ -9,7 +9,7 @@ public class ScapeCompSort extends Sort {
         this.setSortListName("Scape Comparison");
         this.setRunAllSortsName("Scape Comparison Sort");
         this.setRunSortName("Scapecomp Sort");
-        this.setCategory("Wildly Impractical Sorts");
+        this.setCategory("Esoteric Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);

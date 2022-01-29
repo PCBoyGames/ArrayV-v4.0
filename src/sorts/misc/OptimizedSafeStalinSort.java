@@ -20,6 +20,10 @@ IN COLLABORATION WITH STENTOR AND DISTRAY
 
 */
 final public class OptimizedSafeStalinSort extends Sort {
+    
+    int firstlen;
+    int secondlen;
+    
     public OptimizedSafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         
@@ -61,40 +65,27 @@ final public class OptimizedSafeStalinSort extends Sort {
     
     protected void reciteStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         int ptr = start;
+        int stackdone = 0;
         while(stacks.size() > 0) {
             Stack<Integer> first = stacks.remove(0);
+            if (stackdone == 0) firstlen = first.size();
+            if (stackdone == 1) secondlen = first.size();
             int n = ptr + first.size() - 1;
             while(!first.empty()) {
                 Writes.changeAllocAmount(-1);
                 Writes.write(array, n--, first.pop(), 1, true, false);
                 ptr++;
             }
+            stackdone++;
         }
     }
     
-    protected boolean verify(int[] array, int start, int end) {
-        boolean verify = true;
-        int i = start;
-        while (i + 1 < end && verify) {
-            if (Reads.compareIndices(array, i, i + 1, 1, true) <= 0) i++;
-            else verify = false;
-        }
-        Highlights.clearAllMarks();
-        if (!verify) IndexedRotations.neon(array, start, i + 1, end, 1, true, false);
-        Highlights.clearAllMarks();
-        return verify;
-    }
-    
-    protected int stepDown(int[] array, int start, int end) {
+    protected int stepDown(int[] array, int end) {
         int steps = 1;
-        int i = start;
-        while (Reads.compareIndices(array, i, i + 1, 1, true) <= 0 && i < end) i++;
-        if (i < end) {
-            int finals = end - 2;
-            while (Reads.compareIndices(array, i, finals, 1, true) <= 0) {
-                finals--;
-                steps++;
-            }
+        int finals = end - 2;
+        while (Reads.compareIndices(array, secondlen - 1, finals, 1, true) <= 0) {
+            finals--;
+            steps++;
         }
         Highlights.clearAllMarks();
         return steps;
@@ -111,8 +102,8 @@ final public class OptimizedSafeStalinSort extends Sort {
             int size = stacks.size();
             reciteStacks(array, 0, workinglength, stacks);
             if (size > 2) {
-                check = verify(array, 0, workinglength);
-                if (!check) workinglength -= stepDown(array, 0, workinglength);
+                IndexedRotations.neon(array, 0, firstlen, workinglength, 1, true, false);
+                if (!check) workinglength -= stepDown(array, workinglength);
                 Statistics.resetStat("Stack");
             } else {
                 Statistics.resetStat("Stack");

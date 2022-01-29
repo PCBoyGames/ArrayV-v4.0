@@ -2,6 +2,7 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.NReboundSort;
 import sorts.misc.OptimizedSafeStalinSort;
 import sorts.templates.Sort;
 import utils.Distributions;
@@ -35,9 +36,9 @@ SOFTWARE.
  */
 
 final public class RunSummerSort extends MultipleSortThread {
-    int numSorts = 8;
+    int numSorts = 1;
     boolean alternate_distributions = false;
-    boolean seeds = true;
+    boolean seeds = false;
     
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
@@ -104,15 +105,11 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort Rebound = new ReboundSort(arrayVisualizer);
         //runIndividualSort(Rebound, 0, array, 128, 0.025, false, shuffleName, 16, alt);
         
-        //Sort BounceNRebound = new NReboundSort(arrayVisualizer);
-        //runIndividualSort(BounceNRebound, 0, array, 128, 0.025, false, shuffleName, 16, alt);
+        Sort BounceNRebound = new NReboundSort(arrayVisualizer);
+        runIndividualSort(BounceNRebound, 0, array, 128, 0.032, false, shuffleName, 16, alt);
         
         //Sort RougeCircle = new CircleSortRouge(arrayVisualizer);
         //runIndividualSort(RougeCircle, 0, array, 256, 1, false, shuffleName, 16, alt);
-        
-        Sort Neon = new OptimizedSafeStalinSort(arrayVisualizer);
-        runIndividualSort(Neon, 0, array, 64, 2, false, shuffleName, 16, alt);
-        
         
     }
 
@@ -316,7 +313,7 @@ final public class RunSummerSort extends MultipleSortThread {
                     arrayVisualizer.updateNow();
                     Thread.sleep(3000);
 
-                    arrayVisualizer.setCategory("Optimized Safe Stalin");
+                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
                     arrayVisualizer.setHeading("");
                     
                     arrayVisualizer.updateNow();

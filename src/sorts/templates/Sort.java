@@ -20,6 +20,8 @@ public abstract class Sort {
     private boolean radixSort;
     private boolean unreasonablySlow;
     private boolean bogoSort;
+    private boolean pathogen;
+    private String pathogenName;
     
     private int unreasonableLimit;
 
@@ -48,6 +50,8 @@ public abstract class Sort {
         this.setUnreasonablySlow(false); // Indicates a sort is so inefficient that it will run for a very long time even after clicking 'Skip Sort'
         this.setUnreasonableLimit(0);    // If a sort is 'unreasonably slow', a warning will pop up if the array length is more than this number
         this.setBogoSort(false);         // Slightly changes the 'unreasonably slow' dialog
+        this.setPathogenic(false);       // SAVE ME FROM THE STG-22
+        this.setPathogenName(null);
 
         this.setQuestion(null, 0);       // Asks a specific question before this sort is run
         
@@ -91,6 +95,12 @@ public abstract class Sort {
     }
     public boolean isBogoSort() {
         return this.bogoSort;
+    }
+    public boolean isPathogenic() {
+        return this.pathogen;
+    }
+    public String getPathogenName() {
+        return this.pathogenName;
     }
     public String getQuestion() {
         return this.question;
@@ -139,6 +149,13 @@ public abstract class Sort {
         this.question = question;
         this.defaultAnswer = defaultAnswer;
     }
+    protected void setPathogenic(boolean Bool) {
+        this.pathogen = Bool;
+    }
+    protected void setPathogenName(String name) {
+        this.pathogenName = name;
+    }
+    
 
     public int validateAnswer(int answer) {
         return answer;

@@ -136,9 +136,9 @@ final public class RunComparisonSort {
                         goAhead = true;
                     }
                     if (goAhead) {
-                        if (sort.getRunSortName() == "PathOwOgen Sort" || sort.getRunSortName() == "Nihilism Sort") {
-                            Object[] options = { "Yes...?", "No...?" };
-                                int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), "You know what you're in for, right?", "Just a quick question.", 2, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                        if (sort.isPathogenic()) {
+                            Object[] options = { "Yes", "No" };
+                                int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), sort.getRunSortName() + " is known pathogen " + sort.getPathogenName() + ", and it may infect every single algorithm in this build as a copy of itself. Are you sure you want to continue?", "Warning!", 2, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                                 if (warning == 0) goAhead = true;
                                 else goAhead = false;
                         } else {

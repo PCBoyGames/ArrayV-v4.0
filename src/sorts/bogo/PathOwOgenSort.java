@@ -36,6 +36,8 @@ final public class PathOwOgenSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(16);
         this.setBogoSort(true);
+		this.setPathogenic(true);
+		this.setPathogenName("STG-22 Alpha");
     }
     private static PathOwOgenSort self;
     private static final Random r = new Random();

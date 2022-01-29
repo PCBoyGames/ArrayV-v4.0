@@ -30,6 +30,8 @@ final public class NihilismSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+		this.setPathogenic(true);
+		this.setPathogenName("STG-22 Beta");
     }
     
     private static NihilismSort self;

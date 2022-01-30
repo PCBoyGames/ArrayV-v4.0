@@ -56,7 +56,7 @@ final public class MobMergeSort extends Sort {
             index = 0;
             while (index + len <= currentLength) {
                 if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, 0.25, true) > 0) Writes.swap(array, index, index + 1, 0.75, true, false);
+                    if (Reads.compareIndices(array, index, index + 1, 0.025, true) > 0) Writes.swap(array, index, index + 1, 0.075, true, false);
                 } else bubble(array, index, index + len);
                 index += len;
             }

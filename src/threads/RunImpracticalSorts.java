@@ -20,7 +20,7 @@ import sorts.bogo.BubbleBogoSort;
 import sorts.bogo.CocktailBogoSort;
 import sorts.bogo.MarkovSort;
 import sorts.bogo.LessBogoSort;
-import sorts.bogo.ExchangeBogoSort;
+import sorts.bogo.ExchangeBozoSort;
 import sorts.bogo.MedianQuickBogoSort;
 import sorts.bogo.QuickBogoSort;
 import sorts.bogo.MergeBogoSort;
@@ -115,7 +115,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
         CocktailBogoSort          = new          CocktailBogoSort(this.arrayVisualizer);
         MarkovSort                = new                MarkovSort(this.arrayVisualizer);
         LessBogoSort              = new              LessBogoSort(this.arrayVisualizer);
-        ExchangeBogoSort          = new          ExchangeBogoSort(this.arrayVisualizer);
+        ExchangeBogoSort          = new          ExchangeBozoSort(this.arrayVisualizer);
         MedianQuickBogoSort       = new       MedianQuickBogoSort(this.arrayVisualizer);
         QuickBogoSort             = new             QuickBogoSort(this.arrayVisualizer);
         MergeBogoSort             = new             MergeBogoSort(this.arrayVisualizer);

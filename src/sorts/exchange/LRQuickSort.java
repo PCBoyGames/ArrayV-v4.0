@@ -20,7 +20,8 @@ final public class LRQuickSort extends Sort {
     }
 
     // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
-    public void quickSort(int[] a, int p, int r) {       
+    public void quickSort(int[] a, int p, int r, int d) {
+        Writes.recordDepth(d);
         int pivot = p + (r - p + 1) / 2;
         int x = a[pivot];
         
@@ -58,15 +59,17 @@ final public class LRQuickSort extends Sort {
         }
         
         if(p < j) {
-            this.quickSort(a, p, j);
+            Writes.recursion();
+            this.quickSort(a, p, j, d + 1);
         }
         if(i < r) {
-            this.quickSort(a, i, r);
+            Writes.recursion();
+            this.quickSort(a, i, r, d + 1);
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        this.quickSort(array, 0, currentLength - 1);
+        this.quickSort(array, 0, currentLength - 1, 0);
     }
 }

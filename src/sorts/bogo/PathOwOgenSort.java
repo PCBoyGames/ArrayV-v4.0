@@ -191,6 +191,9 @@ final public class PathOwOgenSort extends BogoSorting {
     	public String getQuestion() {
     		return why(wrapped.getQuestion());
     	}
+		public boolean isPathogenic() {
+			return false; // They're already infected. Everything is a pathgen. Why even bother?
+		}
     	@Override
     	public void runSort(int[] array, int length, int buckets) {
     		owoS(array,length,buckets);

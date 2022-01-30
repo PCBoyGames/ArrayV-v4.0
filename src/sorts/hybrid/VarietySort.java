@@ -88,7 +88,7 @@ final public class VarietySort extends Sort {
     	i.customInsertSort(array, start, d, 0.1, false);
     	bogo(array, mid, himid);
     	LRQuickSort lr = new LRQuickSort(arrayVisualizer);
-    	lr.quickSort(array, himid, end-1);
+    	lr.quickSort(array, himid, end-1, 0);
     	int[] tmp = Writes.createExternalArray(end-start);
     	classicMerge(array, tmp, mid, himid, end);
     	classicMerge(array, tmp, start, mid, end);

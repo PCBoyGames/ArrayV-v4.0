@@ -4,15 +4,15 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 /**
- * Exchange Bogosort randomly sorts any two elements until the array is sorted.
+ * Exchange Bozosort randomly sorts any two elements until the array is sorted.
  */
-public final class ExchangeBogoSort extends BogoSorting {
-    public ExchangeBogoSort(ArrayVisualizer arrayVisualizer) {
+public final class ExchangeBozoSort extends BogoSorting {
+    public ExchangeBozoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
-        this.setSortListName("Exchange Bogo");
-        this.setRunAllSortsName("Exchange Bogo Sort");
-        this.setRunSortName("Exchange Bogosort");
+        this.setSortListName("Exchange Bozo");
+        this.setRunAllSortsName("Exchange Bozo Sort");
+        this.setRunSortName("Exchange Bozosort");
         this.setCategory("Bogo Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);

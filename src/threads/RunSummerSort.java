@@ -3,6 +3,8 @@ package threads;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
 import sorts.exchange.NReboundSort;
+import sorts.merge.IterativeSelectionMergeSort;
+import sorts.merge.MobMergeSort;
 import sorts.misc.OptimizedSafeStalinSort;
 import sorts.templates.Sort;
 import utils.Distributions;
@@ -43,7 +45,7 @@ final public class RunSummerSort extends MultipleSortThread {
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        sortCount = numSorts * 50;
+        sortCount = numSorts * 52;
     }
 
     protected synchronized void runIndividualSort(Sort sort, int bucketCount, int[] array, int defaultLength, double defaultSpeed, boolean slowSort, String shuffleName, int uniques, boolean alt) throws Exception {
@@ -105,11 +107,17 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort Rebound = new ReboundSort(arrayVisualizer);
         //runIndividualSort(Rebound, 0, array, 128, 0.025, false, shuffleName, 16, alt);
         
-        Sort BounceNRebound = new NReboundSort(arrayVisualizer);
-        runIndividualSort(BounceNRebound, 0, array, 128, 0.032, false, shuffleName, 16, alt);
+        //Sort BounceNRebound = new NReboundSort(arrayVisualizer);
+        //runIndividualSort(BounceNRebound, 0, array, 128, 0.032, false, shuffleName, 16, alt);
         
         //Sort RougeCircle = new CircleSortRouge(arrayVisualizer);
         //runIndividualSort(RougeCircle, 0, array, 256, 1, false, shuffleName, 16, alt);
+        
+        //Sort IterativeSelectionMergeSort = new IterativeSelectionMergeSort(arrayVisualizer);
+        //runIndividualSort(IterativeSelectionMergeSort, 0, array, 512, 2, false, shuffleName, 16, alt);
+        
+        Sort MobMerge = new MobMergeSort(arrayVisualizer);
+        runIndividualSort(MobMerge, 0, array, 512, 0.5, false, shuffleName, 16, alt);
         
     }
 
@@ -206,7 +214,7 @@ final public class RunSummerSort extends MultipleSortThread {
         runSort(array, "Triangular", true);
 
         /*
-        RSS MADHOUSE PLUS (25)
+        RSS MADHOUSE PLUS (26)
         */
         
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HALF : Shuffles.SHUFFLED_HALF); // 26
@@ -254,37 +262,43 @@ final public class RunSummerSort extends MultipleSortThread {
 
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 40
         runSort(array, "Blocks", true);
+        
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PRIME); // 41
+        runSort(array, "Prime-Numbered Index", true);
 
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 41
+        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 42
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.ALREADY);
         runSort(array, "Natural Random", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.SINE); // 42
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.SINE); // 43
         runSort(array, "Sine Wave", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.COSINE); // 43
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.COSINE); // 44
         runSort(array, "Cosine Wave", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.RULER); // 44
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.RULER); // 45
         runSort(array, "Ruler", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.BLANCMANGE); // 45
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.BLANCMANGE); // 46
         runSort(array, "Blancmange Curve", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIVISORS); // 46
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIVISORS); // 47
         runSort(array, "Sum of Divisors", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.FSD); // 47
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.FSD); // 48
         runSort(array, "Fly Straight, Dammit!", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_REVLOG : Distributions.REVLOG); // 48
+        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_REVLOG : Distributions.REVLOG); // 49
         runSort(array, "Decreasing Random", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.MODULO); // 49
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.MODULO); // 50
         runSort(array, "Modulo Function", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIGITS_PROD); // 50
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIGITS_PROD); // 51
         runSort(array, "Product of Digits", false);
+        
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 52
+        runSort(array, "Euler Totient Function", false);
         
         /*
         */

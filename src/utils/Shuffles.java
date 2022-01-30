@@ -1973,6 +1973,31 @@ public enum Shuffles {
         }
         
     },
+    PRIME {
+        @Override
+        public String getName() {
+            return "Prime Numbers";
+        }
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            
+            for (int i = 0; i < currentLen; i++) {
+                if (!isPrime(array[i])) Writes.write(array, i, 0, delay ? 1 : 0, true, false);
+                else {
+                    Highlights.markArray(1, i);
+                    Delays.sleep(delay ? 1 : 0);
+                }
+            }
+        }
+        protected boolean isPrime(int n) {
+            if (n < 2) return false;
+            for (int i = 2; i < n; i++)
+                if (n % i == 0)
+                    return false;
+            return true;
+        }
+    },
     SEEDED_RANDOM {
         public String getName() {
             return "Randomly (Seeded)";

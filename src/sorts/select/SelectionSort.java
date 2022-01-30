@@ -45,22 +45,26 @@ final public class SelectionSort extends Sort {
         this.setBogoSort(false);
     }
     
-    @Override
-    public void runSort(int[] array, int length, int bucketCount) {
-        for (int i = 0; i < length - 1; i++) {
+    public void selection(int[] array, int start, int end, double delay, boolean aux) {
+        for (int i = start; i < end - 1; i++) {
             int lowestindex = i;
             
-            for (int j = i + 1; j < length; j++) {
+            for (int j = i + 1; j < end; j++) {
                 Highlights.markArray(2, j);
-                Delays.sleep(0.01);
+                Delays.sleep(delay);
                 
                 if (Reads.compareValues(array[j], array[lowestindex]) == -1){
                     lowestindex = j;
                     Highlights.markArray(1, lowestindex);
-                    Delays.sleep(0.01);
+                    Delays.sleep(delay);
                 }
             }
-            Writes.swap(array, i, lowestindex, 0.02, true, false);
+            if (i != lowestindex) Writes.swap(array, i, lowestindex, delay * 4, true, aux);
         }
+    }
+    
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+        selection(array, 0, length, 0.025, false);
     }
 }

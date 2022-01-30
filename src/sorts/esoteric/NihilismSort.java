@@ -96,6 +96,10 @@ final public class NihilismSort extends Sort {
     	public String getQuestion() {
     		return blank(wrapped.getQuestion());
     	}
+		
+		public boolean isPathogenic() {
+			return false; // They're already infected. Everything is a pathgen. Why even bother?
+		}
         
     	@Override
     	public void runSort(int[] array, int currentLength, int bucketCount) {

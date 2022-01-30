@@ -1,6 +1,5 @@
 package utils;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.math.BigInteger;
 import main.ArrayVisualizer;

@@ -142,13 +142,11 @@ final public class Delays {
         try {
             // With this for loop, you can change the speed of sorts without waiting for the current delay to finish.
             if(!this.SKIPPED) {
-                this.arrayVisualizer.toggleVisualUpdates(false);
                 while(this.paused || this.delay >= 1) {
                     Thread.sleep(1);
                     if (!this.paused)
                         this.delay--;
                 }
-                this.arrayVisualizer.toggleVisualUpdates(true);
             }
             else {
                 this.delay = 0;

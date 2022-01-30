@@ -1,6 +1,7 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
+import sorts.merge.QuadSort;
 import sorts.templates.Sort;
 
 /*

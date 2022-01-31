@@ -12,9 +12,9 @@ import sorts.templates.Sort;
  */
 public final class BubblescanQuickSort extends Sort {
 
-	public BubblescanQuickSort(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
-		// TODO Auto-generated constructor stub
+    public BubblescanQuickSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
+        // TODO Auto-generated constructor stub
         this.setSortListName("Bubblescan Quick");
         this.setRunAllSortsName("Bubblescan Quick Sort");
         this.setRunSortName("Bubblescan Quicksort");
@@ -25,11 +25,11 @@ public final class BubblescanQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-	}
-	private InsertionSort insertSorter;
-	private MaxHeapSort heapSorter;
+    }
+    private InsertionSort insertSorter;
+    private MaxHeapSort heapSorter;
 
-	private int partition(int[] array, int a, int b, int val) {
+    private int partition(int[] array, int a, int b, int val) {
       int i = a, j = b - 1;
       while (i <= j) {
         while (this.Reads.compareValues(array[i], val) < 0) {
@@ -88,14 +88,14 @@ public final class BubblescanQuickSort extends Sort {
      this.insertSorter.customInsertSort(array, a, end, 0.5D, false);
    }
 
-	@Override
-	public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-		// TODO Auto-generated method stub
-		this.insertSorter = new InsertionSort(this.arrayVisualizer);
-		this.heapSorter = new MaxHeapSort(this.arrayVisualizer);
-		sort(array, 0, sortLength, 2 * (int)(Math.log(sortLength) / Math.log(2.0D)));
+    @Override
+    public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
+        // TODO Auto-generated method stub
+        this.insertSorter = new InsertionSort(this.arrayVisualizer);
+        this.heapSorter = new MaxHeapSort(this.arrayVisualizer);
+        sort(array, 0, sortLength, 2 * (int)(Math.log(sortLength) / Math.log(2.0D)));
 
 
-	}
+    }
 
 }

@@ -1,6 +1,7 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
+import sorts.insert.PDBinaryInsertionSort;
 import sorts.templates.Sort;
 
 /*
@@ -15,6 +16,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class ShockSort extends Sort {
     
     TimSort tim = new TimSort(arrayVisualizer);
+    PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
     
     public ShockSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -36,35 +38,8 @@ final public class ShockSort extends Sort {
         return val >> 1;
     }
     
-    protected int binarySearch(int[] array, int a, int b, int value) {
-        while (a < b) {
-            int m = a + ((b - a) / 2);
-            Highlights.markArray(1, a);
-            Highlights.markArray(3, m);
-            Highlights.markArray(2, b);
-            Delays.sleep(1);
-            if (Reads.compareValues(value, array[m]) < 0) b = m;
-            else a = m + 1;
-        }
-        Highlights.clearMark(3);
-        return a;
-    }
-    
     protected void binsert(int[] array, int start, int currentLength) {
-        for (int i = start + 1; i < currentLength; i++) {
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                int item = array[i];
-                int left = binarySearch(array, start, i - 1, item);
-                Highlights.clearAllMarks();
-                Highlights.markArray(2, left);
-                for (int right = i; right > left; right--) Writes.write(array, right, array[right - 1], 0.05, true, false);
-                Writes.write(array, left, item, 0.05, true, false);
-                Highlights.clearAllMarks();
-            } else {
-                Highlights.markArray(1, i);
-                Delays.sleep(0.25);
-            }
-        }
+        binsert.pdbinsert(array, start, currentLength, 0.25, false);
     }
     
     private void shellPass(int[] array, int currentLength, int gap) {

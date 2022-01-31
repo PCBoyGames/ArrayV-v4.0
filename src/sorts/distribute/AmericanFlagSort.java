@@ -43,27 +43,27 @@ limitations under the License.
  * @author Justin Wetherell <phishman3579@gmail.com>
  */
 
-final public class AmericanFlagSort extends Sort {	    
-	    private int NUMBER_OF_BUCKETS = 128; // ex. 10 for base 10 numbers
-	    
-	    public AmericanFlagSort(ArrayVisualizer arrayVisualizer) {
-	        super(arrayVisualizer);
-	        
-	        this.setSortListName("American Flag");
-	        this.setRunAllSortsName("American Flag Sort, " + this.NUMBER_OF_BUCKETS + " Buckets");
-	        this.setRunSortName("American Flag Sort");
-	        this.setCategory("Distribution Sorts");
-	        this.setComparisonBased(false);
-	        this.setBucketSort(true);
-	        this.setRadixSort(true);
-	        this.setUnreasonablySlow(false);
-	        this.setUnreasonableLimit(0);
-	        this.setBogoSort(false);
-	    }
-	    
-	    // Slightly different than Reads.analyzeMaxLog.
-	    private int getMaxNumberOfDigits(int[] array, int length) {
-	        int max = Integer.MIN_VALUE;
+final public class AmericanFlagSort extends Sort {        
+        private int NUMBER_OF_BUCKETS = 128; // ex. 10 for base 10 numbers
+        
+        public AmericanFlagSort(ArrayVisualizer arrayVisualizer) {
+            super(arrayVisualizer);
+            
+            this.setSortListName("American Flag");
+            this.setRunAllSortsName("American Flag Sort, " + this.NUMBER_OF_BUCKETS + " Buckets");
+            this.setRunSortName("American Flag Sort");
+            this.setCategory("Distribution Sorts");
+            this.setComparisonBased(false);
+            this.setBucketSort(true);
+            this.setRadixSort(true);
+            this.setUnreasonablySlow(false);
+            this.setUnreasonableLimit(0);
+            this.setBogoSort(false);
+        }
+        
+        // Slightly different than Reads.analyzeMaxLog.
+        private int getMaxNumberOfDigits(int[] array, int length) {
+            int max = Integer.MIN_VALUE;
             int temp = 0;
             
             for (int i = 0; i < length; i++) {
@@ -153,4 +153,4 @@ final public class AmericanFlagSort extends Sort {
             
             this.sort(array, 0, sortLength, max);
         }
-	}
+    }

@@ -30,37 +30,37 @@ final public class RandomStoogeSort extends BogoSorting {
         this.setBogoSort(false);
     }
     
-	private void stoogeSort(int[] A, int i, int j) {
-		int mid = i+1>=j?j:randInt(i + 1, j);
-		int hi = mid>=j?j:randInt(mid, j);
-		int lo = i+1>=mid?mid:randInt(i + 1, mid);
-		
-	    if (Reads.compareValues(A[i], A[j]) == 1) {
-	        Writes.swap(A, i, j, 0.005, true, false);
-	    }
-	    
-	    Delays.sleep(0.0025);
-	    
-	    Highlights.markArray(1, i);
+    private void stoogeSort(int[] A, int i, int j) {
+        int mid = i+1>=j?j:randInt(i + 1, j);
+        int hi = mid>=j?j:randInt(mid, j);
+        int lo = i+1>=mid?mid:randInt(i + 1, mid);
+        
+        if (Reads.compareValues(A[i], A[j]) == 1) {
+            Writes.swap(A, i, j, 0.005, true, false);
+        }
+        
+        Delays.sleep(0.0025);
+        
+        Highlights.markArray(1, i);
         Highlights.markArray(2, j);
-	    
+        
         if (j > i + 1) {
-	        int t = (j - i + 1) / 3;
-	        
-	        Highlights.markArray(3, j - t);
-	        Highlights.markArray(4, i + t);
-	        if(lo >= j || i+1 >= hi)
-	        	return;
-	        this.stoogeSort(A, i, randInt(lo, j));
-	        this.stoogeSort(A, randInt(i + 1, hi), j);
-	        this.stoogeSort(A, i, randInt(lo, j));
-	    }
-	}
+            int t = (j - i + 1) / 3;
+            
+            Highlights.markArray(3, j - t);
+            Highlights.markArray(4, i + t);
+            if(lo >= j || i+1 >= hi)
+                return;
+            this.stoogeSort(A, i, randInt(lo, j));
+            this.stoogeSort(A, randInt(i + 1, hi), j);
+            this.stoogeSort(A, i, randInt(lo, j));
+        }
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-    	while(!this.isRangeSorted(array, 0, currentLength - 1, false, false)){
-    		this.stoogeSort(array, 0, currentLength - 1);
-    	}
+        while(!this.isRangeSorted(array, 0, currentLength - 1, false, false)){
+            this.stoogeSort(array, 0, currentLength - 1);
+        }
     }
 }

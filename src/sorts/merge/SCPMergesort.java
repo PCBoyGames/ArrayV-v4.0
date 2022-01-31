@@ -20,23 +20,23 @@ final public class SCPMergesort extends Sort {
         this.setBogoSort(false);
     }
     public boolean isPrime(long num) {
-		return ((num%2)!=0 && (num%3)!=0 && (num%5)!=0 && (num%7)!=0) || 
-			   (num==2||num==3||num==5||num==7);
-	}
-	public long prime(long loc) {
-		long primeHits = 0;
-		long n = 1;
-		while(true) {
-			if(primeHits >= loc) {
-				if(!isPrime(n))
-					n--;
-				return n;
-			}
-			n++;
-			if(isPrime(n))
-				primeHits++;
-		}
-	}
+        return ((num%2)!=0 && (num%3)!=0 && (num%5)!=0 && (num%7)!=0) || 
+               (num==2||num==3||num==5||num==7);
+    }
+    public long prime(long loc) {
+        long primeHits = 0;
+        long n = 1;
+        while(true) {
+            if(primeHits >= loc) {
+                if(!isPrime(n))
+                    n--;
+                return n;
+            }
+            n++;
+            if(isPrime(n))
+                primeHits++;
+        }
+    }
 
     
     private void classicMerge(int[] array, int[] tmp, int start, int mid, int end) {
@@ -45,8 +45,8 @@ final public class SCPMergesort extends Sort {
         int low = start, high = mid, nxt = 0;
         
         while(low < mid && high < end) {
-        	Highlights.markArray(1, low);
-        	Highlights.markArray(2, high);
+            Highlights.markArray(1, low);
+            Highlights.markArray(2, high);
             if(Reads.compareValues(array[low], array[high]) <= 0){
                 Writes.write(tmp, nxt++, array[low++], 1, false, true);
             } else {
@@ -64,19 +64,19 @@ final public class SCPMergesort extends Sort {
     }
     
     private void scpMerge(int[] array, int[] tmp, int start, int end) {
-    	if(start == end)
-    		return;
-		int m = start + (int) (prime(end)%(end-start));
-		this.scpMerge(array, tmp, start, m);
-		if(m == start)
-			m++;
-		this.scpMerge(array, tmp, m, end);
-		this.classicMerge(array, tmp, start, m, end);
+        if(start == end)
+            return;
+        int m = start + (int) (prime(end)%(end-start));
+        this.scpMerge(array, tmp, start, m);
+        if(m == start)
+            m++;
+        this.scpMerge(array, tmp, m, end);
+        this.classicMerge(array, tmp, start, m, end);
     }
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	int[] tmp = Writes.createExternalArray(length);
-    	this.scpMerge(array, tmp, 0, length);
+        int[] tmp = Writes.createExternalArray(length);
+        this.scpMerge(array, tmp, 0, length);
     }
 }

@@ -41,8 +41,8 @@ final public class LAQuickSort extends Sort {
     public int partition(int[] array, int a, int b, int p) {
         int i = a - 1;
         int j = b;
-		Highlights.markArray(3, p);
-		
+        Highlights.markArray(3, p);
+        
         while(true) {
             i++;
             while(i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
@@ -85,20 +85,20 @@ final public class LAQuickSort extends Sort {
     }
     
     private void medianOfThree(int[] array, int a, int b) {
-		int m = a+(b-1-a)/2;
-		
-		if(Reads.compareIndices(array, a, m, 1, true) == 1)
-			Writes.swap(array, a, m, 1, true, false);
-		
-		if(Reads.compareIndices(array, m, b-1, 1, true) == 1) {
-			Writes.swap(array, m, b-1, 1, true, false);
-			
-			if(Reads.compareIndices(array, a, m, 1, true) == 1)
-				return;
-		}
-		
-		Writes.swap(array, a, m, 1, true, false);
-	}
+        int m = a+(b-1-a)/2;
+        
+        if(Reads.compareIndices(array, a, m, 1, true) == 1)
+            Writes.swap(array, a, m, 1, true, false);
+        
+        if(Reads.compareIndices(array, m, b-1, 1, true) == 1) {
+            Writes.swap(array, m, b-1, 1, true, false);
+            
+            if(Reads.compareIndices(array, a, m, 1, true) == 1)
+                return;
+        }
+        
+        Writes.swap(array, a, m, 1, true, false);
+    }
 
     public int logarithmicAverage(int[] arr, int low, int high) {
         int sum = 0;

@@ -87,12 +87,12 @@ final public class RunComparisonSort {
                     Constructor<?> newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
                     Sort sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer);
                     if(sort instanceof PathOwOgenSort.Sowort) {
-                    	newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class, int.class, boolean.class});
-                    	try {
-                    		sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer, selection, true);
-                    	} catch(Exception f) {
-                    		return;
-                    	}
+                        newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class, int.class, boolean.class});
+                        try {
+                            sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer, selection, true);
+                        } catch(Exception f) {
+                            return;
+                        }
                     }
 
                     int extra = 0;

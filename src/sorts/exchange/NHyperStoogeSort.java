@@ -19,17 +19,17 @@ final public class NHyperStoogeSort extends Sort {
         this.setBogoSort(false);
     }
     private void nHyperStooge(int[] array, int start, int end, int order, int depth) {
-    	if(order < 1 || start >= end)
-    		return;
-		Writes.recordDepth(depth++);
-    	if(Reads.compareIndices(array, start, end, 0.001, true) == 1)
-    		Writes.swap(array, start, end, 1, true, false);
-    	if (start < end) {
-    		Writes.recursion(4);
-    	    nHyperStooge(array, start, end - 1, order, depth);
+        if(order < 1 || start >= end)
+            return;
+        Writes.recordDepth(depth++);
+        if(Reads.compareIndices(array, start, end, 0.001, true) == 1)
+            Writes.swap(array, start, end, 1, true, false);
+        if (start < end) {
+            Writes.recursion(4);
+            nHyperStooge(array, start, end - 1, order, depth);
             nHyperStooge(array, start + 1, end, order, depth);
             nHyperStooge(array, start, end - 1, order, depth);
-    	    nHyperStooge(array, start, end, order - 1, depth);
+            nHyperStooge(array, start, end, order - 1, depth);
         }
     }
 

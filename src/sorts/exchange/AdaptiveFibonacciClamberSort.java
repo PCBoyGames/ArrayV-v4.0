@@ -28,7 +28,7 @@ final public class AdaptiveFibonacciClamberSort extends Sort {
     }
     
     protected int fibonacciSearch(int[] array, int start, int end, int item) {
-    	int fibM2 = 0;
+        int fibM2 = 0;
         int fibM1 = 1;
         int fibM = 1;
         while (fibM <= end - start) {
@@ -43,12 +43,12 @@ final public class AdaptiveFibonacciClamberSort extends Sort {
             Highlights.markArray(2, i);
             Delays.sleep(1);
             if (Reads.compareValues(array[i], item) <= 0) {
-            	fibM = fibM1;
+                fibM = fibM1;
                 fibM1 = fibM2;
                 fibM2 = fibM - fibM1;
                 offset = i;
             } else {
-            	fibM = fibM2;
+                fibM = fibM2;
                 fibM1 -= fibM2;
                 fibM2 = fibM - fibM1;
             }

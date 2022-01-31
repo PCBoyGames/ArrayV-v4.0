@@ -34,9 +34,9 @@ final public class ClericSortIterative extends IterativeClericSorting {
     
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-    	this.end = sortLength;
-    	int n = 1;
-    	for(; n < sortLength; n*=2);
+        this.end = sortLength;
+        int n = 1;
+        for(; n < sortLength; n*=2);
         int numberOfSwaps = 0;
         do numberOfSwaps = clericSortRoutine(array, n, 0.05); while (numberOfSwaps != 0);
     }

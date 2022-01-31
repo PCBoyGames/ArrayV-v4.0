@@ -13,21 +13,21 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class PDBinaryInsertionSort extends Sort {
-	
-	public PDBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
-		this.setSortListName("Pattern-Defeating Binary Insertion");
-		this.setRunAllSortsName("Pattern-Defeating Binary Insertion Sort");
-		this.setRunSortName("Pattern-Defeating Binary Insertsort");
-		this.setCategory("Insertion Sorts");
-		this.setComparisonBased(true);
-		this.setBucketSort(false);
-		this.setRadixSort(false);
-		this.setUnreasonablySlow(false);
-		this.setUnreasonableLimit(0);
-		this.setBogoSort(false);
-	}
-	
+    
+    public PDBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
+        this.setSortListName("Pattern-Defeating Binary Insertion");
+        this.setRunAllSortsName("Pattern-Defeating Binary Insertion Sort");
+        this.setRunSortName("Pattern-Defeating Binary Insertsort");
+        this.setCategory("Insertion Sorts");
+        this.setComparisonBased(true);
+        this.setBucketSort(false);
+        this.setRadixSort(false);
+        this.setUnreasonablySlow(false);
+        this.setUnreasonableLimit(0);
+        this.setBogoSort(false);
+    }
+    
     protected void stableSegmentReversal(int[] array, int start, int end, double delay, boolean aux) {
         if (end - start < 3) Writes.swap(array, start, end, delay, true, aux);
         else Writes.reversal(array, start, end, delay, true, aux);
@@ -74,7 +74,7 @@ public final class PDBinaryInsertionSort extends Sort {
         return Math.max(forward, reverse);
     }
     
-	protected int binarySearch(int[] array, int a, int b, int value, double delay) {
+    protected int binarySearch(int[] array, int a, int b, int value, double delay) {
         while (a < b) {
             int m = a + ((b - a) / 2);
             Highlights.markArray(1, a);
@@ -105,9 +105,9 @@ public final class PDBinaryInsertionSort extends Sort {
             Highlights.clearAllMarks();
         }
     }
-	
-	@Override
-	public void runSort(int[] array, int currentLength, int constantdiv) throws Exception {
-		pdbinsert(array, 0, currentLength, 1, false);
-	}
+    
+    @Override
+    public void runSort(int[] array, int currentLength, int constantdiv) throws Exception {
+        pdbinsert(array, 0, currentLength, 1, false);
+    }
 }

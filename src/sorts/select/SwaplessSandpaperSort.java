@@ -46,10 +46,10 @@ final public class SwaplessSandpaperSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int i = 0; i < currentLength - 1; i++) {
-        	int temp = array[i];
+            int temp = array[i];
             for (int j = i + 1; j < currentLength; j++) {
                 if (Reads.compareValues(temp, array[j]) >= 0) {
-                	int t = array[j];
+                    int t = array[j];
                     Writes.write(array, j, temp, 1, true, false);
                     temp = t;
                 }

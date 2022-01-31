@@ -23,10 +23,10 @@
    public void runSort(int[] array, int length, int bucketCount) {
      while (!isRangeSorted(array, 0, length, false, true)) {
        int index = BogoSorting.randInt(0, length - 1),
-    	   index2 = BogoSorting.randInt(0, length - 1);
+         index2 = BogoSorting.randInt(0, length - 1);
        while(index < length - 1 && Reads.compareValues(array[index], array[index2]) == 1) {
-    	   Writes.swap(array, index, ++index, 0.075, true, false);
-    	   index2 = BogoSorting.randInt(0, length - 1);
+         Writes.swap(array, index, ++index, 0.075, true, false);
+         index2 = BogoSorting.randInt(0, length - 1);
        }
      } 
    }

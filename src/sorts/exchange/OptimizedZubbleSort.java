@@ -25,10 +25,10 @@ final public class OptimizedZubbleSort extends Sort {
         for(int i = length - 1, cons = 1, first = 1; i >= first; i-=cons) {
             boolean firstset = false;
             for(int j = Math.max(first - 1, 0); j < i; j++) {
-            	int k = j;
-            	boolean swap = false;
+                int k = j;
+                boolean swap = false;
                 while(j < i && Reads.compareValues(array[k], array[j + 1]) == 1){
-                	j++;
+                    j++;
                     swap = true;
                 }
                 if(swap) {Writes.swap(array, k, j, 1, true, false); cons=1; if(!firstset) first=k; firstset = true;}

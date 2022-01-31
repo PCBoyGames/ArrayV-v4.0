@@ -23,8 +23,8 @@ final public class GreenHerringSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-    	IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort bakery =
+        IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort bakery =
     new IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort(arrayVisualizer);
-    	bakery.greenHerringPass(array, 0, currentLength);
+        bakery.greenHerringPass(array, 0, currentLength);
     }
 }

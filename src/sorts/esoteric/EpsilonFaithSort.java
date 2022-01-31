@@ -20,15 +20,15 @@ public final class EpsilonFaithSort extends BogoSorting {
     }
     
     private void epsiFaith(int[] array) {
-    	Delays.sleep(1);
-    	for(int i=0; i<array.length; i++) // yep
-    		epsiFaith(array); //lol stackoverflow DX: Director's Cut
+        Delays.sleep(1);
+        for(int i=0; i<array.length; i++) // yep
+            epsiFaith(array); //lol stackoverflow DX: Director's Cut
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	// one upgrade does wonders
-    	do
+        // one upgrade does wonders
+        do
             epsiFaith(array);
         while(!isArraySorted(array, length));
     }

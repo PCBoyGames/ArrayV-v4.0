@@ -47,32 +47,32 @@ final public class ClassicGravitySort extends Sort {
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		int max = Reads.analyzeMax(array, length, 0.5, true);
-		int[] transpose = Writes.createExternalArray(max);
+        int max = Reads.analyzeMax(array, length, 0.5, true);
+        int[] transpose = Writes.createExternalArray(max);
 
-		for (int i = 0; i < length; i++) {
-			Highlights.markArray(2, i);
-			int num = array[i];
-			for (int j = 0; j < num; j++) {
-				Writes.write(transpose, j, transpose[j] + 1, 0.01, true, true);
-			}
-		}
-		Highlights.clearMark(2);
+        for (int i = 0; i < length; i++) {
+            Highlights.markArray(2, i);
+            int num = array[i];
+            for (int j = 0; j < num; j++) {
+                Writes.write(transpose, j, transpose[j] + 1, 0.01, true, true);
+            }
+        }
+        Highlights.clearMark(2);
 
-		for (int i = 0; i < length; i++) {
-			Highlights.markArray(2, i);
-			int sum = 0;
-			for (int j = 0; j < max; j++) {
-				if (transpose[j] > 0) {
-					sum++;
-				}
-			}
-			Writes.write(array, length - i - 1, sum, 0.01, true, false);
-			for (int j = 0; j < max; j++) {
-				Writes.write(transpose, j, transpose[j] - 1, 0.01, true, true);
-			}
-		}
+        for (int i = 0; i < length; i++) {
+            Highlights.markArray(2, i);
+            int sum = 0;
+            for (int j = 0; j < max; j++) {
+                if (transpose[j] > 0) {
+                    sum++;
+                }
+            }
+            Writes.write(array, length - i - 1, sum, 0.01, true, false);
+            for (int j = 0; j < max; j++) {
+                Writes.write(transpose, j, transpose[j] - 1, 0.01, true, true);
+            }
+        }
 
-		Writes.deleteExternalArray(transpose);
+        Writes.deleteExternalArray(transpose);
     }
 }

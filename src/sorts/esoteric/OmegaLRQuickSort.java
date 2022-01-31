@@ -35,19 +35,19 @@ final public class OmegaLRQuickSort extends Sort {
         int pivot = array[hi];
         int left = lo, right = hi;
         while(left<right) {
-        	while(left<hi&&Reads.compareValues(array[left], pivot) == -1) {
-        		left++;
-        		Highlights.markArray(1, left);
-        		quickSort(array,left,right-1);
-        	}
-        	while(right>lo&&Reads.compareValues(array[right], pivot) == 1) {
-        		right--;
-        		Highlights.markArray(2, right);
-        		quickSort(array,left+1,right);
-        	}
-        	if(left<right) {
-        		omegaReversal(array, left++, right--, 0.01);
-        	}
+            while(left<hi&&Reads.compareValues(array[left], pivot) == -1) {
+                left++;
+                Highlights.markArray(1, left);
+                quickSort(array,left,right-1);
+            }
+            while(right>lo&&Reads.compareValues(array[right], pivot) == 1) {
+                right--;
+                Highlights.markArray(2, right);
+                quickSort(array,left+1,right);
+            }
+            if(left<right) {
+                omegaReversal(array, left++, right--, 0.01);
+            }
         }
         return left;
     }
@@ -56,14 +56,14 @@ final public class OmegaLRQuickSort extends Sort {
         if(lo < hi) {
             int p = this.partition(array, lo, hi);
             if(p<hi)
-            	this.quickSort(array, lo, p);
+                this.quickSort(array, lo, p);
             this.quickSort(array, p+1, hi);
         }
     }
     
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-    	Statistics.putStats("Omega Reversal");
+        Statistics.putStats("Omega Reversal");
         this.quickSort(array, 0, currentLength - 1);
     }
 }

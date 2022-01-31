@@ -80,26 +80,26 @@ final public class nlognStoogeSort extends MergeSorting {
     }
     
     private void NLNStooge(int[] array, int[] tmp, int start, int end) {
-    	if(start == end)
-    		return;
-    	
-    	int third = (end-start+1) / 3;
-    	
-    	if(third == 0)
-    		return;
-    	
-    	this.NLNStooge(array, tmp, start, start+third);
-    	this.NLNStooge(array, tmp, start+third, end-third);
-    	this.NLNStooge(array, tmp, end-third, end);
-    	
-    	this.mergeNR(array, tmp, start, start+third, end-third);
-    	this.mergeNR(array, tmp, start+third, end-third, end);
-    	this.mergeNR(array, tmp, start, start+third, end-third);
+        if(start == end)
+            return;
+        
+        int third = (end-start+1) / 3;
+        
+        if(third == 0)
+            return;
+        
+        this.NLNStooge(array, tmp, start, start+third);
+        this.NLNStooge(array, tmp, start+third, end-third);
+        this.NLNStooge(array, tmp, end-third, end);
+        
+        this.mergeNR(array, tmp, start, start+third, end-third);
+        this.mergeNR(array, tmp, start+third, end-third, end);
+        this.mergeNR(array, tmp, start, start+third, end-third);
     }
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	int[] t = Writes.createExternalArray(length);
+        int[] t = Writes.createExternalArray(length);
         this.NLNStooge(array, t, 0, length);
         Writes.deleteExternalArray(t);
     }

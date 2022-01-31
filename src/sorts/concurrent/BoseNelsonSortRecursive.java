@@ -4,13 +4,13 @@ import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
 final public class BoseNelsonSortRecursive extends Sort {
-	
+    
     public BoseNelsonSortRecursive(ArrayVisualizer arrayVisualizer) {
-    	super(arrayVisualizer);
+        super(arrayVisualizer);
         
-    	this.setSortListName("Bose-Nelson (Recursive)");
-    	this.setRunAllSortsName("Recursive Bose-Nelson Sorting Network");
-    	this.setRunSortName("Recursive Bose-Nelson Sort");
+        this.setSortListName("Bose-Nelson (Recursive)");
+        this.setRunAllSortsName("Recursive Bose-Nelson Sorting Network");
+        this.setRunSortName("Recursive Bose-Nelson Sort");
         this.setCategory("Concurrent Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -21,25 +21,25 @@ final public class BoseNelsonSortRecursive extends Sort {
     }
     
     private void compareSwap(int[] array, int start, int end, double sleep) {
-    	if (Reads.compareIndices(array, start, end, sleep, true) == 1) {
-    	    Writes.swap(array, start, end, 2*sleep, true, false);
+        if (Reads.compareIndices(array, start, end, sleep, true) == 1) {
+            Writes.swap(array, start, end, 2*sleep, true, false);
         }
     }
 
     private void boseNelson(int[] array, int start, int length, double sleep) {
         if (length > 1) {
-        	int mid = length / 2;
-        	boseNelson(array, start, mid, sleep);
+            int mid = length / 2;
+            boseNelson(array, start, mid, sleep);
             boseNelson(array, start + mid, length - mid, sleep);
             boseNelsonMerge(array, start, mid, start + mid, length - mid, sleep);
         }
     }
     
     private void boseNelsonMerge(int[] array, int start1, int len1, int start2, int len2, double sleep) {
-    	if (len1 == 1 && len2 == 1) {
-    	    compareSwap(array, start1, start2, sleep);
+        if (len1 == 1 && len2 == 1) {
+            compareSwap(array, start1, start2, sleep);
         } else if (len1 == 1 && len2 == 2) {
-        	compareSwap(array, start1, start2 + 1, sleep);
+            compareSwap(array, start1, start2 + 1, sleep);
             compareSwap(array, start1, start2, sleep);
         } else if (len1 == 2 && len2 == 1) {
             compareSwap(array, start1, start2, sleep);

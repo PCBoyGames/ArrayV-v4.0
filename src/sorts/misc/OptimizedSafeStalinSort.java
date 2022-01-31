@@ -40,27 +40,27 @@ final public class OptimizedSafeStalinSort extends Sort {
     }
     
     protected ArrayList<Stack<Integer>> buildStacks(int[] array, int start, int end) {
-    	ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
-    	int zero = Integer.MIN_VALUE, zeroed = 0;
-    	while(zeroed < end-start) {
-    		Stack<Integer> currentStack = new Stack<>();
-			Statistics.addStat("Stack");
-    		for(int j=start; j<end; j++) {
-    			if(array[j] != zero) {
-	    			if(currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) <= 0) {
-	    				currentStack.add(array[j]);
-	    				Writes.changeAllocAmount(1);
-	    				Writes.changeAuxWrites(1);
-						Highlights.markArray(1, j);
-						Delays.sleep(1);
-	    				Writes.write(array, j, zero, 0, false, false);
-	    				zeroed++;
-	    			}
-    			}
-    		}
-    		stacksBuilt.add(currentStack);
-    	}
-    	return stacksBuilt;
+        ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
+        int zero = Integer.MIN_VALUE, zeroed = 0;
+        while(zeroed < end-start) {
+            Stack<Integer> currentStack = new Stack<>();
+            Statistics.addStat("Stack");
+            for(int j=start; j<end; j++) {
+                if(array[j] != zero) {
+                    if(currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) <= 0) {
+                        currentStack.add(array[j]);
+                        Writes.changeAllocAmount(1);
+                        Writes.changeAuxWrites(1);
+                        Highlights.markArray(1, j);
+                        Delays.sleep(1);
+                        Writes.write(array, j, zero, 0, false, false);
+                        zeroed++;
+                    }
+                }
+            }
+            stacksBuilt.add(currentStack);
+        }
+        return stacksBuilt;
     }
     
     protected void reciteStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {

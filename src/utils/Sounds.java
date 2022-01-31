@@ -185,9 +185,9 @@ final public class Sounds {
         };
     }
 
-	public boolean isEnabled() {
-		return this.soundEnabled;
-	}
+    public boolean isEnabled() {
+        return this.soundEnabled;
+    }
 
     public int getInstrumentChoice() {
         return this.instrumentChoice;

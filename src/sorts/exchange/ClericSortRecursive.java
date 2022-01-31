@@ -34,9 +34,9 @@ final public class ClericSortRecursive extends ClericSorting {
     
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-    	end = sortLength;
-    	int n = 1;
-    	for(; n < sortLength; n*=2);
+        end = sortLength;
+        int n = 1;
+        for(; n < sortLength; n*=2);
         int numberOfSwaps = 0;
         do numberOfSwaps = clericSortRoutine(array, 0, n - 1, 0, 0.05, 0); while (numberOfSwaps != 0);
     }

@@ -30,35 +30,35 @@ final public class AltstoogeSort extends Sort {
         this.setBogoSort(false);
     }
     
-	private void stoogeSort(int[] A, int i, int j, boolean base) {
-	    if (Reads.compareValues(A[i], A[j]) == 1) {
-	        Writes.swap(A, i, j, 0.005, true, false);
-	    }
-	    
-	    Delays.sleep(0.0025);
-	    
-	    Highlights.markArray(1, i);
+    private void stoogeSort(int[] A, int i, int j, boolean base) {
+        if (Reads.compareValues(A[i], A[j]) == 1) {
+            Writes.swap(A, i, j, 0.005, true, false);
+        }
+        
+        Delays.sleep(0.0025);
+        
+        Highlights.markArray(1, i);
         Highlights.markArray(2, j);
-	    
+        
         if (j - i + 1 >= 3) {
-	        int t = (j - i + 1) / 3;
-	        int mid = i+t, mid2 = j-t;
-	        
-	        Highlights.markArray(3, j - t);
-	        Highlights.markArray(4, i + t);
-        	if(!base) {
-        		this.stoogeSort(A, mid, mid2, true);
-        	}
+            int t = (j - i + 1) / 3;
+            int mid = i+t, mid2 = j-t;
+            
+            Highlights.markArray(3, j - t);
+            Highlights.markArray(4, i + t);
+            if(!base) {
+                this.stoogeSort(A, mid, mid2, true);
+            }
 
-	        this.stoogeSort(A, mid, j, true);
-	        this.stoogeSort(A, mid2, j, true);
-	        this.stoogeSort(A, i, mid, true);
-	        this.stoogeSort(A, mid, mid2, true);
-	        this.stoogeSort(A, i, mid2, true);
-	        this.stoogeSort(A, mid2, j, true);
-	        this.stoogeSort(A, mid, j, true);
-	    }
-	}
+            this.stoogeSort(A, mid, j, true);
+            this.stoogeSort(A, mid2, j, true);
+            this.stoogeSort(A, i, mid, true);
+            this.stoogeSort(A, mid, mid2, true);
+            this.stoogeSort(A, i, mid2, true);
+            this.stoogeSort(A, mid2, j, true);
+            this.stoogeSort(A, mid, j, true);
+        }
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {

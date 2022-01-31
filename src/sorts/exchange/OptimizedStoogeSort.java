@@ -65,25 +65,25 @@ final public class OptimizedStoogeSort extends Sort {
         }
     }
     
-	private void exchange(int[] array, int length) {
-	    int left = 0;
-	    int right = length - 1;
-	    
-	    while(left < right) {
-	        Highlights.markArray(1, left);
+    private void exchange(int[] array, int length) {
+        int left = 0;
+        int right = length - 1;
+        
+        while(left < right) {
+            Highlights.markArray(1, left);
             Highlights.markArray(2, right);
             Delays.sleep(0.05);
             
-	        if(Reads.compareValues(array[left], array[right]) > 0) {
-	            Writes.swap(array, left, right, 0.075, true, false);
-	        }
-	        left++;
-	        right--;
-	    }
-	    
-	    this.forward(array, 0, length - 2);
-	    this.backward(array, 1, length - 1);
-	}
+            if(Reads.compareValues(array[left], array[right]) > 0) {
+                Writes.swap(array, left, right, 0.075, true, false);
+            }
+            left++;
+            right--;
+        }
+        
+        this.forward(array, 0, length - 2);
+        this.backward(array, 1, length - 1);
+    }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {

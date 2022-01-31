@@ -19,26 +19,26 @@ public final class BonoSort extends BogoSorting {
         this.setBogoSort(true);
     }
     private void convergePull(int[] array, int start, int end) {
-    	int l = start+1, r=end;
-    	while(l < r) {
-    		int a = randInt(l, r),
-    			b = randInt(a, r);
-    		if(Reads.compareValues(array[start], array[a]) >= 0) {
-    			l = a;
-    		} else {
-    			l = b;
-    		}
-    		if(Reads.compareValues(array[start], array[b]) <= 0) {
-    			r = b;
-    		} else {
-    			r = a;
-    		}
-    	}
-    	Writes.multiSwap(array, start, l, 1, true, false);
+        int l = start+1, r=end;
+        while(l < r) {
+            int a = randInt(l, r),
+                b = randInt(a, r);
+            if(Reads.compareValues(array[start], array[a]) >= 0) {
+                l = a;
+            } else {
+                l = b;
+            }
+            if(Reads.compareValues(array[start], array[b]) <= 0) {
+                r = b;
+            } else {
+                r = a;
+            }
+        }
+        Writes.multiSwap(array, start, l, 1, true, false);
     }
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         while(!this.isArraySorted(array, length))
-        	convergePull(array, 0, length);
+            convergePull(array, 0, length);
     }
 }

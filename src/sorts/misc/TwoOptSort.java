@@ -22,13 +22,13 @@ public final class TwoOptSort extends Sort {
     }
 
     public int stabVal(int val) { //Required to make the sort work on Stability Checking
-    	return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(val) : val;
+        return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(val) : val;
     }
     
     public int getDist(int[] array, int length) {
-    	int dist = 0;
-    	for (int i = 0; i < length - 1; i++) {
-    	    Reads.addComparison();
+        int dist = 0;
+        for (int i = 0; i < length - 1; i++) {
+            Reads.addComparison();
             Writes.startLap();
             int amount = Math.abs(stabVal(array[i + 1]) - stabVal(array[i]));
             Writes.stopLap();
@@ -36,7 +36,7 @@ public final class TwoOptSort extends Sort {
             Highlights.markArray(1, i);
             Highlights.markArray(2, i + 1);
             Delays.sleep(0.01);
-    	}
+        }
         return dist;
     }
 
@@ -44,17 +44,17 @@ public final class TwoOptSort extends Sort {
     public void runSort(int[] array, int sortLength, int bucketCount) {
         boolean done = false;
         while (!done) {
-        	done = true;
+            done = true;
             int bestDist = getDist(array, sortLength);
             for (int i = 0; i < sortLength - 1; i++) {
-            	for (int j = i + 1; j < sortLength; j++) {
-            	    Writes.reversal(array, i, j, 0.02, true, false);
+                for (int j = i + 1; j < sortLength; j++) {
+                    Writes.reversal(array, i, j, 0.02, true, false);
                     int dist = getDist(array, sortLength);
                     if (dist < bestDist) {
-                    	bestDist = dist;
+                        bestDist = dist;
                         done = false;
                     } else {
-                    	Writes.reversal(array, i, j, 0.02, true, false);
+                        Writes.reversal(array, i, j, 0.02, true, false);
                     }
                 }
             }

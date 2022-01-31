@@ -72,14 +72,14 @@ final public class RunSummerSort extends MultipleSortThread {
         arrayVisualizer.setHeading(sort.getRunAllSortsName() + " on " + shuffleName + " (Sort " + sortNumber + " of " + sortCount + ")");
         
         double sortSpeed = 1.0;
-		
-		if(defaultLength < (arrayVisualizer.getCurrentLength() / 2)) {
+        
+        if(defaultLength < (arrayVisualizer.getCurrentLength() / 2)) {
             sortSpeed = defaultSpeed * Math.pow((arrayVisualizer.getCurrentLength() / 2048d), 2);
         }
         else {
             sortSpeed = defaultSpeed * (arrayVisualizer.getCurrentLength() / 2048d);
         }
-		
+        
         Delays.setSleepRatio(sortSpeed);
         
         Timer.enableRealTimer();
@@ -117,7 +117,7 @@ final public class RunSummerSort extends MultipleSortThread {
         //runIndividualSort(IterativeSelectionMergeSort, 0, array, 512, 2, false, shuffleName, 16, alt);
         
         Sort MobMerge = new MobMergeSort(arrayVisualizer);
-        runIndividualSort(MobMerge, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        runIndividualSort(MobMerge, 2, array, 512, 0.5, false, shuffleName, 16, alt);
         
     }
 
@@ -143,7 +143,7 @@ final public class RunSummerSort extends MultipleSortThread {
         
         arrayVisualizer.setComparator(2);
         runSort(array, "Stability Test", false);
-		
+        
         arrayVisualizer.setComparator(0);
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_TAIL_LEGACY : Shuffles.SHUFFLED_TAIL_LEGACY); // 5
         runSort(array, "Scrambled End", true);

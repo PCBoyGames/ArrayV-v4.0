@@ -23,8 +23,8 @@ final public class GrossSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-    	IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort bakery =
+        IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort bakery =
     new IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort(arrayVisualizer);
-    	bakery.grossPass(array, 0, currentLength, currentLength, true);
+        bakery.grossPass(array, 0, currentLength, currentLength, true);
     }
 }

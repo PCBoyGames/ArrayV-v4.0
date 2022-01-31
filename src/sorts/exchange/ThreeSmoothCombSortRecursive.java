@@ -43,25 +43,25 @@ final public class ThreeSmoothCombSortRecursive extends Sort {
     }
 
     private void recursiveComb(int[] array, int pos, int gap, int end) {
-		if(pos+gap > end) return;
-		
-		this.recursiveComb(array, pos, gap*2, end);
-		this.recursiveComb(array, pos+gap, gap*2, end);
-		
-		this.powerOfThree(array, pos, gap, end);
-	}
+        if(pos+gap > end) return;
+        
+        this.recursiveComb(array, pos, gap*2, end);
+        this.recursiveComb(array, pos+gap, gap*2, end);
+        
+        this.powerOfThree(array, pos, gap, end);
+    }
 
-	private void powerOfThree(int[] array, int pos, int gap, int end) {
-		if(pos+gap > end) return;
-		
-		this.powerOfThree(array, pos, gap*3, end);
-		this.powerOfThree(array, pos+gap, gap*3, end);
-		this.powerOfThree(array, pos+2*gap, gap*3, end);
-		
-		for(int i = pos; i+gap < end; i+=gap)
-			if(Reads.compareIndices(array, i, i+gap, 0.5, true) == 1)
-				Writes.swap(array, i, i+gap, 0.5, false, false);
-	}
+    private void powerOfThree(int[] array, int pos, int gap, int end) {
+        if(pos+gap > end) return;
+        
+        this.powerOfThree(array, pos, gap*3, end);
+        this.powerOfThree(array, pos+gap, gap*3, end);
+        this.powerOfThree(array, pos+2*gap, gap*3, end);
+        
+        for(int i = pos; i+gap < end; i+=gap)
+            if(Reads.compareIndices(array, i, i+gap, 0.5, true) == 1)
+                Writes.swap(array, i, i+gap, 0.5, false, false);
+    }
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {

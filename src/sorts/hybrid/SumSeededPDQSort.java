@@ -47,7 +47,7 @@ final public class SumSeededPDQSort extends Sort {
     
     // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
     private void quickSort(int[] a, int p, int r) {
-    	if(r - p > 16) {
+        if(r - p > 16) {
             int pivot = (r^p + a[p]^a[r] + a[p] + a[r] + p + r)*(r^p + a[p]^a[r] + a[p] + a[r] + p + r)%(r - p) + p;
             pivot = Math.abs((pivot + a[p]^a[r] + a[p] + a[r] + p + r)*(pivot+ a[p]^a[r] + a[p] + a[r] + p + r)%(r - p) + p)%(r - p - 1) + p;
             
@@ -92,7 +92,7 @@ final public class SumSeededPDQSort extends Sort {
             if(i < r) {
                 this.quickSort(a, i, r);
             }
-    	} else sort.customBinaryInsert(a, p, r + 1, 0.5);
+        } else sort.customBinaryInsert(a, p, r + 1, 0.5);
     }
 
     @Override

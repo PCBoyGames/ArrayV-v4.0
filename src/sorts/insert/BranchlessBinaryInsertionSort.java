@@ -22,20 +22,20 @@ final public class BranchlessBinaryInsertionSort extends Sort {
     }
     
     private int sign(int v) {
-    	return (v>>31) | -(-v>>31);
+        return (v>>31) | -(-v>>31);
     }
     
     private int binsearch(int[] array, int start, int end, int key, double slp, Comparator<Integer> bcmp) {
-    	while(end-start > 0) {
-    		int l = end - start,
-    			c = bcmp.compare(key, array[start+l/2]); // branchless compare here
-    		Highlights.markArray(1, start+l/2);
-    		Delays.sleep(slp);
-    		start += ((l / 2) + 1) * sign(c+1);
-    		end -= ((l + 1) / 2) * -sign(c-1);
-    	}
-    	Highlights.clearAllMarks();
-    	return start;
+        while(end-start > 0) {
+            int l = end - start,
+                c = bcmp.compare(key, array[start+l/2]); // branchless compare here
+            Highlights.markArray(1, start+l/2);
+            Delays.sleep(slp);
+            start += ((l / 2) + 1) * sign(c+1);
+            end -= ((l + 1) / 2) * -sign(c-1);
+        }
+        Highlights.clearAllMarks();
+        return start;
     }
     
     public void binaryInsertSort(int[] array, int start, int end, double compSleep, double writeSleep) {
@@ -51,7 +51,7 @@ final public class BranchlessBinaryInsertionSort extends Sort {
                 j--;
             }
             if(src < i)
-            	Writes.write(array, src, num, writeSleep, true, false);
+                Writes.write(array, src, num, writeSleep, true, false);
             
             Highlights.clearAllMarks();
         }

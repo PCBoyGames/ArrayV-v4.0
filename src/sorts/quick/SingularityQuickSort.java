@@ -77,20 +77,6 @@ final public class SingularityQuickSort extends Sort {
         return reverse;
     }
     
-    protected int binarySearch(int[] array, int a, int b, int value) {
-        while (a < b) {
-            int m = a + ((b - a) / 2);
-            Highlights.markArray(1, a);
-            Highlights.markArray(3, m);
-            Highlights.markArray(2, b);
-            Delays.sleep(0.1);
-            if (Reads.compareValues(value, array[m]) < 0) b = m;
-            else a = m + 1;
-        }
-        Highlights.clearMark(3);
-        return a;
-    }
-    
     protected void binsert(int[] array, int start, int end) {
         PDBinaryInsertionSort bin = new PDBinaryInsertionSort(arrayVisualizer);
         bin.pdbinsert(array, start - 1, end, 0.1, false);

@@ -26,7 +26,7 @@ SOFTWARE.
  */
 
 final public class FunSort extends Sort {
-	
+    
     public FunSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);
         
@@ -50,15 +50,15 @@ final public class FunSort extends Sort {
     */
 
     public int binarySearch(int[] array, int start, int end, int value) {
-    	while (start < end) {
-    	    int mid = (start + end) >>> 1;
+        while (start < end) {
+            int mid = (start + end) >>> 1;
             Highlights.markArray(1, start);
             Highlights.markArray(2, mid);
             Highlights.markArray(3, end);
             if (Reads.compareValues(array[mid], value) < 0) {
-            	start = mid + 1;
+                start = mid + 1;
             } else {
-            	end = mid;
+                end = mid;
             }
             Delays.sleep(1);
         }
@@ -73,13 +73,13 @@ final public class FunSort extends Sort {
         for (int i = 1; i < length; i++) {
             boolean done = false;
             do {
-        	done = true;
+            done = true;
                 int pos = binarySearch(array, 0, length - 1, array[i]);
                 if (Reads.compareIndices(array, pos, i, 0, false) != 0) {
                     if (i < pos - 1) {
-                	Writes.swap(array, i, pos - 1, 2, true, false);
+                    Writes.swap(array, i, pos - 1, 2, true, false);
                     } else if (i > pos) {
-                    	Writes.swap(array, i, pos, 2, true, false);
+                        Writes.swap(array, i, pos, 2, true, false);
                     }
                     done = false;
                 }

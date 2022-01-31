@@ -21,6 +21,6 @@ final public class LassoSort extends LassoSorting {
     }
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	this.common(array, 0, length);
+        this.common(array, 0, length);
     }
 }

@@ -46,7 +46,7 @@ final public class Statistics {
     public boolean bigo;
     
     public Statistics(ArrayVisualizer ArrayVisualizer) {
-    	arrayv = ArrayVisualizer;
+        arrayv = ArrayVisualizer;
         this.formatter = ArrayVisualizer.getNumberFormat();
         this.access = new AccessFunction(ArrayVisualizer);
         addedCounts = new HashMap<>();
@@ -54,19 +54,19 @@ final public class Statistics {
         this.updateStats(ArrayVisualizer);
     }
     public static void putStat(String name) {
-    	addedCounts.putIfAbsent(name, 0l);
+        addedCounts.putIfAbsent(name, 0l);
     }
     public static void putStats(String... names) {
-    	Arrays.stream(names).forEachOrdered(Statistics::putStat);
+        Arrays.stream(names).forEachOrdered(Statistics::putStat);
     }
     public static void resetStat(String name) {
-    	addedCounts.put(name, 0l);
+        addedCounts.put(name, 0l);
     }
     public static void addStat(String name) {
-    	addedCounts.put(name, addedCounts.get(name)+1l);
+        addedCounts.put(name, addedCounts.get(name)+1l);
     }
     public static void addStat(String name, long amount) {
-    	addedCounts.put(name, addedCounts.get(name)+amount);
+        addedCounts.put(name, addedCounts.get(name)+amount);
     }
     public int[] findSegments(int[] array, int length, boolean reversed) {
         int runs = 1;
@@ -100,7 +100,7 @@ final public class Statistics {
         this.recCount = ArrayVisualizer.getWrites().getRecursions();
         this.recDepth = ArrayVisualizer.getWrites().getRecursionDepth();
         if(!this.bigo)
-        	this.bigO = "";
+            this.bigO = "";
         
         this.mainWriteCount = ArrayVisualizer.getWrites().getMainWrites();
         this.auxWriteCount = ArrayVisualizer.getWrites().getAuxWrites();
@@ -114,55 +114,55 @@ final public class Statistics {
     }
     
     public void calculateBigO(BigInteger comps) {
-    	try {
-	    	this.bigO = "Calculating Big O...";
-	    	this.bigo = true;
-	    	arrayv.updateNow();
-	    	HashMap<String, BigInteger> x = access.generateAccessFunctions(comps);
-	    	List<Map.Entry<String, BigInteger>> lst = new ArrayList<>();
-	    	Set<Map.Entry<String, BigInteger>> y = x.entrySet();
-	    	y.stream().forEach(lst::add);
-	    	Collections.sort(lst, (a,b)->a.getValue().compareTo(b.getValue()));
-	    	// System.out.println(lst);
-	    	int j=0;
-	    	while(j < lst.size() && lst.get(j).getValue().compareTo(comps) < 0) {
-	    		j++;
-	    	}
-	    	if(j < lst.size() && comps.compareTo(lst.get(j).getValue().divide(BigInteger.TEN)) < 0) {
-	    		j--;
-	    	}
-	    	MathContext n = new MathContext(4);
-	    	BigDecimal i = new BigDecimal(comps);
-	    	i = i.divide(new BigDecimal(lst.get(j).getValue()), n);
-	    	i = i.round(n);
-	    	this.bigO = "Big O \u2248 "+(i.toString())+"x O("+lst.get(j).getKey()+")";
-	    	arrayv.updateNow();
-    	} catch(Exception dont) {
-    		this.bigO = "Big O \u2248 ---";
-    		arrayv.updateNow();
-    		return;
-    	}
+        try {
+            this.bigO = "Calculating Big O...";
+            this.bigo = true;
+            arrayv.updateNow();
+            HashMap<String, BigInteger> x = access.generateAccessFunctions(comps);
+            List<Map.Entry<String, BigInteger>> lst = new ArrayList<>();
+            Set<Map.Entry<String, BigInteger>> y = x.entrySet();
+            y.stream().forEach(lst::add);
+            Collections.sort(lst, (a,b)->a.getValue().compareTo(b.getValue()));
+            // System.out.println(lst);
+            int j=0;
+            while(j < lst.size() && lst.get(j).getValue().compareTo(comps) < 0) {
+                j++;
+            }
+            if(j < lst.size() && comps.compareTo(lst.get(j).getValue().divide(BigInteger.TEN)) < 0) {
+                j--;
+            }
+            MathContext n = new MathContext(4);
+            BigDecimal i = new BigDecimal(comps);
+            i = i.divide(new BigDecimal(lst.get(j).getValue()), n);
+            i = i.round(n);
+            this.bigO = "Big O \u2248 "+(i.toString())+"x O("+lst.get(j).getKey()+")";
+            arrayv.updateNow();
+        } catch(Exception dont) {
+            this.bigO = "Big O \u2248 ---";
+            arrayv.updateNow();
+            return;
+        }
     }
     
     public String getSortIdentity() {
-    	return this.sortCategory + ": " + this.sortHeading;
+        return this.sortCategory + ": " + this.sortHeading;
     }
     public static void resetAuxStats() {
-    	addedCounts.clear();
+        addedCounts.clear();
     }
     public ArrayList<String> parseMap() {
-    	ArrayList<String> strs = new ArrayList<>();
-    	for(Map.Entry<String, Long> stat : addedCounts.entrySet()) {
-    		long val = stat.getValue();
-    		strs.add(formatter.format(val) + " " + stat.getKey() + (val==1?"":"s"));
-    	}
-    	return strs;
+        ArrayList<String> strs = new ArrayList<>();
+        for(Map.Entry<String, Long> stat : addedCounts.entrySet()) {
+            long val = stat.getValue();
+            strs.add(formatter.format(val) + " " + stat.getKey() + (val==1?"":"s"));
+        }
+        return strs;
     }
     public String getArrayLength() {
         return this.arrayLength + this.sortExtraHeading;
     }
     public String getBigO() {
-    	return this.bigO;
+        return this.bigO;
     }
     public String getSortDelay() {
         return this.sortDelay;

@@ -13,12 +13,12 @@ import sorts.templates.Sort;
  */
 public final class TriSearchGnomeSort extends Sort {
 
-	/**
-	 * @param arrayVisualizer
-	 */
-	public TriSearchGnomeSort(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
-		
+    /**
+     * @param arrayVisualizer
+     */
+    public TriSearchGnomeSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
+        
         this.setSortListName("TriSearch Gnome");
         this.setRunAllSortsName("TriSearch Gnome Sort");
         this.setRunSortName("TriSearch Gnomesort");
@@ -29,7 +29,7 @@ public final class TriSearchGnomeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-	}
+    }
 
     public int triSearch(int[] arr, int l, int h, int val, double sleep) {
         int mid = l + ((h-l) / 2);
@@ -52,7 +52,7 @@ public final class TriSearchGnomeSort extends Sort {
         }
     }
     public void triGnomeSort(int[] array, int start, int end, double compSleep, double writeSleep) {
-    	for (int i = start+1; i < end; i++) {
+        for (int i = start+1; i < end; i++) {
             int num = array[i];
             int lo = start;
             
@@ -60,18 +60,18 @@ public final class TriSearchGnomeSort extends Sort {
             Highlights.clearAllMarks();
             int j = i ;
             while(j>lo) {
-            	Writes.swap(array, j, j - 1, writeSleep, true, false);
-            	j--;
+                Writes.swap(array, j, j - 1, writeSleep, true, false);
+                j--;
             }
             Highlights.clearAllMarks();
 
-    	}
+        }
     }
 
-	@Override
-	public void runSort(int[] array, int length, int bucketCount){
-		triGnomeSort(array, 0, length, 40, 1);
+    @Override
+    public void runSort(int[] array, int length, int bucketCount){
+        triGnomeSort(array, 0, length, 40, 1);
 
-	}
+    }
 
 }

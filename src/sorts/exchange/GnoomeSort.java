@@ -19,31 +19,31 @@ final public class GnoomeSort extends Sort {
         this.setBogoSort(false);
     }
     
-	private void stoogeSort(int[] A, int i, int j, int d) {
-	    if (Reads.compareValues(A[i], A[j]) == 1) {
-	        Writes.swap(A, i, j, 0.005, true, false);
-	    }
-	    
-	    Delays.sleep(0.0025);
-	    
-	    Highlights.markArray(1, i);
+    private void stoogeSort(int[] A, int i, int j, int d) {
+        if (Reads.compareValues(A[i], A[j]) == 1) {
+            Writes.swap(A, i, j, 0.005, true, false);
+        }
+        
+        Delays.sleep(0.0025);
+        
+        Highlights.markArray(1, i);
         Highlights.markArray(2, j);
-	    
+        
         if (j - i + 1 >= 3) {
-	        int t = (j - i + 1) / 3;
-	        
-	        Highlights.markArray(3, j - t);
-	        Highlights.markArray(4, i + t);
-	        Writes.recordDepth(d++);
-	        
-	        Writes.recursion(5);
-	        this.stoogeSort(A, i, j-t, d);
-	        this.stoogeSort(A, i, i+t, d);
-	        this.stoogeSort(A, i+t, j, d);
-	        this.stoogeSort(A, i+t, j-t, d);
-	        this.stoogeSort(A, i, i+t, d);
-	    }
-	}
+            int t = (j - i + 1) / 3;
+            
+            Highlights.markArray(3, j - t);
+            Highlights.markArray(4, i + t);
+            Writes.recordDepth(d++);
+            
+            Writes.recursion(5);
+            this.stoogeSort(A, i, j-t, d);
+            this.stoogeSort(A, i, i+t, d);
+            this.stoogeSort(A, i+t, j, d);
+            this.stoogeSort(A, i+t, j-t, d);
+            this.stoogeSort(A, i, i+t, d);
+        }
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {

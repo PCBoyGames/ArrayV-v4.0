@@ -48,7 +48,7 @@ final public class BadBubbleSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int Breaks = 0;
-    	for(int i = length - 1; i > 0; i--) {
+        for(int i = length - 1; i > 0; i--) {
             boolean sorted = true;
             int maxBreaks = 0;
             for(int j = 0; j < i; j++) {
@@ -60,17 +60,17 @@ final public class BadBubbleSort extends Sort {
                     sorted = false;
                     Breaks = 0;
                 } else if(maxBreaks == 0) {
-                	maxBreaks = Breaks;
-                	if(Reads.compareValues(array[j], array[i]) == -1)
-                		Breaks=Breaks*2+1;
-                	else if(Reads.compareValues(array[j], array[j + 2]) == 0)
-	            		Breaks+=2;
-	            	else
-                		Breaks++;
-                	j = -1;
+                    maxBreaks = Breaks;
+                    if(Reads.compareValues(array[j], array[i]) == -1)
+                        Breaks=Breaks*2+1;
+                    else if(Reads.compareValues(array[j], array[j + 2]) == 0)
+                        Breaks+=2;
+                    else
+                        Breaks++;
+                    j = -1;
                 } else if(maxBreaks > 0) {
-                	Breaks++;
-                	maxBreaks--;
+                    Breaks++;
+                    maxBreaks--;
                 }
             }
             if(sorted) break;

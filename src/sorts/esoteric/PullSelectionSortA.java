@@ -22,21 +22,21 @@ public final class PullSelectionSortA extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	Statistics.putStat("Pull");
+        Statistics.putStat("Pull");
         for(int i=0; i < length; i++) {
-        	boolean isLowest = false;
-        	while(!isLowest) {
-        		isLowest = true;
-        		for(int j=i+1; j<length; j++) {
-        			if(Reads.compareValues(array[j], array[i]) == -1) {
-        				isLowest = false;
-        				Statistics.addStat("Pull");
-        				Writes.multiSwap(array, i, j, 0.1, true, false);
-        				break;
-        			}
-        		}
-        	}
+            boolean isLowest = false;
+            while(!isLowest) {
+                isLowest = true;
+                for(int j=i+1; j<length; j++) {
+                    if(Reads.compareValues(array[j], array[i]) == -1) {
+                        isLowest = false;
+                        Statistics.addStat("Pull");
+                        Writes.multiSwap(array, i, j, 0.1, true, false);
+                        break;
+                    }
+                }
+            }
         }
-    	
+        
     }
 }

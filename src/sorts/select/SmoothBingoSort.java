@@ -47,25 +47,25 @@ final public class SmoothBingoSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i=length-1; i>0;) {
-        	int seekIndex = 0, equalSize = 0;
-        	for(int j=1; j<=i; j++) {
-        		Highlights.markArray(1, j);
-        		Delays.sleep(0.03);
-        		int comp = Reads.compareValues(array[seekIndex], array[j]);
-        		if(comp == -1) {
-        			Writes.swap(array, j, ++seekIndex, 0.2, true, false);
-        			equalSize = 0;
-        		} else if(comp == 0) {
-        			Writes.swap(array, j, ++seekIndex, 0.2, true, false);
-        			equalSize++;
-        		}
-        	}
-        	if(seekIndex == i)
-        		break;
-        	
-    		for(int k = equalSize + 1; k > 0; k--) {
-        		Writes.swap(array, i--, seekIndex--, 1, true, false);
-        	}
+            int seekIndex = 0, equalSize = 0;
+            for(int j=1; j<=i; j++) {
+                Highlights.markArray(1, j);
+                Delays.sleep(0.03);
+                int comp = Reads.compareValues(array[seekIndex], array[j]);
+                if(comp == -1) {
+                    Writes.swap(array, j, ++seekIndex, 0.2, true, false);
+                    equalSize = 0;
+                } else if(comp == 0) {
+                    Writes.swap(array, j, ++seekIndex, 0.2, true, false);
+                    equalSize++;
+                }
+            }
+            if(seekIndex == i)
+                break;
+            
+            for(int k = equalSize + 1; k > 0; k--) {
+                Writes.swap(array, i--, seekIndex--, 1, true, false);
+            }
         }
     }
 }

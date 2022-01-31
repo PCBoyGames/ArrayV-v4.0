@@ -25,6 +25,7 @@ final public class MobMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setQuestion("Enter the base for this sort:", 2);
     }
     
     protected void bubble(int[] array, int start, int end) {
@@ -47,10 +48,16 @@ final public class MobMergeSort extends Sort {
             }
         }
     }
+    
+    @Override
+    public int validateAnswer(int answer) {
+        if (answer < 2) return 2;
+        return answer;
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int base) {
-        int len = 2;
+        int len = base;
         int index = 0;
         while (len <= currentLength) {
             index = 0;
@@ -61,7 +68,7 @@ final public class MobMergeSort extends Sort {
                 index += len;
             }
             if (index != currentLength) bubble(array, index, currentLength);
-            len *= 2;
+            len *= base;
         }
         bubble(array, 0, currentLength);
     }

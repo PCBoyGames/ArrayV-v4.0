@@ -34,13 +34,13 @@ final public class IntroCircleSortRecursive extends CircleSorting {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	this.end = length;
-    	int threshold = 0, n = 1;
-    	for(; n < length; n*=2, threshold++);
-		
-		threshold /= 2;
+        this.end = length;
+        int threshold = 0, n = 1;
+        for(; n < length; n*=2, threshold++);
+        
+        threshold /= 2;
         int iterations = 0;
-		
+        
         do {
             iterations++;
             

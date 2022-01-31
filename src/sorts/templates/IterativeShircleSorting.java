@@ -15,7 +15,7 @@ public abstract class IterativeShircleSorting extends Sort {
     protected IterativeShircleSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-	protected int end;
+    protected int end;
     protected int shircleSortRoutine(int[] array, int length, double sleep) {
         int swapCount = 0;
         for (int gap = length / 2; gap > 0; gap /= 2) {
@@ -24,8 +24,8 @@ public abstract class IterativeShircleSorting extends Sort {
                 int low = start;
                 int pull, item;
                 while (low < high) {
-					while (high < end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
-						pull = low;
+                    while (high < end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
+                        pull = low;
                         item = array[pull];
                         Highlights.markArray(2, low);
                         Highlights.markArray(3, high);
@@ -36,9 +36,9 @@ public abstract class IterativeShircleSorting extends Sort {
                         Highlights.clearMark(3);
                         Writes.write(array, pull, item, sleep, true, false);
                         swapCount++;
-					}
-					low++;
-					high--;
+                    }
+                    low++;
+                    high--;
                 }
             }
         }

@@ -31,25 +31,25 @@ public final class OmegaBojoSort extends BogoSorting {
     }
     
     private void omegaBojo(int[] array, int start, int end) {
-    	if(start < end) {
-    		int i = randInt(start, end);
-    		int j = randInt(start, end);
-    		//while(i == j) {
-        	//	i = randInt(start, end);
-        	//	j = randInt(start, end);
-    		//}
-    		omegaReversal(array, i, j, this.delay);
-    		if(j<i)
-    			omegaBojo(array, j, i);
-    		else
-    			omegaBojo(array, i, j);
-    	}
+        if(start < end) {
+            int i = randInt(start, end);
+            int j = randInt(start, end);
+            //while(i == j) {
+            //i = randInt(start, end);
+            //j = randInt(start, end);
+            //}
+            omegaReversal(array, i, j, this.delay);
+            if(j<i)
+                omegaBojo(array, j, i);
+            else
+                omegaBojo(array, i, j);
+        }
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         while (!this.isArraySorted(array, length)) {
-        	omegaBojo(array, 0, length);
+            omegaBojo(array, 0, length);
         }
     }
 }

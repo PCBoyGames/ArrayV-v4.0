@@ -22,9 +22,9 @@ public class SnuffleSort extends Sort {
         this.setBogoSort(false);
     }
     
-	private void snuffleSort(int[] arr, int start, int stop) {
+    private void snuffleSort(int[] arr, int start, int stop) {
         if (stop - start + 1 >= 2) {
-    	    Highlights.markArray(0, start);
+            Highlights.markArray(0, start);
             Highlights.markArray(1, stop);
             if (Reads.compareValues(arr[start], arr[stop]) == 1)
                 Writes.swap(arr, start, stop, DELAY, false, false);
@@ -36,7 +36,7 @@ public class SnuffleSort extends Sort {
                 }
             }
         }
-	}
+    }
 
     @Override
     public void runSort(int[] array, int length, int buckets) {

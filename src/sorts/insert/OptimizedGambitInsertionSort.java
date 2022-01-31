@@ -13,6 +13,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class OptimizedGambitInsertionSort extends Sort {
+    
+    PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
+    
     public OptimizedGambitInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Gambit Insertion");
@@ -63,27 +66,27 @@ final public class OptimizedGambitInsertionSort extends Sort {
     }
 
     protected int gambitSearch(int[] array, int begin, int end, int target) {
-		while (true) {
-			int delta = end - begin;
-			if (delta <= 0)
-				break;
-			int p = begin + delta / 2;
-			if (Reads.compareIndices(array, p, target, 0.5, true) == 0)
-				return p;
+        while (true) {
+            int delta = end - begin;
+            if (delta <= 0)
+                break;
+            int p = begin + delta / 2;
+            if (Reads.compareIndices(array, p, target, 0.5, true) == 0)
+                return p;
 
-			if (Reads.compareIndices(array, p, target, 0.5, true) > 0) {
-				end = p;
-				continue;
-			}
-			begin = p + 1;
-		}
-		return end;
-	}
+            if (Reads.compareIndices(array, p, target, 0.5, true) > 0) {
+                end = p;
+                continue;
+            }
+            begin = p + 1;
+        }
+        return end;
+    }
 
-	protected void gambitInsert(int[] array, int len, int start, int end) {
-		int offset = 1;
-		for (; offset * offset < len; offset *= 2);
-		for (int bStart = 0, bEnd = end, i = start + offset; i < end; i++) {
+    protected void gambitInsert(int[] array, int len, int start, int end) {
+        int offset = 1;
+        for (; offset * offset < len; offset *= 2);
+        for (int bStart = 0, bEnd = end, i = start + offset; i < end; i++) {
             if (Reads.compareIndices(array, i - 1, i, 0.25, true) > 0) {
                 int target = gambitSearch(array, bStart, bEnd, i);
                 int tmp = array[i];
@@ -94,47 +97,17 @@ final public class OptimizedGambitInsertionSort extends Sort {
                 }
                 array[j + 1] = tmp;
             }
-		}
-	}
-    
-    protected int binarySearch(int[] array, int a, int b, int value) {
-        while (a < b) {
-            int m = a + ((b - a) / 2);
-            Highlights.markArray(1, a);
-            Highlights.markArray(3, m);
-            Highlights.markArray(2, b);
-            Delays.sleep(0.5);
-            if (Reads.compareValues(value, array[m]) < 0) b = m;
-            else a = m + 1;
-        }
-        Highlights.clearMark(3);
-        return a;
-    }
-    
-    protected void binsert(int[] array, int start, int currentLength) {
-        for (int i = start; i < currentLength; i++) {
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                int item = array[i];
-                int left = binarySearch(array, 0, i - 1, item);
-                Highlights.clearAllMarks();
-                Highlights.markArray(2, left);
-                for (int right = i; right > left; right--) Writes.write(array, right, array[right - 1], 0.05, true, true);
-                Writes.write(array, left, item, 0.05, true, true);
-                Highlights.clearAllMarks();
-            } else {
-                Highlights.markArray(1, i);
-                Delays.sleep(0.25);
-            }
         }
     }
+    
 
-	@Override
-	public void runSort(int[] array, int currentLength, int bucketCount) {
+    @Override
+    public void runSort(int[] array, int currentLength, int bucketCount) {
         int truestart = pd(array, currentLength);
         if (truestart + 1 < currentLength) {
-		    gambitInsert(array, currentLength, truestart, currentLength);
-		    Highlights.clearAllMarks();
-		    binsert(array, 1, currentLength);
+            gambitInsert(array, currentLength, truestart, currentLength);
+            Highlights.clearAllMarks();
+            binsert.pdbinsert(array, 0, currentLength, 0.25, false);
         }
-	}
+    }
 }

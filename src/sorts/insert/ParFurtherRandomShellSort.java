@@ -58,24 +58,24 @@ final public class ParFurtherRandomShellSort extends BogoSorting {
     
     private int nextBound(int[] array, int currentLength, int bounding) {
         boolean[] max = new boolean[currentLength];
-		int maximum = stablereturn(array[0]);
-		for (int i = 1; i < currentLength; i++) {
-			if (stablereturn(array[i]) > maximum) {
-				maximum = stablereturn(array[i]);
-				max[i] = true;
-			}
-		}
-		int i = currentLength - 1;
-		int p = 1;
-		int j = currentLength - 1;
-		while (j >= 0 && i >= p) {
-			while(!max[j] && j > 0) j--;
-			maximum = stablereturn(array[j]);
-			while (maximum <= stablereturn(array[i]) && i >= p) i--;
-			if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-			j--;
-		}
-		return p;
+        int maximum = stablereturn(array[0]);
+        for (int i = 1; i < currentLength; i++) {
+            if (stablereturn(array[i]) > maximum) {
+                maximum = stablereturn(array[i]);
+                max[i] = true;
+            }
+        }
+        int i = currentLength - 1;
+        int p = 1;
+        int j = currentLength - 1;
+        while (j >= 0 && i >= p) {
+            while(!max[j] && j > 0) j--;
+            maximum = stablereturn(array[j]);
+            while (maximum <= stablereturn(array[i]) && i >= p) i--;
+            if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
+            j--;
+        }
+        return p;
     }
     
     @Override

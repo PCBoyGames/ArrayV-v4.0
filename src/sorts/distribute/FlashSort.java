@@ -21,16 +21,16 @@ final public class FlashSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	// The flashsort algorithm is attributed to Karl-Dietrich Neubert
-	// The translation to C++ is provided by Clint Jed Casper
-	// Refactored in Java by MusicTheorist
-	//
-	// sorts an array in place in O(n) time using 20% of the
-	// memory used by the array for storing intermediate,
-	// temporary computations
-	
-	@Override
+    
+    // The flashsort algorithm is attributed to Karl-Dietrich Neubert
+    // The translation to C++ is provided by Clint Jed Casper
+    // Refactored in Java by MusicTheorist
+    //
+    // sorts an array in place in O(n) time using 20% of the
+    // memory used by the array for storing intermediate,
+    // temporary computations
+    
+    @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         if(sortLength == 0) return;
 

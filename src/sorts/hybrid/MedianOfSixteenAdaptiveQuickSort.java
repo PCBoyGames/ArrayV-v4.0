@@ -91,8 +91,8 @@ final public class MedianOfSixteenAdaptiveQuickSort extends Sort {
     public int partition(int[] array, int a, int b, int p) {
         int i = a - 1;
         int j = b;
-		    Highlights.markArray(3, p);
-		
+            Highlights.markArray(3, p);
+        
         while(true) {
             i++;
             while(i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
@@ -123,7 +123,7 @@ final public class MedianOfSixteenAdaptiveQuickSort extends Sort {
             if(Reads.compareIndices(array, a, m, 1, true) == 1)
                 return;
         }
-		
+        
         Writes.swap(array, a, m, 1, true, false);
     }
 
@@ -137,7 +137,7 @@ final public class MedianOfSixteenAdaptiveQuickSort extends Sort {
         int gap = (b - 1 - a) / 16;
         
         for (int i = 0; i < this.medianOfSixteenSwaps.length; i += 2) 
-		this.compNSwap(array, this.medianOfSixteenSwaps[i], this.medianOfSixteenSwaps[i+1], gap, a);
+        this.compNSwap(array, this.medianOfSixteenSwaps[i], this.medianOfSixteenSwaps[i+1], gap, a);
 
         Writes.swap(array, a, a + (8 * gap), 1, true, false);
     }

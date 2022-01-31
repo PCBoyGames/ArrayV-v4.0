@@ -13,21 +13,21 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class InRunBinaryInsertionSort extends Sort {
-	
-	public InRunBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
-		this.setSortListName("In-Run Binary Insertion");
-		this.setRunAllSortsName("In-Run Binary Insertion Sort");
-		this.setRunSortName("In-Run Binary Insertsort");
-		this.setCategory("Insertion Sorts");
-		this.setComparisonBased(true);
-		this.setBucketSort(false);
-		this.setRadixSort(false);
-		this.setUnreasonablySlow(false);
-		this.setUnreasonableLimit(0);
-		this.setBogoSort(false);
-	}
-	
+    
+    public InRunBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
+        this.setSortListName("In-Run Binary Insertion");
+        this.setRunAllSortsName("In-Run Binary Insertion Sort");
+        this.setRunSortName("In-Run Binary Insertsort");
+        this.setCategory("Insertion Sorts");
+        this.setComparisonBased(true);
+        this.setBucketSort(false);
+        this.setRadixSort(false);
+        this.setUnreasonablySlow(false);
+        this.setUnreasonableLimit(0);
+        this.setBogoSort(false);
+    }
+    
     protected void stableSegmentReversal(int[] array, int start, int end, double delay, boolean aux) {
         if (end - start < 3) Writes.swap(array, start, end, delay, true, aux);
         else Writes.reversal(array, start, end, delay, true, aux);
@@ -73,7 +73,7 @@ public final class InRunBinaryInsertionSort extends Sort {
         return Math.max(forward, reverse);
     }
     
-	protected int binarySearch(int[] array, int a, int b, int value, double delay) {
+    protected int binarySearch(int[] array, int a, int b, int value, double delay) {
         while (a < b) {
             int m = a + ((b - a) / 2);
             Highlights.markArray(1, a);
@@ -110,9 +110,9 @@ public final class InRunBinaryInsertionSort extends Sort {
             }
         }
     }
-	
-	@Override
-	public void runSort(int[] array, int currentLength, int constantdiv) throws Exception {
-		irbinsert(array, 0, currentLength, 1, true, false);
-	}
+    
+    @Override
+    public void runSort(int[] array, int currentLength, int constantdiv) throws Exception {
+        irbinsert(array, 0, currentLength, 1, true, false);
+    }
 }

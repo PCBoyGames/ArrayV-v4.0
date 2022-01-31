@@ -248,32 +248,32 @@ public class Rotations {
     }
     
     public static void neon(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
-		int factor;
-		while(lenA > 0 && lenB > 0) {
-	    	if(lenA > lenB) {
-	    		factor = lenA / lenB;
-	    		for(int i=0; i<lenB; i++) {
-	    			int t = array[pos+i+lenA];
-	    			for(int j=1; j<=factor; j++) {
-	    				int k = pos+i+lenA-(j*lenB);
-	    				Writes.write(array, k+lenB, array[k], pause, mark, auxwrite);
-	    			}
-					Writes.write(array, pos+i+lenA-(factor*lenB), t, pause, mark, auxwrite);
-	    		}
-	    		lenA %= lenB;
-	    	} else {
-	    		factor = lenB / lenA;
-	    		for(int i=0; i<lenA; i++) {
-	    			int t=array[pos+i];
-	    			for(int j=1; j<=factor; j++) {
-	    				int k=pos+i+(j*lenA);
-	    				Writes.write(array, k-lenA, array[k], pause, mark, auxwrite);
-	    			}
-	    			Writes.write(array, pos+i+(factor*lenA), t, pause, mark, auxwrite);
-	    		}
-	    		pos += factor*lenA;
-	    		lenB %= lenA;
-	    	}
-		}
+        int factor;
+        while(lenA > 0 && lenB > 0) {
+            if(lenA > lenB) {
+                factor = lenA / lenB;
+                for(int i=0; i<lenB; i++) {
+                    int t = array[pos+i+lenA];
+                    for(int j=1; j<=factor; j++) {
+                        int k = pos+i+lenA-(j*lenB);
+                        Writes.write(array, k+lenB, array[k], pause, mark, auxwrite);
+                    }
+                    Writes.write(array, pos+i+lenA-(factor*lenB), t, pause, mark, auxwrite);
+                }
+                lenA %= lenB;
+            } else {
+                factor = lenB / lenA;
+                for(int i=0; i<lenA; i++) {
+                    int t=array[pos+i];
+                    for(int j=1; j<=factor; j++) {
+                        int k=pos+i+(j*lenA);
+                        Writes.write(array, k-lenA, array[k], pause, mark, auxwrite);
+                    }
+                    Writes.write(array, pos+i+(factor*lenA), t, pause, mark, auxwrite);
+                }
+                pos += factor*lenA;
+                lenB %= lenA;
+            }
+        }
     }
 }

@@ -48,8 +48,8 @@ final public class DropMergeSort extends Sort {
     private final double EARLY_OUT_DISORDER_FRACTION = 0.6;
 
     private void truncateArrayList(List<Integer> arrayList, int len) {
-    	int size = arrayList.size();
-    	arrayList.subList(len, size).clear();
+        int size = arrayList.size();
+        arrayList.subList(len, size).clear();
     }
 
     @Override

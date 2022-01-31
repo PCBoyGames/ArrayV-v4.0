@@ -524,11 +524,11 @@ final public class ArrayVisualizer {
     }
     
     private <T> ArrayList<T> arrList(T... vals){
-    	ArrayList<T> x = new ArrayList<>();
-    	for(T i : vals) {
-    		x.add(i);
-    	}
-    	return x;
+        ArrayList<T> x = new ArrayList<>();
+        for(T i : vals) {
+            x.add(i);
+        }
+        return x;
     }
     
     private void drawStats(Color textColor, boolean dropShadow) {
@@ -543,52 +543,52 @@ final public class ArrayVisualizer {
         
         this.mainRender.setColor(textColor);
         ArrayList<String> Stats = arrList(
-        		this.statSnapshot.getSortIdentity(),
-        		this.statSnapshot.getArrayLength(),
-        		
-        		this.statSnapshot.getSortDelay(),
-        		this.statSnapshot.getVisualTime(),
-        		this.statSnapshot.getEstSortTime(),
-        		
-        		this.statSnapshot.getComparisonCount(),
-        		this.statSnapshot.getSwapCount(),
-        		this.statSnapshot.getReversalCount(),
-        		this.statSnapshot.getRecursionCount(),
-        		this.statSnapshot.getRecursionDepth(),
-        		
-        		this.statSnapshot.getMainWriteCount(),
-        		this.statSnapshot.getAuxWriteCount(),
-        		this.statSnapshot.getAuxAllocAmount(),
-        		
-        		this.statSnapshot.getSegments()
+                this.statSnapshot.getSortIdentity(),
+                this.statSnapshot.getArrayLength(),
+                
+                this.statSnapshot.getSortDelay(),
+                this.statSnapshot.getVisualTime(),
+                this.statSnapshot.getEstSortTime(),
+                
+                this.statSnapshot.getComparisonCount(),
+                this.statSnapshot.getSwapCount(),
+                this.statSnapshot.getReversalCount(),
+                this.statSnapshot.getRecursionCount(),
+                this.statSnapshot.getRecursionDepth(),
+                
+                this.statSnapshot.getMainWriteCount(),
+                this.statSnapshot.getAuxWriteCount(),
+                this.statSnapshot.getAuxAllocAmount(),
+                
+                this.statSnapshot.getSegments()
         );
         ArrayList<Integer> magicNumbers = arrList(
-        		30, // starting offset/small brewak
-        		25, // common linebreak
-        		40, // new info paragraph
-        		25,
-        		25,
-        		40,
-        		25,
-        		25,
-        		25,
-        		25,
-        		40,
-        		25,
-        		25,
-        		30
+                30, // starting offset/small brewak
+                25, // common linebreak
+                40, // new info paragraph
+                25,
+                25,
+                40,
+                25,
+                25,
+                25,
+                25,
+                40,
+                25,
+                25,
+                30
         );
         if(this.statSnapshot.getBigO() != "") {
-        	Stats.add(10, this.statSnapshot.getBigO());
-        	magicNumbers.add(10, 25);
+            Stats.add(10, this.statSnapshot.getBigO());
+            magicNumbers.add(10, 25);
         }
         for(String z : this.statSnapshot.parseMap()) {
-        	Stats.add(10, z);
-        	magicNumbers.add(10, 25);
+            Stats.add(10, z);
+            magicNumbers.add(10, 25);
         }
         for(int i=0, offset = 0; i<Stats.size(); i++) {
-        	offset += magicNumbers.get(i);
-        	this.mainRender.drawString(Stats.get(i), xOffset, (int) (windowRatio * offset) + yOffset);
+            offset += magicNumbers.get(i);
+            this.mainRender.drawString(Stats.get(i), xOffset, (int) (windowRatio * offset) + yOffset);
         }
     }
 

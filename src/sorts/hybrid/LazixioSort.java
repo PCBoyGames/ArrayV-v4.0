@@ -20,43 +20,43 @@ final public class LazixioSort extends GrailSorting {
     }
     
     private int runs(int len) {
-    	int j = 1, l = 0;
-    	while(j < len) {
-    		j*=10;
-    		l++;
-    	}
-    	return l*l;
+        int j = 1, l = 0;
+        while(j < len) {
+            j*=10;
+            l++;
+        }
+        return l*l;
     }
     
     // n^0.5 (log n iterations)
     private int sqrt(int len) {
-    	int l = 0, h = len;
-    	while(l < h) {
-    		int m = l+(h-l)/2;
-    		if(m*m > len)
-    			h = m;
-    		else
-    			l = m + 1;
-    	}
-    	return l;
+        int l = 0, h = len;
+        while(l < h) {
+            int m = l+(h-l)/2;
+            if(m*m > len)
+                h = m;
+            else
+                l = m + 1;
+        }
+        return l;
     }
 
     // n^0.66 (log^2 n? iterations)
     private int fcrt(int len) {
-    	int l = 0, h = len;
-    	while(l < h) {
-    		int m = l+(h-l)/2;
-    		if(m*sqrt(m) > len)
-    			h = m;
-    		else
-    			l = m + 1;
-    	}
-    	return l;
+        int l = 0, h = len;
+        while(l < h) {
+            int m = l+(h-l)/2;
+            if(m*sqrt(m) > len)
+                h = m;
+            else
+                l = m + 1;
+        }
+        return l;
     }
     
     @Override
     protected void grailRotate(int[] array, int pos, int len1, int len2) {
-    	Rotations.neon(array, pos, len1, len2, 0.5, true, false);
+        Rotations.neon(array, pos, len1, len2, 0.5, true, false);
     }
     
     // taken from PDIPop
@@ -79,63 +79,63 @@ final public class LazixioSort extends GrailSorting {
     }
     
     private int findRun(int[] array, int start, int max) {
-    	if(start >= max - 1)
-    		return start+1;
-    	int c = Reads.compareIndices(array, start, ++start, 0.1, true),
-    		s = start-1,
-    		d = c;
-    	boolean stableRev = false;
-    	if(c == 0) {
-    		stableRev = true;
-    		c = -1;
-    	}
-    	while(start < max - 1 && (d == c || d == 0)) {
-    		d = Reads.compareIndices(array, start, start+1, 0.1, true);
-    		if(d == 0)
-    			stableRev = true;
-    		start++;
-    	}
-    	if(c == 1) {
-    		if(stableRev) {
-    			stableSegmentReversal(array, s, start-1);
-    		} else {
-    			Writes.reversal(array, s, start-1, 1, true, false);
-    		}
-    	}
-    	return start;
+        if(start >= max - 1)
+            return start+1;
+        int c = Reads.compareIndices(array, start, ++start, 0.1, true),
+            s = start-1,
+            d = c;
+        boolean stableRev = false;
+        if(c == 0) {
+            stableRev = true;
+            c = -1;
+        }
+        while(start < max - 1 && (d == c || d == 0)) {
+            d = Reads.compareIndices(array, start, start+1, 0.1, true);
+            if(d == 0)
+                stableRev = true;
+            start++;
+        }
+        if(c == 1) {
+            if(stableRev) {
+                stableSegmentReversal(array, s, start-1);
+            } else {
+                Writes.reversal(array, s, start-1, 1, true, false);
+            }
+        }
+        return start;
     }
     
     public void mergeRuns(int[] array, int start, int end) {
-    	int z = runs(end-start),
-    		x = fcrt(end-start),
-    		s = start,
-    		r = start,
-    		d = 0;
-    	while(r < end) {
-    		int y = findRun(array, r, end);
-    		if(y >= r + x) {
-    			grailMergeWithoutBuffer(array, start, s-start, r-s);
-    			grailMergeWithoutBuffer(array, start, r-start, y-r);
-    			s = r = y;
-    			d = 0;
-    			continue;
-    		}
-    		if(d > 0) {
-    			grailMergeWithoutBuffer(array, s, r-s, y-r);
-    		}
-    		if(d + 1 == z) {
-    			grailMergeWithoutBuffer(array, start, s-start, y-s);
-    			s = y;
-    		}
-    		r = y;
-    		d = (d + 1) % z;
-    	}
-    	if(d > 0)
-			grailMergeWithoutBuffer(array, start, s-start, r-s);
+        int z = runs(end-start),
+            x = fcrt(end-start),
+            s = start,
+            r = start,
+            d = 0;
+        while(r < end) {
+            int y = findRun(array, r, end);
+            if(y >= r + x) {
+                grailMergeWithoutBuffer(array, start, s-start, r-s);
+                grailMergeWithoutBuffer(array, start, r-start, y-r);
+                s = r = y;
+                d = 0;
+                continue;
+            }
+            if(d > 0) {
+                grailMergeWithoutBuffer(array, s, r-s, y-r);
+            }
+            if(d + 1 == z) {
+                grailMergeWithoutBuffer(array, start, s-start, y-s);
+                s = y;
+            }
+            r = y;
+            d = (d + 1) % z;
+        }
+        if(d > 0)
+            grailMergeWithoutBuffer(array, start, s-start, r-s);
     }
     
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-    	mergeRuns(array, 0, currentLength);
+        mergeRuns(array, 0, currentLength);
     }
 }

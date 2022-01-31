@@ -25,10 +25,10 @@ public final class BowoSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         while(!this.isArraySorted(array, length)) {
-        	int r = randInt(0, length),
-        		r2 = randInt(r, length);
-        	for(int i=0; i<r; i++)
-        		Writes.multiSwap(array, 0, r2, 0.01, true, false);
+            int r = randInt(0, length),
+                r2 = randInt(r, length);
+            for(int i=0; i<r; i++)
+                Writes.multiSwap(array, 0, r2, 0.01, true, false);
         }
     }
 }

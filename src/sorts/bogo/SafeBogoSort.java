@@ -46,21 +46,21 @@ final public class SafeBogoSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-	
-	private int findLastSorted(int[] array, int length) {
-		int i = 1;
-		for(; i < length && Reads.compareValues(array[i-1], array[i]) <= 0; i++);
-		return i-1;
-	}
+    
+    private int findLastSorted(int[] array, int length) {
+        int i = 1;
+        for(; i < length && Reads.compareValues(array[i-1], array[i]) <= 0; i++);
+        return i-1;
+    }
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		Random r = new Random();
-		int p = this.findLastSorted(array, length);
-		
-		while(p < length-1) {
-			Writes.swap(array, p, p + r.nextInt(length-p), 0, true, false);
-			p = this.findLastSorted(array, length);
-		}
+        Random r = new Random();
+        int p = this.findLastSorted(array, length);
+        
+        while(p < length-1) {
+            Writes.swap(array, p, p + r.nextInt(length-p), 0, true, false);
+            p = this.findLastSorted(array, length);
+        }
     }
 }

@@ -4,7 +4,7 @@ import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
 final public class MergeExchangeSortIterative extends Sort {
-	
+    
     public MergeExchangeSortIterative(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);
         
@@ -25,13 +25,13 @@ final public class MergeExchangeSortIterative extends Sort {
         int t = (int)(Math.log(length-1) / Math.log(2))+1;
         int p0 = 1 << (t - 1);
         for (int p = p0; p > 0; p >>= 1) {
-        	int q = p0;
+            int q = p0;
             int r = 0;
             int d = p;
             while (true) {
-            	for (int i = 0; i < length - d; i++) {
-            	    if ((i & p) == r && Reads.compareIndices(array, i, i + d, 0.5, true) == 1) {
-            	        Writes.swap(array, i, i + d, 0.5, true, false);
+                for (int i = 0; i < length - d; i++) {
+                    if ((i & p) == r && Reads.compareIndices(array, i, i + d, 0.5, true) == 1) {
+                        Writes.swap(array, i, i + d, 0.5, true, false);
                     }
                 }
                 if (q == p) break;

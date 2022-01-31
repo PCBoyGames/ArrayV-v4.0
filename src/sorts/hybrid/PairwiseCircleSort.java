@@ -46,44 +46,44 @@ final public class PairwiseCircleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	private void pairs(int[] array, int left, int right, int gap) {
-		if(left+gap >= right) return;
+    
+    private void pairs(int[] array, int left, int right, int gap) {
+        if(left+gap >= right) return;
         int a = left;
         while(a + gap <= right) {
-        	if(Reads.compareIndices(array, a, a+gap, 1, true) == 1) {
-				Writes.swap(array, a, a+gap, 1, true, false);
-			}
-        	a += gap*2;
+            if(Reads.compareIndices(array, a, a+gap, 1, true) == 1) {
+                Writes.swap(array, a, a+gap, 1, true, false);
+            }
+            a += gap*2;
         }
         this.pairs(array, left, right, gap*2);
         this.pairs(array, left+gap, right, gap*2);
     }
-	
-	private void circle(int[] array, int left, int right) {
+    
+    private void circle(int[] array, int left, int right) {
         int a = left;
         int b = right;
         while(a < b) {
-        	if(Reads.compareIndices(array, a, b, 1, true) == 1) {
-        		Writes.swap(array, a, b, 1, true, false);
-        	}
-    		a++;
-    		b--;
+            if(Reads.compareIndices(array, a, b, 1, true) == 1) {
+                Writes.swap(array, a, b, 1, true, false);
+            }
+            a++;
+            b--;
         }
     }
-	
-	private void pairCircle(int[] array, int left, int right) {
-		if(left >= right) return;
-		int mid = (left + right) / 2;
-		this.pairs(array, left, right, 1);
-		this.circle(array, left, right);
-		this.pairCircle(array, left, mid);
-		this.pairCircle(array, mid+1, right);
+    
+    private void pairCircle(int[] array, int left, int right) {
+        if(left >= right) return;
+        int mid = (left + right) / 2;
+        this.pairs(array, left, right, 1);
+        this.circle(array, left, right);
+        this.pairCircle(array, left, mid);
+        this.pairCircle(array, mid+1, right);
     }
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	this.pairCircle(array, 0, length-1);
+        this.pairCircle(array, 0, length-1);
         InsertionSort sort = new InsertionSort(this.arrayVisualizer);
         sort.customInsertSort(array, 0, length, 0.1, false);
     }

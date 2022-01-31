@@ -30,7 +30,7 @@ SOFTWARE.
  */
 
 final public class OptimizedOddEvenMergeSort extends Sort {
-	public OptimizedOddEvenMergeSort(ArrayVisualizer arrayVisualizer) {
+    public OptimizedOddEvenMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
         this.setSortListName("Optimized Odd-Even Merge");
@@ -46,70 +46,70 @@ final public class OptimizedOddEvenMergeSort extends Sort {
     }
     
     private void compSwap(int[] array, int a, int b) {
-    	if(Reads.compareIndices(array, a, b, 0.5, true) == 1)
-    		Writes.swap(array, a, b, 0.5, true, false);
+        if(Reads.compareIndices(array, a, b, 0.5, true) == 1)
+            Writes.swap(array, a, b, 0.5, true, false);
     }
     
     private void compRange(int[] array, int a, int m, int s) {
-    	for(int i = s; a+i < m; i++)
-    		this.compSwap(array, a+i, m+i);
+        for(int i = s; a+i < m; i++)
+            this.compSwap(array, a+i, m+i);
     }
     
     private void compRangeExtd(int[] array, int a, int m, int p) {
-    	int l = m-a;
-    	
-    	if(l > p) {
-    		int i = a, j, d = l-p;
-    		
-    		for(j = 0; j < d;   j++, i++) this.compSwap(array, i, i+p);
-    		for(j = 0; j < p-d; j++, i++) this.compSwap(array, i, i+l);
-    		for(j = 0; j < d;   j++, i++) this.compSwap(array, i+d, i+l);
-    	}
-    	else this.compRange(array, a, m, 0);
+        int l = m-a;
+        
+        if(l > p) {
+            int i = a, j, d = l-p;
+            
+            for(j = 0; j < d;   j++, i++) this.compSwap(array, i, i+p);
+            for(j = 0; j < p-d; j++, i++) this.compSwap(array, i, i+l);
+            for(j = 0; j < d;   j++, i++) this.compSwap(array, i+d, i+l);
+        }
+        else this.compRange(array, a, m, 0);
     }
     
     private void merge(int[] array, int a, int b) {
-    	int m, s = (b-a)%2;
-    	
-    	a -= s;
-		m = (a+b)/2;
-    	this.compRange(array, a, m, s);
-    	
-    	int l = b-a;
-    	if(l < 4) return;
-    	
-    	int p;
-    	for(p = 1; 2*p < l; p *= 2);
-    	
-    	while(p > 0) {
-        	int i = a+p;
-        	
-        	while(i + 2*p <= m) {
-        		this.compRange(array, i, i+p, 0);
-        		i += 2*p;
-        	}
-        	this.compRangeExtd(array, i, m, p);
-        	i = 2*m - i;
-        			
-        	while(i < b-p) {
-        		this.compRange(array, i, i+p, 0);
-        		i += 2*p;
-        	}
-    		p /= 2;
-    	}
+        int m, s = (b-a)%2;
+        
+        a -= s;
+        m = (a+b)/2;
+        this.compRange(array, a, m, s);
+        
+        int l = b-a;
+        if(l < 4) return;
+        
+        int p;
+        for(p = 1; 2*p < l; p *= 2);
+        
+        while(p > 0) {
+            int i = a+p;
+            
+            while(i + 2*p <= m) {
+                this.compRange(array, i, i+p, 0);
+                i += 2*p;
+            }
+            this.compRangeExtd(array, i, m, p);
+            i = 2*m - i;
+                    
+            while(i < b-p) {
+                this.compRange(array, i, i+p, 0);
+                i += 2*p;
+            }
+            p /= 2;
+        }
     }
     
     private void mergeSort(int[] array, int a, int b) {
-    	int m = (a+b)/2;
-    	
-    	if(m-a > 1) this.mergeSort(array, a, m);
-    	if(b-m > 1) this.mergeSort(array, m, b);
-    	
-    	this.merge(array, a, b);
+        int m = (a+b)/2;
+        
+        if(m-a > 1) this.mergeSort(array, a, m);
+        if(b-m > 1) this.mergeSort(array, m, b);
+        
+        this.merge(array, a, b);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-    	this.mergeSort(array, 0, sortLength);
+        this.mergeSort(array, 0, sortLength);
     }
 }

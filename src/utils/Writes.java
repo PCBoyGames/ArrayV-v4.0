@@ -256,7 +256,7 @@ final public class Writes {
     }
     
     public void recordDepth(int k) {
-    	if(this.depth < k) this.depth = k;
+        if(this.depth < k) this.depth = k;
     }
 
     public void write(int[] array, int at, int equals, double pause, boolean mark, boolean auxwrite) {

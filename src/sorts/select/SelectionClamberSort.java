@@ -20,23 +20,23 @@ final public class SelectionClamberSort extends Sort {
         this.setBogoSort(false);
     }
     private void selectionClamber(int[] array, int start, int end, int rec) {
-    	Writes.recordDepth(rec++);
-    	for(int i=start; i<end-1; i++) {
-    		int l=i;
-    		for(int j=i+1; j<end; j++) {
+        Writes.recordDepth(rec++);
+        for(int i=start; i<end-1; i++) {
+            int l=i;
+            for(int j=i+1; j<end; j++) {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.01);
-    			if(Reads.compareValues(array[j], array[l]) < 0) {
-    				l = j;
-    			}
-    		}
-    		if(l == end-1) {
-    			Writes.swap(array, l, i, 1, true, false);
-    		} else {
-    			Writes.recursion();
-    			this.selectionClamber(array, i, l+1, rec);
-    		}
-    	}
+                if(Reads.compareValues(array[j], array[l]) < 0) {
+                    l = j;
+                }
+            }
+            if(l == end-1) {
+                Writes.swap(array, l, i, 1, true, false);
+            } else {
+                Writes.recursion();
+                this.selectionClamber(array, i, l+1, rec);
+            }
+        }
     }
     @Override
     public void runSort(int[] array, int length, int bucketCount) {

@@ -44,57 +44,57 @@ final public class OptimizedLazyHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	private int findMin(int[] array, int p, int a, int b, int s) {
-		int min = p;
-		
-		for(int i = a; i < b; i += s)
-			if(Reads.compareIndices(array, i, min, 0.1, true) < 0)
-				min = i;
-			
-		return min;
-	}
-	
+    
+    private int findMin(int[] array, int p, int a, int b, int s) {
+        int min = p;
+        
+        for(int i = a; i < b; i += s)
+            if(Reads.compareIndices(array, i, min, 0.1, true) < 0)
+                min = i;
+            
+        return min;
+    }
+    
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		int s = (int)Math.sqrt(length-1)+1;
-		
-		int f = (length-1)%s+1;
-		int fMin = this.findMin(array, 0, 1, f, 1);
-		
-		for(int j = f; j < length; j += s) {
-			int min = this.findMin(array, j, j+1, j+s, 1);
-			
-			if(j != min) Writes.swap(array, j, min, 1, true, false);
-		}
-		
-		for(int j = 0; j < length;) {
-			int min = this.findMin(array, fMin, f, length, s);
-			
-			if(min == fMin) {
-				if(j != min) Writes.swap(array, j, min, 1, true, false);
-				if(++j == f) f += s; //check for bounds if last block is < s
-				
-				fMin = this.findMin(array, j, j+1, f, 1);
-			}
-			else {
-				if(j == fMin) fMin = this.findMin(array, j+1, j+2, f, 1);
-				
-				int nMin = this.findMin(array, j, min+1, min+s, 1);
-					
-				if(nMin == j) Writes.swap(array, j, min, 1, true, false);
-				
-				else {
-					Highlights.clearMark(2);
-					
-					int t = array[j];
-					Writes.write(array, j,    array[min],  0.5, true, false);
-					Writes.write(array, min,  array[nMin], 0.5, true, false);
-					Writes.write(array, nMin, t,           0.5, true, false);
-				}
-				
-				if(++j == f) f += s;
-			}
-		}
+        int s = (int)Math.sqrt(length-1)+1;
+        
+        int f = (length-1)%s+1;
+        int fMin = this.findMin(array, 0, 1, f, 1);
+        
+        for(int j = f; j < length; j += s) {
+            int min = this.findMin(array, j, j+1, j+s, 1);
+            
+            if(j != min) Writes.swap(array, j, min, 1, true, false);
+        }
+        
+        for(int j = 0; j < length;) {
+            int min = this.findMin(array, fMin, f, length, s);
+            
+            if(min == fMin) {
+                if(j != min) Writes.swap(array, j, min, 1, true, false);
+                if(++j == f) f += s; //check for bounds if last block is < s
+                
+                fMin = this.findMin(array, j, j+1, f, 1);
+            }
+            else {
+                if(j == fMin) fMin = this.findMin(array, j+1, j+2, f, 1);
+                
+                int nMin = this.findMin(array, j, min+1, min+s, 1);
+                    
+                if(nMin == j) Writes.swap(array, j, min, 1, true, false);
+                
+                else {
+                    Highlights.clearMark(2);
+                    
+                    int t = array[j];
+                    Writes.write(array, j,    array[min],  0.5, true, false);
+                    Writes.write(array, min,  array[nMin], 0.5, true, false);
+                    Writes.write(array, nMin, t,           0.5, true, false);
+                }
+                
+                if(++j == f) f += s;
+            }
+        }
     }
 }

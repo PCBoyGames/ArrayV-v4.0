@@ -21,7 +21,7 @@ final public class OptimizedBubbleSort extends Sort {
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	int consecSorted;
+        int consecSorted;
         for(int i = length - 1; i > 0; i -= consecSorted) {
             consecSorted = 1;
             for(int j = 0; j < i; j++) {

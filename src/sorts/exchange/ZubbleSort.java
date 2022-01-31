@@ -25,10 +25,10 @@ final public class ZubbleSort extends Sort {
         for(int i = length - 1; i > 0; i--) {
             boolean sorted = true;
             for(int j = 0; j < i; j++) {
-            	int k = j;
-            	boolean swap = false;
+                int k = j;
+                boolean swap = false;
                 while(j < i && Reads.compareValues(array[k], array[j + 1]) == 1){
-                	j++;
+                    j++;
                     sorted = false;
                     swap = true;
                 }

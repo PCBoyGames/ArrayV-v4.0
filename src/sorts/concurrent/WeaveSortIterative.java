@@ -46,23 +46,23 @@ final public class WeaveSortIterative extends Sort {
     }
     
     private int end;
-	
-	private void compSwap(int[] array, int a, int b) {
-		if(b < this.end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
-			Writes.swap(array, a, b, 0.5, true, false);
-	}
+    
+    private void compSwap(int[] array, int a, int b) {
+        if(b < this.end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
+            Writes.swap(array, a, b, 0.5, true, false);
+    }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-    	this.end = length;
-    	int n = 1;
-    	for(; n < length; n*=2);
-		
-		for(int i = 1; i < n; i*=2)
-			for(int j = 1; j <= i; j*=2)
-				for(int k = 0; k < n; k += n/j)
-					for(int d = n/i/2, m = 0, l = n/j-d; l >= n/j/2; l-=d)
-						for(int p = 0; p < d; p++, m++)
-							this.compSwap(array, k+m, k+l+p);
+        this.end = length;
+        int n = 1;
+        for(; n < length; n*=2);
+        
+        for(int i = 1; i < n; i*=2)
+            for(int j = 1; j <= i; j*=2)
+                for(int k = 0; k < n; k += n/j)
+                    for(int d = n/i/2, m = 0, l = n/j-d; l >= n/j/2; l-=d)
+                        for(int p = 0; p < d; p++, m++)
+                            this.compSwap(array, k+m, k+l+p);
     }
 }

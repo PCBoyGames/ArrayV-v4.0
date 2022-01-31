@@ -36,7 +36,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Stable sorting that works in O(N*log(N)) worst time   */
 /* and uses O(1) extra memory                            */
 /*                                                       */
-/* Define int / SortComparator                     	     */
+/* Define int / SortComparator                              */
 /* and then call GrailSort() function                    */
 /*                                                       */
 /* For sorting w/ fixed external buffer (512 items)      */
@@ -76,23 +76,23 @@ final public class GrailSort extends GrailSorting {
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		switch(bucketCount) {
-		case 1:
+        switch(bucketCount) {
+        case 1:
             int[] ExtBuf = Writes.createExternalArray(this.getStaticBuffer());
             this.grailCommonSort(array, 0, length, ExtBuf, 0, this.getStaticBuffer());
             Writes.deleteExternalArray(ExtBuf);
-			break;
-			
-		case 2:
+            break;
+            
+        case 2:
             int tempLen = 1;
             while(tempLen * tempLen < length) tempLen *= 2;
             int[] DynExtBuf = Writes.createExternalArray(tempLen);
             this.grailCommonSort(array, 0, length, DynExtBuf, 0, tempLen);
             Writes.deleteExternalArray(DynExtBuf);
-			break;
-			
-		default:
-			this.grailCommonSort(array, 0, length, null, 0, 0);
-		}
+            break;
+            
+        default:
+            this.grailCommonSort(array, 0, length, null, 0, 0);
+        }
     }
 }

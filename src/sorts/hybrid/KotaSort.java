@@ -6,7 +6,7 @@ import sorts.templates.KotaSorting;
 final public class KotaSort extends KotaSorting {
     public KotaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Kota");
         //this.setRunAllID("Grail Sort (Block Merge Sort)");
         //this.setRunAllSortsName("Grail Sort [Block Merge Sort]");
@@ -20,7 +20,7 @@ final public class KotaSort extends KotaSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         if(Delays.getSleepRatio() == 55.1) {

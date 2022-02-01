@@ -42,7 +42,7 @@ public final class InstinctBubbleSort extends Sort {
                 Highlights.markArray(1, i);
                 Highlights.markArray(2, i + 1);
                 Delays.sleep(0.05);
-                Writes.swap(array, i, i + 1, 0.05, true, false);     
+                Writes.swap(array, i, i + 1, 0.05, true, false);
                 if (Reads.compareIndices(array, i, i + 1, 0.05, true) >= 0) {
                     Writes.swap(array, i, i + 1, 0.05, true, false);
                     consecSorted++;

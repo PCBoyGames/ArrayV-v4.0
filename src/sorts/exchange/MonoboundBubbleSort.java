@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class MonoboundBubbleSort extends Sort {
     public MonoboundBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Monobound Bubble");
         this.setRunAllSortsName("Monobound Bubble Sort");
         this.setRunSortName("Monobound Bubblesort");
@@ -18,7 +18,7 @@ final public class MonoboundBubbleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i = length - 1; i > 0; --i) {

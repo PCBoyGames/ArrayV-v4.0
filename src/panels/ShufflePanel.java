@@ -21,7 +21,7 @@ public class ShufflePanel extends JPanel implements KeyListener {
     int camX = 0, camY = 0;
     int prevX = 0, prevY = 0;
     public ShuffleGraph graph;
-    
+
     public ShufflePanel() {
         setPreferredSize(new Dimension(700, 450));
         MouseHandler handler = new MouseHandler();

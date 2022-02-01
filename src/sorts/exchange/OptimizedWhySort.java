@@ -26,7 +26,7 @@ final public class OptimizedWhySort extends Sort {
         this.setUnreasonableLimit(256);
         this.setBogoSort(false);
     }
-    
+
     protected void bubble(int[] array, int start, int end, int dir) {
         int i = start;
         int j = start;
@@ -54,7 +54,7 @@ final public class OptimizedWhySort extends Sort {
         bubble(array, (int) Math.floor((start + end) / 2) + 1, end, dir);
         bubble(array, start, end, dir);
     }
-    
+
     protected void pop18(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -74,7 +74,7 @@ final public class OptimizedWhySort extends Sort {
             pop19(array, start, end, dir);
         }
     }
-    
+
     protected void pop17(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -94,7 +94,7 @@ final public class OptimizedWhySort extends Sort {
             pop18(array, start, end, dir);
         }
     }
-    
+
     protected void pop16(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -114,7 +114,7 @@ final public class OptimizedWhySort extends Sort {
             pop17(array, start, end, dir);
         }
     }
-    
+
     protected void pop15(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -134,7 +134,7 @@ final public class OptimizedWhySort extends Sort {
             pop16(array, start, end, dir);
         }
     }
-    
+
     protected void pop14(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -154,7 +154,7 @@ final public class OptimizedWhySort extends Sort {
             pop15(array, start, end, dir);
         }
     }
-    
+
     protected void pop13(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -174,7 +174,7 @@ final public class OptimizedWhySort extends Sort {
             pop14(array, start, end, dir);
         }
     }
-    
+
     protected void pop12(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -194,7 +194,7 @@ final public class OptimizedWhySort extends Sort {
             pop13(array, start, end, dir);
         }
     }
-    
+
     protected void pop11(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -214,7 +214,7 @@ final public class OptimizedWhySort extends Sort {
             pop12(array, start, end, dir);
         }
     }
-    
+
     protected void pop10(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -234,7 +234,7 @@ final public class OptimizedWhySort extends Sort {
             pop11(array, start, end, dir);
         }
     }
-    
+
     protected void pop9(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -254,7 +254,7 @@ final public class OptimizedWhySort extends Sort {
             pop10(array, start, end, dir);
         }
     }
-    
+
     protected void pop8(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -274,7 +274,7 @@ final public class OptimizedWhySort extends Sort {
             pop9(array, start, end, dir);
         }
     }
-    
+
     protected void pop7(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -294,7 +294,7 @@ final public class OptimizedWhySort extends Sort {
             pop8(array, start, end, dir);
         }
     }
-    
+
     protected void pop6(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -314,7 +314,7 @@ final public class OptimizedWhySort extends Sort {
             pop7(array, start, end, dir);
         }
     }
-    
+
     protected void pop5(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -334,7 +334,7 @@ final public class OptimizedWhySort extends Sort {
             pop6(array, start, end, dir);
         }
     }
-    
+
     protected void pop4(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -354,7 +354,7 @@ final public class OptimizedWhySort extends Sort {
             pop5(array, start, end, dir);
         }
     }
-    
+
     protected void pop3(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -374,7 +374,7 @@ final public class OptimizedWhySort extends Sort {
             pop4(array, start, end, dir);
         }
     }
-    
+
     protected void pop2(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -394,7 +394,7 @@ final public class OptimizedWhySort extends Sort {
             pop3(array, start, end, dir);
         }
     }
-    
+
     protected void pop(int[] array, int start, int end, int dir) {
         if (end - start < 4) {
             bubble(array, start, start + (int) Math.floor((end - start) / 4), 0 - dir);
@@ -414,7 +414,7 @@ final public class OptimizedWhySort extends Sort {
             pop2(array, start, end, dir);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         if (currentLength < 4) {

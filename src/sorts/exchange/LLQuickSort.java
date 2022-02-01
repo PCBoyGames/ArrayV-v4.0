@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class LLQuickSort extends Sort {
     public LLQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Left/Left Quick");
         this.setRunAllSortsName("Quick Sort, Left/Left Pointers");
         this.setRunSortName("Left/Left Quicksort");
@@ -18,11 +18,11 @@ final public class LLQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int partition(int[] array, int lo, int hi) {
         int pivot = array[hi];
         int i = lo;
-        
+
         for(int j = lo; j < hi; j++) {
             Highlights.markArray(4, lo);
             Highlights.markArray(3, hi);
@@ -37,7 +37,7 @@ final public class LLQuickSort extends Sort {
         Writes.swap(array, i, hi, 1, true, false);
         return i;
     }
-    
+
     private void quickSort(int[] array, int lo, int hi, int d) {
         Writes.recordDepth(d);
         if(lo < hi) {
@@ -48,7 +48,7 @@ final public class LLQuickSort extends Sort {
             this.quickSort(array, p + 1, hi, d + 1);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.quickSort(array, 0, currentLength - 1, 0);

@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 final public class SantaSort extends BogoSorting {
     public SantaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Santa");
         this.setRunAllSortsName("Santa Sort");
         this.setRunSortName("Santasort");

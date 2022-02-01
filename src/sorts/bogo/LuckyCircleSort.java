@@ -27,7 +27,7 @@ public final class LuckyCircleSort extends BogoSorting {
         this.setBogoSort(true);
         this.setQuestion("Enter the luck for this sort:", 50);
     }
-    
+
     protected boolean circle(int[] array, int a, int b, boolean anyswaps, int luck) {
         int left = a;
         int right = b;
@@ -52,7 +52,7 @@ public final class LuckyCircleSort extends BogoSorting {
         if (answer < 1 || answer > 100) return 50;
         return answer;
     }
-    
+
 
     @Override
     public void runSort(int[] array, int currentLength, int luck) {

@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 final public class XORSort extends Sort {
     public XORSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("XOR");
         this.setRunAllSortsName("XOR Sorting Network");
         this.setRunSortName("XOR Sort");
@@ -18,9 +18,9 @@ final public class XORSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     int end;
-    
+
     void compSwap(int[] array, int a, int b) {
         if(b < end && Reads.compareIndices(array, a, b, 0.5, true) == -1)
             Writes.swap(array, a, b, 0.5, true, false);

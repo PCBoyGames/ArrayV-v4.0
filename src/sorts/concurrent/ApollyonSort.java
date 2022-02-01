@@ -6,10 +6,10 @@ import sorts.templates.CircleSorting;
 
 final public class ApollyonSort extends CircleSorting {
     private boolean direction = true;
-    
+
     public ApollyonSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Apollyon");
         this.setRunAllSortsName("Apollyon Sort");
         this.setRunSortName("Apollyon Sort");
@@ -21,19 +21,19 @@ final public class ApollyonSort extends CircleSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private static int greatestPowerOfTwoLessThan(int n){
         int k = 1;
         while (k < n) {
             k = k << 1;
         }
-        return k >> 1;      
+        return k >> 1;
     }
-    
+
     private void compare(int[] A, int i, int j, boolean dir)
     {
         int cmp = Reads.compareIndices(A, i, j, 0.5, true);
-        
+
         if (dir == (cmp == 1)) Writes.swap(A, i, j, 0.5, true, false);
     }
 
@@ -71,21 +71,21 @@ final public class ApollyonSort extends CircleSorting {
         else if (choice.equals("backward")) this.direction = false;
         else throw new Exception("Invalid direction for Apollyon Sort!");
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         this.end = sortLength;
         int threshold = 0, n = 1;
         for(; n < sortLength; n*=2, threshold++);
-        
+
         threshold /= 2;
         int iterations = 0;
-        
+
         this.apollyonSort(array, 0, sortLength, this.direction, 0);
-        
+
         while (this.circleSortRoutine(array, 0, sortLength - 1, 0, 1) != 0) {
             iterations++;
-            
+
             if (iterations >= threshold) {
                 InsertionSort Inserter = new InsertionSort(this.arrayVisualizer);
                 Inserter.customInsertSort(array, 0, sortLength, 0.1, false);

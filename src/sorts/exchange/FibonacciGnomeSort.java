@@ -23,7 +23,7 @@ public final class FibonacciGnomeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public int fibonacciSearch(int[] array, int start, int end, int item) {
         int fibM2 = 0;
         int fibM1 = 1;
@@ -33,16 +33,16 @@ public final class FibonacciGnomeSort extends Sort {
             fibM1 = fibM;
             fibM = fibM2 + fibM1;
         }
-        
+
         int offset = start - 1;
-        
+
         while (fibM > 1) {
-            
+
             int i = Math.min(offset + fibM2, end);
-            
+
             Highlights.markArray(1, offset + 1);
             Highlights.markArray(2, i);
-            
+
             if (Reads.compareValues(array[i], item) <= 0) {
                 fibM = fibM1;
                 fibM1 = fibM2;
@@ -61,7 +61,7 @@ public final class FibonacciGnomeSort extends Sort {
         }
         return position;
     }
-    
+
     public void fibonacciGnomeSort(int[] array, int length) {
         for (int i = 1; i < length; i++) {
             int tmp = array[i];

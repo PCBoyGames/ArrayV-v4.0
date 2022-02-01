@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ClericSortIterative extends IterativeClericSorting {   
+final public class ClericSortIterative extends IterativeClericSorting {
     public ClericSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Cleric (Iterative)");
@@ -26,12 +26,12 @@ final public class ClericSortIterative extends IterativeClericSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void singleRoutine(int[] array, int length) {
         end = length;
         clericSortRoutine(array, length, 0.05);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         this.end = sortLength;

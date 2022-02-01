@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 final public class XORCircleSort extends BogoSorting {
     public XORCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Circle (XOR)");
         this.setRunAllSortsName("XOR Circle Sort");
         this.setRunSortName("Circlesort (XOR Method)");

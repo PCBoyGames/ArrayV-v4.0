@@ -13,7 +13,7 @@ import sorts.templates.Sort;
 final public class CorruptSort extends Sort {
     public CorruptSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Corrupt");
         this.setRunAllSortsName("Corrupt Sort");
         this.setRunSortName("Corruptsort");
@@ -55,13 +55,13 @@ final public class CorruptSort extends Sort {
                 if(i+g0 < end)
                     this.comp(array, i, i+g0);
             }
-        
+
         if(start == mid)
             return;
-        
+
         if(end - start > 4)
             this.Pass(array, start+g1, mid, end, g1, 1);
-        
+
         this.Merge(array, start, mid, true);
         this.Merge(array, mid, end, true);
     }

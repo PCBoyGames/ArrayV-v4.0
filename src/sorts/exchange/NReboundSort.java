@@ -27,14 +27,14 @@ final public class NReboundSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the bounce for this sort:\n0 = Automatic", 0);
     }
-    
+
     protected int log2(int x) {
         int n = 1;
         while (1 << n < x) n++;
         if (1 << n > x) n--;
         return n;
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 0) return 0;

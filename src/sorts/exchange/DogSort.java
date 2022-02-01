@@ -18,7 +18,7 @@ public final class DogSort extends Sort {
         this.setUnreasonableLimit(26);
         this.setBogoSort(false);
     }
-    
+
     protected void sort(int[] array, int a, int b) {
         if(Reads.compareIndices(array, a, b, 0.01, true) > 0)
             Writes.swap(array, a, b, 0.01, true, false);

@@ -18,7 +18,7 @@ public final class LuckierBubbleSort extends BogoSorting {
         this.setBogoSort(true);
         this.setQuestion("Enter the luck for this sort:", 50);
     }
-    
+
     private boolean qSift(int[] array, int start, int end) {
         if(start >= end)
             return false;
@@ -35,7 +35,7 @@ public final class LuckierBubbleSort extends BogoSorting {
         boolean r = this.qSift(array, mid, end);
         return f||l||r;
     }
-    
+
     private void fallback(int[] array, int start, int end) {
         int l = end - start;
         do {

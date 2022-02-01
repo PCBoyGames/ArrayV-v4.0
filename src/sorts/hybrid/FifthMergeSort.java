@@ -42,7 +42,7 @@ final public class FifthMergeSort extends Sort {
 
     public FifthMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Fifth Merge");
         this.setRunAllSortsName("Fifth Merge Sort");
         this.setRunSortName("Fifth Mergesort");
@@ -108,7 +108,7 @@ final public class FifthMergeSort extends Sort {
             Delays.sleep(0.5);
             if (Reads.compareValueIndex(array, buffer[left], right, 0, false) <= 0) {
                 Writes.write(array, dest++, buffer[left++], 0.5, true, false);
-            } else {  
+            } else {
                 Writes.write(array, dest++, array[right++], 0.5, true, false);
             }
         }
@@ -186,7 +186,7 @@ final public class FifthMergeSort extends Sort {
             Writes.arraycopy(buffer, 0, array, start, length, 0.5, true, false);
         }
     }
-    
+
     public void fifthMergeSort(int[] array, int currentLength) {
         inserter = new PatternDefeatingInsertionSort(arrayVisualizer);
 
@@ -214,7 +214,7 @@ final public class FifthMergeSort extends Sort {
 
         Writes.deleteExternalArray(buffer);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         fifthMergeSort(array, currentLength);

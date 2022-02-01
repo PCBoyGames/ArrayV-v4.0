@@ -35,7 +35,7 @@ final public class StupidFireSort extends Sort {
         this.setUnreasonableLimit(128);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int i = 1;

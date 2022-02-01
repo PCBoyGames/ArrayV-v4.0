@@ -17,7 +17,7 @@ final public class BruhMomentSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     // Bruh Moment Sort - Order n Pop Sort
     protected void bubbleSort(int[] array, int start, int end, boolean right) {
         int swap = end, comp = right ? 1 : -1;
@@ -72,7 +72,7 @@ final public class BruhMomentSort extends Sort {
             this.pop(array, start, end, order-1, invert);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.pop(array, 0, currentLength, currentLength, false);

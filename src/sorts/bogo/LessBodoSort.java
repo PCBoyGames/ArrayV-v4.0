@@ -1,12 +1,12 @@
  package sorts.bogo;
- 
+
  import main.ArrayVisualizer;
  import sorts.templates.BogoSorting;
- 
+
  public final class LessBodoSort extends BogoSorting {
    public LessBodoSort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
-     
+
      this.setSortListName("Less Bodo");
      this.setRunAllSortsName("Less Bodo Sort (Buffed Boko Sort)");
      this.setRunSortName("Less Bodo Sort");
@@ -18,8 +18,8 @@
      this.setUnreasonableLimit(2048);
      this.setBogoSort(true);
    }
- 
-   
+
+
    public void runSort(int[] array, int length, int bucketCount) {
      int s = 0;
      while (s < length - 1 && !isRangeSorted(array, s, length, false, true)) {
@@ -41,6 +41,6 @@
                break;
            s++;
        }
-     } 
+     }
    }
  }

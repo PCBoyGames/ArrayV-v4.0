@@ -7,7 +7,7 @@ import sorts.templates.BogoSorting;
 final public class OreganoSort extends BogoSorting {
     public OreganoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Oregano");
         this.setRunAllSortsName("Oregano Sort");
         this.setRunSortName("Oregano Sort");
@@ -19,7 +19,7 @@ final public class OreganoSort extends BogoSorting {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     private void sprinkle(int[] array, int start, int end) {
         if(end >= arrayVisualizer.getCurrentLength() || start>end)
             return;
@@ -29,7 +29,7 @@ final public class OreganoSort extends BogoSorting {
         } else {
         }
     }
-    
+
     private void sort(int[] array, int start, int end) {
         this.sprinkle(array, start, end);
         int q = (end-start+1)/4;

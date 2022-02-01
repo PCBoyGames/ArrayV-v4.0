@@ -68,7 +68,7 @@ final public class FateSort extends Sort {
                 bound = highestswap - 1;
                 firstswap = 0;
                 highestswap = 0;
-            } 
+            }
         }
     }
 }

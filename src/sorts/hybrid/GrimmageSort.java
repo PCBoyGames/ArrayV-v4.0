@@ -7,7 +7,7 @@ import sorts.templates.GrailSorting;
 final public class GrimmageSort extends GrailSorting {
     public GrimmageSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Grimmage");
         this.setRunAllSortsName("Grimmage Sort");
         this.setRunSortName("Grimmage Sort");
@@ -37,7 +37,7 @@ final public class GrimmageSort extends GrailSorting {
         }
         return seek;
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         int k = 0, runs = 1;

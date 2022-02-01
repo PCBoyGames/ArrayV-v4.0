@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class StableStoogeSort extends Sort {
     public StableStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Stable Stooge");
         this.setRunAllSortsName("Stable Stooge Sort");
         this.setRunSortName("Stable Stoogesort");
@@ -18,7 +18,7 @@ final public class StableStoogeSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     private void stableStooge(int[] array, int start, int end) {
         if (end - start + 1 == 2) {
             if (Reads.compareIndices(array, start, end, 0.0025, true) == 1) {

@@ -19,7 +19,7 @@ public final class MandelbrotSort extends BogoSorting {
     this.setBogoSort(false);
   }
   private static double rXstart, rXend, rYstart, rYend;
-  
+
   private int mandelbrotIters(int startX, int run, int max) {
       double rXrange = (rXend - rXstart),
              rYrange = (rYend - rYstart),

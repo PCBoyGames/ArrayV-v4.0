@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class InPlaceMSDRadixSort extends Sort {
     public InPlaceMSDRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("In-Place MSD Radix");
         this.setRunAllSortsName("In-Place MSD Radix Sort, Base 4");
         this.setRunSortName("In-Place MSD Radixsort");
@@ -48,10 +48,10 @@ final public class InPlaceMSDRadixSort extends Sort {
     private void radixMSD(int[] array, int length, int min, int max, int radix, int pow, double sleep) {
         if(min >= max || pow < 0)
             return;
-        
+
         Highlights.markArray(3, max - 1);
         Highlights.markArray(4, min);
-        
+
         int[] indices = new int[radix];
         Writes.changeAllocAmount(indices.length);
         for (int i = 0; i < radix; i++) {
@@ -78,11 +78,11 @@ final public class InPlaceMSDRadixSort extends Sort {
 
         Writes.changeAllocAmount(-indices.length);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         int highestpower = Reads.analyzeMaxLog(array, sortLength, bucketCount, 0.5, true);
-        
+
         radixMSD(array, sortLength, 0, sortLength, bucketCount, highestpower, 1);
     }
 }

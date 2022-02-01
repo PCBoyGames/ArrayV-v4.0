@@ -36,7 +36,7 @@ public final class LuckyCircloidSort extends BogoSorting {
         this.setBogoSort(true);
         setQuestion("Enter the luck for this sort:", 50);
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1 || answer > 100) return 50;

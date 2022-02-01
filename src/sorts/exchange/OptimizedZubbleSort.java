@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class OptimizedZubbleSort extends Sort {
     public OptimizedZubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Zubble");
         this.setRunAllSortsName("Optimized Zubble Sort");
         this.setRunSortName("Optimized Zubblesort");
@@ -19,7 +19,7 @@ final public class OptimizedZubbleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i = length - 1, cons = 1, first = 1; i >= first; i-=cons) {

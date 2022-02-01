@@ -25,7 +25,7 @@ public final class IntroPseudoHeapSort extends Sort {
         setBogoSort(false);
 
     }
-    
+
     private boolean sift_down(int[] array, int start, int length, int root) {
         boolean swapped = false;
         int j = root;
@@ -53,7 +53,7 @@ public final class IntroPseudoHeapSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         int threshold = 0, n = 1;
         for(; n < length; n*=2, threshold++);
-        
+
         threshold /= 2;
         int iterations = 0;
         boolean swapped = true;

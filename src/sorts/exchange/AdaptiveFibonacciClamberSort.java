@@ -26,7 +26,7 @@ final public class AdaptiveFibonacciClamberSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int fibonacciSearch(int[] array, int start, int end, int item) {
         int fibM2 = 0;
         int fibM1 = 1;
@@ -82,6 +82,6 @@ final public class AdaptiveFibonacciClamberSort extends Sort {
                 }
             }
             right++;
-        } 
+        }
     }
 }

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.IterativeCircleSorting;
 
 /*
- * 
+ *
 Copyright (c) rosettacode.org.
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2
@@ -15,10 +15,10 @@ Free Documentation License".
  *
  */
 
-final public class CircleMergeSort extends IterativeCircleSorting {   
+final public class CircleMergeSort extends IterativeCircleSorting {
     public CircleMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Circle Merge");
         this.setRunAllSortsName("Circle Merge Sort");
         this.setRunSortName("Circle Mergesort");
@@ -30,7 +30,7 @@ final public class CircleMergeSort extends IterativeCircleSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         this.end = sortLength;

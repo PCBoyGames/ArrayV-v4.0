@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package sorts.esoteric;
 
@@ -25,7 +25,7 @@ public final class TerrorismSort extends Sort {
     private void horror(int[] a, int i, int j, int k) {
         if(i >= k || j < 0 || i < 0)
             return;
-        
+
         if (i != j && Reads.compareValues(a[i], a[j]) == -1) {
             Writes.swap(a, i, j, 0.025, true, false);
         }

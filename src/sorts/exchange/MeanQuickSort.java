@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 Copyright (c) 2020 Gaming32
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -43,9 +43,9 @@ final public class MeanQuickSort extends Sort {
 
     private int compareIntDouble(int left, double right) {
         Reads.addComparison();
-        
+
         int cmpVal = 0;
-        
+
         Writes.startLap();
 
         if(left > right)      cmpVal =  1;
@@ -53,7 +53,7 @@ final public class MeanQuickSort extends Sort {
         else                  cmpVal =  0;
 
         Writes.stopLap();
-        
+
         return cmpVal;
     }
 
@@ -115,7 +115,7 @@ final public class MeanQuickSort extends Sort {
 
             if (left <= right) {
                 Writes.swap(array, left, right, 1, true, false);
-                
+
                 lsum += array[left];
                 rsum += array[right];
                 left++;

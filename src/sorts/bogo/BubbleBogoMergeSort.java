@@ -22,7 +22,7 @@ public final class BubbleBogoMergeSort extends BogoSorting {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(true);
     }
-    
+
     protected void bubbleBogoSort(int[] array, int a, int b) {
         while(!this.isRangeSorted(array, a, b, false, true)) {
             int i = BogoSorting.randInt(a, b - 1);
@@ -30,7 +30,7 @@ public final class BubbleBogoMergeSort extends BogoSorting {
                 Writes.swap(array, i, i + 1, this.delay, true, false);
         }
     }
-    
+
     protected void sort(int[] array, int a, int b, int depth) {
         Writes.recordDepth(depth);
         if(b - a < 2)

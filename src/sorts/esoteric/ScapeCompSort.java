@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 public class ScapeCompSort extends Sort {
     public ScapeCompSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Scape Comparison");
         this.setRunAllSortsName("Scape Comparison Sort");
         this.setRunSortName("Scapecomp Sort");
@@ -17,7 +17,7 @@ public class ScapeCompSort extends Sort {
         this.setUnreasonableLimit(12);
         this.setBogoSort(false);
     }
-    
+
     private void scapeComp(int[] array, int start, int end, int minElement, boolean direction) {
         if(start >= end || start < 0 || end < 0 || end > arrayVisualizer.getCurrentLength() || start > arrayVisualizer.getCurrentLength())
             return;
@@ -60,7 +60,7 @@ public class ScapeCompSort extends Sort {
             //this.scapeComp(array, start, end-1, minEl, !direction);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketLength) {
         this.scapeComp(array, 0, sortLength, Integer.MIN_VALUE, true);

@@ -27,12 +27,12 @@ public final class TableAdaBinClamberSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean stableComp(int[] array, int[] table, int a, int b) {
         int comp = Reads.compareIndices(array, table[a], table[b], 0.125, true);
         return comp < 0 || (comp == 0 && Reads.compareOriginalIndices(table, a, b, 0, false) < 0);
     }
-    
+
     protected int binarySearch(int[] array, int[] table, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);

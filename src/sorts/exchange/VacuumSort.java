@@ -4,10 +4,10 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class VacuumSort extends Sort {   
+final public class VacuumSort extends Sort {
     public VacuumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Vacuum");
         this.setRunAllSortsName("Vacuum Sort");
         this.setRunSortName("Vacuum Sort");

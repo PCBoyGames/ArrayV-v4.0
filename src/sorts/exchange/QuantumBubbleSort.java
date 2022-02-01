@@ -7,7 +7,7 @@ import sorts.templates.BogoSorting;
 final public class QuantumBubbleSort extends BogoSorting {
     public QuantumBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Quantum Bubble");
         this.setRunAllSortsName("Quantum Bubble Sort");
         this.setRunSortName("Quantum Bubblesort");
@@ -38,7 +38,7 @@ final public class QuantumBubbleSort extends BogoSorting {
         boolean r = this.siftLo(array, mid, end);
         return f||l||r;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int l=length-1;

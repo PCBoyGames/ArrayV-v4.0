@@ -41,7 +41,7 @@ final public class RedHerringSort extends BogoSorting {
             return;
         this.bitMerge(arr, a, b-m, d);
         this.bitMerge(arr, a+b-m, m, d);
-        
+
         return;
     }
     private void bitBitMerge(int[] arr, int a, int b, boolean d) throws StackOverflowError {
@@ -61,33 +61,33 @@ final public class RedHerringSort extends BogoSorting {
 
         this.bitBitMerge(arr, a, b-m, d);
         this.bitBitMerge(arr, a+b-m, m, d);
-        
+
         return;
     }
     private void Terrible_L1(int[] arr, int a, int l, int m) {
         if(l<2 || a>m || a+l>=m)
             return;
         boolean k = Math.abs((l-a)%2) > 0;
-        
+
         this.bitMerge(arr, a, l, k);
-        
+
         this.Terrible_L1(arr, a, l-1, m);
         this.Terrible_L1(arr, a+1, l, m);
-        
+
         this.bitBitMerge(arr, a, l, false);
     }
     private void Terrible_L2(int[] arr, int a, int l, int m) {
         if(l<2 || a>m || a+l>=m)
             return;
         boolean k = Math.abs((l-a)%2) > 0;
-        
+
         this.Terrible_L1(arr, a, l, m);
-        
+
         while(l>1) {
             this.Terrible_L2(arr, a, l-1, m);
             this.Terrible_L2(arr, a+1, l--, m);
         }
-        
+
         this.bitMerge(arr, a, l, !k);
     }
     @Override

@@ -26,7 +26,7 @@ final public class DebrisSortEquality extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         Writes.reversal(array, start, end, 0.075, true, false);
         int i = start;

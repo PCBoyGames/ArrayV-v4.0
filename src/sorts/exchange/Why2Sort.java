@@ -26,10 +26,10 @@ final public class Why2Sort extends Sort {
         this.setUnreasonableLimit(7);
         this.setBogoSort(false);
     }
-    
+
     protected boolean lessunique = false;
     protected int globalpdir = 1;
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.001, true, false);
         else Writes.reversal(array, start, end, 0.001, true, false);
@@ -47,7 +47,7 @@ final public class Why2Sort extends Sort {
             i++;
         }
     }
-    
+
     protected void pd(int[] array, int start, int end, int dir) {
         if (dir * globalpdir == 1) {
             int r = start + ((end - start) / 2) - 1;
@@ -95,7 +95,7 @@ final public class Why2Sort extends Sort {
             }
         }
     }
-    
+
     protected void method(int[] array, int start, int end, int pdir, int itr) {
         Writes.recordDepth(itr - 1);
         globalpdir = pdir;
@@ -137,7 +137,7 @@ final public class Why2Sort extends Sort {
             pd(array, start, end, pdir);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;

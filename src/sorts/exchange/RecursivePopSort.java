@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 public final class RecursivePopSort extends Sort
 {
     private int[] arr;
-    
+
     public RecursivePopSort(final ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Recursive Pop");
@@ -20,14 +20,14 @@ public final class RecursivePopSort extends Sort
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int compare(final int x, final int y) {
         this.Highlights.markArray(0, x);
         this.Highlights.markArray(1, y);
         this.Delays.sleep(0.02);
         return this.Reads.compareValues(this.arr[x], this.arr[y]);
     }
-    
+
     private void wrapper(final int start, final int stop, final boolean dir) {
         if (stop - start >= 2) {
             this.wrapper(start, (stop - start) / 2 + start, !dir);
@@ -57,7 +57,7 @@ public final class RecursivePopSort extends Sort
             }
         }
     }
-    
+
     @Override
     public void runSort(final int[] array, final int length, final int bucketCount) {
         this.arr = array;

@@ -37,6 +37,6 @@ public final class PullSelectionSortA extends Sort {
                 }
             }
         }
-        
+
     }
 }

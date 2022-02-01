@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class ExchangeGoroSort extends BogoSorting {
-    
+
     public ExchangeGoroSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Exchange Goro");
@@ -27,14 +27,14 @@ public final class ExchangeGoroSort extends BogoSorting {
         this.setUnreasonableLimit(16384);
         this.setBogoSort(true);
     }
-    
+
     protected void bogoCompSwap(int[] array, int a, int b) {
         for (int i = a; i < b; i++) {
             int j = randInt(i, b);
             if (Reads.compareIndices(array, i, j, delay, true) > 0) Writes.swap(array, i, j, delay, true, false);
         }
     }
-    
+
     protected void bogoCompSwapBW(int[] array, int a, int b) {
         for (int i = b - 1; i > a; i--) {
             int j = randInt(a, i);

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package sorts.exchange;
 
@@ -18,7 +18,7 @@ public final class TriSearchGnomeSort extends Sort {
      */
     public TriSearchGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("TriSearch Gnome");
         this.setRunAllSortsName("TriSearch Gnome Sort");
         this.setRunSortName("TriSearch Gnomesort");
@@ -55,7 +55,7 @@ public final class TriSearchGnomeSort extends Sort {
         for (int i = start+1; i < end; i++) {
             int num = array[i];
             int lo = start;
-            
+
             lo = this.triSearch(array, start, i-1, num, compSleep);
             Highlights.clearAllMarks();
             int j = i ;

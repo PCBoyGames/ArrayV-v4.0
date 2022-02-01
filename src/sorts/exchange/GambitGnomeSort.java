@@ -18,7 +18,7 @@ public final class GambitGnomeSort extends Sort {
         setUnreasonableLimit(0);
         setBogoSort(false);
     }
-    
+
     private int binSearch(int[] array, int begin, int end, int target) {
         while (true) {
             int delta = end - begin;
@@ -36,7 +36,7 @@ public final class GambitGnomeSort extends Sort {
         }
         return end;
     }
-    
+
     private void binInsert(int[] array, int len, int start, int end) {
         int offset = 1;
         for (; offset * offset < len; offset *= 2)
@@ -51,7 +51,7 @@ public final class GambitGnomeSort extends Sort {
                 this.Writes.swap(array, j - 1, j, 0.125D, true, false);
                 j--;
             }
-            
+
         }
     }
 

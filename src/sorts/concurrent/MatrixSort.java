@@ -21,7 +21,7 @@ final public class MatrixSort extends Sort {
 
     public MatrixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Matrix");
         this.setRunAllSortsName("Matrix Sort");
         this.setRunSortName("Matrix Sort");
@@ -36,7 +36,7 @@ final public class MatrixSort extends Sort {
 
     private void gapReverse(int[] array, int start, int end, int gap) {
         Writes.changeReversals(1);
-        
+
         for (int i = start, j = end; i < j; i += gap, j -= gap) {
             Writes.swap(array, i, j - gap, 0.5, true, false);
         }
@@ -53,7 +53,7 @@ final public class MatrixSort extends Sort {
         boolean did = false;
         int key = array[b];
         int j = b - gap;
-        
+
         while (j >= a && dirCompareVal(key, array[j], dir) < 0) {
             Writes.write(array, j + gap, array[j], 0.5, true, false);
             did = true;

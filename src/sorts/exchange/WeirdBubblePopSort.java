@@ -36,7 +36,7 @@ public final class WeirdBubblePopSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void weirdBubble(int[] array, int a, int b, boolean dir) {
         int cmp = dir ? 1 : -1;
         boolean sorted = false;
@@ -52,7 +52,7 @@ public final class WeirdBubblePopSort extends Sort {
             }
         }
     }
-    
+
     public void popSort(int[] array, int a, int b) {
         int quarter = (b - a) / 4, half = (b - a) / 2;
         weirdBubble(array, a, a + quarter, false);

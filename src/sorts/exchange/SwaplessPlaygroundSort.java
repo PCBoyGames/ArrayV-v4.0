@@ -26,7 +26,7 @@ final public class SwaplessPlaygroundSort extends Sort {
         this.setUnreasonableLimit(512);
         this.setBogoSort(false);
     }
-    
+
     protected int selectLowest(int[] array, int length) {
         int lowestindex = 0;
         for (int j = 0; j < length; j++) {
@@ -40,7 +40,7 @@ final public class SwaplessPlaygroundSort extends Sort {
         }
         return lowestindex;
     }
-    
+
     protected int selectNext(int[] array, int length, int target) {
         int lowesthigh = -1;
         int right = 0;
@@ -61,7 +61,7 @@ final public class SwaplessPlaygroundSort extends Sort {
         }
         return lowesthigh;
     }
-    
+
     protected void chase(int[] array, int item, int target) {
         int dir = 0;
         int chase = 0;
@@ -77,7 +77,7 @@ final public class SwaplessPlaygroundSort extends Sort {
             Writes.write(array, chase, hold, 0.005, true, false);
         }
     }
-    
+
     protected void quit(int[] array, int bound, int item) {
         int pull = item;
         int hold = array[item];

@@ -32,7 +32,7 @@ public final class SwaplessClamberSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void clamber(int[] array, int a, int b) {
         for (int i = a + 1; i < b; i++) {
             int t = array[i];

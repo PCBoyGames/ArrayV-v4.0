@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class IndexSort extends Sort {
     public IndexSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Index");
         this.setRunAllSortsName("Simple Static Sort (Index Sort)");
         this.setRunSortName("Index Sort (Simple Static Sort)");

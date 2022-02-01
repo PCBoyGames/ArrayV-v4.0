@@ -26,7 +26,7 @@ import panes.JErrorPane;
 import utils.Highlights;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -60,7 +60,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
     final private static long serialVersionUID = 1L;
 
     private int[] array;
-    
+
     private ArrayManager ArrayManager;
     private ArrayVisualizer ArrayVisualizer;
     private AppFrame abstractFrame;
@@ -72,14 +72,14 @@ final public class ArrayFrame extends javax.swing.JFrame {
 
     public ArrayFrame(int[] array, ArrayVisualizer arrayVisualizer) {
         this.array = array;
-        
+
         this.ArrayVisualizer = arrayVisualizer;
         this.ArrayManager = ArrayVisualizer.getArrayManager();
-        
+
         this.Highlights = ArrayVisualizer.getHighlights();
         this.Frame = ArrayVisualizer.getMainWindow();
         this.UtilFrame = ArrayVisualizer.getUtilFrame();
-        
+
         setUndecorated(true);
         initComponents();
         setLocation(Math.min((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth(), Frame.getX() + Frame.getWidth()), Frame.getY() + 29);
@@ -158,7 +158,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
         this.jLabel2 = new javax.swing.JLabel();
         this.jSlider1 = new javax.swing.JSlider(SwingConstants.VERTICAL, 100000, usePower, useDefault);
         this.jSlider2 = new javax.swing.JSlider(SwingConstants.VERTICAL, 100000, usePower, useDefault);
-        
+
         jLabel1.setText("Array Size");
         jLabel2.setText("Unique Elements");
 
@@ -200,7 +200,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
                     jSlider1.setValue(calculateSliderValue(currentLength));
                 }
                 //if(ArrayVisualizer.getVisualStyles() == visuals.VisualStyles.CIRCULAR && jSlider1.getValue() == 1) jSlider1.setValue(2);
-                
+
                 Highlights.clearAllMarks();
             }
         });
@@ -258,7 +258,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
                     int currentItems = ArrayVisualizer.getUniqueItems();
                     jSlider2.setValue(calculateSliderValue(currentItems));
                 }
-                
+
                 Highlights.clearAllMarks();
             }
         });

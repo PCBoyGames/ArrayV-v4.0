@@ -26,14 +26,14 @@ final public class OptimizedZipperSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int log2(int x) {
         int n = 1;
         while (1 << n < x) n++;
         if (1 << n > x) n--;
         return n;
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -47,7 +47,7 @@ final public class OptimizedZipperSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     private void ending(int[] array, int first, int currentLength) {
         int right = first;
         if (right < 1) right++;

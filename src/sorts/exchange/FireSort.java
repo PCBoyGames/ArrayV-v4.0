@@ -46,7 +46,7 @@ final public class FireSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int i = 1;

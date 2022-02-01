@@ -26,7 +26,7 @@ final public class DebrisIterativePopSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void bubble(int[] array, int s, int e, int dir) {
         int i = s;
         int start = s;
@@ -63,7 +63,7 @@ final public class DebrisIterativePopSort extends Sort {
             else last = e - 1;
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;

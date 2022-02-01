@@ -18,18 +18,18 @@ public final class OmegaBojoSort extends BogoSorting {
         this.setUnreasonableLimit(11);
         this.setBogoSort(true);
     }
-    
+
     public void omegaReversal(int[] array, int a, int b, double sleep) {
         Writes.reversals++;
         Writes.swap(array, a, b, sleep, true, false);
-        
+
         for(int i = a + 1; i < a + ((b - a + 1) / 2); i++) {
             Writes.swap(array, i, a + b - i, sleep, true, false);
             omegaReversal(array, i + 1, a + b - i - 1, sleep);
         }
 
     }
-    
+
     private void omegaBojo(int[] array, int start, int end) {
         if(start < end) {
             int i = randInt(start, end);

@@ -24,7 +24,7 @@ final public class OddEvenWeaveLowSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int check = 1;

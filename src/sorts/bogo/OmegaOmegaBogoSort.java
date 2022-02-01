@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -47,7 +47,7 @@ public final class OmegaOmegaBogoSort extends BogoSorting {
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
     }
-    
+
     private void omegaOmegaBogo(int[] array, int start, int end) {
         if(end-start == 1) {
             Writes.swap(array, start, end, 1, true, false);

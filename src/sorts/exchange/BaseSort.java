@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class BaseSort extends Sort {
     public BaseSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Base");
         this.setRunAllSortsName("Base Sort");
         this.setRunSortName("Base Sort");
@@ -40,7 +40,7 @@ final public class BaseSort extends Sort {
                 if (Reads.compareOriginalIndexValue(this.cts, i, this.max, 0, false) > 0) {
                     Writes.write(this.cts, i + 1, this.cts[i + 1] + 1, 0, false, true);
                     Writes.write(this.cts,     i,                   0, 0, false, true);
-                    
+
                     this.next = i;
                 }
             }
@@ -71,13 +71,13 @@ final public class BaseSort extends Sort {
         Counter ctr = new Counter(m, a, b);
         do this.compSwap(array, ctr.nextComp()); while (!ctr.isSorted());
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1) return 1;
         return answer;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.sort(array, 0, length, bucketCount);

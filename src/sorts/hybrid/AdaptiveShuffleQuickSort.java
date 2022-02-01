@@ -36,7 +36,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     class PivotPair {
         public int p;
         public boolean alreadyParted;
@@ -46,7 +46,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
             this.alreadyParted = alreadyParted;
         }
     }
-    
+
     public static int floorLog(int n) {
         int log = 0;
         while ((n >>= 1) != 0)
@@ -58,7 +58,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
     InsertionSort insSort;
     int threshold = 16;
     int partialInsertLimit = 8;
-    
+
     void medianOfThree(int[] array, int a, int b) {
         int m = a + (b - 1 - a) / 2;
 
@@ -74,7 +74,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
 
         Writes.swap(array, a, m, 1, true, false);
     }
-    
+
     public void shuffle(int[] array, int a, int b) {
         Random rng = new Random();
         for (int i = a; i < b; i++) {
@@ -83,7 +83,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
                 Writes.swap(array, i, j, 0.75, true, false);
         }
     }
-    
+
     //Refactored from PDQSorting.java
     protected PivotPair partition(int[] array, int a, int b) {
         int pivot = array[a];
@@ -121,7 +121,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
         Writes.write(array, pivotPos, pivot, 1, true, false);
         return new PivotPair(pivotPos, alreadyParted);
     }
-    
+
     //Refactored from PDQSorting.java
     protected boolean partialInsert(int[] array, int a, int b) {
         if (a == b)
@@ -144,7 +144,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
         }
         return true;
     }
-    
+
     protected void quickSort(int[] array, int a, int b, int badAllowed) {
         while(b - a > threshold) {
             medianOfThree(array, a, b);
@@ -161,7 +161,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
                     shuffle(array, a, p);
                 if(r > threshold)
                     shuffle(array, p + 1, b);
-            } else if (alreadyParted && partialInsert(array, a, p) 
+            } else if (alreadyParted && partialInsert(array, a, p)
                     && partialInsert(array, p + 1, b))
                 return;
             if (l > r) {
@@ -174,7 +174,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
         }
         insSort.customInsertSort(array, a, b, 0.5, false);
     }
-    
+
     public void customSort(int[] array, int a, int b) {
         heapSorter = new MaxHeapSort(arrayVisualizer);
         insSort = new InsertionSort(arrayVisualizer);

@@ -31,13 +31,13 @@ public final class ChirSort extends BogoSorting {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         while (!isArraySorted(array, currentLength)) {
             int choice = randInt(1, 11);
-            
+
             // Bogo
             if (choice == 1) bogoSwap(array, 0, currentLength, false);
-            
+
             // Bozo
             if (choice == 2) Writes.swap(array, randInt(0, currentLength), randInt(0, currentLength), delay, true, false);
-            
+
             // Bovo
             if (choice == 3) {
                 int pull = randInt(0, currentLength - 1);
@@ -46,7 +46,7 @@ public final class ChirSort extends BogoSorting {
                     pull--;
                 }
             }
-            
+
             // Vogo
             if (choice == 4) {
                 int pull = randInt(0, currentLength - 1);
@@ -55,7 +55,7 @@ public final class ChirSort extends BogoSorting {
                     pull++;
                 }
             }
-            
+
             // Bojo
             if (choice == 5) {
                 int i1 = randInt(0, currentLength);
@@ -68,13 +68,13 @@ public final class ChirSort extends BogoSorting {
                 }
                 Writes.reversal(array, i1, i2, delay, true, false);
             }
-            
+
             // Boko
             if (choice == 6) {
                 int i = randInt(0, currentLength - 1);
                 Writes.swap(array, i, i + 1, delay, true, false);
             }
-            
+
             // Bomo
             if (choice == 7) {
                 int start = randInt(0, currentLength - 1);
@@ -90,7 +90,7 @@ public final class ChirSort extends BogoSorting {
                     }
                 }
             }
-            
+
             // Goro
             if (choice == 8) {
                 int i1 = randInt(0, currentLength);
@@ -103,12 +103,12 @@ public final class ChirSort extends BogoSorting {
                 }
                 bogoSwap(array, i1, i2, false);
             }
-            
+
             // Baka (suited for number 9)
             if (choice == 9) {
                 Writes.swap(array, 0, randInt(1, currentLength), delay, true, false);
             }
-            
+
             // Nibi
             if (choice == 10) {
                 Writes.swap(array, currentLength - 1, randInt(0, currentLength - 1), delay, true, false);

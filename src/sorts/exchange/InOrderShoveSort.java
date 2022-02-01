@@ -48,6 +48,6 @@ final public class InOrderShoveSort extends Sort {
                 } else right++;
             }
             left++;
-        } 
+        }
     }
 }

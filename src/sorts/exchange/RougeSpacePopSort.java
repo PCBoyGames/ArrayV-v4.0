@@ -26,7 +26,7 @@ final public class RougeSpacePopSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void bubble(int[] array, int start, int end, int dir) {
         int c = 1;
         int s;
@@ -47,7 +47,7 @@ final public class RougeSpacePopSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;

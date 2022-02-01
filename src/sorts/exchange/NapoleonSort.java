@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class NapoleonSort extends Sort {
     public NapoleonSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Napoleon");
         this.setRunAllSortsName("Napoleon Sort");
         this.setRunSortName("Napoleon sort");
@@ -32,11 +32,11 @@ final public class NapoleonSort extends Sort {
     private void napoleon(int[] array, int end) {
         int lo = 0;
         int hi = end;
-        
+
         int prev = array[0];
         boolean goSmaller = true;
         boolean noneFound = false;
-        
+
         while(hi > lo) {
             if(goSmaller) {
                 int next = lookEast(array, prev, lo+1, hi);
@@ -80,9 +80,9 @@ final public class NapoleonSort extends Sort {
                 }
             }
         }
-        
+
     }
-    
+
     private int lookEast(int[] array, int prev, int start, int end) {
         for(int i = start; i <= end; i++) {
             if(Reads.compareValues(array[i], prev) < 0)
@@ -90,7 +90,7 @@ final public class NapoleonSort extends Sort {
         }
         return start - 1;
     }
-    
+
     private int lookWest(int[] array, int prev, int start, int end) {
         for(int i = start; i >= end; i--) {
             if(Reads.compareValues(array[i], prev) > 0)
@@ -98,7 +98,7 @@ final public class NapoleonSort extends Sort {
         }
         return start + 1;
     }
-    
+
     private void conquer(int[] array, int index, int target) {
         int blockSize = 1;
         while(index + blockSize - 1 < target) {
@@ -116,7 +116,7 @@ final public class NapoleonSort extends Sort {
             blockSize++;
         }
     }
-    
+
     private int recruit(int[] array, int identicalTo, int start, int end) {
         if(start<end) {
             for(int i = start; i <= end; i++) {
@@ -131,7 +131,7 @@ final public class NapoleonSort extends Sort {
         }
         return end;
     }
-    
+
     private void march(int[] array, int index, int len1, int len2) {
         while(len1 != 0 && len2 != 0) {
             if(len1 <= len2) {
@@ -144,7 +144,7 @@ final public class NapoleonSort extends Sort {
             }
         }
     }
-    
+
     private void attack(int[] array, int startA, int startB, int swapsLeft) {
         while(swapsLeft != 0) {
             Writes.swap(array, startA++, startB++, 1, true, false);

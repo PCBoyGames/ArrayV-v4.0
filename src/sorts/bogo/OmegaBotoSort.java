@@ -9,7 +9,7 @@ import sorts.templates.BogoSorting;
  * you don't take it, your survival will become nothing but
  * pure luck. Omega Botosort knows where you are at all times,
  * and it's a matter of slowing the inevitable.
- * 
+ *
  * Best case: O(n) ops
  * Average case: O((n*(n-1))!) ops?
  * Worst case: O(inf)
@@ -29,7 +29,7 @@ public final class OmegaBotoSort extends BogoSorting {
         this.setUnreasonableLimit(5);
         this.setBogoSort(true);
     }
-    
+
     /** Pushes start to end **/
     private void omegaPush(int[] array, int start, int end) {
         for(int i=0; i<end-start-1; i++) {
@@ -43,7 +43,7 @@ public final class OmegaBotoSort extends BogoSorting {
             Writes.multiSwap(array, start, end-1, 0.001, true, false);
         }
     }
-    
+
     private void omegaSwap(int[] array, int start, int end, int depth) {
         if(start >= end)
             return;
@@ -55,18 +55,18 @@ public final class OmegaBotoSort extends BogoSorting {
         Writes.recursion();
         this.omegaSwap(array, start+1, end-1, depth + 1);
     }
-    
+
     public void omegaOmegaReversal(int[] array, int a, int b, int depth) {
         Writes.reversals++;
         this.omegaSwap(array, a, b, depth);
-        
+
         for(int i = a + 1; i < a + ((b - a + 1) / 2); i++) {
             this.omegaSwap(array, i, a + b - i, depth);
             Writes.recursion();
             omegaOmegaReversal(array, i + 1, a + b - i - 1, depth + 1);
         }
     }
-    
+
     public void nOmegaReversal(int[] array, int order, int a, int b, int depth) {
         if(a > b)
             return;
@@ -120,7 +120,7 @@ public final class OmegaBotoSort extends BogoSorting {
                     Writes.recursion();
                     this.murderCheck(array, order, length-1, depth + 1);
                 }
-        
+
         this.nOmegaReversal(array, order, 0, length-1, depth);
         Writes.recursion();
         this.murderCheck(array, order, length-1, depth + 1);

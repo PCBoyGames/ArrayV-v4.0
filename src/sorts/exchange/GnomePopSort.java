@@ -37,36 +37,36 @@ final public class GnomePopSort extends Sort {
         int quart = (end - start + 1) / 4;
         if(order == 1) {
             Writes.recursion(7);
-            
+
             this.gnome(array, start, start+quart, invert);
             this.gnome(array, start+quart, end-2*quart, !invert);
-            
+
             this.gnome(array, start, end-2*quart, !invert);
-            
+
             this.gnome(array, end-2*quart, end-quart, !invert);
             this.gnome(array, end-quart, end, invert);
 
             this.gnome(array, end-2*quart, end, invert);
-            
+
             this.gnome(array, start, end, invert);
         } else {
             Writes.recordDepth(order-1);
             Writes.recursion(7);
-            
+
             this.pop(array, start, start+quart, order-1, invert);
             this.pop(array, start+quart, end-2*quart, order-1, !invert);
 
             this.pop(array, start, end-2*quart, order-1, !invert);
-            
+
             this.pop(array, end-2*quart, end-quart, order-1, !invert);
             this.pop(array, end-quart, end, order-1, invert);
 
             this.pop(array, end-2*quart, end, order-1, invert);
-            
+
             this.pop(array, start, end, order-1, invert);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.pop(array, 0, currentLength, 1, false);

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020-2021 Gaming32
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class OptimizedIndexSort extends Sort {
     public OptimizedIndexSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Index");
         this.setRunAllSortsName("Optimized Index Sort");
         this.setRunSortName("Optimized Indexsort");

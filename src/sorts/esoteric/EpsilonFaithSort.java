@@ -18,7 +18,7 @@ public final class EpsilonFaithSort extends BogoSorting {
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
     }
-    
+
     private void epsiFaith(int[] array) {
         Delays.sleep(1);
         for(int i=0; i<array.length; i++) // yep

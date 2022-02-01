@@ -129,7 +129,7 @@ final public class PathOwOgenSort extends BogoSorting {
                     }
                 ),
     };
-    
+
     private static String why(String output) {
         if(output == null) return null;
         if(maps.containsKey(output))
@@ -199,7 +199,7 @@ final public class PathOwOgenSort extends BogoSorting {
             owoS(array,length,buckets);
         }
     }
-    
+
     private void infect() {
         ArrayList<Sort> sorts0 = arrayVisualizer.getSortAnalyzer().comparisonSorts,
                         sorts1 = arrayVisualizer.getSortAnalyzer().distributionSorts;

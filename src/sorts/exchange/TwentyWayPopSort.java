@@ -44,7 +44,7 @@ final public class TwentyWayPopSort extends Sort {
             swap = lastSwap;
         }
     }
-    
+
     // **YES, THIS IS VARIABLE ORDER 20-WAY POPSORT**
     protected void pop(int[] array, int start, int end, int order, boolean invert) {
         if(start >= end)
@@ -99,7 +99,7 @@ final public class TwentyWayPopSort extends Sort {
             this.bubblePop(array, end-2*fifth, end, invert);
             this.bubblePop(array, start+fifth, end-2*fifth, !invert);
             this.bubblePop(array, start+fifth, end, invert);
-            
+
             this.bubblePop(array, start, end, !invert);
             // it keeps getting worse
         } else {
@@ -144,11 +144,11 @@ final public class TwentyWayPopSort extends Sort {
             this.pop(array, end-2*fifth, end, order-1, !invert);
             this.pop(array, start+fifth, end-2*fifth, order-1, invert);
             this.pop(array, start+fifth, end, order-1, !invert);
-            
+
             this.pop(array, start, end, order-1, invert);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.pop(array, 0, currentLength, 1, false);

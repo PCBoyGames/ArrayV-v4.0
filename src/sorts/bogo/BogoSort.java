@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy

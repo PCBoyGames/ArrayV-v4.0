@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class BurningSortRec extends Sort {
     public BurningSortRec(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Burning (Recursive)");
         this.setRunAllSortsName("Recursive Burning Sort");
         this.setRunSortName("Recursive Burning Sort");

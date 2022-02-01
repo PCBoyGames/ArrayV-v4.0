@@ -184,7 +184,7 @@ final public class ArrayVisualizer {
 
     private volatile boolean hidden;
     private volatile boolean frameSkipped;
-    
+
     private volatile boolean moreStats = false;
 
     public ArrayVisualizer() {
@@ -522,7 +522,7 @@ final public class ArrayVisualizer {
         System.arraycopy(this.ComparisonSorts, 0, this.AllSorts, 0, this.ComparisonSorts.length);
         System.arraycopy(this.DistributionSorts, 0, this.AllSorts, this.ComparisonSorts.length, this.DistributionSorts.length);
     }
-    
+
     private <T> ArrayList<T> arrList(T... vals){
         ArrayList<T> x = new ArrayList<>();
         for(T i : vals) {
@@ -530,7 +530,7 @@ final public class ArrayVisualizer {
         }
         return x;
     }
-    
+
     private void drawStats(Color textColor, boolean dropShadow) {
         int xOffset = 15;
         int yOffset = 30;
@@ -538,28 +538,28 @@ final public class ArrayVisualizer {
             xOffset += 3;
             yOffset += 3;
         }
-        
+
         double windowRatio = this.getWindowRatio();
-        
+
         this.mainRender.setColor(textColor);
         ArrayList<String> Stats = arrList(
                 this.statSnapshot.getSortIdentity(),
                 this.statSnapshot.getArrayLength(),
-                
+
                 this.statSnapshot.getSortDelay(),
                 this.statSnapshot.getVisualTime(),
                 this.statSnapshot.getEstSortTime(),
-                
+
                 this.statSnapshot.getComparisonCount(),
                 this.statSnapshot.getSwapCount(),
                 this.statSnapshot.getReversalCount(),
                 this.statSnapshot.getRecursionCount(),
                 this.statSnapshot.getRecursionDepth(),
-                
+
                 this.statSnapshot.getMainWriteCount(),
                 this.statSnapshot.getAuxWriteCount(),
                 this.statSnapshot.getAuxAllocAmount(),
-                
+
                 this.statSnapshot.getSegments()
         );
         ArrayList<Integer> magicNumbers = arrList(

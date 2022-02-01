@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 final public class LuckyGnomeSort extends BogoSorting {
     public LuckyGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Lucky Gnome");
         this.setRunAllSortsName("Lucky Gnome Sort");
         this.setRunSortName("Lucky Gnomesort");
@@ -19,7 +19,7 @@ final public class LuckyGnomeSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if(answer < 1)
@@ -28,7 +28,7 @@ final public class LuckyGnomeSort extends BogoSorting {
             return 100;
         return answer;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int luck) {
         for (int i=1; i<length; i++) {

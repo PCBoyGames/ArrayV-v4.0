@@ -27,7 +27,7 @@ final public class LuckyPopSort extends BogoSorting {
         this.setBogoSort(false);
         this.setQuestion("Enter the luck for this sort:", 50);
     }
-    
+
     protected void bubble(int[] array, int start, int end, int dir, int luck) {
         boolean anyswaps = true;
         while (anyswaps) {
@@ -43,14 +43,14 @@ final public class LuckyPopSort extends BogoSorting {
             }
         }
     }
-    
-    
+
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1 || answer > 100) return 50;
         return answer;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int luck) {
         bubble(array, 1, (int) Math.floor((currentLength + 1) / 4), -1, luck);

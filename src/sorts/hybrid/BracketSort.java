@@ -17,7 +17,7 @@ final public class BracketSort extends Sort {
 
     public BracketSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Bracket");
         this.setRunAllSortsName("Bracket Sort");
         this.setRunSortName("Bracketsort");
@@ -129,7 +129,7 @@ final public class BracketSort extends Sort {
         System.out.print(formatDebugBracketLen8());
         System.out.print("\u001b[2D\u001b6A");
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         bracket = Writes.createExternalArray(2 * currentLength - 1);

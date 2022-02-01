@@ -180,7 +180,7 @@ public final class AdaptiveMOMQuickSort extends Sort {
                     medianOfMedians(array, p + 1, b, 5);
                     momRight = true;
                 }
-            } else if (alreadyParted && partialInsert(array, a, p) 
+            } else if (alreadyParted && partialInsert(array, a, p)
                                      && partialInsert(array, p + 1, b))
                 return;
             if (l > r) {

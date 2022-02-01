@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 final public class GrossSort extends Sort {
     public GrossSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Gross");
         this.setRunAllSortsName("Gross Sort");
         this.setRunSortName("Gross Sort");

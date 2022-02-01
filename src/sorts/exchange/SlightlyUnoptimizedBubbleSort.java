@@ -15,7 +15,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class SlightlyUnoptimizedBubbleSort extends Sort {
     public SlightlyUnoptimizedBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Slightly Unoptimized Bubble");
         this.setRunAllSortsName("Slightly Unoptimized Bubble Sort");
         this.setRunSortName("Slightly Unoptimized Bubblesort");
@@ -27,7 +27,7 @@ final public class SlightlyUnoptimizedBubbleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i = length - 1; i > 0; i--) {

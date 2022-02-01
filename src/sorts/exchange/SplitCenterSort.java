@@ -39,6 +39,6 @@ final public class SplitCenterSort extends Sort {
             }
             way *= -1;
         }
-        
+
     }
 }

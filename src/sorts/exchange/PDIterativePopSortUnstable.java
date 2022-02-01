@@ -26,7 +26,7 @@ final public class PDIterativePopSortUnstable extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void bubble(int[] array, int start, int end, int dir) {
         if (dir == 1) {
             int r = start + ((end - start) / 2) - 1;
@@ -64,7 +64,7 @@ final public class PDIterativePopSortUnstable extends Sort {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;

@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 final public class HexaStoogeSort extends Sort {
     public HexaStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Hexa Stooge");
         this.setRunAllSortsName("Hexa Stooge Sort");
         this.setRunSortName("Hexastoogesort");
@@ -20,13 +20,13 @@ final public class HexaStoogeSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     private void stoogeSort(int[] A, int i, int j) {
         int len = j-i+1;
         Delays.sleep(0.0025);
         Highlights.markArray(1, i);
         Highlights.markArray(2, j);
-        
+
         if(len == 2) {
             if (Reads.compareValues(A[i], A[j]) == 1) {
                 Writes.swap(A, i, j, 0.005, true, false);
@@ -38,7 +38,7 @@ final public class HexaStoogeSort extends Sort {
         } else if(len == 4) {
             int half1 = len / 2, half2 = (len+1) / 2,
                     half3 = (half1 + 1) / 2 + (half2 + 1) / 2;
-                
+
             stoogeSort(A, i, i + half1);
             stoogeSort(A, i + half1, i+half1+half2);
             stoogeSort(A, i + half1 / 2, i+(half1/2)+half3);

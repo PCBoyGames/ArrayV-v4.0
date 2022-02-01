@@ -25,7 +25,7 @@ final public class XSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int gap = currentLength;

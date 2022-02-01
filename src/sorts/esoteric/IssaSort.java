@@ -48,7 +48,7 @@ public class IssaSort extends BogoSorting {
                     k=0;
                 }
             }
-            
+
             /* Remove this if you're a masochist. */
             //if(Reads.compareValues(array[i], array[i+1]) < 0 && Reads.compareValues(array[j], array[j+1]) < 0 && Reads.compareValues(array[k], array[k+1]) < 0){
             //    i++;
@@ -58,7 +58,7 @@ public class IssaSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        while(!isArraySorted(array, sortLength)){ 
+        while(!isArraySorted(array, sortLength)){
             WeirdSort(array, sortLength);
         }
     }

@@ -55,7 +55,7 @@ import sorts.templates.HolyGrailSorting;
 final public class HolyGrailSort extends HolyGrailSorting {
     public HolyGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Holy Grail");
         this.setRunAllSortsName("Holy Grail Sort");
         this.setRunSortName("Holy Grailsort");
@@ -67,7 +67,7 @@ final public class HolyGrailSort extends HolyGrailSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         // switch(bucketCount) {
@@ -76,7 +76,7 @@ final public class HolyGrailSort extends HolyGrailSorting {
         //     this.grailCommonSort(array, 0, length, ExtBuf, 0, this.getStaticBuffer());
         //     Writes.deleteExternalArray(ExtBuf);
         //     break;
-            
+
         // case 2:
         //     int tempLen = 1;
         //     while(tempLen * tempLen < length) tempLen *= 2;
@@ -84,7 +84,7 @@ final public class HolyGrailSort extends HolyGrailSorting {
         //     this.grailCommonSort(array, 0, length, DynExtBuf, 0, tempLen);
         //     Writes.deleteExternalArray(DynExtBuf);
         //     break;
-            
+
         // default:
         //     this.grailCommonSort(array, 0, length, null, 0, 0);
         // }

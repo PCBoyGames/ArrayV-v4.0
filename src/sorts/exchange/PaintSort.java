@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class PaintSort extends Sort {
     public PaintSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Paint");
         this.setRunAllSortsName("Paint Sort");
         this.setRunSortName("Paintsort");
@@ -18,9 +18,9 @@ final public class PaintSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-     
+
     // doesn't work on Reverse Sorting for some reason
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for (int i = 0; i < length; i++)

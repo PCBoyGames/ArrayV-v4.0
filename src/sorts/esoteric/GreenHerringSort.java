@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 final public class GreenHerringSort extends Sort {
     public GreenHerringSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Green Herring");
         this.setRunAllSortsName("Green Herring Sort");
         this.setRunSortName("Green Herring Sort");

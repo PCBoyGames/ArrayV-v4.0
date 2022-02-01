@@ -5,7 +5,7 @@ import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -37,7 +37,7 @@ final public class BaseNMergeSort extends Sort {
 
     public BaseNMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Base-N Merge");
         this.setRunAllSortsName("Base-N Merge Sort, 4 Bases");
         this.setRunSortName("Base-N Mergesort");
@@ -100,7 +100,7 @@ final public class BaseNMergeSort extends Sort {
         for(int i = 0; i < length; i++){
             Writes.write(array, starts[0] + i, tmp[i], 1, true, false);
         }
-        
+
         Writes.changeAllocAmount(-copiedStarts.length);
     }
 
@@ -148,16 +148,16 @@ final public class BaseNMergeSort extends Sort {
     // Used for merging wrong powers
     private void mergeBase2(int[] array, int start, int mid, int end) {
         int length = end - start;
-        
+
         int low = start;
         int high = mid;
-        
+
         for(int nxt = 0; nxt < length; nxt++){
             if(low >= mid && high >= end) break;
-            
+
             Highlights.markArray(1, low);
             Highlights.markArray(2, high);
-            
+
             if(low < mid && high >= end){
                 Highlights.clearMark(2);
                 Writes.write(tmp, nxt, array[low++], 1, false, true);
@@ -174,7 +174,7 @@ final public class BaseNMergeSort extends Sort {
             }
         }
         Highlights.clearMark(2);
-        
+
         for(int i = 0; i < length; i++){
             Writes.write(array, start + i, tmp[i], 1, true, false);
         }
@@ -196,7 +196,7 @@ final public class BaseNMergeSort extends Sort {
         }
 
         int[] starts = calculateStarts(start, length - start, baseCount);
-        
+
         mergeRun(array, starts, length, baseCount);
 
         if (start > 0) {
@@ -204,7 +204,7 @@ final public class BaseNMergeSort extends Sort {
             mergeBase2(array, 0, start, length);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int baseCount) throws Exception {
         this.setRunAllSortsName("Base-N Merge Sort, " + baseCount + " Bases");

@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class OOPSMeanPartitionSort extends Sort {
-    
+
     boolean inlow;
     boolean inhigh;
-    
+
     public OOPSMeanPartitionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("OopsMPartition");
@@ -30,7 +30,7 @@ public final class OOPSMeanPartitionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int partition(int[] array, int start, int end) {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -69,7 +69,7 @@ public final class OOPSMeanPartitionSort extends Sort {
         Writes.deleteExternalArray(high);
         return itemslow;
     }
-    
+
     public void presumepartitions(int[] array, int start, int end, int depth) {
         if (end - start >= 2) {
             Writes.recordDepth(depth);

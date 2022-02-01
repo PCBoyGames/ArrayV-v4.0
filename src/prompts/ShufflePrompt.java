@@ -18,7 +18,7 @@ import utils.Distributions;
 import utils.Shuffles;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -51,17 +51,17 @@ SOFTWARE.
 final public class ShufflePrompt extends javax.swing.JFrame implements AppFrame {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
-    
+
     private ArrayManager ArrayManager;
     private JFrame Frame;
     private UtilFrame UtilFrame;
 
     private DefaultListModel<String> shuffleModel;
     private boolean initializing;
-    
+
     /**
      * Creates new form SortPrompt
      */
@@ -70,7 +70,7 @@ final public class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         this.ArrayManager = ArrayManager;
         this.Frame = frame;
         this.UtilFrame = utilFrame;
-        
+
         setAlwaysOnTop(true);
         setUndecorated(true);
         initComponents();
@@ -104,7 +104,7 @@ final public class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         initializing = false;
 
         reposition();
-        setVisible(true); 
+        setVisible(true);
     }
 
     @Override

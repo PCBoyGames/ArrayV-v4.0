@@ -16,13 +16,13 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class BuildAMergeSort extends Sort {
-    
+
     // Replace both filenames with the filename of the target algorithm.
     FlightSort sort = new FlightSort(arrayVisualizer);
-    
+
     // Optional for most sorts, but required for some.
     int NUMBER_Base = 2;
-    
+
     public BuildAMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Build-A-Merge");
@@ -37,14 +37,14 @@ final public class BuildAMergeSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the base for this sort:", 2);
     }
-    
+
     protected void method(int[] array, int start, int len) {
         if (start != 0) for (int g = 0; g < len; g++) Writes.swap(array, g, start + g, 0.125, true, false);
         try {sort.runSort(array, len, NUMBER_Base);}
         catch (Exception e) {e.printStackTrace();}
         if (start != 0) for (int g = 0; g < len; g++) Writes.swap(array, g, start + g, 0.125, true, false);
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 2) return 2;

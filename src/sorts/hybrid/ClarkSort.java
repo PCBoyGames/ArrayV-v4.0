@@ -28,7 +28,7 @@ final public class ClarkSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean circle(int[] array, int start, int end) {
         boolean swaps = false;
         int i = start;
@@ -60,7 +60,7 @@ final public class ClarkSort extends Sort {
             while (len > 1) {
                 index = 0;
                 while (index + len - 1 < currentLength) {
-                    if (len != 1) {  
+                    if (len != 1) {
                         swapA = circle(array, index, index + len - 1);
                         anyswaps = anyswaps || swapA;
                     }

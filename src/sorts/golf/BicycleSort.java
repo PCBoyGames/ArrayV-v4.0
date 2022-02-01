@@ -11,7 +11,7 @@ import sorts.templates.GrailSorting;
 public class BicycleSort extends GrailSorting {
     public BicycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Bicycle");
         this.setRunAllSortsName("Bicycle Sort");
         this.setRunSortName("Bicyclesort");
@@ -122,7 +122,7 @@ public class BicycleSort extends GrailSorting {
             l++;
         }
         this.cycle(array, 0, len-1, l+(l>>1));
-        
+
         InsertionSort i = new InsertionSort(arrayVisualizer);
         i.customInsertSort(array, 0, len, 1, false);
     }

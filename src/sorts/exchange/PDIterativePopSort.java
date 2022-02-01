@@ -26,9 +26,9 @@ final public class PDIterativePopSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean lessunique = false;
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
@@ -46,7 +46,7 @@ final public class PDIterativePopSort extends Sort {
             i++;
         }
     }
-    
+
     protected void pd(int[] array, int start, int end, int dir) {
         if (dir == 1) {
             int r = start + ((end - start) / 2) - 1;
@@ -94,7 +94,7 @@ final public class PDIterativePopSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;

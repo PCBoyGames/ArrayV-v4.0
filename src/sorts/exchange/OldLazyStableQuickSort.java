@@ -6,7 +6,7 @@ import sorts.merge.ReverseLazyStableSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32 (Josiah Glosson)
@@ -37,7 +37,7 @@ final public class OldLazyStableQuickSort extends Sort {
 
     public OldLazyStableQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Lazy Stable Quick (Old)");
         this.setRunAllSortsName("Lazy Stable Quick Sort (Old)");
         this.setRunSortName("Lazy Stable Quicksort (Old)");
@@ -49,7 +49,7 @@ final public class OldLazyStableQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int stablePartition(int[] array, int start, int end, int depthLimit) {
         if (depthLimit == 0) {
             insertSort.customInsertSort(array, start, end, 0.167, false);
@@ -108,7 +108,7 @@ final public class OldLazyStableQuickSort extends Sort {
             this.stableQuickSort(array, pivotIndex, end);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         rotater = new ReverseLazyStableSort(arrayVisualizer);

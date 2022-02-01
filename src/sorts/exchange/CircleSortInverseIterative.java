@@ -26,7 +26,7 @@ final public class CircleSortInverseIterative extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean circle(int[] array, int a, int b, boolean anyswaps) {
         int left = a;
         int right = b;

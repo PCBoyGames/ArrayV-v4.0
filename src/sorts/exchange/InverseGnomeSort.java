@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class InverseGnomeSort extends Sort {
     public InverseGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Inverse Gnome");
         this.setRunAllSortsName("Inverse Gnome Sort");
         this.setRunSortName("Inverse Gnomesort");
@@ -18,7 +18,7 @@ final public class InverseGnomeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int i=1; i<length; i++) {

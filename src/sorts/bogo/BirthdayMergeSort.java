@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class BirthdayMergeSort extends BogoSorting {
-    
+
     int min;
     int max;
-    
+
     public BirthdayMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Birthday Merge");
@@ -30,7 +30,7 @@ final public class BirthdayMergeSort extends BogoSorting {
         this.setUnreasonableLimit(4096);
         this.setBogoSort(true);
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int mi = min;
         int size = max - mi + 1;

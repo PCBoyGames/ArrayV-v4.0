@@ -142,7 +142,7 @@ public final class ExchangeChirMergeSort extends BogoSorting {
         sort(array, m, b, depth + 1);
         exchangeChir(array, a, b);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         delay = 0.1;

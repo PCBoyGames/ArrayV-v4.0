@@ -26,7 +26,7 @@ final public class PopPopSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void bubble(int[] array, int start, int end, int dir) {
         int i = start;
         int j = start;
@@ -54,7 +54,7 @@ final public class PopPopSort extends Sort {
         bubble(array, (int) Math.floor((start + end) / 2) + 1, end, dir);
         bubble(array, start, end, dir);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         pop(array, 1, (int) Math.floor((currentLength + 1) / 4), -1);

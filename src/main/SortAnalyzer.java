@@ -26,7 +26,7 @@ import sorts.templates.Sort;
 import sorts.templates.SortComparator;
 
 /*
- * 
+ *
 The MIT License (MIT)
 
 Copyright (c) 2019 Luke Hutchison
@@ -56,9 +56,9 @@ final public class SortAnalyzer {
     public ArrayList<Sort> distributionSorts;
     private ArrayList<String> invalidSorts;
     private ArrayList<String> suggestions;
-    
+
     private String sortErrorMsg;
-    
+
     private ArrayVisualizer arrayVisualizer;
 
     public static class SortPair {
@@ -86,13 +86,13 @@ final public class SortAnalyzer {
             return resultArray;
         }
     }
-    
+
     public SortAnalyzer(ArrayVisualizer arrayVisualizer) {
         this.comparisonSorts = new ArrayList<>();
         this.distributionSorts = new ArrayList<>();
         this.invalidSorts = new ArrayList<>();
         this.suggestions = new ArrayList<>();
-        
+
         this.arrayVisualizer = arrayVisualizer;
     }
 
@@ -111,7 +111,7 @@ final public class SortAnalyzer {
             Constructor<?> newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
             // Constructor<?> newSort = sortClass.getConstructors()[0];
             Sort sort = (Sort) newSort.newInstance(this.arrayVisualizer);
-            
+
             try {
                 if(verifySort(sort)) {
                     String suggestion = checkForSuggestions(sort);
@@ -141,17 +141,17 @@ final public class SortAnalyzer {
         }
         return true;
     }
-    
+
     public void analyzeSorts() {
         ClassGraph classGraph = new ClassGraph();
         classGraph.whitelistPackages("sorts");
         classGraph.blacklistPackages("sorts.templates");
         classGraph.blacklistPaths("cache/*");
-        
+
         try (ScanResult scanResult = classGraph.scan()) {
             List<ClassInfo> sortFiles;
             sortFiles = scanResult.getAllClasses();
-            
+
             for(int i = 0; i < sortFiles.size(); i++) {
                 if (sortFiles.get(i).getName().contains("$")) continue; // Ignore inner classes
                 this.compileSingle(sortFiles.get(i).getName(), null);
@@ -223,7 +223,7 @@ final public class SortAnalyzer {
         Collections.sort(comparisonSorts, sortComparator);
         Collections.sort(distributionSorts, sortComparator);
     }
-    
+
     private boolean verifySort(Sort sort) {
         if(!sort.isSortEnabled()) {
             this.sortErrorMsg = "manually disabled";
@@ -245,14 +245,14 @@ final public class SortAnalyzer {
             this.sortErrorMsg = "missing category";
             return false;
         }
-        
+
         return true;
     }
-    
+
     private static String checkForSuggestions(Sort sort) {
         StringBuilder suggestions = new StringBuilder();
         boolean warned = false;
-        
+
         if(sort.isBogoSort() && !sort.isUnreasonablySlow()) {
             suggestions.append("- " + sort.getRunSortName() + " is a bogosort. It should be marked 'unreasonably slow'.\n");
             warned = true;
@@ -273,16 +273,16 @@ final public class SortAnalyzer {
             suggestions.append("- " + sort.getRunSortName() + " is a radix sort. It probably shouldn't be labelled as a comparison-based sort.\n");
             warned = true;
         }
-        
+
         if(warned) {
             suggestions.deleteCharAt(suggestions.length() - 1);
         }
         return suggestions.toString();
     }
-    
+
     public SortPair[] getComparisonSorts() {
         SortPair[] ComparisonSorts = new SortPair[comparisonSorts.size()];
-        
+
         for(int i = 0; i < ComparisonSorts.length; i++) {
             ComparisonSorts[i] = new SortPair();
             ComparisonSorts[i].id = i;
@@ -291,12 +291,12 @@ final public class SortAnalyzer {
             ComparisonSorts[i].category = comparisonSorts.get(i).getCategory();
             ComparisonSorts[i].usesComparisons = true;
         }
-        
+
         return ComparisonSorts;
     }
     public SortPair[] getDistributionSorts() {
         SortPair[] DistributionSorts = new SortPair[distributionSorts.size()];
-        
+
         for(int i = 0; i < DistributionSorts.length; i++) {
             DistributionSorts[i] = new SortPair();
             DistributionSorts[i].id = i;
@@ -305,27 +305,27 @@ final public class SortAnalyzer {
             DistributionSorts[i].category = distributionSorts.get(i).getCategory();
             DistributionSorts[i].usesComparisons = false;
         }
-        
+
         return DistributionSorts;
     }
     public String[] getInvalidSorts() {
         if(invalidSorts.size() < 1) {
             return null;
         }
-        
+
         String[] InvalidSorts = new String[invalidSorts.size()];
         InvalidSorts = invalidSorts.toArray(InvalidSorts);
-        
+
         return InvalidSorts;
     }
     public String[] getSuggestions() {
         if(suggestions.size() < 1) {
             return null;
         }
-        
+
         String[] allSuggestions = new String[suggestions.size()];
         allSuggestions = suggestions.toArray(allSuggestions);
-        
+
         return allSuggestions;
     }
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package sorts.exchange;
 
@@ -54,7 +54,7 @@ public final class ReverseGnomeSort extends Sort {
     }
     private void reverseGnomeSort(int[] array, int lowerBound, int upperBound, double sleep) {
         int pos = lowerBound;
-        
+
         while(pos < upperBound && Reads.compareValues(array[pos], array[pos + 1]) == 1) {
             Writes.swap(array, pos, pos + 1, sleep, true, false);
             pos++;
@@ -72,7 +72,7 @@ public final class ReverseGnomeSort extends Sort {
         // TODO Auto-generated method stub
         for(int i = sortLength - 1; i >= 0; i--) {
             reverseGnomeSort(array, i, sortLength - 1, 0.05);
-        }    
+        }
 
     }
 

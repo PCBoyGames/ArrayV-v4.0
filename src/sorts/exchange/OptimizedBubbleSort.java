@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class OptimizedBubbleSort extends Sort {
     public OptimizedBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Bubble");
         this.setRunAllSortsName("Optimized Bubble Sort");
         this.setRunSortName("Optimized Bubblesort");
@@ -18,7 +18,7 @@ final public class OptimizedBubbleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int consecSorted;

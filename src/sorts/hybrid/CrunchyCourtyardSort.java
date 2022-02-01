@@ -19,16 +19,16 @@ public class CrunchyCourtyardSort extends Sort {
         this.setBogoSort(false);
     }
     private InsertionSort smallSort;
-    
+
     // *Ported from Scratch, left in its original state*
-    
-    
+
+
     // Basically, Crunchy Courtyard inserts if n < 24, then checks for sortedness.
     // If unsorted, it finds the ninther of its subsection. After that, it partitions LR using the
     // ninther.
     // When it hits the depth limit, it runs Weak PDMsort (only finds sorted runs, meaning you get
     // 1-size sorted subsections that can't be sorted quickly).
-    
+
     private void merge(int[] array, int[] tmp, int start, int mid, int end) {
         if(mid-start <= end-mid) {
             Writes.arraycopy(array, start, tmp, 0, mid-start, 1, true, true);
@@ -56,7 +56,7 @@ public class CrunchyCourtyardSort extends Sort {
                 Writes.write(array, t--, tmp[j--], 1, true, false);
         }
     }
-    
+
     private void weakPDMsort(int[] array, int start, int end) {
         int[] runs = Writes.createExternalArray(end-start),
               buf = Writes.createExternalArray((end-start)/2);
@@ -85,7 +85,7 @@ public class CrunchyCourtyardSort extends Sort {
         }
         Writes.deleteExternalArrays(runs, buf);
     }
-    
+
     private boolean isSorted(int[] array, int start, int end) {
         for(int i=start; i<end; i++) {
             if(Reads.compareValues(array[i], array[i+1]) == 1)
@@ -93,7 +93,7 @@ public class CrunchyCourtyardSort extends Sort {
         }
         return true;
     }
-    
+
     private void sort3(int[] array, int a, int b, int c) {
         if(Reads.compareIndices(array, a, b, 1, true) > 0) {
             Writes.swap(array, a, b, 1, true, false);
@@ -105,7 +105,7 @@ public class CrunchyCourtyardSort extends Sort {
             }
         }
     }
-    
+
     private int partition(int[] array, int start, int end) {
         int mid = start+(end-start)/2,
             eighth = (end-start)>>3;
@@ -114,9 +114,9 @@ public class CrunchyCourtyardSort extends Sort {
         sort3(array, mid-eighth, mid, mid+eighth);
         sort3(array, end-2*eighth, end-eighth, end);
         sort3(array, start+eighth, mid, end-eighth);
-        
+
         int piv = array[mid], i=start, j=end;
-        
+
         while(i<j) {
             while(Reads.compareValues(array[i], piv) < 0) {
                 Highlights.markArray(1, i);
@@ -134,7 +134,7 @@ public class CrunchyCourtyardSort extends Sort {
         }
         return i;
     }
-    
+
     private void crunchyCourtyard(int[] array, int start, int end, int depthLim) {
         if(end-start < 24) {
             smallSort.customInsertSort(array, start, end+1, 1, false);

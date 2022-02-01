@@ -18,7 +18,7 @@ final public class DrunkenSailorSort extends BogoSorting {
         this.setUnreasonableLimit(256);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if(answer < 0)

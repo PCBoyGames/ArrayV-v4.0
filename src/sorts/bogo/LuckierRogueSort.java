@@ -19,7 +19,7 @@ public final class LuckierRogueSort extends BogoSorting {
         this.setBogoSort(false);
         this.setQuestion("Enter the luck for this sort:", 99);
     }
-    
+
     private boolean qSift(int[] array, int start, int end) {
         if(start >= end)
             return false;
@@ -36,7 +36,7 @@ public final class LuckierRogueSort extends BogoSorting {
         boolean r = this.qSift(array, mid, end);
         return f||l||r;
     }
-    
+
     private void fallback(int[] array, int start, int end) {
         int l = end - start;
         do {

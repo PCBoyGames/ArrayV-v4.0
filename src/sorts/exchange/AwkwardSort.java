@@ -34,7 +34,7 @@ public final class AwkwardSort extends Sort {
         for (int i = 0; i < l / 2; i++) {
             int a = pos + i;
             int b = pos + l / 2 + l % 2 + i;
-            
+
             if (this.Reads.compareIndices(arr, a, b, 0.02D, true) == 1) {
                 this.Writes.swap(arr, a, b, 0.02D, true, false);
             }

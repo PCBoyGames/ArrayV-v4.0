@@ -18,12 +18,12 @@ public class DesignSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
     }
-    
+
     static final int grow = 3;
-    
+
     private int r0S, r0E, r1Sz;
     private BinaryInsertionSort inserter;
-    
+
     private void multiSwap(int[] array, int a, int b, int s) {
         while(s-- > 0) Writes.swap(array, a++, b++, 1, true, false);
     }
@@ -211,7 +211,7 @@ public class DesignSort extends Sort {
             }
             start = oopBinSearch(array, start, mid, array[mid], false);
             end = oopBinSearch(array, mid, end, array[mid-1], true);
-            
+
             if(mid-start < end-mid) {
                 int[] temp = Writes.createExternalArray(mid-start);
                 Writes.arraycopy(array, start, temp, 0, mid-start, 1, true, true);

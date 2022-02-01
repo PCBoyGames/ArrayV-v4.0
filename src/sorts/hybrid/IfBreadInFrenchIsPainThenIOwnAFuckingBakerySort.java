@@ -1,9 +1,9 @@
  package sorts.hybrid;
- 
+
  import main.ArrayVisualizer;
  import sorts.templates.BogoSorting;
  public final class IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort extends BogoSorting {
-   
+
    public IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
      this.setSortListName("If Bread In French Is Pain Then \uD835\uDC70 \uD835\uDC76\uD835\uDC7E\uD835\uDC75 \uD835\uDC68 \uD835\uDC6D\uD835\uDC7C\uD835\uDC6A\uD835\uDC72\uD835\uDC70\uD835\uDC75\uD835\uDC6E \uD835\uDC69\uD835\uDC68\uD835\uDC72\uD835\uDC6C\uD835\uDC79\uD835\uDC80");
@@ -17,7 +17,7 @@
      setUnreasonableLimit(0);
      setBogoSort(false);
    }
-   
+
    public boolean comp(int[] array, int start, int end, boolean dir) {
        if(start != end && dir == (Reads.compareValues(array[start],array[end]) == 1)) {
            Writes.swap(array, start, end, 1, true, false);
@@ -81,15 +81,15 @@
        int h = (end-start)/2, a = start+h/2, b=end-h/2;
        if(a==start||b==end)
            return;
-       
+
        this.horrorPass(array, start, a);
        this.surpass(array, start, a);
-       
+
        this.greenHerringPass(array, a, end);
-       
+
        this.circleSort(array, start, end);
    }
-   
+
    // Passes the (demonic) array through the Bible, making it slightly more sorted.
    public void unholyPass(int[] array, int start, int end) {
        for(int i=start+1; i<end; i++) {
@@ -123,7 +123,7 @@
        if(!left)
            this.rot(array,start,end-start,Math.min(len-end,end-start),0.1,true,false);
    }
-   
+
    // Improved Terrorism (O(2^n)?)
    public void terrorismSort(int[] array, int start, int end) {
        if(start >= end)
@@ -132,7 +132,7 @@
        this.terrorismSort(array, start+1, end);
        this.terrorismSort(array, start, end-1);
    }
-   
+
    // Terrorism squared (+ Cuprise)
    public void terrorismSquared(int[] array, int start, int end) {
        if(start >= end)
@@ -146,7 +146,7 @@
        this.terrorismSquared(array, start, end-1);
        this.terrorismSquared(array, start+1, end);
    }
-   
+
    // Hybrid hybrid pass
    public void GodSpeed(int[] array, int start, int end) {
        this.unholyPass(array, start, end);
@@ -160,14 +160,14 @@
        this.GodSpeed(array, start, b);
        this.GodSpeed(array, a, end);
        this.GodSpeed(array, start, b);
-       
+
        this.grossPass(array, start, end, end, true);
-       
+
        this.horrorPass(array, start, end);
-       
+
        this.terrorismSquared(array, start, end);
    }
-   
+
    @Override
    public void runSort(int[] array, int sortLength, int bucketCount) {
        for(int i=1; i<=sortLength; i++)

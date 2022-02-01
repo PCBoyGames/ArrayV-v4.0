@@ -8,7 +8,7 @@ import utils.IndexedRotations;
 public class ZeroMergeSort extends GrailSorting {
     public ZeroMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Zero");
         this.setRunAllSortsName("Zero Sort");
         this.setRunSortName("Zerosort");
@@ -23,11 +23,11 @@ public class ZeroMergeSort extends GrailSorting {
     private int buf, bufsz;
     private static final int minBinsert = 8;
     private BranchlessBinaryInsertionSort binserter;
-    
+
     protected void grailRotate(int[] array, int pos, int lena, int lenb) {
         IndexedRotations.neon(array, pos, pos+lena, pos+lena+lenb, 1, true, false);
     }
-    
+
     // fw function only, gonna make bw function soon
     private void zeromerge(int[] array, int start, int mid, int end) {
         int l = start, r = mid;
@@ -79,14 +79,14 @@ public class ZeroMergeSort extends GrailSorting {
         }
         buf = end-bufsz;
     }
-    
+
     private void binsertruns(int[] array, int start, int end) {
         int m=Math.max(2*minBinsert, bufsz);
         for(int i=start; i<end; i+=m) {
             binserter.binaryInsertSort(array, i, Math.min(i+m, end), 0.025, 0.05);
         }
     }
-    
+
     public void runZero(int[] array, int start, int end) {
         buf = start;
         bufsz = (int) Math.pow(end-start, 0.5d);
@@ -112,7 +112,7 @@ public class ZeroMergeSort extends GrailSorting {
         binserter.binaryInsertSort(array, buf, buf+bufsz, 0.25, 0.05);
         grailMergeWithoutBuffer(array, buf, bufsz, end-(buf+bufsz));
     }
-    
+
     @Override
     public void runSort(int[] array, int len, int buck) {
         runZero(array, 0, len);

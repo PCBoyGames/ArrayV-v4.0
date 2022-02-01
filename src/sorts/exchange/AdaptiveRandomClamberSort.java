@@ -26,7 +26,7 @@ final public class AdaptiveRandomClamberSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int randomSearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = randInt(a, b);
@@ -57,6 +57,6 @@ final public class AdaptiveRandomClamberSort extends BogoSorting {
                 }
             }
             right++;
-        } 
+        }
     }
 }

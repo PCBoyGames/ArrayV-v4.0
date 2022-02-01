@@ -16,13 +16,13 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class BuildAnInsertionSort extends Sort {
-    
+
     // Replace both filenames with the filename of the target algorithm.
     FlightSort sort = new FlightSort(arrayVisualizer);
-    
+
     // Optional for most sorts, but required for some.
     int NUMBER_Base = 2;
-    
+
     public BuildAnInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Build-An-Insertion");
@@ -36,7 +36,7 @@ final public class BuildAnInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int len) {
         try {sort.runSort(array, len, NUMBER_Base);}
         catch (Exception e) {e.printStackTrace();}

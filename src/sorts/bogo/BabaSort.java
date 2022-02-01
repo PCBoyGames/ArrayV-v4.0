@@ -7,7 +7,7 @@ import sorts.templates.BogoSorting;
 import utils.Statistics;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 Distray
@@ -63,24 +63,24 @@ class Baba extends XY { // Baba itself
         this.x += this.vector.x; // and move Baba.
         this.y += this.vector.y;
     }
-    
+
     public void turnLeft() { // Turns Baba left
         int y = this.vector.y;
         this.vector.y = this.vector.x;
         this.vector.x = -y;
     }
-    
+
     public void turnRight() { // Turns Baba right
         int x = this.vector.x;
         this.vector.x = this.vector.y;
         this.vector.y = -x;
     }
-    
+
     // Checks if Baba is out of bounds, given the bottom right corner of the grid
     public boolean isOOB(XY corner) {
         return this.x >= corner.x || this.y >= corner.y || this.x < 0 || this.y < 0;
     }
-    
+
     // Checks if Baba intersects its own path
     // (only for current state)
     public boolean intersectsOwnPath() {
@@ -91,11 +91,11 @@ class Baba extends XY { // Baba itself
         }
         return false;
     }
-    
+
     public int movesTaken() { // Tells how many moves Baba has made
         return this.history.size();
     }
-    
+
     // Checks if Baba has traversed every position in the grid
     // (given the bottom right corner of it)
     public boolean traversesAllIn(XY corner) {
@@ -111,20 +111,20 @@ class Baba extends XY { // Baba itself
         }
         return true;
     }
-    
+
     // Tells Baba's current position if the grid was flattened, given
     // the bottom right corner of the grid
     public int matrixIndex(XY boundCorner) {
         return this.x + (this.y * boundCorner.x);
     }
-    
+
     // Resets Baba's state
     public void reset() {
         this.x = this.y = 0;
         this.vector = new XY(1, 0);
         history.clear();
     }
-    
+
     // Tells one of Baba's previous positions if the grid was flattened,
     // given the bottom right corner of the grid
     public int matrixIndex(XY boundCorner, int inHistory) {
@@ -135,7 +135,7 @@ class Baba extends XY { // Baba itself
 final public class BabaSort extends BogoSorting {
     public BabaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Baba");
         this.setRunAllSortsName("Baba Is Sort");
         this.setRunSortName("Babasort");
@@ -155,13 +155,13 @@ final public class BabaSort extends BogoSorting {
     // Find a pattern that traverses all spots in a grid
     private void traverse(int[] array, int length) {
         int dimX = (int) Math.sqrt(length), dimY = length / dimX; // Took this from Matrixsort
-        
+
         // Define the bounds of Baba's movement,
         XY cornerDim = new XY(dimX, dimY);
-        
+
         // and initialize Baba.
         Baba baba = new Baba();
-        
+
         while(!baba.traversesAllIn(cornerDim)) {
             baba.reset(); // Reset Baba before we continue (redundant during the first iteration)
             for(int i=0; i<length; i++) {
@@ -182,18 +182,18 @@ final public class BabaSort extends BogoSorting {
                     break;
                 }
                 if(baba.movesTaken() > 0) { // We aren't able to do anything if Baba only has a current state
-                    
+
                     // get Baba's previous and current states
                     int babaPrev = baba.matrixIndex(cornerDim, baba.movesTaken() - 1),
                          babaNow = baba.matrixIndex(cornerDim);
-                    
+
                     // Ensure that we can't compswap in the wrong direction
-                    if(babaPrev > babaNow) { 
+                    if(babaPrev > babaNow) {
                         int temp = babaPrev;
                         babaPrev = babaNow;
                         babaNow = temp;
                     }
-                    
+
                     // Compare the matrix indices we got from Baba
                     this.compSwap(array, babaPrev, babaNow);
                 }

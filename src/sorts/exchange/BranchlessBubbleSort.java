@@ -8,7 +8,7 @@ final public class BranchlessBubbleSort extends Sort {
     private Timer Timer;
     public BranchlessBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.Timer = arrayVisualizer.getTimer();
         this.setSortListName("Branchless Bubble");
         this.setRunAllSortsName("Branchless Bubble Sort");
@@ -21,10 +21,10 @@ final public class BranchlessBubbleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private boolean compSwap(int[] a, int l, int r) {
         int c;
-        
+
         Reads.addComparison();
         Timer.startLap("Compare");
         c = (a[r]-a[l]) >> 31;
@@ -33,10 +33,10 @@ final public class BranchlessBubbleSort extends Sort {
         Writes.write(a, l, a[l] ^ (c & a[r]), 0.025, true, false);
         Writes.write(a, r, a[r] ^ (c & a[l]), 0.025, true, false);
         Writes.write(a, l, a[l] ^ (c & a[r]), 0.025, true, false);
-        
+
         return c < 0;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         boolean sorted = false;

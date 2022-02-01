@@ -26,7 +26,7 @@ final public class OptimizedBubbleBogoMergeSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int a, int b) {
         int start = a;
         int end = a + b - 1;

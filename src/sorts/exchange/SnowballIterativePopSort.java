@@ -26,7 +26,7 @@ final public class SnowballIterativePopSort extends Sort {
         this.setUnreasonableLimit(2048);
         this.setBogoSort(false);
     }
-    
+
     protected void snowballs(int[] array, int start, int end, int dir) {
         int gap = 0;
         int begin = start;

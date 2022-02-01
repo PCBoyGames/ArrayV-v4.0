@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 Copyright (c) 2019 PiotrGrochowski
 Permission is hereby granted, free of charge, to any person obtaining a copy

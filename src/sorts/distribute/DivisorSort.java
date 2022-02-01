@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -34,7 +34,7 @@ SOFTWARE.
 final public class DivisorSort extends Sort {
     public DivisorSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Divisor");
         //this.setRunAllID("Most Significant Digit Radix Sort");
         this.setRunAllSortsName("Divisor Sort");
@@ -58,7 +58,7 @@ final public class DivisorSort extends Sort {
     private void divisorLoop(int[] array, int start, int length, int base, int log) {
         int divisor = (int)Math.pow(base, log);
         ArrayList<ArrayList<Integer>> buckets = new ArrayList<>();
-        
+
         for (int i = start; i < start + length; i++) {
             Highlights.markArray(1, i);
             safePush(buckets, (array[i] - start) / divisor, array[i]);
@@ -80,7 +80,7 @@ final public class DivisorSort extends Sort {
             Writes.deleteArrayList(bucket);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int base) throws Exception {
         this.setRunAllSortsName("Divisor Sort, Base " + base);

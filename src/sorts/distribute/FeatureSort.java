@@ -53,7 +53,7 @@ final public class FeatureSort extends Sort {
         Delays.sleep(1);
         Highlights.clearAllMarks();
     }
-    
+
     public void arrayListWrite(ArrayList<Integer> arr, int at, int value, int pos) {
         arr.set(at, value);
         Writes.changeAuxWrites(1);
@@ -64,7 +64,7 @@ final public class FeatureSort extends Sort {
 
     public void arrayListReversal(ArrayList<Integer> array, int start, int length, int pos) {
         Writes.changeReversals(1);
-        
+
         for(int i = start; i < start + ((length - start + 1) / 2); i++) {
             this.arrayListSwap(array, i, start + length - i, pos);
         }
@@ -160,7 +160,7 @@ final public class FeatureSort extends Sort {
         boolean cmp = compare(array.get(index), array.get(index + 1));
         index++;
         Highlights.markArray(1, start+index);
-        
+
         while (index < maxIndex) {
             Delays.sleep(1);
             boolean checkCmp = compare(array.get(index), array.get(index + 1));
@@ -195,7 +195,7 @@ final public class FeatureSort extends Sort {
 
     private void pdMergeSort(ArrayList<Integer> array, int length, int start, int[] aux) {
         ArrayList<Integer> runs = findRuns(array, length - 1, start);
-        
+
         while (runs.size() > 1) {
             for (int i = 0; i < runs.size() - 1; i += 2) {
                 int end = i + 2 >= runs.size() ? length : (runs.get(i + 2));
@@ -213,7 +213,7 @@ final public class FeatureSort extends Sort {
         for (int i = a + 1; i < b; i++) {
             int key = arr.get(i);
             int j = i-1;
-            
+
             while (j >= a && Reads.compareValues(key, arr.get(j)) < 0) {
                 Highlights.markArray(0, start+j);
                 this.arrayListWrite(arr, j+1, arr.get(j), start);

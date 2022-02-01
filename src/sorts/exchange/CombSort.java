@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.CombSorting;
 
 /*
- * 
+ *
 The MIT License (MIT)
 
 Copyright (c) 2012 Daniel Imms, http://www.growingwiththeweb.com
@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 final public class CombSort extends CombSorting {
     public CombSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Comb");
         this.setRunAllSortsName("Comb Sort");
         this.setRunSortName("Combsort");

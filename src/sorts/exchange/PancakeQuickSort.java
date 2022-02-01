@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class PancakeQuickSort extends Sort {
     public PancakeQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Respectful Panquick");
         this.setRunAllSortsName("Panquick Sort (PancakePrinciple-compliant)");
         this.setRunSortName("Respectful Panquick Sort (LL)");
@@ -18,18 +18,18 @@ final public class PancakeQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     // Copied from OptiPancakeSort
     private void flip(int[] array, int idx, double sleep) {
         Writes.reversal(array, 0, idx, sleep, true, false);
     }
-    
+
     private void rotate(int[] array, int cycle1, int cycle2, double sleep) {
         this.flip(array, cycle1-1, sleep/3d);
         this.flip(array, cycle2-1, sleep/3d);
         this.flip(array, cycle2-cycle1-1, sleep/3d);
     }
-    
+
     private int medOf3(int[] array, int p1, int p2, int p3) {
         if(p1 == p2) {
             return p1;
@@ -50,7 +50,7 @@ final public class PancakeQuickSort extends Sort {
             return p1;
         return p3;
     }
-    
+
     private void pancakeLLQS(int[] array, int length, double sleep) {
         if(length == 2) {
             if(Reads.compareValues(array[0], array[length-1]) > 0) {
@@ -76,9 +76,9 @@ final public class PancakeQuickSort extends Sort {
         this.rotate(array, j, length, sleep);
         this.pancakeLLQS(array, length - j, sleep);
         this.rotate(array, length - j, length, sleep);
-        
+
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.pancakeLLQS(array, length, 0.5);

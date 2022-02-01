@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import sorts.insert.InsertionSort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -33,7 +33,7 @@ SOFTWARE.
 final public class ImprovedWeaveMergeSort extends Sort {
     public ImprovedWeaveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Improved Weave Merge");
         this.setRunAllSortsName("Improved Weave Merge Sort");
         this.setRunSortName("Improved Weave Mergesort");
@@ -45,19 +45,19 @@ final public class ImprovedWeaveMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private InsertionSort sort;
-    
+
     public static int getMaxBit(int n) {
         int i;
         for(i = 0; (1 << i) <= n; i++);
         return i - 1;
     }
-    
+
     //will fail for b-a < 2
     private void weaveMerge(int[] array, int a, int b) {
         int n = b-a, m = (n+1)/2;
-        
+
         for(int j = 1<<(getMaxBit(n-1)-1); j >= 1; j >>= 1) {
             int s = m > j ? 1 : 0;
             for(int i = a+m+(1-s)*(j<<1); i+j <= b; i += j<<2)
@@ -65,7 +65,7 @@ final public class ImprovedWeaveMergeSort extends Sort {
                     Writes.swap(array, i-j+k, i+k, 1, true, false);
             m -= s*j;
         }
-        
+
         Highlights.clearMark(2);
         this.sort.customInsertSort(array, a, b, 0.2, false);
     }

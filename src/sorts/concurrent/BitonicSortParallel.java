@@ -84,7 +84,7 @@ public final class BitonicSortParallel extends Sort {
             this.bitonicMerge(start, mid, stop, gap, ascending ? 1 : -1);
         }
     }
-    
+
     @Override
     public void runSort(int[] arr, int length, int buckets) {
         this.arr = arr;

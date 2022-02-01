@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class OptimizedPigeonholeSort extends Sort {
     public OptimizedPigeonholeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Pigeonhole");
         this.setRunAllSortsName("Optimized Pigeonhole Sort");
         this.setRunSortName("Optimized Pigeonhole Sort");
@@ -44,12 +44,12 @@ final public class OptimizedPigeonholeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-        
+
         for(int i = 0; i < sortLength; i++) {
             if(array[i] < min) {
                 min = array[i];
@@ -58,22 +58,22 @@ final public class OptimizedPigeonholeSort extends Sort {
                 max = array[i];
             }
         }
-        
+
         int mi = min;
         int size = max - mi + 1;
         int[] holes = Writes.createExternalArray(size);
-        
+
         for(int x = 0; x < sortLength; x++) {
             Writes.write(holes, array[x] - mi, holes[array[x] - mi] + 1, 1, false, true);
             Highlights.markArray(1, x);
         }
-        
+
         int j = 0;
-        
+
         for(int count = 0; count < size; count++) {
             for (int i = 0; i < holes[count]; i++) {
                 Writes.write(array, j, count + mi, 1, false, false);
-                
+
                 Highlights.markArray(1, j);
                 j++;
             }

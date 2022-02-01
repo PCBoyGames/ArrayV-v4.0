@@ -22,7 +22,7 @@ public final class PatternDefeatingGnomeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void gnomeSort(int[] array, int a, int b, double sleep, boolean auxwrite) {
         int i = a + 1;
         if(Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
@@ -34,7 +34,7 @@ public final class PatternDefeatingGnomeSort extends Sort {
         Highlights.clearMark(2);
 
         while(i < b) {
-            
+
             int pos = i;
             while(pos > a && Reads.compareValues(array[pos - 1], array[pos]) > 0){
                 Writes.swap(array, pos - 1, pos, sleep, true, auxwrite);

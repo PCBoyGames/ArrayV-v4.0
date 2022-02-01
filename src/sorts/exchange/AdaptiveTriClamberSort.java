@@ -26,7 +26,7 @@ final public class AdaptiveTriClamberSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int triSearch(int[] arr, int l, int h, int val, int depth) {
         Writes.recordDepth(depth);
         int mid = l + ((h-l) / 2);
@@ -66,6 +66,6 @@ final public class AdaptiveTriClamberSort extends Sort {
                 }
             }
             right++;
-        } 
+        }
     }
 }

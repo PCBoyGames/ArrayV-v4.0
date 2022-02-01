@@ -31,17 +31,17 @@ public final class DandelionSort extends Sort {
             this.Highlights.markArray(1, b);
             int pointer = b;
             boolean anyswap = false;
-            
+
             while (pointer < sortLength - 1 && this.Reads.compareIndices(array, pointer + 1, pointer, 0.25D, true) < 0) {
               this.Writes.swap(array, pointer, pointer + 1, 0.5D, true, false);
               anyswap = true;
               pointer++;
-            } 
-            
+            }
+
             if (anyswap) {
               if (b > 0) b--;  continue;
             }  b++;
-          } 
+          }
 
 
     }

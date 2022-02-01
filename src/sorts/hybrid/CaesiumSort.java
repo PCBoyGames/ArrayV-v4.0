@@ -20,18 +20,18 @@ final public class CaesiumSort extends GrailSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int logCub(int j) {
         double log = Math.log10(j);
         return (int) (log*log*log);
     }
-    
+
     private void multiSwap(int[] array, int a, int b, int s) {
         while(s-- > 0) {
             Writes.swap(array, a+s, b+s, 0.05, true, false);
         }
     }
-    
+
     private boolean merge(int[] array, int q, int s, int m, int e) {
         if(s >= m || m >= e)
             return false;
@@ -65,7 +65,7 @@ final public class CaesiumSort extends GrailSorting {
             return l==m-1;
         }
     }
-    
+
     private boolean halfstooge(int[] array, int start, int end) {
         if(end-start == 1) {
             boolean change = Reads.compareIndices(array, start, end, 0.01, true) == 1;
@@ -80,7 +80,7 @@ final public class CaesiumSort extends GrailSorting {
         }
         return false;
     }
-    
+
     private boolean stoogeblock(int[] array, int bs, int be, int buff, ArrayList<Integer> boundaries) {
         if(be-bs == 2) {
             return !merge(array, buff, boundaries.get(bs), boundaries.get(bs+1), boundaries.get(be));
@@ -92,7 +92,7 @@ final public class CaesiumSort extends GrailSorting {
         }
         return false;
     }
-    
+
     private void runCaesium(int[] array, int start, int end) {
         int size = logCub(end-start);
         ArrayList<Integer> sizes = new ArrayList<>();
@@ -106,14 +106,14 @@ final public class CaesiumSort extends GrailSorting {
             i += keys;
         }
         Writes.arrayListAdd(sizes, end);
-        
+
         this.stoogeblock(array, 1, sizes.size()-1, start, sizes);
         Writes.arrayListClear(sizes);
-        
+
         this.halfstooge(array, start, sizes.get(1)-1);
         this.grailMergeWithoutBuffer(array, start, sizes.get(1)-start, end-sizes.get(1));
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.runCaesium(array, 0, length);

@@ -28,7 +28,7 @@ public final class ExchangeBozoMergeSort extends BogoSorting {
                 Writes.swap(array, index1, index2, this.delay, true, false);
         }
     }
-    
+
     protected void sort(int[] array, int a, int b) {
         if(b - a < 2)
             return;
@@ -37,7 +37,7 @@ public final class ExchangeBozoMergeSort extends BogoSorting {
         sort(array, m, b);
         exchangeBozoSort(array, a, b);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         sort(array, 0, sortLength);

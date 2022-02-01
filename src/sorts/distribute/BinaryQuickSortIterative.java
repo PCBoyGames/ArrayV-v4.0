@@ -23,7 +23,7 @@ import sorts.templates.BinaryQuickSorting;
 final public class BinaryQuickSortIterative extends BinaryQuickSorting {
     public BinaryQuickSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Binary Quick (Iterative with a Queue)");
         this.setRunAllSortsName("Iterative Binary Quick Sort");
         this.setRunSortName("Iterative Binary Quicksort");
@@ -35,7 +35,7 @@ final public class BinaryQuickSortIterative extends BinaryQuickSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         int mostSignificantBit = Reads.analyzeBit(array, sortLength);

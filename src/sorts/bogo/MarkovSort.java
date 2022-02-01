@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 /**
  * Markov Sort is like Gnome Sort, but the next element to be inserted
  * randomly walks within the sorted section until it is in the correct position.
- * 
+ *
  * @author invented by Blasterfreund
  * @author implemented in Java by Sam Walko (Anonymous0726)
  * @author refactored by EmeraldBlock

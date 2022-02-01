@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -34,7 +34,7 @@ SOFTWARE.
 final public class SwapMapSort extends Sort {
     public SwapMapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Swap Map");
         this.setRunAllSortsName("Swap Map Sort");
         this.setRunSortName("Swap Map Sort");

@@ -19,9 +19,9 @@ public final class MonolithicClurgeSort extends Sort {
     private void monolithicClurge(int[] array, int start, int mid, int end, int rec, int box) {
         if(mid <= start || end <= mid)
             return;
-        
+
         Writes.recordDepth(rec++);
-        
+
         if(box == 0) {
             Writes.recursion(3);
             this.monolithicClurge(array, start, start + (mid - start) / 2, mid, rec, 0);

@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class StableMeanPartitionSort extends Sort {
-    
+
     boolean inlow;
     boolean inhigh;
-    
+
     public StableMeanPartitionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Stable MPartition");
@@ -30,7 +30,7 @@ public final class StableMeanPartitionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int partition(int[] array, int start, int end) {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -65,7 +65,7 @@ public final class StableMeanPartitionSort extends Sort {
         }
         return itemslow;
     }
-    
+
     public void presumepartitions(int[] array, int start, int end, int depth) {
         if (end - start >= 2) {
             Writes.recordDepth(depth);

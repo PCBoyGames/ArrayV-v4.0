@@ -6,7 +6,7 @@ import sorts.merge.ReverseLazyStableSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -37,7 +37,7 @@ final public class BlockSelectionMergeSort extends Sort {
 
     public BlockSelectionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Block Selection Merge");
         this.setRunAllSortsName("Block Selection Merge Sort");
         this.setRunSortName("Block Selection Mergesort");
@@ -98,12 +98,12 @@ final public class BlockSelectionMergeSort extends Sort {
 
         merge(array, start, end);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         binaryInserter = new BinaryInsertionSort(arrayVisualizer);
         extraMerger = new ReverseLazyStableSort(arrayVisualizer);
-        
+
         Writes.startLap();
         int minSize = (int)(Math.log(length) / Math.log(2)) / 3 + 2;
         minSize = (int)Math.pow(2, minSize);
@@ -116,11 +116,11 @@ final public class BlockSelectionMergeSort extends Sort {
         Writes.startLap();
         int useLength = (int)Math.pow(2, Math.floor(Math.log(length) / Math.log(2)));
         Writes.stopLap();
-        
+
         int start = length - useLength;
         int end = length;
         int mid = start + ((end - start) / 2);
-        
+
         mergeRun(array, start, mid, end, minSize);
         if (length > useLength) {
             runSort(array, length - useLength, bucketCount);

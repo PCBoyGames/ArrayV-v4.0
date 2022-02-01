@@ -13,9 +13,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class SelfNetworkSort extends Sort {
-    
+
     boolean changes = false;
-    
+
     public SelfNetworkSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Self-Network");
@@ -47,7 +47,7 @@ public final class SelfNetworkSort extends Sort {
             changes = true;
         }
     }
-    
+
     protected int bubblepass(int[] array, int currentLength) {
         int c = 1;
         for (int i = 1; i < currentLength; i++) {

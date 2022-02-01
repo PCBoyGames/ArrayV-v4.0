@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class NHyperStoogeSort extends Sort {
     public NHyperStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("N-Hyper Stooge");
         this.setRunAllSortsName("N-Hyper Stooge Sort");
         this.setRunSortName("N-Hyper Stoogesort");

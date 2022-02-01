@@ -26,7 +26,7 @@ final public class AdaptiveSquareClamberSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int squareSearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = (int)Math.sqrt(b * a);
@@ -57,6 +57,6 @@ final public class AdaptiveSquareClamberSort extends Sort {
                 }
             }
             right++;
-        } 
+        }
     }
 }

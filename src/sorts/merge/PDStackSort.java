@@ -37,9 +37,9 @@ public final class PDStackSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     final int WLEN = 3;
-    
+
     protected boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;
         return b == 1;
@@ -57,7 +57,7 @@ public final class PDStackSort extends Sort {
         else
             dir = true;
         if(dir)
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) 
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
                 i++;
         else {
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
@@ -82,7 +82,7 @@ public final class PDStackSort extends Sort {
         }
         return noSort;
     }
-    
+
     protected ArrayList<Stack<Integer>> buildStacks(int[] array, int[] bits, int a, int b) {
         ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
         int zeroed = 0;
@@ -105,7 +105,7 @@ public final class PDStackSort extends Sort {
         }
         return stacksBuilt;
     }
-    
+
     protected int mergeWithStack(int[] array, int start, int end, Stack<Integer> stack) {
         int l = end-1, sz = stack.size(), t = end + sz - 1;
         while(l >= start && !stack.empty()) {
@@ -122,7 +122,7 @@ public final class PDStackSort extends Sort {
         }
         return end + sz;
     }
-    
+
     protected void mergeStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         Stack<Integer> first = stacks.remove(0);
         int ptr = start, n = start + first.size() - 1;
@@ -135,7 +135,7 @@ public final class PDStackSort extends Sort {
             ptr = mergeWithStack(array, start, ptr, stacks.remove(0));
         }
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         if(patternDefeat(array, a, b))
             return;

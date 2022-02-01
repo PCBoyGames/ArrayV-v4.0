@@ -89,7 +89,7 @@ final public class Writes {
             else               return this.formatter.format(this.reversals) + " Reversals";
         }
     }
-    
+
     public String getRecursions() {
         if(this.recursions < 0) {
             this.recursions = Long.MIN_VALUE;
@@ -100,7 +100,7 @@ final public class Writes {
             else               return this.formatter.format(this.recursions) + " Recursions";
         }
     }
-    
+
     public String getRecursionDepth() {
         if(this.depth < 0) {
             this.depth = Long.MIN_VALUE;
@@ -111,7 +111,7 @@ final public class Writes {
             else               return this.formatter.format(this.depth) + " Layers deep (at most)";
         }
     }
-    
+
     public String getSwaps() {
         if(this.swaps < 0) {
             this.swaps = Long.MIN_VALUE;
@@ -195,11 +195,11 @@ final public class Writes {
         if (!auxwrite && b >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
         }
-        
+
         if (a == b) System.err.println("Self-swap at " + a + ".");
-        
+
         else {
-        
+
             if(mark) this.markSwap(a, b);
 
             Timer.startLap("Swap");
@@ -213,7 +213,7 @@ final public class Writes {
             this.updateSwap(auxwrite);
             ArrayVisualizer.updateNow();
             Delays.sleep(pause);
-            
+
         }
     }
 
@@ -246,15 +246,15 @@ final public class Writes {
             }
         }
     }
-    
+
     public void recursion() {
         this.recursions++;
     }
-    
+
     public void recursion(int k) {
         this.recursions += k;
     }
-    
+
     public void recordDepth(int k) {
         if(this.depth < k) this.depth = k;
     }

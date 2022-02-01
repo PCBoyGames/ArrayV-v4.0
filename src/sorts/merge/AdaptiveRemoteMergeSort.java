@@ -7,7 +7,7 @@ import sorts.templates.GrailSorting;
 final public class AdaptiveRemoteMergeSort extends GrailSorting {
     public AdaptiveRemoteMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Adaptive Remote Merge");
         this.setRunAllSortsName("Adaptive Remote Merge Sort");
         this.setRunSortName("Adaptive Remote Merge Sort");
@@ -21,24 +21,24 @@ final public class AdaptiveRemoteMergeSort extends GrailSorting {
     }
     private void firstPhase(int[] array, int start, int end) {
         int pos = end - 1, keyTemp = array[end];
-        
+
         while (pos >= start && Reads.compareValues(array[pos], keyTemp) == 1) {
             Writes.write(array, pos + 1, array[pos], 1, true, false);
             pos--;
-        } 
+        }
         Writes.write(array, pos + 1, keyTemp, 1, true, false);
     }
-    
+
     private void lastPhase(int[] array, int start, int end) {
         int pos = start + 1, keyTemp = array[pos-1];
-        
+
         while (pos < end && Reads.compareValues(array[pos], keyTemp) == -1) {
             Writes.write(array, pos - 1, array[pos], 1, true, false);
             pos++;
-        } 
+        }
         Writes.write(array, pos - 1, keyTemp, 1, true, false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int t = length - (length / 3);
@@ -70,7 +70,7 @@ final public class AdaptiveRemoteMergeSort extends GrailSorting {
         }
         // halving the iteration length and merging the rest works in most cases, but it still fails
         // with a handful
-        
+
         // *update 2* 2/3 iter len works well, though
         this.grailMergeWithoutBuffer(array, 0, t, length/3);
     }

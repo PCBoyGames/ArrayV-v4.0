@@ -74,7 +74,7 @@ final public class TumbleweedSort extends Sort {
                         while (pull + 1 <= currentLength) {
                             Writes.swap(array, pull - 1, pull, 0.005, true, false);
                             pull++;
-                        } 
+                        }
                     }
                 } else {
                     while (pull + 1 != lowesthigh) {

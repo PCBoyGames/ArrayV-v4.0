@@ -10,7 +10,7 @@ import utils.IndexedRotations;
 final public class InPlaceOptimizedSafeStalinSort extends Sort {
     public InPlaceOptimizedSafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("In-Place Optimized Safe Stalin");
         this.setRunAllSortsName("In-Place Optimized Safe Stalin Sort");
         this.setRunSortName("In-Place Optimized Safe Stalinsort");
@@ -22,7 +22,7 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
         this.setUnreasonableLimit(2048);
         this.setBogoSort(false);
     }
-    
+
     private int buildStalinRuns(int[] array, int start, int end) {
         int runs = 0;
         for(int i=start; i<end; i++) {
@@ -35,7 +35,7 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
         }
         return runs;
     }
-    
+
     private int getRun(int[] array, int start, int end) {
         int left = start;
         while(left < end && Reads.compareIndices(array, left, left+1, 0.1, true) <= 0) {
@@ -43,8 +43,8 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
         }
         return left;
     }
-    
-    
+
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int runs;

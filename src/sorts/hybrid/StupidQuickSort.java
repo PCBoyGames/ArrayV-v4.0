@@ -5,7 +5,7 @@ import sorts.insert.InsertionSort;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 Copyright (c) 2020 fungamer2 & EilrahcF
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,10 +27,10 @@ SOFTWARE.
  */
 
 final public class StupidQuickSort extends Sort {
-    
+
     public StupidQuickSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Stupid Quick");
         this.setRunAllSortsName("Stupid Quick Sort");
         this.setRunSortName("Stupid Quicksort");
@@ -42,17 +42,17 @@ final public class StupidQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int times = (int)Math.sqrt(length);
         for (int count = 0; count < times; count++) {
             int i = 0;
             int j = length - 1;
-            
+
             int pivotPos = (int)(Math.random() * length);
             int pivot = array[pivotPos];
-            
+
             while (i < j) {
                 while (Reads.compareValues(array[i], pivot) == -1){
                     i++;
@@ -73,15 +73,15 @@ final public class StupidQuickSort extends Sort {
                     if(j == pivotPos) {
                         Highlights.markArray(3, i);
                     }
-                
+
                     Writes.swap(array, i, j, 1, true, false);
-                
+
                     i++;
                     j--;
                 }
             }
         }
-        
+
         Highlights.clearMark(2);
         Highlights.clearMark(3);
         InsertionSort insertSorter = new InsertionSort(arrayVisualizer);

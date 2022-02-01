@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class InverseInsertionSort extends Sort {
     public InverseInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Inverse Insertion");
         this.setRunAllSortsName("Inverse Insertion Sort");
         this.setRunSortName("Inverse Insertsort");
@@ -19,7 +19,7 @@ final public class InverseInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void customInverseInsert(int[] array, int start, int end, double sleep, boolean aux) {
         for(int i=start+1; i<end; i++) {
             int j = end-1, t = array[j];
@@ -31,7 +31,7 @@ final public class InverseInsertionSort extends Sort {
             Writes.write(array, j+1, t, sleep, true, aux);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.customInverseInsert(array, 0, currentLength, 0.015, false);

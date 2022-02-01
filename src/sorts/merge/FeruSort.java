@@ -7,7 +7,7 @@ import sorts.templates.GrailSorting;
 public class FeruSort extends GrailSorting {
     public FeruSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Feru");
         this.setRunAllSortsName("Feru Sort");
         this.setRunSortName("Ferusort");
@@ -20,9 +20,9 @@ public class FeruSort extends GrailSorting {
         this.setBogoSort(false);
     }
     private static final int fraction = 16;
-    
+
     private OptimizedMergeSort initial;
-    
+
     private boolean ceilLogEven(int v) {
         int l = 0;
         while(v > 0) {

@@ -40,7 +40,7 @@ public class BottomDownMergeSort extends Sort {
         public int compare(ArrayCopy other) {
             return branchlessComp(Math.abs(this.balance), Math.abs(other.balance));
         }
-        
+
         @Override
         public int compareTo(ArrayCopy other) {
             return this.compare(other);

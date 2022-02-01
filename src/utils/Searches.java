@@ -36,7 +36,7 @@ public class Searches {
         Reads = A.getReads();
         Delays = A.getDelays();
     }
-    
+
     public static void push(int[] array, int search, int end, int key, boolean aux) {
         int i=end-1;
         for(; i>=search&&i>=0; i--) {
@@ -44,7 +44,7 @@ public class Searches {
         }
         Writes.write(array, i+1, key, 1, true, aux);
     }
-    
+
     public static void shift(int[] array, int from, int to, double sleep) {
         if(from == to)
             return;
@@ -56,7 +56,7 @@ public class Searches {
         }
         Writes.write(array, to, k, sleep, true, false);
     }
-    
+
     public static void revpush(int[] array, int start, int search, int length, int key) {
         int i=start+1;
         for(; i<search&&i<length; i++) {
@@ -64,7 +64,7 @@ public class Searches {
         }
         Writes.write(array, i-1, key, 1, true, false);
     }
-    
+
     /**
      * Average linear search.
      * Finishes in O(n) max.
@@ -206,7 +206,7 @@ public class Searches {
     /**
      * An binsearch-esque bidirectional variant of exponential search that
      * outputs an actual search location, instead of a range to search in.
-     * 
+     *
      * Finishes in O({@code log}<sup>{@code 2}</sup> {@code n}).
      * @param The array to search in.
      * @param The start of the range
@@ -239,7 +239,7 @@ public class Searches {
         int mid = start + ((end - start) / 2);
         return exponentialIterative(array, start, end, key, Reads.compareValues(key, array[mid]) >= 0, sleep);
     }
-    
+
     /**
      * The fibonacci search in Fibonacci Insertion Sort.
      * Unsure about finish time.
@@ -258,16 +258,16 @@ public class Searches {
             fibM1 = fibM;
             fibM = fibM2 + fibM1;
         }
-        
+
         int offset = start - 1;
-        
+
         while (fibM > 1) {
-            
+
             int i = Math.min(offset + fibM2, end);
-            
+
             Highlights.markArray(1, offset + 1);
             Highlights.markArray(2, i);
-            
+
             if (Reads.compareValues(array[i], item) <= 0) {
                 fibM = fibM1;
                 fibM1 = fibM2;
@@ -286,7 +286,7 @@ public class Searches {
         }
         return position;
     }
-    
+
     /**
      * The binary search method, but idealized for Insertion Sort.
      * Finishes in O({@code log n}).
@@ -317,7 +317,7 @@ public class Searches {
         Highlights.clearAllMarks();
         return start;
     }
-    
+
     /**
      * Distay's take on ternary searching.
      * Best case of O({@code log}<sub>{@code 3}</sub> {@code n}), average of O({@code log}<sup>{@code 2}</sup> {@code n}).
@@ -350,7 +350,7 @@ public class Searches {
         return Reads.compareValues(array[start], key) == 1 ? start : end;
     }
 
-    
+
     /**
      * Random linear-esque search.
      * Finishes in O({@code kn}) average, can finish in O(infinity).
@@ -403,10 +403,10 @@ public class Searches {
         Highlights.clearMark(3);
         return Reads.compareValues(array[start], key) == 1 ? start : end;
     }
-    
+
     /**
      * FurtherOptimized Squaresearches.
-     * 
+     *
      * @param array
      * @param start
      * @param end
@@ -437,7 +437,7 @@ public class Searches {
         }
         return start;
     }
-    
+
     /**
      * A proposal for an O({@code log n}) average comparisons searching algorithm.
      * (O({@code log}<sup>{@code 2}</sup> {@code n}) worst, O({@code 0}) best)
@@ -477,7 +477,7 @@ public class Searches {
             return exponentialIterative(array, approxIndex, end, key, false, sleep);
         }
     }
-    
+
     public static int search(int[] array, int start, int end, int key, Search search, double sleep) {
         switch(search) {
             case LINEAR:

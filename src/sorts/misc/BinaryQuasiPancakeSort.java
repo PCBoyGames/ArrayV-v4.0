@@ -18,7 +18,7 @@ public final class BinaryQuasiPancakeSort extends Sort
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public int binarySearch(final int[] array, int start, int end, final int value) {
         while (start < end) {
             final int mid = start + end >>> 1;
@@ -38,7 +38,7 @@ public final class BinaryQuasiPancakeSort extends Sort
         this.Highlights.markArray(3, start);
         return start;
     }
-    
+
     public void runSort(final int[] array, final int length, final int bucketCount) {
         for (int i = 1; i < length; ++i) {
             final int j = this.binarySearch(array, 0, i, array[i]);

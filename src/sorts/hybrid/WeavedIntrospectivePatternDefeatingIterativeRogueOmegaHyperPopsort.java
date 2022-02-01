@@ -17,7 +17,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
         this.setUnreasonableLimit(8);
         this.setBogoSort(false);
     }
-    
+
     public void omegaPush(int[] array, int start, int end) {
         for(int i=0; i<end-start-1; i++) {
             Writes.multiSwap(array, end-1, start, 0.01, true, false);
@@ -36,7 +36,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
         this.omegaSwap(array, start+1, end-1);
         this.omegaSwap(array, start+1, end-1);
     }
-    
+
     // dead insertion
     private void gappedInsertion(int[] array, int start, int end, double sleep, int gap, int direction) {
         for(int i=start+gap; i<end; i+=gap) {
@@ -54,14 +54,14 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
             gappedInsertion(array, start, i-gap, sleep, gap, direction);
         }
     }
-    
+
     private void gapreversal(int[] array, int start, int end, int gap) {
         int l = Math.floorDiv(end-start-1, gap) * gap;
         for(int i=0; i<l/2; i+=gap) {
             this.omegaSwap(array, start+i, end-i-gap);
         }
     }
-    
+
     // we ain't making it stable
     private boolean defeatPatterns(int[] array, int start, int end, int gap, int direction) {
         int comp = Reads.compareValues(array[start], array[start+gap]) * direction,
@@ -76,7 +76,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
         }
         return start >= end-gap;
     }
-    
+
     private void introBubbleDown(int[] array, int start, int end, int gap, int direction) {
         if(defeatPatterns(array, start, end, gap, direction))
             return;
@@ -107,7 +107,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
             }
         }
     }
-    
+
     // normal Introspective Pattern-defeating Iterative Pop (+ order)
     public void pdiPop(int[] array, int start, int end, int dir, int ord, int depth) {
         Writes.recordDepth(depth++);
@@ -128,7 +128,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
             }
         }
     }
-    
+
     public void wipdiroPop(int[] array, int start, int end, int dir, int gapq, int ord, int depth) {
         if(end-start <= gapq)
             return;
@@ -151,11 +151,11 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
             }
         }
     }
-    
+
     public void weavedIntroPatternDefeatIterRogueOmegaHyperPop(int[] array, int start, int end, int dir) {
         this.wipdiroPop(array, start, end, dir, 1, end-start, 0);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.weavedIntroPatternDefeatIterRogueOmegaHyperPop(array, 0, currentLength, 1);

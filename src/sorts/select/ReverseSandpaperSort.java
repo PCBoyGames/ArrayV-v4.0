@@ -30,7 +30,7 @@ SOFTWARE.
 final public class ReverseSandpaperSort extends Sort {
     public ReverseSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Reverse Sandpaper");
         this.setRunAllSortsName("Reverse Sandpaper Sort");
         this.setRunSortName("Reverse Sandpapersort");
@@ -42,7 +42,7 @@ final public class ReverseSandpaperSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int i = 0; i < currentLength - 1; i++) {

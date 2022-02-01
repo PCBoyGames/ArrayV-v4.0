@@ -6,7 +6,7 @@ import sorts.templates.HeapSorting;
 final public class GeapSort extends HeapSorting {
     public GeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Geap");
         this.setRunAllSortsName("Geap Sort");
         this.setRunSortName("Geapsort");

@@ -14,17 +14,17 @@ IN COLLABORATION WITH CONTROL AND MG-2018
 
 */
 public final class PCBoysParShellSort extends Sort {
-    
+
     // Mess with these and see what you can come up with.
-    // Both of these are used in line 116.
+    // Both of these are used in line 117.
     double mult = 1.5;
-    
+
     protected double threshold(int x) {
         return Math.sqrt(x);
     }
-    
+
     // The algorithm itself.
-    
+
     public PCBoysParShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("PCBoy's Par Shell");
@@ -39,13 +39,13 @@ public final class PCBoysParShellSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the initial division constant for this sort:", 2);
     }
-    
+
     int lastgap;
-    
+
     protected int stablereturn(int a) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
-     
+
     protected int par(int[] array, int len) {
         boolean[] max = new boolean[len];
         int maximum = stablereturn(array[0]);
@@ -67,7 +67,7 @@ public final class PCBoysParShellSort extends Sort {
         }
         return p;
     }
-    
+
     protected void shellPass(int[] array, int currentLength, int gap, int par) {
         if (gap >= lastgap) return;
         if (gap == lastgap - 1 && gap != 1) return;
@@ -93,7 +93,7 @@ public final class PCBoysParShellSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1) return 1;

@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author fungamer2
  *
  */
- 
+
 public final class CiuraCocktailShellSort extends Sort {
 
     /**
@@ -26,9 +26,9 @@ public final class CiuraCocktailShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     int[] gaps = {1, 4, 10, 23, 57, 132, 301, 701};
-    
+
     private int ciura(int n) {
         if (n <= gaps.length) {
             return gaps[n - 1];
@@ -43,7 +43,7 @@ public final class CiuraCocktailShellSort extends Sort {
         for (k = 1; gap < sortLength; k++) {
             gap = ciura(k);
         }
-        
+
         boolean dir = true;
         while (--k >= 1) {
             gap = ciura(k);

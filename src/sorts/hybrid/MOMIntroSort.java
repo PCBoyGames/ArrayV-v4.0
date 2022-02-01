@@ -24,19 +24,19 @@ public final class MOMIntroSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private PoplarHeapSort heapSorter;
     private InsertionSort insSort;
     private int middle;
     private int sizeThreshold = 16;
-    
+
     private static int floorLogBaseTwo(int a) {
         return (int) (Math.floor(Math.log(a) / Math.log(2)));
     }
-    
+
     private int medianof3(int[] arr, int left, int mid, int right) {
         if(Reads.compareValues(arr[right], arr[left]) == -1) {
-            Writes.swap(arr, left, right, 1, true, false); 
+            Writes.swap(arr, left, right, 1, true, false);
         }
         if(Reads.compareValues(arr[mid], arr[left]) == -1) {
             Writes.swap(arr, mid, left, 1, true, false);
@@ -48,12 +48,12 @@ public final class MOMIntroSort extends Sort {
         Highlights.markArray(3, mid);
         return arr[mid];
     }
-    
+
     // lite version
     private int medianOfMedians(int[] array, int a, int b, int s) {
         int end = b, start = a, i, j;
         boolean ad = true;
-        
+
         while (end - start > 1) {
             j = start;
             Highlights.markArray(2, j);
@@ -75,7 +75,7 @@ public final class MOMIntroSort extends Sort {
         Highlights.markArray(3, a);
         return array[a];
     }
-    
+
     private int partition(int[] a, int lo, int hi, int x) {
         int i = lo, j = hi;
         while (true) {
@@ -106,7 +106,7 @@ public final class MOMIntroSort extends Sort {
             i++;
         }
     }
-    
+
     private void introsortLoop(int[] a, int lo, int hi, int depthLimit) {
         while(hi - lo > this.sizeThreshold) {
             if(depthLimit == 0) {
@@ -127,7 +127,7 @@ public final class MOMIntroSort extends Sort {
             lo = p;
         }
     }
-    
+
     public void customSort(int[] array, int a, int b) {
         heapSorter = new PoplarHeapSort(arrayVisualizer);
         insSort = new InsertionSort(arrayVisualizer);

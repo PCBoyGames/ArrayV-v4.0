@@ -46,14 +46,14 @@ final public class ShellHighSort extends Sort {
             if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         double primetestrunning = 1.0;
         int primetesti = 2;
         int gap = currentLength;
         boolean primetest = false;
-        while (gap != 1) { 
+        while (gap != 1) {
             primetestrunning = gap;
             while (primetestrunning != 1) {
                 primetest = false;

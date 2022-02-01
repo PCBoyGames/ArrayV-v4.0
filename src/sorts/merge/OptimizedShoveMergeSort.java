@@ -9,7 +9,7 @@ import sorts.templates.Sort;
 final public class OptimizedShoveMergeSort extends Sort {
     public OptimizedShoveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Shove Merge");
         this.setRunAllSortsName("Optimized Shove Merge Sort");
         this.setRunSortName("Optimized Shove Mergesort");

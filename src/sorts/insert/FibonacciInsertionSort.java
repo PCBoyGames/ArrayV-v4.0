@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 Copyright (c) 2020 fungamer2
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,10 +26,10 @@ SOFTWARE.
  */
 
 final public class FibonacciInsertionSort extends Sort {
-    
+
     public FibonacciInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Fibonacci Insertion");
         this.setRunAllSortsName("Fibonacci Insertion Sort");
         this.setRunSortName("Fibonacci Insertion Sort");
@@ -41,7 +41,7 @@ final public class FibonacciInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void fibonacciInsertionSort(int[] array, int length) {
         for (int i = 1; i < length; i++) {
             int tmp = array[i];
@@ -53,7 +53,7 @@ final public class FibonacciInsertionSort extends Sort {
             Writes.write(array, j + 1, tmp, 0.15, true, false);
         }
     }
-    
+
     public int fibonacciSearch(int[] array, int start, int end, int item) {
         int fibM2 = 0;
         int fibM1 = 1;
@@ -63,16 +63,16 @@ final public class FibonacciInsertionSort extends Sort {
             fibM1 = fibM;
             fibM = fibM2 + fibM1;
         }
-        
+
         int offset = start - 1;
-        
+
         while (fibM > 1) {
-            
+
             int i = Math.min(offset + fibM2, end);
-            
+
             Highlights.markArray(1, offset + 1);
             Highlights.markArray(2, i);
-            
+
             if (Reads.compareValues(array[i], item) <= 0) {
                 fibM = fibM1;
                 fibM1 = fibM2;
@@ -91,7 +91,7 @@ final public class FibonacciInsertionSort extends Sort {
         }
         return position;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.fibonacciInsertionSort(array, length);

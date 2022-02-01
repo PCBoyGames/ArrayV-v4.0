@@ -11,7 +11,7 @@ import utils.Statistics;
 final public class TableTennisStackSort extends Sort {
     public TableTennisStackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Table Tennis Stack");
         this.setRunAllSortsName("Table Tennis Stack Sort");
         this.setRunSortName("Table Tennis Stacksort");
@@ -59,7 +59,7 @@ final public class TableTennisStackSort extends Sort {
         }
         return stacksBuilt;
     }
-    
+
     private int mergeWithStack(int[] array, int start, Stack<Integer> stack0, Stack<Integer> stack1) {
         if(stack1 == null) {
             int sz = stack0.size(), t = start + sz - 1;
@@ -88,7 +88,7 @@ final public class TableTennisStackSort extends Sort {
         }
         return start + sz0 + sz1;
     }
-    
+
     private Stack<Integer> stackRebuild(int[] array, int start, int mid, int end) {
         int l = start, r = mid;
         Stack<Integer> merged = new Stack<>();
@@ -123,7 +123,7 @@ final public class TableTennisStackSort extends Sort {
         Highlights.clearAllMarks();
         return merged;
     }
-    
+
     private void mergeStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         while(!stacks.isEmpty()) {
             int ptr0, ptr1 = start, ptr2 = start, s = 0, ms = stacks.size();

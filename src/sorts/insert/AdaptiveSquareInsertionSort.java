@@ -1,6 +1,6 @@
-// 
+//
 // Decompiled by Procyon v0.5.36
-// 
+//
 
 package sorts.insert;
 
@@ -22,11 +22,11 @@ public final class AdaptiveSquareInsertionSort extends Sort
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public boolean inbetween(final int a, final int b, final int c) {
         return b <= c && b >= a;
     }
-    
+
     public void binaryInsertSort(final int[] array, final int start, final int end, final double compSleep, final double writeSleep, final boolean direction) {
         int x = start;
         if (this.Reads.compareIndices(array, x, x + 1, compSleep, true) >= 0) {
@@ -71,11 +71,11 @@ public final class AdaptiveSquareInsertionSort extends Sort
             this.Highlights.clearAllMarks();
         }
     }
-    
+
     public void customBinaryInsert(final int[] array, final int start, final int end, final double sleep) {
         this.binaryInsertSort(array, start, end, sleep, sleep, false);
     }
-    
+
     @Override
     public void runSort(final int[] array, final int currentLength, final int bucketCount) {
         this.binaryInsertSort(array, 0, currentLength, 1.0, 0.05, true);

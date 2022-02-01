@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.HeapSorting;
 
 /*
- * 
+ *
 Copyright (c) rosettacode.org.
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2
@@ -18,7 +18,7 @@ Free Documentation License".
 final public class HeavyHeapSort extends HeapSorting {
     public HeavyHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Heavy Heap");
         this.setRunAllSortsName("Heavy Heap Sort");
         this.setRunSortName("Heavy Heapsort");
@@ -34,13 +34,13 @@ final public class HeavyHeapSort extends HeapSorting {
     private void bitReversal(int[] array, int a, int b) {
         int len = b-a, m = 0;
         int d1 = len>>1, d2 = d1+(d1>>1);
-                    
+
         for(int i = 1; i < len-1; i++) {
             int j = d1;
-            
+
             for(
-                int k = i, n = d2; 
-                (k&1) == 0; 
+                int k = i, n = d2;
+                (k&1) == 0;
                 j -= n, k >>= 1, n >>= 1
             );
             m += j;

@@ -65,7 +65,7 @@ final public class QuickSPSort extends GrailSorting {
             ipMerge(array, rb, j, r);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         quickSPSort2(array, 1, currentLength);

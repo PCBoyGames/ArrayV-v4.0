@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 aphitorite
@@ -44,19 +44,19 @@ final public class NewBingoSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for(int j = length, k = 1;;) {
             for(int i = k; i < j; i++)
                 if(Reads.compareIndices(array, i, k-1, 0.01, true) >= 0)
                     Writes.swap(array, k++, i, 0.02, true, false);
-            
+
             if(k == j) break;
-            
+
             if(Reads.compareIndices(array, 0, k-1, 0.01, true) == 0)
                 while(k > 0) Writes.swap(array, --j, --k, 0.02, true, false);
-                
+
             else {
                 Writes.swap(array, --j, --k, 1, true, false);
                 while(Reads.compareIndices(array, --k, j, 0.01, true) == 0)

@@ -34,7 +34,7 @@ SOFTWARE.
 final public class DequeueSort extends Sort {
     public DequeueSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Dequeue");
         this.setRunAllSortsName("Dequeue Sort");
         this.setRunSortName("Dequeuesort");
@@ -58,7 +58,7 @@ final public class DequeueSort extends Sort {
         q.addLast(val);
         Writes.stopLap();
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         PriorityQueue<LinkedList<Integer>> heap = new PriorityQueue<>(sortLength / 2, new Comparator<LinkedList<Integer>>(){

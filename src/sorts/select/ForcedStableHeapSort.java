@@ -22,18 +22,18 @@ public final class ForcedStableHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private boolean stableComp(int[] array, int[] key, int a, int b) {
         int comp = Reads.compareIndices(array, a, b, 0.0, true);
-        
+
         return comp > 0 || (comp == 0 && Reads.compareOriginalIndices(key, a, b, 0.0, false) > 0);
     }
-    
+
     private void stableSwap(int[] array, int[] key, int a, int b) {
         Writes.swap(array, a, b, 0.0, true, false);
         Writes.swap(key,   a, b, 1.0, false, true);
     }
-    
+
     private void siftDown(int[] array, int[] key, int root, int dist, int start) {
         while (root <= dist / 2) {
             int leaf = 2 * root;
@@ -47,14 +47,14 @@ public final class ForcedStableHeapSort extends Sort {
             else break;
         }
     }
-    
+
     protected void heapify(int[] array, int[] key, int low, int high) {
         int length = high - low;
         for (int i = length / 2; i >= 1; i--) {
             siftDown(array, key, i, length, low);
         }
     }
-    
+
     protected void heapSort(int[] array, int[] key, int start, int length) {
         heapify(array, key, start, length);
         for (int i = length - start; i > 1; i--) {

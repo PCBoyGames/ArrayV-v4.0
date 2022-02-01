@@ -6,18 +6,18 @@ import sorts.templates.Sort;
 
 public class AeosDPQSort extends Sort {
     private InsertionSort insertSorter;
-    
+
     private int[] smallsAux;
     private int[] middleAux;
     private int[] largesAux;
     private int[]  indexAux;
-    
+
     private double rSleep = 0.5;
     private double wSleep = 0.5;
 
     public AeosDPQSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("AeosDPQsort");
         this.setRunAllSortsName("Aeos Dual Pivot Quick Sort");
         this.setRunSortName("Aeos Dual-Pivot Quicksort");
@@ -29,7 +29,7 @@ public class AeosDPQSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     // brief method for zeroing out an aux array (for visualization)
     private void clearArray(int[] array) {
         for(int i = 0; i < array.length; i++)
@@ -38,13 +38,13 @@ public class AeosDPQSort extends Sort {
 
     private int medianOf3(int[] array, int[] indices) {
         // small length cases
-        
+
         // maybe an error would be better but w/e
         if(indices.length == 0) return -1;
-        
+
         // median of 1 or 2 elements can just be the first
         if(indices.length < 3) return indices[0];
-        
+
         // 3 element case (common)
         // only first 3 elements are considered if given an array of 4+ indices
         if(Reads.compareIndices(array, indices[0], indices[1], rSleep, true) <= 0) {
@@ -62,12 +62,12 @@ public class AeosDPQSort extends Sort {
         }
         return indices[2];
     }
-    
+
     private long medianOf5(int[] array, int[] indices) { // 7-depth decision tree
         if(indices.length < 5) return -1; // maybe an error better
-        
+
         int smallMed, largeMed;
-        
+
         // first 3 steps of decision tree
         int temp; // Note that these are all index moves, not element moves
         if(Reads.compareIndices(array, indices[0], indices[1], rSleep, true) > 0) {
@@ -89,11 +89,11 @@ public class AeosDPQSort extends Sort {
             indices[3] = temp;
         }
         // Now have 0 <= 1, 0 <= 2, and 2 <= 3
-        
+
         // last 4 steps of decision tree (or 3 in exactly 1 branch: 2^7 - 5! = 128 - 120 = 8
         // permutations can be determined faster, and there are 2^3 = 8 ways to get this stage,
         // meaning there is 8 / 8 = 1 branch that skip a comparison)
-        
+
         // I usually use >, but I sometimes use >= to fast-track the all-equal case to the
         // short branch. But regardless, it's arbitrary.
         if(Reads.compareIndices(array, indices[2], indices[4], rSleep, true) >= 0) {
@@ -152,7 +152,7 @@ public class AeosDPQSort extends Sort {
                 }
             }
         }
-        
+
          return ((long) smallMed) << 32 | (long) largeMed;
     }
 
@@ -162,7 +162,7 @@ public class AeosDPQSort extends Sort {
         int   quarter =    half / 2;
         int    eighth = quarter / 2;
         int sixteenth =  eighth / 2;
-        
+
         // Provides good rounding without possibility of int overflow
         int[] samples0 = new int[] {start + sixteenth, start + quarter,
                 start + quarter + eighth + sixteenth, start + half + eighth,
@@ -172,21 +172,21 @@ public class AeosDPQSort extends Sort {
         int[] samples2 = new int[] {start + sixteenth + eighth, start + quarter + eighth,
                 start + half + sixteenth, start + half + quarter,
                 start + half + quarter + eighth + sixteenth};
-        
+
         long meds0 = medianOf5(array, samples0);
         long meds1 = medianOf5(array, samples1);
         long meds2 = medianOf5(array, samples2);
-        
+
         int smallMed0 = (int) (meds0 >> 32);
         int largeMed0 = (int)  meds0;
         int smallMed1 = (int) (meds1 >> 32);
         int largeMed1 = (int)  meds1;
         int smallMed2 = (int) (meds2 >> 32);
         int largeMed2 = (int)  meds2;
-        
+
         int smallMed = medianOf3(array, new int[] {smallMed0, smallMed1, smallMed2});
         int largeMed = medianOf3(array, new int[] {largeMed0, largeMed1, largeMed2});
-        
+
         return ((long) smallMed) << 32 | (long) largeMed;
     }
 
@@ -197,64 +197,64 @@ public class AeosDPQSort extends Sort {
 
     private long mOMHelper(int[] array, int start, int length) {
         if(length == 5) return medianOf5Consec(array, start);
-        
+
         int  third = length / 3;
         long meds0 = mOMHelper(array, start, third);
         long meds1 = mOMHelper(array, start + third, third);
         long meds2 = mOMHelper(array, start + 2 * third, third);
-        
+
         int smallMed0 = (int) (meds0 >> 32);
         int largeMed0 = (int)  meds0;
         int smallMed1 = (int) (meds1 >> 32);
         int largeMed1 = (int)  meds1;
         int smallMed2 = (int) (meds2 >> 32);
         int largeMed2 = (int)  meds2;
-        
+
         int smallMed = medianOf3(array, new int[] {smallMed0, smallMed1, smallMed2});
         int largeMed = medianOf3(array, new int[] {largeMed0, largeMed1, largeMed2});
-        
+
         return ((long) smallMed) << 32 | (long) largeMed;
     }
 
     private long medianOfMedians(int[] array, int start, int length) {
         if(length == 5) return medianOf5Consec(array, start);
-        
+
         length    /= 5; // because base case is 5, not 1
         int nearPower = (int) Math.pow(3, Math.round(Math.log(length)/Math.log(3)));
         if(nearPower == length)
             return mOMHelper(array, start, length * 5);
         length    *= 5;
         nearPower *= 5;
-        
+
         nearPower /= 3;
         // uncommon but can happen with numbers slightly smaller than 2*3^k, or here 10*3^k
         // (e.g., 17 < 18 and 47 < 54, or here 85 < 90 and 235 < 270)
         if(2*nearPower >= length) nearPower /= 3;
-        
+
         long meds0 = mOMHelper(array, start, nearPower);
         long meds2 = mOMHelper(array, start + length - nearPower, nearPower);
         long meds1 = medianOfMedians(array, start + nearPower, length - 2 * nearPower);
-        
+
         int smallMed0 = (int) (meds0 >> 32);
         int largeMed0 = (int)  meds0;
         int smallMed1 = (int) (meds1 >> 32);
         int largeMed1 = (int)  meds1;
         int smallMed2 = (int) (meds2 >> 32);
         int largeMed2 = (int)  meds2;
-        
+
         int smallMed = medianOf3(array, new int[] {smallMed0, smallMed1, smallMed2});
         int largeMed = medianOf3(array, new int[] {largeMed0, largeMed1, largeMed2});
-        
+
         return ((long) smallMed) << 32 | (long) largeMed;
     }
 
     // not at all a true rotation method, but the concept is similar
     private void rotate(int[] array, int start, int smalls,
             int middleBlocks, int middle, int largesBlocks, int blockLen) {
-        
+
         int i = start + (middleBlocks + largesBlocks) * blockLen;
         int j = i + smalls + middle;
-        
+
         // kind of weird exit condition for this first one but arguably best
         for(int k = largesBlocks * blockLen; k > 0; k--) {
             Highlights.markArray(2, --i);
@@ -283,7 +283,7 @@ public class AeosDPQSort extends Sort {
         int smallsBlocks = 0;
         int largesBlocks = 0;
         int blockCounter = 0;
-        
+
         int i = start;
         for(; i < end; i++) {
             if(Reads.compareIndexValue(array, i, pivot1, rSleep, true) < 0) {
@@ -326,14 +326,14 @@ public class AeosDPQSort extends Sort {
                 }
             }
         }
-        
-        
+
+
         for(int j = larges; j > 0; ) {
             Highlights.markArray(2, --j);
             Writes.write(array, --i, largesAux[j], wSleep, true, false);
         }
         clearArray(largesAux);
-        
+
         // easy cases
         if(smallsBlocks == blockCounter) {
             // rotate but it's easy
@@ -364,7 +364,7 @@ public class AeosDPQSort extends Sort {
                 return ((long) smalls) << 32 | (long) larges;
             }
         }
-        
+
         // Figure out each block's sorted position
         int smallsPos = 0;
         int middlePos = smallsBlocks;
@@ -379,7 +379,7 @@ public class AeosDPQSort extends Sort {
             else
                 indexAux[j] = largesPos++ * sqrt;
         }
-        
+
         // Skip already sorted blocks
         i = 0;
         while(i < blockCounter && indexAux[i] / sqrt == i) i++;
@@ -391,12 +391,12 @@ public class AeosDPQSort extends Sort {
                 Highlights.markArray(2, j);
                 Writes.write(largesAux, k, array[j], wSleep, true, true);
             }
-            
+
             int to = indexAux[i] / sqrt;
             int current = i;
             int next = i;
             while(indexAux[next] / sqrt != current) next++;
-            
+
             while(next != to) {
                 for(int j = start + next * sqrt, k = start + current * sqrt;
                         j < start + (next + 1) * sqrt; j++, k++) {
@@ -409,7 +409,7 @@ public class AeosDPQSort extends Sort {
                 Delays.sleep(wSleep);
                 while(indexAux[next] / sqrt != current) next++;
             }
-            
+
             for(int j = start + next * sqrt, k = start + current * sqrt;
                     j < start + (next + 1) * sqrt; j++, k++) {
                 Highlights.markArray(2, j);
@@ -417,7 +417,7 @@ public class AeosDPQSort extends Sort {
             }
             indexAux[current] = current * sqrt;
             Delays.sleep(wSleep);
-            
+
 
             for(int j = 0, k = start + to * sqrt; j < sqrt; j++, k++) {
                 Highlights.markArray(2, j);
@@ -430,7 +430,7 @@ public class AeosDPQSort extends Sort {
             do{i++;} while(i < blockCounter && indexAux[i] / sqrt == i);
         }
         clearArray(indexAux);
-        
+
         rotate(array, start + smallsBlocks * sqrt, smalls,
                 blockCounter - smallsBlocks - largesBlocks, middle, largesBlocks, sqrt);
         smalls += smallsBlocks * sqrt;
@@ -444,21 +444,21 @@ public class AeosDPQSort extends Sort {
             if(badPartition == 1) {
                 int length = ((end - start) / 5) * 5; // round down to multiple of 5
                 if((length & 1) == 0) length -= 5; // even length bad
-                pivotPos = medianOfMedians(array, start, length);                
+                pivotPos = medianOfMedians(array, start, length);
             } else if(badPartition == 0)
                 pivotPos = medianOf15(array, start, end);
             else {
                 pivotPos = ((long) start) << 32 | (long) start; // bit of a cheese but effective
                 badPartition = ~badPartition;
             }
-            
+
             // java pls add tuples
             int pivot1 = array[(int)(pivotPos >> 32)];
             int pivot2 = array[(int) pivotPos];
             pivotPos = partition(array, start, end, sqrt, pivot1, pivot2);
             int len1 = (int)(pivotPos >> 32);
             int len3 = (int) pivotPos;
-            
+
             if(Reads.compareValues(pivot1, pivot2) == 0) {
                 if(len1 > len3) {
                     if(len1 / 8 > len3) badPartition = 1; // 8 is arbitrary; any constant is ok
@@ -507,26 +507,26 @@ public class AeosDPQSort extends Sort {
                 }
             }
         }
-        
+
         insertSorter.customInsertSort(array, start, end, rSleep, false);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         insertSorter = new InsertionSort(arrayVisualizer);
-        
+
         if(sortLength < 16)
             insertSorter.customInsertSort(array, 0, sortLength, 3, true);
-        
+
         int lgSqrt = 1;
         while(1 << (++lgSqrt << 1) < sortLength);
         int sqrt = 1 << lgSqrt;
-        
+
         smallsAux = Writes.createExternalArray(sqrt);
         middleAux = Writes.createExternalArray(sqrt);
         largesAux = Writes.createExternalArray(sqrt);
         indexAux  = Writes.createExternalArray(sortLength / sqrt);
-        
+
         sortHelper(array, 0, sortLength, sqrt, 0);
     }
 

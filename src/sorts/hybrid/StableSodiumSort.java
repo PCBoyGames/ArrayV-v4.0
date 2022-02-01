@@ -21,22 +21,22 @@ final public class StableSodiumSort extends GrailSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int threshold;
     private OptimizedStoogeSortStudio stg;
     private BinaryInsertionSort bruh;
-    
+
     private int logSqr(int j) {
         int log = (int) (Math.log(j) / Math.log(5));
         return log*log;
     }
-    
+
     private void multiSwap(int[] array, int a, int b, int s) {
         while(s-- > 0) {
             Writes.swap(array, a+s, b+s, 1, true, false);
         }
     }
-    
+
     private boolean merge(int[] array, int q, int s, int m, int e) {
         if(s >= m || m >= e)
             return false;
@@ -70,7 +70,7 @@ final public class StableSodiumSort extends GrailSorting {
             return l==m-1;
         }
     }
-    
+
     public void siftDown(int[] array, int root, int dist, int start, double sleep) {
         while (root <= dist / 2) {
             int leaf = 2 * root;
@@ -87,14 +87,14 @@ final public class StableSodiumSort extends GrailSorting {
             else break;
         }
     }
-    
+
     public void heapify(int[] arr, int low, int high, double sleep) {
         int length = high - low;
         for (int i = length / 2; i >= 1; i--) {
             siftDown(arr, i, length, low, sleep);
         }
     }
-    
+
     private void stoogeOpt(int[] array, int start, int end) {
         if(end-start > 1)
             this.stg.stoogeSort(array, start, start+1, end+1, false);
@@ -102,7 +102,7 @@ final public class StableSodiumSort extends GrailSorting {
             if(Reads.compareValues(array[start], array[end]) == 1)
                 Writes.swap(array, start, end, 1, true, false);
     }
-    
+
     private boolean stoogeblock(int[] array, int start, int end, int buff, int blocksize) {
         if(end-start <= 2*blocksize) {
             return !merge(array, buff, start, start+blocksize, end);
@@ -116,7 +116,7 @@ final public class StableSodiumSort extends GrailSorting {
             return true;
         }
     }
-    
+
     private void sodStooge(int[] array, int start, int end) {
         int wantedKeys = logSqr(end-start);
         if(wantedKeys < 2) {
@@ -127,30 +127,30 @@ final public class StableSodiumSort extends GrailSorting {
                 return;
             if(foundKeys < 4) {
                 this.stoogeOpt(array, start, end);
-                return; 
+                return;
             }
             for(int i=start+foundKeys; i<end; i+=foundKeys) {
                 this.sodStooge(array, i, Math.min(i+foundKeys, end));
             }
-            int len = Math.floorDiv(end-start, foundKeys) * foundKeys; 
+            int len = Math.floorDiv(end-start, foundKeys) * foundKeys;
             this.stoogeblock(array, start+foundKeys, start+len, start, foundKeys);
             this.merge(array, start, start+foundKeys, start+len, end);
             this.bruh.customBinaryInsert(array, start, start+foundKeys, 0.25);
             this.grailMergeWithoutBuffer(array, start, foundKeys, end-start-foundKeys);
         }
     }
-    
+
     private void sodiumSort(int[] array, int start, int end) {
         if(end-start <= threshold) {
             this.sodStooge(array, start, end);
             return;
         }
         int medianSize = (int) Math.pow(end-start, 0.33d);
-        
+
         this.stoogeOpt(array, start, start+medianSize);
-        
+
         int piv = array[start+medianSize/2];
-        
+
         int p = start,
             r = start,
          comp = Reads.compareValues(array[start], piv);

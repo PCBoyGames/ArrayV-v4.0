@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class AdaptiveInsertionSort extends Sort {
     public AdaptiveInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Adaptive Insertion");
         this.setRunAllSortsName("Adaptive Insertion Sort");
         this.setRunSortName("Adaptive Insertsort");
@@ -71,7 +71,7 @@ final public class AdaptiveInsertionSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         insertionSort(array, 0, currentLength, 1, false);

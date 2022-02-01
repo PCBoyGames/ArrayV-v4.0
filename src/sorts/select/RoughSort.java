@@ -79,7 +79,7 @@ final public class RoughSort extends Sort {
         }
         return z;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int k=0;

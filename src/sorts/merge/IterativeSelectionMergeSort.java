@@ -26,7 +26,7 @@ final public class IterativeSelectionMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void selection(int[] array, int start, int end) {
         int last = (end - start) / 2 + start + 1;
         int orig = last - 1;
@@ -50,7 +50,7 @@ final public class IterativeSelectionMergeSort extends Sort {
             }
         }
     }
-    
+
     protected void non2n(int[] array, int start, int end) {
         int last = start + 2;
         while (Reads.compareIndices(array, last - 2, last - 1, 0.25, true) <= 0 && last < end) last++;

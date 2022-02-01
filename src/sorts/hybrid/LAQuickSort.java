@@ -42,7 +42,7 @@ final public class LAQuickSort extends Sort {
         int i = a - 1;
         int j = b;
         Highlights.markArray(3, p);
-        
+
         while(true) {
             i++;
             while(i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
@@ -79,24 +79,24 @@ final public class LAQuickSort extends Sort {
         return i;
     }
 
-    public int log2(int N) { 
-        int result = (int)(Math.log(N) / Math.log(2)); 
-        return result; 
+    public int log2(int N) {
+        int result = (int)(Math.log(N) / Math.log(2));
+        return result;
     }
-    
+
     private void medianOfThree(int[] array, int a, int b) {
         int m = a+(b-1-a)/2;
-        
+
         if(Reads.compareIndices(array, a, m, 1, true) == 1)
             Writes.swap(array, a, m, 1, true, false);
-        
+
         if(Reads.compareIndices(array, m, b-1, 1, true) == 1) {
             Writes.swap(array, m, b-1, 1, true, false);
-            
+
             if(Reads.compareIndices(array, a, m, 1, true) == 1)
                 return;
         }
-        
+
         Writes.swap(array, a, m, 1, true, false);
     }
 
@@ -132,7 +132,7 @@ final public class LAQuickSort extends Sort {
         }
 
         if (reverseSorted && !sorted) {
-            Writes.reversal(array, start, end-1, 1, true, false); 
+            Writes.reversal(array, start, end-1, 1, true, false);
             sorted = true;
         }
 

@@ -6,7 +6,7 @@ import sorts.insert.InsertionSort;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 yuji
@@ -34,7 +34,7 @@ SOFTWARE.
 final public class PairwiseCircleSort extends Sort {
     public PairwiseCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Pairwise-Circle");
         this.setRunAllSortsName("Pairwise-Circle Sort");
         this.setRunSortName("Pairwise-Circle Sort");
@@ -46,7 +46,7 @@ final public class PairwiseCircleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void pairs(int[] array, int left, int right, int gap) {
         if(left+gap >= right) return;
         int a = left;
@@ -59,7 +59,7 @@ final public class PairwiseCircleSort extends Sort {
         this.pairs(array, left, right, gap*2);
         this.pairs(array, left+gap, right, gap*2);
     }
-    
+
     private void circle(int[] array, int left, int right) {
         int a = left;
         int b = right;
@@ -71,7 +71,7 @@ final public class PairwiseCircleSort extends Sort {
             b--;
         }
     }
-    
+
     private void pairCircle(int[] array, int left, int right) {
         if(left >= right) return;
         int mid = (left + right) / 2;
@@ -80,7 +80,7 @@ final public class PairwiseCircleSort extends Sort {
         this.pairCircle(array, left, mid);
         this.pairCircle(array, mid+1, right);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.pairCircle(array, 0, length-1);

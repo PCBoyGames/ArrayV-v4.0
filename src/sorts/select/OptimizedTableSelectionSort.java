@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 public class OptimizedTableSelectionSort extends Sort {
-    
+
     public OptimizedTableSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Table Selection");
@@ -22,23 +22,23 @@ public class OptimizedTableSelectionSort extends Sort {
     }
 
     private BigInteger bitlist;
-    
+
     private boolean bitIsSet(BigInteger b, int loc) {
         return b.testBit(loc);
     }
     private void setBit(int loc) {
         bitlist = bitlist.setBit(loc);
     }
-    
+
     private void swapIndex(int[] array, int[] idx, int a, int b) {
         this.bitlist = BigInteger.ZERO;
         while(a < b) {
             Highlights.markArray(2, a);
-            
+
             if(!bitIsSet(bitlist, a) && Reads.compareOriginalValues(a, idx[a]) != 0) {
                 int t = array[a];
                 int i = a, nxt = idx[a];
-                
+
                 do {
                     Writes.write(array, i, array[nxt], 0, true, false);
                     Writes.write(idx, i, i, 0.5, false, true);
@@ -47,14 +47,14 @@ public class OptimizedTableSelectionSort extends Sort {
                     nxt = idx[nxt];
                 }
                 while(Reads.compareOriginalValues(nxt, a) != 0);
-                
+
                 Writes.write(array, i, t, 0, true, false);
                 Writes.write(idx, i, i, 0.5, false, true);
             }
             a++;
         }
     }
-    
+
     public void sort(int[] array, int sortLength, int bucketCount) {
         int[] cycles = Writes.createExternalArray(sortLength);
         this.bitlist = BigInteger.ZERO;
@@ -85,7 +85,7 @@ public class OptimizedTableSelectionSort extends Sort {
             max++;
         if(max < sortLength)
             Writes.write(cycles, sortLength-1, max, 1, true, true);
-        
+
         this.swapIndex(array, cycles, 0, sortLength);
     }
     @Override

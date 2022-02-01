@@ -16,11 +16,11 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class UnstableSingularityQuickSort extends Sort {
-    
+
     int depthlimit;
     int insertlimit;
     int replimit;
-    
+
     public UnstableSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Unstable Singularity Quick");
@@ -34,14 +34,14 @@ final public class UnstableSingularityQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int log2(int x) {
         int n = 1;
         while (1 << n < x) n++;
         if (1 << n > x) n--;
         return n;
     }
-    
+
     protected int unstablepd(int[] array, int start, int end) {
         int reverse = start;
         boolean different = false;
@@ -57,7 +57,7 @@ final public class UnstableSingularityQuickSort extends Sort {
         }
         return reverse;
     }
-    
+
     protected void shuffle(int[] array, int start, int end, int extra) {
         Random random = new Random(extra * (extra - start));
         for (int i = start; i < end; i++) {
@@ -65,12 +65,12 @@ final public class UnstableSingularityQuickSort extends Sort {
             if (randomIndex != i) Writes.swap(array, i, randomIndex, 0.1, true, false);
         }
     }
-    
+
     protected void binsert(int[] array, int start, int end) {
         PDBinaryInsertionSort bin = new PDBinaryInsertionSort(arrayVisualizer);
         bin.pdbinsert(array, start - 1, end, 0.1, false);
     }
-    
+
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int realdepth, int rep) {
         Writes.recordDepth(realdepth);
         if (end - start > insertlimit && (depth == depthlimit || rep == 4)) {

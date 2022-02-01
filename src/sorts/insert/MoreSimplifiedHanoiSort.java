@@ -6,10 +6,10 @@ import main.ArrayVisualizer;
 
 
 final public class MoreSimplifiedHanoiSort extends Sort {
-    
+
     public MoreSimplifiedHanoiSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Further Simplified Hanoi");
         this.setRunAllSortsName("Further Simplified Hanoi Sort");
         this.setRunSortName("Further Simplified Hanoisort");
@@ -21,7 +21,7 @@ final public class MoreSimplifiedHanoiSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private Rod main, stk1, stk2;
     private class Rod {
         private int[] arr;
@@ -66,7 +66,7 @@ final public class MoreSimplifiedHanoiSort extends Sort {
             return arr[sz--];
         }
     }
-    
+
     private void towerHanoi(Rod from, Rod aux, Rod to, int n) {
         if(n == 1) {
             if(from.size() > 0)
@@ -78,18 +78,18 @@ final public class MoreSimplifiedHanoiSort extends Sort {
             towerHanoi(aux, from, to, n-1);
         }
     }
-    
+
     private void pushAll(int num) {
         int index = 0;
         if(main.size() == 0)
             return;
-        
+
         while(index < main.size() && Reads.compareValues(main.peekTop(index), num) > 0) {
             index++;
         }
         this.towerHanoi(main, stk2, stk1, index);
     }
-    
+
     private void runHanoi(int[] array, int end) {
         for(int i=0; i<end; i++) {
             int top = array[i];

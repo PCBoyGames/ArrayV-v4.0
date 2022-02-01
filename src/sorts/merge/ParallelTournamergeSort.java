@@ -8,7 +8,7 @@ import sorts.templates.ParallelSort;
 final public class ParallelTournamergeSort extends ParallelSort {
     public ParallelTournamergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Tournamerge (Parallel)");
         this.setRunAllSortsName("Parallel Tournamerge Sort");
         this.setRunSortName("Parallel Tournamergesort");
@@ -22,10 +22,10 @@ final public class ParallelTournamergeSort extends ParallelSort {
         this.setBogoSort(false);
         Reads = arrayVisualizer.getReads();
     }
-    
+
     public static utils.Reads Reads;
     LazixioSort fallback;
-    
+
     static class Mode {
         public int[] array;
         private int[] ptrs;
@@ -80,7 +80,7 @@ final public class ParallelTournamergeSort extends ParallelSort {
                 ptr = -1;
         }
     }
-    
+
     private Mode build(Mode l, Mode r) {
         Mode t = new Mode(l.ptrs, true);
         l.parent=r.parent=t;
@@ -88,7 +88,7 @@ final public class ParallelTournamergeSort extends ParallelSort {
         t.array=l.array;
         t.build();return t;
     }
-    
+
     private Mode deepbuild(int[] array, int[] ptrs, int start, int end) {
         if(end<=start) {
             Mode m = new Mode(ptrs, start);
@@ -155,7 +155,7 @@ final public class ParallelTournamergeSort extends ParallelSort {
         if (answer < 2) return 2;
         return answer;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int b) {
         fallback = new LazixioSort(arrayVisualizer);

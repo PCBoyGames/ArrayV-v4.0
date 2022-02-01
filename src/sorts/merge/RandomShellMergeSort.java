@@ -51,7 +51,7 @@ public final class RandomShellMergeSort extends BogoSorting {
         }
         Highlights.clearAllMarks();
     }
-    
+
     public void shellSort(int[] array, int a, int b) {
         int gap = b - a;
         while(gap != 1) {
@@ -59,7 +59,7 @@ public final class RandomShellMergeSort extends BogoSorting {
             shellPass(array, a, b, gap);
         }
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         InsertionSort smallSort = new InsertionSort(arrayVisualizer);
         int mRun = b - a;

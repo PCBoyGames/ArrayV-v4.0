@@ -27,7 +27,7 @@ public final class WarSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean changesinitems(int a, int b) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) != arrayVisualizer.getStabilityValue(b) : a != b;
     }

@@ -32,7 +32,7 @@ SOFTWARE.
 final public class nlognStoogeSort extends MergeSorting {
     public nlognStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("n log n Stooge");
         this.setRunAllSortsName("O(n log n) Stooge Sort");
         this.setRunSortName("nlogn-Stoogesort");
@@ -44,19 +44,19 @@ final public class nlognStoogeSort extends MergeSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void mergeNR(int[] array, int[] tmp, int start, int mid, int end) {
         if(start == mid) return;
-        
+
         int low = start;
         int high = mid;
-        
+
         for(int nxt = 0; nxt < end - start; nxt++){
             if(low >= mid && high >= end) break;
-            
+
             Highlights.markArray(1, low);
             Highlights.markArray(2, high);
-            
+
             if(low < mid && high >= end){
                 Highlights.clearMark(2);
                 Writes.write(tmp, nxt, array[low++], 1, false, true);
@@ -73,30 +73,30 @@ final public class nlognStoogeSort extends MergeSorting {
             }
         }
         Highlights.clearMark(2);
-        
+
         for(int i = 0; i < end - start; i++){
             Writes.write(array, start + i, tmp[i], 1, true, false);
         }
     }
-    
+
     private void NLNStooge(int[] array, int[] tmp, int start, int end) {
         if(start == end)
             return;
-        
+
         int third = (end-start+1) / 3;
-        
+
         if(third == 0)
             return;
-        
+
         this.NLNStooge(array, tmp, start, start+third);
         this.NLNStooge(array, tmp, start+third, end-third);
         this.NLNStooge(array, tmp, end-third, end);
-        
+
         this.mergeNR(array, tmp, start, start+third, end-third);
         this.mergeNR(array, tmp, start+third, end-third, end);
         this.mergeNR(array, tmp, start, start+third, end-third);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] t = Writes.createExternalArray(length);

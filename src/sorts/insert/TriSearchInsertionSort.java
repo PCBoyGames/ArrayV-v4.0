@@ -55,24 +55,24 @@ final public class TriSearchInsertionSort extends Sort {
             }
         }
     }
-    
+
     public void triInsertSort(int[] array, int start, int end, double compSleep, double writeSleep) {
         for (int i = start+1; i < end; i++) {
             int num = array[i];
             int lo = start;
-            
+
             lo = this.triSearch(array, start, i-1, num, compSleep);
             Highlights.clearAllMarks();
 
             int j = i - 1;
-            
+
             while (j >= lo)
             {
                 Writes.write(array, j + 1, array[j], writeSleep, true, false);
                 j--;
             }
             Writes.write(array, lo, num, writeSleep, true, false);
-            
+
             Highlights.clearAllMarks();
         }
     }

@@ -20,7 +20,7 @@ final public class TernaryLLQuickSort extends Sort {
 
     public TernaryLLQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Ternary LL Quick");
         this.setRunAllSortsName("Quick Sort (ternary, LL ptrs)");
         this.setRunSortName("Quicksort (ternary, LL ptrs)");
@@ -91,7 +91,7 @@ final public class TernaryLLQuickSort extends Sort {
             quickSortTernaryLL(A, mid.second, hi);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         quickSortTernaryLL(array, 0, currentLength);

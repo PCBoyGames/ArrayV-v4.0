@@ -204,11 +204,11 @@ final public class Reads {
 
         for(int i = 0; i < length; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
-            
+
             Timer.startLap("Analysis");
 
             if(val > max) max = val;
@@ -235,11 +235,11 @@ final public class Reads {
 
         for(int i = start; i < end; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
-            
+
             Timer.startLap("Analysis");
 
             if(val > max) max = val;
@@ -266,9 +266,9 @@ final public class Reads {
 
         for(int i = start; i < end; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
-            
+
             Timer.startLap("Analysis");
 
             if(val > max) max = val;
@@ -295,11 +295,11 @@ final public class Reads {
 
         for(int i = 0; i < length; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
-            
+
             Timer.startLap("Analysis");
 
             if(val < min) min = val;
@@ -326,11 +326,11 @@ final public class Reads {
 
         for(int i = start; i < end; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
-            
+
             Timer.startLap("Analysis");
 
             if(val < min) min = val;
@@ -357,9 +357,9 @@ final public class Reads {
 
         for(int i = start; i < end; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
-            
+
             Timer.startLap("Analysis");
 
             if(val < min) min = val;
@@ -386,7 +386,7 @@ final public class Reads {
 
         for(int i = 0; i < length; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
@@ -405,7 +405,7 @@ final public class Reads {
 
         ArrayVisualizer.toggleAnalysis(false);
         ArrayVisualizer.updateNow();
-    
+
         return (int) (Math.log(max) / Math.log(base));
     }
 
@@ -417,11 +417,11 @@ final public class Reads {
 
         for(int i = 0; i < length; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
-            
+
             Timer.startLap("Analysis");
 
             if(val > max) max = val;
@@ -449,11 +449,11 @@ final public class Reads {
 
         for(int i = 0; i < length; i++) {
             if (ArrayVisualizer.sortCanceled()) throw new StopSort();
-            
+
             int val = array[i];
             if(ArrayVisualizer.doingStabilityCheck())
                 val = ArrayVisualizer.getStabilityValue(val);
-            
+
             Timer.startLap("Analysis");
 
             if (val > max) max = val;
@@ -480,7 +480,7 @@ final public class Reads {
     public int getDigit(int a, int power, int radix) {
         if(ArrayVisualizer.doingStabilityCheck())
             a = ArrayVisualizer.getStabilityValue(a);
-        
+
         int digit;
         Timer.startLap();
         digit = (int) (a / Math.pow(radix, power)) % radix;
@@ -491,7 +491,7 @@ final public class Reads {
     public boolean getBit(int n, int k) {
         if(ArrayVisualizer.doingStabilityCheck())
             n = ArrayVisualizer.getStabilityValue(n);
-        
+
         // Find boolean value of bit k in n
         boolean result;
         Timer.startLap();

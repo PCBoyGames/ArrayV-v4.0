@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class FibonacciHeapSort extends Sort {
     public FibonacciHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Fibonacci Heap");
         this.setRunAllSortsName("Fibonacci Heap Sort");
         this.setRunSortName("Fibonacci Heapsort");
@@ -19,16 +19,16 @@ final public class FibonacciHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int[] FIB = new int[44]; // fib(47) > Integer.MAX_VALUE
-    
+
     public void genFib() {
         FIB[0]=FIB[1]=1;
         for(int i=2; i<FIB.length; i++) {
             FIB[i]=FIB[i-2]+FIB[i-1];
         }
     }
-    
+
     public void fastsift(int[] array, int a, int b) {
         byte order = (byte) Integer.numberOfLeadingZeros(b&~a);
         if(order < 2) return;
@@ -47,7 +47,7 @@ final public class FibonacciHeapSort extends Sort {
             }
         }
     }
-    
+
     public void sift(int[] array, int a, int b) {
         byte order = 2;
         int n=b-1;
@@ -71,7 +71,7 @@ final public class FibonacciHeapSort extends Sort {
             }
         }
     }
-    
+
     private void fibHeapify(int[] array, int start, int end) {
         genFib();
         int j=1;

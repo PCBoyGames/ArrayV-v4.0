@@ -19,7 +19,7 @@ import sorts.templates.Sort;
 final public class MoreOptimizedIndexSort12 extends Sort {
     public MoreOptimizedIndexSort12(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("More Optimized Index (v1.2)");
         this.setRunAllSortsName("More Optimized Index Sort (Newer)");
         this.setRunSortName("More Optimized Indexsort (v1.2)");
@@ -38,7 +38,7 @@ final public class MoreOptimizedIndexSort12 extends Sort {
     private void setBit(int loc) {
         bitlist = bitlist.setBit(loc);
     }
-    
+
     private void runMopSort(int[] array, int sortLength, int bucketCount) {
         MoreOptimizedPigeonholeSort mop = new MoreOptimizedPigeonholeSort(arrayVisualizer);
         try {

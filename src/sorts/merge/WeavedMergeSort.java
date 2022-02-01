@@ -49,7 +49,7 @@ public class WeavedMergeSort extends Sort {
     private void merge(int[] array, int[] tmp, int length, int residue, int modulus) {
         if (residue+modulus >= length)
             return;
-            
+
         int low = residue;
         int high = residue+modulus;
         int dmodulus = modulus<<1;

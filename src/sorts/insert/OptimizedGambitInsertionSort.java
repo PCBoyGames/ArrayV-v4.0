@@ -13,9 +13,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class OptimizedGambitInsertionSort extends Sort {
-    
+
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
-    
+
     public OptimizedGambitInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Gambit Insertion");
@@ -29,7 +29,7 @@ final public class OptimizedGambitInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
@@ -47,7 +47,7 @@ final public class OptimizedGambitInsertionSort extends Sort {
             i++;
         }
     }
-    
+
     protected int pd(int[] array, int currentLength) {
         int reverse = 0;
         boolean lessunique = false;
@@ -99,7 +99,7 @@ final public class OptimizedGambitInsertionSort extends Sort {
             }
         }
     }
-    
+
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {

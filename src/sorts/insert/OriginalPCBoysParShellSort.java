@@ -14,9 +14,9 @@ IN COLLABORATION WITH CONTROL AND MG-2018
 
 */
 public final class OriginalPCBoysParShellSort extends Sort {
-    
+
     int lastgap;
-    
+
     public OriginalPCBoysParShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("PCBoy's Par Shell (Original)");
@@ -31,7 +31,7 @@ public final class OriginalPCBoysParShellSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the division constant for this sort:", 2);
     }
-     
+
     int par(int[] array, int len) {
         boolean[] max = new boolean[len];
         int maximum = array[0];
@@ -53,7 +53,7 @@ public final class OriginalPCBoysParShellSort extends Sort {
         }
         return p;
     }
-    
+
     protected void shellPass(int[] array, int currentLength, int gap, int par) {
         if (gap >= lastgap) return;
         lastgap = gap;
@@ -78,7 +78,7 @@ public final class OriginalPCBoysParShellSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1) return 1;

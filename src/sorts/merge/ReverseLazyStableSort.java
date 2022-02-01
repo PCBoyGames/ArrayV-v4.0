@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -35,7 +35,7 @@ final public class ReverseLazyStableSort extends Sort {
 
     public ReverseLazyStableSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Reverse Lazy Stable");
         this.setRunAllSortsName("Reverse Lazy Stable Sort");
         this.setRunSortName("Reverse Lazy Stable Sort");
@@ -47,7 +47,7 @@ final public class ReverseLazyStableSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void rotateLeft(int[] array, int start, int dest, int size) {
         int amount = start - dest;
         if (size > 1) {
@@ -129,15 +129,15 @@ final public class ReverseLazyStableSort extends Sort {
     // Copied from BinaryInsertionSorting.java (and slightly modified)
     private int binSearch(int[] array, int start, int i, int num) {
         int lo = start, hi = i;
-        
+
         while (lo < hi) {
             int mid = lo + ((hi - lo) / 2); // avoid int overflow!
             Highlights.markArray(1, lo);
             Highlights.markArray(2, mid);
             Highlights.markArray(3, hi);
-            
+
             Delays.sleep(0.2);
-            
+
             if (Reads.compareValues(num, array[mid]) < 0) { // do NOT move equal elements to right of inserted element; this maintains stability!
                 hi = mid;
             }
@@ -181,7 +181,7 @@ final public class ReverseLazyStableSort extends Sort {
             mid += size;
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for (int i = 0; i < length - 1; i += 2) {

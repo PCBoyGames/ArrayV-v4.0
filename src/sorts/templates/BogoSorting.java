@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy

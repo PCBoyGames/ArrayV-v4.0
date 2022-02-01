@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 The MIT License (MIT)
 
 Copyright (c) 2021 aphitorite
@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 final public class OptimizedPancakeSort extends Sort {
     public OptimizedPancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Pancake");
         this.setRunAllSortsName("Optimized Pancake Sort");
         this.setRunSortName("Optimized Pancake Sort");
@@ -43,37 +43,37 @@ final public class OptimizedPancakeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     //special thanks to Anonymous0726 !!!
-    
+
     private void flip(int[] array, int idx) {
         Writes.reversal(array, 0, idx, 0.1, true, false);
     }
-    
+
     private void cursedRotate(int[] array, int a, int m, int b) {
         this.flip(array, a-1);
         this.flip(array, m-1);
         this.flip(array, b-1);
         this.flip(array, b-m+a-1);
     }
-    
+
     private int binarySearch(int[] array, int a, int b, int value, boolean left) {
         while(a < b) {
             int m = a+(b-a)/2;
-            
+
             boolean comp = left ? Reads.compareValues(value, array[m]) <= 0
                                 : Reads.compareValues(value, array[m]) < 0;
-            
+
             if(comp) b = m;
             else     a = m+1;
         }
-        
+
         return a;
     }
-    
+
     private void pancakeMerge(int[] array, int m, int b) {
         int m1, m2, m3;
-        
+
         if(m >= b-m) {
             m1 = m/2;
             m2 = this.binarySearch(array, m, b, array[m1], false);
@@ -85,9 +85,9 @@ final public class OptimizedPancakeSort extends Sort {
             m3 = (m2++)-(m-m1);
         }
         this.cursedRotate(array, m1, m, m2);
-        
+
         if(m1 > 0 && m3 > m1) this.pancakeMerge(array, m1, m3);
-        
+
         m3++;
         if(m2 > m3 && b > m2) {
             this.cursedRotate(array, 0, m3, b);
@@ -95,7 +95,7 @@ final public class OptimizedPancakeSort extends Sort {
             this.cursedRotate(array, 0, b-m3, b);
         }
     }
-    
+
     private void pancakeMergeSort(int[] array, int n) {
         if(n > 1) {
             if(Reads.compareIndices(array, 0, 1, 0, true) <= 0) {
@@ -113,18 +113,18 @@ final public class OptimizedPancakeSort extends Sort {
                     return;
                 }
             }
-            
+
             int m = n/2;
-            
+
             this.pancakeMergeSort(array, m);
             this.cursedRotate(array, 0, m, n);
             m = n-m;
-            
+
             this.pancakeMergeSort(array, m);
             this.pancakeMerge(array, m, n);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.pancakeMergeSort(array, length);

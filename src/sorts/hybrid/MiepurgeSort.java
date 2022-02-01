@@ -73,7 +73,7 @@ final public class MiepurgeSort extends Sort {
         while(table.length > 1) {
             int now = heapIndex(array, ptrs, table, 0),
                 secondMin = table.length > 2 ?
-                (tabComp(array, table, 1, 2) == 1 ? 2 : 1) 
+                (tabComp(array, table, 1, 2) == 1 ? 2 : 1)
                 : 1;
             do {
                 if(table[0] < ptrs[now]) {
@@ -112,7 +112,7 @@ final public class MiepurgeSort extends Sort {
             aux[i] = start + step * i;
         }
         aux[base] = end;
-        
+
         for(int i=0; i<base; i++) {
             if(base < 24 && step > threshold)
                 this.miepurge(array, aux[i], aux[i+1], base);
@@ -127,7 +127,7 @@ final public class MiepurgeSort extends Sort {
         if (answer < 2) return 2;
         return answer;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.smallSort = new BinaryDoubleInsertionSort(arrayVisualizer);

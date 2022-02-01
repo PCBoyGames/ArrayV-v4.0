@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 
 /*
- * 
+ *
 The MIT License (MIT)
 
 Copyright (c) 2012 Daniel Imms, http://www.growingwiththeweb.com
@@ -30,11 +30,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 public abstract class CombSorting extends Sort {
     private InsertionSort insertSorter;
-    
+
     protected CombSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     protected void combSort(int[] array, int length, double shrink, boolean hybrid) {
         insertSorter = new InsertionSort(this.arrayVisualizer);
 
@@ -56,7 +56,7 @@ public abstract class CombSorting extends Sort {
             {
                 if(hybrid && (gap <= Math.min(8, length * 0.03125))) {
                     gap = 0;
-                    
+
                     insertSorter.customInsertSort(array, 0, length, 0.5, false);
                     break;
                 }
@@ -67,7 +67,7 @@ public abstract class CombSorting extends Sort {
                 }
                 Highlights.markArray(1, i);
                 Highlights.markArray(2, i + gap);
-                
+
                 Delays.sleep(0.25);
                 Highlights.clearMark(1);
             }

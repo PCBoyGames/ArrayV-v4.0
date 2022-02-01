@@ -31,7 +31,7 @@ SOFTWARE.
 final public class SandpaperSort extends Sort {
     public SandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Sandpaper");
         this.setRunAllSortsName("Sandpaper Sort");
         this.setRunSortName("Sandpapersort");
@@ -43,7 +43,7 @@ final public class SandpaperSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int i = 0; i < currentLength - 1; i++) {

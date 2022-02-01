@@ -44,7 +44,7 @@ public class InfiniteQuickSort extends Sort {
         //this.squarePartition(array, start, z);
         return z;
     }
-    
+
     private boolean sorted(int[] array, int s, int e) {
         for(int i=s+1; i<e; i++) {
             if(Reads.compareValues(array[i-1], array[i]) == 1)

@@ -51,11 +51,11 @@ final public class ParFurtherRandomShellSort extends BogoSorting {
             h = randInt(1, i < bounding ? i + 1 : bounding + 1);
         }
     }
-    
+
     protected int stablereturn(int a) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
-    
+
     private int nextBound(int[] array, int currentLength, int bounding) {
         boolean[] max = new boolean[currentLength];
         int maximum = stablereturn(array[0]);
@@ -77,7 +77,7 @@ final public class ParFurtherRandomShellSort extends BogoSorting {
         }
         return p;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int bounding = currentLength - 1;

@@ -6,7 +6,7 @@ import sorts.merge.ReverseLazyStableSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -38,7 +38,7 @@ final public class StableQuarterMergeSort extends Sort {
 
     public StableQuarterMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Stable Quarter Merge");
         this.setRunAllSortsName("Stable Quarter Merge Sort");
         this.setRunSortName("Stable Quarter Mergesort");
@@ -68,9 +68,9 @@ final public class StableQuarterMergeSort extends Sort {
                 Highlights.markArray(1, l);
                 Highlights.markArray(2, m);
                 Highlights.markArray(3, h);
-                
+
                 Delays.sleep(0.01);
-                
+
                 int comp = Reads.compareValues(num, array[m]);
 
                 if (comp < 0) {
@@ -103,17 +103,17 @@ final public class StableQuarterMergeSort extends Sort {
                 l += badCount;
                 badCount = 0;
             }
-            
+
             // item has to go into position lo
             int j = compindex - 1;
-            
+
             while (j >= l)
             {
                 Writes.write(array, j + 1, array[j], 0.1, true, false);
                 j--;
             }
             Writes.write(array, l, num, 0.1, true, false);
-            
+
             Highlights.clearAllMarks();
             compindex++;
             lastGood++;
@@ -129,7 +129,7 @@ final public class StableQuarterMergeSort extends Sort {
         }
         return count;
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int baseCount) throws Exception {
         rotater = new ReverseLazyStableSort(arrayVisualizer);

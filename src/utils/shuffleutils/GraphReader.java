@@ -26,7 +26,7 @@ public final class GraphReader {
             super(message);
         }
     }
-    
+
     private final class PartialElement {
         int left, right;
 

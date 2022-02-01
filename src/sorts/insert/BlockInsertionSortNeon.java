@@ -7,7 +7,7 @@ import utils.Rotations;
 final public class BlockInsertionSortNeon extends GrailSorting {
     public BlockInsertionSortNeon(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Block Insertion (Neon Rotations)");
         this.setRunAllSortsName("Block Insertion Sort (Neon Rotations)");
         this.setRunSortName("Block Insertsort (Neon Rotations)");
@@ -79,7 +79,7 @@ final public class BlockInsertionSortNeon extends GrailSorting {
             i = j;
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         insertionSort(array, 0, currentLength);

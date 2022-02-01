@@ -24,7 +24,7 @@ public final class TwoOptSort extends Sort {
     public int stabVal(int val) { //Required to make the sort work on Stability Checking
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(val) : val;
     }
-    
+
     public int getDist(int[] array, int length) {
         int dist = 0;
         for (int i = 0; i < length - 1; i++) {

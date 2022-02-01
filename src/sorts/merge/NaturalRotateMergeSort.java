@@ -43,8 +43,8 @@ public final class NaturalRotateMergeSort extends Sort {
     protected int binarySearch(int[] array, int a, int b, int value, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
-            boolean comp = left 
-                    ? Reads.compareValues(value, array[m]) <= 0 
+            boolean comp = left
+                    ? Reads.compareValues(value, array[m]) <= 0
                     : Reads.compareValues(value, array[m]) < 0;
             if (comp)
                 b = m;
@@ -71,7 +71,7 @@ public final class NaturalRotateMergeSort extends Sort {
         merge(array, m3 + 1, m2, b);
         merge(array, a, m1, m3);
     }
-    
+
     protected int findRun(int[] array, int a, int b) {
         int i = a + 1;
         boolean dir;
@@ -80,7 +80,7 @@ public final class NaturalRotateMergeSort extends Sort {
         else
             dir = true;
         if(dir)
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) 
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
                 i++;
         else {
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
@@ -93,7 +93,7 @@ public final class NaturalRotateMergeSort extends Sort {
         Highlights.clearMark(2);
         return i;
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int i, j, k;
         while(true) {

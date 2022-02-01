@@ -3,10 +3,10 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class InverseSmoothSelectionSort extends Sort {  
+final public class InverseSmoothSelectionSort extends Sort {
     public InverseSmoothSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Inverse Smooth Selection");
         this.setRunAllSortsName("Inverse Smooth Selection Sort");
         this.setRunSortName("Inverse Smooth Selection Sort");
@@ -26,7 +26,7 @@ final public class InverseSmoothSelectionSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         for (int i = 0; i < length - 1; i++) {
             int seekIndex = i, equalSize = 0;
-            
+
             for (int j = i + 1; j < length; j++) {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.01);

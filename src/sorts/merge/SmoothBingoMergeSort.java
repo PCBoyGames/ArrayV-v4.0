@@ -60,7 +60,7 @@ public final class SmoothBingoMergeSort extends Sort {
             if(seek < 0) seek = 0;
         }
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         if(b - a < 2)
             return;

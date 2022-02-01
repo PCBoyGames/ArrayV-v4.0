@@ -19,7 +19,7 @@ final public class OutOfPlacePopSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void bitonicMerge(int[] array, int[] to, int start, int mid, int end, int dir) {
         dir *= -1; // what
         int a = start, b = end-1, c = dir == 1 ? start : end - 1;
@@ -40,7 +40,7 @@ final public class OutOfPlacePopSort extends Sort {
             c += dir;
         }
     }
-    
+
     private void oopSelection(int[] array, int[] tmp, int start, int end, int arrayDir) {
         if(arrayDir == 0) {
             for(int i=start; i<end-1; i++) {
@@ -83,7 +83,7 @@ final public class OutOfPlacePopSort extends Sort {
             }
         }
     }
-    
+
     private void bubblePop(int[] array, int start, int end, int comp) {
         int swap = end;
         while(swap > start) {
@@ -98,7 +98,7 @@ final public class OutOfPlacePopSort extends Sort {
             swap = lastSwap;
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int quart = (length + 1) / 4,

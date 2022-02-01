@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.merge.PDMergeSort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 Gaming32
@@ -34,7 +34,7 @@ public class OptimizedPDMergeSort extends PDMergeSort {
 
     public OptimizedPDMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Pattern-Defeating Merge");
         this.setRunAllSortsName("Optimized Pattern-Defeating Merge Sort");
         this.setRunSortName("Optimized Pattern-Defeating Mergesort");
@@ -72,7 +72,7 @@ public class OptimizedPDMergeSort extends PDMergeSort {
         boolean cmp = compare(array[index], array[index + 1]);
         index++;
         Highlights.markArray(1, index);
-        
+
         while (index < maxIndex) {
             Delays.sleep(1);
             boolean checkCmp = compare(array[index], array[index + 1]);

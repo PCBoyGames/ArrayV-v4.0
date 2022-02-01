@@ -15,7 +15,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class CocktailSandpaperSort extends Sort {
     public CocktailSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Cocktail Sandpaper");
         this.setRunAllSortsName("Cocktail Sandpaper Sort");
         this.setRunSortName("Cocktail Sandpapersort");
@@ -27,7 +27,7 @@ final public class CocktailSandpaperSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int i = 0; i < currentLength - 1; i++) {

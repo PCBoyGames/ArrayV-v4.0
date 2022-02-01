@@ -27,7 +27,7 @@ final public class OptimizedMystifySort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the base for this sort:", 2);
     }
-    
+
     private void shellPass(int[] array, int currentLength, int gap) {
         for (int h = gap, i = h; i < currentLength; i++) {
             int v = array[i];
@@ -49,7 +49,7 @@ final public class OptimizedMystifySort extends Sort {
             }
         }
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 2) return 2;

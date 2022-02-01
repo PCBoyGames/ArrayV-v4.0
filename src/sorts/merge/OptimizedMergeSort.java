@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class OptimizedMergeSort extends Sort {
     public OptimizedMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Merge");
         this.setRunAllSortsName("Optimized Merge Sort");
         this.setRunSortName("Optimized Mergesort");
@@ -65,7 +65,7 @@ final public class OptimizedMergeSort extends Sort {
         this.mergeSort(array, tmp, mid, end, !aux);
         return this.merge(array, tmp, start, mid, end, !aux);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         boolean doCopy = ceilLogOdd(length);

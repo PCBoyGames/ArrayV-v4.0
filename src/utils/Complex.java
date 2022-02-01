@@ -11,7 +11,7 @@ implements Comparable<Complex> {
     //private static final long serialVersionUID = 5600679651837541971L;
     public double real;
     public Imaginary imaginary;
-    
+
 
     public static final Class<Complex>  TYPE = (Class<Complex>) Complex.class;
 
@@ -31,23 +31,23 @@ implements Comparable<Complex> {
         this.real = real;
         this.imaginary = imaginary;
     }
-    
+
     public static Complex valueOf(double real) {
         return new Complex(real, 0);
     }
-    
+
     public static Complex valueOf(double real, double imaginary) {
         return new Complex(real, imaginary);
     }
-    
+
     public Complex neg() {
         return new Complex(-this.real, this.imaginary.unaryMinus());
     }
-    
+
     public int sign() {
         return this.div(this.abs()).compareTo(0);
     }
-    
+
     public Complex sqrt() {
         double Hyp = Math.hypot(this.real, this.imaginary.value);
         return new Complex(
@@ -55,15 +55,15 @@ implements Comparable<Complex> {
             Math.sqrt((Hyp - this.real) / 2)
         );
     }
-    
+
     public double abs() {
         return Math.hypot(this.real, this.imaginary.value);
     }
-    
+
     public Complex log() {
         return new Complex(Math.log(this.abs()), this.arg());
     }
-    
+
     /**
      * Helped me understand the basics of power.
      * @return {@code e}<sup>{@code <this>}</sup>.
@@ -72,7 +72,7 @@ implements Comparable<Complex> {
         double eX = Math.exp(this.real);
         return new Complex(eX*Math.sin(this.imaginary.value), eX*Math.cos(this.imaginary.value));
     }
-    
+
     /**
      * Initial plan was approximating it with weird sqrt shenanigans.
      * Glad I took the polar route, as it actually works.
@@ -87,11 +87,11 @@ implements Comparable<Complex> {
         }
         return new Complex(Math.cos(pow * theta), Math.sin(pow * theta)).mult(Math.pow(r, pow)); // Need an epsilon for this.
     }
-    
+
     public double arg() {
         return Math.atan2(this.imaginary.value, this.real);
     }
-    
+
     public Complex add(Complex complex) {
         return new Complex(this.real+complex.real, this.imaginary.plus(complex.imaginary));
     }
@@ -101,7 +101,7 @@ implements Comparable<Complex> {
     public Complex add(Imaginary imag) {
         return new Complex(this.real, this.imaginary.plus(imag));
     }
-    
+
     public Complex sub(Complex complex) {
         return new Complex(this.real-complex.real, this.imaginary.minus(complex.imaginary));
     }
@@ -170,48 +170,48 @@ implements Comparable<Complex> {
     public Complex divReal(double val) {
         return new Complex(val, 0).div(this);
     }
-    
+
     public long longValue() {
         return (long) this.real;
     }
-    
+
     public long longValueExact() {
         if(this.real > 0x7FFFFFFFFFFFFFFFL || this.real < 0x8000000000000000L) {
             throw new ArithmeticException("Out of range for exact values");
         }
         return (long) this.real;
     }
-    
+
     public int intValue() {
         return (int) this.real;
     }
-    
+
     public float floatValue() {
         return (float) this.real;
     }
-    
+
     public float floatValueExact() {
         if(this.real > Float.MAX_VALUE || this.real < Float.MIN_VALUE) {
             throw new ArithmeticException("Out of range for exact values");
         }
         return (float) this.real;
     }
-    
+
     public double doubleValue() {
         return this.real;
     }
-    
+
     public double doubleValueExact() {
         return this.real;
     }
-    
+
     public int intValueExact() {
         if(this.real > 0x7FFFFFFF || this.real < 0x80000000) {
             throw new ArithmeticException("Out of range for exact values");
         }
         return (int) this.real;
     }
-    
+
     public int compareTo(double val) {
         int imagComp = this.imaginary.compareTo(0);
         int compare = Double.compare(this.real, val);
@@ -248,19 +248,19 @@ implements Comparable<Complex> {
         }
         return compare;
     }
-    
+
     public int hashCode() {
         return Objects.hash(this.real, this.imaginary);
     }
     public String toString() {
         return this.real + " + " + this.imaginary;
     }
-    
-    
+
+
     public Optional<Complex> describeConstable() {
         return Optional.of(this);
     }
-    
+
     public Complex resolveConstantDesc(MethodHandles.Lookup lookup) {
         return this;
     }

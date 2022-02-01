@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -35,7 +35,7 @@ final public class RoomSort extends Sort {
 
     public RoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Room");
         this.setRunAllSortsName("Room Sort");
         this.setRunSortName("Roomsort");
@@ -57,7 +57,7 @@ final public class RoomSort extends Sort {
         }
         Writes.write(array, a + 1, val, delay, true, false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         insertionSort = new InsertionSort(arrayVisualizer);

@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 final public class FFTreeSort extends Sort {
     public FFTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("FF Tree");
         this.setRunAllSortsName("Tree Sort (Forest Fire Antibalanced)");
         this.setRunSortName("FF Treesort");
@@ -20,7 +20,7 @@ final public class FFTreeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     static class Node {
         public static int[] array;
         public Node childLeft = null,
@@ -59,7 +59,7 @@ final public class FFTreeSort extends Sort {
             if(childRight == null)
                 return;
             Node s = clone();
-            
+
             s.childRight = this.childRight.childLeft;
             this.childLeft = s;
             this.index = childRight.index;
@@ -72,7 +72,7 @@ final public class FFTreeSort extends Sort {
             if(childLeft == null)
                 return;
             Node s = clone();
-            
+
             s.childLeft = this.childLeft.childRight;
             this.childRight = s;
             this.index = childLeft.index;
@@ -98,7 +98,7 @@ final public class FFTreeSort extends Sort {
                 return childLeft.balance() + childRight.balance();
             else if(isLeaf())
                 return 0;
-            
+
             if(childLeft == null)
                 return 1 + childRight.balance();
             return -1 + childLeft.balance();
@@ -162,7 +162,7 @@ final public class FFTreeSort extends Sort {
         Writes.changeAuxWrites(1);
         Writes.changeAllocAmount(1);
     }
-    
+
     public void traverseTree(ArrayList<Integer> tree, Node root, int recursion) {
         Writes.recordDepth(recursion++);
         if(root.childLeft != null) {
@@ -178,21 +178,21 @@ final public class FFTreeSort extends Sort {
             traverseTree(tree, root.childRight, recursion);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         Node.array = array;
-        
+
         Node root = new Node(0);
         Writes.changeAllocAmount(1);
         for(int i=1; i<length; i++) {
             insertBranch(root, i);
         }
-        
+
         ArrayList<Integer> fullTree = new ArrayList<>();
-        
+
         traverseTree(fullTree, root, 0);
-        
+
         int ptr = fullTree.size() - 1;
         while(fullTree.size() > 0) {
             Writes.write(array, ptr, fullTree.remove(ptr--), 1, true, false);

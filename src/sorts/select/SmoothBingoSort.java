@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 Distray
@@ -29,10 +29,10 @@ SOFTWARE.
  *
  */
 
-final public class SmoothBingoSort extends Sort {  
+final public class SmoothBingoSort extends Sort {
     public SmoothBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Smooth Bingo");
         this.setRunAllSortsName("Smooth Bingo Sort");
         this.setRunSortName("Smooth Bingo Sort");
@@ -62,7 +62,7 @@ final public class SmoothBingoSort extends Sort {
             }
             if(seekIndex == i)
                 break;
-            
+
             for(int k = equalSize + 1; k > 0; k--) {
                 Writes.swap(array, i--, seekIndex--, 1, true, false);
             }

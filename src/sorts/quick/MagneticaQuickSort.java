@@ -16,16 +16,16 @@ PORTED TO ARRAYV BY PCBOYGAMES
 
 */
 final public class MagneticaQuickSort extends Sort {
-    
+
     InsertionSort insert = new InsertionSort(arrayVisualizer);
     Random random = new Random();
 
     boolean randompivot = false;
     boolean medianpivot = false;
-    
+
     boolean standalone = false;
     boolean insertion = false;
-    
+
     public MagneticaQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Magnetica Quick");
@@ -40,7 +40,7 @@ final public class MagneticaQuickSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter variant:\n1: Mid Pivot Standalone\n2: Mid Pivot + Insertion\n3: Mo3/7 Pivot Standalone\n4: Mo3/7 Pivot + Insertion\n5: Random Pivot Standalone\n6: Random Pivot + Insertion\n(Default is 4)", 4);
     }
-    
+
     protected void magnetica(int[] array, int left, int right) {
         int threshold = insertion ? 17 : 0;
         int i, j, pl, pr;
@@ -103,7 +103,7 @@ final public class MagneticaQuickSort extends Sort {
                     Writes.write(stack, stackptr, right, 0, false, true);
                     if (insertion) {
                         stackptr *= (stackptr + 2 <= entries - 1 ? 1 : 0);
-                        right    *= (stackptr + 2 <= entries - 1 ? 1 : 0); 
+                        right    *= (stackptr + 2 <= entries - 1 ? 1 : 0);
                     }
                 }
                 right = j;
@@ -114,7 +114,7 @@ final public class MagneticaQuickSort extends Sort {
             insert.customInsertSort(array, lback, rback + 1, 0.5, false);
         }
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1 || answer > 6) return 4;
@@ -126,7 +126,7 @@ final public class MagneticaQuickSort extends Sort {
         if (variant == 3 || variant == 4) medianpivot = true;
         if (variant == 5 || variant == 6) randompivot = true;
         if (variant == 1 || variant == 3 || variant == 5) standalone = true;
-        else insertion = true; 
+        else insertion = true;
         magnetica(array, 0, currentLength - 1);
     }
 }

@@ -11,20 +11,20 @@ import utils.Renderer;
 public abstract class Visual {
     protected Graphics2D mainRender;
     protected Graphics2D extraRender;
-    
+
     public Visual(ArrayVisualizer ArrayVisualizer) {
         this.updateRender(ArrayVisualizer);
     }
-    
+
     public void updateRender(ArrayVisualizer ArrayVisualizer) {
         this.mainRender = ArrayVisualizer.getMainRender();
         this.extraRender = ArrayVisualizer.getExtraRender();
     }
-    
+
     public static Color getIntColor(int i, int length) {
         return Color.getHSBColor(((float) i / length), 0.8F, 0.8F);
     }
-    
+
     public static void markBar(Graphics2D bar, boolean color, boolean rainbow, boolean analysis) {
         if(color || rainbow) {
             if(analysis) bar.setColor(Color.LIGHT_GRAY);
@@ -37,7 +37,7 @@ public abstract class Visual {
         if(!color && !rainbow) bar.setColor(Color.RED);
         else                   bar.setColor(Color.BLACK);
     }
-    
+
     public static void lineMark(Graphics2D line, double width, boolean color, boolean analysis) {
         line.setStroke(new BasicStroke((float) (9f * (width / 1280f))));
         if(color) line.setColor(Color.BLACK);
@@ -51,17 +51,17 @@ public abstract class Visual {
     }
     //TODO: Change name to clearLine
     public static void lineClear(Graphics2D line, boolean color, int[] array, int i, int length, double width) {
-        if(color) line.setColor(getIntColor(array[i], length)); 
+        if(color) line.setColor(getIntColor(array[i], length));
         else line.setColor(Color.WHITE);
         line.setStroke(new BasicStroke((float) (3f * (width / 1280f))));
     }
-    
+
     public static void setRectColor(Graphics2D rect, boolean color, boolean analysis) {
         if(color) rect.setColor(Color.WHITE);
         else if(analysis) rect.setColor(Color.BLUE);
         else rect.setColor(Color.RED);
     }
-    
+
     @SuppressWarnings("fallthrough")
     //The longer the array length, the more bars marked. Makes the visual easier to see when bars are thinner.
     public static void colorMarkedBars(int logOfLen, int index, Highlights Highlights, Graphics2D mainRender, boolean colorEnabled, boolean rainbowEnabled, boolean analysis) {
@@ -84,7 +84,7 @@ public abstract class Visual {
         default: if(Highlights.containsPosition(index))        markBar(mainRender, colorEnabled, rainbowEnabled, analysis);
         }
     }
-    
+
     @SuppressWarnings("fallthrough")
     public static void drawFancyFinish(int logOfLen, int index, int position, Graphics2D mainRender, boolean colorEnabled, boolean rainbowEnabled) {
         switch(logOfLen) {
@@ -105,7 +105,7 @@ public abstract class Visual {
         default: if(index == position)        markBarFancy(mainRender, colorEnabled, rainbowEnabled);
         }
     }
-    
+
     @SuppressWarnings("fallthrough")
     public static void drawFancyFinishLine(int logOfLen, int index, int position, Graphics2D mainRender, double width, boolean colorEnabled) {
         switch(logOfLen) {
@@ -126,6 +126,6 @@ public abstract class Visual {
         default: if(index == position)        lineMark(mainRender, width, colorEnabled, false);
         }
     }
-    
+
     public abstract void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights);
 }

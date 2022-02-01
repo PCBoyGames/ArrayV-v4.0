@@ -6,7 +6,7 @@ import sorts.merge.BlockSwapMergeSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -37,7 +37,7 @@ final public class QuarterMergeSort extends Sort {
 
     public QuarterMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Quarter Merge");
         this.setRunAllSortsName("Quarter Merge Sort");
         this.setRunSortName("Quarter Mergesort");
@@ -106,7 +106,7 @@ final public class QuarterMergeSort extends Sort {
         for (int parlen = subLength; parlen >= 2; parlen = subEnd - quarterSize) {
             subLength = pow2lte(parlen);
             subStart = subEnd - subLength;
-            
+
             for (gap = 4; gap <= subLength; gap *= 2) {
                 for (int i = subStart; i + gap <= subEnd; i += gap) {
                     merge(array, quarterSize, i, i + gap / 2, i + gap);
@@ -134,7 +134,7 @@ final public class QuarterMergeSort extends Sort {
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         binaryInserter = new BinaryInsertionSort(arrayVisualizer);
         finalMerger = new BlockSwapMergeSort(arrayVisualizer);
-        
+
         this.quarterMergeSort(array, sortLength);
     }
 }

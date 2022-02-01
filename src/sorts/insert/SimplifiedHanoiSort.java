@@ -6,10 +6,10 @@ import main.ArrayVisualizer;
 // This just sounds straight-up haunted on 16 numbers.
 // (Distray's Simplified Hanoi Sort)
 final public class SimplifiedHanoiSort extends Sort {
-    
+
     public SimplifiedHanoiSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Simplified Hanoi");
         this.setRunAllSortsName("Simplified Hanoi Sort");
         this.setRunSortName("Simplified Hanoisort");
@@ -21,7 +21,7 @@ final public class SimplifiedHanoiSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private Rod main, stk1, stk2;
     private class Rod {
         private int[] arr;
@@ -66,7 +66,7 @@ final public class SimplifiedHanoiSort extends Sort {
             return arr[sz--];
         }
     }
-    
+
     private void towerHanoi(Rod from, Rod aux, Rod to, int n) {
         if(n == 1) {
             if(from.size() > 0)
@@ -78,7 +78,7 @@ final public class SimplifiedHanoiSort extends Sort {
             towerHanoi(aux, from, to, n-1);
         }
     }
-    
+
     private void pushAll(int num) {
         int index = 0;
         if(stk2.size() == 0)
@@ -89,7 +89,7 @@ final public class SimplifiedHanoiSort extends Sort {
         }
         this.towerHanoi(stk2, main, stk1, index);
     }
-    
+
     private void runHanoi(int[] array, int end) {
         for(int i=0; i<end; i++) {
             int top = array[i];

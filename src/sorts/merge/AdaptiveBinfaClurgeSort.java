@@ -26,7 +26,7 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -40,7 +40,7 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int left = start;
         int right = start + (len / 2);
@@ -76,9 +76,9 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
                 broken = true;
             }
             right++;
-        } 
+        }
     }
-    
+
     protected void nonpow2(int[] array, int start, int len, int mid) {
         int left = start;
         int right = mid;
@@ -114,7 +114,7 @@ final public class AdaptiveBinfaClurgeSort extends Sort {
                 Highlights.clearMark(3);
             }
             right++;
-        } 
+        }
     }
 
     @Override

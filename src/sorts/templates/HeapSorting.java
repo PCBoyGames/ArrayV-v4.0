@@ -3,7 +3,7 @@ package sorts.templates;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 Copyright (c) rosettacode.org.
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2
@@ -18,13 +18,13 @@ public abstract class HeapSorting extends Sort {
     protected HeapSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     private void siftDown(int[] array, int root, int dist, int start, double sleep, boolean isMax) {
         int compareVal = 0;
-        
+
         if(isMax) compareVal = -1;
         else compareVal = 1;
-        
+
         while (root <= dist / 2) {
             int leaf = 2 * root;
             if (leaf < dist && Reads.compareValues(array[start + leaf - 1], array[start + leaf]) == compareVal) {
@@ -47,17 +47,17 @@ public abstract class HeapSorting extends Sort {
             siftDown(arr, i, length, low, sleep, isMax);
         }
     }
-    
-    // This version of heap sort works for max and min variants, alongside sorting 
+
+    // This version of heap sort works for max and min variants, alongside sorting
     // partial ranges of an array.
     protected void heapSort(int[] arr, int start, int length, double sleep, boolean isMax) {
         heapify(arr, start, length, sleep, isMax);
-     
+
         for (int i = length - start; i > 1; i--) {
             Writes.swap(arr, start, start + i - 1, sleep, true, false);
             siftDown(arr, 1, i - 1, start, sleep, isMax);
         }
-        
+
         if(!isMax) {
             Writes.reversal(arr, start, start + length - 1, 1, true, false);
         }

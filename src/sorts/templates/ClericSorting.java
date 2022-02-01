@@ -16,8 +16,8 @@ public abstract class ClericSorting extends Sort {
         super(arrayVisualizer);
     }
     protected int end;
-    protected int clericSortRoutine(int[] array, int lo, int hi, int swapCount, double sleep, int depth) {    
-        Writes.recordDepth(depth);    
+    protected int clericSortRoutine(int[] array, int lo, int hi, int swapCount, double sleep, int depth) {
+        Writes.recordDepth(depth);
         if (lo == hi) return swapCount;
         int high = hi;
         int low = lo;

@@ -26,7 +26,7 @@ final public class RecursivePushSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int start, int end, int depth) {
         Writes.recordDepth(depth);
         boolean anyswaps = false;
@@ -58,7 +58,7 @@ final public class RecursivePushSort extends Sort {
             }
         }
     }
-    
+
     protected int sorted(int[] array, int start, int currentLength) {
         int check = currentLength;
         for (int i = start - 1 > 0 ? start - 1 : 0; i < currentLength - 1; i++) {
@@ -72,7 +72,7 @@ final public class RecursivePushSort extends Sort {
         }
         return check;
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -86,7 +86,7 @@ final public class RecursivePushSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     protected void binsert(int[] array, int start, int currentLength) {
         for (int i = start; i < currentLength; i++) {
             if (Reads.compareValues(array[i - 1], array[i]) > 0) {

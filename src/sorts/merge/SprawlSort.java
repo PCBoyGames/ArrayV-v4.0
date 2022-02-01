@@ -7,7 +7,7 @@ import sorts.templates.MergeSorting;
 final public class SprawlSort extends MergeSorting {
     public SprawlSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Sprawl");
         this.setRunAllSortsName("Sprawl Sort");
         this.setRunSortName("Sprawlsort");
@@ -62,13 +62,13 @@ final public class SprawlSort extends MergeSorting {
     public void merge(int[] array, int start, int end) {
         if(start == end)
             return;
-        
+
         int mid = start + ((end - start) / 2);
         if(start == mid)
             return;
         this.merge(array, start, mid);
         this.merge(array, mid, end);
-        
+
         this.sprawl(array, start, mid, end);
     }
     @Override

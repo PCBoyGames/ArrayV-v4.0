@@ -17,7 +17,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort extends So
         this.setUnreasonableLimit(16);
         this.setBogoSort(false);
     }
-    
+
     private void gappedInsertion(int[] array, int start, int end, double sleep, int gap, int direction) {
         for(int i=start+gap; i<end; i+=gap) {
             int t=array[i], j = i-gap;
@@ -32,14 +32,14 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort extends So
             Writes.write(array, j+gap, t, sleep, true, false);
         }
     }
-    
+
     private void gapreversal(int[] array, int start, int end, int gap) {
         int l = Math.floorDiv(end-start-1, gap) * gap;
         for(int i=0; i<l/2; i+=gap) {
             Writes.swap(array, start+i, end-i-gap, 0.1, true, false);
         }
     }
-    
+
     // we ain't making it stable
     private boolean defeatPatterns(int[] array, int start, int end, int gap, int direction) {
         int comp = Reads.compareValues(array[start], array[start+gap]) * direction,
@@ -54,7 +54,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort extends So
         }
         return start >= end-gap;
     }
-    
+
     private void introBubbleDown(int[] array, int start, int end, int gap, int direction) {
         if(defeatPatterns(array, start, end, gap, direction))
             return;
@@ -84,7 +84,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort extends So
             }
         }
     }
-    
+
     // normal Introspective Pattern-defeating Iterative Pop (+ order)
     public void pdiPop(int[] array, int start, int end, int dir, int ord, int depth) {
         Writes.recordDepth(depth++);
@@ -105,7 +105,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort extends So
             }
         }
     }
-    
+
     public void wipdiPop(int[] array, int start, int end, int dir, int gapq, int ord, int depth) {
         if(end-start <= gapq)
             return;
@@ -128,11 +128,11 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort extends So
             }
         }
     }
-    
+
     public void weavedIntroPatternDefeatIterHyperPop(int[] array, int start, int end, int dir) {
         this.wipdiPop(array, start, end, dir, 1, end-start, 0);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.weavedIntroPatternDefeatIterHyperPop(array, 0, currentLength, 1);

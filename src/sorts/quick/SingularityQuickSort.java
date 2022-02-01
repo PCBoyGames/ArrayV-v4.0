@@ -14,11 +14,11 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class SingularityQuickSort extends Sort {
-    
+
     int depthlimit;
     int insertlimit;
     int replimit;
-    
+
     public SingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Singularity Quick");
@@ -32,14 +32,14 @@ final public class SingularityQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int log2(int x) {
         int n = 1;
         while (1 << n < x) n++;
         if (1 << n > x) n--;
         return n;
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
@@ -57,7 +57,7 @@ final public class SingularityQuickSort extends Sort {
             i++;
         }
     }
-    
+
     protected int pd(int[] array, int start, int end) {
         int reverse = start;
         boolean lessunique = false;
@@ -76,12 +76,12 @@ final public class SingularityQuickSort extends Sort {
         }
         return reverse;
     }
-    
+
     protected void binsert(int[] array, int start, int end) {
         PDBinaryInsertionSort bin = new PDBinaryInsertionSort(arrayVisualizer);
         bin.pdbinsert(array, start - 1, end, 0.1, false);
     }
-    
+
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int rep) {
         Writes.recordDepth(depth);
         Highlights.clearAllMarks();

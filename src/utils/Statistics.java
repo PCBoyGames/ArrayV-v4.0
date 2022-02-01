@@ -19,11 +19,11 @@ final public class Statistics {
     private String sortHeading;
     private String sortExtraHeading;
     private String arrayLength;
-    
+
     private String sortDelay;
     private String visualTime;
     private String estSortTime;
-    
+
     private String comparisonCount;
     private String swapCount;
     private String recCount;
@@ -31,20 +31,20 @@ final public class Statistics {
     private static HashMap<String, Long> addedCounts;
     private String reversalCount;
     private String bigO;
-    
+
     private String mainWriteCount;
     private String auxWriteCount;
 
     private String auxAllocAmount;
 
     private String segments;
-    
+
     private DecimalFormat formatter;
-    
+
     private AccessFunction access;
     private ArrayVisualizer arrayv;
     public boolean bigo;
-    
+
     public Statistics(ArrayVisualizer ArrayVisualizer) {
         arrayv = ArrayVisualizer;
         this.formatter = ArrayVisualizer.getNumberFormat();
@@ -87,13 +87,13 @@ final public class Statistics {
         this.sortHeading = ArrayVisualizer.getHeading();
         this.sortExtraHeading = ArrayVisualizer.getExtraHeading();
         int showUnique = Math.min(ArrayVisualizer.getUniqueItems(), ArrayVisualizer.getCurrentLength());
-        this.arrayLength = this.formatter.format(ArrayVisualizer.getCurrentLength()) + " Numbers" 
+        this.arrayLength = this.formatter.format(ArrayVisualizer.getCurrentLength()) + " Numbers"
         + ", " + this.formatter.format(showUnique) + " Unique";
-        
+
         this.sortDelay = "Delay: " + ArrayVisualizer.getDelays().displayCurrentDelay();
         this.visualTime = "Visual Time: " + ArrayVisualizer.getTimer().getVisualTime();
         this.estSortTime = "Sort Time: " + ArrayVisualizer.getTimer().getRealTime();
-        
+
         this.comparisonCount = ArrayVisualizer.getReads().getStats();
         this.swapCount = ArrayVisualizer.getWrites().getSwaps();
         this.reversalCount = ArrayVisualizer.getWrites().getReversals();
@@ -101,7 +101,7 @@ final public class Statistics {
         this.recDepth = ArrayVisualizer.getWrites().getRecursionDepth();
         if(!this.bigo)
             this.bigO = "";
-        
+
         this.mainWriteCount = ArrayVisualizer.getWrites().getMainWrites();
         this.auxWriteCount = ArrayVisualizer.getWrites().getAuxWrites();
 
@@ -112,7 +112,7 @@ final public class Statistics {
         String plural = rawSegments[0] == 1 ? "" : "s";
         this.segments        = String.valueOf(rawSegments[1]) + "% Sorted (" + String.valueOf(rawSegments[0]) + " Segment" + plural + ")";
     }
-    
+
     public void calculateBigO(BigInteger comps) {
         try {
             this.bigO = "Calculating Big O...";
@@ -143,7 +143,7 @@ final public class Statistics {
             return;
         }
     }
-    
+
     public String getSortIdentity() {
         return this.sortCategory + ": " + this.sortHeading;
     }

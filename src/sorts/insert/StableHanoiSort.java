@@ -7,8 +7,8 @@ import sorts.templates.Sort;
 
 /**
  * A stable variant of Hanoi Sort.
- * For more information on this type of sort, see Javadoc on {@link HanoiSort}. 
- * 
+ * For more information on this type of sort, see Javadoc on {@link HanoiSort}.
+ *
  * @author Sam Walko (Anonymous0726)
  */
 final public class StableHanoiSort extends Sort {
@@ -28,7 +28,7 @@ final public class StableHanoiSort extends Sort {
 
     public StableHanoiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Stable Hanoi");
         this.setRunAllSortsName("Stable Hanoi Sort");
         this.setRunSortName("Stable Hanoi sort");
@@ -49,14 +49,14 @@ final public class StableHanoiSort extends Sort {
     private void removeFromMainStack() {
         Highlights.markArray(1, sp);
         target = array[sp];
-        
+
         int moves = hanoi(2, true, 1);
         int height = getHeight(moves + 1);
         targetMoves = moves;
-        
+
         Highlights.clearAllMarks();
         Highlights.markArray(1, sp);
-        
+
         if(height % 2 == 1) { // Odd height case: moved to stack3
             unsorted += moveFromMain(stack2, false);
             hanoi(3, false, 2);
@@ -79,7 +79,7 @@ final public class StableHanoiSort extends Sort {
         int height = getHeight(moves + 1);
         boolean oddHeight = height % 2 == 1;
         targetMoves = moves;
-        
+
         if(oddHeight) { // Odd height case: moved to stack3
             hanoi(3, false, 2); // All disks have moved an even number of times
         } else { // Even height case: moved to main stack
@@ -100,12 +100,12 @@ final public class StableHanoiSort extends Sort {
             oddHeight = !oddHeight; // Change height's odd parity
         }
     }
-    
+
     /**
      * Iteratively moves elements around the stacks according to the
      * Tower of Hanoi problem. Recursion cannot be used because in many
      * cases we do not know the initial recursion depth.
-     * 
+     *
      * @param startStack Which stack we wish to move a tower from
      * @param goRight Whether the smallest disk should go right on the pegs
      * (1->2, 2->3, 3->1) or left (1->3, 2->1, 3->2)
@@ -115,7 +115,7 @@ final public class StableHanoiSort extends Sort {
     private int hanoi(int startStack, boolean goRight, int endCon) {
         int moves = 0;
         int minPoleLoc = startStack;
-        
+
         if(!endConMet(endCon, moves)) {
             moves++;
             switch(minPoleLoc) {
@@ -145,7 +145,7 @@ final public class StableHanoiSort extends Sort {
                 } break;
             }
         }
-        
+
         while(!endConMet(endCon, moves)) {
             moves += 2;
             switch(minPoleLoc) {
@@ -190,13 +190,13 @@ final public class StableHanoiSort extends Sort {
                 } break;
             }
         }
-        
+
         return moves;
     }
-    
+
     /**
      * Determines whether or not the hanoi function should end now
-     * 
+     *
      * @param endCon Which ending condition is required for the hanoi function to end
      * @param moves the moves completed by the hanoi function so far
      * @return Whether or not the end condition has been met
@@ -226,7 +226,7 @@ final public class StableHanoiSort extends Sort {
 
     /**
      * Figures out the height of the pyramid moved based on number of moves
-     * 
+     *
      * @param movesPlus1 The number of moves performed, plus one
      * @return The height of the pyramid moved (equal to log_2(moves + 1))
      */
@@ -235,11 +235,11 @@ final public class StableHanoiSort extends Sort {
             return 0;
         return getHeight(movesPlus1 / 2) + 1;
     }
-    
+
     /**
      * Moves an element from the main array to another stack,
      * then moves any consecutive duplicates of that element with it
-     * 
+     *
      * @param stack The stack to move the element(s) from the main array to
      * @param checkUnsorted Whether or not it is safe to remove elements in
      * the unsorted portion of the main array
@@ -272,11 +272,11 @@ final public class StableHanoiSort extends Sort {
         }
         return duplicates;
     }
-    
+
     /**
      * Moves an element to the main array from another stack,
      * then moves any consecutive duplicates of that element with it
-     * 
+     *
      * @param stack The stack to move the element(s) to the main array from
      */
     private void moveToMain(Stack<Integer> stack) {
@@ -291,11 +291,11 @@ final public class StableHanoiSort extends Sort {
             Writes.write(array, sp, stack.pop(), 0.25, false, false);
         }
     }
-    
+
     /**
      * Moves an element from one stack to another stack,
      * then moves any consecutive duplicates of that element with it
-     * 
+     *
      * @param from the stack to move the element(s) from
      * @param to the stack to move the element(s) to
      */
@@ -315,8 +315,8 @@ final public class StableHanoiSort extends Sort {
             Delays.sleep(0.25);
         }
     }
-    
-    
+
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         // Initialize local variables
@@ -326,10 +326,10 @@ final public class StableHanoiSort extends Sort {
         stack3 = new Stack<Integer>();
         sp = 0;
         unsorted = 0;
-        
+
         while(unsorted < length)
             removeFromMainStack();
-        
+
         returnToMainStack();
     }
 }

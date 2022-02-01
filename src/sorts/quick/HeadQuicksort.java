@@ -31,35 +31,35 @@ final public class HeadQuicksort extends Sort {
             this.start = start;
             this.end = end;
             this.depth = depth;
-        } 
-        
+        }
+
         public int length() {
             return this.end-this.start;
         }
-        
+
         public int branchlessCompare(int a, int b) {
             return ((a-b)>>31)|-((b-a)>>31);
         }
-        
+
         @Override
         public int compareTo(Head head) {
             return branchlessCompare(length(),head.length());
         }
     }
-    
+
     public void merge(int[] array, int[] tmp, int start, int mid, int end) {
         if(start >= mid) return;
-        
+
         merge(array, tmp, start, (mid+start)/2, mid);
         merge(array, tmp, mid, (mid+end)/2, end);
-        
+
         if(Reads.compareValues(array[mid-1], array[mid]) <= 0) {
             return;
         }
-        
+
         Writes.arraycopy(array, start, tmp, 0, mid-start, 1, true, true);
         int low = 0, high = mid, nxt = start;
-        
+
         while(low < mid-start && high < end) {
             if(Reads.compareValues(tmp[low], array[high]) <= 0) {
                 Writes.write(array, nxt++, tmp[low++], 1, true, false);
@@ -71,7 +71,7 @@ final public class HeadQuicksort extends Sort {
             Writes.write(array, nxt++, tmp[low++], 1, true, false);
         }
     }
-    
+
     private int[] med15Swaps = new int[] {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
         1, 3, 5, 7, 9, 11, 13, 15,
@@ -92,7 +92,7 @@ final public class HeadQuicksort extends Sort {
             }
         }
     }
-    
+
     private void quickSort(int[] a, PriorityQueue<Head> q, int p, int r, int d) {
         int x;
         if(r-p > 128 && d < Math.log1p(r-p) / Math.log(6)) {
@@ -109,9 +109,9 @@ final public class HeadQuicksort extends Sort {
             }
             x = (int) (m / (long) (r-p+1));
         }
-        
+
         int i = p, j = r;
-        
+
         while (i <= j) {
             while (i <= j && Reads.compareValues(a[i], x) == -1){
                 i++;
@@ -128,7 +128,7 @@ final public class HeadQuicksort extends Sort {
                 Writes.swap(a, i++, j--, 1, true, false);
             }
         }
-        
+
         q.offer(new Head(p, j, d));
         q.offer(new Head(i, r, d));
     }

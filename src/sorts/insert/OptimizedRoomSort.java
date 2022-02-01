@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class OptimizedRoomSort extends Sort {
-    
+
     int first;
     int last;
-    
+
     public OptimizedRoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Room");
@@ -30,7 +30,7 @@ final public class OptimizedRoomSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -44,7 +44,7 @@ final public class OptimizedRoomSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     protected boolean binsert(int[] array, int start, int gap, int currentLength) {
         boolean inserts = false;
         boolean firstfound = false;
@@ -71,7 +71,7 @@ final public class OptimizedRoomSort extends Sort {
         }
         return inserts;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         first = 0;

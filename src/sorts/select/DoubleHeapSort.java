@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 aphitorite
@@ -44,13 +44,13 @@ final public class DoubleHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int[] array;
     private int e;
-    
+
     private class MaxSiftDown extends Thread {
         private int i, n;
-        
+
         MaxSiftDown(int i, int n) {
             this.i = i;
             this.n = n;
@@ -61,7 +61,7 @@ final public class DoubleHeapSort extends Sort {
     }
     private class MinSiftDown extends Thread {
         private int i, n;
-        
+
         MinSiftDown(int i, int n) {
             this.i = i;
             this.n = n;
@@ -70,10 +70,10 @@ final public class DoubleHeapSort extends Sort {
             DoubleHeapSort.this.minSiftDown(i, n);
         }
     }
-    
+
     private class MaxHeapify extends Thread {
         private int n;
-        
+
         MaxHeapify(int n) {
             this.n = n;
         }
@@ -83,7 +83,7 @@ final public class DoubleHeapSort extends Sort {
     }
     private class MinHeapify extends Thread {
         private int n;
-        
+
         MinHeapify(int n) {
             this.n = n;
         }
@@ -91,10 +91,10 @@ final public class DoubleHeapSort extends Sort {
             DoubleHeapSort.this.minHeapify(n);
         }
     }
-    
+
     private class MaxHeapSort extends Thread {
         private int n;
-        
+
         MaxHeapSort(int n) {
             this.n = n;
         }
@@ -104,7 +104,7 @@ final public class DoubleHeapSort extends Sort {
     }
     private class MinHeapSort extends Thread {
         private int n;
-        
+
         MinHeapSort(int n) {
             this.n = n;
         }
@@ -112,25 +112,25 @@ final public class DoubleHeapSort extends Sort {
             DoubleHeapSort.this.minHeapSort(n);
         }
     }
-    
+
     private void run(Thread l, Thread r) {
         l.start();
         r.start();
-        
+
         try {
             l.join();
             r.join();
-        } 
+        }
         catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
-    
+
     private void maxSiftDown(int i, int n) {
         while(2*i+1 < n) {
             int l = 2*i+1, r = l+1;
             int max = r == n ? l : (Reads.compareValues(array[r], array[l]) > 0 ? r : l);
-            
+
             if(Reads.compareValues(array[max], array[i]) > 0) {
                 Writes.swap(array, max, i, 1, true, false);
                 i = max;
@@ -142,7 +142,7 @@ final public class DoubleHeapSort extends Sort {
         while(2*i+1 < n) {
             int l = 2*i+1, r = l+1;
             int min = r == n ? l : (Reads.compareValues(array[(e-1)-r], array[(e-1)-l]) < 0 ? r : l);
-            
+
             if(Reads.compareValues(array[(e-1)-min], array[(e-1)-i]) < 0) {
                 Writes.swap(array, (e-1)-min, (e-1)-i, 1, true, false);
                 i = min;
@@ -150,7 +150,7 @@ final public class DoubleHeapSort extends Sort {
             else return;
         }
     }
-    
+
     private void maxHeapify(int n) {
         for(int i = (n-1)/2; i >= 0; i--)
             this.maxSiftDown(i, n);
@@ -159,7 +159,7 @@ final public class DoubleHeapSort extends Sort {
         for(int i = (n-1)/2; i >= 0; i--)
             this.minSiftDown(i, n);
     }
-    
+
     private void maxHeapSort(int n) {
         while(--n > 0) {
             Writes.swap(array, 0, n, 1, true, false);
@@ -172,15 +172,15 @@ final public class DoubleHeapSort extends Sort {
             this.minSiftDown(0, n);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.array = array;
         this.e = length;
-        
+
         int m = (length+1)/2;
         this.run(new MaxHeapify(m), new MinHeapify(length-m));
-        
+
         while(Reads.compareValues(array[0], array[length-1]) > 0) {
             Writes.swap(array, 0, length-1, 1, true, false);
             this.run(new MaxSiftDown(0, m), new MinSiftDown(0, length-m));

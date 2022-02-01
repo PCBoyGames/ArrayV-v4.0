@@ -4,10 +4,10 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class SelectionClamberSort extends Sort {  
+final public class SelectionClamberSort extends Sort {
     public SelectionClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Selection Clamber");
         this.setRunAllSortsName("Selection Clamber Sort");
         this.setRunSortName("Selection Clamber Sort");

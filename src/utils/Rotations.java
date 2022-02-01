@@ -33,7 +33,7 @@ public class Rotations {
         Writes.write(array, start + length, temp, pause, mark, auxwrite);
     }
 
-    private static void shiftBackwards(int[] array, int start, int length, double pause, boolean mark, boolean auxwrite) {    
+    private static void shiftBackwards(int[] array, int start, int length, double pause, boolean mark, boolean auxwrite) {
         int temp = array[start + length];
         if (mark) Highlights.clearMark(2);
         for(int i = length; i > 0; i--) {
@@ -81,15 +81,15 @@ public class Rotations {
                 pos  += lenA;
                 lenB -= lenA;
             }
-            
+
             if(lenA <= 1 || lenB <= 1) break;
-            
+
             while(lenA > lenB) {
                 swapBlocksBackwards(array, pos + lenA - lenB, pos + lenA, lenB, pause, mark, auxwrite);
                 lenA -= lenB;
             }
         }
-        
+
         if(lenA == 1) {
             shiftForwards(array, pos, lenB, pause, mark, auxwrite);
         }
@@ -110,7 +110,7 @@ public class Rotations {
                 lenB -= lenA;
             }
         }
-        
+
         if      (lenB == 1) shiftBackwards(array, pos, lenA, pause, mark, auxwrite);
         else if (lenA == 1) shiftForwards(array, pos, lenB, pause, mark, auxwrite);
     }
@@ -118,7 +118,7 @@ public class Rotations {
     // by Scandum and Control
     public static void cycleReverse(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
         if(lenA < 1 || lenB < 1) return;
-        
+
         int a = pos,
             b = pos + lenA - 1,
             c = pos + lenA,
@@ -156,10 +156,10 @@ public class Rotations {
 
         if (lenA == 0) return;
 
-        for (int cnt = 0, 
-                 index = 0, 
-                 value = array[pos + index], 
-                 startIndex = index; 
+        for (int cnt = 0,
+                 index = 0,
+                 value = array[pos + index],
+                 startIndex = index;
             cnt < length; cnt++) {
                 int nextIndex = mapIndex(index, lenA, length);
 
@@ -173,11 +173,11 @@ public class Rotations {
                 }
         }
     }
-    
+
     //by Scandum
     public static void bridge(int[] array, int pos, int left, int right, double pause, boolean mark, boolean auxwrite) {
         if(left < 1 || right < 1) return;
-        
+
         int pta = pos, ptb = pos + left, ptc = pos + right, ptd = ptb + right, alloc;
 
         if(left < right) {
@@ -202,7 +202,7 @@ public class Rotations {
                 int[] swap = new int[left];
                 alloc = left;
                 Writes.changeAllocAmount(alloc);
-                
+
                 Writes.arraycopy(array, pta, swap, 0, left, pause, mark, true);
                 Writes.arraycopy(array, ptb, array, pta, right, pause, mark, auxwrite);
                 Writes.arraycopy(swap, 0, array, ptc, left, pause, mark, auxwrite);
@@ -217,11 +217,11 @@ public class Rotations {
                 int[] swap = new int[bridge];
                 alloc = bridge;
                 Writes.changeAllocAmount(alloc);
-                
+
                 Writes.arraycopy(array, ptc, swap, 0, bridge, pause, mark, true);
-                
+
                 while(loop-- > 0) {
-                    Writes.write(array, ptc++, array[pta],   pause/2d, mark, auxwrite); 
+                    Writes.write(array, ptc++, array[pta],   pause/2d, mark, auxwrite);
                     Writes.write(array, pta++, array[ptb++], pause/2d, mark, auxwrite);
                 }
                 Writes.arraycopy(swap, 0, array, ptd - bridge, bridge, pause, mark, auxwrite);
@@ -230,7 +230,7 @@ public class Rotations {
                 int[] swap = new int[right];
                 alloc = right;
                 Writes.changeAllocAmount(alloc);
-                
+
                 Writes.arraycopy(array, ptb, swap, 0, right, pause, mark, true);
                 while(left-- > 0)
                     Writes.write(array, --ptd, array[--ptb], pause, mark, auxwrite);
@@ -239,14 +239,14 @@ public class Rotations {
         }
         else {
             alloc = 0;
-            
-            while(left-- > 0) 
+
+            while(left-- > 0)
                 Writes.swap(array, pta++, ptb++, pause, mark, auxwrite);
             Highlights.clearMark(2);
         }
         Writes.changeAllocAmount(-alloc);
     }
-    
+
     public static void neon(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
         int factor;
         while(lenA > 0 && lenB > 0) {

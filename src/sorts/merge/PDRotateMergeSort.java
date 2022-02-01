@@ -46,8 +46,8 @@ public class PDRotateMergeSort extends Sort {
         while (a < b) {
             int m = a + (b - a) / 2;
 
-            boolean comp = left 
-                         ? Reads.compareValues(value, array[m]) <= 0 
+            boolean comp = left
+                         ? Reads.compareValues(value, array[m]) <= 0
                          : Reads.compareValues(value, array[m]) < 0;
 
             if (comp)

@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 final public class BzsurgeSort extends Sort {
     public BzsurgeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Bzsurge");
         this.setRunAllSortsName("Bzsurge Sort");
         this.setRunSortName("Bzsurgesort");

@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class FlightMergeSort extends Sort {
-    
+
     int min;
     int max;
-    
+
     public FlightMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Flight Merge");
@@ -30,7 +30,7 @@ final public class FlightMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int mi = min;
         int size = max - mi + 1;

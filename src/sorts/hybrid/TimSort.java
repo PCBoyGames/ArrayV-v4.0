@@ -26,10 +26,10 @@ public class TimSort extends Sort {
                                         // more refactoring, which would be just doing unnecessary busy work. Instead of what we've done for
                                         // the rest of the algorithms, we'll favor composition over inheritance here and pass "util" objects
                                         // to it.
-    
+
     public TimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Tim");
         this.setRunAllSortsName("Tim Sort");
         this.setRunSortName("Timsort");
@@ -41,11 +41,11 @@ public class TimSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.timSortInstance = new TimSorting(array, currentLength, this.arrayVisualizer);
-        
+
         TimSorting.sort(this.timSortInstance, array, currentLength);
     }
 }

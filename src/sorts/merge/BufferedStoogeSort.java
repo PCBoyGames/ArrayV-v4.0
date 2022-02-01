@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package sorts.merge;
 

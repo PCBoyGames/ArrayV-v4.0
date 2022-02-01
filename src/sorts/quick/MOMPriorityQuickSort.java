@@ -36,15 +36,15 @@ public final class MOMPriorityQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     class Partition implements Comparable<Partition> {
         public int a, b;
-        
+
         public Partition(int a, int b) {
             this.a = a;
             this.b = b;
         }
-        
+
         public int length() {
             return this.b-this.a;
         }
@@ -58,11 +58,11 @@ public final class MOMPriorityQuickSort extends Sort {
             return (this.length() < y.length()) ? 1 : -1;
         }
     }
-    
+
     InsertionSort insSort;
-    
+
     int threshold = 32;
-    
+
     void medianOfThree(int[] array, int a, int b) {
         int m = a + (b - 1 - a) / 2;
 
@@ -78,7 +78,7 @@ public final class MOMPriorityQuickSort extends Sort {
 
         Writes.swap(array, a, m, 1, true, false);
     }
-    
+
     void medianOfMedians(int[] array, int a, int b, int s) {
         int end = b, start = a, i, j;
         boolean ad = true;
@@ -101,11 +101,11 @@ public final class MOMPriorityQuickSort extends Sort {
             end = j;
         }
     }
-    
+
     public int partition(int[] array, int a, int b, int p) {
         int i = a, j = b;
         Highlights.markArray(3, p);
-        
+
         while(true) {
             do {
                 i++;
@@ -113,14 +113,14 @@ public final class MOMPriorityQuickSort extends Sort {
                 Delays.sleep(0.5);
             }
             while(i < j && Reads.compareIndices(array, i, p, 0, false) < 0);
-            
+
             do {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
             }
             while(j >= i && Reads.compareIndices(array, j, p, 0, false) > 0);
-                
+
             if(i < j) Writes.swap(array, i, j, 1, true, false);
             else {
                 Writes.swap(array, p, j, 1, true, false);
@@ -129,7 +129,7 @@ public final class MOMPriorityQuickSort extends Sort {
             }
         }
     }
-    
+
     public void quickSort(int[] array, int start, int end) {
         this.insSort = new InsertionSort(this.arrayVisualizer);
         if(end - start < this.threshold) {
@@ -158,7 +158,7 @@ public final class MOMPriorityQuickSort extends Sort {
                 insSort.customInsertSort(array, m + 1, b, 0.5, false);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         quickSort(array, 0, sortLength);

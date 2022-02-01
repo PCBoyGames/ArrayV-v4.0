@@ -8,7 +8,7 @@ import utils.Renderer;
 import visuals.Visual;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -46,21 +46,21 @@ final public class Rainbow extends Visual {
 
             if(Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
                 this.mainRender.setColor(Color.GREEN);
-            
+
             else this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
-            
+
             this.mainRender.fillRect(j + 20, Renderer.getYOffset() - 20, width, (int) (Renderer.getViewSize()));
-            
+
             j += width;
         }
         if(ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
         else                                  this.mainRender.setColor(Color.WHITE);
-        
+
         for(int i = 0, j = 0; i < Renderer.getArrayLength(); i++) {
             int width = (int) (Renderer.getXScale() * (i + 1)) - j;
-            
+
             if(Highlights.containsPosition(i)) {
-                
+
                 this.mainRender.fillRect(j + 20, Renderer.getYOffset() - 20, Math.max(width, 2), (int) (Renderer.getViewSize()));
             }
             j += width;

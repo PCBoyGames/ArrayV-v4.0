@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class ExpandingRoomSort extends Sort {
-    
+
     int first;
     int last;
-    
+
     public ExpandingRoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Expanding Room");
@@ -31,7 +31,7 @@ final public class ExpandingRoomSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the expansion for this sort:", 8);
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -45,7 +45,7 @@ final public class ExpandingRoomSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     protected boolean binsert(int[] array, int start, int gap, int currentLength) {
         boolean inserts = false;
         boolean firstfound = false;
@@ -72,13 +72,13 @@ final public class ExpandingRoomSort extends Sort {
         }
         return inserts;
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 0) return 0;
         return answer;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int expand) {
         first = 0;

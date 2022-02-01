@@ -152,7 +152,7 @@ public abstract class HolyGrailSorting extends Sort {
                 minLen = leftLen;
             }
         }
-        
+
         if(minLen == 1) {
             StHighlights.clearMark(2);
             if(leftLen == 1) {
@@ -292,7 +292,7 @@ public abstract class HolyGrailSorting extends Sort {
         rotate(array, start, firstKey, keysFound);
         return keysFound;
     }
-    
+
     // Much thanks to Spex_guy for this beautiful optimization!!
     private static void sortPairsWithKeys(int[] array, int start, int length, Comparator<Integer> cmp) {
         // first, save the keys to stack memory
@@ -300,7 +300,7 @@ public abstract class HolyGrailSorting extends Sort {
         int secondKey = array[start - 2];
 
         StHighlights.clearMark(2);
-        
+
         // move all the items down two indices, sorting them simultaneously
         sortPairs(array, start, length, cmp);
 
@@ -360,7 +360,7 @@ public abstract class HolyGrailSorting extends Sort {
         }
 
         StHighlights.clearMark(3);
-        
+
         if(buffer != left) {
             swapBlocksForwards(array, buffer, left, middle - left);
         }
@@ -391,7 +391,7 @@ public abstract class HolyGrailSorting extends Sort {
         }
 
         StHighlights.clearMark(3);
-        
+
         if(right != buffer) {
             swapBlocksBackwards(array, buffer, right, right - middle);
         }
@@ -426,7 +426,7 @@ public abstract class HolyGrailSorting extends Sort {
 
         if(buffer != left) {
             StWrites.arraycopy(array, left, array, buffer, middle - left, WRITE_DELAY, true, false);
-            
+
             /*
             while(left < middle) {
                 StWrites.write(array, buffer, (int)array[left], WRITE_DELAY, true, false);
@@ -460,7 +460,7 @@ public abstract class HolyGrailSorting extends Sort {
 
         if(right != buffer) {
             StWrites.arraycopy(array, right, array, buffer, right - middle, WRITE_DELAY, true, false);
-            
+
             /*
             while(right > middle) {
                 StWrites.write(array, buffer, (int)array[right], WRITE_DELAY, true, false);
@@ -611,7 +611,7 @@ public abstract class HolyGrailSorting extends Sort {
             //StHighlights.markArray(1, rightBlock + cmpIndex);
             //StHighlights.markArray(2, blockIndex + cmpIndex);
             //StDelays.sleep(100);
-            
+
             if(cmp.compare(array[rightBlock + cmpIndex], array[blockIndex + cmpIndex]) < 0) {
                 swapBlocksForwards(array, blockIndex, rightBlock, blockLen);
                 swap(array, keyIndex, rightKey);
@@ -638,7 +638,7 @@ public abstract class HolyGrailSorting extends Sort {
                 //StHighlights.markArray(1, currBlock + cmpIndex);
                 //StHighlights.markArray(2, selectBlock + cmpIndex);
                 //StDelays.sleep(100);
-                
+
                 int compare = cmp.compare(array[currBlock + cmpIndex], array[selectBlock + cmpIndex]);
                 if (compare < 0 || (compare == 0 && cmp.compare(array[  currKey],
                                                                 array[selectKey]) < 0)) {
@@ -655,7 +655,7 @@ public abstract class HolyGrailSorting extends Sort {
             blockIndex += blockLen;
             keyIndex++;
         }
-        
+
         // phase three: after the left subarray has been sorted, keep finding the next block in order
         //              from the scrambled area until either (a) the scrambled area runs out of blocks,
         //              meaning the rest are sorted, or (b) the scrambled area hits the end of the right
@@ -670,7 +670,7 @@ public abstract class HolyGrailSorting extends Sort {
                 //StHighlights.markArray(1, currBlock + cmpIndex);
                 //StHighlights.markArray(2, selectBlock + cmpIndex);
                 //StDelays.sleep(100);
-                
+
                 int compare = cmp.compare(array[currBlock + cmpIndex], array[selectBlock + cmpIndex]);
                 if (compare < 0 || (compare == 0 && cmp.compare(array[  currKey],
                                                                 array[selectKey]) < 0)) {
@@ -688,7 +688,7 @@ public abstract class HolyGrailSorting extends Sort {
 
             blockIndex += blockLen;
             keyIndex++;
-            
+
             if(keyIndex == scrambledEnd) return;
         }
 
@@ -703,7 +703,7 @@ public abstract class HolyGrailSorting extends Sort {
                 //StHighlights.markArray(1, currBlock + cmpIndex);
                 //StHighlights.markArray(2, selectBlock + cmpIndex);
                 //StDelays.sleep(100);
-                
+
                 int compare = cmp.compare(array[currBlock + cmpIndex], array[selectBlock + cmpIndex]);
                 if (compare < 0 || (compare == 0 && cmp.compare(array[  currKey],
                                                                 array[selectKey]) < 0)) {
@@ -789,7 +789,7 @@ public abstract class HolyGrailSorting extends Sort {
         }
 
         StHighlights.clearMark(3);
-        
+
         if(left < middle) {
             int leftFrag = middle - left;
             swapBlocksBackwards(array, left, end - leftFrag, leftFrag);
@@ -846,7 +846,7 @@ public abstract class HolyGrailSorting extends Sort {
         }
 
         StHighlights.clearMark(3);
-        
+
         if(right > middle) {
             int rightFrag = right - middle;
             swapBlocksForwards(array, end + 1, middle + 1, rightFrag);
@@ -1151,11 +1151,11 @@ public abstract class HolyGrailSorting extends Sort {
             // although it may be empty (lastLen == 0)
             this.currBlockLen    = blockLen;
             this.currBlockOrigin = getSubarray(array, firstKey + blockCount - 1, medianKey, cmp);
-            
+
             blockCount--;
         }
         */
-        
+
         for(int keyIndex = blockCount - 1; keyIndex >= 0; keyIndex--, nextBlock -= blockLen) {
             Subarray nextBlockOrigin;
 
@@ -1165,7 +1165,7 @@ public abstract class HolyGrailSorting extends Sort {
                 // TODO: buffer length *should* always be equivalent to:
                 // right block length -  forwards merge blocks
                 //  left block length - backwards merge blocks
-                
+
                 // TODO: redo this jank solution with the `start` offset
                 this.localMergeBackwards(array, nextBlock - blockLen + 1, blockLen, this.currBlockLen, this.currBlockOrigin,
                                          blockLen, cmp);
@@ -1176,7 +1176,7 @@ public abstract class HolyGrailSorting extends Sort {
                 this.currBlockLen = blockLen;
             }
         }
-        
+
         swapBlocksBackwards(array, start, start + blockLen, this.currBlockLen);
     }
 
@@ -1245,7 +1245,7 @@ public abstract class HolyGrailSorting extends Sort {
             // although it may be empty (lastLen == 0)
             this.currBlockLen    = lastLen;
             this.currBlockOrigin = Subarray.RIGHT;
-        
+
         /*
         }
         else {
@@ -1256,11 +1256,11 @@ public abstract class HolyGrailSorting extends Sort {
             // although it may be empty (lastLen == 0)
             this.currBlockLen    = blockLen;
             this.currBlockOrigin = getSubarray(array, firstKey + blockCount - 1, medianKey, cmp);
-            
+
             blockCount--;
         }
         */
-        
+
         for(int keyIndex = blockCount - 1; keyIndex >= 0; keyIndex--, nextBlock -= blockLen) {
             Subarray nextBlockOrigin;
 
@@ -1276,7 +1276,7 @@ public abstract class HolyGrailSorting extends Sort {
                 this.currBlockLen = blockLen;
             }
         }
-        
+
         StWrites.arraycopy(array, start, array, start + blockLen, this.currBlockLen, WRITE_DELAY, true, false);
     }
 
@@ -1639,7 +1639,7 @@ public abstract class HolyGrailSorting extends Sort {
         else {
             int keyBuffer = keyLen / 2;
             insertSort(array, start, keyBuffer, this.cmp);
-            
+
             if(extBuffer == null) {
                 while(keyBuffer >= ((2 * subarrayLen) / keyBuffer)) {
                     if(direction == LocalMerge.FORWARDS) {
@@ -1678,7 +1678,7 @@ public abstract class HolyGrailSorting extends Sort {
             }
 
             insertSort(array, start, keyLen, this.cmp);
-            
+
             while((length - keyLen) > subarrayLen) {
                 this.lazyCombine(array, start, start + keyLen, length - keyLen,
                                  subarrayLen, (2 * subarrayLen) / keyLen);
@@ -1777,7 +1777,7 @@ public abstract class HolyGrailSorting extends Sort {
             }
         }
     }
-    
+
     private static void lazyStableSort(int[] array, int start, int length, Comparator<Integer> cmp) {
         int i;
         for(i = 0; i <= length - 16; i += 16) {
@@ -1889,7 +1889,7 @@ public abstract class HolyGrailSorting extends Sort {
         // TODO: Paste external buffer back To array
 
         // This 'if' case will always run during Strategy 2
-        
+
         // TODO: Document these changes
         if(direction == LocalMerge.FORWARDS) {
             insertSort(array, start + keyLen, blockLen, this.cmp);

@@ -23,7 +23,7 @@ Help.
 final public class SafeStalinSort extends Sort {
     public SafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Safe Stalin");
         this.setRunAllSortsName("Safe Stalin Sort");
         this.setRunSortName("Safe Stalinsort");
@@ -68,7 +68,7 @@ final public class SafeStalinSort extends Sort {
         Writes.arraycopy(array, i, array, i + 1, len - i, 0, false, false);
         Writes.write(array, i, x, 1, true, false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         Deque<Integer> outside = new LinkedList<>();

@@ -20,13 +20,13 @@ IN COLLABORATION WITH STENTOR AND DISTRAY
 
 */
 final public class OptimizedSafeStalinSort extends Sort {
-    
+
     int firstlen;
     int secondlen;
-    
+
     public OptimizedSafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Safe Stalin");
         this.setRunAllSortsName("Optimized Safe Stalin Sort");
         this.setRunSortName("Optimized Safe Stalinsort");
@@ -38,7 +38,7 @@ final public class OptimizedSafeStalinSort extends Sort {
         this.setUnreasonableLimit(8192);
         this.setBogoSort(false);
     }
-    
+
     protected ArrayList<Stack<Integer>> buildStacks(int[] array, int start, int end) {
         ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
         int zero = Integer.MIN_VALUE, zeroed = 0;
@@ -62,7 +62,7 @@ final public class OptimizedSafeStalinSort extends Sort {
         }
         return stacksBuilt;
     }
-    
+
     protected void reciteStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         int ptr = start;
         int stackdone = 0;
@@ -79,7 +79,7 @@ final public class OptimizedSafeStalinSort extends Sort {
             stackdone++;
         }
     }
-    
+
     protected int stepDown(int[] array, int end) {
         int steps = 1;
         int finals = end - 2;
@@ -90,7 +90,7 @@ final public class OptimizedSafeStalinSort extends Sort {
         Highlights.clearAllMarks();
         return steps;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         BlockInsertionSortNeon two = new BlockInsertionSortNeon(arrayVisualizer);

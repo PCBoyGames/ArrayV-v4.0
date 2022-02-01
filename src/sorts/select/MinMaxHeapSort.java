@@ -10,7 +10,7 @@ final public class MinMaxHeapSort extends Sort {
 
     public MinMaxHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Min-Max Heap");
         this.setRunAllSortsName("Min-Max Heap Sort");
         this.setRunSortName("Min-max Heapsort");

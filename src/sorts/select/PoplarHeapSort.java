@@ -98,7 +98,7 @@ public class PoplarHeapSort extends Sort {
 
             Writes.swap(array, root, max_root, 0.75, true, false);
             Highlights.clearMark(2);
-            
+
             size /= 2;
             if (size < 2) return;
 
@@ -202,7 +202,7 @@ public class PoplarHeapSort extends Sort {
         this.make_heap(array, start, end);
         this.sort_heap(array, start, end);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.heapSort(array, 0, length);

@@ -19,7 +19,7 @@ public class KWayQuickSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the base for this sort:", 4);
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -33,7 +33,7 @@ public class KWayQuickSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     protected void binsert(int[] array, int start, int end) {
         for (int i = start; i < end; i++) {
             if (Reads.compareValues(array[i - 1], array[i]) > 0) {

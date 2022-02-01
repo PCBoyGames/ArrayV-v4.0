@@ -27,7 +27,7 @@ final public class MobMergeSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the base for this sort:", 2);
     }
-    
+
     protected void bubble(int[] array, int start, int end) {
         int c = 1;
         int s;
@@ -48,7 +48,7 @@ final public class MobMergeSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 2) return 2;

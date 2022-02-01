@@ -26,7 +26,7 @@ final public class AdaptiveClurgeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int left = start;
         int right = start + (len / 2);
@@ -57,9 +57,9 @@ final public class AdaptiveClurgeSort extends Sort {
                 broken = true;
             }
             right++;
-        } 
+        }
     }
-    
+
     protected void nonpow2(int[] array, int start, int len, int mid) {
         int left = start;
         int right = mid;
@@ -98,7 +98,7 @@ final public class AdaptiveClurgeSort extends Sort {
                 Highlights.clearMark(3);
             }
             right++;
-        } 
+        }
     }
 
     @Override

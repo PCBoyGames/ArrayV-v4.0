@@ -56,7 +56,7 @@ public abstract class BinaryQuickSorting extends Sort {
         Queue<Task> tasks = new LinkedList<>();
         tasks.add(new Task(p, r, bit));
 
-        while (tasks.isEmpty() == false) 
+        while (tasks.isEmpty() == false)
         {
             Task task = tasks.remove();
             if (task.p < task.r && task.bit >= 0)
@@ -73,9 +73,9 @@ public abstract class BinaryQuickSorting extends Sort {
     {
         int i = p - 1;
         int j = r + 1;
-        
+
         Highlights.clearAllMarks();
-        
+
         while (true) {
             // Left is not set
             i++;

@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class SCPMergesort extends Sort {
     public SCPMergesort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("SCP-??? Merge");
         this.setRunAllSortsName("SCP Merge Sort");
         this.setRunSortName("SCP-9139 Mergesort");
@@ -20,7 +20,7 @@ final public class SCPMergesort extends Sort {
         this.setBogoSort(false);
     }
     public boolean isPrime(long num) {
-        return ((num%2)!=0 && (num%3)!=0 && (num%5)!=0 && (num%7)!=0) || 
+        return ((num%2)!=0 && (num%3)!=0 && (num%5)!=0 && (num%7)!=0) ||
                (num==2||num==3||num==5||num==7);
     }
     public long prime(long loc) {
@@ -38,12 +38,12 @@ final public class SCPMergesort extends Sort {
         }
     }
 
-    
+
     private void classicMerge(int[] array, int[] tmp, int start, int mid, int end) {
         if(start == mid) return;
-        
+
         int low = start, high = mid, nxt = 0;
-        
+
         while(low < mid && high < end) {
             Highlights.markArray(1, low);
             Highlights.markArray(2, high);
@@ -53,16 +53,16 @@ final public class SCPMergesort extends Sort {
                 Writes.write(tmp, nxt++, array[high++], 1, false, true);
             }
         }
-        
+
         while(low < mid) {
             Writes.write(tmp, nxt++, array[low++], 1, false, true);
         }
-        
+
         Highlights.clearMark(2);
-        
+
         Writes.arraycopy(tmp, 0, array, start, nxt, 1, true, false);
     }
-    
+
     private void scpMerge(int[] array, int[] tmp, int start, int end) {
         if(start == end)
             return;
@@ -73,7 +73,7 @@ final public class SCPMergesort extends Sort {
         this.scpMerge(array, tmp, m, end);
         this.classicMerge(array, tmp, start, m, end);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] tmp = Writes.createExternalArray(length);

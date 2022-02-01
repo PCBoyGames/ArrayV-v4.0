@@ -5,7 +5,7 @@ import sorts.insert.PatternDefeatingInsertionSort;
 import sorts.templates.GrailSorting;
 
 /*
- * 
+ *
 The MIT License (MIT)
 
 Copyright (c) 2013 Andrey Astrelin
@@ -42,7 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 final public class OptimizedLazyStableSort extends GrailSorting {
     public OptimizedLazyStableSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Lazy Stable");
         this.setRunAllSortsName("Optimized Lazy Stable Sort");
         this.setRunSortName("Optimized Lazy Stable Sort");
@@ -78,9 +78,9 @@ final public class OptimizedLazyStableSort extends GrailSorting {
             }
         }
     }
-    
+
     @Override
-    public void runSort(int[] array, int length, int bucketCount) {        
+    public void runSort(int[] array, int length, int bucketCount) {
         this.grailLazyStableSort(array, 0, length);
     }
 }

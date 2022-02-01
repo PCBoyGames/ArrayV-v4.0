@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -35,34 +35,34 @@ public abstract class ShatterSorting extends Sort {
     protected ShatterSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     protected void shatterPartition(int[] array, int length, int num) {
         int shatters = (int) Math.ceil(length / (double) num);
-        
+
         @SuppressWarnings("unchecked")
         ArrayList<Integer>[] registers = new ArrayList[shatters];
-        
+
         for(int i = 0; i < shatters; i++) {
             registers[i] = new ArrayList<>();
         }
-        
+
         for(int i = 0; i < length; i++){
             Writes.arrayListAdd(registers[array[i] / num], array[i]);
             Highlights.markArray(1, i);
-            
+
             Writes.mockWrite(length, array[i] / num, array[i], 0.5);
         }
-        
+
         Writes.transcribe(array, registers, 0, true, false);
 
         Writes.deleteExternalArray(registers);
     }
-    
+
     protected void shatterSort(int[] array, int length, int num) {
         int shatters = (int) Math.ceil(length / (double) num);
-        
+
         shatterPartition(array, length, num);
-        
+
         int[] tmp = Writes.createExternalArray(num);
         for(int i = 0; i < shatters; i++) {
             for(int j = 0; j < num; j++) {
@@ -70,29 +70,29 @@ public abstract class ShatterSorting extends Sort {
                     Writes.write(tmp, j, -1, 0.5, false, true);
                 else
                     Writes.write(tmp, j, array[i * num + j], 0.5, false, true);
-                
+
                 Highlights.markArray(2, i * num + j);
             }
-            
+
             Highlights.clearMark(2);
-            
+
             for(int j = 0; j < tmp.length; j++) {
                 int tmpj = tmp[j];
-                
+
                 if(i * num + (tmpj % num) >= length || tmpj == -1) {
                     break;
                 }
-                
+
                 Writes.write(array, i * num + (tmpj % num), tmpj, 1, false, false);
                 Highlights.markArray(1, i * num + (tmpj % num));
             }
-            
+
             Highlights.clearMark(1);
         }
 
         Writes.deleteExternalArray(tmp);
     }
-    
+
     protected void simpleShatterSort(int[] array, int length, int num, int rate) {
         for(int i = num; i > 1; i = i / rate) {
             shatterPartition(array, length, i);

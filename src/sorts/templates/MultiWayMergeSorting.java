@@ -3,7 +3,7 @@ package sorts.templates;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 aphitorite
@@ -32,7 +32,7 @@ public abstract class MultiWayMergeSorting extends Sort {
     protected MultiWayMergeSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     protected boolean keyLessThan(int[] src, int[] pa, int a, int b) {
         int cmp = Reads.compareValues(src[pa[a]], src[pa[b]]);
         return cmp < 0 || (cmp == 0 && Reads.compareOriginalValues(a, b) < 0);
@@ -64,18 +64,18 @@ public abstract class MultiWayMergeSorting extends Sort {
 
         for(int i = (size-1)/2; i >= 0; i--)
             this.siftDown(src, heap, pa, heap[i], i, size);
-            
+
         for(int i = 0; size > 0; i++) {
             int min = heap[0];
-            
+
             Highlights.markArray(2, pa[min]);
-            
+
             Writes.write(dest, i, src[pa[min]], 0.5, !auxWrite, auxWrite);
             Writes.write(pa, min, pa[min]+1, 0, false, true);
 
             if(pa[min] == pb[min])
                 this.siftDown(src, heap, pa, heap[--size], 0, size);
-            else 
+            else
                 this.siftDown(src, heap, pa, heap[0], 0, size);
         }
     }

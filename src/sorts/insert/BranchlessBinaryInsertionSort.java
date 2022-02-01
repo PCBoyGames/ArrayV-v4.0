@@ -20,11 +20,11 @@ final public class BranchlessBinaryInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int sign(int v) {
         return (v>>31) | -(-v>>31);
     }
-    
+
     private int binsearch(int[] array, int start, int end, int key, double slp, Comparator<Integer> bcmp) {
         while(end-start > 0) {
             int l = end - start,
@@ -37,14 +37,14 @@ final public class BranchlessBinaryInsertionSort extends Sort {
         Highlights.clearAllMarks();
         return start;
     }
-    
+
     public void binaryInsertSort(int[] array, int start, int end, double compSleep, double writeSleep) {
         for (int i = start + 1; i < end; i++) {
             int num = array[i];
             int src = binsearch(array, start, i, num, compSleep, Reads::compareValues);
 
             int j = i - 1;
-            
+
             while (j >= src)
             {
                 Writes.write(array, j + 1, array[j], writeSleep, true, false);
@@ -52,11 +52,11 @@ final public class BranchlessBinaryInsertionSort extends Sort {
             }
             if(src < i)
                 Writes.write(array, src, num, writeSleep, true, false);
-            
+
             Highlights.clearAllMarks();
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.binaryInsertSort(array, 0, currentLength, 5, 0.05);

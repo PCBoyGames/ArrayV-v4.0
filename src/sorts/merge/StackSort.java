@@ -11,7 +11,7 @@ import utils.Statistics;
 final public class StackSort extends Sort {
     public StackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Stack");
         this.setRunAllSortsName("Stack Sort");
         this.setRunSortName("Stacksort");
@@ -24,7 +24,7 @@ final public class StackSort extends Sort {
         this.setBogoSort(false);
     }
     // Credit to Stentor for the original algorithm
-    
+
     private ArrayList<Stack<Integer>> buildStacks(int[] array, int start, int end) {
         ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
         int zero = Integer.MIN_VALUE, zeroed = 0;
@@ -48,7 +48,7 @@ final public class StackSort extends Sort {
         }
         return stacksBuilt;
     }
-    
+
     private int mergeWithStack(int[] array, int start, int end, Stack<Integer> stack) {
         int l = end-1, sz = stack.size(), t = end + sz - 1;
         while(l >= start && !stack.empty()) {
@@ -65,7 +65,7 @@ final public class StackSort extends Sort {
         }
         return end + sz;
     }
-    
+
     private void mergeStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         Stack<Integer> first = stacks.remove(0);
         int ptr = start, n = start + first.size() - 1;

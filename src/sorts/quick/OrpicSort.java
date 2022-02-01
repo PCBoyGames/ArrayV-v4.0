@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class OrpicSort extends Sort {
     public OrpicSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Orpic");
         this.setRunAllSortsName("Orpic Sort");
         this.setRunSortName("Orpicsort");
@@ -20,11 +20,11 @@ final public class OrpicSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private double threshold = 0.57D;
-    
+
     private SmoothSort small;
-    
+
     private void sort3(int[] array, int a, int b, int c) {
         if(Reads.compareIndices(array, a, b, 0.5, true)>0)
             Writes.swap(array, a, b, 2.5, true, false);
@@ -58,10 +58,10 @@ final public class OrpicSort extends Sort {
             }
             medianSize = (medianSize + 2) / 3;
         }
-        
+
         int piv = a[p], i = p, j = r,
             iters = 0, itersnone = 0;
-        
+
         while(i <= j) {
             while(iters <= maxToler && Reads.compareValues(a[i], piv) < 0) {
                 Highlights.markArray(2, i);
@@ -97,7 +97,7 @@ final public class OrpicSort extends Sort {
         this.partition(a, p, j, m);
         this.partition(a, i, r, m);
     }
-    
+
     @Override
     public int validateAnswer(int value) {
         if(value < 1)

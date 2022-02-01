@@ -26,7 +26,7 @@ final public class PancakeInsertionSort extends Sort {
 
         while (top > 1) {
             mid = top / 2;
-            
+
             if (Reads.compareValueIndex(array, value, end - mid, 0.5, true) <= 0) {
                 end -= mid;
             }

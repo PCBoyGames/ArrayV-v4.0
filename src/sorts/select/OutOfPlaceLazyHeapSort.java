@@ -20,16 +20,16 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     // I initially had plans that would have made this O(n + n^0.5) memory stable,
     // but I wanted to have linear memory, so I decided to do this.
-    
+
     // Doing this shenanigan cuts the memory down to O(n), but it makes it unstable
     // at the very end.
     private boolean max2Temp(int[] array, int[] tmp, int a, int b, int ptr, int nop) {
         int max = a, maxVal = array[a];
-        
-        
+
+
         for(int i = a+1; i < b; i++) {
             if(array[i] == nop)
                 continue;
@@ -38,19 +38,19 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
                 maxVal = array[i];
             }
         }
-        
+
         if(maxVal == nop)
             return false;
-        
+
         Writes.write(array, max, nop, 0.1, true, false);
         Writes.write(tmp, ptr, maxVal, 0.1, true, true);
-        
+
         return true;
     }
-    
+
     private int findLastMax(int[] array, int start, int end, int nop) {
         int max = start;
-        
+
         for(int i=start+1; i<end; i++) {
             if(array[i] == nop)
                 continue;
@@ -58,12 +58,12 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
                 max = i;
             }
         }
-        
+
         if(array[max] == nop)
             return -1;
         return max;
     }
-    
+
     private void pushRemainder(int[] from, int[] to, int offset, int start, int end, int buffer, int nop) {
         int j=offset;
         for(int i=start; i<end; i++) {
@@ -78,15 +78,15 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
         s.customInsertSort(to, offset, target, 0.125, true);
         // this.merge(to, from, start, j, end);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int s = (int)Math.sqrt(length-1)+1,
             blocks = (length - 1) / s + 1,
             nop = Reads.analyzeMin(array, length, 0.1, true) - 1;
-        
+
         int[] tmp = Writes.createExternalArray(length);
-        
+
         for(int i=0; i<length; i+=s) {
             this.max2Temp(array, tmp, i, Math.min(i+s, length), i/s, nop);
         }

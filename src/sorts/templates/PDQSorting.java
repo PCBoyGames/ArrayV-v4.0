@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.select.MaxHeapSort;
 
 /*
- * 
+ *
 pdqsort.h - Pattern-defeating quicksort.
 Copyright (c) 2015 Orson Peters
 This software is provided 'as-is', without any express or implied warranty. In no event will the
@@ -40,34 +40,34 @@ final class PDQPair {
 
 public abstract class PDQSorting extends Sort {
     private MaxHeapSort heapSorter;
-    
+
     final private int insertSortThreshold = 24;
     final private int nintherThreshold = 128;
     final private int partialInsertSortLimit = 8;
     final private int blockSize = 64;
     final private int cachelineSize = 64;
-    
+
     private int[] leftOffsets;
     private int[] rightOffsets;
 
     protected PDQSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     protected void newHeapSorter(MaxHeapSort heapSort) {
         heapSorter = heapSort;
     }
-    
+
     protected void visualizeAux() {
         leftOffsets = Writes.createExternalArray(blockSize + cachelineSize);
         rightOffsets = Writes.createExternalArray(blockSize + cachelineSize);
     }
-    
+
     protected void deleteAux() {
         Writes.deleteExternalArray(leftOffsets);
         Writes.deleteExternalArray(rightOffsets);
     }
-    
+
     // Returns floor(log2(n)), assumes n > 0.
     public static int pdqLog(int n) {
         int log = 0;
@@ -119,7 +119,7 @@ public abstract class PDQSorting extends Sort {
                 int tmp = array[sift];
 
                 do {
-                    Writes.write(array, sift--, array[siftMinusOne], sleep, true, false); 
+                    Writes.write(array, sift--, array[siftMinusOne], sleep, true, false);
                 } while (Reads.compareValues(tmp, array[--siftMinusOne]) < 0);
 
                 Writes.write(array, sift, tmp, sleep, true, false);
@@ -146,7 +146,7 @@ public abstract class PDQSorting extends Sort {
             if (Reads.compareValues(array[sift], array[siftMinusOne]) < 0) {
                 int tmp = array[sift];
 
-                do { 
+                do {
                     Writes.write(array, sift--, array[siftMinusOne], sleep, true, false);
                 } while (sift != begin && Reads.compareValues(tmp, array[--siftMinusOne]) < 0);
 
@@ -174,7 +174,7 @@ public abstract class PDQSorting extends Sort {
     // With Branchless PDQSort, in order to better estimate the gains in speed from branchless partioning, we treat the writes to the offset arrays
     // and specialized less than comparison as negligible, and only record time from elements being swapped into position. By no means is this
     // exact, yet it is a much closer estimate than what was happening before with recording time for every block being written.
-    private void pdqSwapOffsets(int[] array, int first, int last, int[] leftOffsets, int leftOffsetsPos, 
+    private void pdqSwapOffsets(int[] array, int first, int last, int[] leftOffsets, int leftOffsetsPos,
                                 int[] rightOffsets, int rightOffsetsPos, int num, boolean useSwaps) {
         if (useSwaps) {
             // This case is needed for the descending distribution, where we need
@@ -386,7 +386,7 @@ public abstract class PDQSorting extends Sort {
 
         // Find the first element strictly smaller than the pivot. We have to guard this search if
         // there was no element before *first.
-        if (first - 1 == begin) 
+        if (first - 1 == begin)
             while (first < last && !(Reads.compareValues(array[--last], pivot) < 0)) {
                 Highlights.markArray(2, last);
                 Delays.sleep(0.25);
@@ -441,12 +441,12 @@ public abstract class PDQSorting extends Sort {
             Delays.sleep(0.25);
         }
 
-        if (last + 1 == end) 
+        if (last + 1 == end)
             while (first < last && !(Reads.compareValues(pivot, array[++first]) < 0)) {
                 Highlights.markArray(1, first);
                 Delays.sleep(0.25);
             }
-        else                 
+        else
             while (                !(Reads.compareValues(pivot, array[++first]) < 0)) {
                 Highlights.markArray(1, first);
                 Delays.sleep(0.25);
@@ -511,7 +511,7 @@ public abstract class PDQSorting extends Sort {
             PDQPair partResult =
                     Branchless ? this.pdqPartRightBranchless(array, begin, end)
                                : this.pdqPartRight(array, begin, end);
-                    
+
                     int pivotPos = partResult.getPivotPosition();
                     boolean alreadyParted = partResult.getPresortBool();
 
@@ -556,7 +556,7 @@ public abstract class PDQSorting extends Sort {
                         // If we were decently balanced and we tried to sort an already partitioned
                         // sequence, try to use insertion sort.
                         if (alreadyParted && pdqPartialInsertSort(array, begin, pivotPos)
-                                          && pdqPartialInsertSort(array, pivotPos + 1, end)) 
+                                          && pdqPartialInsertSort(array, pivotPos + 1, end))
                             return;
                     }
 

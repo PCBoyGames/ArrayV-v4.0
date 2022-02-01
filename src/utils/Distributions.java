@@ -170,7 +170,7 @@ public enum Distributions {
             for(int i = 0; i < currentLen; i++) {
                 double val  = i/h - 1,
                        root = val < 0 ? -Math.pow(-val, 1d/p) : Math.pow(val, 1d/p);
-                
+
                 array[i] = (int)(h * (root + 1));
             }
         }
@@ -189,7 +189,7 @@ public enum Distributions {
             for(int i = 0; i < currentLen; i++) {
                 double val  = i/h - 1,
                        root = val < 0 ? -Math.pow(-val, 1d/p) : Math.pow(val, 1d/p);
-                
+
                 array[i] = (int)(h * (root + 1));
             }
         }
@@ -501,7 +501,7 @@ public enum Distributions {
         @Override
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int n = ArrayVisualizer.getCurrentLength();
-            
+
             for(int i = 0; i < n; i++) array[i] = 2*(n%(i+1));
         }
     },
@@ -513,17 +513,17 @@ public enum Distributions {
         public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
             int n = ArrayVisualizer.getCurrentLength();
             int max = 0;
-            
+
             for(int j = 0; j < n; j++) {
                 array[j] = 1;
-                
+
                 for(int i = j; i > 0; i /= 10)
                     if(i%10 > 0) array[j] *= i%10;
-                
+
                 if(array[j] > max) max = array[j];
             }
             double scale = (double)(n-1)/max;
-            
+
             for(int i = 0; i < n; i++)
                 array[i] = (int)(array[i] * scale);
         }

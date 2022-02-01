@@ -41,7 +41,7 @@ public final class PDTableTenisStackSort extends Sort {
     }
 
     final int WLEN = 3;
-    
+
     protected boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;
         return b == 1;
@@ -59,7 +59,7 @@ public final class PDTableTenisStackSort extends Sort {
         else
             dir = true;
         if(dir)
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) 
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
                 i++;
         else {
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
@@ -136,7 +136,7 @@ public final class PDTableTenisStackSort extends Sort {
         }
         return a + szA + szB;
     }
-    
+
     protected Stack<Integer> stackRebuild(int[] array, int start, int mid, int end) {
         int l = start, r = mid;
         Stack<Integer> merged = new Stack<>();
@@ -166,7 +166,7 @@ public final class PDTableTenisStackSort extends Sort {
         Highlights.clearAllMarks();
         return merged;
     }
-    
+
     protected void mergeStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         while(!stacks.isEmpty()) {
             int ptr0, ptr1 = start, ptr2 = start, s = 0, ms = stacks.size();
@@ -186,7 +186,7 @@ public final class PDTableTenisStackSort extends Sort {
             }
         }
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         if(patternDefeat(array, a, b))
             return;

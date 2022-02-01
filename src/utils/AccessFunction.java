@@ -25,14 +25,14 @@ public class AccessFunction {
             n = n.multiply(BigInteger.valueOf(y--));
         return n;
     }
-    
+
     // prime stuff
     public static boolean isPrime(BigInteger num) {
         BigInteger two = BigInteger.valueOf(2l),
                    three = BigInteger.valueOf(3l),
                    five = BigInteger.valueOf(5l),
                    seven = BigInteger.valueOf(7l);
-        return ((num.mod(two).compareTo(BigInteger.ZERO) != 0) && (num.mod(three).compareTo(BigInteger.ZERO) != 0) && (num.mod(five).compareTo(BigInteger.ZERO) != 0) && (num.mod(seven).compareTo(BigInteger.ZERO) != 0)) || 
+        return ((num.mod(two).compareTo(BigInteger.ZERO) != 0) && (num.mod(three).compareTo(BigInteger.ZERO) != 0) && (num.mod(five).compareTo(BigInteger.ZERO) != 0) && (num.mod(seven).compareTo(BigInteger.ZERO) != 0)) ||
                ((num.compareTo(two) == 0) || (num.compareTo(three) == 0) || (num.compareTo(five) == 0) || (num.compareTo(seven) == 0));
     }
     /*private static BigInteger prime(long loc) {

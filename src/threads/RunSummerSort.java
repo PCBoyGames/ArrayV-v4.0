@@ -12,7 +12,7 @@ import utils.Shuffles;
 import utils.StopSort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019-2022 ArrayV 4.0 Team
@@ -41,7 +41,7 @@ final public class RunSummerSort extends MultipleSortThread {
     int numSorts = 1;
     boolean alternate_distributions = false;
     boolean seeds = false;
-    
+
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -50,40 +50,40 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runIndividualSort(Sort sort, int bucketCount, int[] array, int defaultLength, double defaultSpeed, boolean slowSort, String shuffleName, int uniques, boolean alt) throws Exception {
         Delays.setSleepRatio(2.5);
-        
+
         if(defaultLength != arrayVisualizer.getCurrentLength()) {
             arrayFrame.setLengthSlider(defaultLength);
         }
-        
+
         if (shuffleName == "Many Similar" || shuffleName == "Stability Test") {
             arrayVisualizer.getArrayFrame().setUniqueSlider(uniques);
         } else {
             if (alt && alternate_distributions) arrayVisualizer.getArrayFrame().setUniqueSlider(defaultLength / 8);
             else arrayVisualizer.getArrayFrame().setUniqueSlider(defaultLength);
         }
-        
+
         if (shuffleName == "Stability Test" && !stability) {
             sortNumber -= numSorts;
             stability = true;
         }
-        
+
         arrayManager.refreshArray(array, arrayVisualizer.getCurrentLength(), arrayVisualizer);
-        
+
         arrayVisualizer.setHeading(sort.getRunAllSortsName() + " on " + shuffleName + " (Sort " + sortNumber + " of " + sortCount + ")");
-        
+
         double sortSpeed = 1.0;
-        
+
         if(defaultLength < (arrayVisualizer.getCurrentLength() / 2)) {
             sortSpeed = defaultSpeed * Math.pow((arrayVisualizer.getCurrentLength() / 2048d), 2);
         }
         else {
             sortSpeed = defaultSpeed * (arrayVisualizer.getCurrentLength() / 2048d);
         }
-        
+
         Delays.setSleepRatio(sortSpeed);
-        
+
         Timer.enableRealTimer();
-        
+
         try {
             sort.runSort(array, arrayVisualizer.getCurrentLength(), bucketCount);
         }
@@ -91,47 +91,47 @@ final public class RunSummerSort extends MultipleSortThread {
         catch (Exception e) {
             JErrorPane.invokeErrorMessage(e);
         }
-        
+
         arrayVisualizer.endSort();
         Thread.sleep(10);
         arrayVisualizer.updateNow();
         Thread.sleep(990);
         arrayVisualizer.updateNow();
-        
+
         sortNumber++;
-        
+
     }
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
-        
+
         //Sort Rebound = new ReboundSort(arrayVisualizer);
         //runIndividualSort(Rebound, 0, array, 128, 0.025, false, shuffleName, 16, alt);
-        
+
         //Sort BounceNRebound = new NReboundSort(arrayVisualizer);
         //runIndividualSort(BounceNRebound, 0, array, 128, 0.032, false, shuffleName, 16, alt);
-        
+
         //Sort RougeCircle = new CircleSortRouge(arrayVisualizer);
         //runIndividualSort(RougeCircle, 0, array, 256, 1, false, shuffleName, 16, alt);
-        
+
         //Sort IterativeSelectionMergeSort = new IterativeSelectionMergeSort(arrayVisualizer);
         //runIndividualSort(IterativeSelectionMergeSort, 0, array, 512, 2, false, shuffleName, 16, alt);
-        
+
         Sort MobMerge = new MobMergeSort(arrayVisualizer);
         runIndividualSort(MobMerge, 2, array, 512, 0.5, false, shuffleName, 16, alt);
-        
+
     }
 
     @Override
     protected synchronized void executeSortList(int[] array) throws Exception {
-        
+
         /*
         RSS BASIC (25)
         */
-        
+
         arrayVisualizer.getArrayManager().setDistribution(Distributions.LINEAR); // 1
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_RANDOM : Shuffles.RANDOM);
         runSort(array, "Random", true);
-        
+
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REVERSE); // 2
         runSort(array, "Reversed", true);
 
@@ -140,10 +140,10 @@ final public class RunSummerSort extends MultipleSortThread {
 
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_RANDOM : Shuffles.RANDOM); // 4
         runSort(array, "Many Similar", false);
-        
+
         arrayVisualizer.setComparator(2);
         runSort(array, "Stability Test", false);
-        
+
         arrayVisualizer.setComparator(0);
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_TAIL_LEGACY : Shuffles.SHUFFLED_TAIL_LEGACY); // 5
         runSort(array, "Scrambled End", true);
@@ -216,7 +216,7 @@ final public class RunSummerSort extends MultipleSortThread {
         /*
         RSS MADHOUSE PLUS (26)
         */
-        
+
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HALF : Shuffles.SHUFFLED_HALF); // 26
         runSort(array, "Scrambled Back Half", true);
 
@@ -262,7 +262,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 40
         runSort(array, "Blocks", true);
-        
+
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PRIME); // 41
         runSort(array, "Prime-Numbered Index", true);
 
@@ -296,14 +296,14 @@ final public class RunSummerSort extends MultipleSortThread {
 
         arrayVisualizer.getArrayManager().setDistribution(Distributions.DIGITS_PROD); // 51
         runSort(array, "Product of Digits", false);
-        
+
         arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 52
         runSort(array, "Euler Totient Function", false);
-        
+
         /*
         */
     }
-    
+
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
         if(arrayVisualizer.isActive()) return;
@@ -320,25 +320,25 @@ final public class RunSummerSort extends MultipleSortThread {
                     else sortNumber = 1;
 
                     arrayManager.toggleMutableLength(false);
-                    
+
                     arrayVisualizer.setCategory("Seeded Shuffles");
                     arrayVisualizer.setHeading(seeds ? "ON" : "OFF");
-                    
+
                     arrayVisualizer.updateNow();
                     Thread.sleep(3000);
 
                     arrayVisualizer.setCategory("PCBSAM for ArrayV");
                     arrayVisualizer.setHeading("");
-                    
+
                     arrayVisualizer.updateNow();
 
                     executeSortList(array);
-                    
+
                     if(!runAllActive) {
                         arrayVisualizer.setCategory("Running");
                         arrayVisualizer.setHeading("Done");
                     }
-                    
+
                     arrayManager.toggleMutableLength(true);
                 }
                 catch (Exception e) { JErrorPane.invokeErrorMessage(e); }

@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class PDBinaryInsertionSort extends Sort {
-    
+
     public PDBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Pattern-Defeating Binary Insertion");
@@ -27,7 +27,7 @@ public final class PDBinaryInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end, double delay, boolean aux) {
         if (end - start < 3) Writes.swap(array, start, end, delay, true, aux);
         else Writes.reversal(array, start, end, delay, true, aux);
@@ -45,7 +45,7 @@ public final class PDBinaryInsertionSort extends Sort {
             i++;
         }
     }
-    
+
     protected int pd(int[] array, int start, int end, double delay, boolean aux) {
         int forward = start;
         int cmp = Reads.compareIndices(array, forward, forward + 1, delay, true);
@@ -73,7 +73,7 @@ public final class PDBinaryInsertionSort extends Sort {
         }
         return Math.max(forward, reverse);
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value, double delay) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -87,7 +87,7 @@ public final class PDBinaryInsertionSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     public void pdbinsert(int[] array, int start, int end, double delay, boolean aux) {
         int pattern = pd(array, start, end, delay, aux);
         Highlights.clearAllMarks();
@@ -105,7 +105,7 @@ public final class PDBinaryInsertionSort extends Sort {
             Highlights.clearAllMarks();
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int constantdiv) throws Exception {
         pdbinsert(array, 0, currentLength, 1, false);

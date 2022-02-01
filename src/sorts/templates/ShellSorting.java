@@ -26,22 +26,22 @@ public abstract class ShellSorting extends Sort {
     protected ShellSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     protected void shellSort(int[] array, int length) {
         int incs[] = ExtendedCiuraGaps;
-        
+
         for (int k = 0; k < incs.length; k++) {
             if(incs == PowersOfThreeGaps) {
                 if(incs[k] < length/3) {
                     for (int h = incs[k], i = h; i < length; i++) {
                         //ArrayVisualizer.setCurrentGap(incs[k]);
-                        
+
                         int v = array[i];
                         int j = i;
 
                         Highlights.markArray(1, j);
                         Highlights.markArray(2, j - h);
-                        
+
                         boolean change = false;
 
                         while (j >= h && Reads.compareValues(array[j - h], v) == 1)
@@ -49,9 +49,9 @@ public abstract class ShellSorting extends Sort {
                             Writes.write(array, j, array[j - h], 1, false, false);
                             change = true;
                             j -= h;
-                            
+
                             Highlights.markArray(1, j);
-                            
+
                             if(j - h >= 0) {
                                 Highlights.markArray(2, j - h);
                             }
@@ -60,20 +60,20 @@ public abstract class ShellSorting extends Sort {
                             }
                         }
                         if (change) Writes.write(array, j, v, 1, true, false);
-                    } 
+                    }
                 }
             }
             else {
                 if(incs[k] < length) {
                     for (int h = incs[k], i = h; i < length; i++) {
                         //ArrayVisualizer.setCurrentGap(incs[k]);
-                        
+
                         int v = array[i];
                         int j = i;
 
                         Highlights.markArray(1, j);
                         Highlights.markArray(2, j - h);
-                        
+
                         boolean change = false;
 
                         while (j >= h && Reads.compareValues(array[j - h], v) == 1)
@@ -81,9 +81,9 @@ public abstract class ShellSorting extends Sort {
                             Writes.write(array, j, array[j - h], 1, false, false);
                             change = true;
                             j -= h;
-                            
+
                             Highlights.markArray(1, j);
-                            
+
                             if(j - h >= 0) {
                                 Highlights.markArray(2, j - h);
                             }
@@ -106,13 +106,13 @@ public abstract class ShellSorting extends Sort {
             {
                 int v = array[i];
                 int j = i;
-                
+
                 boolean change = false;
 
                 while (j >= h && Reads.compareValues(array[j-h], v) == 1)
                 {
                     Highlights.markArray(1, j);
-                    
+
                     Writes.write(array, j, array[j - h], 1, true, false);
                     change = true;
                     j -= h;

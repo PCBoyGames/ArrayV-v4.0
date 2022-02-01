@@ -96,12 +96,12 @@ final public class UnholyHalfSort extends Sort {
             inserter.customInsertSort(array, start, end, 0.5, false);
             return;
         }
-        
+
         FrontMerge(array, start, start + quart);
         FrontMerge(array, start + quart, end - half);
         FrontMerge(array, end - half, end - quart);
         FrontMerge(array, end - quart, end);
-        
+
         InPlaceMerge(array, start, start + quart, end - half, end + half);
         InPlaceMerge(array, end - half, end - quart, end, end + (end - start));
         InPlaceMerge(array, end, end + half, end + (end - start), end);
@@ -117,7 +117,7 @@ final public class UnholyHalfSort extends Sort {
         BackMerge(array, end - half, end - quart);
         BackMerge(array, start + quart, end - half);
         BackMerge(array, start, start + quart);
-        
+
         InPlaceMerge(array, start, start + quart, end - half, start - half);
         InPlaceMerge(array, end - half, end - quart, end, start);
         InPlaceMerge(array, start - (end - start), start - half, start, end);
@@ -163,7 +163,7 @@ final public class UnholyHalfSort extends Sort {
         for(int i=start; i<end; i+=blockSize) {
             Writes.swap(array, i, b++, 1, true, false);
         }
-        
+
         for(int i=keyLoc; i<b; i++) {
             int lower;
             do {
@@ -177,7 +177,7 @@ final public class UnholyHalfSort extends Sort {
                 this.multiSwap(array, start + (i-keyLoc) * blockSize, start + ((i-keyLoc) + lower) * blockSize, blockSize);
             } while(lower > 0);
         }
-        
+
         b = keyLoc;
         for(int i=start; i<end; i+=blockSize) {
             Writes.swap(array, i, b++, 1, true, false);

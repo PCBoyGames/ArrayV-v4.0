@@ -3,10 +3,10 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class OptimizedSmoothBingoSort extends Sort {  
+final public class OptimizedSmoothBingoSort extends Sort {
     public OptimizedSmoothBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Optimized Smooth Bingo");
         this.setRunAllSortsName("Optimized Smooth Bingo Sort");
         this.setRunSortName("Optimized Smooth Bingo Sort");

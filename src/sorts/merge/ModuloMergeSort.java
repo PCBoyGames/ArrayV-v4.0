@@ -18,7 +18,7 @@ final public class ModuloMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void merge(int[] array, int start, int mid, int end, int maxEl) {
         int left      = start;
         int right     = mid + 1;
@@ -28,7 +28,7 @@ final public class ModuloMergeSort extends Sort {
 
         while (left <= mid && right <= end) {
             Highlights.markArray(0, left);
-            Highlights.markArray(1, right); 
+            Highlights.markArray(1, right);
             Delays.sleep(1);
 
             if (Reads.compareValues(array[left] % maxEl, array[right] % maxEl) <= 0) {

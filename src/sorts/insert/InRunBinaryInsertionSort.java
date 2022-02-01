@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class InRunBinaryInsertionSort extends Sort {
-    
+
     public InRunBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("In-Run Binary Insertion");
@@ -27,7 +27,7 @@ public final class InRunBinaryInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end, double delay, boolean aux) {
         if (end - start < 3) Writes.swap(array, start, end, delay, true, aux);
         else Writes.reversal(array, start, end, delay, true, aux);
@@ -45,7 +45,7 @@ public final class InRunBinaryInsertionSort extends Sort {
             i++;
         }
     }
-    
+
     protected int pd(int[] array, int start, int end, double delay, boolean aux) {
         int forward = start;
         int cmp = Reads.compareIndices(array, forward, forward + 1, delay, true);
@@ -72,7 +72,7 @@ public final class InRunBinaryInsertionSort extends Sort {
         }
         return Math.max(forward, reverse);
     }
-    
+
     protected int binarySearch(int[] array, int a, int b, int value, double delay) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -86,7 +86,7 @@ public final class InRunBinaryInsertionSort extends Sort {
         Highlights.clearMark(3);
         return a;
     }
-    
+
     public void irbinsert(int[] array, int start, int end, double delay, boolean dopd, boolean aux) {
         int pattern = start;
         if (dopd) pattern = pd(array, start, end, delay, aux);
@@ -110,7 +110,7 @@ public final class InRunBinaryInsertionSort extends Sort {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int constantdiv) throws Exception {
         irbinsert(array, 0, currentLength, 1, true, false);

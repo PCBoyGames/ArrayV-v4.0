@@ -26,7 +26,7 @@ final public class AdaptiveClurgeNewSolSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int left = start;
         int right = start + (len / 2);
@@ -62,7 +62,7 @@ final public class AdaptiveClurgeNewSolSort extends Sort {
             Delays.sleep(2);
         }
     }
-    
+
     protected void nonpow2(int[] array, int start, int len, int mid) {
         int left = start;
         int right = mid;

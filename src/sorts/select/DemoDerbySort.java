@@ -8,7 +8,7 @@ import utils. Rotations;
 final public class DemoDerbySort extends Sort {
     public DemoDerbySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Demolition Derby");
         this.setRunAllSortsName("Demolition Derby Sort");
         this.setRunSortName("Demolition Derby Sort");

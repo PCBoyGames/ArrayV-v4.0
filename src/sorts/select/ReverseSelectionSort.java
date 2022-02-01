@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package sorts.select;
 
@@ -7,7 +7,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 mingyue12
@@ -61,11 +61,11 @@ public final class ReverseSelectionSort extends Sort {
         // TODO Auto-generated method stub
         for (int i = sortLength - 1; i >= 0; i--) {
             int highestindex = 0;
-            
+
             for (int j = 1; j < i + 1; j++) {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.01);
-                
+
                 if (Reads.compareValues(array[j], array[highestindex]) == 1){
                     highestindex = j;
                     Highlights.markArray(1, highestindex);

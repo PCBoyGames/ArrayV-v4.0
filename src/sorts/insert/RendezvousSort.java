@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class RendezvousSort extends Sort {
     public RendezvousSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Rendezvous");
         this.setRunAllSortsName("Lancewer's Rendezvous Sort");
         this.setRunSortName("Lancewer's Rendezvous Sort");
@@ -52,7 +52,7 @@ final public class RendezvousSort extends Sort {
         }
         i = 0;
         j = 1;
-        
+
         while (length >= j) {
             ticker = i;
 

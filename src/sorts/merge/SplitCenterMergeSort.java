@@ -26,7 +26,7 @@ final public class SplitCenterMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int way = 1;
         int i = start;
@@ -87,7 +87,7 @@ final public class SplitCenterMergeSort extends Sort {
             }
         }
     }
-    
+
     protected void alternatemethod(int[] array, int currentLength) {
         int way = 1;
         int i = 1;

@@ -3,7 +3,7 @@ package sorts.templates;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -32,16 +32,16 @@ public abstract class InsertionSorting extends Sort {
     protected InsertionSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
-    protected void insertionSort(int[] array, int start, int end, double sleep, boolean auxwrite) {        
+
+    protected void insertionSort(int[] array, int start, int end, double sleep, boolean auxwrite) {
         int pos;
         int current;
-        
+
         for(int i = start; i < end; i++) {
             current = array[i];
             pos = i - 1;
             boolean change = false;
-            
+
             while(pos >= start && Reads.compareValues(array[pos], current) > 0){
                 Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
                 pos--;

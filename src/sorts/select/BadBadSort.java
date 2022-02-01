@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class BadBadSort extends Sort {
     public BadBadSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Bad Bad");
         this.setRunAllSortsName("Bad Bad Sort");
         this.setRunSortName("Badsort^2");
@@ -42,7 +42,7 @@ final public class BadBadSort extends Sort {
         for (int i = 0; i < currentLen; i++) {
             int shortest = i, breaks = 0, maxBreaks = 0;
             Delays.sleep(0.05);
-            
+
             for (int j = i; j < currentLen; j++) {
                 Highlights.markArray(3, j);
                 Delays.sleep(0.05);

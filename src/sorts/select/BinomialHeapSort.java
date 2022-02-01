@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class BinomialHeapSort extends Sort {
     public BinomialHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Binomial Heap");
         this.setRunAllSortsName("Binomial Heap Sort");
         this.setRunSortName("Binomial Heapsort");
@@ -27,7 +27,7 @@ final public class BinomialHeapSort extends Sort {
            do{
               focus = maxNode;
               for (depth = 1; (focus&depth) == 0; depth*=2){
-                 if (Reads.compareValues(array[focus-depth-1], array[maxNode-1]) > 0) 
+                 if (Reads.compareValues(array[focus-depth-1], array[maxNode-1]) > 0)
                      maxNode = (focus-depth);
               }
               if (focus != maxNode){
@@ -40,7 +40,7 @@ final public class BinomialHeapSort extends Sort {
            focus = index;
            for (depth = 1; focus != 0; depth*=2){
               if ((focus & depth) != 0) {
-                 if (Reads.compareValues(array[focus-1], array[maxNode-1]) > 0) 
+                 if (Reads.compareValues(array[focus-1], array[maxNode-1]) > 0)
                      maxNode = focus;
                  focus -= depth;
               }
@@ -51,7 +51,7 @@ final public class BinomialHeapSort extends Sort {
                  Writes.swap(array, focus-1, maxNode-1, 1, true, false);
                  focus = maxNode;
                  for (depth = 1; (focus&depth) == 0; depth*=2){
-                    if (Reads.compareValues(array[focus-depth-1], array[maxNode-1]) > 0) 
+                    if (Reads.compareValues(array[focus-depth-1], array[maxNode-1]) > 0)
                         maxNode = (focus-depth);
                  }
               } while (focus != maxNode);

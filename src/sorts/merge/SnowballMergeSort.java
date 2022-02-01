@@ -26,7 +26,7 @@ final public class SnowballMergeSort extends Sort {
         this.setUnreasonableLimit(8192);
         this.setBogoSort(false);
     }
-    
+
     protected void snowballs(int[] array, int start, int end) {
         int gap = 0;
         int begin = start;

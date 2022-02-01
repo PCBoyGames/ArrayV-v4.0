@@ -24,7 +24,7 @@ public final class CocktailShellMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void shellSort(int[] array, int a, int b) {
         int sortLength = b - a;
         int gap = sortLength / 2;
@@ -72,7 +72,7 @@ public final class CocktailShellMergeSort extends Sort {
         }
         Highlights.clearMark(2);
     }
-    
+
     public void sort(int[] array, int a, int b) {
         if(b - a < 32) {
             InsertionSort smallSort = new InsertionSort(arrayVisualizer);

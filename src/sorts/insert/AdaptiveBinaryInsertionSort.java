@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package sorts.insert;
 
@@ -28,7 +28,7 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void abinaryinsert(int[] array, int start, int end, double sleep) {
         int count = 0;
         for (int i = start + 1; i < end; i++) {
@@ -46,9 +46,9 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
             while (lo < hi) {
                 int mid = lo + ((hi - lo) / 2); // avoid int overflow!
                 Highlights.markArray(2, mid);
-                
+
                 Delays.sleep(sleep);
-                
+
                 if (Reads.compareValues(num, array[mid]) < 0) { // do NOT move equal elements to right of inserted element; this maintains stability!
                     hi = mid;
                 }
@@ -61,7 +61,7 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
             count += (i - lo);
 
             int j = i - 1;
-            
+
             if (j >= lo){
                 while (j >= lo)
                 {
@@ -70,11 +70,11 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
                 }
                 Writes.write(array, lo, num, sleep, true, false);
             }
-            
+
             Highlights.clearAllMarks();
         }
     }
-    
+
     public void customSort(int[] array, int start, int end) {
         this.abinaryinsert(array, start, end, 1);
     }

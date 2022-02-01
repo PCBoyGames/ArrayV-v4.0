@@ -14,10 +14,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class ShockSort extends Sort {
-    
+
     TimSort tim = new TimSort(arrayVisualizer);
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
-    
+
     public ShockSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Shock (Tim)");
@@ -31,17 +31,17 @@ final public class ShockSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int pow2lte(int value) {
         int val;
         for (val = 1; val <= value; val <<= 1);
         return val >> 1;
     }
-    
+
     protected void binsert(int[] array, int start, int currentLength) {
         binsert.pdbinsert(array, start, currentLength, 0.25, false);
     }
-    
+
     private void shellPass(int[] array, int currentLength, int gap) {
         for (int h = gap, i = h; i < currentLength; i++) {
             int v = array[i];

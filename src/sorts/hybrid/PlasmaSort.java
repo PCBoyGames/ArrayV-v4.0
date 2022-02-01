@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 import utils.Rotations;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -37,7 +37,7 @@ final public class PlasmaSort extends Sort {
     private InsertionSort insertSorter;
     public PlasmaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Plasma");
         this.setRunAllSortsName("Plasma Sort");
         this.setRunSortName("Plasmasort");
@@ -69,9 +69,9 @@ final public class PlasmaSort extends Sort {
             while (l < h) {
                 int m = l + ((h - l) / 2); // avoid int overflow!
                 Highlights.markArray(2, m);
-                
+
                 Delays.sleep(0.01);
-                
+
                 int comp = Reads.compareValues(num, array[m]);
 
                 if (comp < 0) {
@@ -102,17 +102,17 @@ final public class PlasmaSort extends Sort {
                 l += badCount;
                 badCount = 0;
             }
-            
+
             // item has to go into position lo
             int j = compindex - 1;
-            
+
             while (j >= l)
             {
                 Writes.write(array, j + 1, array[j], 1, true, false);
                 j--;
             }
             Writes.write(array, l, num, 1, true, false);
-            
+
             Highlights.clearAllMarks();
             compindex++;
             lastGood++;
@@ -256,7 +256,7 @@ final public class PlasmaSort extends Sort {
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         insertSorter = new InsertionSort(arrayVisualizer);
         new LazierSort(arrayVisualizer);
-        
+
         if (sortLength < 24) {
             insertSorter.customInsertSort(array, 0, sortLength, 0.333, false);
             return;

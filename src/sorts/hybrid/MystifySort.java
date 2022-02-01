@@ -14,9 +14,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class MystifySort extends Sort {
-    
+
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
-    
+
     public MystifySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Mystify");
@@ -31,7 +31,7 @@ final public class MystifySort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the base for this sort:", 2);
     }
-    
+
     private void shellPass(int[] array, int currentLength, int gap) {
         for (int h = gap, i = h; i < currentLength; i++) {
             int v = array[i];
@@ -53,7 +53,7 @@ final public class MystifySort extends Sort {
             }
         }
     }
-    
+
     @Override
     public int validateAnswer(int answer) {
         if (answer < 2) return 2;

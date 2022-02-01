@@ -120,7 +120,7 @@ final public class FurtherRandomShellSort extends BogoSorting {
             h = randInt(1, i < bounding ? i + 1 : bounding + 1);
         }
     }
-    
+
     private int nextBound(int[] array, int currentLength, int bounding) {
         int gap = bounding;
         boolean passing = true;
@@ -134,7 +134,7 @@ final public class FurtherRandomShellSort extends BogoSorting {
         }
         return gap;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int bounding = currentLength - 1;

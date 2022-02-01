@@ -13,9 +13,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class TransposeModuloWeaveMergeSort extends Sort {
-    
+
     QuadSort quad = new QuadSort(arrayVisualizer);
-    
+
     public TransposeModuloWeaveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Transpose by Modulo Weave Merge");
@@ -29,7 +29,7 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void weave(int[] array, int[] pieces, int start, int len, int base) {
         int writeval = 0;
         for (int i = 0; i < base; i++) {
@@ -43,7 +43,7 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
         Highlights.clearAllMarks();
         Writes.arraycopy(pieces, 0, array, start, len, 0.25, true, false);
     }
-    
+
     protected void circle(int[] array, int a, int b) {
         int left = a;
         int right = b;
@@ -56,7 +56,7 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
             right--;
         }
     }
-    
+
     protected void circlepass(int[] array, int start, int len) {
         int gap = len;
         while (gap > 1) {
@@ -68,7 +68,7 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
             gap /= 2;
         }
     }
-    
+
     protected void method(int[] array, int start, int len) {
         int[] pieces = Writes.createExternalArray(len);
         if (Reads.compareIndices(array, start + (len / 2) - 1, start + (len / 2), 0.25, true) > 0) {

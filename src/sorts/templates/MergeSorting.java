@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -31,11 +31,11 @@ SOFTWARE.
 
 public abstract class MergeSorting extends Sort {
     private BinaryInsertionSort binaryInserter;
-    
+
     protected MergeSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     private void merge(int[] array, int[] tmp, int start, int mid, int end, boolean binary) {
         if(start == mid) return;
 
@@ -48,16 +48,16 @@ public abstract class MergeSorting extends Sort {
         else {
             merge(array, tmp, start, (mid+start)/2, mid, binary);
             merge(array, tmp, mid, (mid+end)/2, end, binary);
-            
+
             int low = start;
             int high = mid;
-            
+
             for(int nxt = 0; nxt < end - start; nxt++){
                 if(low >= mid && high >= end) break;
-                
+
                 Highlights.markArray(1, low);
                 Highlights.markArray(2, high);
-                
+
                 if(low < mid && high >= end){
                     Highlights.clearMark(2);
                     Writes.write(tmp, nxt, array[low++], 1, false, true);
@@ -74,27 +74,27 @@ public abstract class MergeSorting extends Sort {
                 }
             }
             Highlights.clearMark(2);
-            
+
             for(int i = 0; i < end - start; i++){
                 Writes.write(array, start + i, tmp[i], 1, true, false);
             }
         }
     }
-    
+
     protected void mergeSort(int[] array, int length, boolean binary) {
         binaryInserter = new BinaryInsertionSort(this.arrayVisualizer);
-        
+
         if(length < 32 && binary) {
             binaryInserter.customBinaryInsert(array, 0, length, 0.333);
             return;
         }
-        
+
         int[] tmp = Writes.createExternalArray(length);
-        
+
         int start = 0;
         int end = length;
         int mid = start + ((end - start) / 2);
-        
+
         merge(array, tmp, start, mid, end, binary);
 
         Writes.deleteExternalArray(tmp);

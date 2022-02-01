@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 final public class SurgeSort extends Sort {
     public SurgeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Surge");
         this.setRunAllSortsName("Surge Sort");
         this.setRunSortName("Surgesort");

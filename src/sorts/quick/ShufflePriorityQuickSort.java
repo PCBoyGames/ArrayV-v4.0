@@ -140,7 +140,7 @@ public final class ShufflePriorityQuickSort extends Sort {
         }
         return a1;
     }
-    
+
     protected void insertSort(int[] array, int a, int b) {
         for(int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));

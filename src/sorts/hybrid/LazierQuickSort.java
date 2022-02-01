@@ -33,7 +33,7 @@ public final class LazierQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     class PivotPair {
         public int l, r;
 
@@ -42,44 +42,44 @@ public final class LazierQuickSort extends Sort {
             this.r = r;
         }
     }
-    
+
     public static int floorLog(int n) {
         int log = 0;
         while ((n >>= 1) != 0) ++log;
         return log;
     }
-    
+
     protected int medianOf3(int[] array, int v0, int v1, int v2) {
         int[] t = new int[2];
         int val;
-        val = (Reads.compareIndices(array, v0, v1, 1, true) > 0)? 1 : 0; 
+        val = (Reads.compareIndices(array, v0, v1, 1, true) > 0)? 1 : 0;
         t[0]  = val; t[1] = val^1;
         val = (Reads.compareIndices(array, v0, v2, 1, true) > 0)? 1 : 0;
         t[0] += val;
-        if (t[0] == 1) 
+        if (t[0] == 1)
             return v0;
         val = (Reads.compareIndices(array, v1, v2, 1, true) > 0)? 1 : 0;
         t[1] += val;
         return t[1] == 1 ? v1 : v2;
     }
-    
+
     protected int medianOf9(int[] array, int a, int b) {
         int v0, v1, v2, div = (b - a)/9;
-        
+
         v0 = this.medianOf3(array, a,        a+div*1,  a+div*2);
         v1 = this.medianOf3(array, a+div*3,  a+div*4,  a+div*5);
         v2 = this.medianOf3(array, a+div*6,  a+div*7,  a+div*8);
-        
+
         return this.medianOf3(array, v0, v1, v2);
     }
-    
+
     protected int leftBinSearch(int[] array, int a, int b, int val) {
         while(a < b) {
             int m = a+(b-a)/2;
-            
-            if(Reads.compareValues(val, array[m]) <= 0) 
+
+            if(Reads.compareValues(val, array[m]) <= 0)
                 b = m;
-            else     
+            else
                 a = m+1;
         }
         return a;
@@ -87,22 +87,22 @@ public final class LazierQuickSort extends Sort {
     protected int rightBinSearch(int[] array, int a, int b, int val) {
         while(a < b) {
             int m = a+(b-a)/2;
-            
-            if(Reads.compareValues(val, array[m]) < 0) 
+
+            if(Reads.compareValues(val, array[m]) < 0)
                 b = m;
-            else     
+            else
                 a = m+1;
         }
         return a;
     }
-    
+
     protected int rightExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
         while(b-i >= a && Reads.compareValues(val, array[b-i]) < 0) i *= 2;
-        
+
         return this.rightBinSearch(array, Math.max(a, b-i+1), b-i/2, val);
     }
-    
+
     protected int leftBoundSearch(int[] array, int a, int b, int val) {
         int i = 1;
         while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0)
@@ -118,7 +118,7 @@ public final class LazierQuickSort extends Sort {
 
         return this.leftBinSearch(array, Math.max(a, b - i + 1), b - i / 2, val);
     }
-    
+
     protected void insertionSort(int[] array, int a, int b) {
         int i = a + 1;
         if(Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
@@ -131,43 +131,43 @@ public final class LazierQuickSort extends Sort {
             insertTo(array, i, rightExpSearch(array, a, i, array[i]));
         }
     }
-    
+
     protected void rotate(int[] array, int a, int m, int b) {
         IndexedRotations.holyGriesMills(array, a, m, b, 1.0, true, false);
     }
-    
+
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         int i = a, j = m, k;
-        
+
         while(i < j && j < b){
             if(Reads.compareValues(array[i], array[j]) == 1) {
                 k = this.leftBinSearch(array, j+1, b, array[i]);
                 this.rotate(array, i, j, k);
-                
+
                 i += k-j;
                 j = k;
-            } 
-            else 
+            }
+            else
                 i++;
         }
     }
-    
+
     protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
         int i = m-1, j = b-1, k;
-        
+
         while(j > i && i >= a){
             if(Reads.compareValues(array[i], array[j]) > 0) {
                 k = this.rightBinSearch(array, a, i, array[j]);
                 this.rotate(array, k, i+1, j+1);
-                
+
                 j -= (i+1)-k;
                 i = k-1;
-            } 
-            else 
+            }
+            else
                 j--;
         }
     }
-    
+
     public void smartInPlaceMerge(int[] array, int a, int m, int b) {
         if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0)
             return;
@@ -180,7 +180,7 @@ public final class LazierQuickSort extends Sort {
         else
             inPlaceMergeFW(array, a, m, b);
     }
-    
+
     protected void buildRuns(int[] array, int a, int b, int mRun) {
         int i = a + 1, j = a;
         while (i < b) {
@@ -200,7 +200,7 @@ public final class LazierQuickSort extends Sort {
             j = i++;
         }
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
@@ -211,7 +211,7 @@ public final class LazierQuickSort extends Sort {
         }
         if (change) Writes.write(array, b, temp, 0.125, true, false);
     }
-    
+
     public void lazyStableSort(int[] array, int start, int end) {
         int mRun = end - start;
         for (; mRun >= 32; mRun = (mRun + 1) / 2);
@@ -224,7 +224,7 @@ public final class LazierQuickSort extends Sort {
         }
 
     }
-    
+
     protected PivotPair partition(int[] array, int a, int b, int piv) {
         int l = a, r = a;
         for(int i = a; i < b; i++) {
@@ -237,7 +237,7 @@ public final class LazierQuickSort extends Sort {
         }
         return new PivotPair(l, r);
     }
-    
+
     protected void quickSort(int[] array, int a, int b, int depth) {
         while(b - a > 16) {
             if(depth == 0) {
@@ -268,7 +268,7 @@ public final class LazierQuickSort extends Sort {
         }
         insertionSort(array, a, b);
     }
-    
+
     public void customSort(int[] array, int a, int b) {
         quickSort(array, a, b, 2 * floorLog(b - a));
     }

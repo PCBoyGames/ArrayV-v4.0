@@ -43,7 +43,7 @@ final public class MultipleScript {
             }
             catch (Exception e) { }
             algortitm = inst;
-            
+
             this.bucketCount = bucketCount;
             this.defaultLength = defaultLength;
             this.defaultSpeedMultiplier = defaultSpeedMultiplier;
@@ -170,10 +170,10 @@ final public class MultipleScript {
         catch (NullPointerException e) {
             return null;
         }
-        return runScript(scanner);    
+        return runScript(scanner);
     }
 
     public ScriptCommand[] runScript(String path) {
-        return runScript(new File(path));        
+        return runScript(new File(path));
     }
 }

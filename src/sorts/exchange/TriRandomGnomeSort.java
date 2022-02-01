@@ -1,4 +1,4 @@
-package sorts.insert;
+package sorts.exchange;
 
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
@@ -6,29 +6,29 @@ import sorts.templates.BogoSorting;
 class QRange {
     public int start, end;
     public boolean usable;
-    
+
     public QRange() {
         start = end = 0;
         usable = true;
     }
-    
+
     public QRange(int start, int end) {
         this();
         this.start = start;
         this.end = end;
     }
-    
+
     public void set(int start, int end) {
         this.start = start;
         this.end = end;
         if(start >= end)
             this.disqualify();
     }
-    
+
     public int length() {
         return end-start+1;
     }
-    
+
     public void disqualify() {
         this.usable = false;
     }
@@ -48,11 +48,11 @@ final public class TriRandomGnomeSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private static int randInt(QRange range) {
         return randInt(range.start, range.end);
     }
-    
+
     private int searchBin(int[] array, int start, int end, int key, double sleep) {
         while(start < end-1) {
             int r1 = randInt(start, end),
@@ -78,12 +78,12 @@ final public class TriRandomGnomeSort extends BogoSorting {
         Highlights.clearMark(3);
         return Reads.compareValues(array[start], key) == 1 ? start : end;
     }
-    
+
     private void triGnomeSort(int[] array, int start, int end, double compSleep, double swapSleep) {
         int randomStart = randInt(start,end);
         QRange sortedArea = new QRange(randomStart,randomStart), secA = new QRange(start,randomStart),
                secB = new QRange(randomStart,end);
-        
+
         while(secA.usable || secB.usable) {
             boolean dec = randBoolean();
             QRange ref = secB;
@@ -93,13 +93,13 @@ final public class TriRandomGnomeSort extends BogoSorting {
                 dec = true;
                 ref = secA;
             }
-            
+
             int searchKey = randInt(ref),
-                searchValue = this.searchBin(array, sortedArea.start, sortedArea.end, 
+                searchValue = this.searchBin(array, sortedArea.start, sortedArea.end,
                                               array[searchKey], compSleep);
-            
+
             Writes.multiSwap(array, searchKey, dec ? searchValue-1 : searchValue, swapSleep, true, false);
-            
+
             if(dec) {
                 ref.set(ref.start, ref.end-1);
                 sortedArea.set(sortedArea.start-1, sortedArea.end);
@@ -109,7 +109,7 @@ final public class TriRandomGnomeSort extends BogoSorting {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         this.triGnomeSort(array, 0, currentLength, 1, 0.05);

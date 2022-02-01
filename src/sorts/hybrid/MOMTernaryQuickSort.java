@@ -34,7 +34,7 @@ public final class MOMTernaryQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     class PivotPair {
         public int l, r;
 
@@ -43,16 +43,16 @@ public final class MOMTernaryQuickSort extends Sort {
             this.r = r;
         }
     }
-    
+
     public static int floorLog(int n) {
         int log = 0;
         while ((n >>= 1) != 0) ++log;
         return log;
     }
-    
+
     MaxHeapSort heapSorter;
     InsertionSort insSort;
-    
+
     void medianOfThree(int[] array, int a, int b) {
         int m = a + (b - 1 - a) / 2;
 
@@ -68,7 +68,7 @@ public final class MOMTernaryQuickSort extends Sort {
 
         Writes.swap(array, a, m, 1, true, false);
     }
-    
+
     void medianOfMedians(int[] array, int a, int b, int s) {
         int end = b, start = a, i, j;
         boolean ad = true;
@@ -91,7 +91,7 @@ public final class MOMTernaryQuickSort extends Sort {
             end = j;
         }
     }
-    
+
     protected PivotPair partition(int[] array, int a, int b) {
         int piv = array[a];
         int i = a, j = b;
@@ -106,10 +106,10 @@ public final class MOMTernaryQuickSort extends Sort {
                     Delays.sleep(1.0);
                 }
                 while(j > k && Reads.compareValues(array[j], piv) > 0);
-                
+
                 Writes.swap(array, k, j, 1.0, true, false);
                 Highlights.clearMark(3);
-                
+
                 if(Reads.compareValues(array[k], piv) < 0) {
                     Writes.swap(array, k, i++, 1.0, true, false);
                 }
@@ -117,7 +117,7 @@ public final class MOMTernaryQuickSort extends Sort {
         }
         return new PivotPair(i, j);
     }
-    
+
     protected void quickSort(int[] array, int a, int b, int depth) {
         while(b - a > 16) {
             if(depth == 0) {
@@ -148,7 +148,7 @@ public final class MOMTernaryQuickSort extends Sort {
         }
         insSort.customInsertSort(array, a, b, 0.5, false);
     }
-    
+
     public void customSort(int[] array, int a, int b) {
         heapSorter = new MaxHeapSort(arrayVisualizer);
         insSort = new InsertionSort(arrayVisualizer);

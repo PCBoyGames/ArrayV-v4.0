@@ -22,7 +22,7 @@ public final class PDExponentialInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int rightBinSearch(int[] array, int a, int b, int val, double sleep) {
         while(a < b) {
             int m = a+(b-a)/2;
@@ -30,15 +30,15 @@ public final class PDExponentialInsertionSort extends Sort {
             Highlights.markArray(1, m);
             Highlights.markArray(2, b);
             Delays.sleep(sleep);
-            if(Reads.compareValues(val, array[m]) < 0) 
+            if(Reads.compareValues(val, array[m]) < 0)
                 b = m;
-            else     
+            else
                 a = m+1;
         }
-        
+
         return a;
     }
-    
+
     private int rightExpSearch(int[] array, int a, int b, int val, double sleep) {
         int i = 1;
         while(b-i >= a && Reads.compareValues(val, array[b-i]) < 0) {
@@ -46,7 +46,7 @@ public final class PDExponentialInsertionSort extends Sort {
         }
         return rightBinSearch(array, Math.max(a, b-i+1), b-i/2, val, sleep);
     }
-    
+
     private void insertTo(int[] array, int a, int b, double sleep) {
         Highlights.clearMark(2);
         if (a > b) {
@@ -57,7 +57,7 @@ public final class PDExponentialInsertionSort extends Sort {
             Writes.write(array, b, temp, sleep, true, false);
         }
     }
-    
+
     private void insertionSort(int[] array, int a, int b, double compSleep, double writeSleep) {
         int i = a + 1;
         if(Reads.compareIndices(array, i - 1, i++, compSleep, true) == 1) {
@@ -73,7 +73,7 @@ public final class PDExponentialInsertionSort extends Sort {
             i++;
         }
     }
-    
+
     public void customSort(int[] array, int a, int b, double sleep) {
         insertionSort(array, a, b, sleep / 2.0, sleep);
     }

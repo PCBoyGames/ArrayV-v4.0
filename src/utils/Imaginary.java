@@ -75,7 +75,7 @@ public final class Imaginary extends Object {
                 return this.value != that.value;
         }
     }*/
-    
+
     public boolean equals(Imaginary that) {
         return this.value == that.value;
     }

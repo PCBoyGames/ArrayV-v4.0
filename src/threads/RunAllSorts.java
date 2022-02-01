@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import panes.JErrorPane;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -34,7 +34,7 @@ SOFTWARE.
 final public class RunAllSorts {
     private ArrayVisualizer arrayVisualizer;
     private ArrayList<MultipleSortThread> allSortThreads;
-    
+
     public RunAllSorts(ArrayVisualizer arrayVisualizer) {
         this.arrayVisualizer = arrayVisualizer;
         this.allSortThreads = new ArrayList<>();
@@ -55,7 +55,7 @@ final public class RunAllSorts {
         for(MultipleSortThread category : this.allSortThreads) {
             totalSortCount += category.getSortCount();
         }
-        
+
         try {
             int currentSort = 1;
             for(MultipleSortThread thread : this.allSortThreads) {
@@ -66,7 +66,7 @@ final public class RunAllSorts {
         } catch (Exception e) {
             JErrorPane.invokeErrorMessage(e);
         }
-        
+
         this.arrayVisualizer.setCategory("Run All Sorts");
         this.arrayVisualizer.setHeading("Finished!!");
         this.arrayVisualizer.updateNow();

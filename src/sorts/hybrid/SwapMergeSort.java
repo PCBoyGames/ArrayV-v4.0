@@ -5,7 +5,7 @@ import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -35,7 +35,7 @@ final public class SwapMergeSort extends Sort {
 
     public SwapMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("SwapMerge");
         this.setRunAllSortsName("SwapMerge Sort");
         this.setRunSortName("SwapMergeSort");
@@ -91,20 +91,20 @@ final public class SwapMergeSort extends Sort {
             merge(array, start, mid, end);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         binaryInserter = new BinaryInsertionSort(arrayVisualizer);
-        
+
         if(length < 32) {
             binaryInserter.customBinaryInsert(array, 0, length, 0.333);
             return;
         }
-        
+
         int start = 0;
         int end = length;
         int mid = start + ((end - start) / 2);
-        
+
         mergeRun(array, start, mid, end);
     }
 }

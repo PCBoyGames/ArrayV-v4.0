@@ -21,7 +21,7 @@ import utils.Statistics;
 final public class MoreOptimizedPigeonholeSort extends Sort {
     public MoreOptimizedPigeonholeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("More Optimized Pigeonhole");
         this.setRunAllSortsName("More Optimized Pigeonhole Sort");
         this.setRunSortName("More Optimized Pigeonhole Sort");
@@ -29,24 +29,24 @@ final public class MoreOptimizedPigeonholeSort extends Sort {
         this.setComparisonBased(false);
         this.setBucketSort(false);
         this.setRadixSort(false);
-    
+
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
     private BigInteger bitlist;
-    
+
     private boolean bitIsSet(BigInteger b, int loc) {
         return b.and(BigInteger.ZERO.setBit(loc)).signum() == 1;
     }
     private void setBit(int loc) {
         bitlist = bitlist.setBit(loc);
     }
-    
+
     private int getVal(int[] array, int index) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(array[index]) : array[index];
     }
-    
+
     @Override
     /*
      * VAR min: min(array) [just so that people can't add 2^20 to a 1,024 number array, and call it a worst case]
@@ -71,7 +71,7 @@ final public class MoreOptimizedPigeonholeSort extends Sort {
                 Statistics.addStat("Unique");
             }
         }
-        
+
         for(int i=0, cnt=-1, lead = 0; i<sortLength; i++) {
             if(lead == 0) // If we're tracking dupes, don't advance
                 do {

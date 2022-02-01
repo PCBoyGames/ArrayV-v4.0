@@ -15,12 +15,12 @@ public abstract class ParallelSort extends Sort {
         public Func(Object... r) {
             n = r;
         }
-        
+
         public Func setConsumer(Function<Object[],?> c) {
             z = c;
             return this;
         }
-        
+
         public void run() {
             z.apply(n);
         }

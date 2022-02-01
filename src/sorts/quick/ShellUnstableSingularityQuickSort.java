@@ -13,11 +13,11 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class ShellUnstableSingularityQuickSort extends Sort {
-    
+
     int depthlimit;
     int insertlimit;
     int replimit;
-    
+
     public ShellUnstableSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Shell Unstable Singularity Quick");
@@ -31,14 +31,14 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int log2(int x) {
         int n = 1;
         while (1 << n < x) n++;
         if (1 << n > x) n--;
         return n;
     }
-    
+
     protected int unstablepd(int[] array, int start, int end) {
         int reverse = start;
         boolean different = false;
@@ -54,7 +54,7 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
         }
         return reverse;
     }
-    
+
     protected void shellPass(int[] array, int start, int end, int gap) {
         for (int h = gap, i = h + start; i < end; i++) {
             int v = array[i];
@@ -76,7 +76,7 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
             }
         }
     }
-    
+
     protected void shell(int[] array, int start, int end) {
         int gap = (int) ((end - start) / 2);
         while (gap >= 2) {
@@ -85,7 +85,7 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
         }
         shellPass(array, start, end, 1);
     }
-    
+
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth, int rep) {
         Writes.recordDepth(depth);
         if (depth == depthlimit || rep == 4) {

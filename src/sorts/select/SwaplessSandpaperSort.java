@@ -31,7 +31,7 @@ SOFTWARE.
 final public class SwaplessSandpaperSort extends Sort {
     public SwaplessSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Swapless Sandpaper");
         this.setRunAllSortsName("Swapless Sandpaper Sort");
         this.setRunSortName("Swapn't Sandpapersort");

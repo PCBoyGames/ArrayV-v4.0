@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class Split16Merge extends Sort {
     public Split16Merge(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Split-16 Merge");
         this.setRunAllSortsName("Split-16 Merge Sort");
         this.setRunSortName("Split-16 Mergesort");
@@ -45,7 +45,7 @@ final public class Split16Merge extends Sort {
         this.setBogoSort(false);
     }
 
-    int[] medianOfSixteenSwaps = new int[] {   
+    int[] medianOfSixteenSwaps = new int[] {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
         1, 3, 5, 7, 9, 11, 13, 15, 2, 4, 6, 8, 10, 12, 14, 16,
         1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16,
@@ -53,7 +53,7 @@ final public class Split16Merge extends Sort {
         6, 11, 7, 10, 4, 13, 14, 15, 8, 12, 2, 3, 5, 9,
         2, 5, 8, 14, 3, 9, 12, 15, 6, 7, 10, 11,
         3, 5, 12, 14, 4, 9, 8, 13,
-        7, 9, 11, 13, 4, 6, 8, 10, 
+        7, 9, 11, 13, 4, 6, 8, 10,
         4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
         7, 8, 9, 10
     };
@@ -86,7 +86,7 @@ final public class Split16Merge extends Sort {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         for (int i = 0; i < length - 15; i += 16) {

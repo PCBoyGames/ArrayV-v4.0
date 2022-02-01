@@ -10,7 +10,7 @@ import java.util.Random;
 final public class VarietySort extends Sort {
     public VarietySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Variety");
         this.setRunAllSortsName("Variety Sort");
         this.setRunSortName("Variety Sort");
@@ -23,12 +23,12 @@ final public class VarietySort extends Sort {
         this.setBogoSort(true);
     }
 
-    
+
     private void classicMerge(int[] array, int[] tmp, int start, int mid, int end) {
         if(start == mid) return;
-        
+
         int low = start, high = mid, nxt = 0;
-        
+
         while(low < mid && high < end) {
             Highlights.markArray(1, low);
             Highlights.markArray(2, high);
@@ -38,28 +38,28 @@ final public class VarietySort extends Sort {
                 Writes.write(tmp, nxt++, array[high++], 1, false, true);
             }
         }
-        
+
         while(low < mid) {
             Writes.write(tmp, nxt++, array[low++], 1, false, true);
         }
-        
+
         Highlights.clearMark(2);
-        
+
         Writes.arraycopy(tmp, 0, array, start, nxt, 1, true, false);
     }
-    
+
     private int bubbleHalf(int[] array, int start, int end) {
         int mid = start + (end - start) / 2;
         for(int i=end-1; i>=mid; i--) {
             for(int j=start; j<i; j++) {
                 if(Reads.compareIndices(array, j, j+1, 0.01, true) > 0) {
-                    Writes.swap(array, j, j+1, 0.1, true, false); 
+                    Writes.swap(array, j, j+1, 0.1, true, false);
                 }
-            } 
+            }
         }
         return mid;
     }
-    
+
     private void shuffle(int[] array, int start, int end) {
         Random r = new Random();
         for(int i=start; i<end; i++) {
@@ -93,7 +93,7 @@ final public class VarietySort extends Sort {
         classicMerge(array, tmp, mid, himid, end);
         classicMerge(array, tmp, start, mid, end);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         variety(array, 0, currentLength);

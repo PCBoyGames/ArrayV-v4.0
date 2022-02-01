@@ -18,7 +18,7 @@ final public class LazicciSort extends GrailSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int runs(int len) {
         int j = 1, l = 0;
         while(j < len) {
@@ -27,7 +27,7 @@ final public class LazicciSort extends GrailSorting {
         }
         return l*l;
     }
-    
+
     // n^0.5 (log n iterations)
     private int sqrt(int len) {
         int l = 0, h = len;
@@ -53,12 +53,12 @@ final public class LazicciSort extends GrailSorting {
         }
         return l;
     }
-    
+
     @Override
     protected void grailRotate(int[] array, int pos, int len1, int len2) {
         Rotations.cycleReverse(array, pos, len1, len2, 0.5, true, false);
     }
-    
+
     // taken from PDIPop
     private void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
@@ -77,7 +77,7 @@ final public class LazicciSort extends GrailSorting {
             i++;
         }
     }
-    
+
     private int findRun(int[] array, int start, int max) {
         if(start >= max - 1)
             return start+1;
@@ -104,13 +104,13 @@ final public class LazicciSort extends GrailSorting {
         }
         return start;
     }
-    
+
     private int findSortedRunBW(int[] array, int start, int end) {
         do end--;
         while(end > start && Reads.compareValues(array[end-1], array[end]) <= 0);
         return Math.max(start, end);
     }
-    
+
     private int mergeRuns(int[] array, int start, int end) {
         int z = runs(end-start),
             x = fcrt(end-start),
@@ -142,7 +142,7 @@ final public class LazicciSort extends GrailSorting {
             run = r;
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         blockBack(array, 0, mergeRuns(array, 0, currentLength), currentLength);

@@ -5,7 +5,7 @@ import sorts.insert.AdaptiveSquareInsertionSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 pdqsort.h - Pattern-defeating quicksort.
 Copyright (c) 2015 Orson Peters
 This software is provided 'as-is', without any express or implied warranty. In no event will the
@@ -24,7 +24,7 @@ applications, and to alter it and redistribute it freely, subject to the followi
 final public class SumSeededPDQSort extends Sort {
     public SumSeededPDQSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Sum-Seeded Pattern-Defeating Quick");
         this.setRunAllSortsName("Sum-Seeded Pattern-Defeating Quick Sort");
         this.setRunSortName("Sum-Seeded Pattern-Defeating Quicksort");
@@ -36,28 +36,28 @@ final public class SumSeededPDQSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     AdaptiveSquareInsertionSort sort = new AdaptiveSquareInsertionSort(this.arrayVisualizer);
-    
+
     // stolen from stackoverflow
     public int log2(int n){
         if(n <= 0) throw new IllegalArgumentException();
         return 31 - Integer.numberOfLeadingZeros(n);
     }
-    
+
     // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
     private void quickSort(int[] a, int p, int r) {
         if(r - p > 16) {
             int pivot = (r^p + a[p]^a[r] + a[p] + a[r] + p + r)*(r^p + a[p]^a[r] + a[p] + a[r] + p + r)%(r - p) + p;
             pivot = Math.abs((pivot + a[p]^a[r] + a[p] + a[r] + p + r)*(pivot+ a[p]^a[r] + a[p] + a[r] + p + r)%(r - p) + p)%(r - p - 1) + p;
-            
+
             int x = a[pivot];
-            
+
             int i = p;
             int j = r;
 
             Highlights.markArray(3, pivot);
-            
+
             while (i <= j) {
                 while (Reads.compareValues(a[i], x) == -1){
                     i++;
@@ -78,14 +78,14 @@ final public class SumSeededPDQSort extends Sort {
                     if(j == pivot) {
                         Highlights.markArray(3, i);
                     }
-                    
+
                     Writes.swap(a, i, j, 1, true, false);
-                    
+
                     i++;
                     j--;
                 }
             }
-            
+
             if(p < j) {
                 this.quickSort(a, p, j);
             }

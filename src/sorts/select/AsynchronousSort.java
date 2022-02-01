@@ -5,7 +5,7 @@ import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -30,10 +30,10 @@ SOFTWARE.
  *
  */
 
-final public class AsynchronousSort extends Sort {  
+final public class AsynchronousSort extends Sort {
     public AsynchronousSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Asynchronous");
         this.setRunAllSortsName("Asynchronous Sort");
         this.setRunSortName("Asynchronous Sort");
@@ -45,7 +45,7 @@ final public class AsynchronousSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] ext = Writes.createExternalArray(length);

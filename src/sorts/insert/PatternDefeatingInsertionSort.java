@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 final public class PatternDefeatingInsertionSort extends Sort {
     public PatternDefeatingInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Pattern-Defeating Insertion");
         this.setRunAllSortsName("Pattern-Defeating Insertion Sort");
         this.setRunSortName("Pattern-Defeating Insertsort");
@@ -41,7 +41,7 @@ final public class PatternDefeatingInsertionSort extends Sort {
             i++;
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         insertionSort(array, 0, currentLength, 1, false);

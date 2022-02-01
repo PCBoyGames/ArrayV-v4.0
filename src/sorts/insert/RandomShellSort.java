@@ -48,7 +48,7 @@ final public class RandomShellSort extends BogoSorting {
             }
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int gap = currentLength;

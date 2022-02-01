@@ -4,10 +4,10 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 final public class DisparityShellSort extends Sort {
-    
+
     public DisparityShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Disparity Shell");
         this.setRunAllSortsName("Disparity Shell Sort");
         this.setRunSortName("Disparity Shellsort");
@@ -19,7 +19,7 @@ final public class DisparityShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private int disparity(int[] array, int start, int end) {
         if(end-start < 3)
             return end-1;
@@ -33,7 +33,7 @@ final public class DisparityShellSort extends Sort {
         }
         return Math.abs(max-min);
     }
-    
+
     private boolean isSorted(int[] array, int end) {
         int comp = Reads.compareIndices(array, 0, 1, 0.1, true);
         if(end == 2) {
@@ -59,7 +59,7 @@ final public class DisparityShellSort extends Sort {
     private void shell(int[] array, int start, int end, int gap) {
         if(end-start <= gap || gap < 1)
             return;
-        
+
         for(int i=start+gap; i<end; i++) {
             int t = array[i], j=i-gap;
             Highlights.markArray(1, j);
@@ -79,15 +79,15 @@ final public class DisparityShellSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int size = currentLength;
-        
+
         while(size > 1) {
             int disparity = this.disparity(array, 0, size);
-            
+
             if(disparity == size - 1 && isSorted(array, currentLength))
                 return;
-            
+
             this.shell(array, 0, currentLength, disparity);
-            
+
             size = disparity;
         }
     }

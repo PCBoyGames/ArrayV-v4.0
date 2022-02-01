@@ -23,7 +23,7 @@ public final class PDLaziestSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void insertionSort(int[] array, int a, int b, double sleep, boolean auxwrite) {
         int i = a + 1;
         if(Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
@@ -46,46 +46,46 @@ public final class PDLaziestSort extends Sort {
             i++;
         }
     }
-    
+
     private void rotate(int[] array, int a, int m, int b) {
         IndexedRotations.cycleReverse(array, a, m, b, 1.0, true, false);
     }
-    
+
     private int leftBinSearch(int[] array, int a, int b, int val) {
         while(a < b) {
             int m = a+(b-a)/2;
-            
-            if(Reads.compareValues(val, array[m]) <= 0) 
+
+            if(Reads.compareValues(val, array[m]) <= 0)
                 b = m;
-            else     
+            else
                 a = m+1;
         }
-        
+
         return a;
     }
-    
+
     private int leftExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
         while(a-1+i < b && Reads.compareValues(val, array[a-1+i]) > 0) i *= 2;
-        
+
         return this.leftBinSearch(array, a+i/2, Math.min(b, a-1+i), val);
     }
-    
+
     private void inPlaceMerge(int[] array, int a, int m, int b) {
         int i = a, j = m, k;
-        
+
         while(i < j && j < b){
             if(Reads.compareValues(array[i], array[j]) == 1) {
                 k = this.leftExpSearch(array, j+1, b, array[i]);
                 this.rotate(array, i, j, k);
-                
+
                 i += k-j;
                 j = k;
-            } 
+            }
             else i++;
         }
     }
-    
+
     protected void laziestStableSort(int[] array, int start, int end) {
         int len = end - start;
         if(len <= 16) {
@@ -97,7 +97,7 @@ public final class PDLaziestSort extends Sort {
             insertionSort(array, i, i + blockLen, 0.5, false);
         }
         insertionSort(array, i, end, 0.5, false);
-        while(i-blockLen >= start) { 
+        while(i-blockLen >= start) {
             this.inPlaceMerge(array, i-blockLen, i, end);
             i-=blockLen;
         }

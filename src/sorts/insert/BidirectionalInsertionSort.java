@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32 (Josiah Glosson)
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class BidirectionalInsertionSort extends Sort {
     public BidirectionalInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Bidirectional Insertion");
         this.setRunAllSortsName("Bidirectional Insertion Sort");
         this.setRunSortName("Bidirectional Insertsort");
@@ -89,7 +89,7 @@ final public class BidirectionalInsertionSort extends Sort {
             Writes.reversal(array, a, b - 1, sleep, true, auxwrite);
         }
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         insertionSort(array, 0, currentLength, 0.015, false);

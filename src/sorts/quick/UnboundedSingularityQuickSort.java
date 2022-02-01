@@ -13,13 +13,13 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class UnboundedSingularityQuickSort extends Sort {
-    
+
     SingularityQuickSort justsortit = new SingularityQuickSort(arrayVisualizer);
-    
+
     int full;
-    
+
     boolean sorted = false;
-    
+
     public UnboundedSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Singularity Quick (Unbounded)");
@@ -33,7 +33,7 @@ final public class UnboundedSingularityQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void singularityQuick(int[] array, int start, int offset, int end, int depth) {
         Writes.recordDepth(depth);
         Highlights.clearAllMarks();

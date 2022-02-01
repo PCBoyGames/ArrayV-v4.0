@@ -6,10 +6,10 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // #4 of Distray's Pop The Top Lineup
-final public class EvenMoreOptimizedSmoothBingoSort extends Sort {  
+final public class EvenMoreOptimizedSmoothBingoSort extends Sort {
     public EvenMoreOptimizedSmoothBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Even More Optimized Smooth Bingo");
         this.setRunAllSortsName("Even More Optimized Smooth Bingo Sort");
         this.setRunSortName("Even More Optimized Smooth Bingo Sort");

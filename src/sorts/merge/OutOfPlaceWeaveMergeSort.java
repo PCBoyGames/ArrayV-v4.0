@@ -7,7 +7,7 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
 
     public OutOfPlaceWeaveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Out-of-Place Weave Merge");
         this.setRunAllSortsName("Out-of-Place Weave Merge (by Control)");
         this.setRunSortName("Out-of-Place Weave Merge");
@@ -20,7 +20,7 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
         this.setBogoSort(false);
     }
 
-    
+
     //Implemented by Control
     //Looks like weave merge, but it really is a normal merge.
     //Why? you might ask...
@@ -34,7 +34,7 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
     //Stable:       Yes
 
 
-    private void weave(int[] array, int[] aux, int start, int end) {  
+    private void weave(int[] array, int[] aux, int start, int end) {
 
         for(int i = 0; i<=end-start; i+=2){
             Writes.write(array, start+i, aux[start+i/2], 0.25, true, false);
@@ -45,9 +45,9 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
         }
 
     }
-    
+
     private void merge(int[] array, int[] aux, int start, int end) {
-        
+
         int i = start;
         int j = start+1;
         int pointer = start;
@@ -83,14 +83,14 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
             controller(array, aux, (end+start+1)/2, end);
         }
         weave(array, aux, start, end);
-        merge(array, aux, start, end); 
+        merge(array, aux, start, end);
     }
-        
+
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        
-        
+
+
         int [] swaparray = Writes.createExternalArray(currentLength);
         for(int i = 0; i<currentLength; i++){
             Writes.write(swaparray, i, array[i], 0.05, true, false);

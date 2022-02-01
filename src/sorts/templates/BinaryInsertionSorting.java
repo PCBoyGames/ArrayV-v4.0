@@ -3,7 +3,7 @@ package sorts.templates;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2019 w0rthy
@@ -32,20 +32,20 @@ public abstract class BinaryInsertionSorting extends Sort {
     protected BinaryInsertionSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
-    
+
     protected void binaryInsertSort(int[] array, int start, int end, double compSleep, double writeSleep) {
         for (int i = start; i < end; i++) {
             int num = array[i];
             int lo = start, hi = i;
-            
+
             while (lo < hi) {
                 int mid = lo + ((hi - lo) / 2); // avoid int overflow!
                 Highlights.markArray(1, lo);
                 Highlights.markArray(2, mid);
                 Highlights.markArray(3, hi);
-                
+
                 Delays.sleep(compSleep);
-                
+
                 if (Reads.compareValues(num, array[mid]) < 0) { // do NOT move equal elements to right of inserted element; this maintains stability!
                     hi = mid;
                 }
@@ -55,12 +55,12 @@ public abstract class BinaryInsertionSorting extends Sort {
             }
 
             Highlights.clearMark(3);
-            
+
             // item has to go into position lo
 
             int j = i - 1;
             boolean change = false;
-            
+
             while (j >= lo)
             {
                 Writes.write(array, j + 1, array[j], writeSleep, true, false);
@@ -68,7 +68,7 @@ public abstract class BinaryInsertionSorting extends Sort {
                 change = true;
             }
             if (change) Writes.write(array, lo, num, writeSleep, true, false);
-            
+
             Highlights.clearAllMarks();
         }
     }

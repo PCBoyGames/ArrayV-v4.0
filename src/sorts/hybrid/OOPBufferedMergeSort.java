@@ -6,7 +6,7 @@ import sorts.merge.ReverseLazyStableSort;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -39,7 +39,7 @@ final public class OOPBufferedMergeSort extends Sort {
 
     public OOPBufferedMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Out-of-Place Buffered Merge");
         this.setRunAllSortsName("Out-of-Place Buffered Merge Sort");
         this.setRunSortName("Out-of-Place Buffered Mergesort");
@@ -155,7 +155,7 @@ final public class OOPBufferedMergeSort extends Sort {
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         binaryInserter = new BinaryInsertionSort(arrayVisualizer);
         finalMerger = new ReverseLazyStableSort(arrayVisualizer);
-        
+
         int bufferSize = OOPBufferedMergeSort.getBufferSize(sortLength);
         int length = sortLength - ((sortLength - bufferSize) % (bufferSize / 2));
         if (bufferSize * 2 >= length) {

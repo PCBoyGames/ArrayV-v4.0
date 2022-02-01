@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2020 Gaming32
@@ -32,7 +32,7 @@ SOFTWARE.
 final public class PartialMergeSort extends Sort {
     public PartialMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Partial Merge");
         this.setRunAllSortsName("Partial Merge Sort");
         this.setRunSortName("Partial Mergesort");
@@ -84,14 +84,14 @@ final public class PartialMergeSort extends Sort {
 
         merge(array, copied, start, mid, end);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] copied = Writes.createExternalArray(length/2);
         int start = 0;
         int end = length;
         int mid = start + ((end - start) / 2);
-        
+
         mergeRun(array, copied, start, mid, end);
         Writes.deleteExternalArray(copied);
     }

@@ -37,7 +37,7 @@ public abstract class LassoSorting extends Sort {
             Writes.swap(array, locA+i, locB+i, 1, true, false);
         }
     }
-    
+
     protected void shift(int[] array, int from, int to, double sleep, boolean aux) {
         if(from == to)
             return;
@@ -49,7 +49,7 @@ public abstract class LassoSorting extends Sort {
         }
         Writes.write(array, to, k, sleep, true, false);
     }
-    
+
     protected void rotate(int[] array, int pos, int lenA, int lenB) {
         while(lenA>1&&lenB>1) {
             while(lenA<=lenB) {
@@ -70,7 +70,7 @@ public abstract class LassoSorting extends Sort {
             this.shift(array, pos+lenA, pos, 1, false);
         }
     }
-    
+
     // Copied from Disquad Sort
     protected void NQSort(int[] array, int a, int b, int c, int d) {
         if(d-a == 2) {
@@ -85,21 +85,21 @@ public abstract class LassoSorting extends Sort {
             return;
         }
         int t1 = nil, t2 = nil;
-        
+
         if(Reads.compareValues(array[b], array[d]) == 1) {
             t1 = array[d];
             Writes.write(array, d, array[b], 1, true, false);
         }
-        
+
         if(Reads.compareValues(array[a], array[c]) == 1) {
             t2 = array[c];
             Writes.write(array, c, array[a], 1, true, false);
         }
-        
+
         if(Reads.compareValues(array[c], array[d]) == 1) {
             Writes.swap(array, c, d, 1, true, false);
         }
-        
+
         if(t1 == nil) {
             if(t2 == nil) {
                 // no temp
@@ -139,7 +139,7 @@ public abstract class LassoSorting extends Sort {
             Writes.swap(array, b, c, 1, true, false);
         }
     }
-    
+
     protected void NTSort(int[] array, int a, int b, int c) {
         int t = nil;
         if(Reads.compareValues(array[a], array[c]) == 1) {
@@ -150,7 +150,7 @@ public abstract class LassoSorting extends Sort {
         if(Reads.compareValues(array[b], array[c]) == 1) {
             Writes.swap(array, a, c, 1, true, false);
         }
-        
+
         if(t == nil) {
             if(Reads.compareValues(array[a], array[b]) == 1) {
                 Writes.swap(array, a, b, 1, true, false);
@@ -164,7 +164,7 @@ public abstract class LassoSorting extends Sort {
             }
         }
     }
-    
+
     protected void quadBuild(int[] array, int start, int end) {
         for(int i=start; i<end; i+=4) {
             int b = Math.min(i+1, end),
@@ -173,7 +173,7 @@ public abstract class LassoSorting extends Sort {
             this.NQSort(array, i, b, c, d);
         }
     }
-    
+
     protected Range exponentialSearch(int[] array, int start, int end, int key, double sleep, boolean goRight) {
         int prev = 1;
         int length = end-start;
@@ -199,7 +199,7 @@ public abstract class LassoSorting extends Sort {
         else
             return new Range((prev/growSpeed)+start, prev+start);
     }
-    
+
     protected int linearExpSearch(int[] array, int start, int end, int key, boolean goRight, double sleep) {
         if(goRight) {
             while(end >= start) {
@@ -219,7 +219,7 @@ public abstract class LassoSorting extends Sort {
             return end+1;
         }
     }
-    
+
     protected int linearExpSearch_exclusive(int[] array, int start, int end, int key, boolean goRight, double sleep) {
         if(goRight) {
             while(end >= start) {
@@ -245,7 +245,7 @@ public abstract class LassoSorting extends Sort {
             return end+1;
         }
     }
-    
+
     // Still WIP (O(log n) average, O(n) worst, O(0) best)
     protected int slopeSearch(int[] array, int start, int end, int keyIndex, double sleep, boolean exclusive) {
         int key = arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(array[keyIndex])
@@ -291,7 +291,7 @@ public abstract class LassoSorting extends Sort {
         }
         return linearExpSearch(array, approxIndex, end, key, true, sleep);
     }
-    
+
     protected int binSearch(int[] array, int start, int end, int key, double sleep, boolean goLeft) {
         while(start < end) {
             int mid = start + ((end - start) / 2);
@@ -312,8 +312,8 @@ public abstract class LassoSorting extends Sort {
         }
         return start;
     }
- 
-    
+
+
     // copied from Scrsort (copied from Silversort (copied from PrallieSort Mk. II (copied from Aphitorite's Rotate Merge Sort)))
     protected void rotateMerge(int[] array, int start, int mid, int end) {
         if(start==mid||mid==end)
@@ -332,13 +332,13 @@ public abstract class LassoSorting extends Sort {
             mid1 = this.binSearch(array, start, mid, array[mid2], 1, false);
             rotatedmid = mid2++ - (mid - mid1);
         }
-        
+
         this.rotate(array, mid1, mid-mid1, mid2-mid);
-        
+
         this.rotateMerge(array, start, mid1, rotatedmid);
         this.rotateMerge(array, rotatedmid+1, mid2, end);
     }
-    
+
     protected int grabKeys(int[] array, int len, int idealKeys) {
         int uniqueKeys = 0, end = EctaKeyLoc+BufSize, searchPosition = end-1;
         while(uniqueKeys < idealKeys && searchPosition >= 0) {
@@ -351,7 +351,7 @@ public abstract class LassoSorting extends Sort {
         }
         return uniqueKeys;
     }
-    
+
     protected int ceilSqrt(int l) {
         long k = 1;
         while(k*k < l) {
@@ -359,7 +359,7 @@ public abstract class LassoSorting extends Sort {
         }
         return (int) k;
     }
-    
+
     protected void mergeRight(int[] array, int start, int mid, int end) {
         this.multiSwapBW(array, mid, BufLoc, end-mid);
         int left = mid-1, right = BufLoc+(end-mid)-1, to = end-1;
@@ -374,7 +374,7 @@ public abstract class LassoSorting extends Sort {
             Writes.swap(array,right--,to--,1,true,false);
         }
     }
-    
+
     protected int mergeCenter(int[] array, int start, int mid, int end, boolean goLeft, boolean fragMerging) {
         if(start == mid || mid == end)
             return 0;
@@ -396,14 +396,14 @@ public abstract class LassoSorting extends Sort {
                     return f;
                 }
             }
-                
+
             while(left>=start) {
                 Writes.swap(array,left--,offset+--BufLoc,1,true,false);
             }
             while(right>=mid) {
                 Writes.swap(array,right--,offset+--BufLoc,1,true,false);
             }
-            
+
             this.rotate(array, BufLoc+offset, end-start, BufSize-offset);
             BufLoc = start;
             return 0;
@@ -434,7 +434,7 @@ public abstract class LassoSorting extends Sort {
             return 0;
         }
     }
-    
+
     protected boolean mergeIndex(int[] array, int start, int mid, int end) {
         if(end-start <= 2*BufSize) {
             return false;
@@ -518,7 +518,7 @@ public abstract class LassoSorting extends Sort {
         //this.binserter.customBinaryInsert(KeySpace, 0, r, 1);
         return true;
     }
-    
+
     protected void mergeOOP(int[] array, int start, int end, int ptr) {
         int l = end-1, h = BufSize-1;
         while(h >= 0) {
@@ -531,7 +531,7 @@ public abstract class LassoSorting extends Sort {
             }
         }
     }
-    
+
     public void common(int[] array, int start, int end) {
         this.binserter = new PDBinaryInsertionSort(arrayVisualizer);
         int len = end-start;
@@ -569,7 +569,7 @@ public abstract class LassoSorting extends Sort {
                 int z = Math.min(BufLoc+BufSize+2*j, EctaKeyLoc),
                     y = BufLoc+BufSize+j,
                     x = BufLoc+BufSize;
-                
+
                 f = this.mergeIndex(array, x, y, z);
             }
             if(j < len/2) {

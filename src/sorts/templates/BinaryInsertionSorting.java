@@ -33,7 +33,7 @@ public abstract class BinaryInsertionSorting extends Sort {
         super(arrayVisualizer);
     }
 
-    protected void binaryInsertSort(int[] array, int start, int end, double compSleep, double writeSleep) {
+    public void binaryInsertSort(int[] array, int start, int end, double compSleep, double writeSleep) {
         for (int i = start; i < end; i++) {
             int num = array[i];
             int lo = start, hi = i;

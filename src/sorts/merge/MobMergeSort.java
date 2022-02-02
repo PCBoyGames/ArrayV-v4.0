@@ -31,7 +31,7 @@ final public class MobMergeSort extends Sort {
     protected void bubble(int[] array, int start, int end) {
         int c = 1;
         int s;
-        int f = start + ((end - start) / 2);
+        int f = start;
         boolean a = false;
         for (int j = end - 1; j > 0; j -= c) {
             if (f - 1 < start) s = start;

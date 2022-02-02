@@ -2,10 +2,6 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
-import sorts.exchange.NReboundSort;
-import sorts.merge.IterativeSelectionMergeSort;
-import sorts.merge.MobMergeSort;
-import sorts.misc.OptimizedSafeStalinSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -103,21 +99,6 @@ final public class RunSummerSort extends MultipleSortThread {
     }
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
-
-        //Sort Rebound = new ReboundSort(arrayVisualizer);
-        //runIndividualSort(Rebound, 0, array, 128, 0.025, false, shuffleName, 16, alt);
-
-        //Sort BounceNRebound = new NReboundSort(arrayVisualizer);
-        //runIndividualSort(BounceNRebound, 0, array, 128, 0.032, false, shuffleName, 16, alt);
-
-        //Sort RougeCircle = new CircleSortRouge(arrayVisualizer);
-        //runIndividualSort(RougeCircle, 0, array, 256, 1, false, shuffleName, 16, alt);
-
-        //Sort IterativeSelectionMergeSort = new IterativeSelectionMergeSort(arrayVisualizer);
-        //runIndividualSort(IterativeSelectionMergeSort, 0, array, 512, 2, false, shuffleName, 16, alt);
-
-        Sort MobMerge = new MobMergeSort(arrayVisualizer);
-        runIndividualSort(MobMerge, 2, array, 512, 0.5, false, shuffleName, 16, alt);
 
     }
 

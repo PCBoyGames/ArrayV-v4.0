@@ -15,6 +15,7 @@ final public class TwentyWayPopSort extends Sort {
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
+        this.setQuestion("Set Pop order:", 1);
         this.setBogoSort(false);
     }
     protected void bubbleSort(int[] array, int start, int end, boolean right) {
@@ -58,6 +59,7 @@ final public class TwentyWayPopSort extends Sort {
         if(order < 1) {
             this.bubbleSort(array, start, end, !invert);
         } else if(order == 1) {
+            Writes.recursion(39);
             this.bubbleSort(array, start, start + twenty, invert);
             this.bubbleSort(array, start + twenty, start + ten, !invert);
             this.bubbleSort(array, start + ten, start + ten + twenty, invert);
@@ -103,6 +105,8 @@ final public class TwentyWayPopSort extends Sort {
             this.bubblePop(array, start, end, !invert);
             // it keeps getting worse
         } else {
+            Writes.recordDepth(order-1);
+            Writes.recursion(39);
             this.pop(array, start, start + twenty, order-1, !invert);
             this.pop(array, start + twenty, start + ten, order-1, invert);
             this.pop(array, start + ten, start + ten + twenty, order-1, !invert);
@@ -150,7 +154,7 @@ final public class TwentyWayPopSort extends Sort {
     }
 
     @Override
-    public void runSort(int[] array, int currentLength, int bucketCount) {
-        this.pop(array, 0, currentLength, 1, false);
+    public void runSort(int[] array, int currentLength, int pop) {
+        this.pop(array, 0, currentLength, pop, false);
     }
 }

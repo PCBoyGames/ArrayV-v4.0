@@ -2,30 +2,30 @@ package sorts.hybrid;
 
 import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
-import sorts.select.PoplarHeapSort;
+import sorts.select.MaxHeapSort;
 import sorts.templates.Sort;
 
 /**
- * @author Yuri-chan2007
+ * @author Ayako-chan
  *
  */
 public final class SimpleHybridQuickSort extends Sort {
 
     public SimpleHybridQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Simple Hybrid Quick");
-        this.setRunAllSortsName("Simple Hybrid Quick Sort");
-        this.setRunSortName("Simple Hybrid Quicksort");
-        this.setCategory("Hybrid Sorts");
-        this.setComparisonBased(true);
-        this.setBucketSort(false);
-        this.setRadixSort(false);
-        this.setUnreasonablySlow(false);
-        this.setUnreasonableLimit(0);
-        this.setBogoSort(false);
+        setSortListName("Simple Hybrid Quick");
+        setRunAllSortsName("Simple Hybrid Quick Sort");
+        setRunSortName("Simple Hybrid Quicksort");
+        setCategory("Hybrid Sorts");
+        setComparisonBased(true);
+        setBucketSort(false);
+        setRadixSort(false);
+        setUnreasonablySlow(false);
+        setUnreasonableLimit(0);
+        setBogoSort(false);
     }
 
-    PoplarHeapSort heapSorter;
+    MaxHeapSort heapSorter;
     InsertionSort insertSorter;
 
     private int medianOfThree(int[] array, int a, int m, int b) {
@@ -53,39 +53,39 @@ public final class SimpleHybridQuickSort extends Sort {
     private int ninther(int[] array, int a, int b) {
         int s = (b - a) / 9;
 
-        int a1 = this.medianOfThree(array, a, a + s, a + 2 * s);
-        int m1 = this.medianOfThree(array, a + 3 * s, a + 4 * s, a + 5 * s);
-        int b1 = this.medianOfThree(array, a + 6 * s, a + 7 * s, a + 8 * s);
+        int a1 = medianOfThree(array, a, a + s, a + 2 * s);
+        int m1 = medianOfThree(array, a + 3 * s, a + 4 * s, a + 5 * s);
+        int b1 = medianOfThree(array, a + 6 * s, a + 7 * s, a + 8 * s);
 
-        return this.medianOfThree(array, a1, m1, b1);
+        return medianOfThree(array, a1, m1, b1);
     }
 
     private int medianOfThreeNinthers(int[] array, int a, int b) {
         int s = (b - a + 2) / 3;
 
-        int a1 = this.ninther(array, a, a + s);
-        int m1 = this.ninther(array, a + s, a + 2 * s);
-        int b1 = this.ninther(array, a + 2 * s, b);
+        int a1 = ninther(array, a, a + s);
+        int m1 = ninther(array, a + s, a + 2 * s);
+        int b1 = ninther(array, a + 2 * s, b);
 
-        return this.medianOfThree(array, a1, m1, b1);
+        return medianOfThree(array, a1, m1, b1);
     }
 
     private int partition(int[] array, int a, int b, int val) {
         int i = a, j = b;
         while (i <= j) {
-            while (this.Reads.compareValues(array[i], val) < 0) {
+            while (Reads.compareValues(array[i], val) < 0) {
                 i++;
-                this.Highlights.markArray(1, i);
-                this.Delays.sleep(0.5D);
+                Highlights.markArray(1, i);
+                Delays.sleep(0.5D);
             }
-            while (this.Reads.compareValues(array[j], val) > 0) {
+            while (Reads.compareValues(array[j], val) > 0) {
                 j--;
-                this.Highlights.markArray(2, j);
-                this.Delays.sleep(0.5D);
+                Highlights.markArray(2, j);
+                Delays.sleep(0.5D);
             }
 
             if (i <= j)
-                this.Writes.swap(array, i++, j--, 1.0D, true, false);
+                Writes.swap(array, i++, j--, 1.0D, true, false);
 
         }
         return i;
@@ -94,7 +94,7 @@ public final class SimpleHybridQuickSort extends Sort {
     private void sort(int[] array, int a, int b, int depthLimit) {
         while (b - a > 16) {
             if (depthLimit == 0) {
-                heapSorter.heapSort(array, a, b);
+                heapSorter.customHeapSort(array, a, b, 1.0);
                 return;
             }
             int piv = medianOfThreeNinthers(array, a, b - 1);
@@ -109,8 +109,8 @@ public final class SimpleHybridQuickSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        insertSorter = new InsertionSort(this.arrayVisualizer);
-        heapSorter = new PoplarHeapSort(arrayVisualizer);
+        insertSorter = new InsertionSort(arrayVisualizer);
+        heapSorter = new MaxHeapSort(arrayVisualizer);
         sort(array, 0, sortLength, 2 * (int) (Math.log(sortLength) / Math.log(2.0D)));
 
     }

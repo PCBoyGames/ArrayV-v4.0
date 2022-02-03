@@ -248,32 +248,31 @@ public class Rotations {
     }
 
     public static void neon(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
-        int factor;
-        while(lenA > 0 && lenB > 0) {
-            if(lenA > lenB) {
-                factor = lenA / lenB;
-                for(int i=0; i<lenB; i++) {
-                    int t = array[pos+i+lenA];
-                    for(int j=1; j<=factor; j++) {
-                        int k = pos+i+lenA-(j*lenB);
-                        Writes.write(array, k+lenB, array[k], pause, mark, auxwrite);
-                    }
-                    Writes.write(array, pos+i+lenA-(factor*lenB), t, pause, mark, auxwrite);
+        int end=pos+lenA+lenB;
+        while(lenA>0 && lenB > 0) {
+            if(lenA < lenB) {
+            for(int i=0; i<lenA; i++) {
+                int t=array[pos+i], j=pos+i+lenA;
+                for(; j<end; j+=lenA) {
+                    Writes.write(array, j-lenA, array[j], pause, mark, auxwrite);
                 }
-                lenA %= lenB;
-            } else {
-                factor = lenB / lenA;
-                for(int i=0; i<lenA; i++) {
-                    int t=array[pos+i];
-                    for(int j=1; j<=factor; j++) {
-                        int k=pos+i+(j*lenA);
-                        Writes.write(array, k-lenA, array[k], pause, mark, auxwrite);
-                    }
-                    Writes.write(array, pos+i+(factor*lenA), t, pause, mark, auxwrite);
-                }
-                pos += factor*lenA;
-                lenB %= lenA;
+                Writes.write(array, j-lenA, t, pause, mark, auxwrite);
             }
+            pos += lenB;
+            lenB %= lenA;
+            lenA -= lenB;
+        } else {
+            for(int i=0; i<lenB; i++) {
+                int t=array[pos+i+lenA], j=pos+i+lenA-lenB;
+                for(; j>=pos; j-=lenB) {
+                    Writes.write(array, j+lenB, array[j], pause, mark, auxwrite);
+                }
+                Writes.write(array, j+lenB, t, pause, mark, auxwrite);
+            }
+                end = pos+lenB;
+            lenA %= lenB;
+            lenB -= lenA;
         }
     }
+}
 }

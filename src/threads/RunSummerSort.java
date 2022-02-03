@@ -2,6 +2,8 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.hybrid.CookieSort;
+import sorts.merge.IterativeMilkSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -99,6 +101,9 @@ final public class RunSummerSort extends MultipleSortThread {
     }
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
+
+        Sort Cookie = new CookieSort(arrayVisualizer);
+        runIndividualSort(Cookie, 0, array, 544, 2, false, shuffleName, 16, alt);
 
     }
 

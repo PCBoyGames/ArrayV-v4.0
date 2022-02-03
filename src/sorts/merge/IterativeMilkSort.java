@@ -31,12 +31,12 @@ final public class IterativeMilkSort extends Sort {
         this.setBogoSort(false);
     }
 
-    protected void milk(int[] array, int start, int end) {
+    public void milkpass(int[] array, int start, int end, double delay) {
         int a = start;
         int b = start + ((end - start) / 2);
-        if (Reads.compareIndices(array, b - 1, b, 1, true) > 0) {
+        if (Reads.compareIndices(array, b - 1, b, delay, true) > 0) {
             while (a < b) {
-                if (Reads.compareIndices(array, a, b, 1, true) > 0) for (int i = a; i < b; i++) Writes.swap(array, i, b + (i - a), 1, true, false);
+                if (Reads.compareIndices(array, a, b, delay, true) > 0) for (int i = a; i < b; i++) Writes.swap(array, i, b + (i - a), delay, true, false);
                 a++;
             }
             insert.insertionSort(array, b, end);
@@ -54,19 +54,20 @@ final public class IterativeMilkSort extends Sort {
         return last == array[end - 1];
     }
 
-    protected void non2n(int[] array, int start, int end, int len) {
+    public void non2n(int[] array, int start, int end, int len, double delay) {
         int a = start;
         int b = start + (len / 2);
         boolean right = true;
         boolean nothing = false;
         if (b < end) {
-            if (Reads.compareIndices(array, b - 1, b, 1, true) > 0) {
+            insert.insertionSort(array, b, end);
+            if (Reads.compareIndices(array, b - 1, b, delay, true) > 0) {
                 while (a < b) {
-                    if (Reads.compareIndices(array, a, b, 1, true) > 0) {
+                    if (Reads.compareIndices(array, a, b, delay, true) > 0) {
                         int last = end;
                         for (int i = a; i < b && b + (i - a) < end; i++) {
                             if (b + (i - a) < end) {
-                                Writes.swap(array, i, b + (i - a), 1, true, false);
+                                Writes.swap(array, i, b + (i - a), delay, true, false);
                                 last = b + (i - a) + 1;
                             }
                         }
@@ -79,23 +80,45 @@ final public class IterativeMilkSort extends Sort {
             }
         }
     }
+    
+    public void milksort(int[] array, int start, int end, double delay) {
+        int len = 2;
+        int index = start;
+        while (len < end - start) {
+            index = start;
+            while (index + len <= end) {
+                if (len == 2) {
+                    if (Reads.compareIndices(array, index, index + 1, delay, true) > 0) Writes.swap(array, index, index + 1, delay, true, false);
+                } else milkpass(array, index, index + len, delay);
+                index += len;
+            }
+            if (index != end) non2n(array, index, end, len, delay);
+            len *= 2;
+        }
+        if (len == end - start) milkpass(array, start, end, delay);
+        else non2n(array, start, end, len, delay);
+    }
+    
+    public void milksortlen(int[] array, int start, int end, int lengths, double delay) {
+        int len = lengths;
+        int index = start;
+        while (len < end - start) {
+            index = start;
+            while (index + len <= end) {
+                if (len == 2) {
+                    if (Reads.compareIndices(array, index, index + 1, delay, true) > 0) Writes.swap(array, index, index + 1, delay, true, false);
+                } else milkpass(array, index, index + len, delay);
+                index += len;
+            }
+            if (index != end) non2n(array, index, end, len, delay);
+            len *= 2;
+        }
+        if (len == end - start) milkpass(array, start, end, delay);
+        else non2n(array, start, end, len, delay);
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int len = 2;
-        int index = 0;
-        while (len < currentLength) {
-            index = 0;
-            while (index + len <= currentLength) {
-                if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, 1, true) > 0) Writes.swap(array, index, index + 1, 1, true, false);
-                } else milk(array, index, index + len);
-                index += len;
-            }
-            if (index != currentLength) non2n(array, index, currentLength, len);
-            len *= 2;
-        }
-        if (len == currentLength) milk(array, 0, currentLength);
-        else non2n(array, 0, currentLength, len);
+        milksort(array, 0, currentLength, 1);
     }
 }

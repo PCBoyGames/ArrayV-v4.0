@@ -2,6 +2,7 @@ package sorts.templates;
 
 import main.ArrayVisualizer;
 import sorts.insert.PDBinaryInsertionSort;
+import utils.Rotations;
 
 /*******************************
  *                             *
@@ -51,24 +52,7 @@ public abstract class LassoSorting extends Sort {
     }
 
     protected void rotate(int[] array, int pos, int lenA, int lenB) {
-        while(lenA>1&&lenB>1) {
-            while(lenA<=lenB) {
-                this.multiSwap(array, pos, pos+lenA, lenA);
-                pos+=lenA;
-                lenB-=lenA;
-            }
-            if(lenA<=1||lenB<=1)
-                break;
-            while(lenA>lenB) {
-                this.multiSwapBW(array, pos+lenA-lenB, pos+lenA, lenB);
-                lenA-=lenB;
-            }
-        }
-        if(lenA==1) {
-            this.shift(array, pos, pos+lenB, 1, false);
-        } else if(lenB == 1) {
-            this.shift(array, pos+lenA, pos, 1, false);
-        }
+        Rotations.neon(array, pos, lenA, lenB, 1, true, false);
     }
 
     // Copied from Disquad Sort

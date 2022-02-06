@@ -55,8 +55,8 @@ public final class PDBinaryInsertionSort extends Sort {
             if (cmp == 0) lessunique = true;
             if (forward + 1 < end) cmp = Reads.compareIndices(array, forward, forward + 1, delay, true);
         }
-        int reverse = forward == start ? start + 1 : start;
-        if (forward == start || lessunique) {
+        int reverse = start;
+        if (forward == start) {
             boolean different = false;
             cmp = Reads.compareIndices(array, reverse, reverse + 1, delay, true);
             while (cmp >= 0 && reverse + 1 < end) {
@@ -65,8 +65,8 @@ public final class PDBinaryInsertionSort extends Sort {
                 reverse++;
                 if (reverse + 1 < end) cmp = Reads.compareIndices(array, reverse, reverse + 1, delay, true);
             }
-            if (reverse > start) {
-                if (lessunique && different) stableSegmentReversal(array, start, reverse, delay, aux);
+            if (reverse > start && different) {
+                if (lessunique) stableSegmentReversal(array, start, reverse, delay, aux);
                 else if (reverse < start + 3) Writes.swap(array, start, reverse, delay, true, aux);
                 else Writes.reversal(array, start, reverse, delay, true, aux);
             }

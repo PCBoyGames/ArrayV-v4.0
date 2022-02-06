@@ -1,6 +1,7 @@
 package sorts.golf;
 
 import main.ArrayVisualizer;
+import sorts.hybrid.LazicciSort;
 import sorts.insert.BlockInsertionSortNeon;
 import sorts.templates.GrailSorting;
 import utils.IndexedRotations;
@@ -8,7 +9,7 @@ import utils.IndexedRotations;
 public class NilSort extends GrailSorting {
     public NilSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Nil");
         this.setRunAllSortsName("Nil Sort");
         this.setRunSortName("Nilsort");
@@ -31,6 +32,15 @@ public class NilSort extends GrailSorting {
         while(len-- > 0) Writes.swap(array, a++, b++, 1, true, false);
     }
     private void zeromerge(int[] array, int start, int mid, int end) {
+        if(Reads.compareIndices(array, mid-1, mid, 5, true) <= 0) {
+            return;
+        }
+        if(Reads.compareIndices(array, start, end-1, 5, true) > 0) {
+            IndexedRotations.neon(array, start, mid, end, 1, true, false);
+            return;
+        }
+        IndexedRotations.neon(array, buf, buf+bufsz, start, 1, true, false);
+        buf=start-bufsz; // adaptivity precaution
         int l = start, r = mid;
         int lBuf = buf, rBuf = mid, lSz = bufsz, rSz = 0;
         while(l < mid || r < end) {
@@ -80,7 +90,7 @@ public class NilSort extends GrailSorting {
         }
         buf = end-bufsz;
     }
-    
+
     private void pingpong(int[] array, int start, int end) {
         if(end-start <= minblinsert) {
             blinserter.insertionSort(array, start, end);
@@ -111,27 +121,32 @@ public class NilSort extends GrailSorting {
             }
         }
     }
-    
+
     private void ppmergeruns(int[] array, int start, int end) {
         int m=Math.max(minblinsert, bufsz);
         for(int i=start; i<end; i+=m) {
             pingpong(array, i, Math.min(i+m, end));
         }
     }
-    
+
     public void runZero(int[] array, int start, int end) {
         buf = start;
         bufsz = (int) Math.pow(end-start, 0.5d);
         bufsz = grailFindKeys(array, start, end-start, bufsz);
         blinserter = new BlockInsertionSortNeon(arrayVisualizer);
         if(bufsz < 4) {
-            blinserter.insertionSort(array, start, end);
+            if(end-start <= 16)
+                blinserter.insertionSort(array, start, end);
+            else {
+                LazicciSort laz = new LazicciSort(arrayVisualizer);
+                laz.lazicciStable(array, start, end);
+            }
             return;
         }
         ppmergeruns(array, buf+bufsz, end);
         for(int j=Math.max(bufsz, minblinsert); j<end-start; j*=2) {
             for(int i=buf+bufsz; i<end; i+=2*j) {
-                if(i+j > end)
+                if(i+j >= end)
                     break;
                 if(i+2*j > end) {
                     zeromerge(array, i, i+j, end);
@@ -145,7 +160,7 @@ public class NilSort extends GrailSorting {
         blinserter.insertionSort(array, buf, buf+bufsz);
         grailMergeWithoutBuffer(array, buf, bufsz, end-(buf+bufsz));
     }
-    
+
     @Override
     public void runSort(int[] array, int len, int buck) {
         runZero(array, 0, len);

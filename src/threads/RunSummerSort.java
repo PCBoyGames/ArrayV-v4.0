@@ -3,7 +3,7 @@ package threads;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
 import sorts.hybrid.CookieSort;
-import sorts.merge.IterativeMilkSort;
+import sorts.hybrid.UncookieSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -43,7 +43,7 @@ final public class RunSummerSort extends MultipleSortThread {
     boolean stability = false;
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        sortCount = numSorts * 52;
+        sortCount = numSorts * 53;
     }
 
     protected synchronized void runIndividualSort(Sort sort, int bucketCount, int[] array, int defaultLength, double defaultSpeed, boolean slowSort, String shuffleName, int uniques, boolean alt) throws Exception {
@@ -103,7 +103,10 @@ final public class RunSummerSort extends MultipleSortThread {
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
 
         Sort Cookie = new CookieSort(arrayVisualizer);
-        runIndividualSort(Cookie, 0, array, 544, 2, false, shuffleName, 16, alt);
+        runIndividualSort(Cookie, 0, array, 544, 2, false, shuffleName, 17, alt);
+
+        //Sort Uncookie = new UncookieSort(arrayVisualizer);
+        //runIndividualSort(Uncookie, 0, array, 544, 1, false, shuffleName, 17, alt);
 
     }
 
@@ -200,90 +203,93 @@ final public class RunSummerSort extends MultipleSortThread {
         runSort(array, "Triangular", true);
 
         /*
-        RSS MADHOUSE PLUS (26)
+        RSS MADHOUSE PLUS (28)
         */
 
         arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HALF : Shuffles.SHUFFLED_HALF); // 26
         runSort(array, "Scrambled Back Half", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_NOISY : Shuffles.NOISY); // 27
+        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_ENDS : Shuffles.SHUFFLED_ENDS); // 27
+        runSort(array, "Both Sides Scrambled", true);
+
+        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_NOISY : Shuffles.NOISY); // 28
         runSort(array, "Low Disparity", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_PARTITIONED :Shuffles.PARTITIONED); // 28
+        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_PARTITIONED :Shuffles.PARTITIONED); // 29
         runSort(array, "Partitioned", true);
 
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SAWTOOTH)
-                                    .addSingle(Shuffles.REVERSE); // 29
+                                    .addSingle(Shuffles.REVERSE); // 30
         runSort(array, "Reversed Sawtooth", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_BITONIC); // 30
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_BITONIC); // 31
         runSort(array, "Final Bitonic", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REC_RADIX); // 31
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REC_RADIX); // 32
         runSort(array, "Recursive Final Radix", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.INV_BST); // 32
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.INV_BST); // 33
         runSort(array, "Inverted Binary Tree", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.LOG_SLOPES); // 33
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.LOG_SLOPES); // 34
         runSort(array, "Logpile", false);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.TRI_HEAP); // 34
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.TRI_HEAP); // 35
         runSort(array, "Triangle Heap", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_CIRCLE : Shuffles.CIRCLE); // 35
+        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_CIRCLE : Shuffles.CIRCLE); // 36
         runSort(array, "Circle Pass", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.QSORT_BAD); // 36
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.QSORT_BAD); // 37
         runSort(array, "Quick Killer", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PDQ_BAD); // 37
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PDQ_BAD); // 38
         runSort(array, "Pattern Quick Killer", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_GRAIL_BAD : Shuffles.GRAIL_BAD); // 38
+        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_GRAIL_BAD : Shuffles.GRAIL_BAD); // 39
         runSort(array, "Grail Killer", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUF_MERGE_BAD); // 39
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUF_MERGE_BAD); // 40
         runSort(array, "Shuffle Killer", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 40
+        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 41
         runSort(array, "Blocks", true);
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PRIME); // 41
+        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PRIME); // 42
         runSort(array, "Prime-Numbered Index", true);
 
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 42
+        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 43
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.ALREADY);
         runSort(array, "Natural Random", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.SINE); // 43
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.SINE); // 44
         runSort(array, "Sine Wave", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.COSINE); // 44
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.COSINE); // 45
         runSort(array, "Cosine Wave", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.RULER); // 45
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.RULER); // 46
         runSort(array, "Ruler", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.BLANCMANGE); // 46
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.BLANCMANGE); // 47
         runSort(array, "Blancmange Curve", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIVISORS); // 47
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIVISORS); // 48
         runSort(array, "Sum of Divisors", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.FSD); // 48
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.FSD); // 49
         runSort(array, "Fly Straight, Dammit!", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_REVLOG : Distributions.REVLOG); // 49
+        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_REVLOG : Distributions.REVLOG); // 50
         runSort(array, "Decreasing Random", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.MODULO); // 50
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.MODULO); // 51
         runSort(array, "Modulo Function", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIGITS_PROD); // 51
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIGITS_PROD); // 52
         runSort(array, "Product of Digits", false);
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 52
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 53
         runSort(array, "Euler Totient Function", false);
 
         /*

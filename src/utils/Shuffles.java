@@ -199,6 +199,21 @@ public enum Shuffles {
             this.sort(array, len, currentLen, delay ? 0.5 : 0, Writes);
         }
     },
+    SHUFFLED_ENDS {
+        public String getName() {
+            return "Scrambled Start + End";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            int len = Math.max(1, currentLen/7);
+
+            this.classicshuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, len, currentLen - len, delay ? 0.5 : 0, Writes);
+        }
+    },
     MOVED_ELEMENT {
         public String getName() {
             return "Shifted Element";
@@ -216,10 +231,10 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -247,7 +262,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -275,7 +290,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest > start) {
-                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -305,10 +320,10 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -343,7 +358,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -378,7 +393,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest > start) {
-                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2118,6 +2133,21 @@ public enum Shuffles {
             this.sort(array, len, currentLen, delay ? 0.5 : 0, Writes);
         }
     },
+    SEEDED_SHUFFLED_ENDS {
+        public String getName() {
+            return "Scrambled Start + End (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            int len = Math.max(1, currentLen/7);
+
+            this.shuffle(array, 0, currentLen, delay ? 0.5 : 0, Writes);
+            Highlights.clearMark(2);
+            this.sort(array, len, currentLen - len, delay ? 0.5 : 0, Writes);
+        }
+    },
     SEEDED_MOVED_ELEMENT {
         public String getName() {
             return "Shifted Element (Seeded)";
@@ -2135,10 +2165,10 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2166,7 +2196,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2194,7 +2224,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest > start) {
-                    IndexedRotations.holyGriesMills(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2224,10 +2254,10 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2262,7 +2292,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.holyGriesMills(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2297,7 +2327,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest > start) {
-                    IndexedRotations.holyGriesMills(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {

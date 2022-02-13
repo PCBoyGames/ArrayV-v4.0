@@ -46,7 +46,7 @@ public final class PDBinaryInsertionSort extends Sort {
         }
     }
 
-    protected int pd(int[] array, int start, int end, double delay, boolean aux) {
+    public int pd(int[] array, int start, int end, double delay, boolean aux) {
         int forward = start;
         int cmp = Reads.compareIndices(array, forward, forward + 1, delay, true);
         boolean lessunique = false;
@@ -74,6 +74,30 @@ public final class PDBinaryInsertionSort extends Sort {
         return Math.max(forward, reverse);
     }
 
+    public int pdUnstable(int[] array, int start, int end, double delay, boolean aux) {
+        int forward = start;
+        int cmp = Reads.compareIndices(array, forward, forward + 1, delay, true);
+        while (cmp <= 0 && forward + 1 < end) {
+            forward++;
+            if (forward + 1 < end) cmp = Reads.compareIndices(array, forward, forward + 1, delay, true);
+        }
+        int reverse = start;
+        if (forward == start) {
+            boolean different = false;
+            cmp = Reads.compareIndices(array, reverse, reverse + 1, delay, true);
+            while (cmp >= 0 && reverse + 1 < end) {
+                if (cmp != 0) different = true;
+                reverse++;
+                if (reverse + 1 < end) cmp = Reads.compareIndices(array, reverse, reverse + 1, delay, true);
+            }
+            if (reverse > start && different) {
+                if (reverse < start + 3) Writes.swap(array, start, reverse, delay, true, aux);
+                else Writes.reversal(array, start, reverse, delay, true, aux);
+            }
+        }
+        return Math.max(forward, reverse);
+    }
+
     protected int binarySearch(int[] array, int a, int b, int value, double delay) {
         while (a < b) {
             int m = a + ((b - a) / 2);
@@ -86,6 +110,24 @@ public final class PDBinaryInsertionSort extends Sort {
         }
         Highlights.clearMark(3);
         return a;
+    }
+
+    public void pdbinsertUnstable(int[] array, int start, int end, double delay, boolean aux) {
+        int pattern = pdUnstable(array, start, end, delay, aux);
+        Highlights.clearAllMarks();
+        for (int i = pattern + 1; i < end; i++) {
+            int item = array[i];
+            int left = binarySearch(array, start, i, item, delay);
+            Highlights.clearAllMarks();
+            Highlights.markArray(2, left);
+            boolean w = false;
+            for (int right = i; right > left; right--) {
+                Writes.write(array, right, array[right - 1], delay / 20, true, aux);
+                w = true;
+            }
+            if (w) Writes.write(array, left, item, delay, true, aux);
+            Highlights.clearAllMarks();
+        }
     }
 
     public void pdbinsert(int[] array, int start, int end, double delay, boolean aux) {

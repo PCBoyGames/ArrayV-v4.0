@@ -239,7 +239,7 @@ final public class Writes {
                 this.write(array, i, array[i + 1], 0, mark, auxwrite);
                 Delays.sleep(sleep);
             }
-        } else if (to - pos > 0) {
+        } else if (to - pos < 0) {
             for (int i = pos; i > to; i--) {
                 this.write(array, i, array[i - 1], 0, mark, auxwrite);
                 Delays.sleep(sleep);

@@ -106,7 +106,7 @@ final public class RunSummerSort extends MultipleSortThread {
         runIndividualSort(Cookie, 0, array, 544, 2, false, shuffleName, 17, alt);
 
         //Sort Uncookie = new UncookieSort(arrayVisualizer);
-        //runIndividualSort(Uncookie, 0, array, 544, 1, false, shuffleName, 17, alt);
+        //runIndividualSort(Uncookie, 0, array, 544, 2, false, shuffleName, 17, alt);
 
     }
 

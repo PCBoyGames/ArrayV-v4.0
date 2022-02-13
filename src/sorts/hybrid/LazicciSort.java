@@ -142,7 +142,9 @@ final public class LazicciSort extends GrailSorting {
             run = r;
         }
     }
-
+    public void lazicciStable(int[] array, int start, int end) {
+        blockBack(array, start, mergeRuns(array, start, end), end);
+    }
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         blockBack(array, 0, mergeRuns(array, 0, currentLength), currentLength);

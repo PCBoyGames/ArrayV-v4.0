@@ -29,6 +29,6 @@ final public class UncookieSort extends CookieSort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        milkSortLen(array, 0, currentLength, 2, 0.5);
+        milkSortLen(array, 0, currentLength, 2);
     }
 }

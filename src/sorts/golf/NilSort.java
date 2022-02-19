@@ -145,6 +145,8 @@ public class NilSort extends GrailSorting {
         }
         ppmergeruns(array, buf+bufsz, end);
         for(int j=Math.max(bufsz, minblinsert); j<end-start; j*=2) {
+            IndexedRotations.neon(array, start, buf, buf+bufsz, 1, true, false);
+            buf=start;
             for(int i=buf+bufsz; i<end; i+=2*j) {
                 if(i+j >= end)
                     break;
@@ -154,11 +156,11 @@ public class NilSort extends GrailSorting {
                     zeromerge(array, i, i+j, i+2*j);
                 }
             }
-            IndexedRotations.neon(array, start, buf, buf+bufsz, 1, true, false);
-            buf=start;
         }
+        IndexedRotations.neon(array, buf, bufsz, end, 1, true, false); // adaptivity precaution
+        buf = end-bufsz;
         blinserter.insertionSort(array, buf, buf+bufsz);
-        grailMergeWithoutBuffer(array, buf, bufsz, end-(buf+bufsz));
+        grailMergeWithoutBuffer(array, start, buf-start, bufsz);
     }
 
     @Override

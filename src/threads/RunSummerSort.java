@@ -2,6 +2,7 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.BestForNStoogeSort;
 import sorts.hybrid.CookieSort;
 import sorts.hybrid.UncookieSort;
 import sorts.templates.Sort;
@@ -102,11 +103,8 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
 
-        Sort Cookie = new CookieSort(arrayVisualizer);
-        runIndividualSort(Cookie, 0, array, 544, 2, false, shuffleName, 17, alt);
-
-        //Sort Uncookie = new UncookieSort(arrayVisualizer);
-        //runIndividualSort(Uncookie, 0, array, 544, 2, false, shuffleName, 17, alt);
+        Sort BestForNStoogeSort = new BestForNStoogeSort(arrayVisualizer);
+        runIndividualSort(BestForNStoogeSort, 64, array, 512, 1, false, shuffleName, 16, alt);
 
     }
 

@@ -25,7 +25,7 @@ public class CaiSortMkII extends GrailSorting {
         this.setBogoSort(false);
     }
 
-    private int buf, bufsz;
+    public int buf, bufsz;
     private static final int minBinsert = 8;
     private BranchlessBinaryInsertionSort binserter;
 
@@ -84,7 +84,7 @@ public class CaiSortMkII extends GrailSorting {
     }
 
     // *still in desperate need of cleanup*
-    protected void caiMerge(int[] array, int... ptrs) {
+    public void caiMerge(int[] array, int... ptrs) {
         ArrayList<Buffer> buffers = new ArrayList<>();
         for(int i=0; i<ptrs.length-1; i++) {
             buffers.add(new Buffer(ptrs[i], ptrs[i], ptrs[i+1]));
@@ -110,7 +110,6 @@ public class CaiSortMkII extends GrailSorting {
                     break;
                 Writes.swap(array, now.start++, buffers.get(j).mid++, 1, true, false);
             }
-            System.out.println(buffers);
             if(now.bufferLength() > 0) { // still buffer remaining,
                 while(now.bufferLength() > 0) { // merge outside of the subarray
                     int j = minKey1(array, buffers, maxBuffer);
@@ -145,7 +144,7 @@ public class CaiSortMkII extends GrailSorting {
         buf = ptrs[ptrs.length-1]-bufsz;
     }
 
-    private void caiMerge(int[] array, Collection<Integer> ptrs) {
+    public void caiMerge(int[] array, Collection<Integer> ptrs) {
         Integer[] norm = ptrs.toArray(new Integer[0]);
         int[] prim = new int[ptrs.size()];
         for(int i=0; i<ptrs.size(); i++) {

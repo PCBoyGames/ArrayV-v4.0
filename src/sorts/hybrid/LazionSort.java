@@ -80,7 +80,7 @@ final public class LazionSort extends GrailSorting {
         for (i = 0; i + blockLen <= currentLength; i += blockLen) {
             binsert.pdbinsert(array, i, i + blockLen, 0.5, false);
         }
-        if (i + blockLen > currentLength) binsert.pdbinsert(array, i, currentLength, 0.5, false);
+        if (i < currentLength) binsert.pdbinsert(array, i, currentLength, 0.5, false);
         mergesLen(array, 0, currentLength, blockLen, base);
     }
 }

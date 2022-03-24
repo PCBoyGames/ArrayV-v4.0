@@ -287,4 +287,52 @@ public class Rotations {
             }
         }
     }
+    
+    public static void morefoolish(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean aux) {
+        if (lenA > lenB) {
+            for (int i = 0; i < lenA; i++) {
+                Writes.insert(array, pos, pos + lenA + lenB - 1, pause / lenA, mark, aux);
+            }
+        } else {
+            for (int i = 0; i < lenB; i++) {
+                Writes.insert(array, pos + lenA + lenB - 1, pos, pause / lenB, mark, aux);
+            }
+        }
+    }
+    
+    public static void radon(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
+        int min = Math.min(lenA, lenB), max = Math.max(lenA, lenB), bridge = max-min;
+    	if (min < 1) return;
+    	if (bridge <= min) Writes.reversal(array, pos+min, pos+max-1, pause, mark, auxwrite);
+    	for (int i = 0; i < min; i++) Writes.swap(array, pos+i, pos+max+i, pause, mark, auxwrite);
+    	if (bridge == 0) return;
+        Highlights.clearAllMarks();
+    	if (lenA > lenB) {
+        	if (bridge > min) {
+			    cycleReverse(array, pos+min, bridge, min, pause, mark, auxwrite);
+		    } else {
+			    int swap, a = pos + min, b = pos + max, c = b + min - 1;
+        		while (b < c) {
+				    swap = array[c];
+				    Writes.write(array, c--, array[a], pause, mark, auxwrite);
+				    Writes.write(array, a++, array[b], pause, mark, auxwrite);
+				    Writes.write(array, b++, swap, pause, mark, auxwrite);
+        		}
+        		Writes.reversal(array, a, c, pause, mark, auxwrite);
+            }
+        } else {
+            if (bridge > min) {
+                cycleReverse(array, pos, min, bridge, pause, mark, auxwrite);
+            } else {
+                int swap, a = pos, b = a + min - 1, c = a + max - 1;
+                    while (a < b) {
+                        swap = array[a];
+                        Writes.write(array, a++, array[c], pause, mark, auxwrite);
+                        Writes.write(array, c--, array[b], pause, mark, auxwrite);
+                        Writes.write(array, b--, swap, pause, mark, auxwrite);
+                    }
+                Writes.reversal(array, a, c, pause, mark, auxwrite);
+            }
+        }
+    }
 }

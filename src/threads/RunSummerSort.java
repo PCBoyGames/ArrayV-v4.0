@@ -2,9 +2,15 @@ package threads;
 
 import main.ArrayVisualizer;
 import panes.JErrorPane;
-import sorts.exchange.BestForNStoogeSort;
-import sorts.hybrid.CookieSort;
-import sorts.hybrid.UncookieSort;
+import sorts.bogo.BoomSort;
+import sorts.exchange.AltQuasimiddleSort;
+import sorts.exchange.GoalkeeperSort;
+import sorts.exchange.HeadPullRoomSort;
+import sorts.exchange.OptimizedGoalkeeperSort;
+import sorts.exchange.ThirtySort;
+import sorts.exchange.QuasimiddleSort;
+import sorts.exchange.BadThirtySort;
+import sorts.hybrid.KitaSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -103,8 +109,32 @@ final public class RunSummerSort extends MultipleSortThread {
 
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
 
-        Sort BestForNStoogeSort = new BestForNStoogeSort(arrayVisualizer);
-        runIndividualSort(BestForNStoogeSort, 64, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort Quasimiddle = new QuasimiddleSort(arrayVisualizer);
+        //runIndividualSort(Quasimiddle, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort AltQuasimiddle = new AltQuasimiddleSort(arrayVisualizer);
+        //runIndividualSort(AltQuasimiddle, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort BadThirty = new BadThirtySort(arrayVisualizer);
+        //runIndividualSort(BadThirty, 0, array, 64, 1, false, shuffleName, 16, alt);
+        
+        //Sort Thirty = new ThirtySort(arrayVisualizer);
+        //runIndividualSort(Thirty, 0, array, 128, 0.25, false, shuffleName, 16, alt);
+        
+        //Sort HeadPullRoom = new HeadPullRoomSort(arrayVisualizer);
+        //runIndividualSort(HeadPullRoom, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort Boom = new BoomSort(arrayVisualizer);
+        //runIndividualSort(Boom, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort Kita = new KitaSort(arrayVisualizer);
+        //runIndividualSort(Kita, 0, array, 1024, 1, false, shuffleName, 16, alt);
+        
+        Sort Goalkeeper = new GoalkeeperSort(arrayVisualizer);
+        runIndividualSort(Goalkeeper, 0, array, 64, 1, false, shuffleName, 16, alt);
+        
+        //Sort OptimizedGoalkeeper = new OptimizedGoalkeeperSort(arrayVisualizer);
+        //runIndividualSort(OptimizedGoalkeeper, 0, array, 64, 1, false, shuffleName, 16, alt);
 
     }
 

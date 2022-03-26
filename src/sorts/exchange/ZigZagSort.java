@@ -41,17 +41,20 @@ final public class ZigZagSort extends BestForNSorting {
         if (compare(array, l, r) == dir) swap(array, l, r);
     }
     
-    protected void attentuate(int[] array, int start, int mid, int end) {
+    protected void attentuate(int[] array, int start, int mid, int end, int depth) {
+        Writes.recordDepth(depth);
         if (end - start + 1 < 8) smallsort(array, start, end);
         else {
             halver(array, start, mid);
             halver(array, mid + 1, end);
             halver(array, (int) Math.floor((start + mid) / 2) + 1, (int) Math.floor((mid + end) / 2));
-            attentuate(array, (int) Math.floor((start + mid) / 2) + 1, mid, (int) Math.floor((mid + end) / 2));
+            Writes.recursion();
+            attentuate(array, (int) Math.floor((start + mid) / 2) + 1, mid, (int) Math.floor((mid + end) / 2), depth + 1);
             halver(array, (int) Math.floor((start + mid) / 2) + 1, mid);
             halver(array, mid + 1, (int) Math.floor((mid + end) / 2));
             halver(array, (int) Math.floor(((Math.floor((start + mid) / 2) + 1) + mid) / 2) + 1, (int) Math.floor((Math.floor((mid + end) / 2) + mid) / 2));
-            attentuate(array, (int) Math.floor(((Math.floor((start + mid) / 2) + 1) + mid) / 2) + 1, mid, (int) Math.floor((Math.floor((mid + end) / 2) + mid) / 2));
+            Writes.recursion();
+            attentuate(array, (int) Math.floor(((Math.floor((start + mid) / 2) + 1) + mid) / 2) + 1, mid, (int) Math.floor((Math.floor((mid + end) / 2) + mid) / 2), depth + 1);
         }
     }
     
@@ -94,14 +97,12 @@ final public class ZigZagSort extends BestForNSorting {
         if (end - start + 1 < 8) smallsort(array, start, end);
         else {
             halver(array, start, end);
-            attentuate(array, start, (int) Math.floor((start + end) / 2), end);
+            attentuate(array, start, (int) Math.floor((start + end) / 2), end, 0);
         }
     }
     
     protected void smallsort(int[] array, int start, int end) {
-        if (start < end) {
-            initNetwork(array, start - 1, end - start + 1);
-        }
+        if (start < end) initNetwork(array, start - 1, end - start + 1);
     }
     
     @Override

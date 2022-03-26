@@ -34,18 +34,17 @@ public final class CospoSort extends BogoSorting {
             if (array[i] < min) min = array[i];
             if (array[i] > max) max = array[i];
         }
-        int mi = min;
-        int size = max - mi + 1;
+        int size = max - min + 1;
         int[] holes = Writes.createExternalArray(size);
         for (int x = 0; x < currentLength; x++) {
             Highlights.markArray(1, x);
-            Writes.write(holes, array[x] - mi, holes[array[x] - mi] + 1, 1, false, true);
+            Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, false, true);
         }
         Highlights.clearMark(2);
         int j = 0;
         for (int count = 0; count < size; count++) {
             for (int i = 0; i < holes[count]; i++) {
-                Writes.write(correct, j, count + mi, 1, false, true);
+                Writes.write(correct, j, count + min, 1, false, true);
                 Highlights.markArray(1, j + 1);
                 j++;
             }

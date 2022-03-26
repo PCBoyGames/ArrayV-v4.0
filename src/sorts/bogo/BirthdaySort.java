@@ -35,12 +35,11 @@ public final class BirthdaySort extends BogoSorting {
             if(array[i] < min) min = array[i];
             if(array[i] > max) max = array[i];
         }
-        int mi = min;
-        int size = max - mi + 1;
+        int size = max - min + 1;
         int[] holes = Writes.createExternalArray(size);
         for(int x = 0; x < currentLength; x++) {
             Highlights.markArray(2, x);
-            Writes.write(holes, array[x] - mi, holes[array[x] - mi] + 1, 1, true, true);
+            Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, true, true);
         }
         Highlights.clearMark(2);
         int j = 0;
@@ -48,9 +47,7 @@ public final class BirthdaySort extends BogoSorting {
             for (int i = 0; i < holes[count]; i++) {
                 Highlights.markArray(1, j);
                 Delays.sleep(1);
-                while (count + mi != array[j]) {
-                    Writes.write(array, j, randInt(min, max + 1), 0.1, true, false);
-                }
+                while (count + min != array[j]) Writes.write(array, j, randInt(min, max + 1), 0.1, true, false);
                 j++;
             }
         }

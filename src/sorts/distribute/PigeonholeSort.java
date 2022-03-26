@@ -45,12 +45,11 @@ final public class PigeonholeSort extends Sort {
             }
         }
 
-        int mi = min;
-        int size = max - mi + 1;
+        int size = max - min + 1;
         int[] holes = Writes.createExternalArray(size);
 
         for(int x = 0; x < sortLength; x++) {
-            Writes.write(holes, array[x] - mi, holes[array[x] - mi] + 1, 1, false, true);
+            Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, false, true);
             Highlights.markArray(1, x);
         }
 
@@ -59,7 +58,7 @@ final public class PigeonholeSort extends Sort {
         for(int count = 0; count < size; count++) {
             while(holes[count] > 0) {
                 Writes.write(holes, count, holes[count] - 1, 0, false, true);
-                Writes.write(array, j, count + mi, 1, false, false);
+                Writes.write(array, j, count + min, 1, false, false);
 
                 Highlights.markArray(1, j);
                 j++;

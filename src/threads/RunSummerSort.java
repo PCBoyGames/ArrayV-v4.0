@@ -8,6 +8,7 @@ import sorts.exchange.GoalkeeperSort;
 import sorts.exchange.HeadPullRoomSort;
 import sorts.exchange.OptimizedGoalkeeperSort;
 import sorts.exchange.ThirtySort;
+import sorts.exchange.ZigZagSort;
 import sorts.exchange.QuasimiddleSort;
 import sorts.exchange.BadThirtySort;
 import sorts.hybrid.KitaSort;
@@ -130,11 +131,8 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort Kita = new KitaSort(arrayVisualizer);
         //runIndividualSort(Kita, 0, array, 1024, 1, false, shuffleName, 16, alt);
         
-        Sort Goalkeeper = new GoalkeeperSort(arrayVisualizer);
-        runIndividualSort(Goalkeeper, 0, array, 64, 1, false, shuffleName, 16, alt);
-        
-        //Sort OptimizedGoalkeeper = new OptimizedGoalkeeperSort(arrayVisualizer);
-        //runIndividualSort(OptimizedGoalkeeper, 0, array, 64, 1, false, shuffleName, 16, alt);
+        Sort ZigZag = new ZigZagSort(arrayVisualizer);
+        runIndividualSort(ZigZag, 0, array, 128, 1, false, shuffleName, 16, alt);
 
     }
 
@@ -347,7 +345,7 @@ final public class RunSummerSort extends MultipleSortThread {
                     arrayVisualizer.updateNow();
                     Thread.sleep(3000);
 
-                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
+                    arrayVisualizer.setCategory("fungamer2");
                     arrayVisualizer.setHeading("");
 
                     arrayVisualizer.updateNow();

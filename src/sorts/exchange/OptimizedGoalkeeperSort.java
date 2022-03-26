@@ -14,7 +14,6 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class OptimizedGoalkeeperSort extends Sort {
-    
     public OptimizedGoalkeeperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Goalkeeper");
@@ -54,7 +53,7 @@ final public class OptimizedGoalkeeperSort extends Sort {
                 set = 0;
                 boolean found = false;
                 int goal;
-                for (goal = 1; goal <= bound && !found; goal++) if (Reads.compareIndices(array, 0, goal, 0.125, true) < 0) found = true;
+                for (goal = 2; goal <= bound && !found; goal++) if (Reads.compareIndices(array, 0, goal, 0.125, true) < 0) found = true;
                 if (!found) {
                     Highlights.markArray(2, bound);
                     Writes.insert(array, 0, bound, 0.125, true, false);

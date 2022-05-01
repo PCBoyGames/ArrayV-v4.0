@@ -5,7 +5,7 @@ import java.util.BitSet;
 import java.util.Stack;
 
 import main.ArrayVisualizer;
-import sorts.insert.BlockInsertionSort;
+import sorts.insert.BlockInsertionSortNeonLessInsert;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
@@ -49,20 +49,13 @@ public final class PDSafeStalinSort extends Sort {
     protected int findRun(int[] array, int a, int b) {
         int i = a + 1;
         boolean dir;
-        if (i < b)
-            dir = Reads.compareIndices(array, i - 1, i++, 0.5, true) <= 0;
-        else
-            dir = true;
-        if (dir)
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
-                i++;
+        if (i < b) dir = Reads.compareIndices(array, i - 1, i++, 0.5, true) <= 0;
+        else dir = true;
+        if (dir) while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         else {
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
-                i++;
-            if (i - a < 4)
-                Writes.swap(array, a, i - 1, 1.0, true, false);
-            else
-                Writes.reversal(array, a, i - 1, 1.0, true, false);
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) >= 0) i++;
+            if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, false);
+            else Writes.reversal(array, a, i - 1, 1.0, true, false);
         }
         Highlights.clearMark(2);
         return i;
@@ -73,8 +66,7 @@ public final class PDSafeStalinSort extends Sort {
         boolean noSort = true;
         while (i < b) {
             i = findRun(array, j, b);
-            if (i < b)
-                noSort = false;
+            if (i < b) noSort = false;
             j = i++;
         }
         return noSort;
@@ -87,7 +79,7 @@ public final class PDSafeStalinSort extends Sort {
             Stack<Integer> currentStack = new Stack<>();
             for (int j = a; j < b; j++)
                 if (!bits.get(j - a))
-                    if (currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) < 0) {
+                    if (currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) <= 0) {
                         currentStack.add(array[j]);
                         Writes.changeAllocAmount(1);
                         Writes.changeAuxWrites(1);
@@ -107,10 +99,8 @@ public final class PDSafeStalinSort extends Sort {
         int stackdone = 0;
         while (stacks.size() > 0) {
             Stack<Integer> first = stacks.remove(0);
-            if (stackdone == 0)
-                firstlen = first.size();
-            if (stackdone == 1)
-                secondlen = first.size();
+            if (stackdone == 0) firstlen = first.size();
+            if (stackdone == 1) secondlen = first.size();
             int n = ptr + first.size() - 1;
             while (!first.empty()) {
                 Writes.changeAllocAmount(-1);
@@ -134,9 +124,8 @@ public final class PDSafeStalinSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        if(patternDefeat(array, 0, length))
-            return;
-        BlockInsertionSort two = new BlockInsertionSort(arrayVisualizer);
+        if(patternDefeat(array, 0, length)) return;
+        BlockInsertionSortNeonLessInsert two = new BlockInsertionSortNeonLessInsert(arrayVisualizer);
         int n = length;
         boolean check = false;
         BitSet bits = new BitSet(length);
@@ -146,15 +135,11 @@ public final class PDSafeStalinSort extends Sort {
             reciteStacks(array, 0, n, stacks);
             if (size > 2) {
                 IndexedRotations.neon(array, 0, firstlen, n, 1, true, false);
-                if (!check)
-                    n -= stepDown(array, n);
+                if (!check) n -= stepDown(array, n);
             } else {
-                if (size == 2)
-                    two.insertionSort(array, 0, n);
+                if (size == 2) two.insertionSort(array, 0, n);
                 check = true;
             }
         }
-
     }
-
 }

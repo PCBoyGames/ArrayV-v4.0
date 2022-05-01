@@ -3,15 +3,27 @@ package threads;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
 import sorts.bogo.BoomSort;
+import sorts.distribute.ShnexSort;
+import sorts.distribute.SkeadnySort;
 import sorts.exchange.AltQuasimiddleSort;
 import sorts.exchange.GoalkeeperSort;
 import sorts.exchange.HeadPullRoomSort;
+import sorts.exchange.NapoleonSortResolve;
+import sorts.exchange.NapoleonSortResolveNTS;
 import sorts.exchange.OptimizedGoalkeeperSort;
 import sorts.exchange.ThirtySort;
 import sorts.exchange.ZigZagSort;
 import sorts.exchange.QuasimiddleSort;
+import sorts.exchange.SearchSort;
 import sorts.exchange.BadThirtySort;
+import sorts.hybrid.CircleOptimizedWeaveMergeSort;
+import sorts.hybrid.InsertOptimizedWeaveMergeSort;
 import sorts.hybrid.KitaSort;
+import sorts.hybrid.OptimizedWeaveMergeSort;
+import sorts.merge.InPlaceMergeSortII;
+import sorts.merge.InPlaceMergeSortIV;
+import sorts.misc.PDSafeStalinSort;
+import sorts.quick.OOPSingularityQuickSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -131,8 +143,35 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort Kita = new KitaSort(arrayVisualizer);
         //runIndividualSort(Kita, 0, array, 1024, 1, false, shuffleName, 16, alt);
         
-        Sort ZigZag = new ZigZagSort(arrayVisualizer);
-        runIndividualSort(ZigZag, 0, array, 128, 1, false, shuffleName, 16, alt);
+        //Sort ZigZag = new ZigZagSort(arrayVisualizer);
+        //runIndividualSort(ZigZag, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort PDSafeStalin = new MorePDSafeStalinSort(arrayVisualizer);
+        //runIndividualSort(PDSafeStalin, 0, array, 512, 16, false, shuffleName, 16, alt);
+        
+        //Sort Search = new SearchSort(arrayVisualizer);
+        //runIndividualSort(Search, 0, array, 128, 8, false, shuffleName, 16, alt);
+        
+        //Sort Napoleon = new NapoleonSortResolve(arrayVisualizer);
+        //runIndividualSort(Napoleon, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort NapoleonNTS = new NapoleonSortResolveNTS(arrayVisualizer);
+        //runIndividualSort(NapoleonNTS, 0, array, 128, 1, false, shuffleName, 16, alt);
+        
+        //Sort InPlaceMergeII = new InPlaceMergeSortII(arrayVisualizer);
+        //runIndividualSort(InPlaceMergeII, 0, array, 256, 0.5, false, shuffleName, 16, alt);
+        
+        //Sort OptimizedWeaveMerge = new OptimizedWeaveMergeSort(arrayVisualizer);
+        //runIndividualSort(OptimizedWeaveMerge, 0, array, 512, 1, false, shuffleName, 16, alt);
+        
+        //Sort InsertOptimizedWeaveMerge = new InsertOptimizedWeaveMergeSort(arrayVisualizer);
+        //runIndividualSort(InsertOptimizedWeaveMerge, 0, array, 512, 1, false, shuffleName, 16, alt);
+        
+        //Sort CircleOptimizedWeaveMerge = new CircleOptimizedWeaveMergeSort(arrayVisualizer);
+        //runIndividualSort(CircleOptimizedWeaveMerge, 0, array, 512, 1, false, shuffleName, 16, alt);
+        
+        //Sort OOPSingularity = new OOPSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(OOPSingularity, 0, array, 512, 1, false, shuffleName, 16, alt);
 
     }
 
@@ -345,7 +384,7 @@ final public class RunSummerSort extends MultipleSortThread {
                     arrayVisualizer.updateNow();
                     Thread.sleep(3000);
 
-                    arrayVisualizer.setCategory("fungamer2");
+                    arrayVisualizer.setCategory("PCBSAM for ArrayV");
                     arrayVisualizer.setHeading("");
 
                     arrayVisualizer.updateNow();

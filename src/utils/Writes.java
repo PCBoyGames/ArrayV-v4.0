@@ -252,10 +252,10 @@ final public class Writes {
     }
 
     public void reversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
-        if (length - start < 0) System.err.println("There is a reversal of negative length.");
-        else if (length - start == 0) System.err.println("Self-reversal at " + start + ".");
+        if (length - start < 0); //System.err.println("There is a reversal of negative length.");
+        else if (length - start == 0); //System.err.println("Self-reversal at " + start + ".");
         else if (length - start < 3) {
-            System.err.println("A reversal of gap " + (length - start) + " can be done in a single swap.");
+            //System.err.println("A reversal of gap " + (length - start) + " can be done in a single swap.");
             this.swap(array, start, length, sleep, mark, auxwrite);
         } else {
             this.reversals++;
@@ -263,6 +263,18 @@ final public class Writes {
             for(int i = start; i < start + ((length - start + 1) / 2); i++) {
                 this.swap(array, i, start + length - i, sleep, mark, auxwrite);
             }
+        }
+    }
+
+    public void bubbleReversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
+        if (length - start < 0); //System.err.println("There is a Bubble reversal of negative length.");
+        else if (length - start == 0); //System.err.println("Self-Bubble reversal at " + start + ".");
+        else if (length - start == 1) {
+            //System.err.println("A Bubble reversal of gap 1 can be done in a single swap.");
+            this.swap(array, start, length, sleep, mark, auxwrite);
+        } else {
+            this.reversals++;
+            for (int i = length; i > start; i--) this.multiSwap(array, start, i, sleep, mark, auxwrite);
         }
     }
 

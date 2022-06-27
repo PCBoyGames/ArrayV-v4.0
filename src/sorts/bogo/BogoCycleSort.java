@@ -42,7 +42,7 @@ final public class BogoCycleSort extends Sort {
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);
-		this.setUnreasonableLimit(768);
+		this.setUnreasonableLimit(1024);
 		this.setBogoSort(false);
 	}
 
@@ -50,7 +50,7 @@ final public class BogoCycleSort extends Sort {
 		int lower = 0, upper = 0;
 		Highlights.markArray(2, idx);
 
-		for(int i = 0; i < b; i++) {
+		for(int i = 0; i < b && lower <= idx; i++) {
 			if(i == idx) continue;
 
 			Highlights.markArray(1, i);

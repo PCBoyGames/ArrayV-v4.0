@@ -2013,6 +2013,42 @@ public enum Shuffles {
             return true;
         }
     },
+    ONLY_RUNS {
+        public String getName() {
+            return "Random Runs";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random();
+            classicshuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
+            int r = random.nextInt((int) Math.sqrt(currentLen));
+            int i = 0;
+            for (; i + r < currentLen; i += r) {
+                sort(array, i, i + r, delay ? 1 : 0, Writes);
+                r = random.nextInt((int) Math.sqrt(currentLen));
+            }
+            sort(array, i, currentLen - 1, delay ? 1 : 0, Writes);
+        }
+    },
+    RUNS {
+        public String getName() {
+            return "Random Runs + Scrambles";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random();
+            classicshuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
+            int r = random.nextInt((int) Math.sqrt(currentLen));
+            for (int i = 0; i + r < currentLen; i += r) {
+                if (random.nextInt(3) == 0) sort(array, i, i + r, delay ? 1 : 0, Writes);
+                r = random.nextInt((int) Math.sqrt(currentLen));
+            }
+        }
+    },
     SEEDED_RANDOM {
         public String getName() {
             return "Randomly (Seeded)";
@@ -2689,6 +2725,42 @@ public enum Shuffles {
             int val;
             for (val = 1; val <= value; val <<= 1);
             return val >> 1;
+        }
+    },
+    SEEDED_ONLY_RUNS {
+        public String getName() {
+            return "Random Runs (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            shuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
+            int r = random.nextInt((int) Math.sqrt(currentLen));
+            int i = 0;
+            for (; i + r < currentLen; i += r) {
+                sort(array, i, i + r, delay ? 1 : 0, Writes);
+                r = random.nextInt((int) Math.sqrt(currentLen));
+            }
+            sort(array, i, currentLen - 1, delay ? 1 : 0, Writes);
+        }
+    },
+    SEEDED_RUNS {
+        public String getName() {
+            return "Random Runs + Scrambles (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random random = new Random(1);
+            shuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
+            int r = random.nextInt((int) Math.sqrt(currentLen));
+            for (int i = 0; i + r < currentLen; i += r) {
+                if (random.nextInt(3) == 0) sort(array, i, i + r, delay ? 1 : 0, Writes);
+                r = random.nextInt((int) Math.sqrt(currentLen));
+            }
         }
     };
 

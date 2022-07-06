@@ -23,21 +23,21 @@ final public class OptimizedGnomeSort extends Sort {
     private void smartGnomeSort(int[] array, int lowerBound, int upperBound, double sleep) {
         int pos = upperBound;
 
-        while(pos > lowerBound && Reads.compareValues(array[pos - 1], array[pos]) == 1) {
+        while (pos > lowerBound && Reads.compareValues(array[pos - 1], array[pos]) == 1) {
             Writes.swap(array, pos - 1, pos, sleep, true, false);
             pos--;
         }
     }
 
     public void customSort(int[] array, int low, int high, double sleep) {
-        for(int i = low + 1; i < high; i++) {
+        for (int i = low + 1; i < high; i++) {
             smartGnomeSort(array, low, i, sleep);
         }
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        for(int i = 1; i < length; i++) {
+        for (int i = 1; i < length; i++) {
             smartGnomeSort(array, 0, i, 0.05);
         }
     }

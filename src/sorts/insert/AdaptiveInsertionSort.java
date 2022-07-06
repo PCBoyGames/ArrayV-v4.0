@@ -21,11 +21,11 @@ final public class AdaptiveInsertionSort extends Sort {
 
     private int findRun(int[] array, int a, int b, double sleep, boolean auxwrite) {
         int i = a + 1;
-        if(Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
-            while(i < b && Reads.compareIndices(array, i - 1, i, sleep, true) == 1) i++;
+        if (Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
+            while (i < b && Reads.compareIndices(array, i - 1, i, sleep, true) == 1) i++;
             Writes.reversal(array, a, i - 1, sleep, true, false);
         }
-        else while(i < b && Reads.compareIndices(array, i - 1, i, sleep, true) <= 0) i++;
+        else while (i < b && Reads.compareIndices(array, i - 1, i, sleep, true) <= 0) i++;
         Highlights.clearMark(2);
         return i;
     }
@@ -48,7 +48,7 @@ final public class AdaptiveInsertionSort extends Sort {
             mini--;
         }
         --a;
-        while(mini > a && Reads.compareValues(array[mini], minv) > 0) {
+        while (mini > a && Reads.compareValues(array[mini], minv) > 0) {
             Writes.write(array, mini + 1, array[mini], sleep, true, auxwrite);
             mini--;
         }
@@ -59,10 +59,10 @@ final public class AdaptiveInsertionSort extends Sort {
         int i = findRun(array, a, b, sleep, auxwrite);
         if (i < b) {
             moveFront(array, a, i++, b, sleep, auxwrite);
-            while(i < b) {
+            while (i < b) {
                 int current = array[i];
                 int pos = i - 1;
-                while(Reads.compareValues(array[pos], current) > 0) {
+                while (Reads.compareValues(array[pos], current) > 0) {
                     Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
                     pos--;
                 }

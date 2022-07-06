@@ -13,10 +13,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class SkinSort extends BogoSorting {
-    
+
     int min;
     int max;
-    
+
     public SkinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Skin");
@@ -30,7 +30,7 @@ public final class SkinSort extends BogoSorting {
         this.setUnreasonableLimit(8);
         this.setBogoSort(true);
     }
-    
+
     protected boolean isAnagram(int[] input, int[] letters, int currentLength) {
         boolean anagram = true;
         int[] test = Writes.createExternalArray(currentLength);
@@ -53,7 +53,7 @@ public final class SkinSort extends BogoSorting {
         Writes.deleteExternalArray(test);
         return anagram;
     }
-    
+
     protected void handleItems(int[] array, int currentLength) {
         int i = BogoSorting.randInt(0, currentLength);
         int j = BogoSorting.randInt(0, currentLength);

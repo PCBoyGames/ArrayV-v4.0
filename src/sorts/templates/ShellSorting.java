@@ -31,8 +31,8 @@ public abstract class ShellSorting extends Sort {
         int incs[] = ExtendedCiuraGaps;
 
         for (int k = 0; k < incs.length; k++) {
-            if(incs == PowersOfThreeGaps) {
-                if(incs[k] < length/3) {
+            if (incs == PowersOfThreeGaps) {
+                if (incs[k] < length/3) {
                     for (int h = incs[k], i = h; i < length; i++) {
                         //ArrayVisualizer.setCurrentGap(incs[k]);
 
@@ -52,7 +52,7 @@ public abstract class ShellSorting extends Sort {
 
                             Highlights.markArray(1, j);
 
-                            if(j - h >= 0) {
+                            if (j - h >= 0) {
                                 Highlights.markArray(2, j - h);
                             }
                             else {
@@ -64,7 +64,7 @@ public abstract class ShellSorting extends Sort {
                 }
             }
             else {
-                if(incs[k] < length) {
+                if (incs[k] < length) {
                     for (int h = incs[k], i = h; i < length; i++) {
                         //ArrayVisualizer.setCurrentGap(incs[k]);
 
@@ -84,7 +84,7 @@ public abstract class ShellSorting extends Sort {
 
                             Highlights.markArray(1, j);
 
-                            if(j - h >= 0) {
+                            if (j - h >= 0) {
                                 Highlights.markArray(2, j - h);
                             }
                             else {

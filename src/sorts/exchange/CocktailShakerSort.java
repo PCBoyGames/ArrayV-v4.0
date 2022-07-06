@@ -47,10 +47,10 @@ final public class CocktailShakerSort extends Sort {
 
     private void smartCocktailShaker(int[] array, int start, int end, double sleep) {
         int i = start;
-        while(i < ((end / 2) + start)) {
+        while (i < ((end / 2) + start)) {
             boolean sorted = true;
-            for(int j = i; j < end + start - i - 1; j++) {
-                if(Reads.compareValues(array[j], array[j + 1]) == 1) {
+            for (int j = i; j < end + start - i - 1; j++) {
+                if (Reads.compareValues(array[j], array[j + 1]) == 1) {
                     Writes.swap(array, j, j + 1, sleep, true, false);
                     sorted = false;
                 }
@@ -60,8 +60,8 @@ final public class CocktailShakerSort extends Sort {
 
                 Delays.sleep(sleep / 2);
             }
-            for(int j = end + start - i - 1; j > i; j--){
-                if(Reads.compareValues(array[j], array[j - 1]) == -1) {
+            for (int j = end + start - i - 1; j > i; j--) {
+                if (Reads.compareValues(array[j], array[j - 1]) == -1) {
                     Writes.swap(array, j, j - 1, sleep, true, false);
                     sorted = false;
                 }
@@ -71,7 +71,7 @@ final public class CocktailShakerSort extends Sort {
 
                 Delays.sleep(sleep / 2);
             }
-            if(sorted) break;
+            if (sorted) break;
             else i++;
         }
     }

@@ -53,16 +53,16 @@ final public class StacklessRotateMergeSort extends Sort {
     private void partitionMerge(int[] array, int a, int m, int b, int c) {
         int lenA = m-a, lenB = b-m;
 
-        if(lenA < 1 || lenB < 1) return;
+        if (lenA < 1 || lenB < 1) return;
 
-        if(lenB < lenA) {
+        if (lenB < lenA) {
             c = (lenA+lenB)-c;
             int r1 = 0, r2 = Math.min(c, lenB);
 
-            while(r1 < r2) {
+            while (r1 < r2) {
                 int ml = (r1+r2)/2;
 
-                if(Reads.compareValues(array[m-(c-ml)], array[b-ml-1]) > 0)
+                if (Reads.compareValues(array[m-(c-ml)], array[b-ml-1]) > 0)
                     r2 = ml;
                 else
                     r1 = ml+1;
@@ -74,10 +74,10 @@ final public class StacklessRotateMergeSort extends Sort {
         else {
             int r1 = 0, r2 = Math.min(c, lenA);
 
-            while(r1 < r2) {
+            while (r1 < r2) {
                 int ml = (r1+r2)/2;
 
-                if(Reads.compareValues(array[a+ml], array[m+(c-ml)-1]) > 0)
+                if (Reads.compareValues(array[a+ml], array[m+(c-ml)-1]) > 0)
                     r2 = ml;
                 else
                     r1 = ml+1;
@@ -90,31 +90,31 @@ final public class StacklessRotateMergeSort extends Sort {
 
     private void rotateMerge(int[] array, int a, int b, int c) {
         int i;
-        for(i = a+1; i < b && Reads.compareIndices(array, i-1, i, 0.25, true) <= 0; i++);
-        if(i < b) this.partitionMerge(array, a, i, b, c);
+        for (i = a+1; i < b && Reads.compareIndices(array, i-1, i, 0.25, true) <= 0; i++);
+        if (i < b) this.partitionMerge(array, a, i, b, c);
     }
 
     public void rotatePartitionMergeSort(int[] array, int a, int b) {
         int len = b-a;
 
-        for(int i = a+1; i < b; i += 2)
-            if(Reads.compareIndices(array, i-1, i, 0.5, true) > 0)
+        for (int i = a+1; i < b; i += 2)
+            if (Reads.compareIndices(array, i-1, i, 0.5, true) > 0)
                 Writes.swap(array, i-1, i, 0.5, true, false);
 
-        for(int j = 2; j < len; j *= 2) {
+        for (int j = 2; j < len; j *= 2) {
             int b1 = 0;
 
-            for(int i = a; i+j < b; i += 2*j) {
+            for (int i = a; i+j < b; i += 2*j) {
                 b1 = Math.min(i+2*j, b);
                 this.partitionMerge(array, i, i+j, b1, j);
             }
 
-            for(int k = j/2; k > 1; k /= 2)
-                for(int i = a; i+k < b1; i += 2*k)
+            for (int k = j/2; k > 1; k /= 2)
+                for (int i = a; i+k < b1; i += 2*k)
                     this.rotateMerge(array, i, Math.min(i+2*k, b), k);
 
-            for(int i = a+1; i < b1; i += 2)
-                if(Reads.compareIndices(array, i-1, i, 0.5, true) > 0)
+            for (int i = a+1; i < b1; i += 2)
+                if (Reads.compareIndices(array, i-1, i, 0.5, true) > 0)
                     Writes.swap(array, i-1, i, 0.5, true, false);
         }
     }

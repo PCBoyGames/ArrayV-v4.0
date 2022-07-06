@@ -66,7 +66,7 @@ public final class ReverseSelectionSort extends Sort {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.01);
 
-                if (Reads.compareValues(array[j], array[highestindex]) == 1){
+                if (Reads.compareValues(array[j], array[highestindex]) == 1) {
                     highestindex = j;
                     Highlights.markArray(1, highestindex);
                     Delays.sleep(0.01);

@@ -49,17 +49,17 @@ final public class BottomUpHeapSort extends Sort {
 
     private void siftDown(int[] array, int i, int b) {
         int j = i;
-        for(; 2*j + 1 < b; j = 2*j + 2 < b ? (Reads.compareValues(array[2*j + 2], array[2*j + 1]) > 0 ? 2*j + 2 : 2*j + 1) : 2*j + 1);
-        for(; Reads.compareValues(array[i], array[j]) > 0; j = (j-1)/2);
-        for(; j > i; j = (j-1)/2) Writes.swap(array, i, j, 1, true, false);
+        for (; 2*j + 1 < b; j = 2*j + 2 < b ? (Reads.compareValues(array[2*j + 2], array[2*j + 1]) > 0 ? 2*j + 2 : 2*j + 1) : 2*j + 1);
+        for (; Reads.compareValues(array[i], array[j]) > 0; j = (j-1)/2);
+        for (; j > i; j = (j-1)/2) Writes.swap(array, i, j, 1, true, false);
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        for(int i = (length-1)/2; i >= 0; i--)
+        for (int i = (length-1)/2; i >= 0; i--)
             this.siftDown(array, i, length);
 
-        for(int i = length-1; i > 0; i--) {
+        for (int i = length-1; i > 0; i--) {
             Writes.swap(array, 0, i, 1, true, false);
             this.siftDown(array, 0, i);
         }

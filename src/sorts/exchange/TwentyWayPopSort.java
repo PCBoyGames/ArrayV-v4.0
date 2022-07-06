@@ -20,10 +20,10 @@ final public class TwentyWayPopSort extends Sort {
     }
     protected void bubbleSort(int[] array, int start, int end, boolean right) {
         int swap = end, comp = right ? 1 : -1;
-        while(swap > start) {
+        while (swap > start) {
             int lastSwap = start;
-            for(int i=start; i<swap-1; i++) {
-                if(Reads.compareValues(array[i], array[i+1]) == comp) {
+            for (int i=start; i<swap-1; i++) {
+                if (Reads.compareValues(array[i], array[i+1]) == comp) {
                     Writes.swap(array, i, i+1, 0.025, true, false);
                     lastSwap = i+1;
                 }
@@ -33,13 +33,13 @@ final public class TwentyWayPopSort extends Sort {
     }
     protected void bubblePop(int[] array, int start, int end, boolean right) {
         int swap = end, comp = right ? 1 : -1;
-        while(swap > start) {
+        while (swap > start) {
             int lastSwap = start;
-            for(int i=start; i<swap-1; i++) {
-                if(Reads.compareValues(array[i], array[i+1]) == comp) {
+            for (int i=start; i<swap-1; i++) {
+                if (Reads.compareValues(array[i], array[i+1]) == comp) {
                     Writes.swap(array, i, i+1, 0.025, true, false);
                     lastSwap = i+1;
-                } else if(lastSwap > start)
+                } else if (lastSwap > start)
                     break;
             }
             swap = lastSwap;
@@ -48,17 +48,17 @@ final public class TwentyWayPopSort extends Sort {
 
     // **YES, THIS IS VARIABLE ORDER 20-WAY POPSORT**
     protected void pop(int[] array, int start, int end, int order, boolean invert) {
-        if(start >= end)
+        if (start >= end)
             return;
-        if(end-start <= 20) {
+        if (end-start <= 20) {
             this.bubbleSort(array, start, end, !invert);
             return;
         }
         int twenty = (end - start + 1) / 20, ten = (end - start + 1) / 10,
             fifth = (end - start + 1) / 5;
-        if(order < 1) {
+        if (order < 1) {
             this.bubbleSort(array, start, end, !invert);
-        } else if(order == 1) {
+        } else if (order == 1) {
             Writes.recursion(39);
             this.bubbleSort(array, start, start + twenty, invert);
             this.bubbleSort(array, start + twenty, start + ten, !invert);

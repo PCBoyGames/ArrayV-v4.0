@@ -61,8 +61,8 @@ final public class MergeSortParallel extends Sort {
     private void merge(int a, int m, int b) {
         int i = a, j = m, k = a;
 
-        while(i < m && j < b) {
-            if(Reads.compareValues(array[i], array[j]) <= 0) {
+        while (i < m && j < b) {
+            if (Reads.compareValues(array[i], array[j]) <= 0) {
                 Highlights.markArray(1, i);
                 Writes.write(tmp, k++, array[i++], 1, false, true);
             }
@@ -71,23 +71,23 @@ final public class MergeSortParallel extends Sort {
                 Writes.write(tmp, k++, array[j++], 1, false, true);
             }
         }
-        while(i < m) {
+        while (i < m) {
             Highlights.markArray(1, i);
             Writes.write(tmp, k++, array[i++], 1, false, true);
         }
-        while(j < b) {
+        while (j < b) {
             Highlights.markArray(2, j);
             Writes.write(tmp, k++, array[j++], 1, false, true);
         }
 
         Highlights.clearMark(2);
-        while(a < b) Writes.write(array, a, tmp[a++], 1, true, false);
+        while (a < b) Writes.write(array, a, tmp[a++], 1, true, false);
     }
 
     private void mergeSort(int a, int b) {
         int len = b-a;
 
-        if(len < 2) return;
+        if (len < 2) return;
 
         int m = (a+b)/2;
 

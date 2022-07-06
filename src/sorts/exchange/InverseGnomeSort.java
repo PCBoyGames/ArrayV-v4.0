@@ -21,9 +21,9 @@ final public class InverseGnomeSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        for(int i=1; i<length; i++) {
-            for(int g=0; g<i; g++) {
-                if(Reads.compareValues(array[g], array[i]) == 1) {
+        for (int i=1; i<length; i++) {
+            for (int g=0; g<i; g++) {
+                if (Reads.compareValues(array[g], array[i]) == 1) {
                     Writes.multiSwap(array, g, i, 0.5, true, false);
                     g=-1;
                 }

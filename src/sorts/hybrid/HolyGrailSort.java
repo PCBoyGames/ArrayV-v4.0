@@ -79,7 +79,7 @@ final public class HolyGrailSort extends HolyGrailSorting {
 
         // case 2:
         //     int tempLen = 1;
-        //     while(tempLen * tempLen < length) tempLen *= 2;
+        //     while (tempLen * tempLen < length) tempLen *= 2;
         //     int[] DynExtBuf = Writes.createExternalArray(tempLen);
         //     this.grailCommonSort(array, 0, length, DynExtBuf, 0, tempLen);
         //     Writes.deleteExternalArray(DynExtBuf);

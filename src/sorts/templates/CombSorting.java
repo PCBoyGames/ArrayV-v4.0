@@ -54,7 +54,7 @@ public abstract class CombSorting extends Sort {
 
             for (int i = 0; (gap + i) < length; ++i)
             {
-                if(hybrid && (gap <= Math.min(8, length * 0.03125))) {
+                if (hybrid && (gap <= Math.min(8, length * 0.03125))) {
                     gap = 0;
 
                     insertSorter.customInsertSort(array, 0, length, 0.5, false);

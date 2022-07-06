@@ -59,17 +59,17 @@ final public class FluxSort extends QuadSorting {
         pta = 0;
         cnt = nmemb;
 
-        while(--cnt > 0)
-            if(Reads.compareIndices(array, pta, ++pta, 0.5, true) > 0) balance++;
+        while (--cnt > 0)
+            if (Reads.compareIndices(array, pta, ++pta, 0.5, true) > 0) balance++;
 
-        if(balance == 0) return false;
+        if (balance == 0) return false;
 
-        if(balance == nmemb-1) {
+        if (balance == nmemb-1) {
             Writes.reversal(array, 0, nmemb-1, 1, true, false);
             return false;
         }
 
-        if(balance <= nmemb / 6 || balance >= nmemb / 6 * 5) {
+        if (balance <= nmemb / 6 || balance >= nmemb / 6 * 5) {
             this.quadSort(array, 0, nmemb);
             return false;
         }
@@ -154,7 +154,7 @@ final public class FluxSort extends QuadSorting {
         pta = start;
         pts = 0;
 
-        while(ptx < pte) {
+        while (ptx < pte) {
             Highlights.markArray(3, ptx);
             val = (Reads.compareValues(main[ptx], piv)+1)/2;
             Delays.sleep(0.25);
@@ -170,24 +170,24 @@ final public class FluxSort extends QuadSorting {
         sSize = pts;
         aSize = nmemb-sSize;
 
-        if(aSize <= sSize/16 || sSize <= FLUX_OUT) {
+        if (aSize <= sSize/16 || sSize <= FLUX_OUT) {
             Writes.arraycopy(swap, 0, array, pta, sSize, 0.5, true, false);
             this.quadSortSwap(array, swap, pta, sSize);
         }
         else
             this.fluxPartition(array, swap, swap, pta, sSize);
 
-        if(sSize <= aSize/16 || aSize <= FLUX_OUT)
+        if (sSize <= aSize/16 || aSize <= FLUX_OUT)
             this.quadSortSwap(array, swap, start, aSize);
         else
             this.fluxPartition(array, swap, array, start, aSize);
     }
 
     public void fluxsort(int[] array, int nmemb) {
-        if(nmemb < 32)
+        if (nmemb < 32)
             this.quadSort(array, 0, nmemb);
 
-        else if(this.fluxAnalyze(array, nmemb)) {
+        else if (this.fluxAnalyze(array, nmemb)) {
             int[] swap = Writes.createExternalArray(nmemb);
 
             this.fluxPartition(array, swap, array, 0, nmemb);

@@ -22,9 +22,9 @@ public final class CheatBogoSort extends BogoSorting {
         int pivot = array[hi];
         int i = lo;
 
-        for(int j = lo; j < hi; j++) {
+        for (int j = lo; j < hi; j++) {
             Highlights.markArray(1, j);
-            if(Reads.compareValues(array[j], pivot) < 0) {
+            if (Reads.compareValues(array[j], pivot) < 0) {
                 Writes.swap(array, i, j, 1, true, false);
                 i++;
             }
@@ -35,7 +35,7 @@ public final class CheatBogoSort extends BogoSorting {
     }
 
     private void quickSort(int[] array, int lo, int hi) {
-        if(lo < hi) {
+        if (lo < hi) {
             int p = this.partition(array, lo, hi);
             this.quickSort(array, lo, p - 1);
             this.quickSort(array, p + 1, hi);
@@ -46,21 +46,21 @@ public final class CheatBogoSort extends BogoSorting {
     public void runSort(int[] array, int length, int bucketCount) {
         int[] x = Writes.createExternalArray(length);
         int min = array[0];
-        for(int i = 1; i < length; i++) {
-            if(array[i] < min) min = array[i];
+        for (int i = 1; i < length; i++) {
+            if (array[i] < min) min = array[i];
         }
-        for(int i = 0; i < length; i++) {
-			Writes.write(x, i, array[i]-min, 0, true, true);
-		}
+        for (int i = 0; i < length; i++) {
+            Writes.write(x, i, array[i]-min, 0, true, true);
+        }
         this.quickSort(x, 0, length - 1);
         int oof = 0;
-        while(oof < length)
-        if (Reads.compareValues(array[oof], x[oof]) == 0){
+        while (oof < length)
+        if (Reads.compareValues(array[oof], x[oof]) == 0) {
                     oof = oof + 1;
                 }
             else {
             this.bogoSwap(array, oof, length, false);
                 }
-                
+
     }
 }

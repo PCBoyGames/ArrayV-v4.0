@@ -48,15 +48,15 @@ final public class RotateLSDRadixSort extends Sort {
     private int base;
 
     private void multiSwap(int[] array, int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(array, a+i, b+i, 0.5, true, false);
     }
 
     private void rotate(int[] array, int a, int m, int b) {
         int l = m-a, r = b-m;
 
-        while(l > 0 && r > 0) {
-            if(r < l) {
+        while (l > 0 && r > 0) {
+            if (r < l) {
                 this.multiSwap(array, m-r, m, r);
                 b -= r;
                 m -= r;
@@ -72,10 +72,10 @@ final public class RotateLSDRadixSort extends Sort {
     }
 
     private int binSearch(int[] array, int a, int b, int d, int p) {
-        while(a < b) {
+        while (a < b) {
             int m = (a+b)/2;
 
-            if(Reads.getDigit(array[m], p, this.base) >= d)
+            if (Reads.getDigit(array[m], p, this.base) >= d)
                 b = m;
 
             else a = m+1;
@@ -84,7 +84,7 @@ final public class RotateLSDRadixSort extends Sort {
     }
 
     private void merge(int[] array, int a, int m, int b, int da, int db, int p) {
-        if(b-a < 2 || db-da < 2) return;
+        if (b-a < 2 || db-da < 2) return;
 
         int dm = (da+db)/2;
         int m1 = this.binSearch(array, a, m, dm, p);
@@ -98,7 +98,7 @@ final public class RotateLSDRadixSort extends Sort {
     }
 
     private void mergeSort(int[] array, int a, int b, int p) {
-        if(b-a < 2) return;
+        if (b-a < 2) return;
 
         int m = (a+b)/2;
 
@@ -113,7 +113,7 @@ final public class RotateLSDRadixSort extends Sort {
         this.base = bucketCount;
         int max   = Reads.analyzeMaxLog(array, length, this.base, 0.5, true);
 
-        for(int i = 0; i <= max; i++)
+        for (int i = 0; i <= max; i++)
             this.mergeSort(array, 0, length, i);
     }
 }

@@ -95,22 +95,22 @@ public final class MOMTernaryQuickSort extends Sort {
     protected PivotPair partition(int[] array, int a, int b) {
         int piv = array[a];
         int i = a, j = b;
-        for(int k = i; k < j; k++) {
-            if(Reads.compareValues(array[k], piv) < 0) {
+        for (int k = i; k < j; k++) {
+            if (Reads.compareValues(array[k], piv) < 0) {
                 Writes.swap(array, k, i++, 1.0, true, false);
             }
-            else if(Reads.compareValues(array[k], piv) > 0) {
+            else if (Reads.compareValues(array[k], piv) > 0) {
                 do {
                     j--;
                     Highlights.markArray(3, j);
                     Delays.sleep(1.0);
                 }
-                while(j > k && Reads.compareValues(array[j], piv) > 0);
+                while (j > k && Reads.compareValues(array[j], piv) > 0);
 
                 Writes.swap(array, k, j, 1.0, true, false);
                 Highlights.clearMark(3);
 
-                if(Reads.compareValues(array[k], piv) < 0) {
+                if (Reads.compareValues(array[k], piv) < 0) {
                     Writes.swap(array, k, i++, 1.0, true, false);
                 }
             }
@@ -119,26 +119,26 @@ public final class MOMTernaryQuickSort extends Sort {
     }
 
     protected void quickSort(int[] array, int a, int b, int depth) {
-        while(b - a > 16) {
-            if(depth == 0) {
+        while (b - a > 16) {
+            if (depth == 0) {
                 heapSorter.customHeapSort(array, a, b, 1.0);
                 return;
             }
             medianOfThree(array, a, b);
             PivotPair mid = partition(array, a, b);
             int l = mid.l - a, r = b - mid.r, eqCnt = mid.r - mid.l;
-            if(eqCnt == b - a)
+            if (eqCnt == b - a)
                 return;
-            if((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
+            if ((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
                 medianOfMedians(array, a, b, 5);
                 mid = partition(array, a, b);
                 l = mid.l - a;
                 r = b - mid.r;
                 eqCnt = mid.r - mid.l;
-                if(eqCnt == b - a)
+                if (eqCnt == b - a)
                     return;
             }
-            if(l > r) {
+            if (l > r) {
                 quickSort(array, mid.r, b, --depth);
                 b = mid.l;
             } else {

@@ -26,7 +26,7 @@ final public class BranchlessBinaryInsertionSort extends Sort {
     }
 
     private int binsearch(int[] array, int start, int end, int key, double slp, Comparator<Integer> bcmp) {
-        while(end-start > 0) {
+        while (end-start > 0) {
             int l = end - start,
                 c = bcmp.compare(key, array[start+l/2]); // branchless compare here
             Highlights.markArray(1, start+l/2);
@@ -50,7 +50,7 @@ final public class BranchlessBinaryInsertionSort extends Sort {
                 Writes.write(array, j + 1, array[j], writeSleep, true, false);
                 j--;
             }
-            if(src < i)
+            if (src < i)
                 Writes.write(array, src, num, writeSleep, true, false);
 
             Highlights.clearAllMarks();

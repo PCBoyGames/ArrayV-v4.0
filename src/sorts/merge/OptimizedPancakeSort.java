@@ -58,13 +58,13 @@ final public class OptimizedPancakeSort extends Sort {
     }
 
     private int binarySearch(int[] array, int a, int b, int value, boolean left) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
             boolean comp = left ? Reads.compareValues(value, array[m]) <= 0
                                 : Reads.compareValues(value, array[m]) < 0;
 
-            if(comp) b = m;
+            if (comp) b = m;
             else     a = m+1;
         }
 
@@ -74,7 +74,7 @@ final public class OptimizedPancakeSort extends Sort {
     private void pancakeMerge(int[] array, int m, int b) {
         int m1, m2, m3;
 
-        if(m >= b-m) {
+        if (m >= b-m) {
             m1 = m/2;
             m2 = this.binarySearch(array, m, b, array[m1], false);
             m3 = m1+(m2-m);
@@ -86,10 +86,10 @@ final public class OptimizedPancakeSort extends Sort {
         }
         this.cursedRotate(array, m1, m, m2);
 
-        if(m1 > 0 && m3 > m1) this.pancakeMerge(array, m1, m3);
+        if (m1 > 0 && m3 > m1) this.pancakeMerge(array, m1, m3);
 
         m3++;
-        if(m2 > m3 && b > m2) {
+        if (m2 > m3 && b > m2) {
             this.cursedRotate(array, 0, m3, b);
             this.pancakeMerge(array, m2-m3, b-m3);
             this.cursedRotate(array, 0, b-m3, b);
@@ -97,18 +97,18 @@ final public class OptimizedPancakeSort extends Sort {
     }
 
     private void pancakeMergeSort(int[] array, int n) {
-        if(n > 1) {
-            if(Reads.compareIndices(array, 0, 1, 0, true) <= 0) {
+        if (n > 1) {
+            if (Reads.compareIndices(array, 0, 1, 0, true) <= 0) {
                 int i = 2;
-                for(; i < n && Reads.compareIndices(array, i-1, i, 0, true) <= 0; i++);
+                for (; i < n && Reads.compareIndices(array, i-1, i, 0, true) <= 0; i++);
 
-                if(i == n) return;
+                if (i == n) return;
             }
             else {
                 int i = 2;
-                for(; i < n && Reads.compareIndices(array, i-1, i, 0, true) > 0; i++);
+                for (; i < n && Reads.compareIndices(array, i-1, i, 0, true) > 0; i++);
 
-                if(i == n) {
+                if (i == n) {
                     this.flip(array, n-1);
                     return;
                 }

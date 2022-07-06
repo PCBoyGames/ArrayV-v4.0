@@ -48,32 +48,32 @@ final public class BadBubbleSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int Breaks = 0;
-        for(int i = length - 1; i > 0; i--) {
+        for (int i = length - 1; i > 0; i--) {
             boolean sorted = true;
             int maxBreaks = 0;
-            for(int j = 0; j < i; j++) {
+            for (int j = 0; j < i; j++) {
                 Highlights.markArray(1, j);
                 Highlights.markArray(2, j + 1);
                 Delays.sleep(0.025);
-                if(Reads.compareValues(array[j], array[j + 1]) == 1){
+                if (Reads.compareValues(array[j], array[j + 1]) == 1) {
                     Writes.swap(array, j, j + 1, 0.075, true, false);
                     sorted = false;
                     Breaks = 0;
-                } else if(maxBreaks == 0) {
+                } else if (maxBreaks == 0) {
                     maxBreaks = Breaks;
-                    if(Reads.compareValues(array[j], array[i]) == -1)
+                    if (Reads.compareValues(array[j], array[i]) == -1)
                         Breaks=Breaks*2+1;
-                    else if(Reads.compareValues(array[j], array[j + 2]) == 0)
+                    else if (Reads.compareValues(array[j], array[j + 2]) == 0)
                         Breaks+=2;
                     else
                         Breaks++;
                     j = -1;
-                } else if(maxBreaks > 0) {
+                } else if (maxBreaks > 0) {
                     Breaks++;
                     maxBreaks--;
                 }
             }
-            if(sorted) break;
+            if (sorted) break;
         }
     }
 }

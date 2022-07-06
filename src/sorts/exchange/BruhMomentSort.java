@@ -21,10 +21,10 @@ final public class BruhMomentSort extends Sort {
     // Bruh Moment Sort - Order n Pop Sort
     protected void bubbleSort(int[] array, int start, int end, boolean right) {
         int swap = end, comp = right ? 1 : -1;
-        while(swap > start) {
+        while (swap > start) {
             int lastSwap = start;
-            for(int i=start; i<swap-1; i++) {
-                if(Reads.compareValues(array[i], array[i+1]) == comp) {
+            for (int i=start; i<swap-1; i++) {
+                if (Reads.compareValues(array[i], array[i+1]) == comp) {
                     Writes.swap(array, i, i+1, 0.025, true, false);
                     lastSwap = i+1;
                 }
@@ -34,27 +34,27 @@ final public class BruhMomentSort extends Sort {
     }
     protected void bubblePop(int[] array, int start, int end, boolean right) {
         int swap = end, comp = right ? 1 : -1;
-        while(swap > start) {
+        while (swap > start) {
             int lastSwap = start;
-            for(int i=start; i<swap-1; i++) {
-                if(Reads.compareValues(array[i], array[i+1]) == comp) {
+            for (int i=start; i<swap-1; i++) {
+                if (Reads.compareValues(array[i], array[i+1]) == comp) {
                     Writes.swap(array, i, i+1, 0.025, true, false);
                     lastSwap = i+1;
-                } else if(lastSwap > start)
+                } else if (lastSwap > start)
                     break;
             }
             swap = lastSwap;
         }
     }
     protected void pop(int[] array, int start, int end, int order, boolean invert) {
-        if(start >= end)
+        if (start >= end)
             return;
-        if(end-start <= 4) {
+        if (end-start <= 4) {
             this.bubbleSort(array, start, end, !invert);
             return;
         }
         int quarter = (end - start + 1) / 4, half = (end - start + 1) / 2;
-        if(order <= 1) {
+        if (order <= 1) {
             this.bubbleSort(array, start, start + quarter, !invert);
             this.bubbleSort(array, start + quarter, start + half, invert);
             this.bubbleSort(array, start + half, end - quarter, !invert);

@@ -25,14 +25,14 @@ public final class MilkSort extends Sort {
         }
     }
     private void milk(int[] array, int s, int m, int e) {
-        if((e-s <= 16 || s == m || m == e) && s < e) {
+        if ((e-s <= 16 || s == m || m == e) && s < e) {
             InsertionSort i = new InsertionSort(arrayVisualizer);
             i.customInsertSort(array, s, e, 0.5, false);
             return;
         }
         int rz = e-m, r = m, l = s;
-        while(rz > 0) {
-            if(Reads.compareValues(array[l], array[r]) == 1) {
+        while (rz > 0) {
+            if (Reads.compareValues(array[l], array[r]) == 1) {
                 t(array, l,r,rz);
             } else {
                 l++;
@@ -43,7 +43,7 @@ public final class MilkSort extends Sort {
     }
     private void Milk(int[] array, int s, int e) {
         int m = s+(e-s)/2;
-        if(m==s)
+        if (m==s)
             return;
         this.Milk(array,s,m);
         this.Milk(array,m,e);

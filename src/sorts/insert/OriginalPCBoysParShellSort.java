@@ -45,7 +45,7 @@ public final class OriginalPCBoysParShellSort extends Sort {
         int p = 1;
         int j = len - 1;
         while (j >= 0 && i >= p) {
-            while(!max[j] && j > 0) j--;
+            while (!max[j] && j > 0) j--;
             maximum = array[j];
             while (maximum <= array[i] && i >= p) i--;
             if (array[j] > array[i] && p < i - j) p = i - j;

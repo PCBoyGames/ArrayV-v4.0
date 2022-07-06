@@ -32,11 +32,11 @@ final public class MiepurgeSort extends Sort {
         return Reads.compareValues(array[table[a]], array[table[b]]);
     }
     private void sift(int[] array, int root, int[] table) {
-        while(root <= table.length / 2) {
+        while (root <= table.length / 2) {
             int leaf = root * 2;
-            if(leaf < table.length && tabComp(array, table, leaf-1, leaf) == 1)
+            if (leaf < table.length && tabComp(array, table, leaf-1, leaf) == 1)
                 leaf++;
-            if(tabComp(array, table, root-1, leaf-1) == 1) {
+            if (tabComp(array, table, root-1, leaf-1) == 1) {
                 Highlights.markArray(1, root-1);
                 Highlights.markArray(2, leaf-1);
                 Writes.swap(table, root-1, leaf-1, 5, true, true);
@@ -45,13 +45,13 @@ final public class MiepurgeSort extends Sort {
         }
     }
     private void heapifyTable(int[] array, int[] table) {
-        for(int i = table.length / 2; i > 0; i--)
+        for (int i = table.length / 2; i > 0; i--)
             sift(array, i, table);
     }
     private int[] remove(int[] arr, int index) {
         int[] nw = Writes.createExternalArray(arr.length - 1);
-        for(int i=0, j=0; i<arr.length; i++) {
-            if(i == index)
+        for (int i=0, j=0; i<arr.length; i++) {
+            if (i == index)
                 continue;
             Writes.write(nw, j++, arr[i], 0, false, true);
         }
@@ -60,7 +60,7 @@ final public class MiepurgeSort extends Sort {
     }
     private int heapIndex(int[] array, int[] ptrs, int[] table, int index) {
         int i = 0;
-        while(i < ptrs.length & ptrs[i] <= table[index])
+        while (i < ptrs.length & ptrs[i] <= table[index])
             i++;
         return i;
     }
@@ -70,25 +70,25 @@ final public class MiepurgeSort extends Sort {
         int k = 0;
         Writes.arraycopy(ptrs, 0, table, 0, table.length, 1, true, true);
         this.heapifyTable(array, table);
-        while(table.length > 1) {
+        while (table.length > 1) {
             int now = heapIndex(array, ptrs, table, 0),
                 secondMin = table.length > 2 ?
                 (tabComp(array, table, 1, 2) == 1 ? 2 : 1)
                 : 1;
             do {
-                if(table[0] < ptrs[now]) {
+                if (table[0] < ptrs[now]) {
                     Highlights.markArray(3, table[0]);
                     Writes.write(tmp, k++, array[table[0]++], 1, true, true);
                 }
-            } while(table[0] < ptrs[now] && tabComp(array, table, 0, secondMin) <= 0);
-            if(table[0] >= ptrs[now]) {
+            } while (table[0] < ptrs[now] && tabComp(array, table, 0, secondMin) <= 0);
+            if (table[0] >= ptrs[now]) {
                 Writes.swap(table, 0, table.length-1, 5, true, true);
                 table = remove(table, table.length-1);
             }
             this.sift(array, 1, table);
         }
         int lastKey = heapIndex(array, ptrs, table, 0);
-        while(table[0] < ptrs[lastKey]) {
+        while (table[0] < ptrs[lastKey]) {
             Highlights.markArray(1, table[0]);
             Writes.write(tmp, k++, array[table[0]++], 1, true, true);
         }
@@ -99,22 +99,22 @@ final public class MiepurgeSort extends Sort {
     public void miepurge(int[] array, int start, int end, int base) {
         int[] aux = new int[base + 1];
         int step = (end - start + 1) / base;
-        if(end-start < base) {
+        if (end-start < base) {
             MaxHeapSort mhs = new MaxHeapSort(arrayVisualizer);
             mhs.customHeapSort(array, start, end, 0.1);
             return;
         }
-        if(step == 0 || end-start == base) {
+        if (step == 0 || end-start == base) {
             this.smallSort.customDoubleInsert(array, start, end, 0.25);
             return;
         }
-        for(int i = 0; i < base; i++) {
+        for (int i = 0; i < base; i++) {
             aux[i] = start + step * i;
         }
         aux[base] = end;
 
-        for(int i=0; i<base; i++) {
-            if(base < 24 && step > threshold)
+        for (int i=0; i<base; i++) {
+            if (base < 24 && step > threshold)
                 this.miepurge(array, aux[i], aux[i+1], base);
             else
                 this.smallSort.customDoubleInsert(array, aux[i], aux[i+1], 0.25);

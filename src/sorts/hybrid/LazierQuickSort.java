@@ -74,10 +74,10 @@ public final class LazierQuickSort extends Sort {
     }
 
     protected int leftBinSearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareValues(val, array[m]) <= 0)
+            if (Reads.compareValues(val, array[m]) <= 0)
                 b = m;
             else
                 a = m+1;
@@ -85,10 +85,10 @@ public final class LazierQuickSort extends Sort {
         return a;
     }
     protected int rightBinSearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+1;
@@ -98,7 +98,7 @@ public final class LazierQuickSort extends Sort {
 
     protected int rightExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while(b-i >= a && Reads.compareValues(val, array[b-i]) < 0) i *= 2;
+        while (b-i >= a && Reads.compareValues(val, array[b-i]) < 0) i *= 2;
 
         return this.rightBinSearch(array, Math.max(a, b-i+1), b-i/2, val);
     }
@@ -121,13 +121,13 @@ public final class LazierQuickSort extends Sort {
 
     protected void insertionSort(int[] array, int a, int b) {
         int i = a + 1;
-        if(Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
-            while(i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
+        if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
             Writes.reversal(array, a, i - 1, 1.0, true, false);
         }
-        else while(i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
+        else while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         Highlights.clearMark(2);
-        for(; i < b; i++) {
+        for (; i < b; i++) {
             insertTo(array, i, rightExpSearch(array, a, i, array[i]));
         }
     }
@@ -139,8 +139,8 @@ public final class LazierQuickSort extends Sort {
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         int i = a, j = m, k;
 
-        while(i < j && j < b){
-            if(Reads.compareValues(array[i], array[j]) == 1) {
+        while (i < j && j < b) {
+            if (Reads.compareValues(array[i], array[j]) == 1) {
                 k = this.leftBinSearch(array, j+1, b, array[i]);
                 this.rotate(array, i, j, k);
 
@@ -155,8 +155,8 @@ public final class LazierQuickSort extends Sort {
     protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
         int i = m-1, j = b-1, k;
 
-        while(j > i && i >= a){
-            if(Reads.compareValues(array[i], array[j]) > 0) {
+        while (j > i && i >= a) {
+            if (Reads.compareValues(array[i], array[j]) > 0) {
                 k = this.rightBinSearch(array, a, i, array[j]);
                 this.rotate(array, k, i+1, j+1);
 
@@ -227,38 +227,38 @@ public final class LazierQuickSort extends Sort {
 
     protected PivotPair partition(int[] array, int a, int b, int piv) {
         int l = a, r = a;
-        for(int i = a; i < b; i++) {
+        for (int i = a; i < b; i++) {
             int cmp = Reads.compareIndexValue(array, i, piv, 0.5, true);
-            if(cmp < 0) {
+            if (cmp < 0) {
                 insertTo(array, i, l++);
                 r++;
-            } else if(cmp == 0)
+            } else if (cmp == 0)
                 insertTo(array, i, r++);
         }
         return new PivotPair(l, r);
     }
 
     protected void quickSort(int[] array, int a, int b, int depth) {
-        while(b - a > 16) {
-            if(depth == 0) {
+        while (b - a > 16) {
+            if (depth == 0) {
                 lazyStableSort(array, a, b);
                 return;
             }
             int p = medianOf3(array, a, a + (b - a) / 2, b - 1);
             PivotPair m = partition(array, a, b, array[p]);
             int l = m.l - a, r = b - m.r, eqCnt = m.r - m.l;
-            if(eqCnt == b - a)
+            if (eqCnt == b - a)
                 return;
-            if((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
+            if ((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
                 p = medianOf9(array, a, b);
                 m = partition(array, a, b, array[p]);
                 l = m.l - a;
                 r = b - m.r;
                 eqCnt = m.r - m.l;
-                if(eqCnt == b - a)
+                if (eqCnt == b - a)
                     return;
             }
-            if(l > r) {
+            if (l > r) {
                 quickSort(array, m.r, b, --depth);
                 b = m.l;
             } else {

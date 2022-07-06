@@ -32,9 +32,9 @@ public class ZeroMergeSort extends GrailSorting {
     private void zeromerge(int[] array, int start, int mid, int end) {
         int l = start, r = mid;
         int lBuf = buf, rBuf = mid, lSz = bufsz, rSz = 0;
-        while(l < mid || r < end) {
-            while(l < mid && r < end && lSz > 0) {
-                if(Reads.compareValues(array[l], array[r]) <= 0) {
+        while (l < mid || r < end) {
+            while (l < mid && r < end && lSz > 0) {
+                if (Reads.compareValues(array[l], array[r]) <= 0) {
                     Writes.swap(array, lBuf++, l++, 1.25, true, false);
                 } else {
                     Writes.swap(array, lBuf++, r++, 1.25, true, false);
@@ -42,18 +42,18 @@ public class ZeroMergeSort extends GrailSorting {
                     rSz++;
                 }
             }
-            if(lSz > 0) {
-                while(l < mid) {
+            if (lSz > 0) {
+                while (l < mid) {
                     Writes.swap(array, lBuf++, l++, 1.25, true, false);
                 }
-                while(r < end && lSz > 0) {
+                while (r < end && lSz > 0) {
                     Writes.swap(array, lBuf++, r++, 1.25, true, false);
                     lSz--;
                     rSz++;
                 }
             }
-            while(l < mid && r < end && rSz > 0) {
-                if(Reads.compareValues(array[l], array[r]) <= 0) {
+            while (l < mid && r < end && rSz > 0) {
+                if (Reads.compareValues(array[l], array[r]) <= 0) {
                     Writes.swap(array, rBuf++, l++, 1.25, true, false);
                     rSz--;
                     lSz++;
@@ -61,13 +61,13 @@ public class ZeroMergeSort extends GrailSorting {
                     Writes.swap(array, rBuf++, r++, 1.25, true, false);
                 }
             }
-            if(rSz > 0) {
-                while(l < mid && rSz > 0) {
+            if (rSz > 0) {
+                while (l < mid && rSz > 0) {
                     Writes.swap(array, rBuf++, l++, 1.25, true, false);
                     rSz--;
                     lSz++;
                 }
-                while(r < end) {
+                while (r < end) {
                     Writes.swap(array, rBuf++, r++, 1.25, true, false);
                 }
             }
@@ -82,7 +82,7 @@ public class ZeroMergeSort extends GrailSorting {
 
     private void binsertruns(int[] array, int start, int end) {
         int m=Math.max(2*minBinsert, bufsz);
-        for(int i=start; i<end; i+=m) {
+        for (int i=start; i<end; i+=m) {
             binserter.binaryInsertSort(array, i, Math.min(i+m, end), 0.025, 0.05);
         }
     }
@@ -91,16 +91,16 @@ public class ZeroMergeSort extends GrailSorting {
         buf = start;
         bufsz = (int) Math.pow(end-start, 0.5d);
         binserter = new BranchlessBinaryInsertionSort(arrayVisualizer);
-        if(bufsz < 4) {
+        if (bufsz < 4) {
             binserter.binaryInsertSort(array, start, end, 0.5, 0.5);
             return;
         }
         binsertruns(array, buf+bufsz, end);
-        for(int j=Math.max(bufsz, 2*minBinsert); j<end-start; j*=2) {
-            for(int i=buf+bufsz; i<end; i+=2*j) {
-                if(i+j > end)
+        for (int j=Math.max(bufsz, 2*minBinsert); j<end-start; j*=2) {
+            for (int i=buf+bufsz; i<end; i+=2*j) {
+                if (i+j > end)
                     break;
-                if(i+2*j > end) {
+                if (i+2*j > end) {
                     zeromerge(array, i, i+j, end);
                 } else {
                     zeromerge(array, i, i+j, i+2*j);

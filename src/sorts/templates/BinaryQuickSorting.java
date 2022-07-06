@@ -79,14 +79,14 @@ public abstract class BinaryQuickSorting extends Sort {
         while (true) {
             // Left is not set
             i++;
-            while(i <= r && !Reads.getBit(array[i], bit)) {
+            while (i <= r && !Reads.getBit(array[i], bit)) {
                 i++;
                 Highlights.markArray(1, i);
                 Delays.sleep(0.45);
             }
             // Right is set
             j--;
-            while(j >= p && Reads.getBit(array[j], bit)) {
+            while (j >= p && Reads.getBit(array[j], bit)) {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.45);

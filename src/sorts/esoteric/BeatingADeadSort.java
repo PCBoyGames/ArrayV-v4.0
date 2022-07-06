@@ -3,7 +3,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 public class BeatingADeadSort extends Sort {
-    public BeatingADeadSort(ArrayVisualizer aV){
+    public BeatingADeadSort(ArrayVisualizer aV) {
         super(aV);
         this.setSortListName("Beating A Dead");
         this.setRunAllSortsName("Beating A Dead Sort");
@@ -17,13 +17,13 @@ public class BeatingADeadSort extends Sort {
         this.setBogoSort(false);
     }
     // Dead "Dead Gnome"
-    private void DDG(int[] array, int e){
-        if(e <= 0)
+    private void DDG(int[] array, int e) {
+        if (e <= 0)
             return;
         this.DDG(array, e-1);
-        for(int i = e; i > 0; i--){
+        for (int i = e; i > 0; i--) {
             Highlights.markArray(1, i);
-            if(Reads.compareValues(array[i], array[i-1]) == -1) {
+            if (Reads.compareValues(array[i], array[i-1]) == -1) {
                 Writes.swap(array, i, i-1, 1, true, false);
             } else
                 this.DDG(array, e-1);

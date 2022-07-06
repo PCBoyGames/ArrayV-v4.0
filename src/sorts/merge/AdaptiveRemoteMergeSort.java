@@ -42,26 +42,26 @@ final public class AdaptiveRemoteMergeSort extends GrailSorting {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int t = length - (length / 3);
-        for(int l=2; l<=t; l++) {
+        for (int l=2; l<=t; l++) {
             int phase = 0;
-            if(l == 2) {
-                for(int i=0; i<length-1; i+=2) {
-                    if(Reads.compareValues(array[i], array[i+1]) == 1) {
+            if (l == 2) {
+                for (int i=0; i<length-1; i+=2) {
+                    if (Reads.compareValues(array[i], array[i+1]) == 1) {
                         Writes.swap(array, i, i+1, 1, true, false);
                     }
                 }
             } else {
-                for(int i=0; i<length; i+=l) {
+                for (int i=0; i<length; i+=l) {
                     int next = Math.min(i+l, length);
-                    if(i + l <= length) {
-                        if(phase == 0) {
+                    if (i + l <= length) {
+                        if (phase == 0) {
                             this.firstPhase(array, i, next-1);
-                        } else if(phase == l-2) {
+                        } else if (phase == l-2) {
                             this.lastPhase(array, i, next);
                         } else {
                             this.grailMergeWithoutBuffer(array, i, l - (phase + 1), phase + 1);
                         }
-                    } else if(i + l - phase <= length) {
+                    } else if (i + l - phase <= length) {
                         this.grailMergeWithoutBuffer(array, i, l-(phase+1), next - (i + (l - (phase + 1))));
                     }
                     phase = (phase + 1) % (l - 1);

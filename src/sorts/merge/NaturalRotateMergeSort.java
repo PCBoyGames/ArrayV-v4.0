@@ -75,17 +75,17 @@ public final class NaturalRotateMergeSort extends Sort {
     protected int findRun(int[] array, int a, int b) {
         int i = a + 1;
         boolean dir;
-        if(i < b)
+        if (i < b)
             dir = Reads.compareIndices(array, i - 1, i++, 0.5, true) <= 0;
         else
             dir = true;
-        if(dir)
+        if (dir)
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
                 i++;
         else {
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
                 i++;
-            if(i - a < 4)
+            if (i - a < 4)
                 Writes.swap(array, a, i - 1, 1.0, true, false);
             else
                 Writes.reversal(array, a, i - 1, 1.0, true, false);
@@ -96,23 +96,23 @@ public final class NaturalRotateMergeSort extends Sort {
 
     public void mergeSort(int[] array, int a, int b) {
         int i, j, k;
-        while(true) {
+        while (true) {
             i = findRun(array, a, b);
-            if(i >= b)
+            if (i >= b)
                 return;
             j = findRun(array, i, b);
             merge(array, a, i, j);
             Highlights.clearMark(2);
-            if(j >= b)
+            if (j >= b)
                 return;
             k = j;
-            while(true) {
+            while (true) {
                 i = findRun(array, k, b);
-                if(i >= b)
+                if (i >= b)
                     break;
                 j = findRun(array, i, b);
                 merge(array, k, i, j);
-                if(j >= b)
+                if (j >= b)
                     break;
                 k = j;
             }

@@ -32,7 +32,7 @@ final public class OddEvenSort extends Sort {
             sorted = true;
 
             for (int i = 1; i < length - 1; i += 2) {
-                if(Reads.compareValues(array[i], array[i + 1]) == 1) {
+                if (Reads.compareValues(array[i], array[i + 1]) == 1) {
                     Writes.swap(array, i, i + 1, 0.075, true, false);
                     sorted = false;
                 }
@@ -42,7 +42,7 @@ final public class OddEvenSort extends Sort {
             }
 
             for (int i = 0; i < length - 1; i += 2) {
-                if(Reads.compareValues(array[i], array[i + 1]) == 1) {
+                if (Reads.compareValues(array[i], array[i + 1]) == 1) {
                     Writes.swap(array, i, i + 1, 0.075, true, false);
                     sorted = false;
                 }

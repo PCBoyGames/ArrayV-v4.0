@@ -53,7 +53,7 @@ public abstract class MultipleSortThread {
     }
 
     protected double calculateSpeed(double defaultDelay, int length) {
-        if(length < (this.startingLength / 2)) {
+        if (length < (this.startingLength / 2)) {
             return defaultDelay * Math.pow((this.startingLength / 2048d), 2);
         }
         else {
@@ -65,13 +65,13 @@ public abstract class MultipleSortThread {
         Delays.setSleepRatio(2.5);
 
         int sortLength;
-        if(slowSort) {
+        if (slowSort) {
             sortLength = this.calculateLengthSlow(defaultLength, sort.getUnreasonableLimit());
         }
         else {
             sortLength = this.calculateLength(defaultLength);
         }
-        if(sortLength != arrayVisualizer.getCurrentLength()) {
+        if (sortLength != arrayVisualizer.getCurrentLength()) {
             arrayFrame.setLengthSlider(sortLength);
         }
 

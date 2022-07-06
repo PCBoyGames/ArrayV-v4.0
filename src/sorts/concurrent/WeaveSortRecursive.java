@@ -48,22 +48,22 @@ final public class WeaveSortRecursive extends Sort {
     private int end;
 
     private void compSwap(int[] array, int a, int b) {
-        if(b < this.end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
+        if (b < this.end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
             Writes.swap(array, a, b, 0.5, true, false);
     }
 
     private void circle(int[] array, int pos, int len, int gap) {
-        if(len < 2) return;
+        if (len < 2) return;
 
-        for(int i = 0; 2*i < (len-1)*gap; i+=gap)
+        for (int i = 0; 2*i < (len-1)*gap; i+=gap)
             this.compSwap(array, pos+i, pos+(len-1)*gap-i);
 
         this.circle(array, pos, len/2, gap);
-        if(pos+len*gap/2 < this.end) this.circle(array, pos+len*gap/2, len/2, gap);
+        if (pos+len*gap/2 < this.end) this.circle(array, pos+len*gap/2, len/2, gap);
     }
 
     private void weaveCircle(int[] array, int pos, int len, int gap) {
-        if(len < 2) return;
+        if (len < 2) return;
 
         this.weaveCircle(array, pos, len/2, 2*gap);
         this.weaveCircle(array, pos+gap, len/2, 2*gap);
@@ -75,7 +75,7 @@ final public class WeaveSortRecursive extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         this.end = length;
         int n = 1;
-        for(; n < length; n*=2);
+        for (; n < length; n*=2);
 
         this.weaveCircle(array, 0, n, 1);
     }

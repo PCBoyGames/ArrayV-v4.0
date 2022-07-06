@@ -20,7 +20,7 @@ public final class ExchangeBozoMergeSort extends BogoSorting {
     }
 
     protected void exchangeBozoSort(int[] array, int a, int b) {
-        while(!this.isRangeSorted(array, a, b, false, true)) {
+        while (!this.isRangeSorted(array, a, b, false, true)) {
             int index1 = BogoSorting.randInt(a, b),
                 index2 = BogoSorting.randInt(a, b);
             int comp = Reads.compareIndices(array, index1, index2, this.delay, true);
@@ -30,7 +30,7 @@ public final class ExchangeBozoMergeSort extends BogoSorting {
     }
 
     protected void sort(int[] array, int a, int b) {
-        if(b - a < 2)
+        if (b - a < 2)
             return;
         int m = a + (b - a) / 2;
         sort(array, a, m);

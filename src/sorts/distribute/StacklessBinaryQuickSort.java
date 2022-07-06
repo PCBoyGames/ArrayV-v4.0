@@ -46,7 +46,7 @@ final public class StacklessBinaryQuickSort extends Sort {
     }
 
     private int stabVal(int idx) {
-        if(arrayVisualizer.doingStabilityCheck())
+        if (arrayVisualizer.doingStabilityCheck())
             return arrayVisualizer.getStabilityValue(idx);
         else
             return idx;
@@ -55,22 +55,22 @@ final public class StacklessBinaryQuickSort extends Sort {
     private int partition(int[] array, int a, int b, int bit) {
         int i = a-1, j = b;
 
-        while(true) {
+        while (true) {
             do {
                 i++;
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while(i < j && !Reads.getBit(array[i], bit));
+            while (i < j && !Reads.getBit(array[i], bit));
 
             do {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
             }
-            while(j > i && Reads.getBit(array[j], bit));
+            while (j > i && Reads.getBit(array[j], bit));
 
-            if(i < j) Writes.swap(array, i, j, 1, true, false);
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else      return i;
         }
     }
@@ -80,17 +80,17 @@ final public class StacklessBinaryQuickSort extends Sort {
         int q = Reads.analyzeBit(array, length), m = 0,
             i = 0, b = length;
 
-        while(i < length) {
+        while (i < length) {
             int p = b-i < 1 ? i : this.partition(array, i, b, q);
 
-            if(q == 0) {
+            if (q == 0) {
                 m += 2;
-                while(!Reads.getBit(m, q+1)) q++;
+                while (!Reads.getBit(m, q+1)) q++;
 
                 i = b;
                 Highlights.clearMark(2);
                 arrayVisualizer.toggleAnalysis(true);
-                while(b < length && (this.stabVal(array[b]) >> (q+1)) == (m >> (q+1))) {
+                while (b < length && (this.stabVal(array[b]) >> (q+1)) == (m >> (q+1))) {
                     Highlights.markArray(1, b);
                     Delays.sleep(0.5);
                     b++;

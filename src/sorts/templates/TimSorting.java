@@ -133,7 +133,7 @@ final public class TimSorting {
 
     // Easy patch for preventing gallop and merge methods from going out-of-bounds
     private void markArray(int marker, int markPosition) {
-        if(markPosition >= 0 && markPosition < this.len) {
+        if (markPosition >= 0 && markPosition < this.len) {
             this.Highlights.markArray(marker, markPosition);
         }
     }
@@ -330,7 +330,7 @@ final public class TimSorting {
 
         // Find end of run, and reverse range if descending
         if (ts.Reads.compareValues(a[runHi++], a[lo]) < 0) { // Descending
-            while(runHi < hi && ts.Reads.compareValues(a[runHi], a[runHi - 1]) < 0) {
+            while (runHi < hi && ts.Reads.compareValues(a[runHi], a[runHi - 1]) < 0) {
                 ts.markArray(1, runHi);
                 ts.Delays.sleep(1);
                 runHi++;

@@ -35,7 +35,7 @@ final public class SimpleStupidFireSort extends Sort {
         int i = 0;
         int moves = 0;
         while (i < currentLength || twist == -1) {
-            if (i == 0 && twist == -1){
+            if (i == 0 && twist == -1) {
                 twist *= -1;
                 moves = 0;
             }
@@ -44,7 +44,7 @@ final public class SimpleStupidFireSort extends Sort {
                 Writes.swap(array, j, j - 1, 0.001, true, false);
             }
             i += twist;
-            if (moves > limit){
+            if (moves > limit) {
                 limit++;
                 moves = 0;
                 twist *= -1;

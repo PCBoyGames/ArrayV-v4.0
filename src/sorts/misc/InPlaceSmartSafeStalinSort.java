@@ -29,7 +29,7 @@ final public class InPlaceSmartSafeStalinSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     protected int stepDown(int[] array, int end) {
         for (int i = end - 1; i > 0; i--) for (int j = i - 1; j >= 0; j--) if (Reads.compareIndices(array, j, i, 0.125, true) > 0) return i + 1;
         return 0;

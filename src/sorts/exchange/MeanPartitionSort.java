@@ -35,10 +35,10 @@ public final class MeanPartitionSort extends Sort {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for (int i = start; i < end; i++) {
-            if(array[i] < min) {
+            if (array[i] < min) {
                 min = array[i];
             }
-            if(array[i] > max) {
+            if (array[i] > max) {
                 max = array[i];
             }
         }

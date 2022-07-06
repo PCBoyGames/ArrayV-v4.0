@@ -56,11 +56,11 @@ final public class LSDRadixSort extends Sort {
         @SuppressWarnings("unchecked")
         ArrayList<Integer>[] registers = new ArrayList[bucketCount];
 
-        for(int i = 0; i < bucketCount; i++)
+        for (int i = 0; i < bucketCount; i++)
             registers[i] = new ArrayList<>();
 
-        for(int p = 0; p <= highestpower; p++){
-            for(int i = 0; i < sortLength; i++){
+        for (int p = 0; p <= highestpower; p++) {
+            for (int i = 0; i < sortLength; i++) {
                 Highlights.markArray(1, i);
 
                 int digit = Reads.getDigit(array[i], p, bucketCount);

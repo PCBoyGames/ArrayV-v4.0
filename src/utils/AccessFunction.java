@@ -21,7 +21,7 @@ public class AccessFunction {
     private static BigInteger factorial(int num) {
         BigInteger n = BigInteger.valueOf(num);
         int y = num-1;
-        while(y>0)
+        while (y>0)
             n = n.multiply(BigInteger.valueOf(y--));
         return n;
     }
@@ -38,14 +38,14 @@ public class AccessFunction {
     /*private static BigInteger prime(long loc) {
         long primeHits = 0;
         BigInteger n = BigInteger.valueOf(1l);
-        while(true) {
-            if(primeHits >= loc) {
-                if(!isPrime(n))
+        while (true) {
+            if (primeHits >= loc) {
+                if (!isPrime(n))
                     n = n.subtract(BigInteger.ONE);
                 return n;
             }
             n = n.add(BigInteger.ONE);
-            if(isPrime(n))
+            if (isPrime(n))
                 primeHits++;
         }
     }*/
@@ -72,14 +72,14 @@ public class AccessFunction {
         this.generatedA = new ArrayList<>();
         this.generatedB = new ArrayList<>();
     }
-    public HashMap<String, BigInteger> generateAccessFunctions(BigInteger upperBound){
+    public HashMap<String, BigInteger> generateAccessFunctions(BigInteger upperBound) {
         pow = 0;
         last = BigDecimal.ONE;
         generatedA.clear();
         generatedB.clear();
         Set<Map.Entry<String, UnaryOperator<Double>>> x = ENUM.entrySet();
         BigDecimal sqr = new BigDecimal(upperBound.multiply(upperBound));
-        while(last.compareTo(sqr) < 0) {
+        while (last.compareTo(sqr) < 0) {
             x.stream().forEach(t -> {
                 int n = arrayv.getCurrentLength();
                 UnaryOperator<Double> func = t.getValue();
@@ -89,7 +89,7 @@ public class AccessFunction {
                 K = K.multiply(bIntRes);
                 last = K;
                 BigInteger k = K.toBigInteger();
-                if(last.compareTo(BigDecimal.ONE) > 0) {
+                if (last.compareTo(BigDecimal.ONE) > 0) {
                     generatedA.add(((pow == 0 ? "" : pow == 1 ? "n" : ("n^"+pow)) + t.getKey()).trim());
                     generatedB.add(k);
                 }
@@ -98,7 +98,7 @@ public class AccessFunction {
         }
         // Due to the Ford Johnson access count (log2 n!) slowing the calculation down exponentially,
         // this is commented out.
-        /*for(Map.Entry<String, UnaryOperator<Long>> Special : SpecialAccesses.entrySet()) {
+        /*for (Map.Entry<String, UnaryOperator<Long>> Special : SpecialAccesses.entrySet()) {
             long n = arrayv.getCurrentLength();
             UnaryOperator<Long> func = Special.getValue();
             long Result = func.apply(n);
@@ -107,7 +107,7 @@ public class AccessFunction {
             generatedB.add(bIntRes);
         }*/
         HashMap<String, BigInteger> theMap = new HashMap<String, BigInteger>();
-        for(int i=0; i<generatedA.size(); i++) {
+        for (int i=0; i<generatedA.size(); i++) {
             theMap.put(generatedA.get(i), generatedB.get(i));
         }
         return theMap;

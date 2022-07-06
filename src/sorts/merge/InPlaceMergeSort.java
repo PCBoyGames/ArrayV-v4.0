@@ -46,8 +46,8 @@ final public class InPlaceMergeSort extends Sort {
     }
 
     private void push(int[] array, int low, int high) {
-        for(int i = low; i < high; i++) {
-            if(Reads.compareValues(array[i], array[i + 1]) == 1) {
+        for (int i = low; i < high; i++) {
+            if (Reads.compareValues(array[i], array[i + 1]) == 1) {
                 Writes.swap(array, i, i + 1, 0.035, true, false);
             }
         }
@@ -55,8 +55,8 @@ final public class InPlaceMergeSort extends Sort {
 
     private void merge(int[] array, int min, int max, int mid) {
         int i = min;
-        while(i <= mid) {
-            if(Reads.compareValues(array[i], array[mid + 1]) == 1){
+        while (i <= mid) {
+            if (Reads.compareValues(array[i], array[mid + 1]) == 1) {
                 Writes.swap(array, i, mid + 1, 0.035, true, false);
                 push(array, mid + 1, max);
             }
@@ -66,11 +66,11 @@ final public class InPlaceMergeSort extends Sort {
     }
 
     private void mergeSort(int[] array, int min,int max) {
-        if(max - min == 0) {      //only one element.
+        if (max - min == 0) {      //only one element.
             Delays.sleep(1);      //no swap
         }
-        else if(max - min == 1) { //only two elements and swaps them
-            if(Reads.compareValues(array[min], array[max]) == 1) {
+        else if (max - min == 1) { //only two elements and swaps them
+            if (Reads.compareValues(array[min], array[max]) == 1) {
                 Writes.swap(array, min, max, 0.035, true, false);
             }
         }

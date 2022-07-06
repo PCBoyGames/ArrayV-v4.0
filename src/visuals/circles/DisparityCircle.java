@@ -44,7 +44,7 @@ final public class DisparityCircle extends Visual {
 
     @Override
     public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
-        if(Renderer.auxActive) return;
+        if (Renderer.auxActive) return;
 
         int width  = ArrayVisualizer.windowWidth();
         int height = ArrayVisualizer.windowHeight();
@@ -62,7 +62,7 @@ final public class DisparityCircle extends Visual {
         x[2] =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
         y[2] = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
 
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             x[1] = x[2];
             y[1] = y[2];
 
@@ -70,14 +70,14 @@ final public class DisparityCircle extends Visual {
             x[2] =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
             y[2] = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
 
-            if(Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
+            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
                 this.mainRender.setColor(Color.GREEN);
 
-            else if(Highlights.containsPosition(i)) {
+            else if (Highlights.containsPosition(i)) {
                 this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
                 this.extraRender.drawPolygon(x, y, 3);
             }
-            else if(ArrayVisualizer.colorEnabled())
+            else if (ArrayVisualizer.colorEnabled())
                 this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
 
             else this.mainRender.setColor(Color.WHITE);

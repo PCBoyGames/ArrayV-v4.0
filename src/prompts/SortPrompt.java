@@ -287,7 +287,7 @@ final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
     private void jButton1ActionPerformed() {//GEN-FIRST:event_jButton1ActionPerformed
         new Thread("AllSortsThread") {
             @Override
-            public void run(){
+            public void run() {
                 RunAllSorts RunAllSorts = new RunAllSorts(ArrayVisualizer);
                 RunAllSorts.reportAllSorts(array);
             }
@@ -299,7 +299,7 @@ final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
     private void jButton2ActionPerformed() {//GEN-FIRST:event_jButton1ActionPerformed
         new Thread("ImportSort") {
             @Override
-            public void run(){
+            public void run() {
                 File f = new ImportSortDialog().getFile();
                 if (f == null) {
                     return;

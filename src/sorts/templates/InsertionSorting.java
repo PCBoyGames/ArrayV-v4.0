@@ -37,12 +37,12 @@ public abstract class InsertionSorting extends Sort {
         int pos;
         int current;
 
-        for(int i = start; i < end; i++) {
+        for (int i = start; i < end; i++) {
             current = array[i];
             pos = i - 1;
             boolean change = false;
 
-            while(pos >= start && Reads.compareValues(array[pos], current) > 0){
+            while (pos >= start && Reads.compareValues(array[pos], current) > 0) {
                 Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
                 pos--;
                 change = true;

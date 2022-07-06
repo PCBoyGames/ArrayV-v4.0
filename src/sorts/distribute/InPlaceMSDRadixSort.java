@@ -46,7 +46,7 @@ final public class InPlaceMSDRadixSort extends Sort {
     }
 
     private void radixMSD(int[] array, int length, int min, int max, int radix, int pow, double sleep) {
-        if(min >= max || pow < 0)
+        if (min >= max || pow < 0)
             return;
 
         Highlights.markArray(3, max - 1);

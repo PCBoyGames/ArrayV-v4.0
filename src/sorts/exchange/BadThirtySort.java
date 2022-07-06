@@ -26,7 +26,7 @@ final public class BadThirtySort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         boolean swaps = true;

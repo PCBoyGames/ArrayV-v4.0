@@ -44,7 +44,7 @@ final public class DisparityChords extends Visual {
 
     @Override
     public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
-        if(Renderer.auxActive) return;
+        if (Renderer.auxActive) return;
 
         int width  = ArrayVisualizer.windowWidth();
         int height = ArrayVisualizer.windowHeight();
@@ -54,7 +54,7 @@ final public class DisparityChords extends Visual {
 
         this.mainRender.setStroke(ArrayVisualizer.getThinStroke());
 
-        for(int i = n-1; i >= 0; i--) {
+        for (int i = n-1; i >= 0; i--) {
             this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
 
             int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
@@ -66,8 +66,8 @@ final public class DisparityChords extends Visual {
         }
         this.mainRender.setStroke(ArrayVisualizer.getDefaultStroke());
 
-        for(int i = 0; i < n; i++) {
-            if(Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
+        for (int i = 0; i < n; i++) {
+            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
                 this.mainRender.setColor(Color.GREEN);
 
                 int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
@@ -77,8 +77,8 @@ final public class DisparityChords extends Visual {
 
                 this.mainRender.drawLine(ax, ay, bx, by);
             }
-            else if(Highlights.containsPosition(i)) {
-                if(ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
+            else if (Highlights.containsPosition(i)) {
+                if (ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
                 else                                  this.mainRender.setColor(Color.WHITE);
 
                 int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));

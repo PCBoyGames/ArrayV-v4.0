@@ -48,19 +48,19 @@ public class BottomDownMergeSort extends Sort {
     }
     private void merge(PriorityQueue<ArrayCopy> q, int start, int mid, int end) {
         int l = start, r = mid, t = start, b = 0;
-        if(end-start > 0) {
-            if(Reads.compareValues(main[mid-1], main[mid]) == -1) {
+        if (end-start > 0) {
+            if (Reads.compareValues(main[mid-1], main[mid]) == -1) {
                 return;
             }
-            if(Reads.compareValues(main[start], main[end-1]) == 1) {
+            if (Reads.compareValues(main[start], main[end-1]) == 1) {
                 IndexedRotations.cycleReverse(main, start, mid, end, 0.25, true, false);
                 return;
             }
         } else return;
-        while(l < mid && r < end) {
+        while (l < mid && r < end) {
             Highlights.markArray(1, l);
             Highlights.markArray(2, r);
-            if(Reads.compareValues(main[l], main[r]) <= 0) {
+            if (Reads.compareValues(main[l], main[r]) <= 0) {
                 Writes.write(scratch, t++, main[l++], 1, true, true);
                 b = (b << 1) + 1;
             } else {
@@ -68,15 +68,15 @@ public class BottomDownMergeSort extends Sort {
                 b = (b >>> 1) - 1;
             }
         }
-        if(l == r)
+        if (l == r)
             return;
         int z = t;
-        while(l < mid) {
+        while (l < mid) {
             Highlights.markArray(1, l);
             Writes.write(main, z++, main[l++], 1, true, false);
             b = (b >>> 1) + b + 1;
         }
-        while(r++ < end) {
+        while (r++ < end) {
             b = (b >>> 1) - 1;
         }
         Highlights.clearAllMarks();
@@ -89,18 +89,18 @@ public class BottomDownMergeSort extends Sort {
         main = array;
         scratch = Writes.createExternalArray(length);
         int i = 2;
-        for(; i<=length; i*=2) {
-            for(int j=0; j<length; j+=i) {
-                if(j+i < length)
+        for (; i<=length; i*=2) {
+            for (int j=0; j<length; j+=i) {
+                if (j+i < length)
                      this.merge(q, j, j+i/2, j+i);
                 else
                      this.merge(q, j, j+i/2, length);
             }
-            while(q.size() > 0) {
+            while (q.size() > 0) {
                  q.poll().perform();
             }
         }
-        if(i / 2 != length) {
+        if (i / 2 != length) {
             this.merge(q, 0, i/2, length);
             q.poll().perform();
         }

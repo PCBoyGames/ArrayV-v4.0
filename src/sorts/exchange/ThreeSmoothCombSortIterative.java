@@ -45,7 +45,7 @@ final public class ThreeSmoothCombSortIterative extends Sort {
     }
 
     private void compSwap(int[] array, int a, int b) {
-        if(Reads.compareIndices(array, a, b, 0.5, true) == 1)
+        if (Reads.compareIndices(array, a, b, 0.5, true) == 1)
             Writes.swap(array, a, b, 0.5, true, false);
     }
 
@@ -53,13 +53,13 @@ final public class ThreeSmoothCombSortIterative extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         int pow2 = (int)(Math.log(length-1)/Math.log(2));
 
-        for(int k = pow2; k >= 0; k--) {
+        for (int k = pow2; k >= 0; k--) {
             int pow3 = (int)((Math.log(length) - k*Math.log(2))/Math.log(3));
 
-            for(int j = pow3; j >= 0; j--) {
+            for (int j = pow3; j >= 0; j--) {
                 int gap = (int)(Math.pow(2, k)*Math.pow(3, j));
 
-                for(int i = 0; i+gap < length; i++)
+                for (int i = 0; i+gap < length; i++)
                     this.compSwap(array, i, i+gap);
             }
         }

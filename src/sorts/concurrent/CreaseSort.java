@@ -46,22 +46,22 @@ final public class CreaseSort extends Sort {
     }
 
     private void compSwap(int[] array, int a, int b) {
-        if(Reads.compareIndices(array, a, b, 0.5, true) == 1)
+        if (Reads.compareIndices(array, a, b, 0.5, true) == 1)
             Writes.swap(array, a, b, 0.5, true, false);
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int max = 1;
-        for(; max*2 < length; max*=2);
+        for (; max*2 < length; max*=2);
 
         int next = max;
-        while(next > 0) {
-            for(int i = 0; i+1 < length; i+=2)
+        while (next > 0) {
+            for (int i = 0; i+1 < length; i+=2)
                 this.compSwap(array, i, i+1);
 
-            for(int j = max; j >= next && j > 1; j/=2)
-                for(int i = 1; i+j-1 < length; i+=2)
+            for (int j = max; j >= next && j > 1; j/=2)
+                for (int i = 1; i+j-1 < length; i+=2)
                     this.compSwap(array, i, i+j-1);
 
             next /= 2;

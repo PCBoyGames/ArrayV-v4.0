@@ -194,7 +194,7 @@ final public class RunExchangeSorts extends MultipleSortThread {
 
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
@@ -202,7 +202,7 @@ final public class RunExchangeSorts extends MultipleSortThread {
             @Override
             public void run() {
                 try{
-                    if(runAllActive) {
+                    if (runAllActive) {
                         RunExchangeSorts.this.sortNumber = current;
                         RunExchangeSorts.this.sortCount = total;
                     }
@@ -216,7 +216,7 @@ final public class RunExchangeSorts extends MultipleSortThread {
 
                     RunExchangeSorts.this.executeSortList(array);
 
-                    if(!runAllActive) {
+                    if (!runAllActive) {
                         arrayVisualizer.setCategory("Run Exchange Sorts");
                         arrayVisualizer.setHeading("Done");
                     }

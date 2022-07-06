@@ -47,20 +47,20 @@ final public class OptimizedWeaveMergeSort extends Sort {
 
     private void insertTo(int[] array, int a, int b) {
         int temp = array[a];
-        while(a > b) Writes.write(array, a, array[--a], 0.25, true, false);
+        while (a > b) Writes.write(array, a, array[--a], 0.25, true, false);
         Writes.write(array, b, temp, 0.25, true, false);
     }
 
     private void multiSwap(int[] array, int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(array, a+i, b+i, 1, true, false);
     }
 
     private void rotate(int[] array, int a, int m, int b) {
         int l = m-a, r = b-m;
 
-        while(l > 0 && r > 0) {
-            if(r < l) {
+        while (l > 0 && r > 0) {
+            if (r < l) {
                 this.multiSwap(array, m-r, m, r);
                 b -= r;
                 m -= r;
@@ -80,26 +80,26 @@ final public class OptimizedWeaveMergeSort extends Sort {
         int len = b-a, m = 0;
         int d1 = len>>1, d2 = d1+(d1>>1);
 
-        for(int i = 1; i < len-1; i++) {
+        for (int i = 1; i < len-1; i++) {
             int j = d1;
 
-            for(
+            for (
                 int k = i, n = d2;
                 (k&1) == 0;
                 j -= n, k >>= 1, n >>= 1
             );
             m += j;
-            if(m > i) Writes.swap(array, a+i, a+m, 1, true, false);
+            if (m > i) Writes.swap(array, a+i, a+m, 1, true, false);
         }
     }
 
     private void weaveInsert(int[] array, int a, int b, boolean right) {
         int i = a, j = i+1;
 
-        while(j < b) {
-            while(i < j && Reads.compareIndices(array, i, j, 0, true) < (right ? 1 : 0)) i++;
+        while (j < b) {
+            while (i < j && Reads.compareIndices(array, i, j, 0, true) < (right ? 1 : 0)) i++;
 
-            if(i == j) {
+            if (i == j) {
                 right = !right;
                 j++;
             }
@@ -115,20 +115,20 @@ final public class OptimizedWeaveMergeSort extends Sort {
     //00011  -> 01010  T
     //00111  -> 10101  F
     private void weaveMerge(int[] array, int a, int m, int b) {
-        if(b-a < 2) return;
+        if (b-a < 2) return;
 
         int a1 = a, b1 = b;
         boolean right = true;
 
-        if((b-a)%2 == 1) {
-            if(m-a < b-m) {
+        if ((b-a)%2 == 1) {
+            if (m-a < b-m) {
                 a1--;
                 right = false;
             }
             else b1++;
         }
 
-        for(int e = b1, f; e-a1 > 2; e = f) {
+        for (int e = b1, f; e-a1 > 2; e = f) {
             m = (a1+e)/2;
             int p = 1 << (int)(Math.log(m-a1)/Math.log(2));
 
@@ -148,19 +148,19 @@ final public class OptimizedWeaveMergeSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int n = currentLength, d = 1 << (int)(Math.log(n-1)/Math.log(2) + 1);
 
-        while(d > 1) {
+        while (d > 1) {
             int i = 0, dec = 0;
 
-            while(i < n) {
+            while (i < n) {
                 int j = i;
                 dec += n;
-                while(dec >= d) {
+                while (dec >= d) {
                     dec -= d;
                     j++;
                 }
                 int k = j;
                 dec += n;
-                while(dec >= d) {
+                while (dec >= d) {
                     dec -= d;
                     k++;
                 }

@@ -43,19 +43,19 @@ final public class ClassicThreeSmoothCombSort extends Sort {
     }
 
     private boolean is3Smooth(int n) {
-        while(n%6 == 0) n /= 6;
-        while(n%3 == 0) n /= 3;
-        while(n%2 == 0) n /= 2;
+        while (n%6 == 0) n /= 6;
+        while (n%3 == 0) n /= 3;
+        while (n%2 == 0) n /= 2;
 
         return n == 1;
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        for(int g = length-1; g > 0; g--)
-            if(is3Smooth(g))
-                for(int i = g; i < length; i++)
-                    if(Reads.compareIndices(array, i-g, i, 0.5, true) == 1)
+        for (int g = length-1; g > 0; g--)
+            if (is3Smooth(g))
+                for (int i = g; i < length; i++)
+                    if (Reads.compareIndices(array, i-g, i, 0.5, true) == 1)
                         Writes.swap(array, i-g, i, 0.5, true, false);
     }
 }

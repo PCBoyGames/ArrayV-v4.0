@@ -49,25 +49,25 @@ public final class OmegaOmegaBogoSort extends BogoSorting {
     }
 
     private void omegaOmegaBogo(int[] array, int start, int end) {
-        if(end-start == 1) {
+        if (end-start == 1) {
             Writes.swap(array, start, end, 1, true, false);
             return;
         }
-        if(start < end) {
+        if (start < end) {
             int i, k, satisfied;
             do {
                 satisfied = 0;
-                for(int j = start; j < end; j++) {
+                for (int j = start; j < end; j++) {
                     i = randInt(j, end);
                     k = randInt(j, end);
-                    if(Reads.compareValues(array[j],array[i]) == 1) {
+                    if (Reads.compareValues(array[j],array[i]) == 1) {
                         this.omegaOmegaBogo(array, j, i);
                         satisfied++;
                     } else {
                         Writes.swap(array, j, k, 1, true, false);
                     }
                 }
-            } while(satisfied > 0);
+            } while (satisfied > 0);
             this.omegaOmegaBogo(array, start, end-1);
             this.omegaOmegaBogo(array, start+1, end-1);
         }
@@ -75,7 +75,7 @@ public final class OmegaOmegaBogoSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        while(!this.isArraySorted(array, length))
+        while (!this.isArraySorted(array, length))
             omegaOmegaBogo(array, 0, length);
     }
 }

@@ -21,10 +21,10 @@ final public class InverseInsertionSort extends Sort {
     }
 
     public void customInverseInsert(int[] array, int start, int end, double sleep, boolean aux) {
-        for(int i=start+1; i<end; i++) {
+        for (int i=start+1; i<end; i++) {
             int j = end-1, t = array[j];
-            while(j >= i || (j >= start && Reads.compareValues(array[j], t) >= 0)) {
-                if(j-1 >= start)
+            while (j >= i || (j >= start && Reads.compareValues(array[j], t) >= 0)) {
+                if (j-1 >= start)
                     Writes.write(array, j, array[j-1], sleep, true, aux);
                 j--;
             }

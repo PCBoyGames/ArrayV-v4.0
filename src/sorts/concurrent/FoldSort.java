@@ -48,7 +48,7 @@ final public class FoldSort extends Sort {
     int end;
 
     void compSwap(int[] array, int a, int b) {
-        if(b < end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
+        if (b < end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
             Writes.swap(array, a, b, 0.5, true, false);
     }
 

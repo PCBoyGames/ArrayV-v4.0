@@ -79,7 +79,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
         Random rng = new Random();
         for (int i = a; i < b; i++) {
             int j = i + rng.nextInt(b - i);
-            if(i != j)
+            if (i != j)
                 Writes.swap(array, i, j, 0.75, true, false);
         }
     }
@@ -146,7 +146,7 @@ public final class AdaptiveShuffleQuickSort extends Sort {
     }
 
     protected void quickSort(int[] array, int a, int b, int badAllowed) {
-        while(b - a > threshold) {
+        while (b - a > threshold) {
             medianOfThree(array, a, b);
             PivotPair partResult = partition(array, a, b);
             int p = partResult.p;
@@ -157,9 +157,9 @@ public final class AdaptiveShuffleQuickSort extends Sort {
                     heapSorter.customHeapSort(array, a, b, 1);
                     return;
                 }
-                if(l > threshold)
+                if (l > threshold)
                     shuffle(array, a, p);
-                if(r > threshold)
+                if (r > threshold)
                     shuffle(array, p + 1, b);
             } else if (alreadyParted && partialInsert(array, a, p)
                     && partialInsert(array, p + 1, b))

@@ -13,11 +13,11 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class DeathdaySort extends BogoSorting {
-    
+
     int min;
     int max;
     boolean maxallow;
-    
+
     public DeathdaySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Deathday");
@@ -31,7 +31,7 @@ public final class DeathdaySort extends BogoSorting {
         this.setUnreasonableLimit(12);
         this.setBogoSort(true);
     }
-    
+
     protected boolean isAnagram(int[] input, int[] letters, int currentLength) {
         boolean anagram = true;
         int[] test = Writes.createExternalArray(currentLength);
@@ -54,7 +54,7 @@ public final class DeathdaySort extends BogoSorting {
         Writes.deleteExternalArray(test);
         return anagram;
     }
-    
+
     protected boolean analyzeMax(int[] array, int currentLength) {
         int select = 0;
         while (Reads.compareValues(max, array[select]) != 0) select++;
@@ -63,7 +63,7 @@ public final class DeathdaySort extends BogoSorting {
         }
         return false;
     }
-    
+
     protected boolean attempt(int[] array, int currentLength) {
         // Decorative.
         for (int i = 1; i < currentLength; i++) array[i] = min;

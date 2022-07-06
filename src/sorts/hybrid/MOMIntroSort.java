@@ -35,13 +35,13 @@ public final class MOMIntroSort extends Sort {
     }
 
     private int medianof3(int[] arr, int left, int mid, int right) {
-        if(Reads.compareValues(arr[right], arr[left]) == -1) {
+        if (Reads.compareValues(arr[right], arr[left]) == -1) {
             Writes.swap(arr, left, right, 1, true, false);
         }
-        if(Reads.compareValues(arr[mid], arr[left]) == -1) {
+        if (Reads.compareValues(arr[mid], arr[left]) == -1) {
             Writes.swap(arr, mid, left, 1, true, false);
         }
-        if(Reads.compareValues(arr[right], arr[mid]) == -1) {
+        if (Reads.compareValues(arr[right], arr[mid]) == -1) {
             Writes.swap(arr, right, mid, 1, true, false);
         }
         this.middle = mid;
@@ -90,16 +90,16 @@ public final class MOMIntroSort extends Sort {
                 Delays.sleep(0.5);
                 j--;
             }
-            if(!(i < j)) {
+            if (!(i < j)) {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
                 return i;
             }
             // Follow the pivot and highlight it.
-            if(i == this.middle) {
+            if (i == this.middle) {
                 Highlights.markArray(3, j);
             }
-            if(j == this.middle) {
+            if (j == this.middle) {
                 Highlights.markArray(3, i);
             }
             Writes.swap(a, i, j, 1, true, false);
@@ -108,8 +108,8 @@ public final class MOMIntroSort extends Sort {
     }
 
     private void introsortLoop(int[] a, int lo, int hi, int depthLimit) {
-        while(hi - lo > this.sizeThreshold) {
-            if(depthLimit == 0) {
+        while (hi - lo > this.sizeThreshold) {
+            if (depthLimit == 0) {
                 Highlights.clearAllMarks();
                 this.heapSorter.heapSort(a, lo, hi);
                 return;
@@ -118,7 +118,7 @@ public final class MOMIntroSort extends Sort {
             int p = partition(a, lo, hi, piv);
             int l = p - lo;
             int r = hi - p;
-            if((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
+            if ((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
                 piv = medianOfMedians(a, lo, hi, 5);
                 p = partition(a, lo, hi, piv);
             }

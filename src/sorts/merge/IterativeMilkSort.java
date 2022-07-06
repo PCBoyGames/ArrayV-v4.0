@@ -80,7 +80,7 @@ final public class IterativeMilkSort extends Sort {
             }
         }
     }
-    
+
     public void milksort(int[] array, int start, int end, double delay) {
         int len = 2;
         int index = start;
@@ -98,7 +98,7 @@ final public class IterativeMilkSort extends Sort {
         if (len == end - start) milkpass(array, start, end, delay);
         else non2n(array, start, end, len, delay);
     }
-    
+
     public void milksortlen(int[] array, int start, int end, int lengths, double delay) {
         int len = lengths;
         int index = start;

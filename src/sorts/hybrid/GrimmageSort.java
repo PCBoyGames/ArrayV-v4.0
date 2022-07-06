@@ -25,14 +25,14 @@ final public class GrimmageSort extends GrailSorting {
     private int seek(int[] array, int start, int end) {
         int seek = start + 1,
             direction = Reads.compareValues(array[start], array[start+1]);
-        if(direction == 0)
+        if (direction == 0)
             direction = -1;
-        for(int i=start+2; i<end && seek < end - 1; i++) {
-            if(Reads.compareValues(array[seek], array[i]) == direction) {
+        for (int i=start+2; i<end && seek < end - 1; i++) {
+            if (Reads.compareValues(array[seek], array[i]) == direction) {
                 Writes.multiSwap(array, i, ++seek, 0.01, true, false);
             }
         }
-        if(direction == 1) {
+        if (direction == 1) {
             Writes.reversal(array, start, seek, 1, true, false);
         }
         return seek;
@@ -41,10 +41,10 @@ final public class GrimmageSort extends GrailSorting {
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         int k = 0, runs = 1;
-        while(k < sortLength) {
+        while (k < sortLength) {
             int tempK = k;
             k = this.seek(array, k, sortLength);
-            if(runs > 1) {
+            if (runs > 1) {
                 this.grailMergeWithoutBuffer(array, 0, tempK, k - tempK);
             }
             runs++;

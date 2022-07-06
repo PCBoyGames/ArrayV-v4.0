@@ -13,9 +13,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 public final class AggravatedAssaultSort extends BogoSorting {
-    
+
     int min;
-    
+
     public AggravatedAssaultSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Aggravated Assault");
@@ -29,7 +29,7 @@ public final class AggravatedAssaultSort extends BogoSorting {
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
     }
-    
+
     protected boolean isAnagram(int[] input, int[] letters, int currentLength) {
         boolean anagram = true;
         int[] test = Writes.createExternalArray(currentLength);

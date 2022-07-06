@@ -26,7 +26,7 @@ final public class ParFutureStrangeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int stablereturn(int a) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
@@ -44,7 +44,7 @@ final public class ParFutureStrangeSort extends Sort {
         int p = 1;
         int j = len - 1;
         while (j >= 0 && i >= p) {
-            while(!max[j] && j > 0) j--;
+            while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;

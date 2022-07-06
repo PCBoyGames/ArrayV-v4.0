@@ -27,7 +27,7 @@ final public class OptimizedGoalkeeperSort extends Sort {
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
     }
-    
+
     protected int score(int[] array, int bound) {
         int next = bound;
         boolean found = false;
@@ -37,7 +37,7 @@ final public class OptimizedGoalkeeperSort extends Sort {
         }
         return next;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int bound = currentLength - 1;

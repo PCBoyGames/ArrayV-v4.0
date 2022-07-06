@@ -126,11 +126,11 @@ final public class Sounds {
         this.AudioThread = new Thread("AudioThread") {
             @Override
             public void run() {
-                while(Sounds.this.soundEnabled) {
-                    for(MidiChannel channel : channels) {
+                while (Sounds.this.soundEnabled) {
+                    for (MidiChannel channel : channels) {
                         channel.allNotesOff();
                     }
-                    if(SOUND == false || MIDI == false || JErrorPane.errorMessageActive) {
+                    if (SOUND == false || MIDI == false || JErrorPane.errorMessageActive) {
                         synchronized (Sounds.this) {
                             try {
                                 Sounds.this.wait();
@@ -145,9 +145,9 @@ final public class Sounds {
                     noteCount = noteCount < 0 ? NUMCHANNELS : noteCount;
                     int voice = 0;
 
-                    for(int i : Highlights.highlightList()) {
+                    for (int i : Highlights.highlightList()) {
                         try {
-                            if(i != -1) {
+                            if (i != -1) {
                                 int currentLen = ArrayVisualizer.getCurrentLength();
 
                                 //PITCH
@@ -157,7 +157,7 @@ final public class Sounds {
 
                                 int vel = (int) (Math.pow(PITCHMAX - pitchmajor, 2d) * (Math.pow(noteCount, -0.25)) * 64d * SOUNDMUL) / 2; //I'VE SOLVED IT!!
 
-                                if(SOUNDMUL >= 1 && vel < 256) {
+                                if (SOUNDMUL >= 1 && vel < 256) {
                                     vel *= vel;
                                 }
 
@@ -165,7 +165,7 @@ final public class Sounds {
                                 channels[voice].setPitchBend(pitchminor);
                                 channels[voice].controlChange(REVERB, 10);
 
-                                if((++voice % Math.max(noteCount, 1)) == 0)
+                                if ((++voice % Math.max(noteCount, 1)) == 0)
                                     break;
                             }
                         }
@@ -174,7 +174,7 @@ final public class Sounds {
                         }
                     }
                     try {
-                        for(int i = 0; i < Sounds.this.noteDelay; i++) {
+                        for (int i = 0; i < Sounds.this.noteDelay; i++) {
                             sleep(1);
                         }
                     } catch(Exception e) {
@@ -206,11 +206,11 @@ final public class Sounds {
         SoundbankDialog dialog = new SoundbankDialog();
         File soundbank = dialog.getFile();
 
-        if(soundbank != null) {
+        if (soundbank != null) {
             this.infoMsg = new LoadingDialog(soundbank.getName(), menu);
 
             this.prepareCustomSoundbank(soundbank);
-            if(this.soundEnabled) {
+            if (this.soundEnabled) {
                 this.selectedSoundbank = soundbank.getName();
             }
 
@@ -253,14 +253,14 @@ final public class Sounds {
 
     private String formatInstrumentName(String rawName) {
         int length = rawName.length();
-        while(rawName.charAt(length - 1) == ' ') {
+        while (rawName.charAt(length - 1) == ' ') {
             length--;
         }
         StringBuilder formatter = new StringBuilder(rawName);
         String formattedName = formatter.substring(0, length);
 
-        if(formattedName.length() > 3) {
-            if(formattedName.subSequence(0, 4).equals("Type")) {
+        if (formattedName.length() > 3) {
+            if (formattedName.subSequence(0, 4).equals("Type")) {
                 return "Unnamed Sample";
             }
         }
@@ -279,26 +279,26 @@ final public class Sounds {
         instrumentNames.add("a. Default Sound Effect (" + this.formatInstrumentName(rockOrgan) + ")");
 
         this.sineWaveIndex = 0;
-        while(this.sineWaveIndex < instruments.length && !instruments[this.sineWaveIndex].getName().toLowerCase().trim().contains("sine")) {
+        while (this.sineWaveIndex < instruments.length && !instruments[this.sineWaveIndex].getName().toLowerCase().trim().contains("sine")) {
             this.sineWaveIndex++;
         }
-        if(this.sineWaveIndex >= instruments.length && this.DEFAULT_SINE_WAVE_INDEX < instruments.length) {
+        if (this.sineWaveIndex >= instruments.length && this.DEFAULT_SINE_WAVE_INDEX < instruments.length) {
             this.sineWaveIndex = this.DEFAULT_SINE_WAVE_INDEX;
         }
-        else if(this.DEFAULT_SINE_WAVE_INDEX >= instruments.length) {
+        else if (this.DEFAULT_SINE_WAVE_INDEX >= instruments.length) {
             this.sineWaveIndex = 0;
         }
 
         String sineWave = instruments[this.sineWaveIndex].getName();
         instrumentNames.add("b. w0rthy's Original Sound Effect (" + this.formatInstrumentName(sineWave) + ")");
 
-        for(int i = 0; i < instruments.length; i++) {
+        for (int i = 0; i < instruments.length; i++) {
             String nextInstrument = instruments[i].getName();
             instrumentNames.add((i + 1) + ". " + this.formatInstrumentName(nextInstrument));
         }
 
         String[] instrumentArray = new String[instruments.length];
-        for(int i = 0; i < instruments.length; i++) {
+        for (int i = 0; i < instruments.length; i++) {
             instrumentArray[i] = instrumentNames.get(i);
         }
 
@@ -327,7 +327,7 @@ final public class Sounds {
             }
         }
 
-        if(this.channels == null) {
+        if (this.channels == null) {
             this.channels = new MidiChannel[this.NUMCHANNELS];
         }
         this.assignInstruments();
@@ -344,12 +344,12 @@ final public class Sounds {
             default: programIndex = this.instrumentChoice - 2;     break;
             }
 
-            for(int i = 0; i < this.NUMCHANNELS; i++) {
+            for (int i = 0; i < this.NUMCHANNELS; i++) {
                 this.channels[i] = this.synth.getChannels()[i];
                 this.channels[i].programChange(this.synth.getLoadedInstruments()[programIndex].getPatch().getProgram());
                 this.channels[i].setChannelPressure(1);
             }
-            if(this.channels[0].getProgram() == -1) {
+            if (this.channels[0].getProgram() == -1) {
                 JErrorPane.invokeCustomErrorMessage("Could not find a valid MIDI instrument.");
                 this.soundEnabled = false;
             }
@@ -382,11 +382,11 @@ final public class Sounds {
                     }
 
                     try {
-                        for(int i = 0; i < Sounds.this.NUMCHANNELS; i++) {
+                        for (int i = 0; i < Sounds.this.NUMCHANNELS; i++) {
                             Sounds.this.channels[i].programChange(Sounds.this.synth.getLoadedInstruments()[Sounds.this.testInstrumentChoice].getPatch().getProgram());
                         }
                         sleep(2000);
-                        for(int i = 0; i < Sounds.this.NUMCHANNELS; i++) {
+                        for (int i = 0; i < Sounds.this.NUMCHANNELS; i++) {
                             Sounds.this.channels[i].programChange(Sounds.this.synth.getLoadedInstruments()[savedInstrument].getPatch().getProgram());
                         }
                     } catch (InterruptedException e) {
@@ -532,7 +532,7 @@ final public class Sounds {
     public void toggleSofterSounds(boolean val) {
         this.SOFTERSOUNDS = val;
 
-        if(this.SOFTERSOUNDS) this.SOUNDMUL = 0.01;
+        if (this.SOFTERSOUNDS) this.SOUNDMUL = 0.01;
         else                  this.SOUNDMUL = 1;
     }
 
@@ -544,8 +544,8 @@ final public class Sounds {
     }
 
     public void changeNoteDelayAndFilter(int noteFactor) {
-        if(noteFactor != this.noteDelay) {
-            if(noteFactor > 1) {
+        if (noteFactor != this.noteDelay) {
+            if (noteFactor > 1) {
                 this.noteDelay = noteFactor;
                 this.SOUNDMUL = 1d / noteFactor;
             }
@@ -553,21 +553,21 @@ final public class Sounds {
             else {
                 this.noteDelay = 1;
 
-                if(this.SOFTERSOUNDS) this.SOUNDMUL = 0.01;
+                if (this.SOFTERSOUNDS) this.SOUNDMUL = 0.01;
                 else                  this.SOUNDMUL = 1;
             }
         }
     }
 
     public void startAudioThread() {
-        if(!this.soundEnabled) {
+        if (!this.soundEnabled) {
             JOptionPane.showMessageDialog(null, "Sound is disabled.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         AudioThread.start();
     }
 
     public void closeSynth() {
-        if(this.soundEnabled) {
+        if (this.soundEnabled) {
             this.soundEnabled = false;
             this.synth.close();
         }

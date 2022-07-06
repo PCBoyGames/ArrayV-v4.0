@@ -88,32 +88,32 @@ public final class ExchangeChirMergeSort extends BogoSorting {
                     Writes.swap(array, index1, index2, this.delay, true, false);
             }
             //Bubble Bogo
-            if(choice == 2) {
+            if (choice == 2) {
                 int i = BogoSorting.randInt(a, b - 1);
-                if(Reads.compareIndices(array, i, i + 1, this.delay, true) > 0)
+                if (Reads.compareIndices(array, i, i + 1, this.delay, true) > 0)
                     Writes.swap(array, i, i + 1, this.delay, true, false);
             }
             //Exchange Bojo
-            if(choice == 3) {
+            if (choice == 3) {
                 int index1 = BogoSorting.randInt(a, b), index2 = BogoSorting.randInt(a, b);
                 int comp = Reads.compareIndices(array, index1, index2, this.delay, true);
                 if (index1 < index2 ? comp > 0 : comp < 0)
                     Writes.reversal(array, index1, index2, this.delay, true, false);
             }
             //Exchange Bovo
-            if(choice == 4) {
+            if (choice == 4) {
                 pull(array, BogoSorting.randInt(a, b), a);
             }
             //Exchange Vogo
-            if(choice == 5) {
+            if (choice == 5) {
                 pull(array, BogoSorting.randInt(a, b), b - 1);
             }
             //Exchange Bomo
-            if(choice == 6) {
+            if (choice == 6) {
                 pull(array, BogoSorting.randInt(a, b), BogoSorting.randInt(a, b));
             }
             //Exchange Goro
-            if(choice == 7) {
+            if (choice == 7) {
                 int i1 = BogoSorting.randInt(a, b);
                 int i2 = BogoSorting.randInt(a, b);
                 int temp;
@@ -133,7 +133,7 @@ public final class ExchangeChirMergeSort extends BogoSorting {
 
     public void sort(int[] array, int a, int b, int depth) {
         Writes.recordDepth(depth);
-        if(b - a < 2)
+        if (b - a < 2)
             return;
         int m = a + (b - a) / 2;
         Writes.recursion();

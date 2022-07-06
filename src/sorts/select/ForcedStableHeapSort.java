@@ -40,7 +40,7 @@ public final class ForcedStableHeapSort extends Sort {
             if (leaf < dist && this.stableComp(array, key, start + leaf, start + leaf - 1)) {
                 leaf++;
             }
-            if(this.stableComp(array, key, start + leaf - 1, start + root - 1)) {
+            if (this.stableComp(array, key, start + leaf - 1, start + root - 1)) {
                 this.stableSwap(array, key, start + leaf - 1, start + root - 1);
                 root = leaf;
             }
@@ -66,7 +66,7 @@ public final class ForcedStableHeapSort extends Sort {
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         int[] key = Writes.createExternalArray(sortLength);
-        for(int i = 0; i < sortLength; i++)
+        for (int i = 0; i < sortLength; i++)
             Writes.write(key, i, i, 0.5, true, true);
         heapSort(array, key, 0, sortLength);
         Writes.deleteExternalArray(key);

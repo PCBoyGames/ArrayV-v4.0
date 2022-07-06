@@ -46,7 +46,7 @@ final public class AltstoogeSort extends Sort {
 
             Highlights.markArray(3, j - t);
             Highlights.markArray(4, i + t);
-            if(!base) {
+            if (!base) {
                 this.stoogeSort(A, mid, mid2, true);
             }
 

@@ -38,8 +38,8 @@ final public class NarniaSort extends Sort {
             this.tournament = tournament;
         }
         public void build() {
-            if(childLeft.index < 0) {
-                if(childRight.index < 0) {
+            if (childLeft.index < 0) {
+                if (childRight.index < 0) {
                     this.index = -1;
                     tournament = false;
                     childLeft = childRight = null;
@@ -48,11 +48,11 @@ final public class NarniaSort extends Sort {
                 Writes.changeAuxWrites(1);
                 winner = childRight;
                 index = childRight.index;
-            } else if(childRight.index < 0) {
+            } else if (childRight.index < 0) {
                 Writes.changeAuxWrites(1);
                 winner = childLeft;
                 index = childLeft.index;
-            } else if(indices(childLeft.index, childRight.index) == 1) {
+            } else if (indices(childLeft.index, childRight.index) == 1) {
                 Writes.changeAuxWrites(1);
                 winner = childRight;
                 index = childRight.index;
@@ -86,9 +86,9 @@ final public class NarniaSort extends Sort {
     }
 
     public Node brackets(int start, int end) {
-        if(end-start == 0)
+        if (end-start == 0)
             return new Node(start);
-        if(end-start == 1) {
+        if (end-start == 1) {
             Node a = new Node(start),
                  b = new Node(end);
 
@@ -101,10 +101,10 @@ final public class NarniaSort extends Sort {
     }
 
     public void removeWinner(Node root) {
-        if(root.winner.tournament) {
-            if(root.childLeft != null && root.childLeft.index > 0)
+        if (root.winner.tournament) {
+            if (root.childLeft != null && root.childLeft.index > 0)
                 Highlights.markArray(1, root.childLeft.index);
-            if(root.childRight != null && root.childRight.index > 0)
+            if (root.childRight != null && root.childRight.index > 0)
                 Highlights.markArray(1, root.childRight.index);
             Delays.sleep(0.75);
             removeWinner(root.winner);
@@ -114,7 +114,7 @@ final public class NarniaSort extends Sort {
             do {
                 root.build();
                 root = root.parent;
-            } while(root != null);
+            } while (root != null);
         }
     }
 
@@ -124,7 +124,7 @@ final public class NarniaSort extends Sort {
         Node root = brackets(0, length-1);
         int[] output = Writes.createExternalArray(length);
         int x = 0;
-        while(x < length) {
+        while (x < length) {
             int j = root.index;
             Highlights.markArray(1, j);
             Writes.write(output, x++, array[j], 1, true, true);

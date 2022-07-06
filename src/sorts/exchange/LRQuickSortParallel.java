@@ -34,7 +34,7 @@ final public class LRQuickSortParallel extends Sort {
 
     // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
     private void quickSort(int p, int r) {
-        if(p < r) {
+        if (p < r) {
             int pivot = p + (r - p + 1) / 2;
             int x = this.a[pivot];
 
@@ -44,12 +44,12 @@ final public class LRQuickSortParallel extends Sort {
             Highlights.markArray(3, pivot);
 
             while (i <= j) {
-                while (Reads.compareValues(this.a[i], x) == -1){
+                while (Reads.compareValues(this.a[i], x) == -1) {
                     i++;
                     Highlights.markArray(1, i);
                     Delays.sleep(0.5);
                 }
-                while (Reads.compareValues(this.a[j], x) == 1){
+                while (Reads.compareValues(this.a[j], x) == 1) {
                     j--;
                     Highlights.markArray(2, j);
                     Delays.sleep(0.5);
@@ -57,10 +57,10 @@ final public class LRQuickSortParallel extends Sort {
 
                 if (i <= j) {
                     // Follow the pivot and highlight it.
-                    if(i == pivot) {
+                    if (i == pivot) {
                         Highlights.markArray(3, j);
                     }
-                    if(j == pivot) {
+                    if (j == pivot) {
                         Highlights.markArray(3, i);
                     }
 

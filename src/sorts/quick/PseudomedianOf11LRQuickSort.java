@@ -26,13 +26,13 @@ final public class PseudomedianOf11LRQuickSort extends Sort {
     }
     private int medianMean(int[] a, int... qs) {
         int mean = 0, medIndex = 0;
-        for(int i : qs) {
+        for (int i : qs) {
             mean += a[i];
         }
         mean /= qs.length;
 
-        for(int i=1; i<qs.length; i++) {
-            if(Reads.compareValues(
+        for (int i=1; i<qs.length; i++) {
+            if (Reads.compareValues(
                 disparity(a, qs, i, mean),
                 disparity(a, qs, medIndex, mean)
             ) == -1)
@@ -44,7 +44,7 @@ final public class PseudomedianOf11LRQuickSort extends Sort {
     private void quickSort(int[] A, int p, int r, boolean low) {
         double v = (r-p) / 10d;
 
-        if(v <= 1d) {
+        if (v <= 1d) {
             this.inserter.customInsertSort(A, p, r+1, 0.1, false);
             return;
         }
@@ -66,12 +66,12 @@ final public class PseudomedianOf11LRQuickSort extends Sort {
         int z = r;
 
         while (y <= z) {
-            while (Reads.compareValues(A[y], x) == -1){
+            while (Reads.compareValues(A[y], x) == -1) {
                 y++;
                 Highlights.markArray(1, y);
                 Delays.sleep(0.5);
             }
-            while (Reads.compareValues(A[z], x) == 1){
+            while (Reads.compareValues(A[z], x) == 1) {
                 z--;
                 Highlights.markArray(2, z);
                 Delays.sleep(0.5);
@@ -82,10 +82,10 @@ final public class PseudomedianOf11LRQuickSort extends Sort {
             }
         }
 
-        if(p < z) {
+        if (p < z) {
             this.quickSort(A, p, z, true);
         }
-        if(y < r) {
+        if (y < r) {
             this.quickSort(A, y, r, false);
         }
     }

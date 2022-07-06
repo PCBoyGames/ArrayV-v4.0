@@ -74,7 +74,7 @@ public final class CocktailShellMergeSort extends Sort {
     }
 
     public void sort(int[] array, int a, int b) {
-        if(b - a < 32) {
+        if (b - a < 32) {
             InsertionSort smallSort = new InsertionSort(arrayVisualizer);
             smallSort.customInsertSort(array, a, b, 0.7, false);
             return;

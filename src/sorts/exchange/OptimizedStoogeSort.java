@@ -22,15 +22,15 @@ final public class OptimizedStoogeSort extends Sort {
     }
 
     private void forward(int[] array, int left, int right) {
-        while(left < right) {
+        while (left < right) {
             int index = right;
 
-            while(left < index) {
+            while (left < index) {
                 Highlights.markArray(1, left);
                 Highlights.markArray(2, index);
                 Delays.sleep(0.05);
 
-                if(Reads.compareValues(array[left], array[index]) > 0) {
+                if (Reads.compareValues(array[left], array[index]) > 0) {
                     Writes.swap(array, left, index, 0.075, true, false);
                 }
                 left++;
@@ -45,15 +45,15 @@ final public class OptimizedStoogeSort extends Sort {
     private void backward(int[] array, int left, int right) {
         int length = right;
 
-        while(left < right) {
+        while (left < right) {
             int index = left;
 
-            while(index < right) {
+            while (index < right) {
                 Highlights.markArray(1, index);
                 Highlights.markArray(2, right);
                 Delays.sleep(0.05);
 
-                if(Reads.compareValues(array[index], array[right]) > 0) {
+                if (Reads.compareValues(array[index], array[right]) > 0) {
                     Writes.swap(array, index, right, 0.075, true, false);
                 }
                 index++;
@@ -69,12 +69,12 @@ final public class OptimizedStoogeSort extends Sort {
         int left = 0;
         int right = length - 1;
 
-        while(left < right) {
+        while (left < right) {
             Highlights.markArray(1, left);
             Highlights.markArray(2, right);
             Delays.sleep(0.05);
 
-            if(Reads.compareValues(array[left], array[right]) > 0) {
+            if (Reads.compareValues(array[left], array[right]) > 0) {
                 Writes.swap(array, left, right, 0.075, true, false);
             }
             left++;

@@ -27,10 +27,10 @@ public abstract class ParallelSort extends Sort {
     }
     public Object getMethod(String name, int param) {
         Method[] methodsInCls = this.getClass().getDeclaredMethods();
-        for(Method i : methodsInCls) {
-            if(i.getName() == name) {
+        for (Method i : methodsInCls) {
+            if (i.getName() == name) {
                 Class<?>[] params = i.getParameterTypes();
-                if(params.length == param) {
+                if (params.length == param) {
                     return i;
                 }
             }
@@ -39,7 +39,7 @@ public abstract class ParallelSort extends Sort {
     }
     public Object run(String name, Object[] data) {
         Method m = (Method) getMethod(name, data.length);
-        if(m != null) {
+        if (m != null) {
             try {
                 return m.invoke(this, data);
             } catch(Exception e) {

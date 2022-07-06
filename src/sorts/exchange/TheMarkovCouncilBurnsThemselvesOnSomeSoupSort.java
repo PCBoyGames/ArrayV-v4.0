@@ -21,20 +21,20 @@ final public class TheMarkovCouncilBurnsThemselvesOnSomeSoupSort extends BogoSor
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        while(!isArraySorted(array, length)) {
-            for(int i=1; i<length; i++) {
+        while (!isArraySorted(array, length)) {
+            for (int i=1; i<length; i++) {
                 int markov = i;
-                while(
+                while (
                      ((markov > 0 && Reads.compareValues(array[markov-1], array[markov]) >= 0) ||
                       (markov < i && Reads.compareValues(array[markov], array[markov+1]) < 0)) &&
                       randInt(0, 10000) != 0) {
                     int d = randInt(-1, 2);
-                    if(markov+d >= 0 && markov+d <= i) {
+                    if (markov+d >= 0 && markov+d <= i) {
                         Writes.swap(array, markov+d, markov, 1, true, false);
                         markov += d;
-                    } else if(markov+d < 0) {
+                    } else if (markov+d < 0) {
                         markov++;
-                    } else if(markov+d > i)
+                    } else if (markov+d > i)
                         markov--;
                 }
             }

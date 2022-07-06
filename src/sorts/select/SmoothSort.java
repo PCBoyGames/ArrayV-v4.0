@@ -165,7 +165,7 @@ final public class SmoothSort extends Sort {
             head++;
         }
 
-        if(fullSort) {
+        if (fullSort) {
             this.trinkle(A, p, pshift, head, false);
 
             while (pshift != 1 || p != 1)

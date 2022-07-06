@@ -43,20 +43,20 @@ final public class LAQuickSort extends Sort {
         int j = b;
         Highlights.markArray(3, p);
 
-        while(true) {
+        while (true) {
             i++;
-            while(i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
+            while (i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.25);
                 i++;
             }
             j--;
-            while(j >= a && Reads.compareIndices(array, j, p, 0, false) == 1) {
+            while (j >= a && Reads.compareIndices(array, j, p, 0, false) == 1) {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.25);
                 j--;
             }
-            if(i < j) Writes.swap(array, i, j, 1, true, false);
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else      return j;
         }
     }
@@ -87,13 +87,13 @@ final public class LAQuickSort extends Sort {
     private void medianOfThree(int[] array, int a, int b) {
         int m = a+(b-1-a)/2;
 
-        if(Reads.compareIndices(array, a, m, 1, true) == 1)
+        if (Reads.compareIndices(array, a, m, 1, true) == 1)
             Writes.swap(array, a, m, 1, true, false);
 
-        if(Reads.compareIndices(array, m, b-1, 1, true) == 1) {
+        if (Reads.compareIndices(array, m, b-1, 1, true) == 1) {
             Writes.swap(array, m, b-1, 1, true, false);
 
-            if(Reads.compareIndices(array, a, m, 1, true) == 1)
+            if (Reads.compareIndices(array, a, m, 1, true) == 1)
                 return;
         }
 
@@ -159,7 +159,7 @@ final public class LAQuickSort extends Sort {
                 pi = this.ghostPartition(arr, low, high, pivot);
             }
             if (backPivot == pivot) equalPivotCount++;
-            if (depthLimit == 0 || equalPivotCount > 4){
+            if (depthLimit == 0 || equalPivotCount > 4) {
                 if (equalPivotCount > 4) equalPivotCount = 0;
                 heapSorter.heapSort(arr, low, high);
                 return;

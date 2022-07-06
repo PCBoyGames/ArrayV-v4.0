@@ -22,16 +22,16 @@ final public class OptimizedZubbleSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        for(int i = length - 1, cons = 1, first = 1; i >= first; i-=cons) {
+        for (int i = length - 1, cons = 1, first = 1; i >= first; i-=cons) {
             boolean firstset = false;
-            for(int j = Math.max(first - 1, 0); j < i; j++) {
+            for (int j = Math.max(first - 1, 0); j < i; j++) {
                 int k = j;
                 boolean swap = false;
-                while(j < i && Reads.compareValues(array[k], array[j + 1]) == 1){
+                while (j < i && Reads.compareValues(array[k], array[j + 1]) == 1) {
                     j++;
                     swap = true;
                 }
-                if(swap) {Writes.swap(array, k, j, 1, true, false); cons=1; if(!firstset) first=k; firstset = true;}
+                if (swap) {Writes.swap(array, k, j, 1, true, false); cons=1; if (!firstset) first=k; firstset = true;}
                 else {cons++;}
             }
         }

@@ -39,17 +39,17 @@ public class Searches {
 
     public static void push(int[] array, int search, int end, int key, boolean aux) {
         int i=end-1;
-        for(; i>=search&&i>=0; i--) {
+        for (; i>=search&&i>=0; i--) {
             Writes.write(array, i+1, array[i], 1, true, aux);
         }
         Writes.write(array, i+1, key, 1, true, aux);
     }
 
     public static void shift(int[] array, int from, int to, double sleep) {
-        if(from == to)
+        if (from == to)
             return;
         int k = array[from];
-        if(from < to) {
+        if (from < to) {
             Writes.arraycopy(array, from+1, array, from, to-from, sleep/2d, true, false);
         } else {
             Writes.arraycopy(array, to, array, to+1, from-to, sleep/2d, true, false);
@@ -59,7 +59,7 @@ public class Searches {
 
     public static void revpush(int[] array, int start, int search, int length, int key) {
         int i=start+1;
-        for(; i<search&&i<length; i++) {
+        for (; i<search&&i<length; i++) {
             Writes.write(array, i-1, array[i], 1, true, false);
         }
         Writes.write(array, i-1, key, 1, true, false);
@@ -76,17 +76,17 @@ public class Searches {
      * @return Where the number should go.
      */
     public static int linear(int[] array, int start, int end, int key, boolean goLeft, double sleep) {
-        if(goLeft) {
-            while(end >= start) {
-                if(Reads.compareValues(array[end], key) == -1)
+        if (goLeft) {
+            while (end >= start) {
+                if (Reads.compareValues(array[end], key) == -1)
                     break;
                 Highlights.markArray(1, end--);
                 Delays.sleep(sleep);
             }
             return end+1;
         } else {
-            while(end >= start) {
-                if(Reads.compareValues(array[start], key) == 1)
+            while (end >= start) {
+                if (Reads.compareValues(array[start], key) == 1)
                     break;
                 Highlights.markArray(1, start++);
                 Delays.sleep(sleep);
@@ -104,9 +104,9 @@ public class Searches {
      * @return Where the number should go.
      */
     public static int binary(int[] array, int start, int end, int key, double sleep) {
-        while(start < end) {
+        while (start < end) {
             int mid = start + ((end - start) / 2);
-            if(Reads.compareValues(array[mid], key) == -1) {
+            if (Reads.compareValues(array[mid], key) == -1) {
                 start = mid + 1;
             } else {
                 end = mid;
@@ -130,12 +130,12 @@ public class Searches {
         int prev = 1;
         int gap = 2;
         int length = end-start;
-        while(prev < length && Reads.compareValues(array[prev+start], key) == -1) {
+        while (prev < length && Reads.compareValues(array[prev+start], key) == -1) {
             prev *= gap;
             Highlights.markArray(1, prev+start);
             Delays.sleep(sleep);
         }
-        if(prev > length) {
+        if (prev > length) {
             prev = length;
         }
         return new Range((prev/gap)+start, prev+start);
@@ -154,13 +154,13 @@ public class Searches {
         int prev = 1;
         int gap = 2;
         int length = end-start;
-        while(prev < length && Reads.compareValues(array[end-prev], key) == 1) {
+        while (prev < length && Reads.compareValues(array[end-prev], key) == 1) {
             prev *= gap;
-            if(end-prev>=start)
+            if (end-prev>=start)
                 Highlights.markArray(1, end-prev);
             Delays.sleep(sleep);
         }
-        if(prev > length) {
+        if (prev > length) {
             prev = length;
         }
         return new Range(end-prev, end-(prev/gap));
@@ -178,7 +178,7 @@ public class Searches {
      */
     public static int exponentialLinear(int[] array, int start, int end, int key, boolean goRight, double sleep) {
         Range rng;
-        if(goRight)
+        if (goRight)
             rng = exponential(array, start, end, key, sleep);
         else
             rng = reverseExponential(array, start, end, key, sleep);
@@ -197,7 +197,7 @@ public class Searches {
      */
     public static int exponentialBinary(int[] array, int start, int end, int key, boolean goRight, double sleep) {
         Range rng;
-        if(goRight)
+        if (goRight)
             rng = exponential(array, start, end, key, sleep);
         else
             rng = reverseExponential(array, start, end, key, sleep);
@@ -218,16 +218,16 @@ public class Searches {
      */
     public static int exponentialIterative(int[] array, int start, int end, int key, boolean direction, double sleep) {
         start--;
-        while(start < end - 1) {
+        while (start < end - 1) {
             Range rng;
-            if(direction) {
+            if (direction) {
                 rng = reverseExponential(array, start, end, key, sleep);
             } else {
                 rng = exponential(array, start, end, key, sleep);
             }
             start = rng.start;
             end = rng.end;
-            if(start>=0)
+            if (start>=0)
                 Highlights.markArray(1, start);
             Highlights.markArray(2, end);
             Delays.sleep(sleep*4d);
@@ -297,18 +297,18 @@ public class Searches {
      * @return Where the number should go.
      */
     public static int trisearch(int[] array, int start, int end, int key, double sleep) {
-        while(start < end) {
+        while (start < end) {
             int mid = start + ((end - start) / 2);
             Highlights.markArray(1, start);
             Highlights.markArray(2, mid);
             Highlights.markArray(3, end);
             Delays.sleep(sleep);
-            if(Reads.compareValues(array[start], key) == 1) {
+            if (Reads.compareValues(array[start], key) == 1) {
                 break;
-            } else if(Reads.compareValues(array[end], key) == -1) {
+            } else if (Reads.compareValues(array[end], key) == -1) {
                 Highlights.clearAllMarks();
                 return end;
-            } else if(Reads.compareValues(array[mid], key) == -1) {
+            } else if (Reads.compareValues(array[mid], key) == -1) {
                 start = mid + 1;
             } else {
                 end = mid;
@@ -329,13 +329,13 @@ public class Searches {
      * @return Where the number should go.
      */
     public static int ternary(int[] array, int start, int end, int key, double sleep) {
-        while(start < end-1) {
+        while (start < end-1) {
             int third = (end - start + 1) / 3,
                 midA = start + third,
                 midB = end - third;
-            if(Reads.compareValues(array[midA], key) == 1) {
+            if (Reads.compareValues(array[midA], key) == 1) {
                 end = midA;
-            } else if(Reads.compareValues(array[midB], key) == -1) {
+            } else if (Reads.compareValues(array[midB], key) == -1) {
                 start = midB;
             } else {
                 start = midA;
@@ -356,12 +356,12 @@ public class Searches {
      * Finishes in O({@code kn}) average, can finish in O(infinity).
      */
     public static int extremeRandom(int[] array, int start, int end, int key, double sleep) {
-        if(end-start == 0)
+        if (end-start == 0)
             return start;
-        if(Reads.compareValues(array[end-1], key) == -1) {
+        if (Reads.compareValues(array[end-1], key) == -1) {
             return end;
         }
-        if(Reads.compareValues(array[start], key) == 1) {
+        if (Reads.compareValues(array[start], key) == 1) {
             return start;
         }
         Random z = new Random();
@@ -370,7 +370,7 @@ public class Searches {
             search = z.nextInt(end-start) + start;
             Highlights.markArray(1, search);
             Delays.sleep(sleep);
-        } while((search>start && Reads.compareValues(array[search-1], key) == 1)
+        } while ((search>start && Reads.compareValues(array[search-1], key) == 1)
              || Reads.compareValues(array[search], key) == -1);
         return search;
     }
@@ -381,18 +381,18 @@ public class Searches {
      */
     public static int random(int[] array, int start, int end, int key, double sleep) {
         Random z = new Random();
-        while(start < end-1) {
+        while (start < end-1) {
             int r1 = z.nextInt(end-start) + start,
                 r2 = z.nextInt(end-start) + start;
-            if(r2 < r1) {
+            if (r2 < r1) {
                 int t=r2;
                 r2  = r1;
                 r1  =  t;
             }
-            if(Reads.compareValues(array[r1], key) <= 0) {
+            if (Reads.compareValues(array[r1], key) <= 0) {
                 start = r1;
             }
-            if(Reads.compareValues(array[r2], key) >= 0) {
+            if (Reads.compareValues(array[r2], key) >= 0) {
                 end = r2;
             }
             Highlights.markArray(2, r1);
@@ -416,9 +416,9 @@ public class Searches {
      */
     public static int square(int[] array, int start, int end, int key, double sleep) {
         boolean low = true;
-        while(start < end) {
+        while (start < end) {
             int squareMid;
-            if(low) {
+            if (low) {
                 squareMid = (int) Math.sqrt(start*end);
             } else {
                 squareMid = (int) (end - (Math.sqrt(start*end) - start));
@@ -427,7 +427,7 @@ public class Searches {
             Highlights.markArray(2, squareMid);
             Highlights.markArray(3, end);
             Delays.sleep(sleep);
-            if(Reads.compareValues(array[squareMid], key) == -1) {
+            if (Reads.compareValues(array[squareMid], key) == -1) {
                 end = squareMid;
                 low = false;
             } else {
@@ -449,29 +449,29 @@ public class Searches {
      * @return location
      */
     public static int slope(int[] array, int start, int end, int key, double sleep) {
-        if(end-start == 0)
+        if (end-start == 0)
             return start;
         int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
-        for(int i=start; i<end; i++) {
+        for (int i=start; i<end; i++) {
             int v = array[i];
-            if(arrv.doingStabilityCheck()) {
+            if (arrv.doingStabilityCheck()) {
                 v = arrv.getStabilityValue(v);
             }
-            if(max < v) {
+            if (max < v) {
                 max = v;
             }
-            if(min > v) {
+            if (min > v) {
                 min = v;
             }
         }
         double approxRate = (max-min) / (double)(end - start);
         int approxIndex = (int) ((key - min) / approxRate) + start;
-        if(approxIndex < start)
+        if (approxIndex < start)
             return start;
-        if(approxIndex > end)
+        if (approxIndex > end)
             return end;
         //approxIndex = Math.min(Math.max(approxIndex, start), end);
-        if(Reads.compareValues(array[approxIndex], key) >= 0) {
+        if (Reads.compareValues(array[approxIndex], key) >= 0) {
             return exponentialIterative(array, start, approxIndex, key, true, sleep);
         } else {
             return exponentialIterative(array, approxIndex, end, key, false, sleep);

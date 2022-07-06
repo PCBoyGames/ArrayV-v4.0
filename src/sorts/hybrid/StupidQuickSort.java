@@ -54,12 +54,12 @@ final public class StupidQuickSort extends Sort {
             int pivot = array[pivotPos];
 
             while (i < j) {
-                while (Reads.compareValues(array[i], pivot) == -1){
+                while (Reads.compareValues(array[i], pivot) == -1) {
                     i++;
                     Highlights.markArray(1, i);
                     Delays.sleep(1);
                 }
-                while (Reads.compareValues(array[j], pivot) == 1){
+                while (Reads.compareValues(array[j], pivot) == 1) {
                     j--;
                     Highlights.markArray(2, j);
                     Delays.sleep(1);
@@ -67,10 +67,10 @@ final public class StupidQuickSort extends Sort {
 
                 if (i < j) {
                     // Follow the pivot and highlight it.
-                    if(i == pivotPos) {
+                    if (i == pivotPos) {
                         Highlights.markArray(3, j);
                     }
-                    if(j == pivotPos) {
+                    if (j == pivotPos) {
                         Highlights.markArray(3, i);
                     }
 

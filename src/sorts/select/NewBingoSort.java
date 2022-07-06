@@ -30,39 +30,39 @@ SOFTWARE.
  */
 
 final public class NewBingoSort extends Sort {
-	public NewBingoSort(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
+    public NewBingoSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
 
-		this.setSortListName("New Bingo");
-		this.setRunAllSortsName("New Bingo Sort");
-		this.setRunSortName("New Bingosort");
-		this.setCategory("Selection Sorts");
-		this.setComparisonBased(true);
-		this.setBucketSort(false);
-		this.setRadixSort(false);
-		this.setUnreasonablySlow(false);
-		this.setUnreasonableLimit(0);
-		this.setBogoSort(false);
-	}
+        this.setSortListName("New Bingo");
+        this.setRunAllSortsName("New Bingo Sort");
+        this.setRunSortName("New Bingosort");
+        this.setCategory("Selection Sorts");
+        this.setComparisonBased(true);
+        this.setBucketSort(false);
+        this.setRadixSort(false);
+        this.setUnreasonablySlow(false);
+        this.setUnreasonableLimit(0);
+        this.setBogoSort(false);
+    }
 
-	@Override
-	public void runSort(int[] array, int length, int bucketCount) {
-		for(int j = length, k = 1;;) {
-			for(int i = k; i < j; i++)
-				if(Reads.compareIndices(array, i, k-1, 0.01, true) >= 0)
-					Writes.swap(array, k++, i, 0.02, true, false);
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+        for (int j = length, k = 1;;) {
+            for (int i = k; i < j; i++)
+                if (Reads.compareIndices(array, i, k-1, 0.01, true) >= 0)
+                    Writes.swap(array, k++, i, 0.02, true, false);
 
-			if(k == j) break;
+            if (k == j) break;
 
-			if(Reads.compareIndices(array, 0, k-1, 0.01, true) == 0)
-				while(k > 0) Writes.swap(array, --j, --k, 0.02, true, false);
+            if (Reads.compareIndices(array, 0, k-1, 0.01, true) == 0)
+                while (k > 0) Writes.swap(array, --j, --k, 0.02, true, false);
 
-			else {
-				Writes.swap(array, --j, --k, 1, true, false);
-				while(Reads.compareIndices(array, --k, j, 0.01, true) == 0)
-					Writes.swap(array, --j, k, 0.02, true, false);
-			}
-			if(k == 0) k = 1;
-		}
-	}
+            else {
+                Writes.swap(array, --j, --k, 1, true, false);
+                while (Reads.compareIndices(array, --k, j, 0.01, true) == 0)
+                    Writes.swap(array, --j, k, 0.02, true, false);
+            }
+            if (k == 0) k = 1;
+        }
+    }
 }

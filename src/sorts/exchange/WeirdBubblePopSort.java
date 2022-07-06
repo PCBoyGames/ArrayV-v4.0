@@ -40,7 +40,7 @@ public final class WeirdBubblePopSort extends Sort {
     public void weirdBubble(int[] array, int a, int b, boolean dir) {
         int cmp = dir ? 1 : -1;
         boolean sorted = false;
-        while(!sorted) {
+        while (!sorted) {
             sorted = true;
             for (int i = a + 1; i < b; i++) {
                 int j = i;

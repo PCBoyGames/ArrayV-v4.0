@@ -76,15 +76,15 @@ final public class SwapMergeSort extends Sort {
     }
 
     private void mergeRun(int[] array, int start, int mid, int end) {
-        if(start == mid) return;
+        if (start == mid) return;
 
         mergeRun(array, start, (mid+start)/2, mid);
         mergeRun(array, mid, (mid+end)/2, end);
 
-        if(end - start < 32) {
+        if (end - start < 32) {
             return;
         }
-        else if(end - start == 32) {
+        else if (end - start == 32) {
             binaryInserter.customBinaryInsert(array, start, Math.min(array.length, end + 1), 0.333);
         }
         else {
@@ -96,7 +96,7 @@ final public class SwapMergeSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         binaryInserter = new BinaryInsertionSort(arrayVisualizer);
 
-        if(length < 32) {
+        if (length < 32) {
             binaryInserter.customBinaryInsert(array, 0, length, 0.333);
             return;
         }

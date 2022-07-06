@@ -101,10 +101,10 @@ final public class UtilFrame extends javax.swing.JFrame {
         return Math.abs(integer);
     }
 
-    public void reposition(ArrayFrame af){
+    public void reposition(ArrayFrame af) {
         toFront();
         setLocation(Math.min((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth(), Frame.getX() + Frame.getWidth() + af.getWidth()), Frame.getY() + 29);
-        if(this.abstractFrame != null && abstractFrame.isVisible())
+        if (this.abstractFrame != null && abstractFrame.isVisible())
             abstractFrame.reposition();
     }
 
@@ -402,11 +402,11 @@ final public class UtilFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed() {//GEN-FIRST:event_jButton1ActionPerformed
         //CHANGE SORT
-        if(this.abstractFrame != null && abstractFrame.isVisible()){
+        if (this.abstractFrame != null && abstractFrame.isVisible()) {
             boolean tmp = this.abstractFrame instanceof SortPrompt;
             abstractFrame.dispose();
             jButton1ResetText();
-            if(tmp)
+            if (tmp)
                 return;
         }
         this.abstractFrame = new SortPrompt(this.array, this.ArrayVisualizer, this.Frame, this);
@@ -421,11 +421,11 @@ final public class UtilFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
         //CHANGE VIEW
-        if(this.abstractFrame != null && abstractFrame.isVisible()){
+        if (this.abstractFrame != null && abstractFrame.isVisible()) {
             boolean tmp = this.abstractFrame instanceof ViewPrompt;
             jButton2ResetText();
             abstractFrame.dispose();
-            if(tmp)
+            if (tmp)
                 return;
         }
         this.abstractFrame = new ViewPrompt(this.ArrayVisualizer, this.Frame, this);
@@ -441,28 +441,28 @@ final public class UtilFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed() {//GEN-FIRST:event_jButton3ActionPerformed
         boolean speedPromptAllowed;
 
-        if(this.abstractFrame == null) {
+        if (this.abstractFrame == null) {
             speedPromptAllowed = true;
         }
-        else if(!this.abstractFrame.isVisible()) {
+        else if (!this.abstractFrame.isVisible()) {
             speedPromptAllowed = true;
         }
         else {
             speedPromptAllowed = false;
         }
 
-        if(speedPromptAllowed) {
+        if (speedPromptAllowed) {
             boolean showPrompt = true;
-            while(showPrompt) {
+            while (showPrompt) {
                 try {
                     double oldRatio = Delays.getSleepRatio();
                     String userInput = JOptionPane.showInputDialog(null, "Modify the visual's speed below (Ex. 10 = Ten times faster)", oldRatio);
-                    if(userInput == null) {
+                    if (userInput == null) {
                         showPrompt = false;
                     }
                     else {
                         double newRatio = Double.parseDouble(userInput);
-                        if(newRatio == 0) throw new Exception("Divide by zero");
+                        if (newRatio == 0) throw new Exception("Divide by zero");
                         Delays.setSleepRatio(newRatio);
                         Delays.updateCurrentDelay(oldRatio, Delays.getSleepRatio());
                         showPrompt = false;
@@ -505,7 +505,7 @@ final public class UtilFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jCheckBox5ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        if(jCheckBox5.isSelected()) {
+        if (jCheckBox5.isSelected()) {
             Sounds.toggleSofterSounds(true);
         }
         else {
@@ -515,11 +515,11 @@ final public class UtilFrame extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
         //CHANGE SIZE
-        if(this.abstractFrame != null && abstractFrame.isVisible()){
+        if (this.abstractFrame != null && abstractFrame.isVisible()) {
             boolean tmp = this.abstractFrame instanceof ShufflePrompt;
             abstractFrame.dispose();
             jButton6ResetText();
-            if(tmp)
+            if (tmp)
                 return;
         }
         this.abstractFrame = new ShufflePrompt(this.ArrayManager, this.Frame, this);
@@ -575,7 +575,7 @@ final public class UtilFrame extends javax.swing.JFrame {
             case "AntiQSort":
                 if (ArrayVisualizer.enableBenchmarking(false))
                     break;
-                if(this.abstractFrame != null && abstractFrame.isVisible()){
+                if (this.abstractFrame != null && abstractFrame.isVisible()) {
                     abstractFrame.dispose();
                     jButton6ResetText();
                 }

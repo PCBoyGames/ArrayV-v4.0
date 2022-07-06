@@ -19,22 +19,22 @@ public class OmegaBranchlessBarcodeSort extends BogoSorting {
         this.setBogoSort(false);
     }
     private void omegaBarcode(int[] array, int start, int end, int order) {
-        if(order < 1 || start >= end)
+        if (order < 1 || start >= end)
             return;
         int j = randInt(start, end), g = randInt(start, end);
-        for(int i=start; i<end; i++) {
-            for(int h=start; h<g; h++) {
+        for (int i=start; i<end; i++) {
+            for (int h=start; h<g; h++) {
                 int k = Math.min(i, j),
                     l = Math.max(i, j),
                     cmp = Reads.compareIndices(array, l, k, 0.005, true) >> 31;
-                for(int m=0; m<order && m<l-k; m++) {
+                for (int m=0; m<order && m<l-k; m++) {
                     Writes.reversal(array, (m+k)&cmp, l&cmp, 1, true, false);
                     omegaBarcode(array, m, l-k-1, (order-1)&cmp);
                 }
-                for(int m=k; m<l; m++) {
+                for (int m=k; m<l; m++) {
                     omegaBarcode(array, m+1, l, order-1);
                 }
-                if(i < end)
+                if (i < end)
                     j = i + randInt(0, end-i);
             }
             g = randInt(start, end);
@@ -46,7 +46,7 @@ public class OmegaBranchlessBarcodeSort extends BogoSorting {
     }
 
     private int binsearch(int[] array, int start, int end, int key, double slp, Comparator<Integer> bcmp) {
-        while(end-start > 0) {
+        while (end-start > 0) {
             int l = end - start,
                 c = bcmp.compare(key, array[start+l/2]); // branchless compare here
             Highlights.markArray(1, start+l/2);
@@ -74,9 +74,9 @@ public class OmegaBranchlessBarcodeSort extends BogoSorting {
                 binaryInsertSort(array, start, j, compSleep, writeSleep);
                 j--;
             }
-            if(src < i)
+            if (src < i)
                 Writes.write(array, src, num, writeSleep, true, false);
-            while(j > start)
+            while (j > start)
                 binaryInsertSort(array, start, j--, compSleep, writeSleep);
 
             Highlights.clearAllMarks();

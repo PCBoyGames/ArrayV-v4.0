@@ -58,21 +58,21 @@ final public class ShuffledTreeSort extends Sort {
         Highlights.markArray(2, r);
         Delays.sleep(1);
 
-        if(lower[r] != 0) this.traverse(array, keys, lower, upper, lower[r]);
+        if (lower[r] != 0) this.traverse(array, keys, lower, upper, lower[r]);
 
         Writes.write(keys, this.idx++, r, 1, true, true);
 
-        if(upper[r] != 0) this.traverse(array, keys, lower, upper, upper[r]);
+        if (upper[r] != 0) this.traverse(array, keys, lower, upper, upper[r]);
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int[] keys  = Writes.createExternalArray(currentLength);
-        for(int i = 0; i < currentLength; i++)
+        for (int i = 0; i < currentLength; i++)
             Writes.write(keys, i, i, 1, true, true);
 
         Random random = new Random();
-        for(int i = 0; i < currentLength; i++){
+        for (int i = 0; i < currentLength; i++) {
             int r = random.nextInt(currentLength - i) + i;
             this.stableSwap(array, keys, i, r);
         }
@@ -81,18 +81,18 @@ final public class ShuffledTreeSort extends Sort {
         int[] upper = Writes.createExternalArray(currentLength);
         int[] next;
 
-        for(int i = 1; i < currentLength; i++) {
+        for (int i = 1; i < currentLength; i++) {
             Highlights.markArray(2, i);
             int c = 0;
 
-            while(true) {
+            while (true) {
                 Highlights.markArray(1, c);
                 Delays.sleep(0.5);
 
                 int cmp = Reads.compareValues(array[i], array[c]);
                 next = (cmp < 0 || (cmp == 0 && Reads.compareOriginalValues(keys[i], keys[c]) < 0)) ? lower : upper;
 
-                if(next[c] == 0) {
+                if (next[c] == 0) {
                     Writes.write(next, c, i, 0, false, true);
                     break;
                 }
@@ -104,10 +104,10 @@ final public class ShuffledTreeSort extends Sort {
         this.idx = 0;
         this.traverse(array, keys, lower, upper, 0);
 
-        for(int i = 0; i < currentLength-1; i++) {
+        for (int i = 0; i < currentLength-1; i++) {
             Highlights.markArray(2, i);
 
-            if(Reads.compareOriginalValues(i, keys[i]) != 0) {
+            if (Reads.compareOriginalValues(i, keys[i]) != 0) {
                 int t = array[i];
                 int j = i, k = keys[i];
 
@@ -118,7 +118,7 @@ final public class ShuffledTreeSort extends Sort {
                     j = k;
                     k = keys[k];
                 }
-                while(Reads.compareOriginalValues(k, i) != 0);
+                while (Reads.compareOriginalValues(k, i) != 0);
 
                 Writes.write(array, j, t, 1, true, false);
                 Writes.write(keys, j, j, 1, true, true);

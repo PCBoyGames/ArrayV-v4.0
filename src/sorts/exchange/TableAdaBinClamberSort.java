@@ -65,9 +65,9 @@ public final class TableAdaBinClamberSort extends Sort {
             right++;
         }
         Highlights.clearAllMarks();
-        for(int i = 0; i < currentLength; i++) {
+        for (int i = 0; i < currentLength; i++) {
             Highlights.markArray(2, i);
-            if(Reads.compareOriginalValues(i, table[i]) != 0) {
+            if (Reads.compareOriginalValues(i, table[i]) != 0) {
                 int t = array[i];
                 int j = i, next = table[i];
                 do {
@@ -76,7 +76,7 @@ public final class TableAdaBinClamberSort extends Sort {
                     j = next;
                     next = table[next];
                 }
-                while(Reads.compareOriginalValues(next, i) != 0);
+                while (Reads.compareOriginalValues(next, i) != 0);
                 Writes.write(array, j, t, 1, true, false);
                 Writes.write(table, j, j, 1, true, true);
             }

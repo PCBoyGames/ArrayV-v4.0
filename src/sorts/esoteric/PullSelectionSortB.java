@@ -21,9 +21,9 @@ public final class PullSelectionSortB extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        for(int i=0; i < length; i++) {
-            for(int j=i+1; j<length; j++) {
-                if(Reads.compareValues(array[j], array[i]) == -1) {
+        for (int i=0; i < length; i++) {
+            for (int j=i+1; j<length; j++) {
+                if (Reads.compareValues(array[j], array[i]) == -1) {
                     Writes.multiSwap(array, j, i, 0.1, true, false);
                 }
             }

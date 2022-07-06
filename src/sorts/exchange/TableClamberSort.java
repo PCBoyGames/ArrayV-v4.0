@@ -43,9 +43,9 @@ public final class TableClamberSort extends Sort {
                 if (stableComp(array, table, i, j)) Writes.swap(table, i, j, 0.125, true, true);
             }
         Highlights.clearMark(3);
-        for(int i = 0; i < currentLength; i++) {
+        for (int i = 0; i < currentLength; i++) {
             Highlights.markArray(2, i);
-            if(Reads.compareOriginalValues(i, table[i]) != 0) {
+            if (Reads.compareOriginalValues(i, table[i]) != 0) {
                 int t = array[i];
                 int j = i, next = table[i];
                 do {
@@ -54,7 +54,7 @@ public final class TableClamberSort extends Sort {
                     j = next;
                     next = table[next];
                 }
-                while(Reads.compareOriginalValues(next, i) != 0);
+                while (Reads.compareOriginalValues(next, i) != 0);
                 Writes.write(array, j, t, 1, true, false);
                 Writes.write(table, j, j, 1, true, true);
             }

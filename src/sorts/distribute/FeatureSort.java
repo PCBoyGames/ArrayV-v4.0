@@ -65,7 +65,7 @@ final public class FeatureSort extends Sort {
     public void arrayListReversal(ArrayList<Integer> array, int start, int length, int pos) {
         Writes.changeReversals(1);
 
-        for(int i = start; i < start + ((length - start + 1) / 2); i++) {
+        for (int i = start; i < start + ((length - start + 1) / 2); i++) {
             this.arrayListSwap(array, i, start + length - i, pos);
         }
     }
@@ -78,21 +78,21 @@ final public class FeatureSort extends Sort {
 
         int left = leftStart;
         int right = rightStart;
-        for(int nxt = 0; nxt < end - leftStart; nxt++){
-            if(left >= rightStart && right >= end) break;
+        for (int nxt = 0; nxt < end - leftStart; nxt++) {
+            if (left >= rightStart && right >= end) break;
 
             Highlights.markArray(1, nxt + leftStart);
             Highlights.markArray(2, right);
 
-            if(left < rightStart && right >= end){
+            if (left < rightStart && right >= end) {
                 Highlights.clearMark(2);
                 this.arrayListWrite(array, nxt + leftStart, copied[(left++) - leftStart], start+leftStart);
             }
-            else if(left >= rightStart && right < end){
+            else if (left >= rightStart && right < end) {
                 Highlights.clearMark(1);
                 break;
             }
-            else if(Reads.compareValues(copied[left - leftStart], array.get(right)) <= 0){
+            else if (Reads.compareValues(copied[left - leftStart], array.get(right)) <= 0) {
                 this.arrayListWrite(array, nxt + leftStart, copied[(left++) - leftStart], start+leftStart);
             }
             else {

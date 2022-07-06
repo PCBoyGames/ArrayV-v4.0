@@ -32,14 +32,14 @@ public final class TableSelectionSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] table = Writes.createExternalArray(length);
-        for(int i = 0; i<length;i++)
+        for (int i = 0; i<length;i++)
             Writes.write(table, i, i, 0.5, true, true);
         for (int i = 0; i < length - 1; i++) {
             int minIdx = i;
 
             for (int j = i + 1; j < length; j++) {
 
-                if (stableComp(array, table, j, minIdx)){
+                if (stableComp(array, table, j, minIdx)) {
                     minIdx = j;
                     Highlights.markArray(3, minIdx);
                     Delays.sleep(0.125);
@@ -49,10 +49,10 @@ public final class TableSelectionSort extends Sort {
                 Writes.swap(table, i, minIdx, 0.25, true, true);
         }
         Highlights.clearMark(3);
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             Highlights.markArray(2, i);
 
-            if(Reads.compareOriginalValues(i, table[i]) != 0) {
+            if (Reads.compareOriginalValues(i, table[i]) != 0) {
                 int t = array[i];
                 int j = i, next = table[i];
 
@@ -63,7 +63,7 @@ public final class TableSelectionSort extends Sort {
                     j = next;
                     next = table[next];
                 }
-                while(Reads.compareOriginalValues(next, i) != 0);
+                while (Reads.compareOriginalValues(next, i) != 0);
 
                 Writes.write(array, j, t, 1, true, false);
                 Writes.write(table, j, j, 1, true, true);

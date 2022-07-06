@@ -25,20 +25,20 @@ final public class EvenMoreOptimizedSmoothBingoSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         int seek = 0;
         Stack<Integer> equals = new Stack<>();
-        for(int i=length-1; i>seek;) {
+        for (int i=length-1; i>seek;) {
             int equal;
-            if(equals.empty()) {
+            if (equals.empty()) {
                 equal = 0;
             } else {
                 Writes.changeAllocAmount(-1);
                 equal = equals.pop();
             }
-            for(int j=seek+1; j<=i; j++) {
+            for (int j=seek+1; j<=i; j++) {
                 int c = Reads.compareIndices(array, j, seek, 0.1, true);
-                if(c >= 0) {
-                    if(j != ++seek)
+                if (c >= 0) {
+                    if (j != ++seek)
                         Writes.swap(array, j, seek, 0.5, true, false);
-                    if(c == 0) {
+                    if (c == 0) {
                         equal++;
                     } else {
                         Writes.changeAuxWrites(1);
@@ -48,14 +48,14 @@ final public class EvenMoreOptimizedSmoothBingoSort extends Sort {
                     }
                 }
             }
-            if(seek >= i) {
+            if (seek >= i) {
                 Writes.clearAllocAmount();
                 return;
             }
             do {
                 Writes.swap(array, seek--, i--, 1, true, false);
-            } while(equal-- > 0);
-            if(seek < 0) seek = 0;
+            } while (equal-- > 0);
+            if (seek < 0) seek = 0;
         }
     }
 }

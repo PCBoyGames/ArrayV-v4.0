@@ -92,12 +92,12 @@ public final class BogoBogoSort extends BogoSorting {
     public void runSort(int[] array, int length, int bucketCount) {
         tmp = new int[length-1][];
 
-        for(int i = length; i > 1; i--)
+        for (int i = length; i > 1; i--)
             tmp[i-2] = Writes.createExternalArray(i);
 
         bogoBogo(array, length, false);
 
-        for(int i = length; i > 1; i--)
+        for (int i = length; i > 1; i--)
             Writes.deleteExternalArray(tmp[i-2]);
     }
 }

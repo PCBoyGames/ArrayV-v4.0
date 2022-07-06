@@ -43,75 +43,75 @@ public final class WeavedVanVoorhisFourFourSortIterative extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	private int end;
-	
-	private void compSwap(int[] array, int a, int b) {
-		if(b < this.end && Reads.compareIndices(array, a, b, 0.5, true) > 0)
-			Writes.swap(array, a, b, 0.5, true, false);
-	}
-	
-	private void compRange(int[] array, int a, int b, int s) {
-		while(s-- > 0) this.compSwap(array, a++, b++);
-	}
-	
+
+    private int end;
+
+    private void compSwap(int[] array, int a, int b) {
+        if (b < this.end && Reads.compareIndices(array, a, b, 0.5, true) > 0)
+            Writes.swap(array, a, b, 0.5, true, false);
+    }
+
+    private void compRange(int[] array, int a, int b, int s) {
+        while (s-- > 0) this.compSwap(array, a++, b++);
+    }
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		this.end = length;
-		int n = 1 << (2*((33-Integer.numberOfLeadingZeros(length-1))/2)); //4^ceil(log4 n)
-		
-		for(int k = 4; k <= n; k *= 4) {
-			int g = n/k;
-			
-			//four sorters
-			
-			for(int i = 0; i < k; i += 2)
-				this.compRange(array, (i  )*g, (i+1)*g, g);
-			
-			for(int i = 0; i < k; i += 4) {
-				this.compRange(array, (i  )*g, (i+2)*g, g);
-				this.compRange(array, (i+1)*g, (i+3)*g, g);
-			}
-			for(int i = 0; i < k; i += 4)
-				this.compRange(array, (i+1)*g, (i+2)*g, g);
-			
-			//???
-			
-			for(int j = 16; j <= k; j *= 4) {
-				int s = k/j, g1 = 4*(s-1);
-				
-				for(int i = 2; i+7 < j; i += 4) {
-					for(int m = 0; m < s; m++) {
-						this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+6)+((i+6)/4)*g1+4*m)*g, g);
-						this.compRange(array, ((i+1)+((i+1)/4)*g1+4*m)*g, ((i+7)+((i+7)/4)*g1+4*m)*g, g);
-					}
-				}
-				for(int i = 1; i+5 < j; i += 4) {
-					for(int m = 0; m < s; m++) {
-						this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+3)+((i+3)/4)*g1+4*m)*g, g);
-						this.compRange(array, ((i+2)+((i+2)/4)*g1+4*m)*g, ((i+5)+((i+5)/4)*g1+4*m)*g, g);
-					}
-				}
-				for(int i = 2; i+3 < j; i += 4) {
-					for(int m = 0; m < s; m++) {
-						this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+2)+((i+2)/4)*g1+4*m)*g, g);
-						this.compRange(array, ((i+1)+((i+1)/4)*g1+4*m)*g, ((i+3)+((i+3)/4)*g1+4*m)*g, g);
-					}
-				}
-				if(g1 > 0) {
-					for(int i = 3; i+3 < j; i += 4)
-						for(int m = 0; m < s; m++)
-							this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+1)+((i+1)/4)*g1+4*m)*g, g);
-					for(int i = 5; i+3 < j; i += 4)
-						for(int m = 0; m < s; m++)
-							this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+1)+((i+1)/4)*g1+4*m)*g, g);
-				}
-				else {
-					for(int i = 3; i+3 < j; i += 2)
-						for(int m = 0; m < s; m++)
-							this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+1)+((i+1)/4)*g1+4*m)*g, g);
-				}
-			}
-		}
-	}
+        this.end = length;
+        int n = 1 << (2*((33-Integer.numberOfLeadingZeros(length-1))/2)); //4^ceil(log4 n)
+
+        for (int k = 4; k <= n; k *= 4) {
+            int g = n/k;
+
+            //four sorters
+
+            for (int i = 0; i < k; i += 2)
+                this.compRange(array, (i  )*g, (i+1)*g, g);
+
+            for (int i = 0; i < k; i += 4) {
+                this.compRange(array, (i  )*g, (i+2)*g, g);
+                this.compRange(array, (i+1)*g, (i+3)*g, g);
+            }
+            for (int i = 0; i < k; i += 4)
+                this.compRange(array, (i+1)*g, (i+2)*g, g);
+
+            //???
+
+            for (int j = 16; j <= k; j *= 4) {
+                int s = k/j, g1 = 4*(s-1);
+
+                for (int i = 2; i+7 < j; i += 4) {
+                    for (int m = 0; m < s; m++) {
+                        this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+6)+((i+6)/4)*g1+4*m)*g, g);
+                        this.compRange(array, ((i+1)+((i+1)/4)*g1+4*m)*g, ((i+7)+((i+7)/4)*g1+4*m)*g, g);
+                    }
+                }
+                for (int i = 1; i+5 < j; i += 4) {
+                    for (int m = 0; m < s; m++) {
+                        this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+3)+((i+3)/4)*g1+4*m)*g, g);
+                        this.compRange(array, ((i+2)+((i+2)/4)*g1+4*m)*g, ((i+5)+((i+5)/4)*g1+4*m)*g, g);
+                    }
+                }
+                for (int i = 2; i+3 < j; i += 4) {
+                    for (int m = 0; m < s; m++) {
+                        this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+2)+((i+2)/4)*g1+4*m)*g, g);
+                        this.compRange(array, ((i+1)+((i+1)/4)*g1+4*m)*g, ((i+3)+((i+3)/4)*g1+4*m)*g, g);
+                    }
+                }
+                if (g1 > 0) {
+                    for (int i = 3; i+3 < j; i += 4)
+                        for (int m = 0; m < s; m++)
+                            this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+1)+((i+1)/4)*g1+4*m)*g, g);
+                    for (int i = 5; i+3 < j; i += 4)
+                        for (int m = 0; m < s; m++)
+                            this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+1)+((i+1)/4)*g1+4*m)*g, g);
+                }
+                else {
+                    for (int i = 3; i+3 < j; i += 2)
+                        for (int m = 0; m < s; m++)
+                            this.compRange(array, ((i  )+((i  )/4)*g1+4*m)*g, ((i+1)+((i+1)/4)*g1+4*m)*g, g);
+                }
+            }
+        }
+    }
 }

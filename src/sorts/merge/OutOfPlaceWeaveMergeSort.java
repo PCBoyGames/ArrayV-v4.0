@@ -36,11 +36,11 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
 
     private void weave(int[] array, int[] aux, int start, int end) {
 
-        for(int i = 0; i<=end-start; i+=2){
+        for (int i = 0; i<=end-start; i+=2) {
             Writes.write(array, start+i, aux[start+i/2], 0.25, true, false);
         }
 
-        for(int i = 1; i<=end-start; i+=2){
+        for (int i = 1; i<=end-start; i+=2) {
             Writes.write(array, start+i, aux[start/2+i/2+end/2+1], 0.25, true, false);
         }
 
@@ -52,9 +52,9 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
         int j = start+1;
         int pointer = start;
 
-        while(i <= end && j <= end){
+        while (i <= end && j <= end) {
 
-            if(Reads.compareValues(array[i],array[j])>0){
+            if (Reads.compareValues(array[i],array[j])>0) {
                 Writes.write(aux, pointer, array[j], 0.05, true, true);
                 j += 2;
             }else{
@@ -66,10 +66,10 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
 
         int k;
 
-        if(i < j)  {k = i;}
+        if (i < j)  {k = i;}
         else       {k = j;}
 
-        while(k<=end){
+        while (k<=end) {
             Writes.write(aux, pointer, array[k], 0.05, true, true);
             k += 2;
             pointer++;
@@ -77,8 +77,8 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
     }
 
 
-    public void controller(int[] array, int[] aux, int start, int end){
-        if(end-start>=2){
+    public void controller(int[] array, int[] aux, int start, int end) {
+        if (end-start>=2) {
             controller(array, aux, start, (end+start-1)/2);
             controller(array, aux, (end+start+1)/2, end);
         }
@@ -92,13 +92,13 @@ final public class OutOfPlaceWeaveMergeSort extends Sort {
 
 
         int [] swaparray = Writes.createExternalArray(currentLength);
-        for(int i = 0; i<currentLength; i++){
+        for (int i = 0; i<currentLength; i++) {
             Writes.write(swaparray, i, array[i], 0.05, true, false);
         }
 
         controller(array, swaparray, 0, currentLength-1);
 
-        for(int i = 0; i<currentLength; i++){
+        for (int i = 0; i<currentLength; i++) {
             Writes.write(array, i, swaparray[i], 0.05, true, true);
         }
 

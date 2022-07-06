@@ -26,7 +26,7 @@ final public class BoomSort extends BogoSorting {
         this.setUnreasonableLimit(2048);
         this.setBogoSort(false);
     }
-    
+
     protected boolean bogo(int[] array, int start, int end) {
         boolean swap = false;
         while (!isMinSorted(array, start, end)) {

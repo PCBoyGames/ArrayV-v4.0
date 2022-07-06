@@ -84,8 +84,8 @@ class Baba extends XY { // Baba itself
     // Checks if Baba intersects its own path
     // (only for current state)
     public boolean intersectsOwnPath() {
-        for(XY el : this.history) { // Iterate through Baba's location history,
-            if(this.x == el.x && this.y == el.y) {
+        for (XY el : this.history) { // Iterate through Baba's location history,
+            if (this.x == el.x && this.y == el.y) {
                 return true; // and break when an equal X/Y coord is found
             }
         }
@@ -100,12 +100,12 @@ class Baba extends XY { // Baba itself
     // (given the bottom right corner of it)
     public boolean traversesAllIn(XY corner) {
         boolean[][] grid = new boolean[corner.y][corner.x]; // Initialize the entire grid
-        for(XY el : this.history) { // For each of Baba's previous moves,
+        for (XY el : this.history) { // For each of Baba's previous moves,
             grid[el.y][el.x] = true; // flag Baba's position at that point on the grid
         }
-        for(int i=0; i<corner.y; i++) { // Go through the grid.
-            for(int j=0; j<corner.x; j++) {
-                if(!grid[i][j]) // If any part of the grid doesn't have a flag,
+        for (int i=0; i<corner.y; i++) { // Go through the grid.
+            for (int j=0; j<corner.x; j++) {
+                if (!grid[i][j]) // If any part of the grid doesn't have a flag,
                     return false; // break away, and say no.
             }
         }
@@ -148,7 +148,7 @@ final public class BabaSort extends BogoSorting {
         this.setBogoSort(false);
     }
     private void compSwap(int[] array, int start, int end) {
-        if(Reads.compareIndices(array, start, end, 0.5, true) == 1) {
+        if (Reads.compareIndices(array, start, end, 0.5, true) == 1) {
             Writes.swap(array, start, end, 0.5, false, false);
         }
     }
@@ -162,9 +162,9 @@ final public class BabaSort extends BogoSorting {
         // and initialize Baba.
         Baba baba = new Baba();
 
-        while(!baba.traversesAllIn(cornerDim)) {
+        while (!baba.traversesAllIn(cornerDim)) {
             baba.reset(); // Reset Baba before we continue (redundant during the first iteration)
-            for(int i=0; i<length; i++) {
+            for (int i=0; i<length; i++) {
                 switch(Math.abs(array[i]) % 3) { // Makes Baba turn according to the array input
                     case 0:
                         baba.turnLeft();
@@ -176,19 +176,19 @@ final public class BabaSort extends BogoSorting {
                 }
                 baba.move();
                 // If Baba makes an invalid move (OOB or intersecting own path),
-                if(baba.intersectsOwnPath() || baba.isOOB(cornerDim)) {
+                if (baba.intersectsOwnPath() || baba.isOOB(cornerDim)) {
                     // shuffle the array, and try again.
                     this.bogoSwap(array, 0, length, false);
                     break;
                 }
-                if(baba.movesTaken() > 0) { // We aren't able to do anything if Baba only has a current state
+                if (baba.movesTaken() > 0) { // We aren't able to do anything if Baba only has a current state
 
                     // get Baba's previous and current states
                     int babaPrev = baba.matrixIndex(cornerDim, baba.movesTaken() - 1),
                          babaNow = baba.matrixIndex(cornerDim);
 
                     // Ensure that we can't compswap in the wrong direction
-                    if(babaPrev > babaNow) {
+                    if (babaPrev > babaNow) {
                         int temp = babaPrev;
                         babaPrev = babaNow;
                         babaNow = temp;
@@ -206,7 +206,7 @@ final public class BabaSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         Statistics.putStat("Baba Traversal"); // Initialize Baba Traversal stat
-        while(!isArraySorted(array, currentLength)) { // While the array isn't sorted,
+        while (!isArraySorted(array, currentLength)) { // While the array isn't sorted,
             this.traverse(array, currentLength); // make a Baba, and try to make it run through the matrix
         }
     }

@@ -26,35 +26,35 @@ final public class SCPMergesort extends Sort {
     public long prime(long loc) {
         long primeHits = 0;
         long n = 1;
-        while(true) {
-            if(primeHits >= loc) {
-                if(!isPrime(n))
+        while (true) {
+            if (primeHits >= loc) {
+                if (!isPrime(n))
                     n--;
                 return n;
             }
             n++;
-            if(isPrime(n))
+            if (isPrime(n))
                 primeHits++;
         }
     }
 
 
     private void classicMerge(int[] array, int[] tmp, int start, int mid, int end) {
-        if(start == mid) return;
+        if (start == mid) return;
 
         int low = start, high = mid, nxt = 0;
 
-        while(low < mid && high < end) {
+        while (low < mid && high < end) {
             Highlights.markArray(1, low);
             Highlights.markArray(2, high);
-            if(Reads.compareValues(array[low], array[high]) <= 0){
+            if (Reads.compareValues(array[low], array[high]) <= 0) {
                 Writes.write(tmp, nxt++, array[low++], 1, false, true);
             } else {
                 Writes.write(tmp, nxt++, array[high++], 1, false, true);
             }
         }
 
-        while(low < mid) {
+        while (low < mid) {
             Writes.write(tmp, nxt++, array[low++], 1, false, true);
         }
 
@@ -64,11 +64,11 @@ final public class SCPMergesort extends Sort {
     }
 
     private void scpMerge(int[] array, int[] tmp, int start, int end) {
-        if(start == end)
+        if (start == end)
             return;
         int m = start + (int) (prime(end)%(end-start));
         this.scpMerge(array, tmp, start, m);
-        if(m == start)
+        if (m == start)
             m++;
         this.scpMerge(array, tmp, m, end);
         this.classicMerge(array, tmp, start, m, end);

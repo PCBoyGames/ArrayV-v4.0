@@ -44,7 +44,7 @@ final public class BadSort extends Sort {
                         break;
                     }
                 }
-                if(isShortest) {
+                if (isShortest) {
                     shortest = j;
                     break;
                 }

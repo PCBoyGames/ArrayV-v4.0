@@ -22,16 +22,16 @@ final public class ZubblePopSort extends Sort {
 
     protected void bubble(int[] array, int start, int end, int dir) {
         int cons=1, first=start+1;
-        for(int j=end-1; j>=first; j-=cons) {
+        for (int j=end-1; j>=first; j-=cons) {
             boolean firsts=false;
-            for(int i=Math.max(first-1, start); i<j; i++) {
+            for (int i=Math.max(first-1, start); i<j; i++) {
                 int k=i;
-                while(i<j && Reads.compareIndices(array, k, i+1, 0.1, true) == dir) {
+                while (i<j && Reads.compareIndices(array, k, i+1, 0.1, true) == dir) {
                     i++;
                 }
-                if(i!=k) {
+                if (i!=k) {
                     Writes.swap(array, k, i, 1, true, false);
-                    if(!firsts) {
+                    if (!firsts) {
                         first=k;
                         firsts=true;
                     }
@@ -46,7 +46,7 @@ final public class ZubblePopSort extends Sort {
     protected void pop(int[] array, int start, int end, int dir, int order, int depth) {
         Writes.recordDepth(depth++);
         Writes.recursion();
-        if(order < 1 || end-start < 2) {
+        if (order < 1 || end-start < 2) {
             bubble(array, start, end, dir);
             return;
         }

@@ -20,7 +20,7 @@ public final class LuckierBubbleSort extends BogoSorting {
     }
 
     private boolean qSift(int[] array, int start, int end) {
-        if(start >= end)
+        if (start >= end)
             return false;
         int mid = start + (end-start) / 2;
         boolean f = false;
@@ -28,7 +28,7 @@ public final class LuckierBubbleSort extends BogoSorting {
             Writes.swap(array, start, end, 1, true, false);
             f = true;
         }
-        if(start == mid) {
+        if (start == mid) {
             return false;
         }
         boolean l = this.qSift(array, start, mid);
@@ -40,7 +40,7 @@ public final class LuckierBubbleSort extends BogoSorting {
         int l = end - start;
         do {
             l--;
-        } while(l > 0 && this.qSift(array, start, end-1));
+        } while (l > 0 && this.qSift(array, start, end-1));
     }
 
     @Override
@@ -67,17 +67,17 @@ public final class LuckierBubbleSort extends BogoSorting {
                         anyswaps = true;
                         Writes.swap(array, i, i + 1, 0.01, true, false);
                     }
-                } else if(rand > luck) {
+                } else if (rand > luck) {
                     anyswaps = true;
                     Writes.swap(array, i, i + 1, 0.01, true, false);
                 }
             }
             tries++;
         }
-        if(luck <= 50) {
+        if (luck <= 50) {
             Writes.reversal(array, 0, m-1, 1, true, false);
         }
-        if(tries >= n*n*n || !isRangeSorted(array, 0, m, false, false)) // cap it at O(n^4)
+        if (tries >= n*n*n || !isRangeSorted(array, 0, m, false, false)) // cap it at O(n^4)
             this.fallback(array, 0, m);
     }
 }

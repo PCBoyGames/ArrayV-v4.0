@@ -35,12 +35,12 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
             int num = array[i];
             int v = (2*count / (i - start)) + 1; //I'VE SOLVED IT!!
             int lo = Math.max(i - v, start), hi = i;
-            while ((lo >= start) && (Reads.compareValues(array[lo], num) == 1)){
+            while ((lo >= start) && (Reads.compareValues(array[lo], num) == 1)) {
                 lo -= v;
                 hi -= v;
             }
             lo++;
-            if (lo < start){
+            if (lo < start) {
                 lo = start;
             }
             while (lo < hi) {
@@ -62,7 +62,7 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
 
             int j = i - 1;
 
-            if (j >= lo){
+            if (j >= lo) {
                 while (j >= lo)
                 {
                     Writes.write(array, j + 1, array[j], sleep, true, false);

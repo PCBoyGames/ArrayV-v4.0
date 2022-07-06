@@ -20,9 +20,9 @@ public final class DogSort extends Sort {
     }
 
     protected void sort(int[] array, int a, int b) {
-        if(Reads.compareIndices(array, a, b, 0.01, true) > 0)
+        if (Reads.compareIndices(array, a, b, 0.01, true) > 0)
             Writes.swap(array, a, b, 0.01, true, false);
-        if(a < b) {
+        if (a < b) {
             sort(array, a, a + (b - a) / 2);
             sort(array, a + (b - a) / 2 + 1, b);
             sort(array, a, b - 1);

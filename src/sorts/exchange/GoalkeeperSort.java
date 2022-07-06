@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 */
 final public class GoalkeeperSort extends Sort {
-    
+
     public GoalkeeperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Goalkeeper");
@@ -27,7 +27,7 @@ final public class GoalkeeperSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     protected int score(int[] array, int bound) {
         int next = bound;
         boolean found = false;
@@ -37,7 +37,7 @@ final public class GoalkeeperSort extends Sort {
         }
         return next;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int bound = currentLength - 1;

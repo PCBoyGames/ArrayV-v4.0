@@ -22,7 +22,7 @@ final public class ApollyonSort extends CircleSorting {
         this.setBogoSort(false);
     }
 
-    private static int greatestPowerOfTwoLessThan(int n){
+    private static int greatestPowerOfTwoLessThan(int n) {
         int k = 1;
         while (k < n) {
             k = k << 1;
@@ -76,7 +76,7 @@ final public class ApollyonSort extends CircleSorting {
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         this.end = sortLength;
         int threshold = 0, n = 1;
-        for(; n < sortLength; n*=2, threshold++);
+        for (; n < sortLength; n*=2, threshold++);
 
         threshold /= 2;
         int iterations = 0;

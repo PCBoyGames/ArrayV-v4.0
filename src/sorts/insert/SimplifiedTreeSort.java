@@ -40,18 +40,18 @@ final public class SimplifiedTreeSort extends Sort {
     public void insertBranch(Node root, int index) { // iterative (A0726's TreeSort.java goes recursive)
         int val = Node.array[index];
         int tree = 1;
-        while(true) {
+        while (true) {
             Highlights.markArray(tree++, root.index);
             Delays.sleep(5);
-            if(Reads.compareValues(val, root.getVal()) < 0) {
-                if(root.childLeft == null) {
+            if (Reads.compareValues(val, root.getVal()) < 0) {
+                if (root.childLeft == null) {
                     root.childLeft = new Node(index);
                     break;
                 } else {
                     root = root.childLeft;
                 }
             } else {
-                if(root.childRight == null) {
+                if (root.childRight == null) {
                     root.childRight = new Node(index);
                     break;
                 } else {
@@ -66,7 +66,7 @@ final public class SimplifiedTreeSort extends Sort {
 
     public void traverseTree(ArrayList<Integer> tree, Node root, int recursion) { // also recursive (otherwise I'd have to do some weird and messy shenanigans to get it iterative)
         Writes.recordDepth(recursion++);
-        if(root.childLeft != null) {
+        if (root.childLeft != null) {
             Writes.recursion();
             traverseTree(tree, root.childLeft, recursion);
         }
@@ -74,7 +74,7 @@ final public class SimplifiedTreeSort extends Sort {
         Delays.sleep(1);
         Writes.changeAuxWrites(1);
         tree.add(root.getVal()); // lose a value and gain
-        if(root.childRight != null) {
+        if (root.childRight != null) {
             Writes.recursion();
             traverseTree(tree, root.childRight, recursion);
         }
@@ -86,7 +86,7 @@ final public class SimplifiedTreeSort extends Sort {
 
         Node root = new Node(0);
         Writes.changeAllocAmount(1);
-        for(int i=1; i<length; i++) {
+        for (int i=1; i<length; i++) {
             insertBranch(root, i);
         }
 
@@ -94,7 +94,7 @@ final public class SimplifiedTreeSort extends Sort {
 
         traverseTree(fullTree, root, 0);
         int ptr = 0;
-        while(fullTree.size() > 0) {
+        while (fullTree.size() > 0) {
             Writes.write(array, ptr++, fullTree.remove(0), 1, true, false);
             Writes.changeAllocAmount(-1);
         }

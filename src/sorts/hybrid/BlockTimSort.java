@@ -205,12 +205,12 @@ public final class BlockTimSort extends Sort {
 
     protected void mergeFromBuf(int[] array, int[] buf, int a, int m, int b, int bufLen) {
         int i = 0;
-        while(i < bufLen && m < b)
-            if(Reads.compareValues(buf[i], array[m]) <= 0)
+        while (i < bufLen && m < b)
+            if (Reads.compareValues(buf[i], array[m]) <= 0)
                 Writes.write(array, a++, buf[i++], 1, true, false);
             else
                 Writes.write(array, a++, array[m++], 1, true, false);
-        while(i < bufLen)
+        while (i < bufLen)
             Writes.write(array, a++, buf[i++], 1, true, false);
     }
 
@@ -305,12 +305,12 @@ public final class BlockTimSort extends Sort {
 
     protected int mergeBlocks(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
-        while(i < m && j < b)
-            if(Reads.compareIndices(array, i, j, 1.0, true) <= 0)
+        while (i < m && j < b)
+            if (Reads.compareIndices(array, i, j, 1.0, true) <= 0)
                 Writes.write(array, p++, array[i++], 1.0, true, false);
             else
                 Writes.write(array, p++, array[j++], 1.0, true, false);
-        if(i > p)
+        if (i > p)
             shiftFWExt(array, p, i, m);
         return j;
     }
@@ -318,12 +318,12 @@ public final class BlockTimSort extends Sort {
     // same as mergeBlocks() except reverses equal items order
     protected int mergeBlocksRev(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
-        while(i < m && j < b)
-            if(Reads.compareIndices(array, i, j, 1.0, true) < 0)
+        while (i < m && j < b)
+            if (Reads.compareIndices(array, i, j, 1.0, true) < 0)
                 Writes.write(array, p++, array[i++], 1.0, true, false);
             else
                 Writes.write(array, p++, array[j++], 1.0, true, false);
-        if(i > p)
+        if (i > p)
             shiftFWExt(array, p, i, m);
         return j;
     }
@@ -343,14 +343,14 @@ public final class BlockTimSort extends Sort {
         insertTo(tags, 0, lCnt - 1, 0.5, true);
         int mKey = blockSelect(array, tags, i, 1, bLen - 1, lCnt, bCnt, bLen);
         boolean frag = true;
-        while(l < lCnt && r < bCnt) {
-            if(frag) {
+        while (l < lCnt && r < bCnt) {
+            if (frag) {
                 do {
                     j += bLen;
                     l++;
                     key++;
                 } while (l < lCnt && getSubarray(tags, key, mKey));
-                if(l == lCnt) {
+                if (l == lCnt) {
                     i = mergeBlocks(array, i, j, b, i - bLen);
                     mergeFromBuf(array, buf, i - bLen, i, b, bLen);
                 } else
@@ -361,7 +361,7 @@ public final class BlockTimSort extends Sort {
                     r++;
                     key++;
                 } while (r < bCnt && !getSubarray(tags, key, mKey));
-                if(r == bCnt) {
+                if (r == bCnt) {
                     shiftFWExt(array, i - bLen, i, b);
                     Writes.arraycopy(buf, 0, array, b - bLen, bLen, 1, true, false);
                 } else

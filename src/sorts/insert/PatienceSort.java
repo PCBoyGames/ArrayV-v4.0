@@ -55,12 +55,12 @@ final public class PatienceSort extends Sort {
         int change = list.size() / 4;
 
         BigInteger compsBefore = Reads.getComparisons();
-        while(list.get(at).compare(find) != 0 && change > 0){
+        while (list.get(at).compare(find) != 0 && change > 0) {
             Reads.setComparisons(compsBefore);
             Highlights.markArray(1, at);
             Delays.sleep(0.5);
 
-            if(list.get(at).compare(find) < 0)
+            if (list.get(at).compare(find) < 0)
                 at += change;
             else
                 at -= change;
@@ -88,7 +88,7 @@ final public class PatienceSort extends Sort {
             Writes.changeAllocAmount(1);
 
             int i = Collections.binarySearch(piles, newPile);
-            if(!piles.isEmpty()) {
+            if (!piles.isEmpty()) {
                 this.binarySearch(piles, newPile);
             }
             if (i < 0) i = ~i;

@@ -58,11 +58,11 @@ final public class MoreOptimizedPigeonholeSort extends Sort {
             max = Reads.analyzeMax(array, sortLength, 0, false);
         this.bitlist = BigInteger.ZERO; // A BigInteger to keep track of uniques
         HashMap<Integer, Integer> overflow = new HashMap<>(); // A HashMap to keep track of duplicates
-        for(int i=0; i<sortLength; i++) {
+        for (int i=0; i<sortLength; i++) {
             int v = getVal(array, i) - min;
             Highlights.markArray(1, i);
             Delays.sleep(1);
-            if(bitIsSet(bitlist, v)) { // Duplicate number case
+            if (bitIsSet(bitlist, v)) { // Duplicate number case
                 Writes.mockWrite(max+1, v, 1, 0);
                 overflow.put(v, overflow.getOrDefault(v, 1) + 1); // Track the dupe with the overflow map
                 Statistics.addStat("Duplicate");
@@ -72,17 +72,17 @@ final public class MoreOptimizedPigeonholeSort extends Sort {
             }
         }
 
-        for(int i=0, cnt=-1, lead = 0; i<sortLength; i++) {
-            if(lead == 0) // If we're tracking dupes, don't advance
+        for (int i=0, cnt=-1, lead = 0; i<sortLength; i++) {
+            if (lead == 0) // If we're tracking dupes, don't advance
                 do {
                     cnt++;
-                } while(!bitIsSet(bitlist, cnt));
-            if(overflow.getOrDefault(cnt, 1) > 1) { // If overflow[cnt] has a dupe count greater than one,
+                } while (!bitIsSet(bitlist, cnt));
+            if (overflow.getOrDefault(cnt, 1) > 1) { // If overflow[cnt] has a dupe count greater than one,
                 lead = overflow.get(cnt); // put the dupe count in lead,
                 overflow.put(cnt, 1); // and reset the overflow dupe count, to avoid infinite loop.
             }
             Writes.write(array, i, cnt + min, 1, true, false);
-            if(lead > 0) { // Decrement the dupe count when still operating on an overflowed bit
+            if (lead > 0) { // Decrement the dupe count when still operating on an overflowed bit
                 lead--;
             }
         }

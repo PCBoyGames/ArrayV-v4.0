@@ -48,13 +48,13 @@ final public class ForcedStableQuickSort extends Sort {
     private void medianOfThree(int[] array, int[] key, int a, int b) {
         int m = a+(b-1-a)/2;
 
-        if(this.stableComp(array, key, a, m))
+        if (this.stableComp(array, key, a, m))
             this.stableSwap(array, key, a, m);
 
-        if(this.stableComp(array, key, m, b-1)) {
+        if (this.stableComp(array, key, m, b-1)) {
             this.stableSwap(array, key, m, b-1);
 
-            if(this.stableComp(array, key, a, m))
+            if (this.stableComp(array, key, a, m))
                 return;
         }
 
@@ -76,21 +76,21 @@ final public class ForcedStableQuickSort extends Sort {
         int i = a - 1, j = b;
         Highlights.markArray(3, p);
 
-        while(true) {
+        while (true) {
             do i++;
-            while(i < j && !this.stableComp(array, key, i, p));
+            while (i < j && !this.stableComp(array, key, i, p));
 
             do j--;
-            while(j >= i && this.stableComp(array, key, j, p));
+            while (j >= i && this.stableComp(array, key, j, p));
 
-            if(i < j) this.stableSwap(array, key, i, j);
+            if (i < j) this.stableSwap(array, key, i, j);
             else      return j;
         }
     }
 
     private void quickSort(int[] array, int[] key, int a, int b) {
-        if(b-a < 3) {
-            if(b-a == 2 && this.stableComp(array, key, a, a+1))
+        if (b-a < 3) {
+            if (b-a == 2 && this.stableComp(array, key, a, a+1))
                 this.stableSwap(array, key, a, a+1);
             return;
         }
@@ -106,7 +106,7 @@ final public class ForcedStableQuickSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] key = Writes.createExternalArray(length);
-        for(int i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
             Writes.write(key, i, i, 0.5, true, true);
 
         this.quickSort(array, key, 0, length);

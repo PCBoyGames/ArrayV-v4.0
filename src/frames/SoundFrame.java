@@ -120,7 +120,7 @@ public class SoundFrame extends JFrame {
         list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(SoundFrame.this.instrumentChoice != list.getSelectedIndex()) {
+                if (SoundFrame.this.instrumentChoice != list.getSelectedIndex()) {
                     SoundFrame.this.instrumentChoice = list.getSelectedIndex();
                     sounds.testInstrument(SoundFrame.this.instrumentChoice);
                 }

@@ -30,7 +30,7 @@ final public class CircleOptimizedWeaveMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void bitReversal(int[] array, int a, int b) {
         int len = b - a, m = 0;
         int d1 = len >> 1, d2 = d1 + (d1 >> 1);

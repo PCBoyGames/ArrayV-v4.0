@@ -23,7 +23,7 @@ public final class OmegaBojoSort extends BogoSorting {
         Writes.reversals++;
         Writes.swap(array, a, b, sleep, true, false);
 
-        for(int i = a + 1; i < a + ((b - a + 1) / 2); i++) {
+        for (int i = a + 1; i < a + ((b - a + 1) / 2); i++) {
             Writes.swap(array, i, a + b - i, sleep, true, false);
             omegaReversal(array, i + 1, a + b - i - 1, sleep);
         }
@@ -31,15 +31,15 @@ public final class OmegaBojoSort extends BogoSorting {
     }
 
     private void omegaBojo(int[] array, int start, int end) {
-        if(start < end) {
+        if (start < end) {
             int i = randInt(start, end);
             int j = randInt(start, end);
-            //while(i == j) {
+            //while (i == j) {
             //i = randInt(start, end);
             //j = randInt(start, end);
             //}
             omegaReversal(array, i, j, this.delay);
-            if(j<i)
+            if (j<i)
                 omegaBojo(array, j, i);
             else
                 omegaBojo(array, i, j);

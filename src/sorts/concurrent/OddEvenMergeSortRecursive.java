@@ -40,7 +40,7 @@ final public class OddEvenMergeSortRecursive extends Sort {
     private void oddEvenMerge(int[] array, int lo, int m2, int n, int r) {
         int m = r * 2;
         if (m < n) {
-            if((n/r)%2 != 0){
+            if ((n/r)%2 != 0) {
                 oddEvenMerge(array, lo, (m2+1)/2, n+r, m);      // even subsequence
                 oddEvenMerge(array, lo+r, m2/2, n-r, m);    // odd subsequence
             }
@@ -49,7 +49,7 @@ final public class OddEvenMergeSortRecursive extends Sort {
                 oddEvenMerge(array, lo+r, m2/2, n, m);    // odd subsequence
             }
 
-            if(m2%2 != 0){
+            if (m2%2 != 0) {
                 for (int i = lo; i + r < lo + n; i += m) {
                     oddEvenMergeCompare(array, i, i + r);
                 }
@@ -61,7 +61,7 @@ final public class OddEvenMergeSortRecursive extends Sort {
             }
         }
         else {
-            if(n > r){
+            if (n > r) {
                 oddEvenMergeCompare(array, lo, lo+r);
             }
         }

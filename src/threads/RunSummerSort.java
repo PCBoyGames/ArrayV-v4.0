@@ -8,6 +8,7 @@ import sorts.concurrent.VanVoorhisFourFourSortIterative;
 import sorts.concurrent.VanVoorhisFourFourSortRecursive;
 import sorts.distribute.ShnexSort;
 import sorts.distribute.SkeadnySort;
+import sorts.esoteric.DistributionNetworkSort;
 import sorts.esoteric.SafeAssSort;
 import sorts.exchange.AltQuasimiddleSort;
 import sorts.exchange.GoalkeeperSort;
@@ -15,6 +16,7 @@ import sorts.exchange.HeadPullRoomSort;
 import sorts.exchange.NapoleonSortResolve;
 import sorts.exchange.NapoleonSortResolveNTS;
 import sorts.exchange.OptimizedGoalkeeperSort;
+import sorts.exchange.PDSegmentedSort;
 import sorts.exchange.ParFutureStrangeSort;
 import sorts.exchange.ParSelectFutureStrangeSort;
 import sorts.exchange.ThirtySort;
@@ -76,7 +78,7 @@ final public class RunSummerSort extends MultipleSortThread {
     boolean seeds = false;
     boolean stabilityproper = true;
     boolean stability = false;
-    
+
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         sortCount = numSorts * 55;
@@ -119,60 +121,63 @@ final public class RunSummerSort extends MultipleSortThread {
 
         //Sort Quasimiddle = new QuasimiddleSort(arrayVisualizer);
         //runIndividualSort(Quasimiddle, 0, array, 128, 1, false, shuffleName, 16, alt);
-        
+
         //Sort AltQuasimiddle = new AltQuasimiddleSort(arrayVisualizer);
         //runIndividualSort(AltQuasimiddle, 0, array, 128, 1, false, shuffleName, 16, alt);
-        
+
         //Sort BadThirty = new BadThirtySort(arrayVisualizer);
         //runIndividualSort(BadThirty, 0, array, 64, 1, false, shuffleName, 16, alt);
-        
+
         //Sort Thirty = new ThirtySort(arrayVisualizer);
         //runIndividualSort(Thirty, 0, array, 128, 0.25, false, shuffleName, 16, alt);
-        
+
         //Sort HeadPullRoom = new HeadPullRoomSort(arrayVisualizer);
         //runIndividualSort(HeadPullRoom, 0, array, 128, 1, false, shuffleName, 16, alt);
-        
+
         //Sort Boom = new BoomSort(arrayVisualizer);
         //runIndividualSort(Boom, 0, array, 128, 1, false, shuffleName, 16, alt);
-        
+
         //Sort Kita = new KitaSort(arrayVisualizer);
         //runIndividualSort(Kita, 0, array, 1024, 1, false, shuffleName, 16, alt);
-        
+
         //Sort ZigZag = new ZigZagSort(arrayVisualizer);
         //runIndividualSort(ZigZag, 0, array, 128, 1, false, shuffleName, 16, alt);
-        
-        //Sort PDSafeStalin = new MorePDSafeStalinSort(arrayVisualizer);
+
+        //Sort PDSafeStalin = new PDSafeStalinSort(arrayVisualizer);
         //runIndividualSort(PDSafeStalin, 0, array, 512, 16, false, shuffleName, 16, alt);
-        
+
         //Sort Search = new SearchSort(arrayVisualizer);
         //runIndividualSort(Search, 0, array, 128, 8, false, shuffleName, 16, alt);
-        
+
         //Sort InPlaceMergeII = new InPlaceMergeSortII(arrayVisualizer);
         //runIndividualSort(InPlaceMergeII, 0, array, 256, 0.5, false, shuffleName, 16, alt);
-        
+
         //Sort Evub = new EvubSort(arrayVisualizer);
         //runIndividualSort(Evub, 3, array, 256, 1, false, shuffleName, 16, alt);
-        
+
         //Sort SmartSafeStalin = new SmartSafeStalinSort(arrayVisualizer);
         //runIndividualSort(SmartSafeStalin, 0, array, 256, 4, false, shuffleName, 16, alt);
-        
+
         //Sort InPlaceSmartSafeStalin = new InPlaceSmartSafeStalinSort(arrayVisualizer);
         //runIndividualSort(InPlaceSmartSafeStalin, 0, array, 256, 4, false, shuffleName, 16, alt);
-        
+
         //Sort VV44Rec = new VanVoorhisFourFourSortRecursive(arrayVisualizer);
         //runIndividualSort(VV44Rec, 0, array, 256, 1, false, shuffleName, 16, alt);
-        
+
         //Sort VV44Itr = new VanVoorhisFourFourSortIterative(arrayVisualizer);
         //runIndividualSort(VV44Itr, 0, array, 256, 1, false, shuffleName, 16, alt);
-        
+
         //Sort OOPSSelecion = new OutOfPlaceStableSelectionSort(arrayVisualizer);
         //runIndividualSort(OOPSSelecion, 0, array, 128, 4, false, shuffleName, 16, alt);
-        
-        Sort Segmented = new SegmentedSort(arrayVisualizer);
-        runIndividualSort(Segmented, 0, array, 128, 0.25, false, shuffleName, 16, alt);
-        
-        //Sort SafeAss = new SafeAssSort(arrayVisualizer);
+
+        //Sort SafeAss = new DistributionNetworkSort(arrayVisualizer);
         //runIndividualSort(SafeAss, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort Segmented = new SegmentedSort(arrayVisualizer);
+        //runIndividualSort(Segmented, 0, array, 128, 0.25, false, shuffleName, 16, alt);
+
+        Sort PDSegmented = new PDSegmentedSort(arrayVisualizer);
+        runIndividualSort(PDSegmented, 0, array, 128, 0.25, false, shuffleName, 16, alt);
 
     }
 
@@ -245,7 +250,7 @@ final public class RunSummerSort extends MultipleSortThread {
         arrayVisualizer.getArrayManager().setDistribution(Distributions.LINEAR); // 25
         arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.TRIANGULAR);
         runSort(array, "Triangular", true);
-        
+
         /*
         RSS MADHOUSE PLUS (29)
         */
@@ -311,7 +316,7 @@ final public class RunSummerSort extends MultipleSortThread {
         runSort(array, "Product of Digits", false);
         arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 55
         runSort(array, "Euler Totient Function", false);
-        
+
         /*
         */
     }

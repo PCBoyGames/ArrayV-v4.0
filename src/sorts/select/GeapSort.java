@@ -20,14 +20,14 @@ final public class GeapSort extends HeapSorting {
     }
 
     public void makeGeap(int[] array, int start, int end, double sleep) {
-        for(int i=end-1; i>start; i--) {
+        for (int i=end-1; i>start; i--) {
             int j=i;
-            while(j >= start) {
+            while (j >= start) {
                 int next = ((j+start-2) / 2),
                     child = ((j+start) / 2);
-                if(child >= start && next >= start && Reads.compareValues(array[child], array[next]) == 1)
+                if (child >= start && next >= start && Reads.compareValues(array[child], array[next]) == 1)
                     Writes.swap(array, child, next, sleep, true, false);
-                if(next >= start && Reads.compareValues(array[next], array[j]) == -1)
+                if (next >= start && Reads.compareValues(array[next], array[j]) == -1)
                     Writes.swap(array, j, child, sleep, true, false);
                 j = next;
             }
@@ -37,7 +37,7 @@ final public class GeapSort extends HeapSorting {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         this.makeGeap(array, 0, length, 2);
-        for(int i=length-1; i>=0; i--) {
+        for (int i=length-1; i>=0; i--) {
             Writes.swap(array, 0, --length, 1, true, false);
             this.makeGeap(array, 0, length, 2);
         }

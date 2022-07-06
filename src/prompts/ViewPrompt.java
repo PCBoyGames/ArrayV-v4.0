@@ -68,7 +68,7 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
     }
 
     @Override
-    public void reposition(){
+    public void reposition() {
         setLocation(Frame.getX() + ((Frame.getWidth() - getWidth()) / 2), Frame.getY() + ((Frame.getHeight() - getHeight()) / 2));
     }
 
@@ -282,7 +282,7 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void setAllFieldsFalse(){
+    private void setAllFieldsFalse() {
         ArrayVisualizer.togglePointer(false);
         ArrayVisualizer.toggleDistance(false);
         ArrayVisualizer.togglePixels(false);
@@ -319,21 +319,21 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
         //TODO: Pointer as separate option
         setAllFieldsFalse();
         ArrayVisualizer.setVisual(VisualStyles.COLOR_CIRCLE);
-        if(ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
+        if (ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
         UtilFrame.jButton2ResetText();
         dispose();
     }
     private void spiralActionPerformed(java.awt.event.ActionEvent evt) {
         setAllFieldsFalse();
         ArrayVisualizer.setVisual(VisualStyles.SPIRAL);
-        if(ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
+        if (ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
         UtilFrame.jButton2ResetText();
         dispose();
     }
     private void disparityActionPerformed(java.awt.event.ActionEvent evt) {
         setAllFieldsFalse();
         ArrayVisualizer.setVisual(VisualStyles.DISP_CIRCLE);
-        if(ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
+        if (ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
         UtilFrame.jButton2ResetText();
         dispose();
     }
@@ -346,14 +346,14 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
     private void disparityDotsActionPerformed(java.awt.event.ActionEvent evt) {
         setAllFieldsFalse();
         ArrayVisualizer.setVisual(VisualStyles.DISP_DOTS);
-        if(ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
+        if (ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
         UtilFrame.jButton2ResetText();
         dispose();
     }
     private void spiralDotsActionPerformed(java.awt.event.ActionEvent evt) {
         setAllFieldsFalse();
         ArrayVisualizer.setVisual(VisualStyles.SPIRAL_DOTS);
-        if(ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
+        if (ArrayVisualizer.getCurrentLength() == 2) ArrayVisualizer.setCurrentLength(4);
         UtilFrame.jButton2ResetText();
         dispose();
     }

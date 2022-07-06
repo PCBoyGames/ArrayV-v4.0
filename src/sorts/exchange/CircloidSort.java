@@ -50,14 +50,14 @@ final public class CircloidSort extends Sort {
         int a = left;
         int b = right;
         boolean swapped = false;
-        while(a < b) {
-            if(Reads.compareIndices(array, a, b, 0.25, true) == 1) {
+        while (a < b) {
+            if (Reads.compareIndices(array, a, b, 0.25, true) == 1) {
                 Writes.swap(array, a, b, 1, true, false);
                 swapped = true;
             }
             a++;
             b--;
-            if(a==b) {
+            if (a==b) {
                 b++;
             }
         }
@@ -65,7 +65,7 @@ final public class CircloidSort extends Sort {
     }
 
     private boolean circlePass(int[] array, int left, int right) {
-        if(left >= right) return false;
+        if (left >= right) return false;
         int mid = (left + right) / 2;
         boolean l = this.circlePass(array, left, mid);
         boolean r = this.circlePass(array, mid+1, right);
@@ -74,6 +74,6 @@ final public class CircloidSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        while(this.circlePass(array, 0, length-1));
+        while (this.circlePass(array, 0, length-1));
     }
 }

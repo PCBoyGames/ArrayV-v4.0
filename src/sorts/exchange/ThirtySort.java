@@ -26,7 +26,7 @@ final public class ThirtySort extends BogoSorting {
         this.setUnreasonableLimit(256);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int dir = 1;

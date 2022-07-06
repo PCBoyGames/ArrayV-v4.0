@@ -38,7 +38,7 @@ final public class OOPSingularityQuickSort extends QuadSorting {
         if (1 << n > x) n--;
         return n;
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
@@ -75,7 +75,7 @@ final public class OOPSingularityQuickSort extends QuadSorting {
         }
         return reverse;
     }
-    
+
     protected int partition(int[] array, int start, int end, int pivot) {
         int[] low = Writes.createExternalArray(end - start);
         int[] high = Writes.createExternalArray(end - start);

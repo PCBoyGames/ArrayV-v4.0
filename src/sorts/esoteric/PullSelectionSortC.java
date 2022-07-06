@@ -21,10 +21,10 @@ public final class PullSelectionSortC extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        while(!isArraySorted(array, length)) {
-            for(int i=0; i < length; i++) {
-                for(int j=i+1; j<length; j++) {
-                    if(Reads.compareValues(array[j], array[i]) == -1) {
+        while (!isArraySorted(array, length)) {
+            for (int i=0; i < length; i++) {
+                for (int j=i+1; j<length; j++) {
+                    if (Reads.compareValues(array[j], array[i]) == -1) {
                         Writes.multiSwap(array, i, j, 0.1, true, false);
                         break;
                     }

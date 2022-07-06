@@ -32,7 +32,7 @@ final public class SwaplessPlaygroundSort extends Sort {
         for (int j = 0; j < length; j++) {
             Highlights.markArray(2, j);
             Delays.sleep(0.005);
-            if (Reads.compareValues(array[j], array[lowestindex]) == -1){
+            if (Reads.compareValues(array[j], array[lowestindex]) == -1) {
                 lowestindex = j;
                 Highlights.markArray(1, lowestindex);
                 Delays.sleep(0.005);

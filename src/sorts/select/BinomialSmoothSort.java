@@ -19,14 +19,14 @@ final public class BinomialSmoothSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private int height(int node){
+    private int height(int node) {
         int count = 0;
         while ((node >> count) % 2 == 1)
             count++;
         return count;
     }
 
-    private void thrift(int[] array, int node, boolean parent, boolean root){
+    private void thrift(int[] array, int node, boolean parent, boolean root) {
         root = root && (node >= (1 << height(node)));
         if (!root && !parent)
             return;
@@ -42,7 +42,7 @@ final public class BinomialSmoothSort extends Sort {
     }
 
     @Override
-    public void runSort(int[] array, int length, int bucketCount){
+    public void runSort(int[] array, int length, int bucketCount) {
         //heapify from 0 to length - 1
         int Node;
         for (Node = 1; Node < length; Node++)

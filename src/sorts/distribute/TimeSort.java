@@ -1,3 +1,4 @@
+
 package sorts.distribute;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ final public class TimeSort extends Sort {
         this.setQuestion("Enter delay per number in milliseconds:", 10);
     }
 
-    private synchronized void report(int[] array, int a){
+    private synchronized void report(int[] array, int a) {
         Writes.write(array, next, a, 0, true, false);
         next++;
     }
@@ -73,14 +74,14 @@ final public class TimeSort extends Sort {
 
         final int[] tmp = Writes.createExternalArray(sortLength);
 
-        for(int i = 0; i < sortLength; i++) {
+        for (int i = 0; i < sortLength; i++) {
             Writes.write(tmp, i, array[i], 0.25, true, true);
         }
 
         double temp = Delays.getDisplayedDelay();
         Delays.updateDelayForTimeSort(magnitude);
 
-        for(int i = 0; i < sortLength; i++){
+        for (int i = 0; i < sortLength; i++) {
             final int index = i;
             threads.add(new Thread("TimeSort-" + i) {
                 @Override
@@ -102,7 +103,7 @@ final public class TimeSort extends Sort {
             });
         }
 
-        for(Thread t : threads)
+        for (Thread t : threads)
             t.start();
 
         try {

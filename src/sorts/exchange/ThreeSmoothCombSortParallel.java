@@ -69,7 +69,7 @@ final public class ThreeSmoothCombSortParallel extends Sort {
     }
 
     private void recursiveComb(int pos, int gap, int end) {
-        if(pos+gap > end) return;
+        if (pos+gap > end) return;
 
         RecursiveComb a = new RecursiveComb(pos, gap*2, end);
         RecursiveComb b = new RecursiveComb(pos+gap, gap*2, end);
@@ -86,7 +86,7 @@ final public class ThreeSmoothCombSortParallel extends Sort {
     }
 
     private void powerOfThree(int pos, int gap, int end) {
-        if(pos+gap > end) return;
+        if (pos+gap > end) return;
 
         PowerOfThree a = new PowerOfThree(pos, gap*3, end);
         PowerOfThree b = new PowerOfThree(pos+gap, gap*3, end);
@@ -102,8 +102,8 @@ final public class ThreeSmoothCombSortParallel extends Sort {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        for(int i = pos; i+gap < end; i+=gap)
-            if(Reads.compareIndices(this.array, i, i+gap, 0.5, true) == 1)
+        for (int i = pos; i+gap < end; i+=gap)
+            if (Reads.compareIndices(this.array, i, i+gap, 0.5, true) == 1)
                 Writes.swap(this.array, i, i+gap, 0.5, false, false);
     }
 

@@ -51,7 +51,7 @@ final public class MoreSimplifiedHanoiSort extends Sort {
             sz = -2;
         }
         public int peekTop(int index) {
-            if(empty() || index > sz)
+            if (empty() || index > sz)
                 return Integer.MIN_VALUE;
             return arr[sz-index];
         }
@@ -60,7 +60,7 @@ final public class MoreSimplifiedHanoiSort extends Sort {
             Writes.write(arr, ++sz, value, 1, true, AUXWRITE);
         }
         public int lift() {
-            if(empty())
+            if (empty())
                 return Integer.MIN_VALUE;
             Highlights.markArray(2, sz);
             return arr[sz--];
@@ -68,12 +68,12 @@ final public class MoreSimplifiedHanoiSort extends Sort {
     }
 
     private void towerHanoi(Rod from, Rod aux, Rod to, int n) {
-        if(n == 1) {
-            if(from.size() > 0)
+        if (n == 1) {
+            if (from.size() > 0)
                 to.drop(from.lift());
-        } else if(n > 1) {
+        } else if (n > 1) {
             towerHanoi(from, to, aux, n-1);
-            if(from.size() > 0)
+            if (from.size() > 0)
                 to.drop(from.lift());
             towerHanoi(aux, from, to, n-1);
         }
@@ -81,17 +81,17 @@ final public class MoreSimplifiedHanoiSort extends Sort {
 
     private void pushAll(int num) {
         int index = 0;
-        if(main.size() == 0)
+        if (main.size() == 0)
             return;
 
-        while(index < main.size() && Reads.compareValues(main.peekTop(index), num) > 0) {
+        while (index < main.size() && Reads.compareValues(main.peekTop(index), num) > 0) {
             index++;
         }
         this.towerHanoi(main, stk2, stk1, index);
     }
 
     private void runHanoi(int[] array, int end) {
-        for(int i=0; i<end; i++) {
+        for (int i=0; i<end; i++) {
             int top = array[i];
             this.pushAll(top);
             main.drop(top);

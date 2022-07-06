@@ -26,7 +26,7 @@ final public class QuasimiddleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean cs(int[] array, int a, int b) {
         if (Reads.compareIndices(array, a, b, 0.05, true) > 0) {
             Writes.swap(array, a, b, 0.05, true, false);
@@ -34,7 +34,7 @@ final public class QuasimiddleSort extends Sort {
         }
         return false;
     }
-    
+
     protected boolean middle(int[] array, int start, int end) {
         int middle = start + (end - start) / 2;
         boolean swaps = false;
@@ -47,7 +47,7 @@ final public class QuasimiddleSort extends Sort {
         }
         return swaps;
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         boolean swaps = true;

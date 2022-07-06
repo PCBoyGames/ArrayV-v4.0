@@ -24,15 +24,15 @@ final public class OptimizedShoveMergeSort extends Sort {
     BinaryInsertionSort b;
     private void merge(int[] array, int start, int mid, int end) {
         int m = end;
-        while(start < mid && mid < m) {
+        while (start < mid && mid < m) {
             int c = Reads.compareIndices(array, start, mid, 0.1, true);
-            if(c == 0) c = -1;
-            if(c == -1) {
+            if (c == 0) c = -1;
+            if (c == -1) {
                 int l = start, d;
                 do {
                     l++;
                     d = Reads.compareIndices(array, l, mid, 0.1, true);
-                } while(l < mid && c == d || d == 0);
+                } while (l < mid && c == d || d == 0);
                 IndexedRotations.juggling(array, start, l, end, 0.1, true, false);
                 m -= l-start;
                 mid -= l-start;
@@ -41,21 +41,21 @@ final public class OptimizedShoveMergeSort extends Sort {
                 do {
                     r++;
                     d = Reads.compareIndices(array, start, r, 0.1, true);
-                } while(r < m && c == d);
+                } while (r < m && c == d);
                 IndexedRotations.juggling(array, mid, r, end, 0.1, true, false);
                 m -= r-mid;
             }
         }
-        if(start < mid)
+        if (start < mid)
             IndexedRotations.juggling(array, start, mid, end, 0.1, true, false);
-        if(mid < m)
+        if (mid < m)
             IndexedRotations.juggling(array, start, m, end, 0.1, true, false);
     }
     private void sort(int[] array, int start, int end) {
         int mid = start+(end-start)/2;
-        if(start == mid)
+        if (start == mid)
             return;
-        //if(end-start < 32) {
+        //if (end-start < 32) {
         //    b.customBinaryInsert(array, start, end, 0.25);
         //    return;
         //}

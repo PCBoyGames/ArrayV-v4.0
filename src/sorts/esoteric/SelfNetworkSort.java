@@ -31,7 +31,7 @@ public final class SelfNetworkSort extends Sort {
     }
 
     protected void networksort(int[] array, int[] indexnetwork, int length) {
-        for(int i = 1; i < length; i += 2) {
+        for (int i = 1; i < length; i += 2) {
             Highlights.markArray(3, i - 1);
             Highlights.markArray(4, i);
             pairsort(array, indexnetwork[i - 1], indexnetwork[i]);
@@ -39,10 +39,10 @@ public final class SelfNetworkSort extends Sort {
     }
 
     protected void pairsort(int[] array, int i, int j) {
-        if(i > j) {
+        if (i > j) {
             int temp = i; i = j; j = temp;
         }
-        if(Reads.compareIndices(array, i, j, 0.1, true) > 0) {
+        if (Reads.compareIndices(array, i, j, 0.1, true) > 0) {
             Writes.swap(array, i, j, 1, true, false);
             changes = true;
         }

@@ -37,8 +37,8 @@ public final class SwaplessClamberSort extends Sort {
         for (int i = a + 1; i < b; i++) {
             int t = array[i];
             boolean change = false;
-            for(int j = a; j < i; j++) {
-                if(Reads.compareValueIndex(array, t, j, 0.125, true) < 0) {
+            for (int j = a; j < i; j++) {
+                if (Reads.compareValueIndex(array, t, j, 0.125, true) < 0) {
                     int t2 = array[j];
                     Writes.write(array, j, t, 0.25, true, false);
                     t = t2;

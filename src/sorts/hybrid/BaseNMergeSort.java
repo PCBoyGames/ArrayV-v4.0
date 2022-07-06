@@ -97,7 +97,7 @@ final public class BaseNMergeSort extends Sort {
         }
         Highlights.clearAllMarks();
 
-        for(int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++) {
             Writes.write(array, starts[0] + i, tmp[i], 1, true, false);
         }
 
@@ -152,21 +152,21 @@ final public class BaseNMergeSort extends Sort {
         int low = start;
         int high = mid;
 
-        for(int nxt = 0; nxt < length; nxt++){
-            if(low >= mid && high >= end) break;
+        for (int nxt = 0; nxt < length; nxt++) {
+            if (low >= mid && high >= end) break;
 
             Highlights.markArray(1, low);
             Highlights.markArray(2, high);
 
-            if(low < mid && high >= end){
+            if (low < mid && high >= end) {
                 Highlights.clearMark(2);
                 Writes.write(tmp, nxt, array[low++], 1, false, true);
             }
-            else if(low >= mid && high < end){
+            else if (low >= mid && high < end) {
                 Highlights.clearMark(1);
                 Writes.write(tmp, nxt, array[high++], 1, false, true);
             }
-            else if(Reads.compareValues(array[low], array[high]) == -1){
+            else if (Reads.compareValues(array[low], array[high]) == -1) {
                 Writes.write(tmp, nxt, array[low++], 1, false, true);
             }
             else{
@@ -175,7 +175,7 @@ final public class BaseNMergeSort extends Sort {
         }
         Highlights.clearMark(2);
 
-        for(int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++) {
             Writes.write(array, start + i, tmp[i], 1, true, false);
         }
     }

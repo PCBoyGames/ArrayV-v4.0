@@ -58,10 +58,10 @@ final public class MatrixSortParallel extends Sort {
     private int sqrt(int n) {
         int a = 0, b = Math.min(46341, n);
 
-        while(a < b) {
+        while (a < b) {
             int m = (a+b)/2;
 
-            if(m*m >= n) b = m;
+            if (m*m >= n) b = m;
             else         a = m+1;
         }
 
@@ -69,10 +69,10 @@ final public class MatrixSortParallel extends Sort {
     }
 
     private void insert(int a, int b, int g, boolean bw) {
-        for(int i = a+g, j; i < b; i += g) {
+        for (int i = a+g, j; i < b; i += g) {
             int t = array[i];
 
-            for(j = i; j-g >= a && Reads.compareValues(array[j-g], t) == (bw ? -1 : 1); j -= g) {
+            for (j = i; j-g >= a && Reads.compareValues(array[j-g], t) == (bw ? -1 : 1); j -= g) {
                 this.did = true;
                 Writes.write(array, j, array[j-g], 1, true, false);
             }
@@ -90,19 +90,19 @@ final public class MatrixSortParallel extends Sort {
         int tCnt = (sortLength-1)/g + 1;
         this.did = true;
 
-        while(this.did) {
+        while (this.did) {
             this.did = false;
 
             int i = 0, j = 0;
             boolean bw = false;
 
-            for(; i+g < sortLength; i += g, j++, bw = !bw)
+            for (; i+g < sortLength; i += g, j++, bw = !bw)
                 ins[j] = new Insert(i, i+g, 1, bw);
             ins[j] = new Insert(i, sortLength, 1, bw);
 
-            for(j = 0; j < tCnt; j++) ins[j].start();
+            for (j = 0; j < tCnt; j++) ins[j].start();
 
-            for(j = 0; j < tCnt; j++) {
+            for (j = 0; j < tCnt; j++) {
                 try {
                     ins[j].join();
                 }
@@ -111,12 +111,12 @@ final public class MatrixSortParallel extends Sort {
                 }
             }
 
-            for(i = 0, j = 0; i < g; i++, j++)
+            for (i = 0, j = 0; i < g; i++, j++)
                 ins[j] = new Insert(i, sortLength, g, false);
 
-            for(j = 0; j < g; j++) ins[j].start();
+            for (j = 0; j < g; j++) ins[j].start();
 
-            for(j = 0; j < g; j++) {
+            for (j = 0; j < g; j++) {
                 try {
                     ins[j].join();
                 }
@@ -130,13 +130,13 @@ final public class MatrixSortParallel extends Sort {
         Reversal[] revs = new Reversal[tCnt];
 
         int i = g, j = 0;
-        for(; i+g < sortLength; i += 2*g, j++)
+        for (; i+g < sortLength; i += 2*g, j++)
             revs[j] = new Reversal(i, i+g);
         revs[j] = new Reversal(i, sortLength);
 
-        for(j = 0; j < tCnt; j++) revs[j].start();
+        for (j = 0; j < tCnt; j++) revs[j].start();
 
-        for(j = 0; j < tCnt; j++) {
+        for (j = 0; j < tCnt; j++) {
             try {
                 revs[j].join();
             }

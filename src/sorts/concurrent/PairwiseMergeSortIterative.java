@@ -48,7 +48,7 @@ final public class PairwiseMergeSortIterative extends Sort {
     private int end;
 
     private void compSwap(int[] array, int a, int b) {
-        if(b < this.end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
+        if (b < this.end && Reads.compareIndices(array, a, b, 0.5, true) == 1)
             Writes.swap(array, a, b, 0.5, true, false);
     }
 
@@ -56,18 +56,18 @@ final public class PairwiseMergeSortIterative extends Sort {
     public void runSort(int[] array, int length, int bucketCount) throws Exception {
         this.end = length;
         int n = 1;
-        for(; n < length; n <<= 1);
+        for (; n < length; n <<= 1);
 
-        for(int k = n >> 1; k > 0; k >>= 1)
-            for(int j = 0; j < length; j += k << 1)
-                for(int i = 0; i < k; i++)
+        for (int k = n >> 1; k > 0; k >>= 1)
+            for (int j = 0; j < length; j += k << 1)
+                for (int i = 0; i < k; i++)
                     this.compSwap(array, j+i, j+k+i);
 
-        for(int k = 2; k < n; k <<= 1)
-            for(int m = k >> 1; m > 0; m >>= 1)
-                for(int j = 0; j < length; j += k<<1)
-                    for(int p = m; p < ((k-m)<<1); p += m<<1)
-                        for(int i = 0; i < m; i++)
+        for (int k = 2; k < n; k <<= 1)
+            for (int m = k >> 1; m > 0; m >>= 1)
+                for (int j = 0; j < length; j += k<<1)
+                    for (int p = m; p < ((k-m)<<1); p += m<<1)
+                        for (int i = 0; i < m; i++)
                             this.compSwap(array, j+p+i, j+p+m+i);
     }
 }

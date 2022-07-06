@@ -31,7 +31,7 @@ final public class OptimizedStoogeSortStudio extends Sort {
     }
 
     private boolean compSwap(int[] array, int a, int b) {
-        if(Reads.compareIndices(array, a, b, 0.025, true) == 1) {
+        if (Reads.compareIndices(array, a, b, 0.025, true) == 1) {
             Writes.swap(array, a, b, 0.075, false, false);
             return true;
         }
@@ -39,9 +39,9 @@ final public class OptimizedStoogeSortStudio extends Sort {
     }
 
     public boolean stoogeSort(int[] array, int a, int m, int b, boolean merge) {
-        if(a >= m)
+        if (a >= m)
             return false;
-        if(b-a == 2)
+        if (b-a == 2)
             return this.compSwap(array, a, m);
 
         boolean lChange = false;
@@ -50,21 +50,21 @@ final public class OptimizedStoogeSortStudio extends Sort {
         int a2 = (a+a+b)/3;
         int b2 = (a+b+b+2)/3;
 
-        if(m < b2) {
+        if (m < b2) {
             lChange = this.stoogeSort(array, a, m, b2, merge);
 
-            if(merge) {
+            if (merge) {
                 rChange = this.stoogeSort(array, Math.max(a+b2-m, a2), b2, b, true);
-                if(rChange) this.stoogeSort(array, a+b2-m, a2, 2*a2-a, true);
+                if (rChange) this.stoogeSort(array, a+b2-m, a2, 2*a2-a, true);
             }
             else {
                 rChange = this.stoogeSort(array, a2, b2, b, false);
-                if(rChange) this.stoogeSort(array, a, a2, 2*a2-a, true);
+                if (rChange) this.stoogeSort(array, a, a2, 2*a2-a, true);
             }
         }
         else {
             rChange = this.stoogeSort(array, a2, m, b, merge);
-            if(rChange) this.stoogeSort(array, a, a2, a2+b-m, true);
+            if (rChange) this.stoogeSort(array, a, a2, a2+b-m, true);
         }
         return lChange || rChange;
     }

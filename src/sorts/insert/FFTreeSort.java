@@ -56,7 +56,7 @@ final public class FFTreeSort extends Sort {
             return parent != null && parent.isHalfLeaf();
         }
         public void rotateLeft() {
-            if(childRight == null)
+            if (childRight == null)
                 return;
             Node s = clone();
 
@@ -64,12 +64,12 @@ final public class FFTreeSort extends Sort {
             this.childLeft = s;
             this.index = childRight.index;
             this.childRight = this.childRight.childRight;
-            if(this.childRight != null) {
+            if (this.childRight != null) {
                 this.childRight.parent = this;
             }
         }
         public void rotateRight() {
-            if(childLeft == null)
+            if (childLeft == null)
                 return;
             Node s = clone();
 
@@ -77,29 +77,29 @@ final public class FFTreeSort extends Sort {
             this.childRight = s;
             this.index = childLeft.index;
             this.childLeft = this.childLeft.childLeft;
-            if(this.childLeft != null) {
+            if (this.childLeft != null) {
                 this.childLeft.parent = this;
             }
         }
         public void rotateRightLeft() {
-            if(childRight == null)
+            if (childRight == null)
                 return;
             this.childRight.rotateRight();
             this.rotateLeft();
         }
         public void rotateLeftRight() {
-            if(childLeft == null)
+            if (childLeft == null)
                 return;
             this.childLeft.rotateLeft();
             this.rotateRight();
         }
         public int balance() {
-            if(isStem())
+            if (isStem())
                 return childLeft.balance() + childRight.balance();
-            else if(isLeaf())
+            else if (isLeaf())
                 return 0;
 
-            if(childLeft == null)
+            if (childLeft == null)
                 return 1 + childRight.balance();
             return -1 + childLeft.balance();
         }
@@ -115,21 +115,21 @@ final public class FFTreeSort extends Sort {
     }
     public void insertBranch(Node root, int index) {
         int val = Node.array[index], tree = 1;
-        while(true) {
+        while (true) {
             Highlights.markArray(tree++, root.index);
             Delays.sleep(5);
-            if(Reads.compareValues(val, root.getVal()) < 0) {
-                if(root.childLeft == null) {
+            if (Reads.compareValues(val, root.getVal()) < 0) {
+                if (root.childLeft == null) {
                     root.childLeft = new Node(index, root);
-                    while(true) {
-                        if(root.balance() == 0) {
+                    while (true) {
+                        if (root.balance() == 0) {
                             root.rotateLeft();
-                        } else if(root.balance() == -1) {
+                        } else if (root.balance() == -1) {
                             root.rotateRight();
-                        } else if(root.balance() == 2) {
+                        } else if (root.balance() == 2) {
                             root.rotateRightLeft();
                         }
-                        if(root.parent == null)
+                        if (root.parent == null)
                             break;
                         root = root.parent;
                     }
@@ -138,17 +138,17 @@ final public class FFTreeSort extends Sort {
                     root = root.childLeft;
                 }
             } else {
-                if(root.childRight == null) {
+                if (root.childRight == null) {
                     root.childRight = new Node(index, root);
-                    while(true) {
-                        if(root.balance() == 0) {
+                    while (true) {
+                        if (root.balance() == 0) {
                             root.rotateRight();
-                        } else if(root.balance() < 0) {
+                        } else if (root.balance() < 0) {
                             root.rotateLeft();
-                        } else if(root.balance() == 1) {
+                        } else if (root.balance() == 1) {
                             root.rotateLeftRight();
                         }
-                        if(root.parent == null)
+                        if (root.parent == null)
                             break;
                         root = root.parent;
                     }
@@ -165,7 +165,7 @@ final public class FFTreeSort extends Sort {
 
     public void traverseTree(ArrayList<Integer> tree, Node root, int recursion) {
         Writes.recordDepth(recursion++);
-        if(root.childLeft != null) {
+        if (root.childLeft != null) {
             Writes.recursion();
             traverseTree(tree, root.childLeft, recursion);
         }
@@ -173,7 +173,7 @@ final public class FFTreeSort extends Sort {
         Delays.sleep(1);
         Writes.changeAuxWrites(1);
         tree.add(root.getVal()); // lose a value and gain
-        if(root.childRight != null) {
+        if (root.childRight != null) {
             Writes.recursion();
             traverseTree(tree, root.childRight, recursion);
         }
@@ -185,7 +185,7 @@ final public class FFTreeSort extends Sort {
 
         Node root = new Node(0);
         Writes.changeAllocAmount(1);
-        for(int i=1; i<length; i++) {
+        for (int i=1; i<length; i++) {
             insertBranch(root, i);
         }
 
@@ -194,7 +194,7 @@ final public class FFTreeSort extends Sort {
         traverseTree(fullTree, root, 0);
 
         int ptr = fullTree.size() - 1;
-        while(fullTree.size() > 0) {
+        while (fullTree.size() > 0) {
             Writes.write(array, ptr, fullTree.remove(ptr--), 1, true, false);
             Writes.changeAllocAmount(-1);
         }

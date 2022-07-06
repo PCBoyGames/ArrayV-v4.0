@@ -31,11 +31,11 @@ public final class SafeAssSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int stablereturn(int a) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
-    
+
     protected int par(int[] array, int len) {
         boolean[] max = new boolean[len];
         int maximum = stablereturn(array[0]);
@@ -78,7 +78,7 @@ public final class SafeAssSort extends BogoSorting {
             changesthis = true;
         }
     }
-    
+
     protected void initializeCurve(int[] array, int currentLen) {
         int floorLog2 = (int) (Math.log(currentLen) / Math.log(2));
         for (int i = 0; i < currentLen; i++) {
@@ -100,7 +100,7 @@ public final class SafeAssSort extends BogoSorting {
     protected double triangleWave(double x) {
         return Math.abs(x - (int) (x + 0.5));
     }
-    
+
     protected void linearInvert(int[] array, int currentLen) {
         int[] tmp = new int[currentLen];
         tableinvert(array, tmp, currentLen);
@@ -150,7 +150,7 @@ public final class SafeAssSort extends BogoSorting {
         for (int i = 0; i < currentLength; i++) Writes.write(table, i, i, 0, false, true);
         quickSort(array, table, 0, currentLength);
     }
-    
+
     protected void prepareIndexes(int[] array, int length) {
         initializeCurve(array, length);
         linearInvert(array, length);

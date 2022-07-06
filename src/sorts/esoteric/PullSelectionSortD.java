@@ -22,23 +22,23 @@ public final class PullSelectionSortD extends BogoSorting {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int kl = length;
-        while(!isArraySorted(array, kl)) {
-            while(length > 0 && !isArraySorted(array, length)) {
+        while (!isArraySorted(array, kl)) {
+            while (length > 0 && !isArraySorted(array, length)) {
                 int swaps = 0;
-                for(int i=0; i < length; i++) {
+                for (int i=0; i < length; i++) {
                     int min = i;
-                    for(int j=i+1; j<length; j++) {
+                    for (int j=i+1; j<length; j++) {
                         Highlights.markArray(2, j);
                         Delays.sleep(0.01);
-                        if(Reads.compareValues(array[j], array[min]) == -1) {
+                        if (Reads.compareValues(array[j], array[min]) == -1) {
                             Writes.multiSwap(array, min, j-1, 0.1, true, false);
-                            if(min < j-1)
+                            if (min < j-1)
                                 swaps++;
                             min=j;
                         }
                     }
                 }
-                if(swaps == 0) {
+                if (swaps == 0) {
                     length--;
                     Writes.multiSwap(array, 0, length, 1, true, false);
                 }

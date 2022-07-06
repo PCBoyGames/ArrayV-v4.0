@@ -50,8 +50,8 @@ public final class QuickBogoSort extends BogoSorting {
         this.setBogoSort(true);
     }
 
-    private int quickBogoSwap(int[] array, int start, int pivot, int end){
-        for(int i = start; i < end; i++) {
+    private int quickBogoSwap(int[] array, int start, int pivot, int end) {
+        for (int i = start; i < end; i++) {
             int j = BogoSorting.randInt(i, end);
             if (pivot == i)
                 pivot = j;

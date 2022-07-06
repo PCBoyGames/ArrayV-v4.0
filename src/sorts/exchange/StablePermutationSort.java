@@ -48,25 +48,25 @@ final public class StablePermutationSort extends BogoSorting {
     private int length;
 
     private boolean permute(int[] array, int[] idx, int len) {
-        if(len < 2) return this.isArraySorted(array, this.length);
+        if (len < 2) return this.isArraySorted(array, this.length);
 
-        for(int i = len-2; i >= 0; i--) {
-            if(this.permute(array, idx, len-1)) return true;
+        for (int i = len-2; i >= 0; i--) {
+            if (this.permute(array, idx, len-1)) return true;
 
             Writes.swap(array, idx[i], idx[len-1], 0, true, false);
             Writes.swap(idx, i, len-1, this.delay, false, true);
         }
-        if(this.permute(array, idx, len-1)) return true;
+        if (this.permute(array, idx, len-1)) return true;
 
         int t = idx[len-1];
 
-        for(int i = len-1; i > 0; i--)
+        for (int i = len-1; i > 0; i--)
             Writes.write(idx, i, idx[i-1], 0, false, true);
         Writes.write(idx, 0, t, 0, false, true);
 
         t = array[idx[0]];
 
-        for(int i = 1; i < len; i++)
+        for (int i = 1; i < len; i++)
             Writes.write(array, idx[i-1], array[idx[i]], this.delay, true, false);
         Writes.write(array, idx[len-1], t, this.delay, true, false);
 
@@ -78,7 +78,7 @@ final public class StablePermutationSort extends BogoSorting {
         this.length = length;
         int[] idx = Writes.createExternalArray(length);
 
-        for(int i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
             Writes.write(idx, i, i, this.delay, true, true);
 
         this.permute(array, idx, length);

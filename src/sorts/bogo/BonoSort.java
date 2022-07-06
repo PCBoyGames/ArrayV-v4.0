@@ -20,15 +20,15 @@ public final class BonoSort extends BogoSorting {
     }
     private void convergePull(int[] array, int start, int end) {
         int l = start+1, r=end;
-        while(l < r) {
+        while (l < r) {
             int a = randInt(l, r),
                 b = randInt(a, r);
-            if(Reads.compareValues(array[start], array[a]) >= 0) {
+            if (Reads.compareValues(array[start], array[a]) >= 0) {
                 l = a;
             } else {
                 l = b;
             }
-            if(Reads.compareValues(array[start], array[b]) <= 0) {
+            if (Reads.compareValues(array[start], array[b]) <= 0) {
                 r = b;
             } else {
                 r = a;
@@ -38,7 +38,7 @@ public final class BonoSort extends BogoSorting {
     }
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        while(!this.isArraySorted(array, length))
+        while (!this.isArraySorted(array, length))
             convergePull(array, 0, length);
     }
 }

@@ -50,11 +50,11 @@ final public class OptimizedPigeonholeSort extends Sort {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
 
-        for(int i = 0; i < sortLength; i++) {
-            if(array[i] < min) {
+        for (int i = 0; i < sortLength; i++) {
+            if (array[i] < min) {
                 min = array[i];
             }
-            if(array[i] > max) {
+            if (array[i] > max) {
                 max = array[i];
             }
         }
@@ -62,14 +62,14 @@ final public class OptimizedPigeonholeSort extends Sort {
         int size = max - min + 1;
         int[] holes = Writes.createExternalArray(size);
 
-        for(int x = 0; x < sortLength; x++) {
+        for (int x = 0; x < sortLength; x++) {
             Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, false, true);
             Highlights.markArray(1, x);
         }
 
         int j = 0;
 
-        for(int count = 0; count < size; count++) {
+        for (int count = 0; count < size; count++) {
             for (int i = 0; i < holes[count]; i++) {
                 Writes.write(array, j, count + min, 1, false, false);
 

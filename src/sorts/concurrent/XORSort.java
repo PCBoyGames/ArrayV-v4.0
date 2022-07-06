@@ -22,16 +22,16 @@ final public class XORSort extends Sort {
     int end;
 
     void compSwap(int[] array, int a, int b) {
-        if(b < end && Reads.compareIndices(array, a, b, 0.5, true) == -1)
+        if (b < end && Reads.compareIndices(array, a, b, 0.5, true) == -1)
             Writes.swap(array, a, b, 0.5, true, false);
     }
 
     @Override
     public void runSort(int[] array, int size, int bucketCount) {
         end = size;
-        for(int k=size-1; k>0; k--) {
-            for(int l=1;l<=k;l++)
-                for(int i=0;i<size;
+        for (int k=size-1; k>0; k--) {
+            for (int l=1;l<=k;l++)
+                for (int i=0;i<size;
                 i++) {this.compSwap
                 (array,i,i^(k%(l+1)
                 ));

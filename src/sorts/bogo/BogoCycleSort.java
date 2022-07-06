@@ -31,63 +31,63 @@ SOFTWARE.
  */
 
 final public class BogoCycleSort extends Sort {
-	public BogoCycleSort(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
+    public BogoCycleSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
 
-		this.setSortListName("Bogo Cycle");
-		this.setRunAllSortsName("Bogo Cycle Sort");
-		this.setRunSortName("Bogo Cyclesort");
-		this.setCategory("Bogo Sorts");
-		this.setComparisonBased(true);
-		this.setBucketSort(false);
-		this.setRadixSort(false);
-		this.setUnreasonablySlow(true);
-		this.setUnreasonableLimit(1024);
-		this.setBogoSort(false);
-	}
+        this.setSortListName("Bogo Cycle");
+        this.setRunAllSortsName("Bogo Cycle Sort");
+        this.setRunSortName("Bogo Cyclesort");
+        this.setCategory("Bogo Sorts");
+        this.setComparisonBased(true);
+        this.setBucketSort(false);
+        this.setRadixSort(false);
+        this.setUnreasonablySlow(true);
+        this.setUnreasonableLimit(1024);
+        this.setBogoSort(false);
+    }
 
-	private boolean correctPos(int[] array, int idx, int b) {
-		int lower = 0, upper = 0;
-		Highlights.markArray(2, idx);
+    private boolean correctPos(int[] array, int idx, int b) {
+        int lower = 0, upper = 0;
+        Highlights.markArray(2, idx);
 
-		for(int i = 0; i < b && lower <= idx; i++) {
-			if(i == idx) continue;
+        for (int i = 0; i < b && lower <= idx; i++) {
+            if (i == idx) continue;
 
-			Highlights.markArray(1, i);
-			int cmp = Reads.compareValues(array[i], array[idx]);
-			lower += (1-cmp)/2;
-			upper += (2-cmp)/2;
-		}
-		return idx >= lower && idx <= upper;
-	}
+            Highlights.markArray(1, i);
+            int cmp = Reads.compareValues(array[i], array[idx]);
+            lower += (1-cmp)/2;
+            upper += (2-cmp)/2;
+        }
+        return idx >= lower && idx <= upper;
+    }
 
-	@Override
-	public void runSort(int[] array, int length, int bucketCount) {
-		int[] idx = Writes.createExternalArray(length);
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+        int[] idx = Writes.createExternalArray(length);
 
-		for(int i = 0; i < length; i++)
-			Writes.write(idx, i, i, 0, false, true);
+        for (int i = 0; i < length; i++)
+            Writes.write(idx, i, i, 0, false, true);
 
-		int size = length;
-		Random r = new Random();
+        int size = length;
+        Random r = new Random();
 
-		do {
-			int c = 0;
+        do {
+            int c = 0;
 
-			for(int i = 0; i < size; i++)
-				if(!correctPos(array, idx[i], length))
-					Writes.write(idx, c++, idx[i], 0, false, true);
+            for (int i = 0; i < size; i++)
+                if (!correctPos(array, idx[i], length))
+                    Writes.write(idx, c++, idx[i], 0, false, true);
 
-			size = c;
+            size = c;
 
-			for(int i = 0; i < size; i++) {
-				int rand = i+r.nextInt(size-i);
-				Writes.swap(array, idx[i], idx[rand], 0, true, false);
-				Writes.swap(idx, i, rand, 0.01, false, true);
-			}
-		}
-		while(size > 1);
+            for (int i = 0; i < size; i++) {
+                int rand = i+r.nextInt(size-i);
+                Writes.swap(array, idx[i], idx[rand], 0, true, false);
+                Writes.swap(idx, i, rand, 0.01, false, true);
+            }
+        }
+        while (size > 1);
 
-		Writes.deleteExternalArray(idx);
-	}
+        Writes.deleteExternalArray(idx);
+    }
 }

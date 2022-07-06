@@ -19,7 +19,7 @@ final public class CircleSortJaune extends Sort {
     }
 
     protected boolean circle(int[] array, int a, int b, boolean anyswaps) {
-    if(a >= b) return anyswaps;
+    if (a >= b) return anyswaps;
         int left = a;
         int right = b;
         boolean swaphere = false;
@@ -38,7 +38,7 @@ final public class CircleSortJaune extends Sort {
     }
 
     protected boolean circlex(int[] array, int a, int b, boolean anyswaps) {
-    if(a >= b) return anyswaps;
+    if (a >= b) return anyswaps;
         int left = a;
         int right = b;
         boolean swaphere = false;

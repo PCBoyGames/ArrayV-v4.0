@@ -36,11 +36,11 @@ public class IndexedRotations {
     public static void foolish(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.foolish(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
-    
+
     public static void morefoolish(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.morefoolish(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
-    
+
     public static void radon(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.radon(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }

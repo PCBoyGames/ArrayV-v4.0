@@ -15,9 +15,9 @@ FIXING ORIGINAL CODE BY ANONYMOUS0726
 
 */
 final public class NapoleonSortResolve extends Sort {
-    
+
     int oob = 0;
-    
+
     public NapoleonSortResolve(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Napoleon (Resolved)");
@@ -40,13 +40,13 @@ final public class NapoleonSortResolve extends Sort {
             if (Reads.compareIndices(array, i, j, 1, true) > 0) Writes.swap(array, i, j, 1, true, false);
         }
     }
-    
+
     protected boolean isRotationSolve(int[] array, int end) {
         int seg = 1;
         boolean equal = false;
         for (int i = 0; i < end && seg <= (equal ? 3 : 2); i++) {
             int cmp = Reads.compareIndices(array, i, i + 1, 0, true);
-            if (cmp > 0) seg++;   
+            if (cmp > 0) seg++;
             if (cmp == 0) equal = true;
         }
         boolean cmp = false;
@@ -94,7 +94,7 @@ final public class NapoleonSortResolve extends Sort {
             } else {
                 int next = lookWest(array, prev, hi - 1, lo);
                 if (next == hi) {
-                    if(noneFound) {
+                    if (noneFound) {
                         lo++;
                         hi--;
                     }

@@ -76,7 +76,7 @@ final public class PathOwOgenSort extends BogoSorting {
                         String g = x.group();
                         boolean left = g.matches("^\\W"),
                                 right = g.matches("\\W$");
-                        if(right || (!right&&!left))
+                        if (right || (!right&&!left))
                             return g.replaceFirst("t[Hh]", "f").
                                     replaceFirst("T[Hh]", "F");
                         return g.replaceFirst("t[Hh]", "d").
@@ -113,12 +113,12 @@ final public class PathOwOgenSort extends BogoSorting {
                     Pattern.compile("([\\.\\!\\?]+|$)", Pattern.MULTILINE),
                     x -> {
                         String g = x.group();
-                        if(!g.matches("[\\.\\!\\?]+")) {
+                        if (!g.matches("[\\.\\!\\?]+")) {
                             int bound = r.nextInt(3)+2,
                                 punc = r.nextInt(punct.length),
                                 uwu = r.nextInt(owo.length);
                             String endPunct = "";
-                            for(int i=0; i<bound; i++) {
+                            for (int i=0; i<bound; i++) {
                                 endPunct += punct[punc];
                             }
                             return g + endPunct + " " + owo[uwu];
@@ -131,11 +131,11 @@ final public class PathOwOgenSort extends BogoSorting {
     };
 
     private static String why(String output) {
-        if(output == null) return null;
-        if(maps.containsKey(output))
+        if (output == null) return null;
+        if (maps.containsKey(output))
             return maps.get(output);
         String og = output;
-        for(Pair<Pattern, Function<MatchResult, String>> i : owos) {
+        for (Pair<Pattern, Function<MatchResult, String>> i : owos) {
             // Eclipse was whining about something that shouldn't have happened
             // (tried to use the Function version of the replaceAll method,
             // but apparently, the String version is the only one that Eclipse
@@ -160,7 +160,7 @@ final public class PathOwOgenSort extends BogoSorting {
         }
         public Sowort(ArrayVisualizer arrayVisualizer, int index, boolean compare) {
             super(arrayVisualizer);
-            if(compare)
+            if (compare)
                 wrapped = wrapsCompare[index];
             else
                 wrapped = wrapsDistr[index];
@@ -168,7 +168,7 @@ final public class PathOwOgenSort extends BogoSorting {
         }
         private void instantiate() {
             Object v;
-            for(Field i : wrapped.getClass().getDeclaredFields()) {
+            for (Field i : wrapped.getClass().getDeclaredFields()) {
                 try {
                     v = i.get(wrapped);
                     i.set(this, v);
@@ -206,13 +206,13 @@ final public class PathOwOgenSort extends BogoSorting {
         wrapsCompare = new Sort[sorts0.size()];
         wrapsDistr = new Sort[sorts1.size()];
 
-        for(int i=0; i<sorts0.size(); i++) {
+        for (int i=0; i<sorts0.size(); i++) {
             Sowort s = new Sowort(arrayVisualizer);
             s.wrapped = sorts0.get(i);
             s.instantiate();
             sorts0.set(i, s);
         }
-        for(int i=0; i<sorts1.size(); i++) {
+        for (int i=0; i<sorts1.size(); i++) {
             Sowort s = new Sowort(arrayVisualizer);
             s.wrapped = sorts1.get(i);
             s.instantiate();
@@ -220,26 +220,26 @@ final public class PathOwOgenSort extends BogoSorting {
         }
         arrayVisualizer.getSortAnalyzer().sortSorts();
         arrayVisualizer.refreshSorts();
-        for(int i=0; i<sorts0.size(); i++)
+        for (int i=0; i<sorts0.size(); i++)
             wrapsCompare[i] = ((Sowort) sorts0.get(i)).wrapped;
-        for(int i=0; i<sorts1.size(); i++)
+        for (int i=0; i<sorts1.size(); i++)
             wrapsDistr[i] = ((Sowort) sorts1.get(i)).wrapped;
     }
     private void drunkDrunk(int[] array, int start, int end) {
         boolean invert = false;
         final int slow = 128;
-        while(!isRangeSorted(array, start, end)) {
-            for(int i=start, m=0, max=start; m<slow*(end-start) && i<end-1; m++) {
-                if(invert ^ (Reads.compareValues(array[i], array[i+1]) == 1)) {
+        while (!isRangeSorted(array, start, end)) {
+            for (int i=start, m=0, max=start; m<slow*(end-start) && i<end-1; m++) {
+                if (invert ^ (Reads.compareValues(array[i], array[i+1]) == 1)) {
                     Writes.swap(array, i, i+1, 1, true, false);
                 } else {
                     invert = randBoolean();
                     break;
                 }
                 i += randBoolean() ? 1 : -1;
-                if(i < start)
+                if (i < start)
                     i = max;
-                if(i > max)
+                if (i > max)
                     max = i;
                 drunkDrunk(array, i, max);
             }

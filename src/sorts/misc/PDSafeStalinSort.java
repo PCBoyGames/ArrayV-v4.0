@@ -124,7 +124,7 @@ public final class PDSafeStalinSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        if(patternDefeat(array, 0, length)) return;
+        if (patternDefeat(array, 0, length)) return;
         BlockInsertionSortNeonLessInsert two = new BlockInsertionSortNeonLessInsert(arrayVisualizer);
         int n = length;
         boolean check = false;

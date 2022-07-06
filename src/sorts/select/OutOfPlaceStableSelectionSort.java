@@ -40,7 +40,9 @@ final public class OutOfPlaceStableSelectionSort extends Sort {
             while (out[sel] == min) sel++;
             for (int j = sel + 1; j < currentLength; j++) if (out[j] != min) if (Reads.compareIndices(out, sel, j, 0.25, true) > 0) sel = j;
             Writes.write(array, i, out[sel], 0.25, true, false);
-            Writes.write(out, sel, -1, 0.25, true, true);
+            // Decorative. Also helps to visualize part of the aux.
+            if (sel > i) array[sel] = min;
+            Writes.write(out, sel, min, 0.25, true, true);
         }
     }
 }

@@ -31,42 +31,42 @@ final public class PancakeQuickSort extends Sort {
     }
 
     private int medOf3(int[] array, int p1, int p2, int p3) {
-        if(p1 == p2) {
+        if (p1 == p2) {
             return p1;
         }
-        if(p2 == p3) {
+        if (p2 == p3) {
             return p2;
         }
-        if(Reads.compareValues(array[p1], array[p2]) <= 0) {
-            if(Reads.compareValues(array[p2], array[p3]) <= 0)
+        if (Reads.compareValues(array[p1], array[p2]) <= 0) {
+            if (Reads.compareValues(array[p2], array[p3]) <= 0)
                 return p2;
-            if(Reads.compareValues(array[p1], array[p3]) <= 0)
+            if (Reads.compareValues(array[p1], array[p3]) <= 0)
                 return p3;
             return p1;
         }
-        if(Reads.compareValues(array[p2], array[p3]) <= 0)
+        if (Reads.compareValues(array[p2], array[p3]) <= 0)
             return p2;
-        if(Reads.compareValues(array[p1], array[p3]) <= 0)
+        if (Reads.compareValues(array[p1], array[p3]) <= 0)
             return p1;
         return p3;
     }
 
     private void pancakeLLQS(int[] array, int length, double sleep) {
-        if(length == 2) {
-            if(Reads.compareValues(array[0], array[length-1]) > 0) {
+        if (length == 2) {
+            if (Reads.compareValues(array[0], array[length-1]) > 0) {
                 this.flip(array, length-1, sleep*10d);
             }
             return;
-        } else if(length < 2)
+        } else if (length < 2)
             return;
         int j=0, mid = (length - 1) / 2, piv = array[this.medOf3(array, 0, mid, length-1)];
-        for(int i=0; i<length; i++) {
+        for (int i=0; i<length; i++) {
             int k=i;
-            while(k < length && Reads.compareValues(piv, array[k]) >= 0) {
+            while (k < length && Reads.compareValues(piv, array[k]) >= 0) {
                 k++;
                 j++;
             }
-            if(k > i) { // Minor reversal optimization
+            if (k > i) { // Minor reversal optimization
                 this.flip(array, i-1, sleep/4d);
                 this.flip(array, k-1, sleep/4d);
                 i = k-1;

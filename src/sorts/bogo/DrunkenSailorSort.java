@@ -21,9 +21,9 @@ final public class DrunkenSailorSort extends BogoSorting {
 
     @Override
     public int validateAnswer(int answer) {
-        if(answer < 0)
+        if (answer < 0)
             return 0;
-        if(answer > 99)
+        if (answer > 99)
             return 100;
         return answer;
     }
@@ -32,18 +32,18 @@ final public class DrunkenSailorSort extends BogoSorting {
     public void runSort(int[] array, int currentLength, int luck) {
         boolean invert = false;
         final int slow = 128;
-        while(!isArraySorted(array, currentLength)) {
-            for(int i=0, m=0, max=0; m<slow*currentLength && i<currentLength-1; m++) {
-                if(invert ^ (Reads.compareValues(array[i], array[i+1]) == 1)) {
+        while (!isArraySorted(array, currentLength)) {
+            for (int i=0, m=0, max=0; m<slow*currentLength && i<currentLength-1; m++) {
+                if (invert ^ (Reads.compareValues(array[i], array[i+1]) == 1)) {
                     Writes.swap(array, i, i+1, 1, true, false);
-                } else if(randInt(1, 101) > luck) {
+                } else if (randInt(1, 101) > luck) {
                     invert = randBoolean();
                     break;
                 }
                 i += randBoolean() ? 1 : -1;
-                if(i < 0)
+                if (i < 0)
                     i = max;
-                if(i > max)
+                if (i > max)
                     max = i;
             }
         }

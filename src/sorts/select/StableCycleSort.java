@@ -60,17 +60,17 @@ final public class StableCycleSort extends Sort {
     private int destination1(int[] array, int[] bits, int a, int b1, int b) {
         int d = a, e = 0;
 
-        for(int i = a+1; i < b; i++) {
+        for (int i = a+1; i < b; i++) {
             Highlights.markArray(2, i);
             int cmp = Reads.compareValues(array[i], array[a]);
 
-            if(cmp < 0) d++;
-            else if(i < b1 && !this.getBit(bits, i) && cmp == 0) e++;
+            if (cmp < 0) d++;
+            else if (i < b1 && !this.getBit(bits, i) && cmp == 0) e++;
 
             Highlights.markArray(3, d);
             Delays.sleep(0.01);
         }
-        while(this.getBit(bits, d) || e-- > 0) {
+        while (this.getBit(bits, d) || e-- > 0) {
             d++;
 
             Highlights.markArray(3, d);
@@ -84,8 +84,8 @@ final public class StableCycleSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
         int[] bits = Writes.createExternalArray(((length-1) >> WLEN) + 1);
 
-        for(int i = 0; i < length-1; i++) {
-            if(!this.getBit(bits, i)) {
+        for (int i = 0; i < length-1; i++) {
+            if (!this.getBit(bits, i)) {
                 Highlights.markArray(1, i);
                 int j = i;
 
@@ -95,7 +95,7 @@ final public class StableCycleSort extends Sort {
                     this.flag(bits, k);
                     j = k;
                 }
-                while(j != i);
+                while (j != i);
             }
         }
         Writes.deleteExternalArray(bits);

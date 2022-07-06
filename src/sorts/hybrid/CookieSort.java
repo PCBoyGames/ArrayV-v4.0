@@ -52,7 +52,7 @@ public class CookieSort extends GrailSorting {
         int p = 1;
         int j = b - a - 1;
         while (j >= 0 && i >= p) {
-            while(!max[j] && j > 0) j--;
+            while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[a + j]);
             while (maximum <= stablereturn(array[a + i]) && i >= p) i--;
             if (stablereturn(array[a + j]) > stablereturn(array[a + i]) && p < i - j) p = i - j;
@@ -157,7 +157,7 @@ public class CookieSort extends GrailSorting {
             } else {
                 for (int i = 0; i < lenB; i++) {
                     int t = array[pos + i + lenA], j = pos + i + lenA - lenB;
-                    for(; j >= pos; j -= lenB) {
+                    for (; j >= pos; j -= lenB) {
                         Writes.write(array, j + lenB, array[j], 1, true, false);
                     }
                     Writes.write(array, j + lenB, t, 1, true, false);
@@ -218,12 +218,12 @@ public class CookieSort extends GrailSorting {
         int i = a + 1;
         if (i == b)
             return i;
-        if(Reads.compareIndices(array, i - 1, i++, 1, true) == 1) {
-            while(i < b && Reads.compareIndices(array, i - 1, i, 1, true) == 1) i++;
+        if (Reads.compareIndices(array, i - 1, i++, 1, true) == 1) {
+            while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) == 1) i++;
             if (i - a > 3) Writes.reversal(array, a, i - 1, 1, true, false);
             else Writes.swap(array, a, i - 1, 1, true, false);
         }
-        else while(i < b && Reads.compareIndices(array, i - 1, i, 1, true) <= 0) i++;
+        else while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) <= 0) i++;
         Highlights.clearMark(2);
         return i;
     }

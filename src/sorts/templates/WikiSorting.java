@@ -181,7 +181,7 @@ final public class WikiSorting {
 
         cache_size = cacheChoice;
 
-        if(cache_size != 0) this.cache = Writes.createExternalArray(cache_size);
+        if (cache_size != 0) this.cache = Writes.createExternalArray(cache_size);
         else this.cache = null;
     }
 
@@ -325,8 +325,8 @@ final public class WikiSorting {
         int lenB = range2.length();
         int pos = range.start;
 
-        while(lenA != 0 && lenB != 0) {
-            if(lenA <= lenB) {
+        while (lenA != 0 && lenB != 0) {
+            if (lenA <= lenB) {
                 this.BlockSwap(array, pos, pos + lenA, lenA);
                 pos += lenA;
                 lenB -= lenA;
@@ -355,7 +355,7 @@ final public class WikiSorting {
             if (Reads.compareValues(from[B_index], from[A_index]) >= 0) {
                 Writes.write(into, insert_index, from[A_index], 1, false, tempwrite);
 
-                if(tempwrite) Highlights.markArray(1, A_index);
+                if (tempwrite) Highlights.markArray(1, A_index);
                 else Highlights.markArray(1, insert_index);
 
                 A_index++;
@@ -368,7 +368,7 @@ final public class WikiSorting {
             } else {
                 Writes.write(into, insert_index, from[B_index], 1, false, tempwrite);
 
-                if(tempwrite) Highlights.markArray(1, B_index);
+                if (tempwrite) Highlights.markArray(1, B_index);
                 else Highlights.markArray(1, insert_index);
 
                 B_index++;

@@ -31,12 +31,12 @@ final public class LRQuickSort extends Sort {
         Highlights.markArray(3, pivot);
 
         while (i <= j) {
-            while (Reads.compareValues(a[i], x) == -1){
+            while (Reads.compareValues(a[i], x) == -1) {
                 i++;
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while (Reads.compareValues(a[j], x) == 1){
+            while (Reads.compareValues(a[j], x) == 1) {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
@@ -44,10 +44,10 @@ final public class LRQuickSort extends Sort {
 
             if (i <= j) {
                 // Follow the pivot and highlight it.
-                if(i == pivot) {
+                if (i == pivot) {
                     Highlights.markArray(3, j);
                 }
-                if(j == pivot) {
+                if (j == pivot) {
                     Highlights.markArray(3, i);
                 }
 
@@ -58,11 +58,11 @@ final public class LRQuickSort extends Sort {
             }
         }
 
-        if(p < j) {
+        if (p < j) {
             Writes.recursion();
             this.quickSort(a, p, j, d + 1);
         }
-        if(i < r) {
+        if (i < r) {
             Writes.recursion();
             this.quickSort(a, i, r, d + 1);
         }

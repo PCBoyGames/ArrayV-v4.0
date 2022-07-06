@@ -78,14 +78,14 @@ final public class AdaptiveGrailSort extends Sort {
     private int minRun;
 
     private void multiSwap(int[] array, int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(array, a+i, b+i, 1, true, false);
     }
 
     //changes len sized blocks order ABC -> BCA
     private void multiTriSwap(int[] array, int a, int b, int c, int len) {
         Highlights.clearMark(2);
-        for(int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             int temp = array[a+i];
             Writes.write(array, a+i, array[b+i], 0.333, true, false);
             Writes.write(array, b+i, array[c+i], 0.333, true, false);
@@ -96,26 +96,26 @@ final public class AdaptiveGrailSort extends Sort {
     private void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
-        while(a > b) Writes.write(array, a, array[(a--)-1], 0.5, true, false);
+        while (a > b) Writes.write(array, a, array[(a--)-1], 0.5, true, false);
         Writes.write(array, b, temp, 0.5, true, false);
     }
 
     private void insertToBW(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
-        while(a < b) Writes.write(array, a, array[(a++)+1], 0.5, true, false);
+        while (a < b) Writes.write(array, a, array[(a++)+1], 0.5, true, false);
         Writes.write(array, a, temp, 0.5, true, false);
     }
 
     private void shift(int[] array, int a, int m, int b) {
-        while(m < b) Writes.swap(array, a++, m++, 1, true, false);
+        while (m < b) Writes.swap(array, a++, m++, 1, true, false);
     }
 
     private void rotate(int[] array, int a, int m, int b) {
         int l = m-a, r = b-m;
 
-        while(l > 1 && r > 1) {
-            if(r < l) {
+        while (l > 1 && r > 1) {
+            if (r < l) {
                 this.multiSwap(array, m-r, m, r);
                 b -= r;
                 m -= r;
@@ -130,15 +130,15 @@ final public class AdaptiveGrailSort extends Sort {
         }
 
         Highlights.clearMark(2);
-        if(r == 1)      this.insertTo(array, m, a);
-        else if(l == 1) this.insertToBW(array, a, b-1);
+        if (r == 1)      this.insertTo(array, m, a);
+        else if (l == 1) this.insertToBW(array, a, b-1);
     }
 
     private int leftBinarySearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareValues(val, array[m]) <= 0)
+            if (Reads.compareValues(val, array[m]) <= 0)
                 b = m;
             else
                 a = m+1;
@@ -148,10 +148,10 @@ final public class AdaptiveGrailSort extends Sort {
     }
 
     private int rightBinarySearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+1;
@@ -164,20 +164,20 @@ final public class AdaptiveGrailSort extends Sort {
         int nKeys = 1, i = a+1;
 
         //build run at start
-        if(Reads.compareIndices(array, i-1, i, 1, true) == -1){
+        if (Reads.compareIndices(array, i-1, i, 1, true) == -1) {
             i++;
             nKeys++;
 
-            while(nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == -1) {
+            while (nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == -1) {
                 i++;
                 nKeys++;
             }
         }
-        else if(Reads.compareIndices(array, i-1, i, 1, true) == 1) {
+        else if (Reads.compareIndices(array, i-1, i, 1, true) == 1) {
             i++;
             nKeys++;
 
-            while(nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == 1) {
+            while (nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == 1) {
                 i++;
                 nKeys++;
             }
@@ -191,20 +191,20 @@ final public class AdaptiveGrailSort extends Sort {
         int nKeys = 1, i = b-1;
 
         //build run at end
-        if(Reads.compareIndices(array, i-1, i, 1, true) == -1){
+        if (Reads.compareIndices(array, i-1, i, 1, true) == -1) {
             i--;
             nKeys++;
 
-            while(nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == -1) {
+            while (nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == -1) {
                 i--;
                 nKeys++;
             }
         }
-        else if(Reads.compareIndices(array, i-1, i, 1, true) == 1) {
+        else if (Reads.compareIndices(array, i-1, i, 1, true) == 1) {
             i--;
             nKeys++;
 
-            while(nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == 1) {
+            while (nKeys < n && Reads.compareIndices(array, i-1, i, 1, true) == 1) {
                 i--;
                 nKeys++;
             }
@@ -218,12 +218,12 @@ final public class AdaptiveGrailSort extends Sort {
         int p = a, pEnd = a+nKeys;
 
         Highlights.clearMark(2);
-        for(int i = pEnd; i < b && nKeys < n; i++) {
+        for (int i = pEnd; i < b && nKeys < n; i++) {
             Highlights.markArray(1, i);
             Delays.sleep(1);
             int loc = this.leftBinarySearch(array, p, pEnd, array[i]);
 
-            if(pEnd == loc || Reads.compareValues(array[i], array[loc]) != 0) {
+            if (pEnd == loc || Reads.compareValues(array[i], array[loc]) != 0) {
                 this.rotate(array, p, pEnd, i);
                 int inc = i-pEnd;
                 loc  += inc;
@@ -244,12 +244,12 @@ final public class AdaptiveGrailSort extends Sort {
         int p = b-nKeys, pEnd = b;
 
         Highlights.clearMark(2);
-        for(int i = p-1; i >= a && nKeys < n; i--) {
+        for (int i = p-1; i >= a && nKeys < n; i--) {
             Highlights.markArray(1, i);
             Delays.sleep(1);
             int loc = this.leftBinarySearch(array, p, pEnd, array[i]);
 
-            if(pEnd == loc || Reads.compareValues(array[i], array[loc]) != 0) {
+            if (pEnd == loc || Reads.compareValues(array[i], array[loc]) != 0) {
                 this.rotate(array, i+1, p, pEnd);
                 int inc = p-(i+1);
                 loc  -= inc;
@@ -268,16 +268,16 @@ final public class AdaptiveGrailSort extends Sort {
     private void buildRuns(int[] array, int a, int b) {
         int i = a+1, j = a;
 
-        while(i < b) {
-            if(Reads.compareIndices(array, i-1, i++, 1, true) == 1) {
-                while(i < b && Reads.compareIndices(array, i-1, i, 1, true) == 1) i++;
+        while (i < b) {
+            if (Reads.compareIndices(array, i-1, i++, 1, true) == 1) {
+                while (i < b && Reads.compareIndices(array, i-1, i, 1, true) == 1) i++;
                 Writes.reversal(array, j, i-1, 1, true, false);
             }
-            else while(i < b && Reads.compareIndices(array, i-1, i, 1, true) <= 0) i++;
+            else while (i < b && Reads.compareIndices(array, i-1, i, 1, true) <= 0) i++;
 
-            if(i < b) j = i - (i-j-1)%this.minRun - 1;//a%b, if(a%b == 0) -> a = b
+            if (i < b) j = i - (i-j-1)%this.minRun - 1;//a%b, if (a%b == 0) -> a = b
 
-            while(i-j < this.minRun && i < b) {
+            while (i-j < this.minRun && i < b) {
                 this.insertTo(array, i, this.rightBinarySearch(array, j, i, array[i]));
                 i++;
             }
@@ -286,20 +286,20 @@ final public class AdaptiveGrailSort extends Sort {
     }
 
     private void binaryInsertion(int[] array, int a, int b) {
-        for(int i = a+1; i < b; i++)
+        for (int i = a+1; i < b; i++)
             this.insertTo(array, i, this.rightBinarySearch(array, a, i, array[i]));
     }
 
     private void mergeWithBufRest(int[] array, int a, int m, int b, int p, int pLen) {
         int i = 0, j = m, k = a;
 
-        while(i < pLen && j < b) {
-            if(Reads.compareValues(array[p+i], array[j]) <= 0)
+        while (i < pLen && j < b) {
+            if (Reads.compareValues(array[p+i], array[j]) <= 0)
                 Writes.swap(array, k++, p+(i++), 1, true, false);
             else
                 Writes.swap(array, k++, j++, 1, true, false);
         }
-        while(i < pLen) Writes.swap(array, k++, p+(i++), 1, true, false);
+        while (i < pLen) Writes.swap(array, k++, p+(i++), 1, true, false);
     }
 
     private void mergeWithBuf(int[] array, int a, int m, int b, int p) {
@@ -314,20 +314,20 @@ final public class AdaptiveGrailSort extends Sort {
 
         int i = pLen-1, j = m-1, k = b-1;
 
-        while(i >= 0 && j >= a) {
-            if(Reads.compareValues(array[p+i], array[j]) >= 0)
+        while (i >= 0 && j >= a) {
+            if (Reads.compareValues(array[p+i], array[j]) >= 0)
                 Writes.swap(array, k--, p+(i--), 1, true, false);
             else
                 Writes.swap(array, k--, j--, 1, true, false);
         }
-        while(i >= 0) Writes.swap(array, k--, p+(i--), 1, true, false);
+        while (i >= 0) Writes.swap(array, k--, p+(i--), 1, true, false);
     }
 
     private void inPlaceMerge(int[] array, int a, int m, int b) {
         int i = a, j = m, k;
 
-        while(i < j && j < b) {
-            if(Reads.compareValues(array[i], array[j]) > 0) {
+        while (i < j && j < b) {
+            if (Reads.compareValues(array[i], array[j]) > 0) {
                 k = this.leftBinarySearch(array, j+1, b, array[i]);
                 this.rotate(array, i, j, k);
 
@@ -341,8 +341,8 @@ final public class AdaptiveGrailSort extends Sort {
     private void inPlaceMergeBW(int[] array, int a, int m, int b) {
         int i = m-1, j = b-1, k;
 
-        while(j > i && i >= a){
-            if(Reads.compareValues(array[i], array[j]) > 0) {
+        while (j > i && i >= a) {
+            if (Reads.compareValues(array[i], array[j]) > 0) {
                 k = this.rightBinarySearch(array, a, i, array[j]);
                 this.rotate(array, k, i+1, j+1);
 
@@ -354,7 +354,7 @@ final public class AdaptiveGrailSort extends Sort {
     }
 
     private void mergeWithoutBuf(int[] array, int a, int m, int b) {
-        if(m-a > b-m) this.inPlaceMergeBW(array, a, m, b);
+        if (m-a > b-m) this.inPlaceMergeBW(array, a, m, b);
         else          this.inPlaceMerge(array, a, m, b);
     }
 
@@ -363,7 +363,7 @@ final public class AdaptiveGrailSort extends Sort {
     }
 
     private boolean checkReverseBounds(int[] array, int a, int m, int b) {
-        if(Reads.compareValues(array[a], array[b-1]) == 1) {
+        if (Reads.compareValues(array[a], array[b-1]) == 1) {
             this.rotate(array, a, m, b);
             return false;
         }
@@ -377,7 +377,7 @@ final public class AdaptiveGrailSort extends Sort {
     }
 
     private Subarray grailGetSubarray(int[] array, int t, int mKey) {
-        if(Reads.compareValues(array[t], array[mKey]) < 0)
+        if (Reads.compareValues(array[t], array[mKey]) < 0)
             return Subarray.LEFT;
 
         else return Subarray.RIGHT;
@@ -387,23 +387,23 @@ final public class AdaptiveGrailSort extends Sort {
     private int blockSelectSort(int[] array, int p, int t, int r, int d, int lCount, int bCount, int bLen) {
         int mKey = lCount;
 
-        for(int j = 0, k = lCount+1; j < k-1; j++) {
+        for (int j = 0, k = lCount+1; j < k-1; j++) {
             int min = j;
 
-            for(int i = Math.max(lCount-r, j+1); i < k; i++) {
+            for (int i = Math.max(lCount-r, j+1); i < k; i++) {
                 int comp = Reads.compareIndices(array, p+d + i*bLen, p+d + min*bLen, 2, true);
 
-                if(comp < 0 || (comp == 0 && Reads.compareValues(array[t+i], array[t+min]) < 0))
+                if (comp < 0 || (comp == 0 && Reads.compareValues(array[t+i], array[t+min]) < 0))
                     min = i;
             }
 
-            if(min != j) {
+            if (min != j) {
                 this.multiSwap(array, p + j*bLen, p + min*bLen, bLen);
                 Writes.swap(array, t+j, t+min, 1, true, false);
 
-                if(k < bCount && min == k-1) k++;
+                if (k < bCount && min == k-1) k++;
             }
-            if(min == mKey) mKey = j;
+            if (min == mKey) mKey = j;
         }
 
         return t+mKey;
@@ -414,8 +414,8 @@ final public class AdaptiveGrailSort extends Sort {
         Writes.swap(array, p, mKey, 1, true, false);
         int i = mKey, j = i+1, k = p+1;
 
-        while(j < b) {
-            if(Reads.compareValues(array[j], array[p]) < 0)
+        while (j < b) {
+            if (Reads.compareValues(array[j], array[p]) < 0)
                 Writes.swap(array, i++, j, 1, true, false);
 
             else Writes.swap(array, k++, j, 1, true, false);
@@ -429,8 +429,8 @@ final public class AdaptiveGrailSort extends Sort {
     private void grailSortKeysWithoutBuf(int[] array, int b, int mKey) {
         int i = mKey, j = i+1;
 
-        while(j < b) {
-            if(Reads.compareValues(array[j], array[i]) < 0)
+        while (j < b) {
+            if (Reads.compareValues(array[j], array[i]) < 0)
                 this.insertTo(array, j, i++);
 
             j++;
@@ -441,14 +441,14 @@ final public class AdaptiveGrailSort extends Sort {
     private int grailMergeBlocks(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
 
-        while(i < m && j < b) {
-            if(Reads.compareValues(array[i], array[j]) <= 0)
+        while (i < m && j < b) {
+            if (Reads.compareValues(array[i], array[j]) <= 0)
                 Writes.swap(array, p++, i++, 1, true, false);
 
             else Writes.swap(array, p++, j++, 1, true, false);
         }
 
-        if(i > p) while(i < m) Writes.swap(array, p++, i++, 1, true, false);
+        if (i > p) while (i < m) Writes.swap(array, p++, i++, 1, true, false);
         return j;
     }
 
@@ -456,14 +456,14 @@ final public class AdaptiveGrailSort extends Sort {
     private int grailMergeBlocksRev(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
 
-        while(i < m && j < b) {
-            if(Reads.compareValues(array[i], array[j]) < 0)
+        while (i < m && j < b) {
+            if (Reads.compareValues(array[i], array[j]) < 0)
                 Writes.swap(array, p++, i++, 1, true, false);
 
             else Writes.swap(array, p++, j++, 1, true, false);
         }
 
-        if(i > p) while(i < m) Writes.swap(array, p++, i++, 1, true, false);
+        if (i > p) while (i < m) Writes.swap(array, p++, i++, 1, true, false);
         return j;
     }
 
@@ -480,16 +480,16 @@ final public class AdaptiveGrailSort extends Sort {
         int mKey = this.blockSelectSort(array, i, t, 1, bLen-1, lCount, bCount, bLen);
         Subarray frag = Subarray.LEFT;
 
-        while(l < lCount && r < bCount) {
-            if(frag == Subarray.LEFT) {
+        while (l < lCount && r < bCount) {
+            if (frag == Subarray.LEFT) {
                 do {
                     j += bLen;
                     l++;
                     key++;
                 }
-                while(l < lCount && this.grailGetSubarray(array, key, mKey) == Subarray.LEFT);
+                while (l < lCount && this.grailGetSubarray(array, key, mKey) == Subarray.LEFT);
 
-                if(l == lCount) {
+                if (l == lCount) {
                     i = this.grailMergeBlocks(array, i, j, b, i-bLen);
                     this.mergeWithBufRest(array, i-bLen, i, b, p, bLen);
                 }
@@ -503,9 +503,9 @@ final public class AdaptiveGrailSort extends Sort {
                     r++;
                     key++;
                 }
-                while(r < bCount && this.grailGetSubarray(array, key, mKey) == Subarray.RIGHT);
+                while (r < bCount && this.grailGetSubarray(array, key, mKey) == Subarray.RIGHT);
 
-                if(r == bCount) {
+                if (r == bCount) {
                     this.shift(array, i-bLen, i, b);
                     this.multiSwap(array, p, b-bLen, bLen);
                 }
@@ -527,8 +527,8 @@ final public class AdaptiveGrailSort extends Sort {
     /*private int grailMergeBlocksWithoutBuf(int[] array, int a, int m, int b) {
         int i = a, j = m, k;
 
-        while(i < j && j < b) {
-            if(Reads.compareValues(array[i], array[j]) > 0) {
+        while (i < j && j < b) {
+            if (Reads.compareValues(array[i], array[j]) > 0) {
                 k = this.leftBinarySearch(array, j+1, b, array[i]);
                 this.rotate(array, i, j, k);
 
@@ -544,8 +544,8 @@ final public class AdaptiveGrailSort extends Sort {
     private int grailMergeBlocksWithoutBufRev(int[] array, int a, int m, int b) {
         int i = a, j = m, k;
 
-        while(i < j && j < b) {
-            if(Reads.compareValues(array[i], array[j]) >= 0) {
+        while (i < j && j < b) {
+            if (Reads.compareValues(array[i], array[j]) >= 0) {
                 k = this.rightBinarySearch(array, j+1, b, array[i]);
                 this.rotate(array, i, j, k);
 
@@ -567,20 +567,20 @@ final public class AdaptiveGrailSort extends Sort {
         int mKey  = this.blockSelectSort(array, j, t, 0, 0, lCount-1, bCount-1, bLen);
         Subarray frag = Subarray.LEFT;
 
-        while(l < lCount && r < bCount) {
+        while (l < lCount && r < bCount) {
             Subarray next = this.grailGetSubarray(array, key++, mKey);
 
-            if(next == frag) {
-                if(frag == Subarray.LEFT) l++;
+            if (next == frag) {
+                if (frag == Subarray.LEFT) l++;
                 else                      r++;
                 i = j;
             }
             else {//grailMergeBlocksWithoutBuf()
                 int m2 = j, b2 = j+bLen, k;
 
-                if(frag == Subarray.LEFT) {
-                    while(i < m2 && m2 < b2) {
-                        if(Reads.compareValues(array[i], array[m2]) > 0) {
+                if (frag == Subarray.LEFT) {
+                    while (i < m2 && m2 < b2) {
+                        if (Reads.compareValues(array[i], array[m2]) > 0) {
                             k = this.leftBinarySearch(array, m2+1, b2, array[i]);
                             this.rotate(array, i, m2, k);
 
@@ -591,8 +591,8 @@ final public class AdaptiveGrailSort extends Sort {
                     }
                 }
                 else {
-                    while(i < m2 && m2 < b2) {
-                        if(Reads.compareValues(array[i], array[m2]) >= 0) {
+                    while (i < m2 && m2 < b2) {
+                        if (Reads.compareValues(array[i], array[m2]) >= 0) {
                             k = this.rightBinarySearch(array, m2+1, b2, array[i]);
                             this.rotate(array, i, m2, k);
 
@@ -603,12 +603,12 @@ final public class AdaptiveGrailSort extends Sort {
                     }
                 }
 
-                if(i < m2) {//right side is merged first
-                    if(next == Subarray.LEFT) l++;
+                if (i < m2) {//right side is merged first
+                    if (next == Subarray.LEFT) l++;
                     else                      r++;
                 }
                 else {
-                    if(frag == Subarray.LEFT) l++;
+                    if (frag == Subarray.LEFT) l++;
                     else                      r++;
                     frag = next;
                 }
@@ -617,32 +617,32 @@ final public class AdaptiveGrailSort extends Sort {
             j += bLen;
         }
 
-        if(l < lCount) this.inPlaceMergeBW(array, a, b1, b);
+        if (l < lCount) this.inPlaceMergeBW(array, a, b1, b);
         this.grailSortKeysWithoutBuf(array, t+bCount-1, mKey);
     }
 
     private void smartMerge(int[] array, int a, int m, int b, int p) {
-        if(this.checkBounds(array, a, m, b)) {
+        if (this.checkBounds(array, a, m, b)) {
             a = this.rightBinarySearch(array, a, m-1, array[m]);
             this.mergeWithBuf(array, a, m, b, p);
         }
     }
 
     private void smartMergeBW(int[] array, int a, int m, int b, int p) {
-        if(this.checkBounds(array, a, m, b)) {
+        if (this.checkBounds(array, a, m, b)) {
             b = this.leftBinarySearch(array, m+1, b, array[m-1]);
             this.mergeWithBufBW(array, a, m, b, p);
         }
     }
 
     private void smartBlockMerge(int[] array, int a, int m, int b, int t, int p, int bLen) {
-        if(this.checkBounds(array, a, m, b)) {
+        if (this.checkBounds(array, a, m, b)) {
             int n = this.rightBinarySearch(array, a, m-1, array[m]);
             b = this.leftBinarySearch(array, m+1, b, array[m-1]);
 
-            if(this.checkReverseBounds(array, n, m, b)) {
-                if(m-n <= bLen || b-m <= bLen) {
-                    if(b-m < m-n) this.mergeWithBufBW(array, n, m, b, p);
+            if (this.checkReverseBounds(array, n, m, b)) {
+                if (m-n <= bLen || b-m <= bLen) {
+                    if (b-m < m-n) this.mergeWithBufBW(array, n, m, b, p);
                     else           this.mergeWithBuf(array, n, m, b, p);
                 }
                 else {
@@ -654,16 +654,16 @@ final public class AdaptiveGrailSort extends Sort {
     }
 
     private void smartBlockMergeWithoutBuf(int[] array, int a, int m, int b, int t, int bLen) {
-        if(this.checkBounds(array, a, m, b)) {
+        if (this.checkBounds(array, a, m, b)) {
             a = this.rightBinarySearch(array, a, m-1, array[m]);
 
-            if(m-a <= bLen) this.inPlaceMerge(array, a, m, b);
+            if (m-a <= bLen) this.inPlaceMerge(array, a, m, b);
             else this.grailBlockMergeWithoutBuf(array, a, m, b, t, bLen);
         }
     }
 
     private void smartInPlaceMerge(int[] array, int a, int m, int b) {
-        if(this.checkSorted(array, a, m, b))
+        if (this.checkSorted(array, a, m, b))
             this.inPlaceMergeBW(array, a, m, b);
     }
 
@@ -711,24 +711,24 @@ final public class AdaptiveGrailSort extends Sort {
         this.buildRuns(array, a, b);
 
         int len = b-a;
-        for(int i, j = this.minRun; j < len; j *= 2) {
-            for(i = a; i + 2*j <= b; i += 2*j)
+        for (int i, j = this.minRun; j < len; j *= 2) {
+            for (i = a; i + 2*j <= b; i += 2*j)
                 this.smartInPlaceMerge(array, i, i+j, i+2*j);
 
-            if(i + j < b)
+            if (i + j < b)
                 this.smartInPlaceMerge(array, i, i+j, b);
         }
     }
 
     private void grailAdaptiveSortWithoutBuf(int[] array, int a, int b, int keys, int ideal, boolean bwBuf) {
         int len = b-a, bLen;
-        for(bLen = Math.min(keys, this.minRun); 2*bLen <= keys; bLen *= 2);
+        for (bLen = Math.min(keys, this.minRun); 2*bLen <= keys; bLen *= 2);
         int tLen = keys-bLen;
 
         int i, j = this.minRun,
             t, p, a1, b1;
 
-        if(bwBuf) {
+        if (bwBuf) {
             p = b-bLen; a1 = a; b1 = p-tLen; t = b1;
         }
         else {
@@ -739,17 +739,17 @@ final public class AdaptiveGrailSort extends Sort {
         this.buildRuns(array, a1, b1);
 
         //merge with buffer level
-        while(j <= bLen && j < len) {
-            for(i = a1; i + 2*j <= b1; i += 2*j)
+        while (j <= bLen && j < len) {
+            for (i = a1; i + 2*j <= b1; i += 2*j)
                 this.smartMerge(array, i, i+j, i+2*j, p);
 
-            if(i + j < b1)
+            if (i + j < b1)
                 this.smartMergeBW(array, i, i+j, b1, p);
 
             j *= 2;
         }
 
-        if(bLen/2 >= this.minRun && bLen/2 >= (keys+1)/2) {
+        if (bLen/2 >= this.minRun && bLen/2 >= (keys+1)/2) {
             this.binaryInsertion(array, p, p+bLen);
 
             bLen /= 2;
@@ -758,12 +758,12 @@ final public class AdaptiveGrailSort extends Sort {
         }
 
         //block merge level
-        while(tLen >= 2*j/bLen - 1 && j < len) {
-            for(i = a1; i + 2*j <= b1; i += 2*j)
+        while (tLen >= 2*j/bLen - 1 && j < len) {
+            for (i = a1; i + 2*j <= b1; i += 2*j)
                 this.smartBlockMerge(array, i, i+j, i+2*j, t, p, bLen);
 
-            if(i + j < b1) {
-                if(b1 - (i+j) > bLen)
+            if (i + j < b1) {
+                if (b1 - (i+j) > bLen)
                     this.smartBlockMerge(array, i, i+j, b1, t, p, bLen);
 
                 else this.smartMergeBW(array, i, i+j, b1, p);
@@ -776,14 +776,14 @@ final public class AdaptiveGrailSort extends Sort {
         tLen = keys-keys%2;
 
         //block merge w/o buffer level
-        while(j < len) {
+        while (j < len) {
             bLen = 2*j / tLen;
 
-            for(i = a1; i + 2*j <= b1; i += 2*j)
+            for (i = a1; i + 2*j <= b1; i += 2*j)
                 this.smartBlockMergeWithoutBuf(array, i, i+j, i+2*j, t, bLen);
 
-            if(i + j < b1) {
-                if(b1 - (i+j) > bLen)
+            if (i + j < b1) {
+                if (b1 - (i+j) > bLen)
                     this.smartBlockMergeWithoutBuf(array, i, i+j, b1, t, bLen);
 
                 else this.smartInPlaceMerge(array, i, i+j, b1);
@@ -793,14 +793,14 @@ final public class AdaptiveGrailSort extends Sort {
         }
 
         //buffer redistribution
-        if(bwBuf) {
+        if (bwBuf) {
             a = this.rightBinarySearch(array, a, b1, array[b1]);
-            if(keys >= ideal/2) this.redistBufferBW(array, a, b1, b);
+            if (keys >= ideal/2) this.redistBufferBW(array, a, b1, b);
             else                this.mergeWithoutBuf(array, a, b1, b);
         }
         else {
             b = this.leftBinarySearch(array, a1, b, array[a1-1]);
-            if(keys >= ideal/2) this.redistBuffer(array, a, a1, b);
+            if (keys >= ideal/2) this.redistBuffer(array, a, a1, b);
             else                this.mergeWithoutBuf(array, a, a1, b);
         }
     }
@@ -809,27 +809,27 @@ final public class AdaptiveGrailSort extends Sort {
         int len = b-a;
 
         //insertion on small len
-        if(len < 31) {
+        if (len < 31) {
             this.binaryInsertion(array, a, b);
             return;
         }
         //mini adaptive grail sort
-        if(len < 63) {
+        if (len < 63) {
             this.minRun = (len+1)/2;
             this.buildRuns(array, a, b);
 
             int m = a+this.minRun;
-            if(this.checkBounds(array, a, m, b))
+            if (this.checkBounds(array, a, m, b))
                 this.redistBufferBW(array, a, m, b);
 
             return;
         }
 
         //calculate optimal minRun & block len
-        for(this.minRun = len; this.minRun >= 32; this.minRun = (this.minRun+1)/2);
+        for (this.minRun = len; this.minRun >= 32; this.minRun = (this.minRun+1)/2);
 
         int bLen;
-        for(bLen = this.minRun; bLen*bLen < len; bLen *= 2);
+        for (bLen = this.minRun; bLen*bLen < len; bLen *= 2);
 
         int tLen  = len/bLen - 2,
             ideal = tLen + bLen;
@@ -838,11 +838,11 @@ final public class AdaptiveGrailSort extends Sort {
         boolean bwBuf;
         int rRun = this.buildUniqueRunBW(array, b, ideal), lRun = 0;
 
-        if(rRun == ideal) bwBuf = true;
+        if (rRun == ideal) bwBuf = true;
         else {
             lRun = this.buildUniqueRun(array, a, ideal);
 
-            if(lRun == ideal) bwBuf = false;
+            if (lRun == ideal) bwBuf = false;
             else bwBuf = (rRun < 16 && lRun < 16) || rRun >= lRun;
         }
 
@@ -850,9 +850,9 @@ final public class AdaptiveGrailSort extends Sort {
         int keys = bwBuf ? this.findKeysBW(array, a, b, rRun, ideal)
                          : this.findKeys(array, a, b, lRun, ideal);
 
-        if(keys < ideal) {
-            if(keys == 1)       return;
-            else if(keys <= 4) this.inPlaceMergeSort(array, a, b);
+        if (keys < ideal) {
+            if (keys == 1)       return;
+            else if (keys <= 4) this.inPlaceMergeSort(array, a, b);
             else               this.grailAdaptiveSortWithoutBuf(array, a, b, keys, ideal, bwBuf);
             return;
         }
@@ -860,7 +860,7 @@ final public class AdaptiveGrailSort extends Sort {
         int i, j = this.minRun,
             t, p, a1, b1;
 
-        if(bwBuf) {
+        if (bwBuf) {
             p = b-bLen; a1 = a; b1 = p-tLen; t = b1;
         }
         else {
@@ -871,23 +871,23 @@ final public class AdaptiveGrailSort extends Sort {
         this.buildRuns(array, a1, b1);
 
         //merge with buffer level
-        while(j <= bLen && j < len) {
-            for(i = a1; i + 2*j <= b1; i += 2*j)
+        while (j <= bLen && j < len) {
+            for (i = a1; i + 2*j <= b1; i += 2*j)
                 this.smartMerge(array, i, i+j, i+2*j, p);
 
-            if(i + j < b1)
+            if (i + j < b1)
                 this.smartMergeBW(array, i, i+j, b1, p);
 
             j *= 2;
         }
 
         //block merge level
-        while(j < len) {
-            for(i = a1; i + 2*j <= b1; i += 2*j)
+        while (j < len) {
+            for (i = a1; i + 2*j <= b1; i += 2*j)
                 this.smartBlockMerge(array, i, i+j, i+2*j, t, p, bLen);
 
-            if(i + j < b1) {
-                if(b1 - (i+j) > bLen)
+            if (i + j < b1) {
+                if (b1 - (i+j) > bLen)
                     this.smartBlockMerge(array, i, i+j, b1, t, p, bLen);
 
                 else this.smartMergeBW(array, i, i+j, b1, p);
@@ -899,7 +899,7 @@ final public class AdaptiveGrailSort extends Sort {
         this.binaryInsertion(array, p, p+bLen);
 
         //buffer redistribution
-        if(bwBuf) {
+        if (bwBuf) {
             a = this.rightBinarySearch(array, a, b1, array[b1]);
             this.redistBufferBW(array, a, b1, b);
         }

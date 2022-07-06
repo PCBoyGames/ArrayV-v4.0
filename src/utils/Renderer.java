@@ -140,18 +140,18 @@ final public class Renderer {
         boolean windowUpdate = false;
         boolean windowResize = false;
 
-        if(ArrayVisualizer.currentHeight() != ArrayVisualizer.windowHeight()) {
+        if (ArrayVisualizer.currentHeight() != ArrayVisualizer.windowHeight()) {
             windowUpdate = true;
             windowResize = true;
         }
-        if(ArrayVisualizer.currentWidth() != ArrayVisualizer.windowWidth()) {
+        if (ArrayVisualizer.currentWidth() != ArrayVisualizer.windowWidth()) {
             windowUpdate = true;
             windowResize = true;
         }
-        if(ArrayVisualizer.currentX() != ArrayVisualizer.windowXCoordinate()) {
+        if (ArrayVisualizer.currentX() != ArrayVisualizer.windowXCoordinate()) {
             windowUpdate = true;
         }
-        if(ArrayVisualizer.currentY() != ArrayVisualizer.windowYCoordinate()) {
+        if (ArrayVisualizer.currentY() != ArrayVisualizer.windowYCoordinate()) {
             windowUpdate = true;
         }
 
@@ -161,16 +161,16 @@ final public class Renderer {
     public void updateVisualsStart(ArrayVisualizer ArrayVisualizer) {
         WindowState WindowState = checkWindowResizeAndReposition(ArrayVisualizer);
 
-        if(WindowState.updated()) {
+        if (WindowState.updated()) {
             ArrayVisualizer.repositionFrames();
             ArrayVisualizer.updateCoordinates();
 
             /*
-            if(v != null && v.isVisible())
+            if (v != null && v.isVisible())
                 v.reposition();
             */
 
-            if(WindowState.resized()) {
+            if (WindowState.resized()) {
                 ArrayVisualizer.updateDimensions();
                 updateGraphics(ArrayVisualizer);
             }

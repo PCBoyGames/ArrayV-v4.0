@@ -82,7 +82,7 @@ implements Comparable<Complex> {
     public Complex pow(double pow) {
         double theta = Math.atan(this.imaginary.value / this.real), // Reverse calculate the theta
                r = this.abs(); // Get r^2 = a^2+(real)b^2
-        if(Double.isNaN(theta) || Double.isNaN(r) || Double.isNaN(this.real) || Double.isNaN(this.imaginary.value)) {
+        if (Double.isNaN(theta) || Double.isNaN(r) || Double.isNaN(this.real) || Double.isNaN(this.imaginary.value)) {
             return new Complex(0, 0);
         }
         return new Complex(Math.cos(pow * theta), Math.sin(pow * theta)).mult(Math.pow(r, pow)); // Need an epsilon for this.
@@ -176,7 +176,7 @@ implements Comparable<Complex> {
     }
 
     public long longValueExact() {
-        if(this.real > 0x7FFFFFFFFFFFFFFFL || this.real < 0x8000000000000000L) {
+        if (this.real > 0x7FFFFFFFFFFFFFFFL || this.real < 0x8000000000000000L) {
             throw new ArithmeticException("Out of range for exact values");
         }
         return (long) this.real;
@@ -191,7 +191,7 @@ implements Comparable<Complex> {
     }
 
     public float floatValueExact() {
-        if(this.real > Float.MAX_VALUE || this.real < Float.MIN_VALUE) {
+        if (this.real > Float.MAX_VALUE || this.real < Float.MIN_VALUE) {
             throw new ArithmeticException("Out of range for exact values");
         }
         return (float) this.real;
@@ -206,7 +206,7 @@ implements Comparable<Complex> {
     }
 
     public int intValueExact() {
-        if(this.real > 0x7FFFFFFF || this.real < 0x80000000) {
+        if (this.real > 0x7FFFFFFF || this.real < 0x80000000) {
             throw new ArithmeticException("Out of range for exact values");
         }
         return (int) this.real;
@@ -215,7 +215,7 @@ implements Comparable<Complex> {
     public int compareTo(double val) {
         int imagComp = this.imaginary.compareTo(0);
         int compare = Double.compare(this.real, val);
-        if(compare == 0) {
+        if (compare == 0) {
             return imagComp;
         }
         return compare;
@@ -223,7 +223,7 @@ implements Comparable<Complex> {
     public int compareTo(Complex complex) {
         int imagComp = this.imaginary.compareTo(complex.imaginary);
         int compare = Double.compare(this.real, complex.real);
-        if(compare == 0) {
+        if (compare == 0) {
             return imagComp;
         }
         return compare;
@@ -243,7 +243,7 @@ implements Comparable<Complex> {
     public int compareTo(Imaginary imaginary) {
         int imagComp = this.imaginary.compareTo(imaginary);
         int compare = Double.compare(this.real, 0);
-        if(compare == 0) {
+        if (compare == 0) {
             return imagComp;
         }
         return compare;

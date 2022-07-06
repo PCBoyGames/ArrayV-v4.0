@@ -22,7 +22,7 @@ final public class LuckierStoogeSort extends BogoSorting {
 
     // equivalent to (ternary) (v & (1 << s)) >> s
     public int trit(int v, int sig) {
-        while(sig-- > 0) {
+        while (sig-- > 0) {
             v /= 3;
         }
         return v % 3;
@@ -32,7 +32,7 @@ final public class LuckierStoogeSort extends BogoSorting {
     // (in this case, how much recursive depth it takes for stooge to hit 0-length)
     public int flerp(int v, int b) {
         int i = 0;
-        while(v > 0) {
+        while (v > 0) {
             v = ((b-1)*v)/b;
             i++;
         }
@@ -40,7 +40,7 @@ final public class LuckierStoogeSort extends BogoSorting {
     }
 
     private int getStooge(int recursion, int a, int b, int depth) {
-        for(int third = (b-a+1)/3,
+        for (int third = (b-a+1)/3,
                 depthNow = depth;;
                 third=(b-a+1)/3) {
             Highlights.markArray(1, a);
@@ -53,7 +53,7 @@ final public class LuckierStoogeSort extends BogoSorting {
                 case 1:
                     a += third; break;
             }
-            if((b - a == 1 && third == 1) || third < 1)
+            if ((b - a == 1 && third == 1) || third < 1)
                 break;
         }
         return a;
@@ -63,20 +63,20 @@ final public class LuckierStoogeSort extends BogoSorting {
         int cube = (j-i),
             maxDepth = flerp(j-i+1, 3)-1;
         cube=cube*cube*cube;
-        for(int k=0; k<cube; k++) {
+        for (int k=0; k<cube; k++) {
             int a = getStooge(k, i, j, maxDepth),
                 luck1 = randInt(1, 101);
-            if(Reads.compareIndices(A, a, a+1, 0.05, true)>0) {
-                if(luck1 <= luck0)
+            if (Reads.compareIndices(A, a, a+1, 0.05, true)>0) {
+                if (luck1 <= luck0)
                     Writes.swap(A, a, a+1, 0.025, true, false);
-            } else if(luck1 > luck0) {
+            } else if (luck1 > luck0) {
                 Writes.swap(A, a, a+1, 0.025, true, false);
             }
         }
     }
 
     private boolean qSift(int[] array, int start, int end) {
-        if(start >= end)
+        if (start >= end)
             return false;
         int mid = start + (end-start) / 2;
         boolean f = false;
@@ -84,7 +84,7 @@ final public class LuckierStoogeSort extends BogoSorting {
             Writes.swap(array, start, end, 1, true, false);
             f = true;
         }
-        if(start == mid) {
+        if (start == mid) {
             return false;
         }
         boolean l = this.qSift(array, start, mid);
@@ -96,18 +96,18 @@ final public class LuckierStoogeSort extends BogoSorting {
         int l = end - start;
         do {
             l--;
-        } while(l > 0 && this.qSift(array, start, end-1));
+        } while (l > 0 && this.qSift(array, start, end-1));
     }
 
     public void luckierStoogeSort(int[] A, int i, int j, int luck) {
         int runs = 0, cube = j-i+1;
         cube = cube * cube * cube;
-        while(!isRangeSorted(A, i, j+1) && runs < cube) {
+        while (!isRangeSorted(A, i, j+1) && runs < cube) {
             luckierStoogeRoutine(A, i, j, luck);
-            if(luck < 25)
+            if (luck < 25)
                 Writes.reversal(A, i, j, 0.125, true, false);
         }
-        if(runs >= cube && !isRangeSorted(A, i, j+1)) {
+        if (runs >= cube && !isRangeSorted(A, i, j+1)) {
             fallback(A, i, j+1);
         }
     }
@@ -116,7 +116,7 @@ final public class LuckierStoogeSort extends BogoSorting {
     public int validateAnswer(int answer) {
         if (answer < 1)
             return 0;
-        if(answer > 100)
+        if (answer > 100)
             return 100;
         return answer;
     }

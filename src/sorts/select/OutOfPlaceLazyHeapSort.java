@@ -30,16 +30,16 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
         int max = a, maxVal = array[a];
 
 
-        for(int i = a+1; i < b; i++) {
-            if(array[i] == nop)
+        for (int i = a+1; i < b; i++) {
+            if (array[i] == nop)
                 continue;
-            if(Reads.compareIndices(array, i, max, 0.1, true) > 0) {
+            if (Reads.compareIndices(array, i, max, 0.1, true) > 0) {
                 max = i;
                 maxVal = array[i];
             }
         }
 
-        if(maxVal == nop)
+        if (maxVal == nop)
             return false;
 
         Writes.write(array, max, nop, 0.1, true, false);
@@ -51,24 +51,24 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
     private int findLastMax(int[] array, int start, int end, int nop) {
         int max = start;
 
-        for(int i=start+1; i<end; i++) {
-            if(array[i] == nop)
+        for (int i=start+1; i<end; i++) {
+            if (array[i] == nop)
                 continue;
-            if(Reads.compareIndices(array, i, max, 0.5, true) > 0) {
+            if (Reads.compareIndices(array, i, max, 0.5, true) > 0) {
                 max = i;
             }
         }
 
-        if(array[max] == nop)
+        if (array[max] == nop)
             return -1;
         return max;
     }
 
     private void pushRemainder(int[] from, int[] to, int offset, int start, int end, int buffer, int nop) {
         int j=offset;
-        for(int i=start; i<end; i++) {
-            if(from[i] != nop) {
-                while(to[j] != nop)
+        for (int i=start; i<end; i++) {
+            if (from[i] != nop) {
+                while (to[j] != nop)
                     j++;
                 Writes.write(to, j++, from[i], 0.5, true, true);
             }
@@ -87,17 +87,17 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
 
         int[] tmp = Writes.createExternalArray(length);
 
-        for(int i=0; i<length; i+=s) {
+        for (int i=0; i<length; i+=s) {
             this.max2Temp(array, tmp, i, Math.min(i+s, length), i/s, nop);
         }
         int i=length-1;
-        for(; i>=blocks; i--) {
+        for (; i>=blocks; i--) {
             int max = this.findLastMax(tmp, 0, blocks, nop);
-            if(max == -1)
+            if (max == -1)
                 break;
             Writes.write(tmp, i, tmp[max], 1, true, true);
             int loc = max * s, loc2 = Math.min((max+1)*s, length);
-            if(!max2Temp(array, tmp, loc, loc2, max, nop)) {
+            if (!max2Temp(array, tmp, loc, loc2, max, nop)) {
                 Writes.write(tmp, max, nop, 0.5, true, true);
             }
         }

@@ -48,8 +48,8 @@ public abstract class TwinSorting extends Sort {
         index = 0;
         end = nmemb - 2;
 
-        while(index <= end) {
-            if(Reads.compareIndices(array, index+left, index+1+left, 1, true) <= 0) {
+        while (index <= end) {
+            if (Reads.compareIndices(array, index+left, index+1+left, 1, true) <= 0) {
                 index += 2;
                 continue;
             }
@@ -57,10 +57,10 @@ public abstract class TwinSorting extends Sort {
             start = index;
             index += 2;
 
-            while(true) {
-                if(index > end) {
-                    if(start == 0) {
-                        if(nmemb % 2 == 0 || Reads.compareIndices(array, index-1+left, index+left, 1, true) > 0) {
+            while (true) {
+                if (index > end) {
+                    if (start == 0) {
+                        if (nmemb % 2 == 0 || Reads.compareIndices(array, index-1+left, index+left, 1, true) > 0) {
                             // the entire array was reversed
                             Writes.changeReversals(1);
                             end = nmemb - 1;
@@ -74,8 +74,8 @@ public abstract class TwinSorting extends Sort {
                     break;
                 }
 
-                if(Reads.compareIndices(array, index+left, index+1+left, 1, true) > 0) {
-                    if(Reads.compareIndices(array, index-1+left, index+left, 1, true) > 0) {
+                if (Reads.compareIndices(array, index+left, index+1+left, 1, true) > 0) {
+                    if (Reads.compareIndices(array, index-1+left, index+left, 1, true) > 0) {
                         index += 2;
                         continue;
                     }
@@ -113,10 +113,10 @@ public abstract class TwinSorting extends Sort {
                 a = offset;
                 e = a + block - 1;
 
-                if(Reads.compareIndices(array, e+left, e+1+left, 1, true) <= 0)
+                if (Reads.compareIndices(array, e+left, e+1+left, 1, true) <= 0)
                     continue;
 
-                if(offset + block * 2 <= nmemb) {
+                if (offset + block * 2 <= nmemb) {
                     c_max = s + block;
                     d_max = a + block * 2;
                 }
@@ -128,7 +128,7 @@ public abstract class TwinSorting extends Sort {
 
                 d = d_max - 1;
 
-                while(Reads.compareIndices(array, e+left, d+left, 1, true) <= 0) {
+                while (Reads.compareIndices(array, e+left, d+left, 1, true) <= 0) {
                     d_max--;
                     d--;
                     c_max--;
@@ -138,7 +138,7 @@ public abstract class TwinSorting extends Sort {
                 d = a + block;
                 Highlights.clearMark(2);
 
-                while(c < c_max) {
+                while (c < c_max) {
                     Writes.write(swap, c++, array[d+left], 0, false, true);
                     Highlights.markArray(1, (d++)+left);
                     Delays.sleep(1);
@@ -148,11 +148,11 @@ public abstract class TwinSorting extends Sort {
                 d = a + block - 1;
                 e = d_max - 1;
 
-                if(Reads.compareIndices(array, a+left, a+block+left, 1, true) <= 0) {
+                if (Reads.compareIndices(array, a+left, a+block+left, 1, true) <= 0) {
                     Highlights.clearMark(2);
                     Writes.write(array, (e--)+left, array[(d--)+left], 1, true, false);
 
-                    while(c >= s) {
+                    while (c >= s) {
                         while (Reads.compareValues(array[d+left], swap[c]) > 0) {
                             Highlights.markArray(2, c+left+offset);
                             Writes.write(array, (e--)+left, array[(d--)+left], 1, true, false);
@@ -167,9 +167,9 @@ public abstract class TwinSorting extends Sort {
                     Highlights.clearMark(2);
                     Writes.write(array, (e--)+left, array[(d--)+left], 1, true, false);
 
-                    while(d >= a)
+                    while (d >= a)
                     {
-                        while(Reads.compareValues(array[d+left], swap[c]) <= 0) {
+                        while (Reads.compareValues(array[d+left], swap[c]) <= 0) {
                             Highlights.markArray(2, c+left+offset);
                             Writes.write(array, (e--)+left, swap[c--], 1, true, false);
                         }
@@ -177,7 +177,7 @@ public abstract class TwinSorting extends Sort {
                         Writes.write(array, (e--)+left, array[(d--)+left], 1, true, false);
                     }
 
-                    while(c >= s) {
+                    while (c >= s) {
                         Highlights.markArray(2, c+left+offset);
                         Writes.write(array, (e--)+left, swap[c--], 1, true, false);
                     }
@@ -190,12 +190,12 @@ public abstract class TwinSorting extends Sort {
 
     protected void twinsortSwap(int[] array, int start, int[] swap, int nmemb)
     {
-        if(twinSwap(array, start, nmemb) == 0)
+        if (twinSwap(array, start, nmemb) == 0)
             tailMerge(array, start, swap, nmemb, 2);
     }
 
     public void twinsort(int[] array, int nmemb) {
-        if(twinSwap(array, 0, nmemb) == 0) {
+        if (twinSwap(array, 0, nmemb) == 0) {
             int[] swap = Writes.createExternalArray(nmemb/2);
 
             tailMerge(array, 0, swap, nmemb, 2);
@@ -206,7 +206,7 @@ public abstract class TwinSorting extends Sort {
 
     public void tailsort(int[] array, int nmemb)
     {
-        if(nmemb < 2)
+        if (nmemb < 2)
             return;
 
         int[] swap = Writes.createExternalArray(nmemb/2);

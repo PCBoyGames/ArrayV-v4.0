@@ -93,20 +93,20 @@ final public class MedianOfSixteenAdaptiveQuickSort extends Sort {
         int j = b;
             Highlights.markArray(3, p);
 
-        while(true) {
+        while (true) {
             i++;
-            while(i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
+            while (i < b && Reads.compareIndices(array, i, p, 0, false) == -1) {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.25);
                 i++;
             }
             j--;
-            while(j >= a && Reads.compareIndices(array, j, p, 0, false) == 1) {
+            while (j >= a && Reads.compareIndices(array, j, p, 0, false) == 1) {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.25);
                 j--;
             }
-            if(i < j) Writes.swap(array, i, j, 1, true, false);
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else      return j;
         }
     }
@@ -114,13 +114,13 @@ final public class MedianOfSixteenAdaptiveQuickSort extends Sort {
     private void medianOfThree(int[] array, int a, int b) {
         int m = a+(b-1-a)/2;
 
-        if(Reads.compareIndices(array, a, m, 1, true) == 1)
+        if (Reads.compareIndices(array, a, m, 1, true) == 1)
             Writes.swap(array, a, m, 1, true, false);
 
-        if(Reads.compareIndices(array, m, b-1, 1, true) == 1) {
+        if (Reads.compareIndices(array, m, b-1, 1, true) == 1) {
             Writes.swap(array, m, b-1, 1, true, false);
 
-            if(Reads.compareIndices(array, a, m, 1, true) == 1)
+            if (Reads.compareIndices(array, a, m, 1, true) == 1)
                 return;
         }
 
@@ -166,7 +166,7 @@ final public class MedianOfSixteenAdaptiveQuickSort extends Sort {
     public void quickSort(int[] array, int a, int b, int depth, boolean unbalanced) {
         while (b - a > 32) {
             if (this.getSortedRuns(array, a, b)) return;
-            if (depth == 0){
+            if (depth == 0) {
                 heapSorter.customHeapSort(array, a, b, 1);
                 return;
             }

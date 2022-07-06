@@ -40,9 +40,9 @@ final public class BranchlessBubbleSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         boolean sorted = false;
-        for(int i = length - 1; i > 0 && !sorted; i--) {
+        for (int i = length - 1; i > 0 && !sorted; i--) {
             sorted = true;
-            for(int j = 0; j < i; j++) {
+            for (int j = 0; j < i; j++) {
                 sorted = !compSwap(array, j, j+1) && sorted;
             }
         }

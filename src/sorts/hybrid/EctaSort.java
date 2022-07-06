@@ -49,22 +49,22 @@ final public class EctaSort extends Sort {
     private void mergeTo(int[] from, int[] to, int a, int m, int b, int p, boolean auxwrite) {
         int i = a, j = m;
 
-        while(i < m && j < b) {
+        while (i < m && j < b) {
             Highlights.markArray(2, i);
             Highlights.markArray(3, j);
 
-            if(Reads.compareValues(from[i], from[j]) <= 0)
+            if (Reads.compareValues(from[i], from[j]) <= 0)
                 Writes.write(to, p++, from[i++], 1, true, auxwrite);
             else
                 Writes.write(to, p++, from[j++], 1, true, auxwrite);
         }
         Highlights.clearAllMarks();
 
-        while(i < m) {
+        while (i < m) {
             Highlights.markArray(2, i);
             Writes.write(to, p++, from[i++], 1, true, auxwrite);
         }
-        while(j < b) {
+        while (j < b) {
             Highlights.markArray(3, j);
             Writes.write(to, p++, from[j++], 1, true, auxwrite);
         }
@@ -84,22 +84,22 @@ final public class EctaSort extends Sort {
 
         int i = s-1, j = m-1;
 
-        while(i >= 0 && j >= a) {
+        while (i >= 0 && j >= a) {
             Highlights.markArray(2, j);
 
-            if(Reads.compareValues(tmp[i], array[j]) >= 0)
+            if (Reads.compareValues(tmp[i], array[j]) >= 0)
                 Writes.write(array, --b, tmp[i--], 1, true, false);
             else
                 Writes.write(array, --b, array[j--], 1, true, false);
         }
         Highlights.clearAllMarks();
 
-        while(i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
+        while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
     }
 
     private void blockCycle(int[] array, int[] buf, int[] keys, int a, int bLen, int bCnt) {
-        for(int i = 0; i < bCnt; i++) {
-            if(Reads.compareOriginalValues(i, keys[i]) != 0) {
+        for (int i = 0; i < bCnt; i++) {
+            if (Reads.compareOriginalValues(i, keys[i]) != 0) {
                 Writes.arraycopy(array, a + i*bLen, buf, 0, bLen, 1, true, true);
                 int j = i, next = keys[i];
 
@@ -110,7 +110,7 @@ final public class EctaSort extends Sort {
                     j = next;
                     next = keys[next];
                 }
-                while(Reads.compareOriginalValues(next, i) != 0);
+                while (Reads.compareOriginalValues(next, i) != 0);
 
                 Writes.arraycopy(buf, 0, array, a + j*bLen, bLen, 1, true, false);
                 Writes.write(keys, j, j, 1, true, true);
@@ -123,11 +123,11 @@ final public class EctaSort extends Sort {
         int i = a, j = m, k = 0;
         int l = 0, r = 0;
 
-        while(c++ < 2*bLen) { //merge 2 blocks into buffer to create 2 buffers
+        while (c++ < 2*bLen) { //merge 2 blocks into buffer to create 2 buffers
             Highlights.markArray(2, i);
             Highlights.markArray(3, j);
 
-            if(Reads.compareValues(array[i], array[j]) <= 0) {
+            if (Reads.compareValues(array[i], array[j]) <= 0) {
                 Writes.write(buf, k++, array[i++], 1, true, true);
                 l++;
             }
@@ -143,12 +143,12 @@ final public class EctaSort extends Sort {
         c = 0;
 
         do {
-            if(i < m) Highlights.markArray(2, i);
+            if (i < m) Highlights.markArray(2, i);
             else      Highlights.clearMark(2);
-            if(j < b) Highlights.markArray(3, j);
+            if (j < b) Highlights.markArray(3, j);
             else      Highlights.clearMark(3);
 
-            if(i < m && (j == b || Reads.compareValues(array[i], array[j]) <= 0)) {
+            if (i < m && (j == b || Reads.compareValues(array[i], array[j]) <= 0)) {
                 Writes.write(array, k++, array[i++], 1, true, false);
                 l++;
             }
@@ -156,10 +156,10 @@ final public class EctaSort extends Sort {
                 Writes.write(array, k++, array[j++], 1, true, false);
                 r++;
             }
-            if(++c == bLen) { //change buffer after every block
+            if (++c == bLen) { //change buffer after every block
                 Writes.write(tags, t++, (k-a)/bLen-1, 0, false, true);
 
-                if(left) l -= bLen;
+                if (left) l -= bLen;
                 else     r -= bLen;
 
                 left = l >= r;
@@ -168,7 +168,7 @@ final public class EctaSort extends Sort {
                 c = 0;
             }
         }
-        while(i < m || j < b);
+        while (i < m || j < b);
 
         Highlights.clearAllMarks();
 
@@ -180,13 +180,13 @@ final public class EctaSort extends Sort {
         //l and r buffers are divisible by bLen
         t = 0; k = 0;
 
-        while(l > 0) {
+        while (l > 0) {
             Writes.arraycopy(buf, k, array, m-l, bLen, 1, true, false);
             Writes.write(tags, t++, (m-a-l)/bLen, 0, false, true);
             k += bLen;
             l -= bLen;
         }
-        while(r > 0) {
+        while (r > 0) {
             Writes.arraycopy(buf, k, array, b1-r, bLen, 1, true, false);
             Writes.write(tags, t++, (b1-a-r)/bLen, 0, false, true);
             k += bLen;
@@ -200,7 +200,7 @@ final public class EctaSort extends Sort {
         int a = 0, b = length;
         BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 
-        if(length <= 32) {
+        if (length <= 32) {
             smallSort.customBinaryInsert(array, a, b, 0.5);
             return;
         }
@@ -216,28 +216,28 @@ final public class EctaSort extends Sort {
 
         //insertion
 
-        for(int i = a; i < b; i += j)
+        for (int i = a; i < b; i += j)
             smallSort.customBinaryInsert(array, i, Math.min(i+j, b), 0.25);
 
         //merging w/ buffer
 
-        for(int i; 4*j <= bufLen; j *= 4) {
-            for(i = a; i+2*j < b; i += 4*j)
+        for (int i; 4*j <= bufLen; j *= 4) {
+            for (i = a; i+2*j < b; i += 4*j)
                 this.pingPongMerge(array, buf, i, i+j, i+2*j, Math.min(i+3*j, b), Math.min(i+4*j, b));
-            if(i+j < b)
+            if (i+j < b)
                 this.mergeBWExt(array, buf, i, i+j, b);
         }
 
-        for(; j <= bufLen; j *= 2)
-            for(int i = a; i+j < b; i += 2*j)
+        for (; j <= bufLen; j *= 2)
+            for (int i = a; i+j < b; i += 2*j)
                 this.mergeBWExt(array, buf, i, i+j, Math.min(i+2*j, b));
 
         //block merge
 
-        for(int i; j < length; j *= 2) {
-            for(i = a; i+j+bufLen < b; i += 2*j)
+        for (int i; j < length; j *= 2) {
+            for (i = a; i+j+bufLen < b; i += 2*j)
                 this.blockMerge(array, buf, tags, i, i+j, Math.min(i+2*j, b), bLen);
-            if(i+j < b)
+            if (i+j < b)
                 this.mergeBWExt(array, buf, i, i+j, b);
         }
 

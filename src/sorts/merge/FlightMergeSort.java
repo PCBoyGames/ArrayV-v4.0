@@ -34,12 +34,12 @@ final public class FlightMergeSort extends Sort {
     protected void method(int[] array, int start, int len) {
         int size = max - min + 1;
         int[] holes = Writes.createExternalArray(size);
-        for(int x = start; x < start + len; x++) {
+        for (int x = start; x < start + len; x++) {
             Highlights.markArray(1, x);
             Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, false, true);
         }
         int j = start;
-        for(int count = 0; count < size; count++) {
+        for (int count = 0; count < size; count++) {
             for (int i = 0; i < holes[count]; i++) {
                 Highlights.markArray(1, j);
                 Delays.sleep(1);
@@ -55,9 +55,9 @@ final public class FlightMergeSort extends Sort {
     public void runSort(int[] array, int currentLength, int base) {
         min = Integer.MAX_VALUE;
         max = Integer.MIN_VALUE;
-        for(int i = 0; i < currentLength; i++) {
-            if(array[i] < min) min = array[i];
-            if(array[i] > max) max = array[i];
+        for (int i = 0; i < currentLength; i++) {
+            if (array[i] < min) min = array[i];
+            if (array[i] > max) max = array[i];
         }
         int len = 2;
         int index = 0;

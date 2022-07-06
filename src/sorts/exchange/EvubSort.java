@@ -27,11 +27,11 @@ final public class EvubSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the base for this sort:", 3);
     }
-    
+
     protected void compare(int[] array, int z) {
         if (Reads.compareIndices(array, z, z + 1, 0.001, true) > 0) Writes.swap(array, z, z + 1, 0.001, true, false);
     }
-    
+
     protected void recur(int[] array, int a, int base, int depth) {
         Writes.recordDepth(depth);
         if (base == 1) for (int b = 0; b <= a; b++) compare(array, b);
@@ -42,7 +42,7 @@ final public class EvubSort extends Sort {
             }
         }
     }
-    
+
     public int validateAnswer(int answer) {
         if (answer < 2) return 2;
         return answer;

@@ -106,22 +106,22 @@ public final class MOMPriorityQuickSort extends Sort {
         int i = a, j = b;
         Highlights.markArray(3, p);
 
-        while(true) {
+        while (true) {
             do {
                 i++;
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while(i < j && Reads.compareIndices(array, i, p, 0, false) < 0);
+            while (i < j && Reads.compareIndices(array, i, p, 0, false) < 0);
 
             do {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
             }
-            while(j >= i && Reads.compareIndices(array, j, p, 0, false) > 0);
+            while (j >= i && Reads.compareIndices(array, j, p, 0, false) > 0);
 
-            if(i < j) Writes.swap(array, i, j, 1, true, false);
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else {
                 Writes.swap(array, p, j, 1, true, false);
                 Highlights.clearMark(3);
@@ -132,7 +132,7 @@ public final class MOMPriorityQuickSort extends Sort {
 
     public void quickSort(int[] array, int start, int end) {
         this.insSort = new InsertionSort(this.arrayVisualizer);
-        if(end - start < this.threshold) {
+        if (end - start < this.threshold) {
             this.insSort.customInsertSort(array, start, end, 0.5, false);
             return;
         }
@@ -144,15 +144,15 @@ public final class MOMPriorityQuickSort extends Sort {
             medianOfThree(array, a, b);
             int m = partition(array, a, b, a);
             int l = m - a, r = b - m - 1;
-            if((double) l / len < 0.0625 || (double) r / len < 0.0625) {
+            if ((double) l / len < 0.0625 || (double) r / len < 0.0625) {
                 medianOfMedians(array, a, b, 5);
                 m = partition(array, a, b, a);
             }
-            if(m - a >= threshold)
+            if (m - a >= threshold)
                 q.offer(new Partition(a, m));
             else
                 insSort.customInsertSort(array, a, m, 0.5, false);
-            if(b - m - 1 >= threshold)
+            if (b - m - 1 >= threshold)
                 q.offer(new Partition(m + 1, b));
             else
                 insSort.customInsertSort(array, m + 1, b, 0.5, false);

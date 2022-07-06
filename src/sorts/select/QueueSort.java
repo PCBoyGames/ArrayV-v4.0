@@ -55,7 +55,7 @@ final public class QueueSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        PriorityQueue<LinkedList<Integer>> heap = new PriorityQueue<>(sortLength / 2, new Comparator<LinkedList<Integer>>(){
+        PriorityQueue<LinkedList<Integer>> heap = new PriorityQueue<>(sortLength / 2, new Comparator<LinkedList<Integer>>() {
             @Override
             public int compare(LinkedList<Integer> q1, LinkedList<Integer> q2) {
                 return Reads.compareValues(q1.peek(), q2.peek());

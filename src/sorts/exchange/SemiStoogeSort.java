@@ -43,7 +43,7 @@ final public class SemiStoogeSort extends Sort {
     }
 
     private void demiStoogeSort(int[] A, int i, int j, int d) {
-        if(i >= j)
+        if (i >= j)
             return;
 
         Delays.sleep(0.0025);
@@ -61,7 +61,7 @@ final public class SemiStoogeSort extends Sort {
             this.demiStoogeSort(A, i+h, j, d);
             this.demiStoogeSort(A, i, i+h-1, d);
         }
-        if(j - i + 1 >= 3) {
+        if (j - i + 1 >= 3) {
             int t = (j - i + 1) / 3;
 
             Writes.recordDepth(d++);

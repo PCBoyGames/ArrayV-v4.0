@@ -55,7 +55,7 @@ final public class MoreOptimizedIndexSort12 extends Sort {
         int min = Reads.analyzeMin(array, sortLength, 0.5, true);
         this.bitlist = BigInteger.ZERO;
         for (int i = 0; i < sortLength; i++) {
-            if(bitIsSet(bitlist, i)) {
+            if (bitIsSet(bitlist, i)) {
                 Highlights.markArray(2, i);
                 Delays.sleep(0.1);
                 continue;
@@ -76,7 +76,7 @@ final public class MoreOptimizedIndexSort12 extends Sort {
             if (cmpCount >= sortLength - i - 1) {
                 break;
             }
-            if(previous == current) {
+            if (previous == current) {
                 this.runMopSort(array, sortLength, bucketCount);
                 break;
             }

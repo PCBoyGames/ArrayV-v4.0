@@ -77,11 +77,11 @@ final public class StableQuickSortParallel extends Sort {
         int piv = array[p];
         int j = a, k = b-1;
 
-        while(j < p && Reads.compareValues(array[j], piv) <= 0) j++;
-        if(j < p) Writes.write(tmp, k--, array[j], 1, false, true);
+        while (j < p && Reads.compareValues(array[j], piv) <= 0) j++;
+        if (j < p) Writes.write(tmp, k--, array[j], 1, false, true);
 
-        for(int i = j+1; i < p; i++) {
-            if(Reads.compareValues(array[i], piv) <= 0)
+        for (int i = j+1; i < p; i++) {
+            if (Reads.compareValues(array[i], piv) <= 0)
                 Writes.write(array, j++, array[i], 1, true, false);
 
             else {
@@ -89,8 +89,8 @@ final public class StableQuickSortParallel extends Sort {
                 Writes.write(tmp, k--, array[i], 1, false, true);
             }
         }
-        for(int i = p+1; i < b; i++) {
-            if(Reads.compareValues(array[i], piv) < 0)
+        for (int i = p+1; i < b; i++) {
+            if (Reads.compareValues(array[i], piv) < 0)
                 Writes.write(array, j++, array[i], 1, true, false);
 
             else {
@@ -109,18 +109,18 @@ final public class StableQuickSortParallel extends Sort {
         int piv = tmp[p];
         int j = b-1, k = a;
 
-        while(j > p && Reads.compareValues(tmp[j], piv) > 0) j--;
-        if(j > p) Writes.write(array, k++, tmp[j], 1, true, false);
+        while (j > p && Reads.compareValues(tmp[j], piv) > 0) j--;
+        if (j > p) Writes.write(array, k++, tmp[j], 1, true, false);
 
-        for(int i = j-1; i > p; i--) {
-            if(Reads.compareValues(tmp[i], piv) > 0) {
+        for (int i = j-1; i > p; i--) {
+            if (Reads.compareValues(tmp[i], piv) > 0) {
                 Highlights.markArray(2, j);
                 Writes.write(tmp, j--, tmp[i], 1, false, true);
             }
             else Writes.write(array, k++, tmp[i], 1, true, false);
         }
-        for(int i = p-1; i >= a; i--) {
-            if(Reads.compareValues(tmp[i], piv) >= 0) {
+        for (int i = p-1; i >= a; i--) {
+            if (Reads.compareValues(tmp[i], piv) >= 0) {
                 Highlights.markArray(2, j);
                 Writes.write(tmp, j--, tmp[i], 1, false, true);
             }
@@ -134,7 +134,7 @@ final public class StableQuickSortParallel extends Sort {
     private void quickSortInt(int a, int b) {
         int len = b-a;
 
-        if(len < 2) return;
+        if (len < 2) return;
 
         int p = this.partitionInt(a, b);
 
@@ -153,8 +153,8 @@ final public class StableQuickSortParallel extends Sort {
     private void quickSortExt(int a, int b) {
         int len = b-a;
 
-        if(len < 2) {
-            if(len == 1) Writes.write(array, a, tmp[a], 1, true, false);
+        if (len < 2) {
+            if (len == 1) Writes.write(array, a, tmp[a], 1, true, false);
             return;
         }
 

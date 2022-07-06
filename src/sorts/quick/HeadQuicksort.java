@@ -48,26 +48,26 @@ final public class HeadQuicksort extends Sort {
     }
 
     public void merge(int[] array, int[] tmp, int start, int mid, int end) {
-        if(start >= mid) return;
+        if (start >= mid) return;
 
         merge(array, tmp, start, (mid+start)/2, mid);
         merge(array, tmp, mid, (mid+end)/2, end);
 
-        if(Reads.compareValues(array[mid-1], array[mid]) <= 0) {
+        if (Reads.compareValues(array[mid-1], array[mid]) <= 0) {
             return;
         }
 
         Writes.arraycopy(array, start, tmp, 0, mid-start, 1, true, true);
         int low = 0, high = mid, nxt = start;
 
-        while(low < mid-start && high < end) {
-            if(Reads.compareValues(tmp[low], array[high]) <= 0) {
+        while (low < mid-start && high < end) {
+            if (Reads.compareValues(tmp[low], array[high]) <= 0) {
                 Writes.write(array, nxt++, tmp[low++], 1, true, false);
             } else {
                 Writes.write(array, nxt++, array[high++], 1, true, false);
             }
         }
-        while(low < mid-start) {
+        while (low < mid-start) {
             Writes.write(array, nxt++, tmp[low++], 1, true, false);
         }
     }
@@ -84,10 +84,10 @@ final public class HeadQuicksort extends Sort {
         4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 7, 8, 9, 10
     };
     private void fifteen(int[] A, int c) {
-        for(int i=0; i<med15Swaps.length; i+=2) {
+        for (int i=0; i<med15Swaps.length; i+=2) {
             int a = c - 16 + med15Swaps[i],
                 b = c - 16 + med15Swaps[i+1];
-            if(Reads.compareValues(A[a], A[b]) == 1) {
+            if (Reads.compareValues(A[a], A[b]) == 1) {
                 Writes.swap(A, a, b, 10, true, false);
             }
         }
@@ -95,16 +95,16 @@ final public class HeadQuicksort extends Sort {
 
     private void quickSort(int[] a, PriorityQueue<Head> q, int p, int r, int d) {
         int x;
-        if(r-p > 128 && d < Math.log1p(r-p) / Math.log(6)) {
+        if (r-p > 128 && d < Math.log1p(r-p) / Math.log(6)) {
             int e = p + (r - p + 15) / 2;
             this.fifteen(a, e);
             x = a[e-7];
-        } else if(r-p < 16) {
+        } else if (r-p < 16) {
             this.insert.customInsertSort(a, p, r+1, 0.25, false);
             return;
         } else {
             long m = a[p];
-            for(int i=p+1; i<=r; i++) {
+            for (int i=p+1; i<=r; i++) {
                 m += a[i];
             }
             x = (int) (m / (long) (r-p+1));
@@ -113,12 +113,12 @@ final public class HeadQuicksort extends Sort {
         int i = p, j = r;
 
         while (i <= j) {
-            while (i <= j && Reads.compareValues(a[i], x) == -1){
+            while (i <= j && Reads.compareValues(a[i], x) == -1) {
                 i++;
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while (i <= j && Reads.compareValues(a[j], x) == 1){
+            while (i <= j && Reads.compareValues(a[j], x) == 1) {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
@@ -144,13 +144,13 @@ final public class HeadQuicksort extends Sort {
         MiepurgeSort mp = new MiepurgeSort(arrayVisualizer);
         mp.smallSort = new BinaryDoubleInsertionSort(arrayVisualizer);
         mp.threshold = cbrt;
-        while(q.size() > 0) {
+        while (q.size() > 0) {
             Head poll = q.poll();
-            if(poll.length() == 0)
+            if (poll.length() == 0)
                 continue;
-            if(poll.length() < 2*sqrt) {
+            if (poll.length() < 2*sqrt) {
                 this.merge(array, tmp, poll.start, poll.start + (poll.end - poll.start + 1) / 2, poll.end + 1);
-            } else if(poll.depth >= cbrt) {
+            } else if (poll.depth >= cbrt) {
                 Writes.deleteExternalArray(tmp);
                 mp.miepurge(array, poll.start, poll.end + 1, lg);
                 tmp = Writes.createExternalArray(sqrt);

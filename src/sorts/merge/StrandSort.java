@@ -49,14 +49,14 @@ public final class StrandSort extends Sort {
     private void mergeTo(int[] array, int[] subList, int a, int m, int b) {
         int i = 0, s = m-a;
 
-        while(i < s && m < b) {
-            if(Reads.compareValues(subList[i], array[m]) < 0)
+        while (i < s && m < b) {
+            if (Reads.compareValues(subList[i], array[m]) < 0)
                 Writes.write(array, a++, subList[i++], 0.5, true, false);
 
             else Writes.write(array, a++, array[m++], 0.5, true, false);
         }
 
-        while(i < s)
+        while (i < s)
             Writes.write(array, a++, subList[i++], 0.5, true, false);
     }
 
@@ -66,12 +66,12 @@ public final class StrandSort extends Sort {
 
         int j = length, k = j;
 
-        while(j > 0) {
+        while (j > 0) {
             Writes.write(subList, 0, array[0], 1, true, true);
             k--;
 
-            for(int i = 0, p = 0, m = 1; m < j; m++) {
-                if(Reads.compareValues(array[m], subList[i]) >= 0) {
+            for (int i = 0, p = 0, m = 1; m < j; m++) {
+                if (Reads.compareValues(array[m], subList[i]) >= 0) {
                     Writes.write(subList, ++i, array[m], 1, true, true);
                     k--;
                 }

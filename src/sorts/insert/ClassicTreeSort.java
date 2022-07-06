@@ -51,13 +51,13 @@ final public class ClassicTreeSort extends Sort {
         Highlights.markArray(1, r);
         Delays.sleep(1);
 
-        if(lower[r] != 0) this.traverse(array, temp, lower, upper, lower[r]);
+        if (lower[r] != 0) this.traverse(array, temp, lower, upper, lower[r]);
 
         Writes.write(temp, this.idx++, array[r], 0, false, true);
         Highlights.markArray(1, r);
         Delays.sleep(1);
 
-        if(upper[r] != 0) this.traverse(array, temp, lower, upper, upper[r]);
+        if (upper[r] != 0) this.traverse(array, temp, lower, upper, upper[r]);
     }
 
     @Override
@@ -66,17 +66,17 @@ final public class ClassicTreeSort extends Sort {
         int[] upper = Writes.createExternalArray(currentLength);
         int[] next;
 
-        for(int i = 1; i < currentLength; i++) {
+        for (int i = 1; i < currentLength; i++) {
             Highlights.markArray(2, i);
             int c = 0;
 
-            while(true) {
+            while (true) {
                 Highlights.markArray(1, c);
                 Delays.sleep(0.5);
 
                 next = Reads.compareValues(array[i], array[c]) < 0 ? lower : upper;
 
-                if(next[c] == 0) {
+                if (next[c] == 0) {
                     Writes.write(next, c, i, 0, false, true);
                     break;
                 }

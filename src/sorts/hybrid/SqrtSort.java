@@ -86,7 +86,7 @@ final public class SqrtSort extends Sort {
     }
 
     private void sqrtMultiSwap(int[] arr, int a, int b, int swapsLeft, boolean auxwrite) {
-        while(swapsLeft != 0) {
+        while (swapsLeft != 0) {
             this.sqrtSwap(arr, a++, b++, auxwrite);
             swapsLeft--;
         }
@@ -101,11 +101,11 @@ final public class SqrtSort extends Sort {
         int right = leftLen + rightLen - 1;
         int left = leftLen - 1;
 
-        while(left >= 0) {
+        while (left >= 0) {
             Highlights.markArray(2, pos + left);
             Highlights.markArray(3, pos + right);
 
-            if(right < leftLen || Reads.compareValues(arr[pos + left], arr[pos + right]) > 0) {
+            if (right < leftLen || Reads.compareValues(arr[pos + left], arr[pos + right]) > 0) {
                 Writes.write(arr, pos + (mergedPos--), arr[pos + (left--)], 1, true, auxwrite);
             }
             else Writes.write(arr, pos + (mergedPos--), arr[pos + (right--)], 1, true, auxwrite);
@@ -113,8 +113,8 @@ final public class SqrtSort extends Sort {
 
         Highlights.clearMark(3);
 
-        if(right != mergedPos) {
-            while(right >= leftLen) {
+        if (right != mergedPos) {
+            while (right >= leftLen) {
                 Writes.write(arr, pos + (mergedPos--), arr[pos + (right--)], 1, true, auxwrite);
                 Highlights.markArray(2, pos + right);
             }
@@ -130,8 +130,8 @@ final public class SqrtSort extends Sort {
         int right = leftEnd;
         rightEnd += leftEnd;
 
-        while(right < rightEnd) {
-            if(left == leftEnd || Reads.compareValues(arr[pos + left], arr[pos + right]) > 0) {
+        while (right < rightEnd) {
+            if (left == leftEnd || Reads.compareValues(arr[pos + left], arr[pos + right]) > 0) {
                 Writes.write(arr, pos + dist++, arr[pos + right++], 1, true, auxwrite);
             }
             else Writes.write(arr, pos + dist++, arr[pos + left++], 1, true, auxwrite);
@@ -142,8 +142,8 @@ final public class SqrtSort extends Sort {
 
         Highlights.clearMark(3);
 
-        if(dist != left) {
-            while(left < leftEnd) {
+        if (dist != left) {
+            while (left < leftEnd) {
                 Writes.write(arr, pos + dist++, arr[pos + left++], 1, true, auxwrite);
                 Highlights.markArray(2, pos + left);
             }
@@ -157,8 +157,8 @@ final public class SqrtSort extends Sort {
         int arrMerge = 0, bufMerge = 0;
         int dist = 0 - rightLen;
 
-        while(bufMerge < rightLen) {
-            if(arrMerge == leftLen || Reads.compareValues(arr[arrPos + arrMerge], buffer[bufPos + bufMerge]) >= 0) {
+        while (bufMerge < rightLen) {
+            if (arrMerge == leftLen || Reads.compareValues(arr[arrPos + arrMerge], buffer[bufPos + bufMerge]) >= 0) {
                 Writes.write(arr, arrPos + dist++, buffer[bufPos + bufMerge++], 1, true, auxwrite);
             }
             else Writes.write(arr, arrPos + dist++, arr[arrPos + arrMerge++], 1, true, auxwrite);
@@ -169,8 +169,8 @@ final public class SqrtSort extends Sort {
 
         Highlights.clearMark(3);
 
-        if(dist != arrMerge) {
-            while(arrMerge < leftLen) {
+        if (dist != arrMerge) {
+            while (arrMerge < leftLen) {
                 Writes.write(arr, arrPos + dist++, arr[arrPos + arrMerge++], 1, true, auxwrite);
                 Highlights.markArray(2, arrPos + arrMerge);
             }
@@ -184,8 +184,8 @@ final public class SqrtSort extends Sort {
         int dist = 0 - blockLen, left = 0, right = leftOverLen, leftEnd = right, rightEnd = right + blockLen;
         int typeFrag = 1 - leftOverFrag;  // 1 if inverted
 
-        while(left < leftEnd && right < rightEnd) {
-            if(Reads.compareValues(arr[pos + left], arr[pos + right]) - typeFrag < 0) {
+        while (left < leftEnd && right < rightEnd) {
+            if (Reads.compareValues(arr[pos + left], arr[pos + right]) - typeFrag < 0) {
                 Writes.write(arr, pos + dist++, arr[pos + left++], 1, true, auxwrite);
             }
             else Writes.write(arr, pos + dist++, arr[pos + right++], 1, true, auxwrite);
@@ -198,10 +198,10 @@ final public class SqrtSort extends Sort {
 
         int length, fragment = leftOverFrag;
 
-        if(left < leftEnd) {
+        if (left < leftEnd) {
             length = leftEnd - left;
 
-            while(left < leftEnd) {
+            while (left < leftEnd) {
                 Writes.write(arr, pos + --rightEnd, arr[pos + --leftEnd], 1, true, auxwrite);
                 Highlights.markArray(2, pos + leftEnd);
             }
@@ -225,7 +225,7 @@ final public class SqrtSort extends Sort {
     private void sqrtMergeBuffersLeftWithXBuf(int[] keys, int midkey, int[] arr, int pos, int blockCount, int regBlockLen,
                                               int aBlockCount, int lastLen, boolean auxwrite) {
 
-        if(blockCount == 0) {
+        if (blockCount == 0) {
             int aBlocksLen = aBlockCount * regBlockLen;
             this.sqrtMergeLeftWithXBuf(arr, pos, aBlocksLen, lastLen, 0 - regBlockLen, auxwrite);
             return;
@@ -237,11 +237,11 @@ final public class SqrtSort extends Sort {
 
         int restToProcess;
 
-        for(int keyIndex = 1; keyIndex < blockCount; keyIndex++, processIndex += regBlockLen) {
+        for (int keyIndex = 1; keyIndex < blockCount; keyIndex++, processIndex += regBlockLen) {
             restToProcess = processIndex - leftOverLen;
             int nextFrag = Reads.compareOriginalValues(keys[keyIndex], midkey) < 0 ? 0 : 1;
 
-            if(nextFrag == leftOverFrag) {
+            if (nextFrag == leftOverFrag) {
                 Writes.arraycopy(arr, pos + restToProcess, arr, pos + restToProcess - regBlockLen, leftOverLen, 1, true, auxwrite);
 
                 restToProcess = processIndex;
@@ -257,8 +257,8 @@ final public class SqrtSort extends Sort {
 
         restToProcess = processIndex - leftOverLen;
 
-        if(lastLen != 0) {
-            if(leftOverFrag != 0) {
+        if (lastLen != 0) {
+            if (leftOverFrag != 0) {
                 Writes.arraycopy(arr, pos + restToProcess, arr, pos + restToProcess - regBlockLen, leftOverLen, 1, true, auxwrite);
 
                 restToProcess = processIndex;
@@ -281,33 +281,33 @@ final public class SqrtSort extends Sort {
     private void sqrtBuildBlocks(int[] arr, int pos, int len, int buildLen, boolean auxwrite) {
         int extraDist, part;
 
-        for(int dist = 1; dist < len; dist += 2) {
+        for (int dist = 1; dist < len; dist += 2) {
             extraDist = 0;
-            if(Reads.compareValues(arr[pos + (dist - 1)], arr[pos + dist]) > 0) extraDist = 1;
+            if (Reads.compareValues(arr[pos + (dist - 1)], arr[pos + dist]) > 0) extraDist = 1;
 
             Writes.write(arr, pos + dist - 3, arr[pos + dist - 1 + extraDist], 1, true, auxwrite);
             Writes.write(arr, pos + dist - 2, arr[pos + dist - extraDist], 1, true, auxwrite);
         }
-        if(len % 2 != 0) Writes.write(arr, pos + len - 3, arr[pos + len - 1], 1, true, auxwrite);
+        if (len % 2 != 0) Writes.write(arr, pos + len - 3, arr[pos + len - 1], 1, true, auxwrite);
 
         pos -= 2;
 
-        for(part = 2; part < buildLen; part *= 2) {
+        for (part = 2; part < buildLen; part *= 2) {
             int left = 0;
             int right = len - 2 * part;
 
-            while(left <= right) {
+            while (left <= right) {
                 this.sqrtMergeLeftWithXBuf(arr, pos + left, part, part, 0 - part, auxwrite);
                 left += 2 * part;
             }
 
             int rest = len - left;
 
-            if(rest > part) {
+            if (rest > part) {
                 this.sqrtMergeLeftWithXBuf(arr, pos + left, part, rest - part, 0 - part, auxwrite);
             }
             else {
-                while(left < len) Writes.write(arr, pos + left - part, arr[pos + left++], 1, true, auxwrite);
+                while (left < len) Writes.write(arr, pos + left - part, arr[pos + left++], 1, true, auxwrite);
             }
 
             pos -= part;
@@ -315,12 +315,12 @@ final public class SqrtSort extends Sort {
         int restToBuild = len % (2 * buildLen);
         int leftOverPos = len - restToBuild;
 
-        if(restToBuild <= buildLen) {
+        if (restToBuild <= buildLen) {
             Writes.arraycopy(arr, pos + leftOverPos, arr, pos + leftOverPos + buildLen, restToBuild, 1, true, auxwrite);
         }
         else this.sqrtMergeRight(arr, pos + leftOverPos, buildLen, restToBuild - buildLen, buildLen, auxwrite);
 
-        while(leftOverPos > 0) {
+        while (leftOverPos > 0) {
             leftOverPos -= 2 * buildLen;
             this.sqrtMergeRight(arr, pos + leftOverPos, buildLen, buildLen, buildLen, auxwrite);
         }
@@ -332,34 +332,34 @@ final public class SqrtSort extends Sort {
         int combineLen = len / (2 * buildLen);
         int leftOver = len % (2 * buildLen);
 
-        if(leftOver <= buildLen) {
+        if (leftOver <= buildLen) {
             len -= leftOver;
             leftOver = 0;
         }
 
         int leftIndex = 0;
 
-        for(int i = 0; i <= combineLen; i++) {
-            if(i == combineLen && leftOver == 0) break;
+        for (int i = 0; i <= combineLen; i++) {
+            if (i == combineLen && leftOver == 0) break;
 
             int blockPos = pos + i * 2 * buildLen;
             int blockCount = (i == combineLen ? leftOver : 2 * buildLen) / regBlockLen;
 
             int tagIndex = blockCount + (i == combineLen ? 1 : 0);
-            for(int j = 0; j <= tagIndex; j++) Writes.write(tags, j, j, 1, true, true);
+            for (int j = 0; j <= tagIndex; j++) Writes.write(tags, j, j, 1, true, true);
 
             int midkey = buildLen / regBlockLen;
 
-            for(tagIndex = 1; tagIndex < blockCount; tagIndex++) {
+            for (tagIndex = 1; tagIndex < blockCount; tagIndex++) {
                 leftIndex = tagIndex - 1;
 
-                for(int rightIndex = tagIndex; rightIndex < blockCount; rightIndex++) {
+                for (int rightIndex = tagIndex; rightIndex < blockCount; rightIndex++) {
                     int rightComp = Reads.compareValues(arr[blockPos + leftIndex * regBlockLen],
                                             arr[blockPos + rightIndex * regBlockLen]);
-                    if(rightComp > 0 || (rightComp == 0 && tags[leftIndex] > tags[rightIndex])) leftIndex = rightIndex;
+                    if (rightComp > 0 || (rightComp == 0 && tags[leftIndex] > tags[rightIndex])) leftIndex = rightIndex;
                 }
 
-                if(leftIndex != tagIndex - 1) {
+                if (leftIndex != tagIndex - 1) {
                     this.sqrtMultiSwap(arr, blockPos + (tagIndex - 1) * regBlockLen, blockPos + leftIndex * regBlockLen, regBlockLen, auxwrite);
                     this.sqrtSwap(tags, tagIndex - 1, leftIndex, true);
                 }
@@ -367,30 +367,30 @@ final public class SqrtSort extends Sort {
             int aBlockCount = 0;
             int lastLen = 0;
 
-            if(i == combineLen) lastLen = leftOver % regBlockLen;
+            if (i == combineLen) lastLen = leftOver % regBlockLen;
 
-            if(lastLen != 0) {
-                while(aBlockCount < blockCount && Reads.compareValues(arr[blockPos + blockCount * regBlockLen],
+            if (lastLen != 0) {
+                while (aBlockCount < blockCount && Reads.compareValues(arr[blockPos + blockCount * regBlockLen],
                         arr[blockPos + (blockCount - aBlockCount - 1) * regBlockLen]) < 0) {
                     aBlockCount++;
                 }
             }
             this.sqrtMergeBuffersLeftWithXBuf(tags, midkey, arr, blockPos, blockCount - aBlockCount, regBlockLen, aBlockCount, lastLen, auxwrite);
         }
-        for(leftIndex = len - 1; leftIndex >= 0; leftIndex--) Writes.write(arr, pos + leftIndex, arr[pos + leftIndex - regBlockLen], 1, true, auxwrite);
+        for (leftIndex = len - 1; leftIndex >= 0; leftIndex--) Writes.write(arr, pos + leftIndex, arr[pos + leftIndex - regBlockLen], 1, true, auxwrite);
     }
 
     private void sqrtCommonSort(int[] arr, int pos, int len, int[] extBuf, int extBufPos, int[] tags, boolean auxwrite) {
         insertSorter = new InsertionSort(this.arrayVisualizer);
 
-        if(len <= 16) {
+        if (len <= 16) {
             this.sqrtInsertSort(arr, pos, len, auxwrite);
             Highlights.clearAllMarks();
             return;
         }
 
         int blockLen = 1;
-        while((blockLen * blockLen) < len) blockLen *= 2;
+        while ((blockLen * blockLen) < len) blockLen *= 2;
 
         Writes.arraycopy(arr, pos, extBuf, extBufPos, blockLen, 1, true, auxwrite);
 
@@ -400,7 +400,7 @@ final public class SqrtSort extends Sort {
 
         int buildLen = blockLen;
 
-        while(len > (buildLen *= 2)) {
+        while (len > (buildLen *= 2)) {
             this.sqrtCombineBlocks(arr, pos + blockLen, len - blockLen, buildLen, blockLen, tags, auxwrite);
         }
         this.sqrtMergeDown(arr, pos + blockLen, extBuf, extBufPos, len - blockLen, blockLen, auxwrite);
@@ -412,7 +412,7 @@ final public class SqrtSort extends Sort {
     public void runSort(int[] array, int len, int bucketCount) {
         int bufferLen = 1;
 
-        while(bufferLen * bufferLen < len) bufferLen *= 2;
+        while (bufferLen * bufferLen < len) bufferLen *= 2;
         int numKeys = (len - 1) / bufferLen + 2;
 
         int[] extBuf = Writes.createExternalArray(bufferLen);

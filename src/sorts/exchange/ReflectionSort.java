@@ -37,13 +37,13 @@ final public class ReflectionSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         boolean anyswap = true;
         int i = 0;
-        while(anyswap) {
+        while (anyswap) {
             i = 0;
-            while(i < currentLength) {
+            while (i < currentLength) {
                 Highlights.markArray(1, i);
                 Highlights.markArray(2, i + 1);
                 Delays.sleep(0.125);
-                if(Reads.compareValues(array[i], array[i + 1]) > 0) {
+                if (Reads.compareValues(array[i], array[i + 1]) > 0) {
                     Writes.swap(array, i, i + 1, 0.125, true, false);
                     i = (currentLength - 1) - i;
                     anyswap = true;
@@ -55,7 +55,7 @@ final public class ReflectionSort extends Sort {
                 Highlights.markArray(1, i - 1);
                 Highlights.markArray(2, i);
                 Delays.sleep(0.125);
-                if(Reads.compareValues(array[i - 1], array[i]) > 0) {
+                if (Reads.compareValues(array[i - 1], array[i]) > 0) {
                     Writes.swap(array, i - 1, i, 0.125, true, false);
                     i = (currentLength - 1) - i;
                     anyswap = true;

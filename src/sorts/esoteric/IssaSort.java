@@ -19,29 +19,29 @@ public class IssaSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    private void PartialSort(int[] array, int start, int end){
-        while(Reads.compareValues(array[start], array[start+1]) > 0 && start<end-1){
+    private void PartialSort(int[] array, int start, int end) {
+        while (Reads.compareValues(array[start], array[start+1]) > 0 && start<end-1) {
             Writes.swap(array, start, start+1, 0.05, true, false);
             start++;
         }
     }
-    private void WeirdSort(int[] array, int end){
+    private void WeirdSort(int[] array, int end) {
         int i=0, j=0, k=0;
-        while(i<end && j<end){
-            if(Reads.compareValues(array[i], array[i+1]) > 0){
+        while (i<end && j<end) {
+            if (Reads.compareValues(array[i], array[i+1]) > 0) {
                 PartialSort(array, i, end);
             }
-            if(Reads.compareValues(array[j], array[j+1]) > 0){
+            if (Reads.compareValues(array[j], array[j+1]) > 0) {
                 Writes.swap(array, j, j+1, 0.05, true, false);
                 j++;
             }
-            if(Reads.compareValues(array[i], array[j]) < 0){
+            if (Reads.compareValues(array[i], array[j]) < 0) {
                 i=j;
             } else {
                 i++;
             }
-            if(Reads.compareValues(array[k], array[k+1]) > 0){ // **SERIOUSLY, HOW THE FUCK IS IT STABLE**
-                if(k<i){
+            if (Reads.compareValues(array[k], array[k+1]) > 0) { // **SERIOUSLY, HOW THE FUCK IS IT STABLE**
+                if (k<i) {
                     PartialSort(array, k, end);
                     k++;
                 } else {
@@ -50,7 +50,7 @@ public class IssaSort extends BogoSorting {
             }
 
             /* Remove this if you're a masochist. */
-            //if(Reads.compareValues(array[i], array[i+1]) < 0 && Reads.compareValues(array[j], array[j+1]) < 0 && Reads.compareValues(array[k], array[k+1]) < 0){
+            //if (Reads.compareValues(array[i], array[i+1]) < 0 && Reads.compareValues(array[j], array[j+1]) < 0 && Reads.compareValues(array[k], array[k+1]) < 0) {
             //    i++;
             //}
         }
@@ -58,7 +58,7 @@ public class IssaSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        while(!isArraySorted(array, sortLength)){
+        while (!isArraySorted(array, sortLength)) {
             WeirdSort(array, sortLength);
         }
     }

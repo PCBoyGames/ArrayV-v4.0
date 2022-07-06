@@ -36,7 +36,7 @@ class Key {
     }
 
     public boolean isGreaterThanAllIn(int startRange, int endRange) {
-        while(endRange >= startRange && Reads.compareValues(container[endRange], container[index]) >= 0) {
+        while (endRange >= startRange && Reads.compareValues(container[endRange], container[index]) >= 0) {
             Highlights.markArray(1, endRange);
             Delays.sleep(0.75);
             endRange--;
@@ -46,12 +46,12 @@ class Key {
     }
 
     public int firstIndexHigherThan_goRight(int startRange, int endRange) {
-        while(startRange <= endRange && Reads.compareValues(container[startRange], container[index]) < 0) {
+        while (startRange <= endRange && Reads.compareValues(container[startRange], container[index]) < 0) {
             Highlights.markArray(1, startRange);
             Delays.sleep(0.75);
             startRange++;
         }
-        if(startRange > endRange)
+        if (startRange > endRange)
             return alreadyGreatest;
         return startRange;
     }
@@ -77,17 +77,17 @@ final public class PseudocodeSort extends BogoSorting {
     }
 
     private void sort(int[] array, int start, int end) {
-        for(int i = start + 1; i < end; i++) {
+        for (int i = start + 1; i < end; i++) {
             Key key = new Key(array, i);
-            if(Reads.compareValues(array[key.index], array[i-1]) > 0)
+            if (Reads.compareValues(array[key.index], array[i-1]) > 0)
                 continue;
-            if(Reads.compareValues(array[key.index], array[start]) <= 0) {
+            if (Reads.compareValues(array[key.index], array[start]) <= 0) {
                 Key.push(Push.from, key, Push.to, start);
                 continue;
             }
-            while(!key.isGreaterThanAllIn(start, i - 1)) {
+            while (!key.isGreaterThanAllIn(start, i - 1)) {
                 int found = key.firstIndexHigherThan_goRight(start, i - 1);
-                if(found == Key.alreadyGreatest)
+                if (found == Key.alreadyGreatest)
                     break;
                 Writes.swap(array, key.index, found, 1, true, false);
             }

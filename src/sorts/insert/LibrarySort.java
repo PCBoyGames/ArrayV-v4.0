@@ -58,19 +58,19 @@ final public class LibrarySort extends Sort {
 
     private void shiftExt(int[] array, int a, int m, int b) {
         int m1 = a + Math.min(m-a, b-m);
-        while(m > a)  Writes.write(array, --b, array[--m], 0.5, false, true);
-        while(a < m1) Writes.write(array, a++, this.max,   0.5, false, true);
+        while (m > a)  Writes.write(array, --b, array[--m], 0.5, false, true);
+        while (a < m1) Writes.write(array, a++, this.max,   0.5, false, true);
     }
 
     private int leftBlockSearch(int[] array, int a, int b, int val) {
         int s = G+1;
 
-        while(a < b) {
+        while (a < b) {
             int m = a+(((b-a)/s)/2)*s;
             Highlights.markArray(2, m/s);
             Delays.sleep(0.25);
 
-            if(Reads.compareValues(val, array[m]) <= 0)
+            if (Reads.compareValues(val, array[m]) <= 0)
                 b = m;
             else
                 a = m+s;
@@ -82,12 +82,12 @@ final public class LibrarySort extends Sort {
     private int rightBlockSearch(int[] array, int a, int b, int val) {
         int s = G+1;
 
-        while(a < b) {
+        while (a < b) {
             int m = a+(((b-a)/s)/2)*s;
             Highlights.markArray(2, m/s);
             Delays.sleep(0.25);
 
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+s;
@@ -98,10 +98,10 @@ final public class LibrarySort extends Sort {
     }
 
     private int locSearch(int[] array, int a, int b) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareOriginalValues(this.max, array[m]) <= 0)
+            if (Reads.compareOriginalValues(this.max, array[m]) <= 0)
                 b = m;
             else
                 a = m+1;
@@ -110,10 +110,10 @@ final public class LibrarySort extends Sort {
         return a;
     }
     private int rightBinSearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+1;
@@ -125,30 +125,30 @@ final public class LibrarySort extends Sort {
     private void insertTo(int[] array, int a, int b, boolean aux) {
         Highlights.clearMark(2);
         int temp = array[a];
-        while(a > b) Writes.write(array, a, array[--a], 0.5, !aux, aux);
+        while (a > b) Writes.write(array, a, array[--a], 0.5, !aux, aux);
         Writes.write(array, b, temp, 0.5, !aux, aux);
     }
 
     private void binaryInsertion(int[] array, int a, int b) {
-        for(int i = a+1; i < b; i++)
+        for (int i = a+1; i < b; i++)
             this.insertTo(array, i, this.rightBinSearch(array, a, i, array[i]), false);
     }
 
     private void retrieve(int[] array, int[] tmp, int i, int pEnd) {
         int loc = i-1;
 
-        for(int k = pEnd-(G+1); k > G;) {
+        for (int k = pEnd-(G+1); k > G;) {
             int m = this.locSearch(tmp, k-G, k)-1;
             k -= G+1;
 
-            while(m >= k) {
+            while (m >= k) {
                 Writes.write(array, loc--, tmp[m], 0, true, false);
                 Writes.write(tmp, m--, max, 1, false, true);
             }
         }
 
         int m = this.locSearch(tmp, 0, G)-1;
-        while(m >= 0) {
+        while (m >= 0) {
             Writes.write(array, loc--, tmp[m], 0, true, false);
             Writes.write(tmp, m--, max, 1, false, true);
         }
@@ -167,25 +167,25 @@ final public class LibrarySort extends Sort {
         Random rng = new Random();
 
         int s = length;
-        while(s >= 32) s = (s-1)/R + 1;
+        while (s >= 32) s = (s-1)/R + 1;
 
         int i = s, j = R*i, pEnd = (s+1)*(G+1)+G;
         this.binaryInsertion(array, 0, s);
 
-        for(int k = 0; k < s; k++) {
+        for (int k = 0; k < s; k++) {
             Highlights.markArray(1, k);
             Writes.write(tmp, k*(G+1)+G, array[k], 1, false, true);
         }
 
-        for(; i < length; i++) {
-            if(i == j) {
+        for (; i < length; i++) {
+            if (i == j) {
                 this.retrieve(array, tmp, i, pEnd);
 
                 s = i;
                 pEnd = (s+1)*(G+1)+G;
                 j *= R;
 
-                for(int k = 0; k < s; k++) {
+                for (int k = 0; k < s; k++) {
                     Highlights.markArray(1, k);
                     Writes.write(tmp, k*(G+1)+G, array[k], 1, false, true);
                 }
@@ -194,24 +194,24 @@ final public class LibrarySort extends Sort {
             Highlights.markArray(1, i);
             int bLoc = this.leftBlockSearch(tmp, G, pEnd-(G+1), array[i]);
 
-            if(Reads.compareValues(array[i], tmp[bLoc]) == 0) {
+            if (Reads.compareValues(array[i], tmp[bLoc]) == 0) {
                 int eqEnd = this.rightBlockSearch(tmp, bLoc+(G+1), pEnd-(G+1), array[i]);
                 bLoc += rng.nextInt((eqEnd-bLoc)/(G+1))*(G+1);
             }
             int loc  = this.locSearch(tmp, bLoc-G, bLoc);
 
-            if(loc == bLoc) {
+            if (loc == bLoc) {
                 do bLoc += G+1;
-                while(bLoc < pEnd && this.locSearch(tmp, bLoc-G, bLoc) == bLoc);
+                while (bLoc < pEnd && this.locSearch(tmp, bLoc-G, bLoc) == bLoc);
 
-                if(bLoc == pEnd) {
+                if (bLoc == pEnd) {
                     this.retrieve(array, tmp, i, pEnd);
 
                     s = i;
                     pEnd = (s+1)*(G+1)+G;
                     j = R*i;
 
-                    for(int k = 0; k < s; k++) {
+                    for (int k = 0; k < s; k++) {
                         Highlights.markArray(1, k);
                         Writes.write(tmp, k*(G+1)+G, array[k], 1, false, true);
                     }

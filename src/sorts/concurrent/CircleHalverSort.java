@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 aphitorite
@@ -44,64 +44,64 @@ final public class CircleHalverSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	private int end;
-	
-	private boolean compSwap(int[] array, int a, int b) {
-		if(a < this.end && b < this.end && 
-		   Reads.compareIndices(array, a, b, 0.25, true) > 0) {
-			   
-			Writes.swap(array, a, b, 0.25, true, false);
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean bwdComp(int[] array, int a, int b) {
-		boolean did = false;
-		
-		for(int i = a, j = b-1; i < j; i++, j--)
-			did = this.compSwap(array, i, j) ? true : did;
-		
-		return did;
-	}
-	
-	private void fwdComp(int[] array, int a, int m, int l) {
-		for(int i = 0; i < l; i++)
-			this.compSwap(array, a+i, m+i);
-	}
-	
-	private void halver(int[] array, int a, int b) {
-		int n = b-a; int c = -1;
-		boolean did = true;
-		
-		while(did) {
-			did = false;
-			
-			for(int j = 1; j < n/2; j *= 2)
-				for(int i = a; i < Math.min(this.end, b); i += 2*j)
-					this.fwdComp(array, i, i+j, j);
-				
-			did = this.bwdComp(array, a, b) ? true : did;
-			c++;
-		}
-		if(c > (int)(Math.log(b-a)/Math.log(2))-1)
-			System.out.printf("[%d: %d] ", (int)(Math.log(b-a)/Math.log(2))-1, c);
-	}
-	
+
+    private int end;
+
+    private boolean compSwap(int[] array, int a, int b) {
+        if (a < this.end && b < this.end &&
+           Reads.compareIndices(array, a, b, 0.25, true) > 0) {
+
+            Writes.swap(array, a, b, 0.25, true, false);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean bwdComp(int[] array, int a, int b) {
+        boolean did = false;
+
+        for (int i = a, j = b-1; i < j; i++, j--)
+            did = this.compSwap(array, i, j) ? true : did;
+
+        return did;
+    }
+
+    private void fwdComp(int[] array, int a, int m, int l) {
+        for (int i = 0; i < l; i++)
+            this.compSwap(array, a+i, m+i);
+    }
+
+    private void halver(int[] array, int a, int b) {
+        int n = b-a; int c = -1;
+        boolean did = true;
+
+        while (did) {
+            did = false;
+
+            for (int j = 1; j < n/2; j *= 2)
+                for (int i = a; i < Math.min(this.end, b); i += 2*j)
+                    this.fwdComp(array, i, i+j, j);
+
+            did = this.bwdComp(array, a, b) ? true : did;
+            c++;
+        }
+        if (c > (int)(Math.log(b-a)/Math.log(2))-1)
+            System.out.printf("[%d: %d] ", (int)(Math.log(b-a)/Math.log(2))-1, c);
+    }
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) throws Exception {
-		this.end = length;
-		length = 1 << (int)(Math.log(length-1)/Math.log(2))+1;
-		
-		this.halver(array, 0, length);
-		
-		for(int j = length/2; j > 4; j /= 2)
-			for(int i = 0; i+j/2 < this.end; i += j)
-				if(this.bwdComp(array, i, i+j))
-					this.halver(array, i, i+j);
-			
-		for(int i = 2; i < this.end; i += 4)
-			this.compSwap(array, i-1, i);
+        this.end = length;
+        length = 1 << (int)(Math.log(length-1)/Math.log(2))+1;
+
+        this.halver(array, 0, length);
+
+        for (int j = length/2; j > 4; j /= 2)
+            for (int i = 0; i+j/2 < this.end; i += j)
+                if (this.bwdComp(array, i, i+j))
+                    this.halver(array, i, i+j);
+
+        for (int i = 2; i < this.end; i += 4)
+            this.compSwap(array, i-1, i);
     }
 }

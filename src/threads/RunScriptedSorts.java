@@ -69,7 +69,7 @@ final public class RunScriptedSorts extends MultipleSortThread {
 
     @Override
     public synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
@@ -100,7 +100,7 @@ final public class RunScriptedSorts extends MultipleSortThread {
 
                     RunScriptedSorts.this.executeSortList(commands, array);
 
-                    if(!runAllActive) {
+                    if (!runAllActive) {
                         arrayVisualizer.setCategory("Run " + RunScriptedSorts.this.currentCategory);
                         arrayVisualizer.setHeading("Done");
                         arrayVisualizer.updateNow();

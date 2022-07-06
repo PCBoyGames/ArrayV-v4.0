@@ -59,7 +59,7 @@ final public class NihilismSort extends Sort {
 
         public Nothing(ArrayVisualizer arrayVisualizer, int index, boolean compare) {
             super(arrayVisualizer);
-            if(compare)
+            if (compare)
                 wrapped = wrapsCompare[index];
             else
                 wrapped = wrapsDistr[index];
@@ -68,7 +68,7 @@ final public class NihilismSort extends Sort {
 
         private void instantiate() {
             Object v;
-            for(Field i : wrapped.getClass().getDeclaredFields()) {
+            for (Field i : wrapped.getClass().getDeclaredFields()) {
                 try {
                     v = i.get(wrapped);
                     i.set(this, v);

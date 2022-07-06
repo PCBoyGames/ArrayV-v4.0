@@ -181,7 +181,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
 
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
@@ -189,7 +189,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
             @Override
             public void run() {
                 try{
-                    if(runAllActive) {
+                    if (runAllActive) {
                         RunImpracticalSorts.this.sortNumber = current;
                         RunImpracticalSorts.this.sortCount = total;
                     }
@@ -203,7 +203,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
 
                     RunImpracticalSorts.this.executeSortList(array);
 
-                    if(runAllActive) {
+                    if (runAllActive) {
                         Thread.sleep(3000);
                     }
                     else {

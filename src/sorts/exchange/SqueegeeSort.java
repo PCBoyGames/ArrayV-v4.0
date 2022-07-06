@@ -40,7 +40,7 @@ final public class SqueegeeSort extends Sort {
             this.stoogeSort(A, i, j-t, d);
             this.stoogeSort(A, i+2*t, j, d);
             this.stoogeSort(A, i, j-t, d);
-            if(j-i+1 > 3) {
+            if (j-i+1 > 3) {
                 Writes.recursion(2);
                 this.stoogeSort(A, j-2*t, j, d);
                 this.stoogeSort(A, i, j-t, d);

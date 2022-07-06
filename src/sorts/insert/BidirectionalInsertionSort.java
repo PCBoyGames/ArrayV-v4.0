@@ -47,7 +47,7 @@ final public class BidirectionalInsertionSort extends Sort {
 
     protected void insertFw(int[] array, int i, int current, double sleep, boolean auxwrite) {
         int pos = i - 1;
-        while(Reads.compareValues(array[pos], current) > 0){
+        while (Reads.compareValues(array[pos], current) > 0) {
             Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
             pos--;
         }
@@ -56,7 +56,7 @@ final public class BidirectionalInsertionSort extends Sort {
 
     protected void insertBw(int[] array, int i, int current, double sleep, boolean auxwrite) {
         int pos = i - 1;
-        while(Reads.compareValues(array[pos], current) <= 0){
+        while (Reads.compareValues(array[pos], current) <= 0) {
             Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
             pos--;
         }

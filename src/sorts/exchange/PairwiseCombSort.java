@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 Copyright (c) 2019 PiotrGrochowski
 Copyright (c) 2020 aphitorite
@@ -29,7 +29,7 @@ SOFTWARE.
 final public class PairwiseCombSort extends Sort {
     public PairwiseCombSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Pairwise Comb");
         this.setRunAllSortsName("Pairwise Comb Sort");
         this.setRunSortName("Pairwise Combsort");
@@ -41,18 +41,18 @@ final public class PairwiseCombSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	private boolean is3Smooth(int n) {
-		while((n&1) == 0) n >>= 1;
-		return (n & (n + 1)) == 0;
-	}
-    
+
+    private boolean is3Smooth(int n) {
+        while ((n&1) == 0) n >>= 1;
+        return (n & (n + 1)) == 0;
+    }
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		for(int g = length/2; g > 0; g--)
-			if(is3Smooth(g))
-				for(int i = g; i < length; i++)
-					if(Reads.compareIndices(array, i-g, i, 0.5, true) == 1)
-						Writes.swap(array, i-g, i, 0.5, true, false);
+        for (int g = length/2; g > 0; g--)
+            if (is3Smooth(g))
+                for (int i = g; i < length; i++)
+                    if (Reads.compareIndices(array, i-g, i, 0.5, true) == 1)
+                        Writes.swap(array, i-g, i, 0.5, true, false);
     }
 }

@@ -142,33 +142,33 @@ public final class ShufflePriorityQuickSort extends Sort {
     }
 
     protected void insertSort(int[] array, int a, int b) {
-        for(int i = a + 1; i < b; i++)
+        for (int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
 
     public void quickSort(int[] array, int start, int end) {
-        if(end - start < this.threshold) {
+        if (end - start < this.threshold) {
             insertSort(array, start, end);
             return;
         }
         PriorityQueue<Partition> q = new PriorityQueue<>((end - start - 1) / this.threshold + 1);
         q.offer(new Partition(start, end));
-        while(q.size() > 0) {
+        while (q.size() > 0) {
             Partition part = q.poll();
             int a = part.a, b = part.b, len = part.length();
             medianOfThree(array, a, b);
             int m = partition(array, a, b, a);
             int l = m - a, r = b - m - 1;
-            while(l < len / 16 || r < len / 16) {
+            while (l < len / 16 || r < len / 16) {
                 shuffle(array, a, b);
                 m = partition(array, a, b, a);
                 l = m - a; r = b - m - 1;
             }
-            if(l >= threshold)
+            if (l >= threshold)
                 q.offer(new Partition(a, m));
             else
                 insertSort(array, a, m);
-            if(r >= threshold)
+            if (r >= threshold)
                 q.offer(new Partition(m + 1, b));
             else
                 insertSort(array, m + 1, b);

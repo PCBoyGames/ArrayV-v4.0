@@ -50,21 +50,21 @@ final public class PartialMergeSort extends Sort {
 
         int left = leftStart;
         int right = rightStart;
-        for(int nxt = 0; nxt < end - leftStart; nxt++){
-            if(left >= rightStart && right >= end) break;
+        for (int nxt = 0; nxt < end - leftStart; nxt++) {
+            if (left >= rightStart && right >= end) break;
 
             Highlights.markArray(1, nxt + leftStart);
             Highlights.markArray(2, right);
 
-            if(left < rightStart && right >= end){
+            if (left < rightStart && right >= end) {
                 Highlights.clearMark(2);
                 Writes.write(array, nxt + leftStart, copied[(left++) - leftStart], 1, false, false);
             }
-            else if(left >= rightStart && right < end){
+            else if (left >= rightStart && right < end) {
                 Highlights.clearMark(1);
                 Writes.write(array, nxt + leftStart, array[right++], 1, false, false);
             }
-            else if(Reads.compareValues(copied[left - leftStart], array[right]) <= 0){
+            else if (Reads.compareValues(copied[left - leftStart], array[right]) <= 0) {
                 Writes.write(array, nxt + leftStart, copied[(left++) - leftStart], 1, false, false);
             }
             else{
@@ -77,7 +77,7 @@ final public class PartialMergeSort extends Sort {
     }
 
     private void mergeRun(int[] array, int[] copied, int start, int mid, int end) {
-        if(start == mid) return;
+        if (start == mid) return;
 
         mergeRun(array, copied, start, (mid+start)/2, mid);
         mergeRun(array, copied, mid, (mid+end)/2, end);

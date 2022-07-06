@@ -46,14 +46,14 @@ final public class StacklessAmericanFlagSort extends Sort {
     }
 
     private int stabVal(int idx) {
-        if(arrayVisualizer.doingStabilityCheck())
+        if (arrayVisualizer.doingStabilityCheck())
             return arrayVisualizer.getStabilityValue(idx);
         else
             return idx;
     }
 
     private static int shift(int n, int q, int r) {
-        while(q > 0) {
+        while (q > 0) {
             n /= r;
             q--;
         }
@@ -61,14 +61,14 @@ final public class StacklessAmericanFlagSort extends Sort {
     }
 
     private int dist(int[] array, int[] cnts, int[] offs, int a, int b, int q, int r) {
-        for(int i = 1; i < r; i++) {
+        for (int i = 1; i < r; i++) {
             Writes.write(cnts, i, cnts[i]+cnts[i-1], 0, false, true);
             Writes.write(offs, i, cnts[i-1], 0, false, true);
         }
-        for(int i = 0; i < r-1; i++) {
+        for (int i = 0; i < r-1; i++) {
             int pos = a+offs[i];
 
-            if(cnts[i] > offs[i]) {
+            if (cnts[i] > offs[i]) {
                 Highlights.markArray(2, pos);
                 int t = array[pos];
 
@@ -80,14 +80,14 @@ final public class StacklessAmericanFlagSort extends Sort {
                     Writes.write(array, a+cnts[digit], t, 0.5, true, false);
                     t = t1;
                 }
-                while(cnts[i] > offs[i]);
+                while (cnts[i] > offs[i]);
 
                 Highlights.clearMark(2);
             }
         }
         int p = a+offs[1];
 
-        for(int i = 0; i < r; i++) {
+        for (int i = 0; i < r; i++) {
             Writes.write(cnts, i, 0, 0, false, true);
             Writes.write(offs, i, 0, 0, false, true);
         }
@@ -103,26 +103,26 @@ final public class StacklessAmericanFlagSort extends Sort {
               offs = new int[r];
         Writes.changeAllocAmount(2 * r);
 
-        for(int j = i; j < b; j++) {
+        for (int j = i; j < b; j++) {
             Highlights.markArray(1, j);
             int digit = Reads.getDigit(array[j], q, r);
             Writes.write(cnts, digit, cnts[digit]+1, 0.5, false, true);
         }
 
-        while(i < length) {
+        while (i < length) {
             int p = b-i < 1 ? i : this.dist(array, cnts, offs, i, b, q, r);
 
-            if(q == 0) {
+            if (q == 0) {
                 m += r;
                 int t = m/r;
 
-                while(t%r == 0) {
+                while (t%r == 0) {
                     t /= r;
                     q++;
                 }
 
                 i = b;
-                while(b < length && shift(this.stabVal(array[b]), q+1, r) == shift(m, q+1, r)) {
+                while (b < length && shift(this.stabVal(array[b]), q+1, r) == shift(m, q+1, r)) {
                     Highlights.markArray(1, b);
                     int digit = Reads.getDigit(array[b], q, r);
                     Writes.write(cnts, digit, cnts[digit]+1, 0.5, false, true);
@@ -133,7 +133,7 @@ final public class StacklessAmericanFlagSort extends Sort {
                 b = p;
                 q--;
 
-                for(int j = i; j < b; j++) {
+                for (int j = i; j < b; j++) {
                     Highlights.markArray(1, j);
                     int digit = Reads.getDigit(array[j], q, r);
                     Writes.write(cnts, digit, cnts[digit]+1, 0.5, false, true);

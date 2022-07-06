@@ -52,13 +52,13 @@ final public class RunAllSorts {
 
     public void reportAllSorts(int[] array) {
         int totalSortCount = 0;
-        for(MultipleSortThread category : this.allSortThreads) {
+        for (MultipleSortThread category : this.allSortThreads) {
             totalSortCount += category.getSortCount();
         }
 
         try {
             int currentSort = 1;
-            for(MultipleSortThread thread : this.allSortThreads) {
+            for (MultipleSortThread thread : this.allSortThreads) {
                 thread.reportAllSorts(array, currentSort, totalSortCount);
                 this.arrayVisualizer.getSortingThread().join();
                 currentSort += thread.getCategoryCount();

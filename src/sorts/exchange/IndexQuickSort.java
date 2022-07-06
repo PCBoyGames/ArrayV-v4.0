@@ -47,10 +47,10 @@ final public class IndexQuickSort extends Sort {
     }
 
     private void indexSort(int[] array, int[] idx, int a, int b) {
-        while(a < b) {
+        while (a < b) {
             Highlights.markArray(2, a);
 
-            if(Reads.compareOriginalValues(a, idx[a]) != 0) {
+            if (Reads.compareOriginalValues(a, idx[a]) != 0) {
                 int t = array[a];
                 int i = a, nxt = idx[a];
 
@@ -61,7 +61,7 @@ final public class IndexQuickSort extends Sort {
                     i = nxt;
                     nxt = idx[nxt];
                 }
-                while(Reads.compareOriginalValues(nxt, a) != 0);
+                while (Reads.compareOriginalValues(nxt, a) != 0);
 
                 Writes.write(array, i, t, 0, true, false);
                 Writes.write(idx, i, i, 0.5, false, true);
@@ -77,29 +77,29 @@ final public class IndexQuickSort extends Sort {
         int m = a + r.nextInt(b-a);
 
         Highlights.markArray(2, m);
-        for(i = a; i < m; i++) {
+        for (i = a; i < m; i++) {
             Highlights.markArray(1, i);
             Delays.sleep(0.25);
 
-            if(Reads.compareValues(array[i], array[m]) <= 0)
+            if (Reads.compareValues(array[i], array[m]) <= 0)
                 c1++;
         }
         i++;
         c1++;
-        for(; i < b; i++) {
+        for (; i < b; i++) {
             Highlights.markArray(1, i);
             Delays.sleep(0.25);
 
-            if(Reads.compareValues(array[i], array[m]) < 0)
+            if (Reads.compareValues(array[i], array[m]) < 0)
                 c1++;
         }
 
         int p = c1-1;
 
-        for(i = a; i < m; i++) {
+        for (i = a; i < m; i++) {
             Highlights.markArray(1, i);
 
-            if(Reads.compareValues(array[i], array[m]) <= 0)
+            if (Reads.compareValues(array[i], array[m]) <= 0)
                 Writes.write(idx, c0++, i, 0.25, false, true);
 
             else Writes.write(idx, c1++, i, 0.25, false, true);
@@ -107,10 +107,10 @@ final public class IndexQuickSort extends Sort {
         Highlights.markArray(1, i);
         Writes.write(idx, p, i++, 0.25, false, true);
 
-        for(; i < b; i++) {
+        for (; i < b; i++) {
             Highlights.markArray(1, i);
 
-            if(Reads.compareValues(array[i], array[m]) < 0)
+            if (Reads.compareValues(array[i], array[m]) < 0)
                 Writes.write(idx, c0++, i, 0.25, false, true);
 
             else Writes.write(idx, c1++, i, 0.25, false, true);
@@ -121,7 +121,7 @@ final public class IndexQuickSort extends Sort {
     }
 
     private void sort(int[] array, int[] idx, int a, int b) {
-        if(b-a < 2) return;
+        if (b-a < 2) return;
 
         int p = this.partition(array, idx, a, b);
         this.sort(array, idx, a, p);

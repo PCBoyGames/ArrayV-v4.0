@@ -24,16 +24,16 @@ public final class BubbleBogoMergeSort extends BogoSorting {
     }
 
     protected void bubbleBogoSort(int[] array, int a, int b) {
-        while(!this.isRangeSorted(array, a, b, false, true)) {
+        while (!this.isRangeSorted(array, a, b, false, true)) {
             int i = BogoSorting.randInt(a, b - 1);
-            if(Reads.compareIndices(array, i, i + 1, this.delay, true) > 0)
+            if (Reads.compareIndices(array, i, i + 1, this.delay, true) > 0)
                 Writes.swap(array, i, i + 1, this.delay, true, false);
         }
     }
 
     protected void sort(int[] array, int a, int b, int depth) {
         Writes.recordDepth(depth);
-        if(b - a < 2)
+        if (b - a < 2)
             return;
         int m = a + (b - a) / 2;
         Writes.recursion();

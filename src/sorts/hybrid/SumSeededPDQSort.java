@@ -40,14 +40,14 @@ final public class SumSeededPDQSort extends Sort {
     AdaptiveSquareInsertionSort sort = new AdaptiveSquareInsertionSort(this.arrayVisualizer);
 
     // stolen from stackoverflow
-    public int log2(int n){
-        if(n <= 0) throw new IllegalArgumentException();
+    public int log2(int n) {
+        if (n <= 0) throw new IllegalArgumentException();
         return 31 - Integer.numberOfLeadingZeros(n);
     }
 
     // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
     private void quickSort(int[] a, int p, int r) {
-        if(r - p > 16) {
+        if (r - p > 16) {
             int pivot = (r^p + a[p]^a[r] + a[p] + a[r] + p + r)*(r^p + a[p]^a[r] + a[p] + a[r] + p + r)%(r - p) + p;
             pivot = Math.abs((pivot + a[p]^a[r] + a[p] + a[r] + p + r)*(pivot+ a[p]^a[r] + a[p] + a[r] + p + r)%(r - p) + p)%(r - p - 1) + p;
 
@@ -59,12 +59,12 @@ final public class SumSeededPDQSort extends Sort {
             Highlights.markArray(3, pivot);
 
             while (i <= j) {
-                while (Reads.compareValues(a[i], x) == -1){
+                while (Reads.compareValues(a[i], x) == -1) {
                     i++;
                     Highlights.markArray(1, i);
                     Delays.sleep(0.5);
                 }
-                while (Reads.compareValues(a[j], x) == 1){
+                while (Reads.compareValues(a[j], x) == 1) {
                     j--;
                     Highlights.markArray(2, j);
                     Delays.sleep(0.5);
@@ -72,10 +72,10 @@ final public class SumSeededPDQSort extends Sort {
 
                 if (i <= j) {
                     // Follow the pivot and highlight it.
-                    if(i == pivot) {
+                    if (i == pivot) {
                         Highlights.markArray(3, j);
                     }
-                    if(j == pivot) {
+                    if (j == pivot) {
                         Highlights.markArray(3, i);
                     }
 
@@ -86,10 +86,10 @@ final public class SumSeededPDQSort extends Sort {
                 }
             }
 
-            if(p < j) {
+            if (p < j) {
                 this.quickSort(a, p, j);
             }
-            if(i < r) {
+            if (i < r) {
                 this.quickSort(a, i, r);
             }
         } else sort.customBinaryInsert(a, p, r + 1, 0.5);

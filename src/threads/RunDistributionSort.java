@@ -68,36 +68,36 @@ final public class RunDistributionSort {
         int hours;
         long days;
 
-        if(seconds >= 60) {
+        if (seconds >= 60) {
             minutes = Math.round(seconds / 60);
 
-            if(minutes >= 60) {
+            if (minutes >= 60) {
                 hours = Math.round(minutes / 60);
 
-                if(hours >= 24) {
+                if (hours >= 24) {
                     days = Math.round(hours / 24);
 
-                    if(days < 2)  timeUnit = "day";
+                    if (days < 2)  timeUnit = "day";
                     else          timeUnit = "days";
 
                     timeString = "" + arrayVisualizer.getNumberFormat().format(days) + " " + timeUnit + " ";
                 }
                 else {
-                    if(hours < 2) timeUnit = "hour";
+                    if (hours < 2) timeUnit = "hour";
                     else          timeUnit = "hours";
 
                     timeString = "" + hours + " " + timeUnit + " ";
                 }
             }
             else {
-                if(minutes < 2) timeUnit = "minute";
+                if (minutes < 2) timeUnit = "minute";
                 else            timeUnit = "minutes";
 
                 timeString = "" + minutes + " " + timeUnit + " ";
             }
         }
         else {
-            if(seconds < 2) timeUnit = "second";
+            if (seconds < 2) timeUnit = "second";
             else            timeUnit = "seconds";
 
             timeString = "" + seconds + " " + timeUnit + " ";
@@ -113,11 +113,11 @@ final public class RunDistributionSort {
     }
 
     public void ReportDistributionSort(int[] array, int selection) {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         //TODO: This code is bugged! It causes the program to forget the sleep ratio specified by the user!
-        if(delayOps.skipped()) {
+        if (delayOps.skipped()) {
             delayOps.setSleepRatio(1);
             delayOps.changeSkipped(false);
         }
@@ -130,7 +130,7 @@ final public class RunDistributionSort {
         arrayVisualizer.setSortingThread(new Thread("DistributionSorting") {
             @SuppressWarnings("unused")
             @Override
-            public void run(){
+            public void run() {
                 try {
                     Class<?> sortClass = arrayVisualizer.getDistributionSorts()[selection].sortClass;
                     Constructor<?> newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
@@ -147,8 +147,8 @@ final public class RunDistributionSort {
                         }
                     }
                     else {
-                        if(sort.usesBuckets()) {
-                            if(sort.isRadixSort()) {
+                        if (sort.usesBuckets()) {
+                            if (sort.isRadixSort()) {
                                 try {
                                     bucketCount = RunDistributionSort.this.getCustomInput("Enter the base for this sort:");
                                 }
@@ -156,7 +156,7 @@ final public class RunDistributionSort {
                                     bucketCount = 4;
                                 }
                             }
-                            else if(sort.getRunSortName().contains("Shatter")) {
+                            else if (sort.getRunSortName().contains("Shatter")) {
                                 try {
                                     bucketCount = RunDistributionSort.this.getCustomInput("Enter the size for each partition:");
                                 }
@@ -172,7 +172,7 @@ final public class RunDistributionSort {
                                     bucketCount = 16;
                                 }
                             }
-                            if(bucketCount < 2) bucketCount = 2;
+                            if (bucketCount < 2) bucketCount = 2;
                         }
                         else {
                             bucketCount = 0;
@@ -184,30 +184,30 @@ final public class RunDistributionSort {
 
                     boolean goAhead;
 
-                    if(sort.isUnreasonablySlow() && arrayVisualizer.getCurrentLength() > sort.getUnreasonableLimit()) {
+                    if (sort.isUnreasonablySlow() && arrayVisualizer.getCurrentLength() > sort.getUnreasonableLimit()) {
                         goAhead = false;
 
-                        if(sort.getRunSortName().equals("Timesort")) {
+                        if (sort.getRunSortName().equals("Timesort")) {
                             Object[] options = { "Continue", "Cancel" };
 
                             int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), "Time Sort will take at least " + getTimeSortEstimate(bucketCount)
                                                                      + "to complete. Once it starts, you cannot skip this sort.", "Warning!", 2, JOptionPane.WARNING_MESSAGE,
                                                                      null, options, options[1]);
 
-                            if(warning == 0) goAhead = true;
+                            if (warning == 0) goAhead = true;
                             else goAhead = false;
 
                         }
                         else {
                             Object[] options = { "Let's see how bad " + sort.getRunSortName() + " is!", "Cancel" };
 
-                            if(sort.isBogoSort()) {
+                            if (sort.isBogoSort()) {
                                 int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), "Even at a high speed, "
                                                                          + sort.getRunSortName() + "ing " + arrayVisualizer.getCurrentLength()
                                                                          + " numbers will almost certainly not finish in a reasonable amount of time. "
                                                                          + "Are you sure you want to continue?", "Warning!", 2, JOptionPane.WARNING_MESSAGE,
                                                                          null, options, options[1]);
-                                if(warning == 0) goAhead = true;
+                                if (warning == 0) goAhead = true;
                                 else goAhead = false;
                             }
                             else {
@@ -218,7 +218,7 @@ final public class RunDistributionSort {
                                                                          + "Are you sure you want to continue?", "Warning!", 2, JOptionPane.WARNING_MESSAGE,
                                                                          null, options, options[1]);
 
-                                if(warning == 0) goAhead = true;
+                                if (warning == 0) goAhead = true;
                                 else goAhead = false;
                             }
                         }
@@ -227,11 +227,11 @@ final public class RunDistributionSort {
                         goAhead = true;
                     }
 
-                    if(sort.getRunSortName().equals("In-Place LSD Radix")) {
+                    if (sort.getRunSortName().equals("In-Place LSD Radix")) {
                         sounds.changeVolume(0.01); // Here to protect your ears :)
                     }
 
-                    if(goAhead) {
+                    if (goAhead) {
                         arrayVisualizer.setHeading(sort.getRunSortName());
 
                         realTimer.enableRealTimer();

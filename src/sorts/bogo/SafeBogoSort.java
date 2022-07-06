@@ -49,7 +49,7 @@ final public class SafeBogoSort extends Sort {
 
     private int findLastSorted(int[] array, int length) {
         int i = 1;
-        for(; i < length && Reads.compareValues(array[i-1], array[i]) <= 0; i++);
+        for (; i < length && Reads.compareValues(array[i-1], array[i]) <= 0; i++);
         return i-1;
     }
 
@@ -58,7 +58,7 @@ final public class SafeBogoSort extends Sort {
         Random r = new Random();
         int p = this.findLastSorted(array, length);
 
-        while(p < length-1) {
+        while (p < length-1) {
             Writes.swap(array, p, p + r.nextInt(length-p), 0, true, false);
             p = this.findLastSorted(array, length);
         }

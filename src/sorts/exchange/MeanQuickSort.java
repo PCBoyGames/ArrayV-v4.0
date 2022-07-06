@@ -48,8 +48,8 @@ final public class MeanQuickSort extends Sort {
 
         Writes.startLap();
 
-        if(left > right)      cmpVal =  1;
-        else if(left < right) cmpVal = -1;
+        if (left > right)      cmpVal =  1;
+        else if (left < right) cmpVal = -1;
         else                  cmpVal =  0;
 
         Writes.stopLap();

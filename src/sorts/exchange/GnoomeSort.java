@@ -47,6 +47,6 @@ final public class GnoomeSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        for(int i=1; i<currentLength; i++) this.stoogeSort(array, 0, i, 0);
+        for (int i=1; i<currentLength; i++) this.stoogeSort(array, 0, i, 0);
     }
 }

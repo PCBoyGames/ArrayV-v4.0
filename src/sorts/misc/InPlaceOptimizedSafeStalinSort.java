@@ -25,10 +25,10 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
 
     private int buildStalinRuns(int[] array, int start, int end) {
         int runs = 0;
-        for(int i=start; i<end; i++) {
-            for(int j=i+1; j<end; j++) {
-                if(Reads.compareValues(array[j], array[i]) >= 0) {
-                    if(++i != j) Writes.swap(array, j, i, 1, true, false);
+        for (int i=start; i<end; i++) {
+            for (int j=i+1; j<end; j++) {
+                if (Reads.compareValues(array[j], array[i]) >= 0) {
+                    if (++i != j) Writes.swap(array, j, i, 1, true, false);
                 }
             }
             runs++;
@@ -38,7 +38,7 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
 
     private int getRun(int[] array, int start, int end) {
         int left = start;
-        while(left < end && Reads.compareIndices(array, left, left+1, 0.1, true) <= 0) {
+        while (left < end && Reads.compareIndices(array, left, left+1, 0.1, true) <= 0) {
             left++;
         }
         return left;
@@ -50,16 +50,16 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
         int runs;
         do {
             runs = buildStalinRuns(array, 0, currentLength);
-            if(runs < 3) break;
+            if (runs < 3) break;
             int left = getRun(array, 0, currentLength), right = getRun(array, left+1, currentLength);
             int mid = left;
-            while(mid > 0 && Reads.compareIndices(array, mid, right, 1, true) >= 0) {
+            while (mid > 0 && Reads.compareIndices(array, mid, right, 1, true) >= 0) {
                 mid--;
             }
             IndexedRotations.neon(array, 0, left+1, currentLength, 1, true, false);
             currentLength -= left-mid;
-        } while(runs > 2);
-        if(runs == 2) {
+        } while (runs > 2);
+        if (runs == 2) {
             BlockInsertionSortNeon neon = new BlockInsertionSortNeon(arrayVisualizer);
             neon.insertionSort(array, 0, currentLength);
         }

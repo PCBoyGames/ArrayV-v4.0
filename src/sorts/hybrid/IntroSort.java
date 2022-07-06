@@ -37,13 +37,13 @@ final public class IntroSort extends Sort {
     }
 
     private int medianof3(int[] arr, int left, int mid, int right) {
-        if(Reads.compareValues(arr[right], arr[left]) == -1) {
+        if (Reads.compareValues(arr[right], arr[left]) == -1) {
             Writes.swap(arr, left, right, 1, true, false);
         }
-        if(Reads.compareValues(arr[mid], arr[left]) == -1) {
+        if (Reads.compareValues(arr[mid], arr[left]) == -1) {
             Writes.swap(arr, mid, left, 1, true, false);
         }
-        if(Reads.compareValues(arr[right], arr[mid]) == -1) {
+        if (Reads.compareValues(arr[right], arr[mid]) == -1) {
             Writes.swap(arr, right, mid, 1, true, false);
         }
         middle = mid;
@@ -68,17 +68,17 @@ final public class IntroSort extends Sort {
                 j--;
             }
 
-            if(!(i < j)) {
+            if (!(i < j)) {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
                 return i;
             }
 
             // Follow the pivot and highlight it.
-            if(i == middle) {
+            if (i == middle) {
                 Highlights.markArray(3, j);
             }
-            if(j == middle) {
+            if (j == middle) {
                 Highlights.markArray(3, i);
             }
 

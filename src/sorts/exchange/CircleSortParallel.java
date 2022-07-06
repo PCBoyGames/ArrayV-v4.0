@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 aphitorite
@@ -29,10 +29,10 @@ SOFTWARE.
  *
  */
 
-final public class CircleSortParallel extends Sort {   
+final public class CircleSortParallel extends Sort {
     public CircleSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Circle (Parallel)");
         this.setRunAllSortsName("Parallel Circle Sort");
         this.setRunSortName("Parallel Circlesort");
@@ -44,63 +44,63 @@ final public class CircleSortParallel extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-	
-	private int[] array;
-	private int end;
-	
-	private volatile boolean swapped;
-	
-	private class CircleSort extends Thread {
-		private int a, b;
-		
-		public CircleSort(int a, int b) {
-			this.a = a;
-			this.b = b;
-		}
-		public void run() {
-			CircleSortParallel.this.circleSort(a, b);
-		}
-	}
-	
-	private void circleSort(int a, int b) {
-		if(a >= this.end) return;
-		
-		for(int i = a, j = b-1; i < j; i++, j--)
-			if(j < this.end && Reads.compareIndices(array, i, j, 1, true) > 0) {
-				Writes.swap(array, i, j, 1, true, false);
-				this.swapped = true;
-			}
-		
-		if(b-a < 4) return;
-		
-		int m = (a+b)/2;
-		
-		CircleSort l = new CircleSort(a, m);
-		CircleSort r = new CircleSort(m, b);
-		
-		l.start();
-		r.start();
-		
-		try {
-			l.join();
-			r.join();
-		} 
-		catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-	}
-    
+
+    private int[] array;
+    private int end;
+
+    private volatile boolean swapped;
+
+    private class CircleSort extends Thread {
+        private int a, b;
+
+        public CircleSort(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+        public void run() {
+            CircleSortParallel.this.circleSort(a, b);
+        }
+    }
+
+    private void circleSort(int a, int b) {
+        if (a >= this.end) return;
+
+        for (int i = a, j = b-1; i < j; i++, j--)
+            if (j < this.end && Reads.compareIndices(array, i, j, 1, true) > 0) {
+                Writes.swap(array, i, j, 1, true, false);
+                this.swapped = true;
+            }
+
+        if (b-a < 4) return;
+
+        int m = (a+b)/2;
+
+        CircleSort l = new CircleSort(a, m);
+        CircleSort r = new CircleSort(m, b);
+
+        l.start();
+        r.start();
+
+        try {
+            l.join();
+            r.join();
+        }
+        catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-		this.array = array;
-    	this.end = sortLength;
-		this.swapped = true;
-    	int n = 1;
-    	for(; n < sortLength; n*=2);
-		
-		while(swapped) {
-			swapped = false;
-			this.circleSort(0, n);
-		}
+        this.array = array;
+        this.end = sortLength;
+        this.swapped = true;
+        int n = 1;
+        for (; n < sortLength; n*=2);
+
+        while (swapped) {
+            swapped = false;
+            this.circleSort(0, n);
+        }
     }
 }

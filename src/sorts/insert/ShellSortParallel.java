@@ -35,8 +35,8 @@ final public class ShellSortParallel extends ShellSorting {
     }
 
     private void gappedInsertion(int a, int b, int g) {
-        for(int i = a+g; i < b; i+=g) {
-            if(Reads.compareIndices(this.array, i-g, i, 1, true) > 0) {
+        for (int i = a+g; i < b; i+=g) {
+            if (Reads.compareIndices(this.array, i-g, i, 1, true) > 0) {
                 int tmp = this.array[i], j = i;
                 Highlights.clearMark(2);
 
@@ -44,7 +44,7 @@ final public class ShellSortParallel extends ShellSorting {
                     Writes.write(this.array, j, this.array[j-g], 1, true, false);
                     j -= g;
                 }
-                while(j-g >= a && Reads.compareValues(this.array[j-g], tmp) > 0);
+                while (j-g >= a && Reads.compareValues(this.array[j-g], tmp) > 0);
 
                 Writes.write(this.array, j, tmp, 1, true, false);
             }
@@ -58,17 +58,17 @@ final public class ShellSortParallel extends ShellSorting {
 
         int k = 0;
 
-        for(; this.gaps[k] >= currentLength; k++);
-        for(; k < this.gaps.length; k++) {
+        for (; this.gaps[k] >= currentLength; k++);
+        for (; k < this.gaps.length; k++) {
             int g = this.gaps[k];
             int t = Math.min(g, currentLength-g);
 
             GappedInsertionSort[] ins = new GappedInsertionSort[t];
-            for(int i = 0; i < t; i++)
+            for (int i = 0; i < t; i++)
                 ins[i] = new GappedInsertionSort(i, currentLength, g);
 
-            for(GappedInsertionSort s : ins) s.start();
-            for(GappedInsertionSort s : ins) {
+            for (GappedInsertionSort s : ins) s.start();
+            for (GappedInsertionSort s : ins) {
                 try {
                     s.join();
                 }

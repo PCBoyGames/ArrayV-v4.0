@@ -26,11 +26,11 @@ public final class ShnexSort extends Sort {
         this.setUnreasonableLimit(32);
         this.setBogoSort(false);
     }
-    
+
     protected int stablereturn(int a) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
-    
+
     // Entirely cheating, like the par function, but this does what it needs to do in O(n) time.
     protected boolean noDupes(int[] array, int len) {
         int min = Integer.MAX_VALUE;

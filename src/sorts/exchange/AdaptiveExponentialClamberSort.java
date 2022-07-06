@@ -43,7 +43,7 @@ final public class AdaptiveExponentialClamberSort extends Sort {
 
     protected int exponentSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while(b - i >= a && Reads.compareValues(val, array[b-i]) < 0) {
+        while (b - i >= a && Reads.compareValues(val, array[b-i]) < 0) {
             Highlights.markArray(1, b - i);
             Delays.sleep(1);
             i *= 2;

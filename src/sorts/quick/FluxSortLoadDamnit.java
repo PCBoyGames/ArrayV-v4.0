@@ -50,8 +50,8 @@ final public class FluxSortLoadDamnit extends QuadSorting {
         int balance = 0, streaks = 0,
             dist, loop, last = -1, pos = start,
             cnt = length;
-        while(cnt > 16) {
-            for(dist=loop=0; loop<16; loop++) {
+        while (cnt > 16) {
+            for (dist=loop=0; loop<16; loop++) {
                 dist += cmpOne(array, pos, pos+1);
                 pos++;
             }
@@ -59,18 +59,18 @@ final public class FluxSortLoadDamnit extends QuadSorting {
             balance += dist;
             cnt -= 16;
         }
-        while(--cnt > 0) {
+        while (--cnt > 0) {
             balance += cmpOne(array, pos, pos+1);
             pos++;
         }
-        if(balance == 0)
+        if (balance == 0)
             return true;
-        if(balance == length - 1) {
+        if (balance == length - 1) {
             Writes.reversal(array, start, start+length-1, 1, true, false);
             return true;
         }
         int sixth = length / 6;
-        if(streaks > length / 20 || balance <= sixth || balance >= length - sixth) {
+        if (streaks > length / 20 || balance <= sixth || balance >= length - sixth) {
             this.quadSort(array, start, length);
             return true;
         }
@@ -82,7 +82,7 @@ final public class FluxSortLoadDamnit extends QuadSorting {
         byte val;
         val = cmpOne(array, pos0, pos1); tiers[0] = val; tiers[1] = (byte)(val ^ 1);
         val = cmpOne(array, pos0, pos2); tiers[0] += val;
-        if(tiers[0] == 1) return pos0;
+        if (tiers[0] == 1) return pos0;
         val = cmpOne(array, pos1, pos2); tiers[1] += val;
         return tiers[1] == 1 ? pos1 : pos2;
     }
@@ -94,14 +94,14 @@ final public class FluxSortLoadDamnit extends QuadSorting {
         val = cmpOne(array, pos0, pos2); tiers[0] += val; tiers[2] = (byte)(val ^ 1);
         val = cmpOne(array, pos0, pos3); tiers[0] += val; tiers[3] = (byte)(val ^ 1);
         val = cmpOne(array, pos0, pos4); tiers[0] += val;
-        if(tiers[0] == 2) return pos0;
+        if (tiers[0] == 2) return pos0;
         val = cmpOne(array, pos1, pos2); tiers[1] += val; tiers[2] += (byte)(val ^ 1);
         val = cmpOne(array, pos1, pos3); tiers[1] += val; tiers[3] += (byte)(val ^ 1);
         val = cmpOne(array, pos1, pos4); tiers[1] += val;
-        if(tiers[1] == 2) return pos1;
+        if (tiers[1] == 2) return pos1;
         val = cmpOne(array, pos2, pos3); tiers[2] += val; tiers[3] += (byte)(val ^ 1);
         val = cmpOne(array, pos2, pos4); tiers[2] += val;
-        if(tiers[2] == 2) return pos2;
+        if (tiers[2] == 2) return pos2;
         val = cmpOne(array, pos3, pos4); tiers[3] += val;
         return tiers[3] == 2 ? pos3 : pos4;
     }
@@ -126,13 +126,13 @@ final public class FluxSortLoadDamnit extends QuadSorting {
 
     private int medianOfSqrt(int[] array, int[] swap, int bucket, int offsMain, int offsSwap, int len) {
         int sqrt, div;
-        for(sqrt = 256; sqrt*sqrt*4 > len; sqrt/=2);
+        for (sqrt = 256; sqrt*sqrt*4 > len; sqrt/=2);
         int[] pushTo = bucket == 0 ? swap : array, pushFrom = bucket == 0 ? array : swap;
         div = len / sqrt;
         int offset0 = (new Random().nextInt(sqrt)),
             offset1 = bucket==1?offsMain:offsSwap,
             offset2 = bucket==1?offsSwap:offsMain;
-        for(int i=0; i<sqrt; i++) {
+        for (int i=0; i<sqrt; i++) {
             Writes.write(pushTo, i+offset1, pushFrom[i*div+offset2+offset0], 0.5, true, bucket==0);
         }
         fluxSort_selfSwap(pushTo, offset1, offset1+sqrt);
@@ -147,7 +147,7 @@ final public class FluxSortLoadDamnit extends QuadSorting {
         byte cmp;
         int rSize = 0, loop = len / 8, gtr = 0,
             ptx = offsMain;
-        for(; loop > 0; loop--) {
+        for (; loop > 0; loop--) {
             cmp = cmpOne_VI(array, swap[pivotI], ptx);
             Writes.write(swap, offsSwap + rSize++ - gtr, array[ptx], 0.25, true, true);
             Writes.write(array, offsMain + gtr, array[ptx], 0.25, true, false); gtr += cmp; ptx++;
@@ -173,15 +173,15 @@ final public class FluxSortLoadDamnit extends QuadSorting {
             Writes.write(swap, offsSwap + rSize++ - gtr, array[ptx], 0.25, true, true);
             Writes.write(array, offsMain + gtr, array[ptx], 0.25, true, false); gtr += cmp; ptx++;
         }
-        for(loop = len % 8; loop > 0; loop--) {
+        for (loop = len % 8; loop > 0; loop--) {
             cmp = cmpOne_VI(array, swap[pivotI], ptx);
             Writes.write(swap, offsSwap + rSize++ - gtr, array[ptx], 0.25, true, true);
             Writes.write(array, offsMain + gtr, array[ptx], 0.25, true, false); gtr += cmp; ptx++;
         }
         rSize -= gtr;
         Writes.arraycopy(swap, offsSwap, array, offsMain + gtr, rSize, 0.5, true, false);
-        if(rSize <= gtr / 16 || gtr <= fluxOut) {
-             if(offsSwap > 0)
+        if (rSize <= gtr / 16 || gtr <= fluxOut) {
+             if (offsSwap > 0)
                  this.quadSort(array, offsMain, gtr);
              else
                  this.quadSortSwap(array, swap, offsMain, gtr);
@@ -194,7 +194,7 @@ final public class FluxSortLoadDamnit extends QuadSorting {
         byte cmp;
         int[] partitionOn = bucket == 1 ? swap : array;
         int gtr = 0, rSize = 0, loop, ptx = bucket == 1 ? offsSwap : offsMain;
-        for(loop = len / 4; loop > 0; loop--) {
+        for (loop = len / 4; loop > 0; loop--) {
             cmp = cmpOne_IV(partitionOn, ptx, pivot);
             Writes.write(swap, offsSwap + rSize++ - gtr, partitionOn[ptx], 0.25, true, true);
             Writes.write(array, offsMain + gtr, partitionOn[ptx], 0.25, true, false); gtr += cmp; ptx++;
@@ -208,7 +208,7 @@ final public class FluxSortLoadDamnit extends QuadSorting {
             Writes.write(swap, offsSwap + rSize++ - gtr, partitionOn[ptx], 0.25, true, true);
             Writes.write(array, offsMain + gtr, partitionOn[ptx], 0.25, true, false); gtr += cmp; ptx++;
         }
-        for(loop = len % 4; loop > 0; loop--) {
+        for (loop = len % 4; loop > 0; loop--) {
             cmp = cmpOne_IV(partitionOn, ptx, pivot);
             Writes.write(swap, offsSwap + rSize++ - gtr, partitionOn[ptx], 0.25, true, true);
             Writes.write(array, offsMain + gtr, partitionOn[ptx], 0.25, true, false); gtr += cmp; ptx++;
@@ -218,38 +218,38 @@ final public class FluxSortLoadDamnit extends QuadSorting {
 
     private void fluxPart(int[] array, int[] swap, int bucket, int pivot, int offsMain, int offsSwap, int len) {
         int lSize, rSize;
-        while(true) {
+        while (true) {
             --pivot;
             int[] partitioningOn = bucket == 1 ? swap : array;
             int offset = bucket == 1 ? offsSwap : offsMain;
-            if(len <= 2048) {
+            if (len <= 2048) {
                 Writes.write(swap, pivot, ninther(partitioningOn, offset, len), 0.25, true, array!=swap);
-            } else if(len <= 65536) {
+            } else if (len <= 65536) {
                 Writes.write(swap, pivot, medianOf25(partitioningOn, offset, len), 0.25, true, array!=swap);
             } else {
                 Writes.write(swap, pivot, medianOfSqrt(array, swap, bucket, offsMain, offsSwap, len), 0.25, true, array!=swap);
             }
-            if(bucket == 0 && offsSwap + len < pivot && Reads.compareValues(swap[pivot], swap[pivot+1]) >= 0) {
+            if (bucket == 0 && offsSwap + len < pivot && Reads.compareValues(swap[pivot], swap[pivot+1]) >= 0) {
                 flux_ReversePart(array, swap, pivot, offsMain, offsSwap, len);
                 return;
             }
             lSize = fluxDefaultPart(array, swap, bucket, swap[pivot], offsMain, offsSwap, len);
             rSize = len - lSize;
-            if(lSize <= rSize / 16 || rSize <= fluxOut) {
-                if(rSize == 0) {
+            if (lSize <= rSize / 16 || rSize <= fluxOut) {
+                if (rSize == 0) {
                     flux_ReversePart(array, swap, pivot, offsMain, offsSwap, lSize);
                     return;
                 }
                 Writes.arraycopy(swap, offsSwap, array, offsMain + lSize, rSize, 0.5, true, false);
-                if(offsSwap > 0) {
+                if (offsSwap > 0) {
                     quadSort(array, offsMain + lSize, rSize); // pointers can't really work here, fall back
                 } else
                     quadSortSwap(array, swap, offsMain + lSize, rSize);
             } else {
                 fluxPart(array, swap, 1, pivot, offsMain + lSize, offsSwap, rSize);
             }
-            if(rSize <= lSize / 16 || lSize <= fluxOut) {
-                if(offsSwap > 0) {
+            if (rSize <= lSize / 16 || lSize <= fluxOut) {
+                if (offsSwap > 0) {
                     quadSort(array, offsMain, lSize);
                 } else
                     quadSortSwap(array, swap, offsMain, lSize);
@@ -262,9 +262,9 @@ final public class FluxSortLoadDamnit extends QuadSorting {
 
     public void fluxSort(int[] array, int start, int end) {
         int len = end - start;
-        if(len < 32) {
+        if (len < 32) {
             this.tailSwap(array, start, len);
-        } else if(!fluxAnalyze(array, start, len)) {
+        } else if (!fluxAnalyze(array, start, len)) {
             int[] swap = Writes.createExternalArray(len);
             fluxPart(array, swap, 0, len, start, 0, len);
             Writes.deleteExternalArray(swap);
@@ -273,9 +273,9 @@ final public class FluxSortLoadDamnit extends QuadSorting {
 
     public void fluxSort_swapDef(int[] array, int[] swap, int start, int end) {
         int len = (end - start);
-        if(len < 32) {
+        if (len < 32) {
             this.tailSwap(array, start, len);
-        } else if(!fluxAnalyze(array, start, len)) {
+        } else if (!fluxAnalyze(array, start, len)) {
             fluxPart(array, swap, 0, len, start, 0, len);
         }
     }
@@ -283,9 +283,9 @@ final public class FluxSortLoadDamnit extends QuadSorting {
     // special case exclusively for MOSQRT
     public void fluxSort_selfSwap(int[] array, int start, int end) {
         int len = (end - start);
-        if(len < 32) {
+        if (len < 32) {
             this.tailSwap(array, start, len);
-        } else if(!fluxAnalyze(array, start, len)) {
+        } else if (!fluxAnalyze(array, start, len)) {
             fluxPart(array, array, 0, start+2*len+1, start, start+len+1, len);
         }
     }

@@ -27,11 +27,11 @@ public final class SkeadnySort extends Sort {
         this.setUnreasonableLimit(2048);
         this.setBogoSort(false);
     }
-    
+
     protected int stablereturn(int a) {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
-    
+
     protected void handleflip(int[] array, int a, int b, double times) {
         if (b - a > 2) Writes.reversal(array, a, b, 0.25 / times, true, false);
         else Writes.swap(array, a, b, 0.25 / times, true, false);

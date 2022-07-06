@@ -25,19 +25,19 @@
      while (s < length - 1 && !isRangeSorted(array, s, length, false, true)) {
        int index = BogoSorting.randInt(s, length - 1),
            index2 = BogoSorting.randInt(0, length - 1);
-       while(index < length - 1 && Reads.compareValues(array[index], array[index2]) == 1) {
+       while (index < length - 1 && Reads.compareValues(array[index], array[index2]) == 1) {
            Writes.swap(array, index, ++index, 0.075, true, false);
            index2 = BogoSorting.randInt(0, length - 1);
        }
-       for(int i=s; i<length; i++) {
+       for (int i=s; i<length; i++) {
            boolean brk = false;
-           for(int j=i+1; j<length; j++) {
-               if(Reads.compareValues(array[i], array[j]) > 0) {
+           for (int j=i+1; j<length; j++) {
+               if (Reads.compareValues(array[i], array[j]) > 0) {
                    brk = true;
                    break;
                }
            }
-           if(brk)
+           if (brk)
                break;
            s++;
        }

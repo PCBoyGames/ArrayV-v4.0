@@ -71,15 +71,15 @@ final public class RotateMergeSortParallel extends Sort {
     }
 
     private void multiSwap(int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(this.array, a+i, b+i, 1, true, false);
     }
 
     private void rotate(int a, int m, int b) {
         int l = m-a, r = b-m;
 
-        while(l > 0 && r > 0) {
-            if(r < l) {
+        while (l > 0 && r > 0) {
+            if (r < l) {
                 this.multiSwap(m-r, m, r);
                 b -= r;
                 m -= r;
@@ -95,13 +95,13 @@ final public class RotateMergeSortParallel extends Sort {
     }
 
     private int binarySearch(int a, int b, int value, boolean left) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
             boolean comp = left ? Reads.compareValues(value, this.array[m]) <= 0
                                 : Reads.compareValues(value, this.array[m]) < 0;
 
-            if(comp) b = m;
+            if (comp) b = m;
             else     a = m+1;
         }
 
@@ -109,11 +109,11 @@ final public class RotateMergeSortParallel extends Sort {
     }
 
     private void rotateMerge(int a, int m, int b) {
-        if(m-a < 1 || b-m < 1) return;
+        if (m-a < 1 || b-m < 1) return;
 
         int m1, m2, m3;
 
-        if(m-a >= b-m) {
+        if (m-a >= b-m) {
             m1 = a+(m-a)/2;
             m2 = this.binarySearch(m, b, this.array[m1], true);
             m3 = m1+(m2-m);
@@ -138,7 +138,7 @@ final public class RotateMergeSortParallel extends Sort {
     }
 
     protected void rotateMergeSort(int a, int b) {
-        if(b-a < 2) return;
+        if (b-a < 2) return;
 
         int m = (a+b)/2;
         RotateMergeSort l = new RotateMergeSort(a, m);

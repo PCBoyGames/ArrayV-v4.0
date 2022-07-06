@@ -48,13 +48,13 @@ final public class WeaveMergeSort extends Sort {
     private void weaveInsert(int[] arr, int start, int end) {
         int pos;
 
-        for(int j = start; j < end; j++){
+        for (int j = start; j < end; j++) {
             pos = j;
 
             Highlights.markArray(1, j);
             Highlights.clearMark(2);
 
-            while(pos > start && Reads.compareValues(arr[pos], arr[pos - 1]) < 1) {
+            while (pos > start && Reads.compareValues(arr[pos], arr[pos - 1]) < 1) {
                 Writes.swap(arr, pos, pos - 1, 0.2, true, false);
                 pos--;
             }
@@ -65,7 +65,7 @@ final public class WeaveMergeSort extends Sort {
         int i = 1;
         int target = (mid - min);
 
-        while(i <= target) {
+        while (i <= target) {
             Writes.multiSwap(arr, mid + i, min + (i * 2) - 1, 0.05, true, false);
             i++;
         }
@@ -74,11 +74,11 @@ final public class WeaveMergeSort extends Sort {
     }
 
     private void weaveMergeSort(int[] array, int min, int max) {
-        if(max - min == 0) {      //only one element.
+        if (max - min == 0) {      //only one element.
             Delays.sleep(1);      //no swap
         }
-        else if(max - min == 1) { //only two elements and swaps them
-            if(Reads.compareValues(array[min], array[max]) == 1) {
+        else if (max - min == 1) { //only two elements and swaps them
+            if (Reads.compareValues(array[min], array[max]) == 1) {
                 Writes.swap(array, min, max, 0.01, true, false);
             }
         }

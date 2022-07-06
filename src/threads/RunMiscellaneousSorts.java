@@ -52,7 +52,7 @@ final public class RunMiscellaneousSorts extends MultipleSortThread {
 
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
@@ -60,7 +60,7 @@ final public class RunMiscellaneousSorts extends MultipleSortThread {
             @Override
             public void run() {
                 try{
-                    if(runAllActive) {
+                    if (runAllActive) {
                         RunMiscellaneousSorts.this.sortNumber = current;
                         RunMiscellaneousSorts.this.sortCount = total;
                     }
@@ -74,7 +74,7 @@ final public class RunMiscellaneousSorts extends MultipleSortThread {
 
                     RunMiscellaneousSorts.this.executeSortList(array);
 
-                    if(!runAllActive) {
+                    if (!runAllActive) {
                         arrayVisualizer.setCategory("Run Miscellaneous Sorts");
                         arrayVisualizer.setHeading("Done");
                     }

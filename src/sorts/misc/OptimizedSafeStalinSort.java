@@ -42,12 +42,12 @@ final public class OptimizedSafeStalinSort extends Sort {
     protected ArrayList<Stack<Integer>> buildStacks(int[] array, int start, int end) {
         ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
         int zero = Integer.MIN_VALUE, zeroed = 0;
-        while(zeroed < end-start) {
+        while (zeroed < end-start) {
             Stack<Integer> currentStack = new Stack<>();
             Statistics.addStat("Stack");
-            for(int j=start; j<end; j++) {
-                if(array[j] != zero) {
-                    if(currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) <= 0) {
+            for (int j=start; j<end; j++) {
+                if (array[j] != zero) {
+                    if (currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) <= 0) {
                         currentStack.add(array[j]);
                         Writes.changeAllocAmount(1);
                         Writes.changeAuxWrites(1);
@@ -66,12 +66,12 @@ final public class OptimizedSafeStalinSort extends Sort {
     protected void reciteStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         int ptr = start;
         int stackdone = 0;
-        while(stacks.size() > 0) {
+        while (stacks.size() > 0) {
             Stack<Integer> first = stacks.remove(0);
             if (stackdone == 0) firstlen = first.size();
             if (stackdone == 1) secondlen = first.size();
             int n = ptr + first.size() - 1;
-            while(!first.empty()) {
+            while (!first.empty()) {
                 Writes.changeAllocAmount(-1);
                 Writes.write(array, n--, first.pop(), 1, true, false);
                 ptr++;

@@ -50,14 +50,14 @@ public final class PotassiumSort extends GrailSorting {
         private void quickSort(int[] a, int p, int r, int d) {
             Writes.recordDepth(d);
 
-            if(d >= log2(this.end2)) {
+            if (d >= log2(this.end2)) {
                 SmoothSort sort = new SmoothSort(this.arrayVisualizer);
                 sort.smoothSort(a, p, r, true);
                 return;
             }
 
             int length = r - p;
-            if(length > this.end2/Math.sqrt(log2(this.end2))) {
+            if (length > this.end2/Math.sqrt(log2(this.end2))) {
                 int pivot      = avg(p, r);
                 int pLeft      = p;
                 int pLeftL = avg31(pLeft, pivot);
@@ -94,12 +94,12 @@ public final class PotassiumSort extends GrailSorting {
                 Highlights.markArray(3, pivot);
 
                 while (i <= j) {
-                    while (Reads.compareValues(a[i], x) == -1){
+                    while (Reads.compareValues(a[i], x) == -1) {
                         i++;
                         Highlights.markArray(1, i);
                         Delays.sleep(0.5);
                     }
-                    while (Reads.compareValues(a[j], x) == 1){
+                    while (Reads.compareValues(a[j], x) == 1) {
                         j--;
                         Highlights.markArray(2, j);
                         Delays.sleep(0.5);
@@ -107,10 +107,10 @@ public final class PotassiumSort extends GrailSorting {
 
                     if (i <= j) {
                         // Follow the pivot and highlight it.
-                        if(i == pivot) {
+                        if (i == pivot) {
                             Highlights.markArray(3, j);
                         }
-                        if(j == pivot) {
+                        if (j == pivot) {
                             Highlights.markArray(3, i);
                         }
 
@@ -124,21 +124,21 @@ public final class PotassiumSort extends GrailSorting {
                 //Writes.reversal(a, i, r, 0.5, true, false);
 
 
-                if(i < r) { Writes.recursion(); this.quickSort(a, i, r, d+1); }
-                if(p < j) { Writes.recursion(); this.quickSort(a, p, j, d+1); }
+                if (i < r) { Writes.recursion(); this.quickSort(a, i, r, d+1); }
+                if (p < j) { Writes.recursion(); this.quickSort(a, p, j, d+1); }
 
 
             } else { Highlights.clearAllMarks(); this.stableDiamondInit(a, p, r+1); }
         }
 
         public void pull(int[] array, int a, int b, double sleep, boolean mark, boolean aux) {
-            for(int j = a; j < b; j++) {
+            for (int j = a; j < b; j++) {
                 Writes.swap(array, j, j + 1, sleep, mark, aux);
             }
         }
 
-        public static int log2(int n){ //stackoverflow version
-            if(n <= 0) throw new IllegalArgumentException();
+        public static int log2(int n) { //stackoverflow version
+            if (n <= 0) throw new IllegalArgumentException();
             return 31 - Integer.numberOfLeadingZeros(n);
         }
 
@@ -158,11 +158,11 @@ public final class PotassiumSort extends GrailSorting {
     }
 
     private void quadStooge(int[] array, int pos, int len, int d) {
-        if(pos >= end) return;
-        if(pos + len >= end) len = end - pos;
+        if (pos >= end) return;
+        if (pos + len >= end) len = end - pos;
 
         Writes.recordDepth(d);
-        if(isRangeSorted(array, pos, pos + len, true, false)) return;
+        if (isRangeSorted(array, pos, pos + len, true, false)) return;
 
         //if (len > block && this.Reads.compareValues(array[pos], array[pos + len - 1]) == 1) {
         //    Writes.swap(array, pos, pos + len - 1, 1, true, false);
@@ -195,12 +195,12 @@ public final class PotassiumSort extends GrailSorting {
 
     public void stableDiamond(int[] array, int start, int end) {
 
-        if(isRangeSorted(array, start, end, true, false)) return;
+        if (isRangeSorted(array, start, end, true, false)) return;
 
-            for(int i = block; i < end - start; i *= 2) {
-                for(int j = start; j < end; j += i) {
+            for (int i = block; i < end - start; i *= 2) {
+                for (int j = start; j < end; j += i) {
                 quadStooge(array, j, i, 0);}}
-        if(isRangeSorted(array, start, end, true, false)) return;
+        if (isRangeSorted(array, start, end, true, false)) return;
         quadStooge(array, start, end, 0);
     }
 
@@ -209,7 +209,7 @@ public final class PotassiumSort extends GrailSorting {
 
         this.end = end;
         block = (int)Math.floor(Math.sqrt(end-start + 1));
-        if(block*block == len) {
+        if (block*block == len) {
             stableDiamond(array, start, end);
         } else {
             int n = len - block*block + 1;
@@ -227,7 +227,7 @@ public final class PotassiumSort extends GrailSorting {
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         this.end2 = sortLength;
-        if(sortLength > 16) {
+        if (sortLength > 16) {
             sort.insertionSort(array, 0, 7);
             this.quickSort(array, 7, sortLength - 1, 0);
             //sort2.insertionSort(array, 8, currentLength);

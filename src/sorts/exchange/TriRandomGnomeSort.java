@@ -21,7 +21,7 @@ class QRange {
     public void set(int start, int end) {
         this.start = start;
         this.end = end;
-        if(start >= end)
+        if (start >= end)
             this.disqualify();
     }
 
@@ -54,19 +54,19 @@ final public class TriRandomGnomeSort extends BogoSorting {
     }
 
     private int searchBin(int[] array, int start, int end, int key, double sleep) {
-        while(start < end-1) {
+        while (start < end-1) {
             int r1 = randInt(start, end),
                 r2 = randInt(start, end);
-            if(r2 < r1) {
+            if (r2 < r1) {
                 int t=r2;
                 r2  = r1;
                 r1  =  t;
             }
-            if(Reads.compareValues(array[r1], key) == -1) {
+            if (Reads.compareValues(array[r1], key) == -1) {
                 Highlights.markArray(4, start);
                 start = r1;
             }
-            if(Reads.compareValues(array[r2], key) == 1) {
+            if (Reads.compareValues(array[r2], key) == 1) {
                 Highlights.markArray(4, end);
                 end = r2;
             }
@@ -84,12 +84,12 @@ final public class TriRandomGnomeSort extends BogoSorting {
         QRange sortedArea = new QRange(randomStart,randomStart), secA = new QRange(start,randomStart),
                secB = new QRange(randomStart,end);
 
-        while(secA.usable || secB.usable) {
+        while (secA.usable || secB.usable) {
             boolean dec = randBoolean();
             QRange ref = secB;
-            if(!secA.usable) {
+            if (!secA.usable) {
                 dec = false;
-            } else if(dec || !secB.usable) {
+            } else if (dec || !secB.usable) {
                 dec = true;
                 ref = secA;
             }
@@ -100,7 +100,7 @@ final public class TriRandomGnomeSort extends BogoSorting {
 
             Writes.multiSwap(array, searchKey, dec ? searchValue-1 : searchValue, swapSleep, true, false);
 
-            if(dec) {
+            if (dec) {
                 ref.set(ref.start, ref.end-1);
                 sortedArea.set(sortedArea.start-1, sortedArea.end);
             } else {

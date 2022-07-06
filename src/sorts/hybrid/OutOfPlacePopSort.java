@@ -23,56 +23,56 @@ final public class OutOfPlacePopSort extends Sort {
     private void bitonicMerge(int[] array, int[] to, int start, int mid, int end, int dir) {
         dir *= -1; // what
         int a = start, b = end-1, c = dir == 1 ? start : end - 1;
-        while(a < mid && b >= mid) {
-            if(Reads.compareValues(array[a], array[b]) == 1) {
+        while (a < mid && b >= mid) {
+            if (Reads.compareValues(array[a], array[b]) == 1) {
                 Writes.write(to, c, array[a++], 2, true, false);
             } else {
                 Writes.write(to, c, array[b--], 2, true, false);
             }
             c += dir;
         }
-        while(a < mid) {
+        while (a < mid) {
             Writes.write(to, c, array[a++], 2, true, false);
             c += dir;
         }
-        while(b >= mid) {
+        while (b >= mid) {
             Writes.write(to, c, array[b--], 2, true, false);
             c += dir;
         }
     }
 
     private void oopSelection(int[] array, int[] tmp, int start, int end, int arrayDir) {
-        if(arrayDir == 0) {
-            for(int i=start; i<end-1; i++) {
+        if (arrayDir == 0) {
+            for (int i=start; i<end-1; i++) {
                 int min=i;
-                for(int j=i+1; j<end; j++) {
-                    if(Reads.compareValues(array[j], array[min]) == -1) {
+                for (int j=i+1; j<end; j++) {
+                    if (Reads.compareValues(array[j], array[min]) == -1) {
                         min = j;
                     }
                 }
-                if(min != i)
+                if (min != i)
                     Writes.swap(array, i, min, 0.1, true, false);
             }
         } else {
             int nop = Integer.MAX_VALUE, d = arrayDir / Math.abs(arrayDir),
                 pt = d == 1 ? start : end-1;
-            for(int i=start; i<end; i++) {
-                if(array[i] < nop) {
+            for (int i=start; i<end; i++) {
+                if (array[i] < nop) {
                     nop = array[i];
                 }
             }
             nop--;
             int w = start;
-            for(int j=0; j<end-start; j++) {
-                while(w < end && array[w] == nop)
+            for (int j=0; j<end-start; j++) {
+                while (w < end && array[w] == nop)
                     w++;
-                if(w == end)
+                if (w == end)
                     break;
                 int min = w;
-                for(int i=w+1; i<end; i++) {
-                    if(array[i] == nop)
+                for (int i=w+1; i<end; i++) {
+                    if (array[i] == nop)
                         continue;
-                    if(Reads.compareIndices(array, i, min, 0.05, true) < 0) {
+                    if (Reads.compareIndices(array, i, min, 0.05, true) < 0) {
                         min = i;
                     }
                 }
@@ -86,13 +86,13 @@ final public class OutOfPlacePopSort extends Sort {
 
     private void bubblePop(int[] array, int start, int end, int comp) {
         int swap = end;
-        while(swap > start) {
+        while (swap > start) {
             int lastSwap = start;
-            for(int i=start; i<swap-1; i++) {
-                if(Reads.compareValues(array[i], array[i+1]) == comp) {
+            for (int i=start; i<swap-1; i++) {
+                if (Reads.compareValues(array[i], array[i+1]) == comp) {
                     Writes.swap(array, i, i+1, 0.025, true, false);
                     lastSwap = i+1;
-                } else if(lastSwap > start)
+                } else if (lastSwap > start)
                     break;
             }
             swap = lastSwap;

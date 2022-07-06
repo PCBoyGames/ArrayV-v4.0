@@ -59,7 +59,7 @@ public final class TriSearchGnomeSort extends Sort {
             lo = this.triSearch(array, start, i-1, num, compSleep);
             Highlights.clearAllMarks();
             int j = i ;
-            while(j>lo) {
+            while (j>lo) {
                 Writes.swap(array, j, j - 1, writeSleep, true, false);
                 j--;
             }
@@ -69,7 +69,7 @@ public final class TriSearchGnomeSort extends Sort {
     }
 
     @Override
-    public void runSort(int[] array, int length, int bucketCount){
+    public void runSort(int[] array, int length, int bucketCount) {
         triGnomeSort(array, 0, length, 40, 1);
 
     }

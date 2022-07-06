@@ -32,7 +32,7 @@ final public class FlashSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        if(sortLength == 0) return;
+        if (sortLength == 0) return;
 
         //20% of the number of elements or 0.2n classes will
         //be used to distribute the input data set into
@@ -47,7 +47,7 @@ final public class FlashSort extends Sort {
         min = max = array[0];
         maxIndex = 0;
 
-        for(int i = 1; i < sortLength - 1; i += 2)
+        for (int i = 1; i < sortLength - 1; i += 2)
         {
             int small;
             int big;
@@ -56,7 +56,7 @@ final public class FlashSort extends Sort {
             Highlights.markArray(1, i);
 
             //which is bigger A(i) or A(i+1)
-            if(Reads.compareValues(array[i], array[i + 1]) == -1)
+            if (Reads.compareValues(array[i], array[i + 1]) == -1)
             {
                 small = array[i];
                 big = array[i + 1];
@@ -69,13 +69,13 @@ final public class FlashSort extends Sort {
                 small = array[i + 1];
             }
 
-            if(big > max)
+            if (big > max)
             {
                 max = big;
                 maxIndex = bigIndex;
             }
 
-            if(small < min)
+            if (small < min)
             {
                 min = small;
             }
@@ -85,11 +85,11 @@ final public class FlashSort extends Sort {
 
         //do the last element
         Highlights.markArray(1, sortLength - 1);
-        if(Reads.compareValues(array[sortLength - 1], min) == -1)
+        if (Reads.compareValues(array[sortLength - 1], min) == -1)
         {
             min = array[sortLength - 1];
         }
-        else if(Reads.compareValues(array[sortLength - 1], max) == 1)
+        else if (Reads.compareValues(array[sortLength - 1], max) == 1)
         {
             max = array[sortLength - 1];
             maxIndex = sortLength - 1;
@@ -98,7 +98,7 @@ final public class FlashSort extends Sort {
         Delays.sleep(1);
         Highlights.clearMark(1);
 
-        if(max == min)
+        if (max == min)
         {
             //all the elements are the same
             return;
@@ -111,7 +111,7 @@ final public class FlashSort extends Sort {
 
         //O(m)
         //initialize L to contain all zeros (L[0] is unused)
-        for(int t = 1; t <= m; t++)
+        for (int t = 1; t <= m; t++)
         {
             Writes.write(L, t, 0, 0, false, true);
         }
@@ -129,7 +129,7 @@ final public class FlashSort extends Sort {
         //precomputed constant
         double c = (m - 1.0) / (max - min);
         int K;
-        for(int h = 0; h < sortLength; h++)
+        for (int h = 0; h < sortLength; h++)
         {
 
             Highlights.markArray(1, h);
@@ -146,7 +146,7 @@ final public class FlashSort extends Sort {
         //sum over each L(i) such that each L(i) contains
         //the number of A(i) values that are in the ith
         //class or lower (see counting sort for more details)
-        for(K = 2; K <= m; K++)
+        for (K = 2; K <= m; K++)
         {
             Writes.write(L, K, L[K] + L[K - 1], 0, false, true);
         }
@@ -187,14 +187,14 @@ final public class FlashSort extends Sort {
         //do not use the n - 1 optimization because that last element
         //will not have its count decreased (this causes trouble with
         //determining the correct classSize in the last step)
-        while(numMoves < sortLength)
+        while (numMoves < sortLength)
         {
             //if j does not point to the beginning of a class
             //that has at least 1 element still needing to be
             //moved to within the borders of the class then iterate
             //j upward until such a class is found (such a class
             //must exist). In other words, find the next cycle leader
-            while(j >= L[K])
+            while (j >= L[K])
             {
                 j++;
                 //classify the A(j) value
@@ -208,7 +208,7 @@ final public class FlashSort extends Sort {
             //while j continues to meet the condition that it is
             //pointing to the start of a class that has at least one
             //element still outside its borders (the class isn't full)
-            while(j < L[K])
+            while (j < L[K])
             {
                 //compute the class of the evicted value
                 K = ((int)((evicted - min) * c)) + 1;
@@ -253,7 +253,7 @@ final public class FlashSort extends Sort {
         //skip the K == m class because it is already sorted
         //since all of the elements have the same value
 
-        for(K = m - 1; K >= 1; K--)
+        for (K = m - 1; K >= 1; K--)
         {
             //determine the number of elments in the Kth class
             int classSize = L[K + 1] - L[K];
@@ -261,7 +261,7 @@ final public class FlashSort extends Sort {
             //if the class size is larger than expected but not
             //so small that insertion sort could make quick work
             //of it then...
-            if(classSize > threshold && classSize > minElements)
+            if (classSize > threshold && classSize > minElements)
             {
                 //...attempt to flashsort the class. This will work
                 //well if the elements inside the class are uniformly

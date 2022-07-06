@@ -53,7 +53,7 @@ final public class ClassicTournamentSort extends Sort {
 
     private int ceilPow2(int n) {
         int r = 1;
-        while(r < n) r *= 2;
+        while (r < n) r *= 2;
         return r;
     }
 
@@ -68,21 +68,21 @@ final public class ClassicTournamentSort extends Sort {
 
         this.tree = Writes.createExternalArray(treeSize);
 
-        for(int i = 0; i < treeSize; i++)
+        for (int i = 0; i < treeSize; i++)
             Writes.write(this.tree, i, -1, 0, false, true);
 
-        for(int i = this.size; i < treeSize-mod; i++) {
+        for (int i = this.size; i < treeSize-mod; i++) {
             Highlights.markArray(1, i-this.size);
             Writes.write(this.tree, i, i-this.size, 0.5, false, true);
         }
 
-        for(int i, j = this.size, k = treeSize-mod; j > 0; j /= 2, k /= 2) {
-            for(i = j; i+1 < k; i += 2) {
+        for (int i, j = this.size, k = treeSize-mod; j > 0; j /= 2, k /= 2) {
+            for (i = j; i+1 < k; i += 2) {
                 int val = this.treeCompare(i, i+1) ? this.tree[i] : this.tree[i+1];
 
                 Writes.write(this.tree, i/2, val, 0, false, true);
             }
-            if(i < k) Writes.write(this.tree, i/2, this.tree[i], 0, false, true);
+            if (i < k) Writes.write(this.tree, i/2, this.tree[i], 0, false, true);
         }
     }
 
@@ -93,10 +93,10 @@ final public class ClassicTournamentSort extends Sort {
     private int findNext() {
         int root = this.tree[0]+this.size;
 
-        for(int i = root; i > 0; i = (i-1)/2)
+        for (int i = root; i > 0; i = (i-1)/2)
             Writes.write(this.tree, i, -1, 0, false, true);
 
-        for(int i = root; i > 0; ) {
+        for (int i = root; i > 0; ) {
             int j = i + ((i&1)<<1)-1;
 
             int c1 = this.tree[i] >> 31;
@@ -104,13 +104,13 @@ final public class ClassicTournamentSort extends Sort {
 
             int nVal = (c1 & ((c2 & -1) + (~c2 & this.tree[j]))) + (~c1 & ((c2 & this.tree[i]) + (~c2 & -2)));
 
-            if(nVal == -2) {
-                if(i < j) nVal = this.treeCompare(i, j) ? this.tree[i] : this.tree[j];
+            if (nVal == -2) {
+                if (i < j) nVal = this.treeCompare(i, j) ? this.tree[i] : this.tree[j];
                 else      nVal = this.treeCompare(j, i) ? this.tree[j] : this.tree[i];
             }
 
             i = (i-1)/2;
-            if(nVal != -1) Writes.write(this.tree, i, nVal, 0, false, true);
+            if (nVal != -1) Writes.write(this.tree, i, nVal, 0, false, true);
         }
 
         return this.peek();
@@ -126,7 +126,7 @@ final public class ClassicTournamentSort extends Sort {
         Highlights.markArray(3, 0);
         Writes.write(this.tmp, 0, this.peek(), 1, false, true);
 
-        for(int i = 1; i < length; i++) {
+        for (int i = 1; i < length; i++) {
             int val = this.findNext();
 
             Highlights.markArray(3, i);

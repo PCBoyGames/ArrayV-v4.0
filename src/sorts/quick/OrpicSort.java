@@ -26,11 +26,11 @@ final public class OrpicSort extends Sort {
     private SmoothSort small;
 
     private void sort3(int[] array, int a, int b, int c) {
-        if(Reads.compareIndices(array, a, b, 0.5, true)>0)
+        if (Reads.compareIndices(array, a, b, 0.5, true)>0)
             Writes.swap(array, a, b, 2.5, true, false);
-        if(Reads.compareIndices(array, b, c, 0.5, true)>0) {
+        if (Reads.compareIndices(array, b, c, 0.5, true)>0) {
             Writes.swap(array, b, c, 2.5, true, false);
-            if(Reads.compareIndices(array, a, b, 0.5, true)>0)
+            if (Reads.compareIndices(array, a, b, 0.5, true)>0)
                 Writes.swap(array, a, b, 2.5, true, false);
         }
     }
@@ -39,20 +39,20 @@ final public class OrpicSort extends Sort {
     private void partition(int[] a, int p, int r, int power) {
         int medianGap, medianSize = 1, pow = power,
             maxToler = (int) Math.pow(r-p+1, threshold);
-        while(pow-- > 0) {
+        while (pow-- > 0) {
             medianSize *= 3;
         }
         medianGap = (r-p+1) / medianSize;
-        if(medianGap < 1) {
+        if (medianGap < 1) {
             this.small.smoothSort(a, p, r, true);
             return;
         }
-        if(medianGap > 1)
-            for(int i=p+medianGap, j=p+1; i<=r; i+=medianGap) {
+        if (medianGap > 1)
+            for (int i=p+medianGap, j=p+1; i<=r; i+=medianGap) {
                 Writes.swap(a, i, j++, 2.5, true, false);
             }
-        for(int j=0; j<power; j++) {
-            for(int i=p, k=p; i<p+medianSize-2; i+=3, k++) {
+        for (int j=0; j<power; j++) {
+            for (int i=p, k=p; i<p+medianSize-2; i+=3, k++) {
                 sort3(a, i, i+1, i+2);
                 Writes.swap(a, i+1, k, 2.5, true, false);
             }
@@ -62,34 +62,34 @@ final public class OrpicSort extends Sort {
         int piv = a[p], i = p, j = r,
             iters = 0, itersnone = 0;
 
-        while(i <= j) {
-            while(iters <= maxToler && Reads.compareValues(a[i], piv) < 0) {
+        while (i <= j) {
+            while (iters <= maxToler && Reads.compareValues(a[i], piv) < 0) {
                 Highlights.markArray(2, i);
                 i++;
                 iters++;
                 itersnone = 0;
             }
-            if(iters + itersnone > maxToler && i <= j) {
+            if (iters + itersnone > maxToler && i <= j) {
                 this.partition(a, p, r, power+1);
                 return;
             } else {
                 iters = 0;
                 itersnone++;
             }
-            while(iters <= maxToler && Reads.compareValues(a[j], piv) > 0) {
+            while (iters <= maxToler && Reads.compareValues(a[j], piv) > 0) {
                 Highlights.markArray(3, j);
                 j--;
                 iters++;
                 itersnone = 0;
             }
-            if(iters + itersnone > maxToler && i <= j) {
+            if (iters + itersnone > maxToler && i <= j) {
                 this.partition(a, p, r, power+1);
                 return;
             } else {
                 iters = 0;
                 itersnone++;
             }
-            if(i <= j) {
+            if (i <= j) {
                 Writes.swap(a, i++, j--, 1, true, false);
             }
         }
@@ -100,9 +100,9 @@ final public class OrpicSort extends Sort {
 
     @Override
     public int validateAnswer(int value) {
-        if(value < 1)
+        if (value < 1)
             return 1;
-        if(value > 999)
+        if (value > 999)
             return 1000;
         return value;
     }

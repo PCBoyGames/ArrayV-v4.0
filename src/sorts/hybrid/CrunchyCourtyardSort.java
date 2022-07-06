@@ -30,29 +30,29 @@ public class CrunchyCourtyardSort extends Sort {
     // 1-size sorted subsections that can't be sorted quickly).
 
     private void merge(int[] array, int[] tmp, int start, int mid, int end) {
-        if(mid-start <= end-mid) {
+        if (mid-start <= end-mid) {
             Writes.arraycopy(array, start, tmp, 0, mid-start, 1, true, true);
             int i = 0, j = mid, t = start;
-            while(i < mid-start && j < end) {
-                if(Reads.compareValues(tmp[i], array[j]) <= 0) {
+            while (i < mid-start && j < end) {
+                if (Reads.compareValues(tmp[i], array[j]) <= 0) {
                     Writes.write(array, t++, tmp[i++], 1, true, false);
                 } else {
                     Writes.write(array, t++, array[j++], 1, true, false);
                 }
             }
-            while(i < mid-start)
+            while (i < mid-start)
                 Writes.write(array, t++, tmp[i++], 1, true, false);
         } else {
             Writes.arraycopy(array, mid, tmp, 0, end-mid, 1, true, true);
             int i=mid-1, j=end-mid-1, t=end-1;
-            while(i>=start && j>=0) {
-                if(Reads.compareValues(array[i], tmp[j]) > 0) {
+            while (i>=start && j>=0) {
+                if (Reads.compareValues(array[i], tmp[j]) > 0) {
                     Writes.write(array, t--, array[i--], 1, true, false);
                 } else {
                     Writes.write(array, t--, tmp[j--], 1, true, false);
                 }
             }
-            while(j >= 0)
+            while (j >= 0)
                 Writes.write(array, t--, tmp[j--], 1, true, false);
         }
     }
@@ -61,21 +61,21 @@ public class CrunchyCourtyardSort extends Sort {
         int[] runs = Writes.createExternalArray(end-start),
               buf = Writes.createExternalArray((end-start)/2);
         int r = start, rf = 0;
-        while(r < end) {
+        while (r < end) {
             Writes.write(runs, rf++, r, 1, true, true);
-            while(r < end-1 && Reads.compareValues(array[r], array[r+1]) <= 0) {
+            while (r < end-1 && Reads.compareValues(array[r], array[r+1]) <= 0) {
                 r++;
             }
             r++;
         }
         Writes.write(runs, rf++, end, 1, true, true);
-        while(rf > 1) {
+        while (rf > 1) {
             int j=0;
-            for(int i=0; i<rf; i+=2, j++) {
-                if(i+1 >= rf) {
+            for (int i=0; i<rf; i+=2, j++) {
+                if (i+1 >= rf) {
                     Writes.write(runs, j, runs[i], 1, true, true);
                     continue;
-                } else if(i+2 >= rf)
+                } else if (i+2 >= rf)
                     merge(array, buf, runs[i], runs[i+1], end);
                 else
                     merge(array, buf, runs[i], runs[i+1], runs[i+2]);
@@ -87,20 +87,20 @@ public class CrunchyCourtyardSort extends Sort {
     }
 
     private boolean isSorted(int[] array, int start, int end) {
-        for(int i=start; i<end; i++) {
-            if(Reads.compareValues(array[i], array[i+1]) == 1)
+        for (int i=start; i<end; i++) {
+            if (Reads.compareValues(array[i], array[i+1]) == 1)
                 return false;
         }
         return true;
     }
 
     private void sort3(int[] array, int a, int b, int c) {
-        if(Reads.compareIndices(array, a, b, 1, true) > 0) {
+        if (Reads.compareIndices(array, a, b, 1, true) > 0) {
             Writes.swap(array, a, b, 1, true, false);
         }
-        if(Reads.compareIndices(array, b, c, 1, true) > 0) {
+        if (Reads.compareIndices(array, b, c, 1, true) > 0) {
             Writes.swap(array, b, c, 1, true, false);
-            if(Reads.compareIndices(array, a, b, 1, true) > 0) {
+            if (Reads.compareIndices(array, a, b, 1, true) > 0) {
                 Writes.swap(array, a, b, 1, true, false);
             }
         }
@@ -117,18 +117,18 @@ public class CrunchyCourtyardSort extends Sort {
 
         int piv = array[mid], i=start, j=end;
 
-        while(i<j) {
-            while(Reads.compareValues(array[i], piv) < 0) {
+        while (i<j) {
+            while (Reads.compareValues(array[i], piv) < 0) {
                 Highlights.markArray(1, i);
                 i++;
                 Delays.sleep(1);
             }
-            while(Reads.compareValues(array[j], piv) > 0) {
+            while (Reads.compareValues(array[j], piv) > 0) {
                 Highlights.markArray(1, j);
                 j--;
                 Delays.sleep(1);
             }
-            if(i < j) {
+            if (i < j) {
                 Writes.swap(array, i, j, 1, true, false);
             }
         }
@@ -136,15 +136,15 @@ public class CrunchyCourtyardSort extends Sort {
     }
 
     private void crunchyCourtyard(int[] array, int start, int end, int depthLim) {
-        if(end-start < 24) {
+        if (end-start < 24) {
             smallSort.customInsertSort(array, start, end+1, 1, false);
             return;
         }
-        if(depthLim == 0) {
+        if (depthLim == 0) {
             weakPDMsort(array, start, end+1);
             return;
         }
-        if(isSorted(array, start, end))
+        if (isSorted(array, start, end))
             return;
         int p = partition(array, start, end);
         crunchyCourtyard(array, start, p-1, --depthLim);
@@ -155,7 +155,7 @@ public class CrunchyCourtyardSort extends Sort {
     public void runSort(int[] arr, int length, int buckets) {
         smallSort = new InsertionSort(arrayVisualizer);
         int l=1;
-        while(1<<l <= length / 2) l++;
+        while (1<<l <= length / 2) l++;
         crunchyCourtyard(arr, 0, length-1, 2*l);
     }
 }

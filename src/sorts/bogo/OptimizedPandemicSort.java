@@ -60,7 +60,7 @@ final public class OptimizedPandemicSort extends BogoSorting {
 
         public Pandemic(ArrayVisualizer arrayVisualizer, int index, boolean compare) {
             super(arrayVisualizer);
-            if(compare)
+            if (compare)
                 wrapped = wrapsCompare[index];
             else
                 wrapped = wrapsDistr[index];
@@ -69,7 +69,7 @@ final public class OptimizedPandemicSort extends BogoSorting {
 
         private void instantiate() {
             Object v;
-            for(Field i : wrapped.getClass().getDeclaredFields()) {
+            for (Field i : wrapped.getClass().getDeclaredFields()) {
                 try {
                     v = i.get(wrapped);
                     i.set(this, v);

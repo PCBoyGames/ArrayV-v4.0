@@ -52,7 +52,7 @@ public final class IntroPseudoHeapSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int threshold = 0, n = 1;
-        for(; n < length; n*=2, threshold++);
+        for (; n < length; n*=2, threshold++);
 
         threshold /= 2;
         int iterations = 0;
@@ -60,7 +60,7 @@ public final class IntroPseudoHeapSort extends Sort {
         while (swapped) {
             swapped = false;
             iterations++;
-            if(iterations >= threshold) {
+            if (iterations >= threshold) {
                 InsertionSort ins = new InsertionSort(arrayVisualizer);
                 ins.customInsertSort(array, 0, length, 0.5, false);
                 break;

@@ -64,7 +64,7 @@ final public class BlockSelectionMergeSort extends Sort {
                 Highlights.markArray(2, j);
                 Delays.sleep(compSleep);
 
-                if (Reads.compareValues(array[j], array[lowestindex]) == -1){
+                if (Reads.compareValues(array[j], array[lowestindex]) == -1) {
                     lowestindex = j;
                     Highlights.markArray(1, lowestindex);
                     Delays.sleep(compSleep);
@@ -86,7 +86,7 @@ final public class BlockSelectionMergeSort extends Sort {
     }
 
     private void mergeRun(int[] array, int start, int mid, int end, int minSize) {
-        if(start == mid) return;
+        if (start == mid) return;
 
         if (end - start == minSize) {
             binaryInserter.customBinaryInsert(array, start, end, 0.333);

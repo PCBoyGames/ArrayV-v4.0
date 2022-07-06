@@ -47,16 +47,16 @@ final public class PairwiseSortIterative extends Sort {
         int c = 0;
         int d = 0;
         int e = 0;
-        while (a < length){
+        while (a < length) {
             b = a;
             c = 0;
-            while (b < length){
-                if(Reads.compareIndices(array, b - a, b, sleep, true) == 1) {
+            while (b < length) {
+                if (Reads.compareIndices(array, b - a, b, sleep, true) == 1) {
                     Writes.swap(array, b - a, b, sleep, true, false);
                 }
                 c = (c + 1) % a;
                 b++;
-                if (c == 0){
+                if (c == 0) {
                     b += a;
                 }
             }
@@ -64,18 +64,18 @@ final public class PairwiseSortIterative extends Sort {
         }
         a /= 4;
         e = 1;
-        while (a > 0){
+        while (a > 0) {
             d = e;
-            while (d > 0){
+            while (d > 0) {
                 b = ((d + 1) * a);
                 c = 0;
-                while (b < length){
-                    if(Reads.compareIndices(array, b - (d * a), b, sleep, true) == 1) {
+                while (b < length) {
+                    if (Reads.compareIndices(array, b - (d * a), b, sleep, true) == 1) {
                         Writes.swap(array, b - (d * a), b, sleep, true, false);
                     }
                     c = (c + 1) % a;
                     b++;
-                    if (c == 0){
+                    if (c == 0) {
                         b += a;
                     }
                 }

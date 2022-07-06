@@ -19,7 +19,7 @@ final public class RendezvousSort extends Sort {
         this.setBogoSort(false);
     }
 
-    public void rendezvousSort(int[] array, int length){
+    public void rendezvousSort(int[] array, int length) {
         int len = length;
         int i, j, ticker, f, gap;
         while (len >= 1) {
@@ -41,7 +41,7 @@ final public class RendezvousSort extends Sort {
                 i++;
                 j++;
 
-                if (f == 1){
+                if (f == 1) {
                     len /= 0.25;
                     i = 0;
                     j = len;
@@ -56,7 +56,7 @@ final public class RendezvousSort extends Sort {
         while (length >= j) {
             ticker = i;
 
-            while (!(i < 0 || !(Reads.compareIndices(array, j, i, 0.01, true) < 0))){
+            while (!(i < 0 || !(Reads.compareIndices(array, j, i, 0.01, true) < 0))) {
                 Writes.swap(array, i, j, 1, true, false);
                 i--;
                 j--;

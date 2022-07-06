@@ -49,7 +49,7 @@ final public class MSDRadixSort extends Sort {
     }
 
     private void radixMSD(int[] array, int length, int min, int max, int radix, int pow) {
-        if(min >= max || pow < 0)
+        if (min >= max || pow < 0)
             return;
 
         Highlights.markArray(2, max - 1);
@@ -58,10 +58,10 @@ final public class MSDRadixSort extends Sort {
         @SuppressWarnings("unchecked")
         ArrayList<Integer>[] registers = new ArrayList[radix];
 
-        for(int i = 0; i < radix; i++)
+        for (int i = 0; i < radix; i++)
             registers[i] = new ArrayList<>();
 
-        for(int i = min; i < max; i++) {
+        for (int i = min; i < max; i++) {
             Highlights.markArray(1, i);
 
             int digit = Reads.getDigit(array[i], pow, radix);
@@ -76,7 +76,7 @@ final public class MSDRadixSort extends Sort {
         Writes.transcribeMSD(array, registers, 0, min, 0.8, true, false);
 
         int sum = 0;
-        for(int i = 0; i < registers.length; i++) {
+        for (int i = 0; i < registers.length; i++) {
             this.radixMSD(array, length, sum + min, sum + min + registers[i].size(), radix, pow-1);
 
             sum += registers[i].size();

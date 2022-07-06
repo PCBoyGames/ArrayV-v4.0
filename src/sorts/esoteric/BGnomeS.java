@@ -3,7 +3,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 public class BGnomeS extends Sort {
-    public BGnomeS(ArrayVisualizer aV){
+    public BGnomeS(ArrayVisualizer aV) {
         super(aV);
         this.setSortListName("B-Gnome");
         this.setRunAllSortsName("Type-B Gnome Sort");
@@ -16,25 +16,25 @@ public class BGnomeS extends Sort {
         this.setUnreasonableLimit(512);
         this.setBogoSort(false);
     }
-    private void G(int[] array, int e){
-        for(int i = e; i > 0; i--){
+    private void G(int[] array, int e) {
+        for (int i = e; i > 0; i--) {
             Highlights.markArray(1, i);
-            if(Reads.compareValues(array[i], array[i-1]) == -1) {
+            if (Reads.compareValues(array[i], array[i-1]) == -1) {
                 Writes.swap(array, i, i-1, 1, true, false);
             }
             Delays.sleep(0.02);
         }
     }
-    private void BG(int[] array, int ms, int length){
+    private void BG(int[] array, int ms, int length) {
         int hi=ms;
         G(array, ms);
-        while(hi < length){
-            while(ms < length && Reads.compareValues(array[ms], array[ms+1]) == -1){
+        while (hi < length) {
+            while (ms < length && Reads.compareValues(array[ms], array[ms+1]) == -1) {
                 G(array, ms);
                 ms++;
                 Highlights.markArray(2, hi);
                 Delays.sleep(0.001);
-                if(ms > hi){
+                if (ms > hi) {
                     hi=ms;
                 }
             }

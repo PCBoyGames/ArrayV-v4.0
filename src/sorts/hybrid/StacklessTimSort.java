@@ -50,12 +50,12 @@ final public class StacklessTimSort extends Sort {
     private int highlight = 0;
 
     private int leftBinSearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
             Highlights.markArray(2, this.highlight+m);
             Delays.sleep(0.5);
 
-            if(Reads.compareValues(val, array[m]) <= 0)
+            if (Reads.compareValues(val, array[m]) <= 0)
                 b = m;
             else
                 a = m+1;
@@ -65,12 +65,12 @@ final public class StacklessTimSort extends Sort {
     }
 
     private int rightBinSearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
             Highlights.markArray(2, this.highlight+m);
             Delays.sleep(0.5);
 
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+1;
@@ -81,28 +81,28 @@ final public class StacklessTimSort extends Sort {
 
     private int leftExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while(a-1+i < b && Reads.compareValues(val, array[a-1+i]) > 0) i *= 2;
+        while (a-1+i < b && Reads.compareValues(val, array[a-1+i]) > 0) i *= 2;
 
         return this.leftBinSearch(array, a+i/2, Math.min(b, a-1+i), val);
     }
 
     private int rightExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while(b-i >= a && Reads.compareValues(val, array[b-i]) < 0) i *= 2;
+        while (b-i >= a && Reads.compareValues(val, array[b-i]) < 0) i *= 2;
 
         return this.rightBinSearch(array, Math.max(a, b-i+1), b-i/2, val);
     }
 
     private int leftBoundSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while(a-1+i < b && Reads.compareValues(val, array[a-1+i]) >= 0) i *= 2;
+        while (a-1+i < b && Reads.compareValues(val, array[a-1+i]) >= 0) i *= 2;
 
         return this.rightBinSearch(array, a+i/2, Math.min(b, a-1+i), val);
     }
 
     private int rightBoundSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while(b-i >= a && Reads.compareValues(val, array[b-i]) <= 0) i *= 2;
+        while (b-i >= a && Reads.compareValues(val, array[b-i]) <= 0) i *= 2;
 
         return this.leftBinSearch(array, Math.max(a, b-i+1), b-i/2, val);
     }
@@ -110,11 +110,11 @@ final public class StacklessTimSort extends Sort {
     private void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
 
-        if(a > b) {
+        if (a > b) {
             int temp = array[a];
 
             do Writes.write(array, a, array[--a], 0.25, true, false);
-            while(a > b);
+            while (a > b);
 
             Writes.write(array, b, temp, 0.25, true, false);
         }
@@ -123,16 +123,16 @@ final public class StacklessTimSort extends Sort {
     private void buildRuns(int[] array, int a, int b, int mRun) {
         int i = a+1, j = a;
 
-        while(i < b) {
-            if(Reads.compareIndices(array, i-1, i++, 1, true) == 1) {
-                while(i < b && Reads.compareIndices(array, i-1, i, 1, true) == 1) i++;
+        while (i < b) {
+            if (Reads.compareIndices(array, i-1, i++, 1, true) == 1) {
+                while (i < b && Reads.compareIndices(array, i-1, i, 1, true) == 1) i++;
                 Writes.reversal(array, j, i-1, 1, true, false);
             }
-            else while(i < b && Reads.compareIndices(array, i-1, i, 1, true) <= 0) i++;
+            else while (i < b && Reads.compareIndices(array, i-1, i, 1, true) <= 0) i++;
 
-            if(i < b) j = i - (i-j-1)%mRun - 1;
+            if (i < b) j = i - (i-j-1)%mRun - 1;
 
-            while(i-j < mRun && i < b) {
+            while (i-j < mRun && i < b) {
                 this.insertTo(array, i, this.rightBinSearch(array, j, i, array[i]));
                 i++;
             }
@@ -148,14 +148,14 @@ final public class StacklessTimSort extends Sort {
 
         int i = 0, mGallop = M, l = 0, r = 0;
 
-        while(true) {
+        while (true) {
             do {
-                if(Reads.compareValues(tmp[i], array[m]) <= 0) {
+                if (Reads.compareValues(tmp[i], array[m]) <= 0) {
                     Writes.write(array, a++, tmp[i++], 1, true, false);
                     l++;
                     r = 0;
 
-                    if(i == len1) return;
+                    if (i == len1) return;
                 }
                 else {
                     Highlights.markArray(2, m);
@@ -163,25 +163,25 @@ final public class StacklessTimSort extends Sort {
                     r++;
                     l = 0;
 
-                    if(m == b) {
-                        while(i < len1) Writes.write(array, a++, tmp[i++], 1, true, false);
+                    if (m == b) {
+                        while (i < len1) Writes.write(array, a++, tmp[i++], 1, true, false);
                         return;
                     }
                 }
             }
-            while((l | r) < mGallop);
+            while ((l | r) < mGallop);
 
             do {
                 l = this.leftExpSearch(array, m, b, tmp[i])-m;
 
-                for(int j = 0; j < l; j++)
+                for (int j = 0; j < l; j++)
                     Writes.write(array, a++, array[m++], 1, true, false);
                 Writes.write(array, a++, tmp[i++], 1, true, false);
 
-                if(i == len1) return;
+                if (i == len1) return;
 
-                else if(m == b) {
-                    while(i < len1) Writes.write(array, a++, tmp[i++], 1, true, false);
+                else if (m == b) {
+                    while (i < len1) Writes.write(array, a++, tmp[i++], 1, true, false);
                     return;
                 }
 
@@ -189,22 +189,22 @@ final public class StacklessTimSort extends Sort {
                 r = this.leftBoundSearch(tmp, i, len1, array[m])-i;
                 this.highlight = 0;
 
-                for(int j = 0; j < r; j++)
+                for (int j = 0; j < r; j++)
                     Writes.write(array, a++, tmp[i++], 1, true, false);
                 Writes.write(array, a++, array[m++], 1, true, false);
 
-                if(i == len1) return;
+                if (i == len1) return;
 
-                else if(m == b) {
-                    while(i < len1) Writes.write(array, a++, tmp[i++], 1, true, false);
+                else if (m == b) {
+                    while (i < len1) Writes.write(array, a++, tmp[i++], 1, true, false);
                     return;
                 }
 
                 mGallop--;
             }
-            while((l | r) >= M);
+            while ((l | r) >= M);
 
-            if(mGallop < 0) mGallop = 0;
+            if (mGallop < 0) mGallop = 0;
             mGallop += 2;
         }
     }
@@ -216,14 +216,14 @@ final public class StacklessTimSort extends Sort {
         int i = len2-1, mGallop = M, l = 0, r = 0;
         m--;
 
-        while(true) {
+        while (true) {
             do {
-                if(Reads.compareValues(tmp[i], array[m]) >= 0) {
+                if (Reads.compareValues(tmp[i], array[m]) >= 0) {
                     Writes.write(array, --b, tmp[i--], 1, true, false);
                     l++;
                     r = 0;
 
-                    if(i < 0) return;
+                    if (i < 0) return;
                 }
                 else {
                     Highlights.markArray(2, m);
@@ -231,25 +231,25 @@ final public class StacklessTimSort extends Sort {
                     r++;
                     l = 0;
 
-                    if(m < a) {
-                        while(i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
+                    if (m < a) {
+                        while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
                         return;
                     }
                 }
             }
-            while((l | r) < mGallop);
+            while ((l | r) < mGallop);
 
             do {
                 l = (m+1)-this.rightExpSearch(array, a, m+1, tmp[i]);
 
-                for(int j = 0; j < l; j++)
+                for (int j = 0; j < l; j++)
                     Writes.write(array, --b, array[m--], 1, true, false);
                 Writes.write(array, --b, tmp[i--], 1, true, false);
 
-                if(i < 0) return;
+                if (i < 0) return;
 
-                else if(m < a) {
-                    while(i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
+                else if (m < a) {
+                    while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
                     return;
                 }
 
@@ -257,31 +257,31 @@ final public class StacklessTimSort extends Sort {
                 r = (i+1)-this.rightBoundSearch(tmp, 0, i+1, array[m]);
                 this.highlight = 0;
 
-                for(int j = 0; j < r; j++)
+                for (int j = 0; j < r; j++)
                     Writes.write(array, --b, tmp[i--], 1, true, false);
                 Writes.write(array, --b, array[m--], 1, true, false);
 
-                if(i < 0) return;
+                if (i < 0) return;
 
-                else if(m < a) {
-                    while(i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
+                else if (m < a) {
+                    while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
                     return;
                 }
             }
-            while((l | r) >= M);
+            while ((l | r) >= M);
 
-            if(mGallop < 0) mGallop = 0;
+            if (mGallop < 0) mGallop = 0;
             mGallop += 2;
         }
     }
 
     private void smartMerge(int[] array, int[] tmp, int a, int m, int b) {
-        if(Reads.compareValues(array[m-1], array[m]) <= 0) return;
+        if (Reads.compareValues(array[m-1], array[m]) <= 0) return;
 
         a = this.leftBoundSearch(array, a, m, array[m]);
         b = this.rightBoundSearch(array, m, b, array[m-1]);
 
-        if(b-m < m-a) this.mergeBW(array, tmp, a, m, b);
+        if (b-m < m-a) this.mergeBW(array, tmp, a, m, b);
         else          this.mergeFW(array, tmp, a, m, b);
     }
 
@@ -290,15 +290,15 @@ final public class StacklessTimSort extends Sort {
         int[] tmp = Writes.createExternalArray(length/2);
 
         int mRun = length;
-        for(; mRun >= 32; mRun = (mRun+1)/2);
+        for (; mRun >= 32; mRun = (mRun+1)/2);
 
         this.buildRuns(array, 0, length, mRun);
 
-        for(int i, j = mRun; j < length; j *= 2) {
-            for(i = 0; i+2*j <= length; i += 2*j)
+        for (int i, j = mRun; j < length; j *= 2) {
+            for (i = 0; i+2*j <= length; i += 2*j)
                 this.smartMerge(array, tmp, i, i+j, i+2*j);
 
-            if(i+j < length) this.smartMerge(array, tmp, i, i+j, length);
+            if (i+j < length) this.smartMerge(array, tmp, i, i+j, length);
         }
         Writes.deleteExternalArray(tmp);
     }

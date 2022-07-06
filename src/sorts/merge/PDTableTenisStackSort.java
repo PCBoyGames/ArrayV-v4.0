@@ -54,17 +54,17 @@ public final class PDTableTenisStackSort extends Sort {
     protected int findRun(int[] array, int a, int b) {
         int i = a + 1;
         boolean dir;
-        if(i < b)
+        if (i < b)
             dir = Reads.compareIndices(array, i - 1, i++, 0.5, true) <= 0;
         else
             dir = true;
-        if(dir)
+        if (dir)
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
                 i++;
         else {
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
                 i++;
-            if(i - a < 4)
+            if (i - a < 4)
                 Writes.swap(array, a, i - 1, 1.0, true, false);
             else
                 Writes.reversal(array, a, i - 1, 1.0, true, false);
@@ -140,24 +140,24 @@ public final class PDTableTenisStackSort extends Sort {
     protected Stack<Integer> stackRebuild(int[] array, int start, int mid, int end) {
         int l = start, r = mid;
         Stack<Integer> merged = new Stack<>();
-        while(l < mid && r < end) {
+        while (l < mid && r < end) {
             Highlights.markArray(2, l);
             Highlights.markArray(3, r);
             Writes.changeAllocAmount(1);
             Writes.changeAuxWrites(1);
-            if(Reads.compareValues(array[l], array[r]) <= 0) {
+            if (Reads.compareValues(array[l], array[r]) <= 0) {
                 merged.push(array[l++]);
             } else {
                 merged.push(array[r++]);
             }
         }
-        while(l < mid) {
+        while (l < mid) {
             Highlights.markArray(2, l);
             Writes.changeAllocAmount(1);
             Writes.changeAuxWrites(1);
             merged.push(array[l++]);
         }
-        while(r < end) {
+        while (r < end) {
             Highlights.markArray(3, r);
             Writes.changeAllocAmount(1);
             Writes.changeAuxWrites(1);
@@ -168,27 +168,27 @@ public final class PDTableTenisStackSort extends Sort {
     }
 
     protected void mergeStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
-        while(!stacks.isEmpty()) {
+        while (!stacks.isEmpty()) {
             int ptr0, ptr1 = start, ptr2 = start, s = 0, ms = stacks.size();
             do {
                 ptr0 = ptr1;
                 ptr1 = ptr2;
                 ms--;
                 ptr2 = mergeWithStack(array, ptr2, stacks.remove(0), ms < 1 ? null : stacks.remove(0));
-                if(s++ == 1) {
+                if (s++ == 1) {
                     stacks.add(stackRebuild(array, ptr0, ptr1, ptr2));
                     s = 0;
                 }
                 ms--;
-            } while(ptr2 < end && ms > 0);
-            if(s > 0 && !stacks.isEmpty()) {
+            } while (ptr2 < end && ms > 0);
+            if (s > 0 && !stacks.isEmpty()) {
                 stacks.add(stackRebuild(array, ptr1, ptr1, ptr2));
             }
         }
     }
 
     public void mergeSort(int[] array, int a, int b) {
-        if(patternDefeat(array, a, b))
+        if (patternDefeat(array, a, b))
             return;
         int[] bits = Writes.createExternalArray(((b-a-1) >> WLEN) + 1);
         ArrayList<Stack<Integer>> stacks = buildStacks(array, bits, a, b);

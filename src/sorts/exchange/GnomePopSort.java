@@ -19,23 +19,23 @@ final public class GnomePopSort extends Sort {
     }
     protected void gnome(int[] array, int start, int end, boolean invert) {
         int c = invert ? -1 : 1;
-        for(int i=start+1; i<end; i++) {
+        for (int i=start+1; i<end; i++) {
             int j=i-1;
-            while(j >= start && Reads.compareValues(array[j], array[j+1]) == c) {
+            while (j >= start && Reads.compareValues(array[j], array[j+1]) == c) {
                 Writes.swap(array, j, j+1, 0.1, true, false);
                 j--;
             }
         }
     }
     protected void pop(int[] array, int start, int end, int order, boolean invert) {
-        if(start >= end)
+        if (start >= end)
             return;
-        if(end-start <= 4 || order < 1) {
+        if (end-start <= 4 || order < 1) {
             this.gnome(array, start, end, !invert);
             return;
         }
         int quart = (end - start + 1) / 4;
-        if(order == 1) {
+        if (order == 1) {
             Writes.recursion(7);
 
             this.gnome(array, start, start+quart, invert);

@@ -202,7 +202,7 @@ final public class RunHybridSorts extends MultipleSortThread {
 
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
@@ -210,7 +210,7 @@ final public class RunHybridSorts extends MultipleSortThread {
             @Override
             public void run() {
                 try{
-                    if(runAllActive) {
+                    if (runAllActive) {
                         RunHybridSorts.this.sortNumber = current;
                         RunHybridSorts.this.sortCount = total;
                     }
@@ -224,7 +224,7 @@ final public class RunHybridSorts extends MultipleSortThread {
 
                     RunHybridSorts.this.executeSortList(array);
 
-                    if(!runAllActive) {
+                    if (!runAllActive) {
                         arrayVisualizer.setCategory("Run Hybrid Sorts");
                         arrayVisualizer.setHeading("Done");
                     }

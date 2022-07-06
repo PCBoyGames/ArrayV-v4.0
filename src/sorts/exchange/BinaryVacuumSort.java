@@ -20,10 +20,10 @@ final public class BinaryVacuumSort extends BogoSorting {
     private void pull(int[] array, int a, int b, double sleep, boolean rev) {
         int t = a;
         --b;
-        while(a < b) {
+        while (a < b) {
             int m = a + (b - a + 1) / 2,
                 c = Reads.compareValues(array[m], array[t]);
-            if(c > 0) {
+            if (c > 0) {
                 Writes.multiSwap(array, t, m, 1, true, false);
                 return;
             } else {
@@ -34,8 +34,8 @@ final public class BinaryVacuumSort extends BogoSorting {
     }
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        while(sortLength > 0) {
-            while(!isMaxSorted(array, 0, sortLength))
+        while (sortLength > 0) {
+            while (!isMaxSorted(array, 0, sortLength))
                 pull(array, 0, sortLength, 0, false);
             sortLength--;
         }

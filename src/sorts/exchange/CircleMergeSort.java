@@ -35,7 +35,7 @@ final public class CircleMergeSort extends IterativeCircleSorting {
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         this.end = sortLength;
         int n = 1;
-        for(; n <= sortLength; n*=2) {
+        for (; n <= sortLength; n*=2) {
             int numberOfSwaps = 0;
             do {
                 numberOfSwaps = this.circleSortRoutine(array, n, 0.2);

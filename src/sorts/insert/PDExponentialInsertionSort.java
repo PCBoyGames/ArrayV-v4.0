@@ -24,13 +24,13 @@ public final class PDExponentialInsertionSort extends Sort {
     }
 
     private int rightBinSearch(int[] array, int a, int b, int val, double sleep) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
             Highlights.markArray(0, a);
             Highlights.markArray(1, m);
             Highlights.markArray(2, b);
             Delays.sleep(sleep);
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+1;
@@ -41,7 +41,7 @@ public final class PDExponentialInsertionSort extends Sort {
 
     private int rightExpSearch(int[] array, int a, int b, int val, double sleep) {
         int i = 1;
-        while(b-i >= a && Reads.compareValues(val, array[b-i]) < 0) {
+        while (b-i >= a && Reads.compareValues(val, array[b-i]) < 0) {
             i *= 2;
         }
         return rightBinSearch(array, Math.max(a, b-i+1), b-i/2, val, sleep);
@@ -60,15 +60,15 @@ public final class PDExponentialInsertionSort extends Sort {
 
     private void insertionSort(int[] array, int a, int b, double compSleep, double writeSleep) {
         int i = a + 1;
-        if(Reads.compareIndices(array, i - 1, i++, compSleep, true) == 1) {
-            while(i < b && Reads.compareIndices(array, i - 1, i, compSleep, true) == 1) i++;
+        if (Reads.compareIndices(array, i - 1, i++, compSleep, true) == 1) {
+            while (i < b && Reads.compareIndices(array, i - 1, i, compSleep, true) == 1) i++;
             Writes.reversal(array, a, i - 1, writeSleep, true, false);
         }
-        else while(i < b && Reads.compareIndices(array, i - 1, i, compSleep, true) <= 0) i++;
+        else while (i < b && Reads.compareIndices(array, i - 1, i, compSleep, true) <= 0) i++;
 
         Highlights.clearMark(2);
 
-        while(i < b) {
+        while (i < b) {
             insertTo(array, i, rightExpSearch(array, a, i, array[i], compSleep), writeSleep);
             i++;
         }

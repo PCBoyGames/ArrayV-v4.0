@@ -21,14 +21,14 @@ final public class NTerrorismSort extends Sort {
     private int recurse;
     private void terrorism0(int[] array, int start, int end, int max, int depth) {
         Writes.recursion();
-        if(start >= max || start < 0 || end < 0) {
+        if (start >= max || start < 0 || end < 0) {
             return;
         }
-        if(start != end && Reads.compareIndices(array, start, end, 0.005, true) < 0) {
+        if (start != end && Reads.compareIndices(array, start, end, 0.005, true) < 0) {
             Writes.swap(array, start, end, 0.001, true, false);
         }
         Writes.recordDepth(depth++);
-        for(int i=0; i<recurse; i++) {
+        for (int i=0; i<recurse; i++) {
             terrorism0(array, start+1, end, max, depth);
             terrorism0(array, start, end-1, max, depth);
             terrorism0(array, start+1, end-1, max-1, depth);
@@ -36,11 +36,11 @@ final public class NTerrorismSort extends Sort {
     }
     private void terrorism1(int[] array, int start, int end, int max, int depth) {
         Writes.recursion();
-        if(start >= max || start < 0 || end < 0) {
+        if (start >= max || start < 0 || end < 0) {
             return;
         }
         Writes.recordDepth(depth++);
-        for(int i=0; i<recurse; i++) {
+        for (int i=0; i<recurse; i++) {
             terrorism1(array, start+1, end, max, depth);
             terrorism1(array, start, end-1, max, depth);
             terrorism1(array, start+1, end-1, max-1, depth);

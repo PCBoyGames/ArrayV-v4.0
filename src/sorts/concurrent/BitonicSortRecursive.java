@@ -26,7 +26,7 @@ final public class BitonicSortRecursive extends Sort {
         this.setBogoSort(false);
     }
 
-    private static int greatestPowerOfTwoLessThan(int n){
+    private static int greatestPowerOfTwoLessThan(int n) {
         int k = 1;
         while (k < n) {
             k = k << 1;
@@ -74,8 +74,8 @@ final public class BitonicSortRecursive extends Sort {
     }
 
     public void changeDirection(String choice) throws Exception {
-        if(choice.equals("forward")) this.direction = true;
-        else if(choice.equals("backward")) this.direction = false;
+        if (choice.equals("forward")) this.direction = true;
+        else if (choice.equals("backward")) this.direction = false;
         else throw new Exception("Invalid direction for Bitonic Sort!");
     }
 

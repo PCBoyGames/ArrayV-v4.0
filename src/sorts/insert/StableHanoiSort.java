@@ -57,7 +57,7 @@ final public class StableHanoiSort extends Sort {
         Highlights.clearAllMarks();
         Highlights.markArray(1, sp);
 
-        if(height % 2 == 1) { // Odd height case: moved to stack3
+        if (height % 2 == 1) { // Odd height case: moved to stack3
             unsorted += moveFromMain(stack2, false);
             hanoi(3, false, 2);
         } else { // Even height case: moved to main stack
@@ -80,7 +80,7 @@ final public class StableHanoiSort extends Sort {
         boolean oddHeight = height % 2 == 1;
         targetMoves = moves;
 
-        if(oddHeight) { // Odd height case: moved to stack3
+        if (oddHeight) { // Odd height case: moved to stack3
             hanoi(3, false, 2); // All disks have moved an even number of times
         } else { // Even height case: moved to main stack
             targetMoves /= 2;
@@ -92,7 +92,7 @@ final public class StableHanoiSort extends Sort {
         }
         // In both cases, there is now an odd number of disks,
         // each moved an even number of times, on stack2
-        while(!stack2.isEmpty()) {
+        while (!stack2.isEmpty()) {
             targetMoves /= 2; // Rounds down to correct integer
             hanoi(2, !oddHeight, 2); // Move all but the new largest element to stack3
             moveToMain(stack2); // Move the new smallest element to the main stack
@@ -116,11 +116,11 @@ final public class StableHanoiSort extends Sort {
         int moves = 0;
         int minPoleLoc = startStack;
 
-        if(!endConMet(endCon, moves)) {
+        if (!endConMet(endCon, moves)) {
             moves++;
             switch(minPoleLoc) {
             case 1:
-                if(goRight) {
+                if (goRight) {
                     moveFromMain(stack2, true);
                     minPoleLoc = 2;
                 } else {
@@ -128,7 +128,7 @@ final public class StableHanoiSort extends Sort {
                     minPoleLoc = 3;
                 } break;
             case 2:
-                if(goRight) {
+                if (goRight) {
                     moveBetweenStacks(stack2, stack3);
                     minPoleLoc = 3;
                 } else {
@@ -136,7 +136,7 @@ final public class StableHanoiSort extends Sort {
                     minPoleLoc = 1;
                 } break;
             case 3:
-                if(goRight) {
+                if (goRight) {
                     moveToMain(stack3);
                     minPoleLoc = 1;
                 } else {
@@ -146,16 +146,16 @@ final public class StableHanoiSort extends Sort {
             }
         }
 
-        while(!endConMet(endCon, moves)) {
+        while (!endConMet(endCon, moves)) {
             moves += 2;
             switch(minPoleLoc) {
             case 1:
-                if(!stack2.isEmpty() &&
+                if (!stack2.isEmpty() &&
                         (stack3.isEmpty() || Reads.compareValues(stack2.peek(), stack3.peek()) < 0))
                     moveBetweenStacks(stack2, stack3);
                 else
                     moveBetweenStacks(stack3, stack2);
-                if(goRight) {
+                if (goRight) {
                     moveFromMain(stack2, true);
                     minPoleLoc = 2;
                 } else {
@@ -163,12 +163,12 @@ final public class StableHanoiSort extends Sort {
                     minPoleLoc = 3;
                 } break;
             case 2:
-                if(stack3.isEmpty() ||
+                if (stack3.isEmpty() ||
                         (sp < unsorted && Reads.compareValues(array[sp], stack3.peek()) < 0))
                     moveFromMain(stack3, true);
                 else
                     moveToMain(stack3);
-                if(goRight) {
+                if (goRight) {
                     moveBetweenStacks(stack2, stack3);
                     minPoleLoc = 3;
                 } else {
@@ -176,12 +176,12 @@ final public class StableHanoiSort extends Sort {
                     minPoleLoc = 1;
                 } break;
             case 3:
-                if(stack2.isEmpty() ||
+                if (stack2.isEmpty() ||
                         (sp < unsorted && Reads.compareValues(array[sp], stack2.peek()) < 0))
                     moveFromMain(stack2, true);
                 else
                     moveToMain(stack2);
-                if(goRight) {
+                if (goRight) {
                     moveToMain(stack3);
                     minPoleLoc = 1;
                 } else {
@@ -202,7 +202,7 @@ final public class StableHanoiSort extends Sort {
      * @return Whether or not the end condition has been met
      */
     private boolean endConMet(int endCon, int moves) {
-        if(!validNumberMoves(moves))
+        if (!validNumberMoves(moves))
             return false;
         switch (endCon) {
         case 1: return (stack2.isEmpty() || Reads.compareValues(target, stack2.peek()) <= 0);
@@ -217,9 +217,9 @@ final public class StableHanoiSort extends Sort {
      * @return If the moves is of the form (2^n)-1
      */
     private boolean validNumberMoves(int moves) {
-        if(moves == 0)
+        if (moves == 0)
             return true;
-        if(moves % 2 == 0)
+        if (moves % 2 == 0)
             return false;
         return validNumberMoves(moves/2);
     }
@@ -231,7 +231,7 @@ final public class StableHanoiSort extends Sort {
      * @return The height of the pyramid moved (equal to log_2(moves + 1))
      */
     private int getHeight(int movesPlus1) {
-        if(movesPlus1 == 1)
+        if (movesPlus1 == 1)
             return 0;
         return getHeight(movesPlus1 / 2) + 1;
     }
@@ -259,7 +259,7 @@ final public class StableHanoiSort extends Sort {
         // Move any duplicates (endOnLength indicates the relevant portion of
         // the main stack is "empty")
         boolean endOnLength = (sp >= length) || (checkUnsorted && sp >= unsorted);
-        while(!endOnLength && Reads.compareValues(array[sp], stack.peek()) == 0) {
+        while (!endOnLength && Reads.compareValues(array[sp], stack.peek()) == 0) {
             duplicates++;
             Writes.changeAuxWrites(1);
             Writes.startLap();
@@ -285,7 +285,7 @@ final public class StableHanoiSort extends Sort {
         Highlights.markArray(1, sp);
         Writes.write(array, sp, stack.pop(), 0.25, false, false);
         // Move any duplicates
-        while(!stack.isEmpty() && Reads.compareValues(stack.peek(), array[sp]) == 0) {
+        while (!stack.isEmpty() && Reads.compareValues(stack.peek(), array[sp]) == 0) {
             sp--;
             Highlights.markArray(1, sp);
             Writes.write(array, sp, stack.pop(), 0.25, false, false);
@@ -307,7 +307,7 @@ final public class StableHanoiSort extends Sort {
         Writes.stopLap();
         Delays.sleep(0.25);
         // Move any duplicates
-        while(!from.isEmpty() && Reads.compareValues(from.peek(), to.peek()) == 0) {
+        while (!from.isEmpty() && Reads.compareValues(from.peek(), to.peek()) == 0) {
             Writes.changeAuxWrites(1);
             Writes.startLap();
             to.push(from.pop());
@@ -327,7 +327,7 @@ final public class StableHanoiSort extends Sort {
         sp = 0;
         unsorted = 0;
 
-        while(unsorted < length)
+        while (unsorted < length)
             removeFromMainStack();
 
         returnToMainStack();

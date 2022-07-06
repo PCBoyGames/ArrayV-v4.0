@@ -21,18 +21,18 @@ final public class PatternDefeatingInsertionSort extends Sort {
 
     public void insertionSort(int[] array, int a, int b, double sleep, boolean auxwrite) {
         int i = a + 1;
-        if(Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
-            while(i < b && Reads.compareIndices(array, i - 1, i, sleep, true) == 1) i++;
+        if (Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
+            while (i < b && Reads.compareIndices(array, i - 1, i, sleep, true) == 1) i++;
             Writes.reversal(array, a, i - 1, sleep, true, auxwrite);
         }
-        else while(i < b && Reads.compareIndices(array, i - 1, i, sleep, true) <= 0) i++;
+        else while (i < b && Reads.compareIndices(array, i - 1, i, sleep, true) <= 0) i++;
 
         Highlights.clearMark(2);
 
-        while(i < b) {
+        while (i < b) {
             int current = array[i];
             int pos = i - 1;
-            while(pos >= a && Reads.compareValues(array[pos], current) > 0){
+            while (pos >= a && Reads.compareValues(array[pos], current) > 0) {
                 Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
                 pos--;
             }

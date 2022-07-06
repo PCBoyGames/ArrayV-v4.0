@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 Gaming32
@@ -31,7 +31,7 @@ SOFTWARE.
 public class ImprovedMultiSelectionSort extends MultiSelectionSort {
     public ImprovedMultiSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Improved Multi Selection");
         this.setRunAllSortsName("Improved Multi Selection Sort");
         this.setRunSortName("Improved Multi Selectionsort");
@@ -43,7 +43,7 @@ public class ImprovedMultiSelectionSort extends MultiSelectionSort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int left = 0, right = currentLength;

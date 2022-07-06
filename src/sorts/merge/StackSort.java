@@ -28,12 +28,12 @@ final public class StackSort extends Sort {
     private ArrayList<Stack<Integer>> buildStacks(int[] array, int start, int end) {
         ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
         int zero = Integer.MIN_VALUE, zeroed = 0;
-        while(zeroed < end-start) {
+        while (zeroed < end-start) {
             Stack<Integer> currentStack = new Stack<>();
             Statistics.addStat("Stack");
-            for(int j=start; j<end; j++) {
-                if(array[j] != zero) {
-                    if(currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) < 0) {
+            for (int j=start; j<end; j++) {
+                if (array[j] != zero) {
+                    if (currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) < 0) {
                         currentStack.add(array[j]);
                         Writes.changeAllocAmount(1);
                         Writes.changeAuxWrites(1);
@@ -51,15 +51,15 @@ final public class StackSort extends Sort {
 
     private int mergeWithStack(int[] array, int start, int end, Stack<Integer> stack) {
         int l = end-1, sz = stack.size(), t = end + sz - 1;
-        while(l >= start && !stack.empty()) {
-            if(Reads.compareValues(array[l], stack.peek()) > 0) {
+        while (l >= start && !stack.empty()) {
+            if (Reads.compareValues(array[l], stack.peek()) > 0) {
                 Writes.write(array, t--, array[l--], 0.5, true, false);
             } else {
                 Writes.changeAllocAmount(-1);
                 Writes.write(array, t--, stack.pop(), 0.5, true, false);
             }
         }
-        while(!stack.empty()) {
+        while (!stack.empty()) {
             Writes.changeAllocAmount(-1);
             Writes.write(array, t--, stack.pop(), 0.5, true, false);
         }
@@ -69,12 +69,12 @@ final public class StackSort extends Sort {
     private void mergeStacks(int[] array, int start, int end, ArrayList<Stack<Integer>> stacks) {
         Stack<Integer> first = stacks.remove(0);
         int ptr = start, n = start + first.size() - 1;
-        while(!first.empty()) {
+        while (!first.empty()) {
             Writes.changeAllocAmount(-1);
             Writes.write(array, n--, first.pop(), 0.5, true, false);
             ptr++;
         }
-        while(stacks.size() > 0) {
+        while (stacks.size() > 0) {
             ptr = mergeWithStack(array, start, ptr, stacks.remove(0));
         }
     }

@@ -43,7 +43,7 @@ final public class OptimizedBottomUpMergeSort extends Sort {
         // merge until i or j exits its segment
         while ( (i <= md) && (j <= rt) ) {
             if (Reads.compareValues(c[i], c[j]) <= 0) {
-                if(activeSound) {
+                if (activeSound) {
                     Writes.write(d, k++, c[i++], 0.5, false, true);
                     Highlights.markArray(1, i);
                     Highlights.markArray(2, j);
@@ -55,7 +55,7 @@ final public class OptimizedBottomUpMergeSort extends Sort {
                 }
             }
             else {
-                if(activeSound) {
+                if (activeSound) {
                     Writes.write(d, k++, c[j++], 0.5, false, true);
                     Highlights.markArray(1, j);
                     Highlights.markArray(2, i);
@@ -110,7 +110,7 @@ final public class OptimizedBottomUpMergeSort extends Sort {
        private void stableSort (int[] a, int n) {
           BinaryInsertionSort binaryInserter = new BinaryInsertionSort(this.arrayVisualizer);
 
-          if(n < 16) {
+          if (n < 16) {
               binaryInserter.customBinaryInsert(a, 0, 16, 0.35);
               return;
           }
@@ -120,7 +120,7 @@ final public class OptimizedBottomUpMergeSort extends Sort {
           int[] b = Writes.createExternalArray(n);
           int i;
 
-          for(i = 0; i <= n - 16; i += 16) {
+          for (i = 0; i <= n - 16; i += 16) {
               binaryInserter.customBinaryInsert(a, i, i + 16, 0.35);
           }
           binaryInserter.customBinaryInsert(a, i, n, 0.35);

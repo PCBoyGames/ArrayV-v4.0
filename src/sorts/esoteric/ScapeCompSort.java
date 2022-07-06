@@ -19,34 +19,34 @@ public class ScapeCompSort extends Sort {
     }
 
     private void scapeComp(int[] array, int start, int end, int minElement, boolean direction) {
-        if(start >= end || start < 0 || end < 0 || end > arrayVisualizer.getCurrentLength() || start > arrayVisualizer.getCurrentLength())
+        if (start >= end || start < 0 || end < 0 || end > arrayVisualizer.getCurrentLength() || start > arrayVisualizer.getCurrentLength())
             return;
         Highlights.markArray(4, start);
         Highlights.markArray(5, end);
         Delays.sleep(0.0001);
         int min = start, mid = (start+end)/2;
-        if(direction) {
-            for(int i = start+1; i < end; i++) {
-                if(Reads.compareValues(array[min], array[i]) == 1 && Reads.compareValues(array[i], minElement) == 1) {
+        if (direction) {
+            for (int i = start+1; i < end; i++) {
+                if (Reads.compareValues(array[min], array[i]) == 1 && Reads.compareValues(array[i], minElement) == 1) {
                     min = i;
                 }
             }
-            if(Reads.compareValues(array[start], array[min]) == 1) {
+            if (Reads.compareValues(array[start], array[min]) == 1) {
                 Writes.swap(array, start, min, 1, true, false);
             }
         } else {
             min = end-1;
-            for(int i = start; i < end-1; i++) {
-                if(Reads.compareValues(array[min], array[i]) == -1 && Reads.compareValues(array[i], minElement) == -1) {
+            for (int i = start; i < end-1; i++) {
+                if (Reads.compareValues(array[min], array[i]) == -1 && Reads.compareValues(array[i], minElement) == -1) {
                     min = i;
                 }
             }
-            if(Reads.compareValues(array[end-1], array[min]) == -1) {
+            if (Reads.compareValues(array[end-1], array[min]) == -1) {
                 Writes.swap(array, end-1, min, 1, true, false);
             }
         }
         int minEl = array[min];
-        if(min > mid) { // A recipe for trouble.
+        if (min > mid) { // A recipe for trouble.
             this.scapeComp(array, start, min, minEl, direction);
             this.scapeComp(array, min+1, end, minEl, !direction);
             this.scapeComp(array, start+1, end, minEl, direction);

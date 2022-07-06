@@ -22,7 +22,7 @@ public abstract class HeapSorting extends Sort {
     private void siftDown(int[] array, int root, int dist, int start, double sleep, boolean isMax) {
         int compareVal = 0;
 
-        if(isMax) compareVal = -1;
+        if (isMax) compareVal = -1;
         else compareVal = 1;
 
         while (root <= dist / 2) {
@@ -58,7 +58,7 @@ public abstract class HeapSorting extends Sort {
             siftDown(arr, 1, i - 1, start, sleep, isMax);
         }
 
-        if(!isMax) {
+        if (!isMax) {
             Writes.reversal(arr, start, start + length - 1, 1, true, false);
         }
     }

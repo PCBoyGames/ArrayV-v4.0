@@ -87,10 +87,10 @@ final public class ArrayFrame extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    public void reposition(){
+    public void reposition() {
         toFront();
         setLocation(Math.min((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth() - UtilFrame.getWidth(), Frame.getX() + Frame.getWidth()), Frame.getY() + 29);
-        if(this.abstractFrame != null && abstractFrame.isVisible())
+        if (this.abstractFrame != null && abstractFrame.isVisible())
             abstractFrame.reposition();
     }
 
@@ -167,7 +167,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
         Hashtable<Integer, JLabel> labels = new Hashtable<>();
         int pow = 1;
         int value = ArrayVisualizer.getMinimumLength();
-        while(value <= ArrayVisualizer.getMaximumLength()) {
+        while (value <= ArrayVisualizer.getMaximumLength()) {
             labels.put(pow * 100000, new JLabel(Integer.toString(value)));
             pow += 1;
             value *= 2;
@@ -181,7 +181,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
         jSlider1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent event) {
-                if(ArrayManager.isLengthMutable()) {
+                if (ArrayManager.isLengthMutable()) {
                     int value = jSlider1.getValue();
                     if (lockToPow2) {
                         value = (int)(Math.round(value / 100000.0) * 100000);
@@ -199,7 +199,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
                     int currentLength = ArrayVisualizer.getCurrentLength();
                     jSlider1.setValue(calculateSliderValue(currentLength));
                 }
-                //if(ArrayVisualizer.getVisualStyles() == visuals.VisualStyles.CIRCULAR && jSlider1.getValue() == 1) jSlider1.setValue(2);
+                //if (ArrayVisualizer.getVisualStyles() == visuals.VisualStyles.CIRCULAR && jSlider1.getValue() == 1) jSlider1.setValue(2);
 
                 Highlights.clearAllMarks();
             }
@@ -239,7 +239,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
         jSlider2.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent event) {
-                if(ArrayManager.isLengthMutable()) {
+                if (ArrayManager.isLengthMutable()) {
                     if (jSlider2.getValue() > jSlider1.getValue()) {
                         jSlider2.setValue(jSlider1.getValue());
                     }

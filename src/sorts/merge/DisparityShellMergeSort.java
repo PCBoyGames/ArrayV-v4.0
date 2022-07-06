@@ -130,7 +130,7 @@ public final class DisparityShellMergeSort extends Sort {
         int mRun = b - a;
         for (; mRun >= 32; mRun = (mRun + 1) / 2);
         int i;
-        for(i = a; i+mRun<b; i+=mRun)
+        for (i = a; i+mRun<b; i+=mRun)
             shellPass(array, i, i + mRun, 1, 0.5);
         shellPass(array, i, b, 1, 0.5);
         for (int j = mRun; j < (b - a); j *= 2) {

@@ -116,17 +116,17 @@ final public class Highlights {
     }
 
     private void incrementIndexMarkCount(int i) {
-        if(markCounts[i] != (byte)-1) {
+        if (markCounts[i] != (byte)-1) {
             markCounts[i]++;
         }
     }
     private void decrementIndexMarkCount(int i) {
-        if(markCounts[i] == (byte)-1) {
+        if (markCounts[i] == (byte)-1) {
             int count = 0;
-            for(int h = 0; h < this.maxHighlightMarked; h++) {
-                if(Highlights[h] == i) {
+            for (int h = 0; h < this.maxHighlightMarked; h++) {
+                if (Highlights[h] == i) {
                     count++;
-                    if(count > Byte.toUnsignedInt((byte)-1)) {
+                    if (count > Byte.toUnsignedInt((byte)-1)) {
                         return;
                     }
                 }
@@ -144,16 +144,16 @@ final public class Highlights {
     }
     public synchronized void markArray(int marker, int markPosition) {
         try {
-            if(markPosition < 0) {
-                if(markPosition == -1) throw new Exception("Highlights.markArray(): Invalid position! -1 is reserved for the clearMark method.");
-                else if(markPosition == -5) throw new Exception("Highlights.markArray(): Invalid position! -5 was the constant originally used to unmark numbers in the array. Instead, use the clearMark method.");
+            if (markPosition < 0) {
+                if (markPosition == -1) throw new Exception("Highlights.markArray(): Invalid position! -1 is reserved for the clearMark method.");
+                else if (markPosition == -5) throw new Exception("Highlights.markArray(): Invalid position! -5 was the constant originally used to unmark numbers in the array. Instead, use the clearMark method.");
                 else throw new Exception("Highlights.markArray(): Invalid position!");
             }
             else {
-                if(Highlights[marker] == markPosition) {
+                if (Highlights[marker] == markPosition) {
                     return;
                 }
-                if(Highlights[marker] == -1) {
+                if (Highlights[marker] == -1) {
                     this.markCount++;
                 }
                 else {
@@ -162,7 +162,7 @@ final public class Highlights {
                 Highlights[marker] = markPosition;
                 incrementIndexMarkCount(markPosition);
 
-                if(marker >= this.maxHighlightMarked) {
+                if (marker >= this.maxHighlightMarked) {
                     this.maxHighlightMarked = marker + 1;
                 }
             }
@@ -173,24 +173,24 @@ final public class Highlights {
         ArrayVisualizer.updateNow();
     }
     public synchronized void clearMark(int marker) {
-        if(Highlights[marker] == -1) {
+        if (Highlights[marker] == -1) {
             return;
         }
         this.markCount--;
         decrementIndexMarkCount(Highlights[marker]);
         Highlights[marker] = -1; // -1 is used as the magic number to unmark a position in the main array
 
-        if(marker == this.maxHighlightMarked) {
+        if (marker == this.maxHighlightMarked) {
             this.maxHighlightMarked = marker;
-            while(maxHighlightMarked > 0 && Highlights[maxHighlightMarked-1] == -1) {
+            while (maxHighlightMarked > 0 && Highlights[maxHighlightMarked-1] == -1) {
                 maxHighlightMarked--;
             }
         }
         ArrayVisualizer.updateNow();
     }
     public synchronized void clearAllMarks() {
-        for(int i = 0; i < this.maxHighlightMarked; i++) {
-            if(Highlights[i] != -1) {
+        for (int i = 0; i < this.maxHighlightMarked; i++) {
+            if (Highlights[i] != -1) {
                 markCounts[Highlights[i]] = 0;
             }
         }

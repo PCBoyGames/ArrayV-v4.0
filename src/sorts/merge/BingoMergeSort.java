@@ -58,7 +58,7 @@ public final class BingoMergeSort extends Sort {
     }
 
     public void mergeSort(int[] array, int a, int b) {
-        if(b - a < 2)
+        if (b - a < 2)
             return;
         int m = a + (b - a) / 2;
         mergeSort(array, a, m);

@@ -56,27 +56,27 @@ final public class InPlaceLSDRadixSort extends Sort {
 
         int maxpower = Reads.analyzeMaxLog(array, sortLength, bucketCount, 0.5, true);
 
-        for(int p = 0; p <= maxpower; p++){
-            for(int i = 0; i < vregs.length; i++) {
+        for (int p = 0; p <= maxpower; p++) {
+            for (int i = 0; i < vregs.length; i++) {
                 Writes.write(vregs, i, sortLength - 1, 0, false, true);
             }
 
             pos = 0;
 
-            for(int i = 0; i < sortLength; i++){
+            for (int i = 0; i < sortLength; i++) {
                 int digit = Reads.getDigit(array[pos], p, bucketCount);
 
-                if(digit == 0) {
+                if (digit == 0) {
                     pos++;
                     Highlights.markArray(0, pos);
                 }
                 else {
-                    for(int j = 0; j < vregs.length;j++)
+                    for (int j = 0; j < vregs.length;j++)
                         Highlights.markArray(j + 1, vregs[j]);
 
                     Writes.multiSwap(array, pos, vregs[digit - 1], bucketCount / 10000d, false, false);
 
-                    for(int j = digit - 1; j > 0; j--) {
+                    for (int j = digit - 1; j > 0; j--) {
                         Writes.write(vregs, j - 1, vregs[j - 1] - 1, 0, false, true);
                     }
                 }

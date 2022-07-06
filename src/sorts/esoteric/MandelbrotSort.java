@@ -35,24 +35,24 @@ public final class MandelbrotSort extends BogoSorting {
           Delays.sleep(0.1);
           Reads.addComparison(); // technically a comparison
           iters++;
-      } while(iters < max && z.abs() < 4);
+      } while (iters < max && z.abs() < 4);
       return iters-1;
   }
   public void mandelSort(int[] array, int length) {
-      while(!isArraySorted(array, length)) {
+      while (!isArraySorted(array, length)) {
           int unstableParts = 0, realUns = 0;
-          for(int j=0; j<length; j++) {
-              for(int i=0; i<length; i++) {
+          for (int j=0; j<length; j++) {
+              for (int i=0; i<length; i++) {
                   int mandelK = this.mandelbrotIters(i, j, length);
-                  if(mandelK == length-1) { // fallback for unstable segments
-                      if(realUns >= length) {
+                  if (mandelK == length-1) { // fallback for unstable segments
+                      if (realUns >= length) {
                           int rand1 = randInt(0, length),
                               rand2 = randInt(rand1, length);
-                          if(Reads.compareValues(array[rand1], array[rand2]) == 1) {
+                          if (Reads.compareValues(array[rand1], array[rand2]) == 1) {
                               Writes.swap(array, rand1, rand2, 1, true, false);
                           }
                       } else {
-                          if(Reads.compareValues(array[unstableParts], array[unstableParts+1]) == 1) {
+                          if (Reads.compareValues(array[unstableParts], array[unstableParts+1]) == 1) {
                               Writes.swap(array, unstableParts, unstableParts+1, 1, true, false);
                           }
                           unstableParts+=2;
@@ -60,7 +60,7 @@ public final class MandelbrotSort extends BogoSorting {
                       }
                       realUns++;
                   } else {
-                      if(Reads.compareValues(array[mandelK], array[mandelK + 1]) == 1) {
+                      if (Reads.compareValues(array[mandelK], array[mandelK + 1]) == 1) {
                           Writes.swap(array, mandelK, mandelK + 1, 1, true, false);
                           realUns /= 2;
                       }

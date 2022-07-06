@@ -44,7 +44,7 @@ final public class LMSDRadixSort extends Sort {
         @SuppressWarnings("unchecked")
         ArrayList<Integer>[] registers = new ArrayList[this.base];
 
-        for(int i = 0; i < this.base; i++) registers[i] = new ArrayList<>();
+        for (int i = 0; i < this.base; i++) registers[i] = new ArrayList<>();
 
         for (int i = start; i < end; i++) {
             Highlights.markArray(1, i);

@@ -54,13 +54,13 @@ final public class MedianMergeSort extends Sort {
     private void medianOfThree(int[] array, int a, int b) {
         int m = a+(b-1-a)/2;
 
-        if(Reads.compareIndices(array, a, m, 1, true) == 1)
+        if (Reads.compareIndices(array, a, m, 1, true) == 1)
             Writes.swap(array, a, m, 1, true, false);
 
-        if(Reads.compareIndices(array, m, b-1, 1, true) == 1) {
+        if (Reads.compareIndices(array, m, b-1, 1, true) == 1) {
             Writes.swap(array, m, b-1, 1, true, false);
 
-            if(Reads.compareIndices(array, a, m, 1, true) == 1)
+            if (Reads.compareIndices(array, a, m, 1, true) == 1)
                 return;
         }
 
@@ -72,19 +72,19 @@ final public class MedianMergeSort extends Sort {
         int end = b, start = a, i, j;
         boolean ad = true;
 
-        while(end - start > 1) {
+        while (end - start > 1) {
             j = start;
             Highlights.markArray(2, j);
-            for(i = start; i+2*s <= end; i+=s) {
+            for (i = start; i+2*s <= end; i+=s) {
                 this.insSort.customInsertSort(array, i, i+s, 0.25, false);
                 Writes.swap(array, j++, i+s/2, 1, false, false);
                 Highlights.markArray(2, j);
             }
-            if(i < end) {
+            if (i < end) {
                 this.insSort.customInsertSort(array, i, end, 0.25, false);
                 Writes.swap(array, j++, i+(end-(ad ? 1 : 0)-i)/2, 1, false, false);
                 Highlights.markArray(2, j);
-                if((end-i)%2 == 0) ad = !ad;
+                if ((end-i)%2 == 0) ad = !ad;
             }
             end = j;
         }
@@ -95,22 +95,22 @@ final public class MedianMergeSort extends Sort {
         int j = b;
         Highlights.markArray(3, p);
 
-        while(true) {
+        while (true) {
             do {
                 i++;
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while(i < j && Reads.compareIndices(array, i, p, 0, false) == -1);
+            while (i < j && Reads.compareIndices(array, i, p, 0, false) == -1);
 
             do {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
             }
-            while(j >= i && Reads.compareIndices(array, j, p, 0, false) == 1);
+            while (j >= i && Reads.compareIndices(array, j, p, 0, false) == 1);
 
-            if(i < j) Writes.swap(array, i, j, 1, true, false);
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else      return j;
         }
     }
@@ -118,50 +118,50 @@ final public class MedianMergeSort extends Sort {
     private void merge(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
 
-        while(i < m && j < b) {
-            if(Reads.compareIndices(array, i, j, 0, false) <= 0)
+        while (i < m && j < b) {
+            if (Reads.compareIndices(array, i, j, 0, false) <= 0)
                 Writes.swap(array, p++, i++, 1, true, false);
             else
                 Writes.swap(array, p++, j++, 1, true, false);
         }
 
-        while(i < m) Writes.swap(array, p++, i++, 1, true, false);
-        while(j < b) Writes.swap(array, p++, j++, 1, true, false);
+        while (i < m) Writes.swap(array, p++, i++, 1, true, false);
+        while (j < b) Writes.swap(array, p++, j++, 1, true, false);
     }
 
     public static int getMinLevel(int n) {
-        while(n >= 32) n = (n+3)/4;
+        while (n >= 32) n = (n+3)/4;
         return n;
     }
 
     private void mergeSort(int[] array, int a, int b, int p) {
         int length = b-a;
-        if(length < 2) return;
+        if (length < 2) return;
 
         int i, pos, j = getMinLevel(length);
 
-        for(i = a; i+j <= b; i+=j)
+        for (i = a; i+j <= b; i+=j)
             this.binInsSort.customBinaryInsert(array, i, i+j, 0.25);
         this.binInsSort.customBinaryInsert(array, i, b, 0.25);
 
-        while(j < length) {
+        while (j < length) {
             pos = p;
-            for(i = a; i+2*j <= b; i+=2*j, pos+=2*j)
+            for (i = a; i+2*j <= b; i+=2*j, pos+=2*j)
                 this.merge(array, i, i+j, i+2*j, pos);
-            if(i + j < b)
+            if (i + j < b)
                 this.merge(array, i, i+j, b, pos);
             else
-                while(i < b) Writes.swap(array, i++, pos++, 1, true, false);
+                while (i < b) Writes.swap(array, i++, pos++, 1, true, false);
 
             j *= 2;
 
             pos = a;
-            for(i = p; i+2*j <= p+length; i+=2*j, pos+=2*j)
+            for (i = p; i+2*j <= p+length; i+=2*j, pos+=2*j)
                 this.merge(array, i, i+j, i+2*j, pos);
-            if(i + j < p+length)
+            if (i + j < p+length)
                 this.merge(array, i, i+j, p+length, pos);
             else
-                while(i < p+length) Writes.swap(array, i++, pos++, 1, true, false);
+                while (i < p+length) Writes.swap(array, i++, pos++, 1, true, false);
 
             j *= 2;
         }
@@ -171,8 +171,8 @@ final public class MedianMergeSort extends Sort {
         int start = a, end = b;
         boolean badPartition = false, mom = false;
 
-        while(end - start > 16) {
-            if(badPartition) {
+        while (end - start > 16) {
+            if (badPartition) {
                 this.medianOfMedians(array, start, end, 5);
                 mom = true;
             }
@@ -185,7 +185,7 @@ final public class MedianMergeSort extends Sort {
             int right = end-(p+1);
             badPartition = !mom && ((left == 0 || right == 0) || (left/right >= 16 || right/left >= 16));
 
-            if(left <= right) {
+            if (left <= right) {
                 this.mergeSort(array, start, p, p+1);
                 start = p+1;
             }

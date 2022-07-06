@@ -22,10 +22,10 @@ final public class OptimizedBubbleSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int consecSorted;
-        for(int i = length - 1; i > 0; i -= consecSorted) {
+        for (int i = length - 1; i > 0; i -= consecSorted) {
             consecSorted = 1;
-            for(int j = 0; j < i; j++) {
-                if(Reads.compareIndices(array, j, j + 1, 0.025, true) > 0){
+            for (int j = 0; j < i; j++) {
+                if (Reads.compareIndices(array, j, j + 1, 0.025, true) > 0) {
                     Writes.swap(array, j, j + 1, 0.075, true, false);
                     consecSorted = 1;
                 } else consecSorted++;

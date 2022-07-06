@@ -22,22 +22,22 @@ final public class BzsurgeSort extends Sort {
     }
     private boolean merge(int[] array, int[] tmp, int start, int mid, int end) {
         int l = start, r = mid, t = start;
-        while(l < mid && r < end) {
+        while (l < mid && r < end) {
             Highlights.markArray(1, l);
             Highlights.markArray(2, r);
-            if(Reads.compareValues(array[l], array[r]) <= 0) {
+            if (Reads.compareValues(array[l], array[r]) <= 0) {
                 Writes.write(tmp, t++, array[l++], 1, true, true);
             } else {
                 Writes.write(tmp, t++, array[r++], 1, true, true);
             }
         }
-        if(l == r) {
+        if (l == r) {
             return true;
         }
-        while(l < mid) {
+        while (l < mid) {
             Writes.write(tmp, t++, array[l++], 1, true, true);
         }
-        while(r < end) {
+        while (r < end) {
             Writes.write(tmp, t++, array[r++], 1, true, true);
         }
         Writes.arraycopy(tmp, start, array, start, end-start, 0.5, true, false);
@@ -45,9 +45,9 @@ final public class BzsurgeSort extends Sort {
     }
     private boolean surge(int[] array, int[] tmp, int start, int end) {
         int mid = start+(end-start)/2;
-        if(start == mid)
+        if (start == mid)
             return true;
-        if(end-start < 32) {
+        if (end-start < 32) {
             BinaryInsertionSort b = new BinaryInsertionSort(arrayVisualizer);
             b.customBinaryInsert(array, start, end, 0.25);
             return true;
@@ -60,6 +60,6 @@ final public class BzsurgeSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int[] t = Writes.createExternalArray(length);
-        while(!this.surge(array, t, 0, length));
+        while (!this.surge(array, t, 0, length));
     }
 }

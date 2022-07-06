@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * 
+ *
 MIT License
 Copyright (c) 2020 fungamer2
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,7 +29,7 @@ final public class CocktailShellSortSqrt2 extends Sort {
 
     public CocktailShellSortSqrt2(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("Cocktail Shell (/sqrt2)");
         this.setRunAllSortsName("Cocktail Shell Sort (/sqrt2)");
         this.setRunSortName("Cocktail Shell Sort (/sqrt2)");
@@ -41,50 +41,50 @@ final public class CocktailShellSortSqrt2 extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         int gap = length / 2;
         boolean dir = true;
         while (gap >= 1) {
-        	if (dir) {
-        	    for (int i = gap; i < length; i++) {
-        	        int tmp = array[i];
-        	        int j = i;
-        	        while (j >= gap && Reads.compareValues(array[j - gap], tmp) == 1) {
-        	            Highlights.markArray(2, j - gap);
-        	            Writes.write(array, j, array[j - gap], 0.7, true, false);
-        	            j -= gap;
-        	        }
-        	        
-        	        if (j - gap >= 0) {
-        	            Highlights.markArray(2, j - gap);
-        	        } else {
-        	            Highlights.clearMark(2);
-        	        }
-        	        
-        	        Writes.write(array, j, tmp, 0.7, true, false);
+            if (dir) {
+                for (int i = gap; i < length; i++) {
+                    int tmp = array[i];
+                    int j = i;
+                    while (j >= gap && Reads.compareValues(array[j - gap], tmp) == 1) {
+                        Highlights.markArray(2, j - gap);
+                        Writes.write(array, j, array[j - gap], 0.7, true, false);
+                        j -= gap;
+                    }
+
+                    if (j - gap >= 0) {
+                        Highlights.markArray(2, j - gap);
+                    } else {
+                        Highlights.clearMark(2);
+                    }
+
+                    Writes.write(array, j, tmp, 0.7, true, false);
                 }
             } else {
-            	for (int i = length - gap; i >= 0; i--) {
+                for (int i = length - gap; i >= 0; i--) {
                     int tmp = array[i];
                     int j = i;
                     while (j < length - gap && Reads.compareValues(array[j + gap], tmp) == -1) {
                         Highlights.markArray(2, j + gap);
-        	            Writes.write(array, j, array[j + gap], 0.7, true, false);
-        	            j += gap;
+                        Writes.write(array, j, array[j + gap], 0.7, true, false);
+                        j += gap;
                     }
-                    
+
                     if (j + gap < length) {
-        	            Highlights.markArray(2, j + gap);
-        	        } else {
-        	            Highlights.clearMark(2);
-        	        }
-        	        
-        	        Writes.write(array, j, tmp, 0.7, true, false);
-            	}
+                        Highlights.markArray(2, j + gap);
+                    } else {
+                        Highlights.clearMark(2);
+                    }
+
+                    Writes.write(array, j, tmp, 0.7, true, false);
+                }
             }
-        	gap /= Math.sqrt(2);
+            gap /= Math.sqrt(2);
             dir = gap == 1 ? true : !dir; //Do a normal insertion sort during the last pasd
         }
     }

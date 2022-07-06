@@ -21,9 +21,9 @@ final public class OreganoSort extends BogoSorting {
     }
 
     private void sprinkle(int[] array, int start, int end) {
-        if(end >= arrayVisualizer.getCurrentLength() || start>end)
+        if (end >= arrayVisualizer.getCurrentLength() || start>end)
             return;
-        if(start != end && Reads.compareValues(array[start], array[end]) == 1) {
+        if (start != end && Reads.compareValues(array[start], array[end]) == 1) {
             Writes.multiSwap(array, start, end, 1, true, false);
             this.sort(array,start+1,end-1);
         } else {
@@ -33,7 +33,7 @@ final public class OreganoSort extends BogoSorting {
     private void sort(int[] array, int start, int end) {
         this.sprinkle(array, start, end);
         int q = (end-start+1)/4;
-        if(q==0)
+        if (q==0)
             return;
         Highlights.markArray(1, start);
         Highlights.markArray(2, end);

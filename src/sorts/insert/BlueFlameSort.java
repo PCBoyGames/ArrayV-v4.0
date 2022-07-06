@@ -19,7 +19,7 @@ final public class BlueFlameSort extends Sort {
     }
 
     public void ignite(int[] array, int i, int j) {
-        if(i >= j)
+        if (i >= j)
             return;
 
         if (Reads.compareIndices(array, i, j, 0.05, true) < 0) {
@@ -35,7 +35,7 @@ final public class BlueFlameSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        for(int i=0; i<currentLength; i++)
+        for (int i=0; i<currentLength; i++)
             this.ignite(array, i, currentLength-1);
     }
 }

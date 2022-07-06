@@ -49,7 +49,7 @@ final public class RandomStoogeSort extends BogoSorting {
 
             Highlights.markArray(3, j - t);
             Highlights.markArray(4, i + t);
-            if(lo >= j || i+1 >= hi)
+            if (lo >= j || i+1 >= hi)
                 return;
             this.stoogeSort(A, i, randInt(lo, j));
             this.stoogeSort(A, randInt(i + 1, hi), j);
@@ -59,7 +59,7 @@ final public class RandomStoogeSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        while(!this.isRangeSorted(array, 0, currentLength - 1, false, false)){
+        while (!this.isRangeSorted(array, 0, currentLength - 1, false, false)) {
             this.stoogeSort(array, 0, currentLength - 1);
         }
     }

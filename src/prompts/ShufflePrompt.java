@@ -77,8 +77,8 @@ final public class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
 
         initializing = true;
         jList1.setListData(ArrayManager.getDistributionIDs());
-        for(int i = 0; i < ArrayManager.getDistributions().length; i++) {
-            if(ArrayManager.getDistribution().equals(ArrayManager.getDistributions()[i])) {
+        for (int i = 0; i < ArrayManager.getDistributions().length; i++) {
+            if (ArrayManager.getDistribution().equals(ArrayManager.getDistributions()[i])) {
                 jList1.setSelectedIndex(i);
                 break;
             }
@@ -90,8 +90,8 @@ final public class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
             shuffleModel.add(0, "Advanced");
             jList2.setSelectedIndex(0);
         } else {
-            for(int i = 0; i < ArrayManager.getShuffles().length; i++) {
-                if(ArrayManager.containsShuffle(ArrayManager.getShuffles()[i])) {
+            for (int i = 0; i < ArrayManager.getShuffles().length; i++) {
+                if (ArrayManager.containsShuffle(ArrayManager.getShuffles()[i])) {
                     jList2.setSelectedIndex(i);
                     break;
                 }

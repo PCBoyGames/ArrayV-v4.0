@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 final public class SussierBakaSort extends Sort {
     public SussierBakaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        
+
         this.setSortListName("SussierBaka");
         this.setRunAllSortsName("SussierBakasort");
         this.setRunSortName("Sussierbakasort");
@@ -20,15 +20,15 @@ final public class SussierBakaSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private UpdatedQuadSort op0;
     private OnlinePDMSort op1;
-    
+
     private int cmp(int[] array, int pos0, int pos1) {
         int cmpv = Reads.compareIndices(array, pos1, pos0, 0.125, true);
         return -(cmpv >> 31);
     }
-    
+
     private int medof3(int[] array, int loc) {
         int a = cmp(array, loc, loc+1),
             b = cmp(array, loc+(a^1), loc+2);
@@ -36,7 +36,7 @@ final public class SussierBakaSort extends Sort {
         int c = cmp(array, loc+b, loc+a);
         return loc + (((c - 1) & a) | (-c & b));
     }
-    
+
     private int medof3(int[] array, int l, int l1, int l2) {
         int[] spread = new int[] {l, l1, l2};
         int a = cmp(array, l, l1),
@@ -45,12 +45,12 @@ final public class SussierBakaSort extends Sort {
         int c = cmp(array, spread[b], spread[a]);
         return spread[((c - 1) & a) | (-c & b)];
     }
-    
+
     private int ninther(int[] array, int a, int b) {
-        if(b-a < 4) {
+        if (b-a < 4) {
             return a+(b-a)/2;
         }
-        if(b-a < 8) {
+        if (b-a < 8) {
             return medof3(array, a+(b-a-1)/2);
         }
         int d = (b-a+1)/8,
@@ -59,9 +59,9 @@ final public class SussierBakaSort extends Sort {
             m2 = medof3(array, a+6*d, a+7*d, b);
         return medof3(array, m0, m1, m2);
     }
-    
+
     private int pseudomo27(int[] array, int a, int b) {
-        if(b-a < 256) {
+        if (b-a < 256) {
             return ninther(array, a, b);
         }
         int d = (b-a+1)/8,
@@ -70,9 +70,9 @@ final public class SussierBakaSort extends Sort {
             m2 = ninther(array, a+6*d, b);
         return medof3(array, m0, m1, m2);
     }
-    
+
     private int pseudomo81(int[] array, int a, int b) {
-        if(b-a < 1024) {
+        if (b-a < 1024) {
             return pseudomo27(array, a, b);
         }
         int d = (b-a+1)/24,
@@ -91,9 +91,9 @@ final public class SussierBakaSort extends Sort {
             medof3(array, m6, m7, m8)
         );
     }
-    
+
     private int pseudomo243(int[] array, int a, int b) {
-        if(b-a < 8192) {
+        if (b-a < 8192) {
             return pseudomo81(array, a, b);
         }
         int d = (b-a+1)/24,
@@ -112,9 +112,9 @@ final public class SussierBakaSort extends Sort {
             medof3(array, m6, m7, m8)
         );
     }
-    
+
     private int pseudomo2187(int[] array, int a, int b) {
-        if(b-a < 131072) {
+        if (b-a < 131072) {
             return pseudomo243(array, a, b);
         }
         int d = (b-a+1)/78,
@@ -163,33 +163,33 @@ final public class SussierBakaSort extends Sort {
             )
         );
     }
-    
+
     private boolean sussyAnalyze(int[] array, int[] tmp, int start, int end) {
         int z = 0, e = 0, mid=(end-start)/2, tend = end--;
-        while(--end >= start) {
+        while (--end >= start) {
             int w = Reads.compareIndices(array, end, end+1, 0.1, true);
             z += w == 1 ? 1 : 0;
             e += w == 0 ? 1 : 0;
         }
-        if(z + e == tend-start-1) {
+        if (z + e == tend-start-1) {
             Writes.reversal(array, start, tend-1, 1, true, false);
             return false;
         }
-        if(z == 0)
+        if (z == 0)
             return false;
         boolean bad = Math.abs(mid-z) >= (tend-start) / 3;
         boolean worse = Math.abs(mid-(z+e)) >= mid - (tend-start) / 9;
-        if(worse)
+        if (worse)
             op0.quadSortSwap(array, tmp, start, 0, tmp.length, tend-start);
-        else if(bad) {
+        else if (bad) {
             op1.ms(array, tmp, start, tend, tend-start, 0);
         }
         return !(bad||worse);
     }
-    
+
     // among_us function (ternary partitioning)
     private void among_us(int[] array, int[] tmp, int swapoff, int start, int end, boolean aux, int depth) {
-        if(start >= end) {
+        if (start >= end) {
             return;
         }
         Writes.recordDepth(depth++);
@@ -197,7 +197,7 @@ final public class SussierBakaSort extends Sort {
         int mama = start, mia = end, mamamia_ = swapoff, mamamia = start, now = array[mama];
         boolean allEq = true;
         innerpartition:
-        while(mama <= mia) {
+        while (mama <= mia) {
             Highlights.markArray(1, Math.max(mamamia-1, start));
             Highlights.markArray(2, mamamia_);
             Highlights.markArray(3, mia);
@@ -208,12 +208,12 @@ final public class SussierBakaSort extends Sort {
                     Writes.write(array, mamamia++, now, 0, false, aux);
                     break;
                 case 0: // Equal pivot case (ternary split)
-                    while(mama < mia && Reads.compareIndexValue(array, mia, pi, 0, false) == 0) {
+                    while (mama < mia && Reads.compareIndexValue(array, mia, pi, 0, false) == 0) {
                         mia--;
                         Highlights.markArray(3, mia);
                         Delays.sleep(1.25);
                     }
-                    if(mama == mia) // Save single drips of write
+                    if (mama == mia) // Save single drips of write
                         break innerpartition;
                     int v = array[mia];
                     Writes.visualClear(array, mama);
@@ -228,34 +228,34 @@ final public class SussierBakaSort extends Sort {
             allEq = false;
             now = array[++mama]; // Iterate onto next number
         }
-        if(allEq) {
+        if (allEq) {
             return;
         }
         mia = mamamia + (mamamia_ - swapoff) - 1;
-        
+
         Writes.recursion();
         among_us(tmp, array, mamamia, swapoff, mamamia_ - 1, !aux, depth);
-        
+
         int w = end - mia;
-        
+
         Writes.arraycopy(array, mia + 1, array, mamamia, w, 1, true, aux);
         Writes.arraycopy(tmp, swapoff, array, mamamia + w, mamamia_ - swapoff, 1, true, aux);
-        
+
         Writes.recursion();
         among_us(array, tmp, swapoff, start, mamamia - 1, aux, depth);
     }
-    
+
     public void sussierBaka(int[] array, int start, int end) {
         // Analysis will use whichever of the 2 algorithms it thinks
         // are better suited for the situation
-        op0 = new UpdatedQuadSort(arrayVisualizer); 
+        op0 = new UpdatedQuadSort(arrayVisualizer);
         op1 = new OnlinePDMSort(arrayVisualizer);
         int[] p = Writes.createExternalArray(end-start);
-        if(sussyAnalyze(array, p, start, end))
+        if (sussyAnalyze(array, p, start, end))
             among_us(array, p, 0, start, end-1, false, 0);
         Writes.deleteExternalArray(p);
     }
-    
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         sussierBaka(array, 0, currentLength);

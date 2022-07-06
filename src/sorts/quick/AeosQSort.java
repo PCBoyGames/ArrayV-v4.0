@@ -30,7 +30,7 @@ public class AeosQSort extends Sort {
 
     // brief method for zeroing out an aux array for visualization
     private void clearArray(int[] array) {
-        for(int i = 0; i < array.length; i++)
+        for (int i = 0; i < array.length; i++)
             array[i] = 0;
     }
 
@@ -38,9 +38,9 @@ public class AeosQSort extends Sort {
         int i = start;
         int read = 0;
 
-        while(read == 0) read = Reads.compareIndices(array, start, ++i, rSleep, true);
+        while (read == 0) read = Reads.compareIndices(array, start, ++i, rSleep, true);
 
-        if(read < 0) return i;
+        if (read < 0) return i;
         return start;
     }
 
@@ -48,24 +48,24 @@ public class AeosQSort extends Sort {
         // small length cases
 
         // maybe an error would be better but w/e
-        if(indices.length == 0) return -1;
+        if (indices.length == 0) return -1;
 
         // median of 1 or 2 elements can just be the first
-        if(indices.length < 3) return indices[0];
+        if (indices.length < 3) return indices[0];
 
         // 3 element case (common)
         // only first 3 elements are considered if given an array of 4+ indices
-        if(Reads.compareIndices(array, indices[0], indices[1], rSleep, true) <= 0) {
-            if(Reads.compareIndices(array, indices[1], indices[2], rSleep, true) <= 0)
+        if (Reads.compareIndices(array, indices[0], indices[1], rSleep, true) <= 0) {
+            if (Reads.compareIndices(array, indices[1], indices[2], rSleep, true) <= 0)
                 return indices[1];
-            if(Reads.compareIndices(array, indices[0], indices[2], rSleep, true) < 0)
+            if (Reads.compareIndices(array, indices[0], indices[2], rSleep, true) < 0)
                 return indices[2];
             return indices[0];
         }
-        if(Reads.compareIndices(array, indices[1], indices[2], rSleep, true) >= 0) {
+        if (Reads.compareIndices(array, indices[1], indices[2], rSleep, true) >= 0) {
             return indices[1];
         }
-        if(Reads.compareIndices(array, indices[0], indices[2], rSleep, true) <= 0) {
+        if (Reads.compareIndices(array, indices[0], indices[2], rSleep, true) <= 0) {
             return indices[0];
         }
         return indices[2];
@@ -91,7 +91,7 @@ public class AeosQSort extends Sort {
     }
 
     private int mOMHelper(int[] array, int start, int length) {
-        if(length == 1) return start;
+        if (length == 1) return start;
 
         int[] meds = new int[3];
         int third = length / 3;
@@ -103,18 +103,18 @@ public class AeosQSort extends Sort {
     }
 
     private int medianOfMedians(int[] array, int start, int length) {
-        if(length == 1) return start;
+        if (length == 1) return start;
 
         int[] meds = new int[3];
 
         int nearPower = (int) Math.pow(3, Math.round(Math.log(length)/Math.log(3)));
-        if(nearPower == length)
+        if (nearPower == length)
             return mOMHelper(array, start, length);
 
         nearPower /= 3;
         // uncommon but can happen with numbers slightly smaller than 2*3^k
         // (e.g., 17 < 18 or 47 < 54)
-        if(2*nearPower >= length) nearPower /= 3;
+        if (2*nearPower >= length) nearPower /= 3;
 
         meds[0] = mOMHelper(array, start, nearPower);
         meds[2] = mOMHelper(array, start + length - nearPower, nearPower);
@@ -126,19 +126,19 @@ public class AeosQSort extends Sort {
     private void rotate(int[] array, int start, int leftLen, int rightLen) {
         int j = start + leftLen;
         int k = 0;
-        while(k < rightLen) {
+        while (k < rightLen) {
             Highlights.markArray(2, j);
             Writes.write(elementAux, k++, array[j++], wSleep, true, true);
         }
 
         k = start + leftLen;
-        while(k > start) {
+        while (k > start) {
             Highlights.markArray(2, --k);
             Writes.write(array, --j, array[k], wSleep, true, false);
         }
 
         j = 0;
-        while(j < rightLen) {
+        while (j < rightLen) {
             Highlights.markArray(2, j);
             Writes.write(array, k++, elementAux[j++], wSleep, true, true);
         }
@@ -152,14 +152,14 @@ public class AeosQSort extends Sort {
         int  smallBlocks = 0;
         int blockCounter = 0;
 
-        for(int i = start; i < end; i++) {
+        for (int i = start; i < end; i++) {
             Highlights.markArray(2, i);
             Delays.sleep(rSleep);
-            if(Reads.compareValues(array[i], pivotEle) < 0) {
-                if(larges != 0) // usually true, but maybe false often enough to make this worth it
+            if (Reads.compareValues(array[i], pivotEle) < 0) {
+                if (larges != 0) // usually true, but maybe false often enough to make this worth it
                     Writes.write(array, start + blockCounter * sqrt + smalls, array[i],
                             wSleep, true, false);
-                if(++smalls == sqrt) {
+                if (++smalls == sqrt) {
                     smalls = 0;
                     // multiplication by sqrt is solely for visualization purposes
                     indexAux[blockCounter++] = (smallBlocks++) * sqrt;
@@ -167,13 +167,13 @@ public class AeosQSort extends Sort {
                 }
             } else {
                 Writes.write(elementAux, larges, array[i], wSleep, true, true);
-                if(++larges == sqrt) {
+                if (++larges == sqrt) {
                     int j = i;
-                    for(int k = i - sqrt; k >= start + blockCounter * sqrt; ) {
+                    for (int k = i - sqrt; k >= start + blockCounter * sqrt; ) {
                         Highlights.markArray(2, k);
                         Writes.write(array, j--, array[k--], wSleep, true, false);
                     }
-                    for(int k = sqrt; k > 0; ) {
+                    for (int k = sqrt; k > 0; ) {
                         Highlights.markArray(2, --k);
                         Writes.write(array, j--, elementAux[k], wSleep, true, false);
                     }
@@ -186,7 +186,7 @@ public class AeosQSort extends Sort {
             Highlights.clearAllMarks();
         }
 
-        for(int j = end, k = larges; k > 0; ) {
+        for (int j = end, k = larges; k > 0; ) {
             Highlights.markArray(2, --k);
             Writes.write(array, --j, elementAux[k], wSleep, true, false);
         }
@@ -194,17 +194,17 @@ public class AeosQSort extends Sort {
         Highlights.clearAllMarks();
 
         // easy cases
-        if(smallBlocks == blockCounter)
+        if (smallBlocks == blockCounter)
             return smallBlocks * sqrt + smalls;
-        if(smallBlocks == 0) {
-            if(smalls != 0)
+        if (smallBlocks == 0) {
+            if (smalls != 0)
                 rotate(array, start, blockCounter * sqrt, smalls);
             return smalls;
         }
 
         int largeFinalPos = smallBlocks;
-        for(int i = 0; i < blockCounter; i++) {
-            if(indexAux[i] == -1) { // multiplication by sqrt is solely for visualization purposes
+        for (int i = 0; i < blockCounter; i++) {
+            if (indexAux[i] == -1) { // multiplication by sqrt is solely for visualization purposes
                 indexAux[i] = (largeFinalPos++) * sqrt;
                 Delays.sleep(wSleep);
             }
@@ -212,11 +212,11 @@ public class AeosQSort extends Sort {
 
         // Skip already sorted blocks
         int i = 0;
-        while(i < blockCounter && indexAux[i] / sqrt == i) i++;
+        while (i < blockCounter && indexAux[i] / sqrt == i) i++;
 
-        while(i < blockCounter) {
+        while (i < blockCounter) {
             // write block to aux memory
-            for(int j = start + i * sqrt, k = 0; k < sqrt; j++, k++) {
+            for (int j = start + i * sqrt, k = 0; k < sqrt; j++, k++) {
                 Highlights.markArray(2, j);
                 Writes.write(elementAux, k, array[j], wSleep, true, true);
             }
@@ -224,10 +224,10 @@ public class AeosQSort extends Sort {
             int to = indexAux[i] / sqrt;
             int current = i;
             int next = i;
-            while(indexAux[next] / sqrt != current) next++;
+            while (indexAux[next] / sqrt != current) next++;
 
-            while(next != to) {
-                for(int j = start + next * sqrt, k = start + current * sqrt;
+            while (next != to) {
+                for (int j = start + next * sqrt, k = start + current * sqrt;
                         j < start + (next + 1) * sqrt; j++, k++) {
                     Highlights.markArray(2, j);
                     Writes.write(array, k, array[j], wSleep, true, false);
@@ -236,10 +236,10 @@ public class AeosQSort extends Sort {
                 current = next;
                 next = i;
                 Delays.sleep(wSleep);
-                while(indexAux[next] / sqrt != current) next++;
+                while (indexAux[next] / sqrt != current) next++;
             }
 
-            for(int j = start + next * sqrt, k = start + current * sqrt;
+            for (int j = start + next * sqrt, k = start + current * sqrt;
                     j < start + (next + 1) * sqrt; j++, k++) {
                 Highlights.markArray(2, j);
                 Writes.write(array, k, array[j], wSleep, true, false);
@@ -248,7 +248,7 @@ public class AeosQSort extends Sort {
             Delays.sleep(wSleep);
 
 
-            for(int j = 0, k = start + to * sqrt; j < sqrt; j++, k++) {
+            for (int j = 0, k = start + to * sqrt; j < sqrt; j++, k++) {
                 Highlights.markArray(2, j);
                 Writes.write(array, k, elementAux[j], wSleep, true, false);
             }
@@ -256,23 +256,23 @@ public class AeosQSort extends Sort {
             indexAux[to] = to * sqrt;
             Delays.sleep(wSleep);
             // Skip already sorted blocks
-            do{i++;} while(i < blockCounter && indexAux[i] / sqrt == i);
+            do{i++;} while (i < blockCounter && indexAux[i] / sqrt == i);
         }
         clearArray(indexAux);
 
-        if(smalls != 0)
+        if (smalls != 0)
             rotate(array, start + smallBlocks * sqrt, (blockCounter - smallBlocks) * sqrt, smalls);
         return smallBlocks * sqrt + smalls;
     }
 
     private void sortHelper(int[] array, int start, int end, int sqrt, int badPartition) {
-        while(end - start >= 16) {
+        while (end - start >= 16) {
             int pivotPos;
-            if(badPartition == 0) {
+            if (badPartition == 0) {
                 pivotPos = medianOf9(array, start, end);
-            } else if(badPartition > 0) {
+            } else if (badPartition > 0) {
                 int length = end - start;
-                if((length & 1) == 0) length -= 1; // even lengths bad
+                if ((length & 1) == 0) length -= 1; // even lengths bad
                 pivotPos = medianOfMedians(array, start, length);
             } else {
                 pivotPos = medianOfFewUnique(array, start, end);
@@ -286,18 +286,18 @@ public class AeosQSort extends Sort {
             int newStart = newEnd;
 
             // Many equal element handling
-            while(newStart < end && Reads.compareValues(array[newStart], pivotEle) == 0) newStart++;
+            while (newStart < end && Reads.compareValues(array[newStart], pivotEle) == 0) newStart++;
 
             int len1 = newEnd - start;
             int len2 = end - newStart;
 
-            if(len1 > len2) {
+            if (len1 > len2) {
                 badPartition += len1 > 8 * len2 ? 1 : 0; // 8 is arbitrary; any constant is ok
                 sortHelper(array, newStart, end, sqrt, badPartition);
                 end = newEnd;
             } else {
-                if(len2 > 8 * len1) {
-                    if(len1 == 0)
+                if (len2 > 8 * len1) {
+                    if (len1 == 0)
                         badPartition = ~badPartition; // very few uniques handling
                     else {
                         sortHelper(array, start, newEnd, sqrt, ++badPartition);
@@ -318,11 +318,11 @@ public class AeosQSort extends Sort {
     public void runSort(int[] array, int sortLength, int bucketCount) {
         insertSorter = new InsertionSort(arrayVisualizer);
 
-        if(sortLength < 16)
+        if (sortLength < 16)
             insertSorter.customInsertSort(array, 0, sortLength, 3, true);
 
         int lgSqrt = 1;
-        while(1 << (++lgSqrt << 1) < sortLength);
+        while (1 << (++lgSqrt << 1) < sortLength);
         int sqrt = 1 << lgSqrt;
 
         elementAux = Writes.createExternalArray(sqrt);

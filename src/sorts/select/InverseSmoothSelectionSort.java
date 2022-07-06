@@ -19,7 +19,7 @@ final public class InverseSmoothSelectionSort extends Sort {
         this.setBogoSort(false);
     }
     private void multiSwap(int[] array, int a, int b, int s) {
-        while(s-- > 0)
+        while (s-- > 0)
             Writes.swap(array, a++, b++, 1, true, false);
     }
     @Override
@@ -31,16 +31,16 @@ final public class InverseSmoothSelectionSort extends Sort {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.01);
                 int comp = Reads.compareValues(array[j], array[seekIndex]);
-                if (comp <= 0){
-                    if(j != ++seekIndex)
+                if (comp <= 0) {
+                    if (j != ++seekIndex)
                         Writes.swap(array, j, seekIndex, 1, true, false);
-                    if(comp == 0)
+                    if (comp == 0)
                         equalSize++;
                     else
                         equalSize=0;
                 }
             }
-            if(seekIndex == length - 1) {
+            if (seekIndex == length - 1) {
                 Writes.reversal(array, i, length-1, 1, true, false);
                 break;
             }

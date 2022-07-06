@@ -28,7 +28,7 @@ final public class SegmentedSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean sortSegments(int[] array, int start, int end) {
         boolean anyswaps = false;
         for (int i = start; i < end; i++) {
@@ -44,10 +44,8 @@ final public class SegmentedSort extends Sort {
                     int c2 = i + 1;
                     Highlights.clearMark(2);
                     Statistics.addStat("Rotation");
-                    if ((b2 - a) % (c1 - b1) == 0 || (c1 - b1) % (b2 - a) == 0)
-                        IndexedRotations.holyGriesMills(array, a, b2, c2, 0.1, true, false);
-                    else 
-                        IndexedRotations.cycleReverse(array, a, b2, c2, 0.1, true, false);
+                    if ((b2 - a) % (c1 - b1) == 0 || (c1 - b1) % (b2 - a) == 0) IndexedRotations.holyGriesMills(array, a, b2, c2, 0.1, true, false);
+                    else IndexedRotations.cycleReverse(array, a, b2, c2, 0.1, true, false);
                     i = a - 1;
                     anyswaps = true;
                 } else i = b1;
@@ -59,7 +57,7 @@ final public class SegmentedSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         Statistics.putStat("Rotation");
-        while(sortSegments(array, 0, currentLength));
+        while (sortSegments(array, 0, currentLength));
         for (int start = 1; start < currentLength; start++) {
             Highlights.markArray(3, start);
             sortSegments(array, start, currentLength);

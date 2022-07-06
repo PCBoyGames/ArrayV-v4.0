@@ -46,7 +46,7 @@ final public class RotateMSDRadixSort extends Sort {
     }
 
     private int stabVal(int idx) {
-        if(arrayVisualizer.doingStabilityCheck())
+        if (arrayVisualizer.doingStabilityCheck())
             return arrayVisualizer.getStabilityValue(idx);
         else
             return idx;
@@ -55,7 +55,7 @@ final public class RotateMSDRadixSort extends Sort {
     private int base;
 
     private int shift(int n, int q) {
-        while(q > 0) {
+        while (q > 0) {
             n /= this.base;
             q--;
         }
@@ -63,15 +63,15 @@ final public class RotateMSDRadixSort extends Sort {
     }
 
     private void multiSwap(int[] array, int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(array, a+i, b+i, 0.5, true, false);
     }
 
     private void rotate(int[] array, int a, int m, int b) {
         int l = m-a, r = b-m;
 
-        while(l > 0 && r > 0) {
-            if(r < l) {
+        while (l > 0 && r > 0) {
+            if (r < l) {
                 this.multiSwap(array, m-r, m, r);
                 b -= r;
                 m -= r;
@@ -87,10 +87,10 @@ final public class RotateMSDRadixSort extends Sort {
     }
 
     private int binSearch(int[] array, int a, int b, int d, int p) {
-        while(a < b) {
+        while (a < b) {
             int m = (a+b)/2;
 
-            if(Reads.getDigit(array[m], p, this.base) >= d)
+            if (Reads.getDigit(array[m], p, this.base) >= d)
                 b = m;
 
             else a = m+1;
@@ -99,7 +99,7 @@ final public class RotateMSDRadixSort extends Sort {
     }
 
     private void merge(int[] array, int a, int m, int b, int da, int db, int p) {
-        if(b-a < 2 || db-da < 2) return;
+        if (b-a < 2 || db-da < 2) return;
 
         int dm = (da+db)/2;
         int m1 = this.binSearch(array, a, m, dm, p);
@@ -113,7 +113,7 @@ final public class RotateMSDRadixSort extends Sort {
     }
 
     private void mergeSort(int[] array, int a, int b, int p) {
-        if(b-a < 2) return;
+        if (b-a < 2) return;
 
         int m = (a+b)/2;
 
@@ -135,13 +135,13 @@ final public class RotateMSDRadixSort extends Sort {
         int q = Reads.analyzeMaxLog(array, length, this.base, 0.5, true);
         int m = 0, i = 0, b = length;
 
-        while(i < length) {
+        while (i < length) {
             int p = b-i < 1 ? i : this.dist(array, i, b, q);
 
-            if(q == 0) {
+            if (q == 0) {
                 m += this.base;
                 int t = m/this.base;
-                while(t%this.base == 0) {
+                while (t%this.base == 0) {
                     t /= this.base;
                     q++;
                 }
@@ -149,7 +149,7 @@ final public class RotateMSDRadixSort extends Sort {
                 i = b;
                 Highlights.clearMark(2);
                 arrayVisualizer.toggleAnalysis(true);
-                while(b < length && this.shift(this.stabVal(array[b]), q+1) == this.shift(m, q+1)) {
+                while (b < length && this.shift(this.stabVal(array[b]), q+1) == this.shift(m, q+1)) {
                     Highlights.markArray(1, b);
                     Delays.sleep(0.5);
                     b++;

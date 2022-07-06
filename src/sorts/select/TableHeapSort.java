@@ -27,24 +27,24 @@ public final class TableHeapSort extends Sort {
     private void siftDown(int[] array, int[] keys, int r, int len, int a, int t) {
         int j = r;
 
-        while(2*j + 1 < len) {
+        while (2*j + 1 < len) {
             j = 2*j + 1;
 
-            if(j+1 < len) {
+            if (j+1 < len) {
                 int cmp = Reads.compareIndices(array, a+keys[j+1], a+keys[j], 0.25, true);
 
-                if(cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0))
+                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0))
                     j++;
             }
         }
-        for(int cmp = Reads.compareIndices(array, a+t, a+keys[j], 0.25, true);
+        for (int cmp = Reads.compareIndices(array, a+t, a+keys[j], 0.25, true);
 
             cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(t, keys[j]) > 0);
 
             j = (j-1)/2,
             cmp = Reads.compareIndices(array, a+t, a+keys[j], 0.25, true));
 
-        for(int t2; j > r; j = (j-1)/2) {
+        for (int t2; j > r; j = (j-1)/2) {
             t2 = keys[j];
             Highlights.markArray(3, j);
             Writes.write(keys, j, t, 0.5, false, true);
@@ -57,10 +57,10 @@ public final class TableHeapSort extends Sort {
     protected void tableSort(int[] array, int[] keys, int a, int b) {
         int len = b-a;
 
-        for(int i = (len-1)/2; i >= 0; i--)
+        for (int i = (len-1)/2; i >= 0; i--)
             this.siftDown(array, keys, i, len, a, keys[i]);
 
-        for(int i = len-1; i > 0; i--) {
+        for (int i = len-1; i > 0; i--) {
             int t = keys[i];
             Highlights.markArray(3, i);
             Writes.write(keys, i, keys[0], 0.5, false, true);
@@ -68,9 +68,9 @@ public final class TableHeapSort extends Sort {
         }
         Highlights.clearMark(3);
 
-        for(int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             Highlights.markArray(2, i);
-            if(Reads.compareOriginalValues(i, keys[i]) != 0) {
+            if (Reads.compareOriginalValues(i, keys[i]) != 0) {
                 int t = array[a+i];
                 int j = i, next = keys[i];
 
@@ -81,7 +81,7 @@ public final class TableHeapSort extends Sort {
                     j = next;
                     next = keys[next];
                 }
-                while(Reads.compareOriginalValues(next, i) != 0);
+                while (Reads.compareOriginalValues(next, i) != 0);
 
                 Writes.write(array, a+j, t, 1.0, true, false);
                 Writes.write(keys, j, j, 1.0, true, true);
@@ -93,7 +93,7 @@ public final class TableHeapSort extends Sort {
     public void customSort(int[] array, int start, int end) {
         int len = end - start;
         int[] keys = Writes.createExternalArray(len);
-        for(int i = 0; i< len; i++) {
+        for (int i = 0; i< len; i++) {
             Writes.write(keys, i, i, 0.5, true, true);
         }
         tableSort(array, keys, start, end);
@@ -103,7 +103,7 @@ public final class TableHeapSort extends Sort {
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         int[] keys = Writes.createExternalArray(sortLength);
-        for(int i = 0; i < sortLength; i++) {
+        for (int i = 0; i < sortLength; i++) {
             Writes.write(keys, i, i, 0.5, true, true);
         }
         tableSort(array, keys, 0, sortLength);

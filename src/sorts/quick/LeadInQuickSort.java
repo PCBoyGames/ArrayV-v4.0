@@ -44,14 +44,14 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int medof3(int[] array, int loc) {
-        if((gear & 2) > 0) {
+        if ((gear & 2) > 0) {
             int a=loc, b=a+1, c=b+1, t;
-            if(cmpOne(array, a, b) == 1) {
+            if (cmpOne(array, a, b) == 1) {
                 t=a;a=b;b=t;
             }
-            if(cmpOne(array, b, c) == 1) {
+            if (cmpOne(array, b, c) == 1) {
                 t=b;b=c;c=t;
-                if(cmpOne(array, a, b) == 1) {
+                if (cmpOne(array, a, b) == 1) {
                     return a;
                 }
             }
@@ -65,14 +65,14 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int medof3(int[] array, int l, int l1, int l2) {
-        if((gear & 2) > 0) {
+        if ((gear & 2) > 0) {
             int t;
-            if(cmpOne(array, l, l1) == 1) {
+            if (cmpOne(array, l, l1) == 1) {
                 t=l;l=l1;l1=t;
             }
-            if(cmpOne(array, l1, l2) == 1) {
+            if (cmpOne(array, l1, l2) == 1) {
                 t=l1;l1=l2;l2=t;
-                if(cmpOne(array, l, l1) == 1) {
+                if (cmpOne(array, l, l1) == 1) {
                     return l;
                 }
             }
@@ -87,10 +87,10 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int ninther(int[] array, int a, int b) {
-        if(b-a < 4) {
+        if (b-a < 4) {
             return a+(b-a)/2;
         }
-        if(b-a < 8) {
+        if (b-a < 8) {
             return medof3(array, a+(b-a-1)/2);
         }
         int d = (b-a+1)/8,
@@ -101,7 +101,7 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int pseudomo27(int[] array, int a, int b) {
-        if(b-a < 27) {
+        if (b-a < 27) {
             return ninther(array, a, b);
         }
         int d = (b-a+1)/8,
@@ -112,7 +112,7 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int pseudomo81(int[] array, int a, int b) {
-        if(b-a < 81) {
+        if (b-a < 81) {
             return pseudomo27(array, a, b);
         }
         int d = (b-a+1)/24,
@@ -133,7 +133,7 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int pseudomo243(int[] array, int a, int b) {
-        if(b-a < 243) {
+        if (b-a < 243) {
             return pseudomo81(array, a, b);
         }
         int d = (b-a+1)/24,
@@ -154,7 +154,7 @@ final public class LeadInQuickSort extends Sort {
     }
 
     private int pseudomo2187(int[] array, int a, int b) {
-        if(b-a < 2187) {
+        if (b-a < 2187) {
             return pseudomo243(array, a, b);
         }
         int d = (b-a+1)/78,
@@ -208,7 +208,7 @@ final public class LeadInQuickSort extends Sort {
 
     private int rotatePartition(int[] a, int[] s, int l, int r, int p, int d, int o) {
         Writes.recursion();
-        if(r <= l) {
+        if (r <= l) {
             return Reads.compareValues(a[l], p) > 0 ? 1 : 0;
         }
         Writes.recordDepth(d++);
@@ -216,8 +216,8 @@ final public class LeadInQuickSort extends Sort {
             q = rotatePartition(a, s, l, m, p, d, o),
             t = rotatePartition(a, s, m+1, r, p, d, o);
         IndexedRotations.cycleReverse(a, m-q+1, m+1, r-t+1, 0.5, true, false);
-        if(d == 1) {
-            if(q+t == 0) {
+        if (d == 1) {
+            if (q+t == 0) {
                 Writes.write(s, o+4, -1, 0.25, true, true);
                 ExpliciumSort fallback = new ExpliciumSort(arrayVisualizer);
                 fallback.Explic(a, l, r+1);
@@ -257,30 +257,30 @@ final public class LeadInQuickSort extends Sort {
                 break;
             case SINGULARITY:
                 med = l;
-                while(med <= r && Reads.compareIndices(a, med, med+1, 0.05, true) <= 0) {
+                while (med <= r && Reads.compareIndices(a, med, med+1, 0.05, true) <= 0) {
                     med++;
                 }
-                if(med > r)
+                if (med > r)
                     return;
                 break;
         }
         Writes.write(rec, o+4, 2, 0.25, true, true);
         int i = l, j = r, p = a[med];
-        if((gear & 4) > 0) {
+        if ((gear & 4) > 0) {
             rotatePartition(a, rec, l, r, p, 0, o);
         } else {
-            while(i <= j) {
-                while(i <= j && Reads.compareValues(a[i], p) < 0) {
+            while (i <= j) {
+                while (i <= j && Reads.compareValues(a[i], p) < 0) {
                     i++;
                     Highlights.markArray(1, i);
                     Delays.sleep(0.25);
                 }
-                while(i <= j && Reads.compareValues(a[j], p) > 0) {
+                while (i <= j && Reads.compareValues(a[j], p) > 0) {
                     j--;
                     Highlights.markArray(2, j);
                     Delays.sleep(0.25);
                 }
-                if(i <= j) {
+                if (i <= j) {
                     Writes.swap(a, i++, j--, 1, true, false);
                 }
             }
@@ -291,9 +291,9 @@ final public class LeadInQuickSort extends Sort {
     public void quickSort(int[] a, int p, int q) {
         int depth = ((q-p+3)/2);
         LazicciSort fallback = new LazicciSort(arrayVisualizer);
-        if((gear & 1) > 0) {
+        if ((gear & 1) > 0) {
             int log = 0;
-            while(depth > 0) {
+            while (depth > 0) {
                 log++;
                 depth/=2;
             }
@@ -302,31 +302,31 @@ final public class LeadInQuickSort extends Sort {
         int[] record = Writes.createExternalArray(5*depth);
         partitionAndStore(a, record, p, q, 0);
         int sp = 0;
-        while(true) {
-            if(record[sp+3]<=record[sp]) {
+        while (true) {
+            if (record[sp+3]<=record[sp]) {
                 Writes.write(record, sp+4, record[sp+4]-1, 0.25, true, true);
                 sp-=5;
             }
-            while(sp >= 0 && record[sp+4] == 0)
+            while (sp >= 0 && record[sp+4] == 0)
                 sp-=5;
-            if(sp < 0)
+            if (sp < 0)
                 break;
             int o = record[sp+4] & 2;
             int l = record[sp+o], r = record[sp+o+1];
-            if(l < r) {
-                if(sp+9 < record.length && record[sp+4] >= 0) {
+            if (l < r) {
+                if (sp+9 < record.length && record[sp+4] >= 0) {
                     partitionAndStore(a, record, l, r, sp+5);
                     Writes.write(record, sp+4, record[sp+4]-1, 0.25, true, true);
                     sp+=5;
                 } else {
                     fallback.lazicciStable(a, l, r+1);
-                    if(record[sp+4] < 0) {
+                    if (record[sp+4] < 0) {
                         Writes.write(record, sp+4, 1, 0.25, true, true);
                     } else
                         Writes.write(record, sp+4, record[sp+4]-1, 0.25, true, true);
                 }
             } else {
-                if(record[sp+4] < 0) {
+                if (record[sp+4] < 0) {
                     Writes.write(record, sp+4, 1, 0.25, true, true);
                 }
                     Writes.write(record, sp+4, record[sp+4]-1, 0.25, true, true);

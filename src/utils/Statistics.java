@@ -99,7 +99,7 @@ final public class Statistics {
         this.reversalCount = ArrayVisualizer.getWrites().getReversals();
         this.recCount = ArrayVisualizer.getWrites().getRecursions();
         this.recDepth = ArrayVisualizer.getWrites().getRecursionDepth();
-        if(!this.bigo)
+        if (!this.bigo)
             this.bigO = "";
 
         this.mainWriteCount = ArrayVisualizer.getWrites().getMainWrites();
@@ -125,10 +125,10 @@ final public class Statistics {
             Collections.sort(lst, (a,b)->a.getValue().compareTo(b.getValue()));
             // System.out.println(lst);
             int j=0;
-            while(j < lst.size() && lst.get(j).getValue().compareTo(comps) < 0) {
+            while (j < lst.size() && lst.get(j).getValue().compareTo(comps) < 0) {
                 j++;
             }
-            if(j < lst.size() && comps.compareTo(lst.get(j).getValue().divide(BigInteger.TEN)) < 0) {
+            if (j < lst.size() && comps.compareTo(lst.get(j).getValue().divide(BigInteger.TEN)) < 0) {
                 j--;
             }
             MathContext n = new MathContext(4);
@@ -152,7 +152,7 @@ final public class Statistics {
     }
     public ArrayList<String> parseMap() {
         ArrayList<String> strs = new ArrayList<>();
-        for(Map.Entry<String, Long> stat : addedCounts.entrySet()) {
+        for (Map.Entry<String, Long> stat : addedCounts.entrySet()) {
             long val = stat.getValue();
             strs.add(formatter.format(val) + " " + stat.getKey() + (val==1?"":"s"));
         }

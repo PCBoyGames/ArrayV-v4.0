@@ -51,7 +51,7 @@ final public class BufferedBlockSelectionMergeSort extends Sort {
     }
 
     private void multiSwap(int[] array, int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(array, a+i, b+i, 1, true, false);
     }
 
@@ -62,13 +62,13 @@ final public class BufferedBlockSelectionMergeSort extends Sort {
     private void mergeAboveBW(int[] array, int a1, int b1, int a, int b) {
         int p = (b1--)+(b--)-a;
 
-        while(b >= a && b1 >= a1) {
-            if(Reads.compareValues(array[b], array[b1]) >= 0)
+        while (b >= a && b1 >= a1) {
+            if (Reads.compareValues(array[b], array[b1]) >= 0)
                 Writes.swap(array, --p, b--, 1, true, false);
             else
                 Writes.swap(array, --p, b1--, 1, true, false);
         }
-        while(b >= a) Writes.swap(array, --p, b--, 1, true, false);
+        while (b >= a) Writes.swap(array, --p, b--, 1, true, false);
     }
     private void mergeBW(int[] array, int a, int m, int b, int p) {
         int pLen = b-m;
@@ -76,26 +76,26 @@ final public class BufferedBlockSelectionMergeSort extends Sort {
 
         int i = pLen-1, j = m-1, k = b-1;
 
-        while(i >= 0 && j >= a) {
-            if(Reads.compareValues(array[p+i], array[j]) >= 0)
+        while (i >= 0 && j >= a) {
+            if (Reads.compareValues(array[p+i], array[j]) >= 0)
                 Writes.swap(array, k--, p+(i--), 1, true, false);
             else
                 Writes.swap(array, k--, j--, 1, true, false);
         }
-        while(i >= 0) Writes.swap(array, k--, p+(i--), 1, true, false);
+        while (i >= 0) Writes.swap(array, k--, p+(i--), 1, true, false);
     }
     private void inPlaceMergeUnstable(int[] array, int a, int m, int b) {
         int bLen = this.sqrt(b-a), a1 = a+(m-a-1)%bLen+1, b1 = b-(b-m)%bLen;
 
         this.multiSwap(array, a1, this.blockLesser(array, m-bLen, b1-bLen, bLen) ? b1-bLen : m-bLen, bLen);
 
-        for(a1 += bLen; a1 < b1; a1 += bLen) {
+        for (a1 += bLen; a1 < b1; a1 += bLen) {
             int min = a1;
 
-            for(int i = a1+bLen; i < b1; i += bLen)
-                if(this.blockLesser(array, i, min, bLen)) min = i;
+            for (int i = a1+bLen; i < b1; i += bLen)
+                if (this.blockLesser(array, i, min, bLen)) min = i;
 
-            if(min > a1) this.multiSwap(array, min, a1, bLen);
+            if (min > a1) this.multiSwap(array, min, a1, bLen);
             this.mergeAboveBW(array, a, a1-bLen, a1, a1+bLen);
         }
         this.mergeAboveBW(array, a, a1-bLen, a1, b);
@@ -108,7 +108,7 @@ final public class BufferedBlockSelectionMergeSort extends Sort {
     }
 
     private void mergeSort(int[] array, int a, int b) {
-        if(b-a < 32) {
+        if (b-a < 32) {
             BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
             smallSort.customBinaryInsert(array, a, b, 0.25);
 

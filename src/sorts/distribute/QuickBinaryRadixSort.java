@@ -49,22 +49,22 @@ final public class QuickBinaryRadixSort extends Sort {
         int i = a - 1;
         int j = b;
 
-        while(true) {
+        while (true) {
             i++;
-            while(i < b && !Reads.getBit(array[i], bit)) {
+            while (i < b && !Reads.getBit(array[i], bit)) {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
                 i++;
             }
 
             j--;
-            while(j >= a && Reads.getBit(array[j], bit)) {
+            while (j >= a && Reads.getBit(array[j], bit)) {
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
                 j--;
             }
 
-            if(i < j) Writes.swap(array, i, j, 1, true, false);
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else      return i;
         }
     }
@@ -72,15 +72,15 @@ final public class QuickBinaryRadixSort extends Sort {
     private void radixLSD(int[] array, int a, int b, int p, int bit) {
         int m = p;
 
-        for(int i = a; i < b; i++) {
-            if(!Reads.getBit(array[i], bit)) m++;
+        for (int i = a; i < b; i++) {
+            if (!Reads.getBit(array[i], bit)) m++;
             Highlights.markArray(1, i);
             Highlights.markArray(2, m);
             Delays.sleep(0.5);
         }
 
-        for(int i = a; i < b; i++) {
-            if(Reads.getBit(array[i], bit))
+        for (int i = a; i < b; i++) {
+            if (Reads.getBit(array[i], bit))
                 Writes.swap(array, i, m++, 0.5, true, false);
             else
                 Writes.swap(array, i, p++, 0.5, true, false);
@@ -90,11 +90,11 @@ final public class QuickBinaryRadixSort extends Sort {
     private void radixLSDSort(int[] array, int a, int b, int p, int maxBit) {
         int pow = 0, length = b-a;
 
-        while(pow < maxBit) {
+        while (pow < maxBit) {
             this.radixLSD(array, a, b, p, pow++);
 
-            if(pow >= maxBit) {
-                for(int i = 0; i < length; i++)
+            if (pow >= maxBit) {
+                for (int i = 0; i < length; i++)
                     Writes.swap(array, a+i, p+i, 0.5, true, false);
                 return;
             }
@@ -104,13 +104,13 @@ final public class QuickBinaryRadixSort extends Sort {
 
     private void quickRadixSort(int[] array, int a, int b, int maxBit) {
         int start = a, end = b;
-        while(maxBit >= 0) {
+        while (maxBit >= 0) {
             int p = this.partition(array, start, end, maxBit);
 
             int left  = p-start;
             int right = end-p;
 
-            if(left < right) {
+            if (left < right) {
                 this.radixLSDSort(array, start, p, p, maxBit);
                 start = p;
             }

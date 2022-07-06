@@ -63,17 +63,17 @@ final public class OptimizedLazyStableSort extends GrailSorting {
         if (dist < len)
             inserter.insertionSort(arr, pos + dist, pos + len, 1, false);
 
-        for(int part = 16; part < len; part *= 2) {
+        for (int part = 16; part < len; part *= 2) {
             int left = 0;
             int right = len - 2 * part;
 
-            while(left <= right) {
+            while (left <= right) {
                 this.grailMergeWithoutBuffer(arr, pos + left, part, part);
                 left += 2 * part;
             }
 
             int rest = len - left;
-            if(rest > part) {
+            if (rest > part) {
                 this.grailMergeWithoutBuffer(arr, pos + left, part, rest - part);
             }
         }

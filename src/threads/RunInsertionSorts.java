@@ -119,7 +119,7 @@ final public class RunInsertionSorts extends MultipleSortThread {
 
     @Override
     protected synchronized void runThread(int[] array, int current, int total, boolean runAllActive) throws Exception {
-        if(arrayVisualizer.isActive())
+        if (arrayVisualizer.isActive())
             return;
 
         Sounds.toggleSound(true);
@@ -127,7 +127,7 @@ final public class RunInsertionSorts extends MultipleSortThread {
             @Override
             public void run() {
                 try{
-                    if(runAllActive) {
+                    if (runAllActive) {
                         RunInsertionSorts.this.sortNumber = current;
                         RunInsertionSorts.this.sortCount = total;
                     }
@@ -141,7 +141,7 @@ final public class RunInsertionSorts extends MultipleSortThread {
 
                     RunInsertionSorts.this.executeSortList(array);
 
-                    if(!runAllActive) {
+                    if (!runAllActive) {
                         arrayVisualizer.setCategory("Run Insertion Sorts");
                         arrayVisualizer.setHeading("Done");
                     }

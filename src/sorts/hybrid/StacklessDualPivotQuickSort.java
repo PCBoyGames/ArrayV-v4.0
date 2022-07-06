@@ -49,7 +49,7 @@ final public class StacklessDualPivotQuickSort extends Sort {
     private int partition(int[] array, int a, int b, int p) {
         int m1 = (a+a+b)/3, m2 = (a+b+b)/3;
 
-        if(Reads.compareIndices(array, m1, m2, 1, true) > 0) {
+        if (Reads.compareIndices(array, m1, m2, 1, true) > 0) {
             Writes.swap(array, m1, a, 1, true, false);
             Writes.swap(array, m2, --b, 1, true, false);
         }
@@ -60,22 +60,22 @@ final public class StacklessDualPivotQuickSort extends Sort {
 
         int i = a, j = b;
 
-        for(int k = i+1; k < j; k++) {
-            if(Reads.compareValues(array[k], array[b]) < 0)
+        for (int k = i+1; k < j; k++) {
+            if (Reads.compareValues(array[k], array[b]) < 0)
                 Writes.swap(array, k, ++i, 1, true, false);
 
-            else if(Reads.compareValues(array[k], array[a]) >= 0) {
+            else if (Reads.compareValues(array[k], array[a]) >= 0) {
                 do {
                     j--;
                     Highlights.markArray(3, j);
                     Delays.sleep(1);
                 }
-                while(j > k && Reads.compareValues(array[j], array[a]) >= 0);
+                while (j > k && Reads.compareValues(array[j], array[a]) >= 0);
 
                 Writes.swap(array, k, j, 1, true, false);
                 Highlights.clearMark(3);
 
-                if(Reads.compareValues(array[k], array[b]) < 0)
+                if (Reads.compareValues(array[k], array[b]) < 0)
                     Writes.swap(array, k, ++i, 1, true, false);
             }
         }
@@ -90,10 +90,10 @@ final public class StacklessDualPivotQuickSort extends Sort {
     }
 
     private int leftBinSearch(int[] array, int a, int b, int p) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
 
-            if(Reads.compareIndices(array, p, m, 1, true) <= 0)
+            if (Reads.compareIndices(array, p, m, 1, true) <= 0)
                 b = m;
             else
                 a = m+1;
@@ -105,17 +105,17 @@ final public class StacklessDualPivotQuickSort extends Sort {
     private void quickSort(int[] array, int a, int b) {
         int max = array[a];
 
-        for(int i = a+1; i < b; i++) {
+        for (int i = a+1; i < b; i++) {
             Highlights.markArray(1, i);
             Delays.sleep(0.5);
 
-            if(Reads.compareValues(array[i], max) > 0) max = array[i];
+            if (Reads.compareValues(array[i], max) > 0) max = array[i];
         }
-        for(int i = b-1; i >= 0; i--) {
+        for (int i = b-1; i >= 0; i--) {
             Highlights.markArray(1, i);
             Delays.sleep(0.5);
 
-            if(Reads.compareValues(array[i], max) == 0)
+            if (Reads.compareValues(array[i], max) == 0)
                 Writes.swap(array, i, --b, 1, true, false);
         }
 
@@ -124,16 +124,16 @@ final public class StacklessDualPivotQuickSort extends Sort {
         BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 
         do {
-            while(b1-a > 24) {
-                if(!med) Writes.swap(array, a, (a+a+b1)/3, 1, true, false);
+            while (b1-a > 24) {
+                if (!med) Writes.swap(array, a, (a+a+b1)/3, 1, true, false);
 
                 b1 = this.partition(array, a, b1, b);
             }
             smallSort.customBinaryInsert(array, a, b1, 0.25);
 
             a = b1+1;
-            if(a >= b) {
-                if(a-1 < b) Writes.swap(array, a-1, b, 1, true, false);
+            if (a >= b) {
+                if (a-1 < b) Writes.swap(array, a-1, b, 1, true, false);
                 return;
             }
 
@@ -141,13 +141,13 @@ final public class StacklessDualPivotQuickSort extends Sort {
             Writes.swap(array, a-1, b, 1, true, false);
 
             med = true;
-            while(a < b1 && Reads.compareIndices(array, a-1, a, 0.5, true) == 0) {
+            while (a < b1 && Reads.compareIndices(array, a-1, a, 0.5, true) == 0) {
                 med = false;
                 a++;
             }
-            if(a == b1) med = true;
+            if (a == b1) med = true;
         }
-        while(true);
+        while (true);
     }
 
     @Override

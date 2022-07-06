@@ -1,3 +1,4 @@
+
 package test;
 
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class Tester {
 
     public static void main(String[] args) throws Exception {
         int[] testArr = new int[32];
-        for(int i = 0; i < testArr.length; i++) {
+        for (int i = 0; i < testArr.length; i++) {
             testArr[i] = i;
         }
 
@@ -64,7 +65,7 @@ public class Tester {
         Reads = new Reads(av);
         Writes = new Writes(av);
 
-        for(int i = 0; i < testArr.length; i++){
+        for (int i = 0; i < testArr.length; i++) {
             Writes.swap(testArr, i, (int)(Math.random()*testArr.length), 0, false, false);
         }
 

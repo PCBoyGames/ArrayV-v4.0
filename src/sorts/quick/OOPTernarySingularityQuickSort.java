@@ -272,23 +272,23 @@ public final class OOPTernarySingularityQuickSort extends Sort {
         int mRun = b - a;
         while (mRun >= 32)
             mRun = (mRun - 1) / 2 + 1;
-        while(true) {
+        while (true) {
             i = findRun(array, a, b, mRun);
-            if(i >= b)
+            if (i >= b)
                 return;
             j = findRun(array, i, b, mRun);
             merge(array, buf, a, i, j);
             Highlights.clearMark(2);
-            if(j >= b)
+            if (j >= b)
                 return;
             k = j;
-            while(true) {
+            while (true) {
                 i = findRun(array, k, b, mRun);
-                if(i >= b)
+                if (i >= b)
                     break;
                 j = findRun(array, i, b, mRun);
                 merge(array, buf, k, i, j);
-                if(j >= b)
+                if (j >= b)
                     break;
                 k = j;
             }
@@ -297,7 +297,7 @@ public final class OOPTernarySingularityQuickSort extends Sort {
 
     // same as arraycopy, but reverses the elements being copied at the same time
     protected void copyReverse(int[] src, int srcPos, int[] dest, int destPos, int len, boolean aux) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.write(dest, destPos + i, src[srcPos + len - 1 - i], 0.5, !aux, aux);
     }
 
@@ -307,9 +307,9 @@ public final class OOPTernarySingularityQuickSort extends Sort {
         int p0 = a, p1 = 0, p2 = len;
         for (int i = a; i < b; i++) {
             int cmp = Reads.compareIndexValue(array, i, piv, 0.5, true);
-            if(cmp < 0)
+            if (cmp < 0)
                 Writes.write(array, p0++, array[i], 0.5, true, false);
-            else if(cmp == 0)
+            else if (cmp == 0)
                 Writes.write(buf, --p2, array[i], 0.5, false, true);
             else
                 Writes.write(buf, p1++, array[i], 0.5, false, true);
@@ -327,7 +327,7 @@ public final class OOPTernarySingularityQuickSort extends Sort {
                 return;
             }
             int pIdx = a + 1;
-            while(pIdx < b && Reads.compareIndices(array, pIdx - 1, pIdx, 0.125, true) <= 0)
+            while (pIdx < b && Reads.compareIndices(array, pIdx - 1, pIdx, 0.125, true) <= 0)
                 pIdx++;
             if (pIdx >= b)
                 return;

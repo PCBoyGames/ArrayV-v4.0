@@ -476,13 +476,12 @@ public enum Shuffles {
         @Override
         public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
             Random random = new Random();
 
             for (int i = 1; i < currentLen; i += 2) {
                 int randomIndex = (((random.nextInt(currentLen - i) / 2)) * 2) + i;
-                if (i != randomIndex) Writes.swap(array, i, randomIndex, 0, true, false);
-
-                if (ArrayVisualizer.shuffleEnabled()) Delays.sleep(2);
+                if (i != randomIndex) Writes.swap(array, i, randomIndex, delay ? 2 : 0, true, false);
             }
         }
     },

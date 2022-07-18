@@ -1,20 +1,28 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.insert.BlockInsertionSort;
-import sorts.select.SmoothSort;
-import sorts.templates.GrailSorting;
+import sorts.templates.Sort;
+
+/*
+
+Coded for ArrayV by Ayako-chan
+in collaboration with aphitorite, Distray and Potassium
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
 
 /**
+ * @author Ayako-chan
  * @author aphitorite
- * @author EilrahcF
+ * @author Distray
+ * @author Potassium
  *
  */
-public final class PotassiumSort extends GrailSorting {
+public final class PotassiumSort extends Sort {
 
-    /**
-     * @param arrayVisualizer
-     */
     public PotassiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         setSortListName("Potassium");
@@ -24,214 +32,313 @@ public final class PotassiumSort extends GrailSorting {
         setComparisonBased(true);
         setBucketSort(false);
         setRadixSort(false);
-        setUnreasonablySlow(true);
-        setUnreasonableLimit(2048);
+        setUnreasonablySlow(false);
+        setUnreasonableLimit(0);
         setBogoSort(false);
-
     }
 
-    int end2 = 0;
-    int end = 0;
-    int block = 0;
-
-       public int avg(int a, int b) {
-            return Math.abs(b - a)/2 + a;
+    protected void cycleReverse(int[] array, int a, int m, int b) {
+        int p0 = a, p1 = m - 1, p2 = m, p3 = b - 1;
+        int tmp;
+        while (p0 < p1 && p2 < p3) {
+            tmp = array[p1];
+            Writes.write(array, p1--, array[p0], 0.5, true, false);
+            Writes.write(array, p0++, array[p2], 0.5, true, false);
+            Writes.write(array, p2++, array[p3], 0.5, true, false);
+            Writes.write(array, p3--, tmp, 0.5, true, false);
         }
-
-        public int avg31(int a, int b) {
-            return Math.abs(b - a)/3 + a;
+        while (p0 < p1) {
+            tmp = array[p1];
+            Writes.write(array, p1--, array[p0], 0.5, true, false);
+            Writes.write(array, p0++, array[p3], 0.5, true, false);
+            Writes.write(array, p3--, tmp, 0.5, true, false);
         }
-
-        public int avg32(int a, int b) {
-            return Math.abs(b - a)/3*2 + a;
+        while (p2 < p3) {
+            tmp = array[p2];
+            Writes.write(array, p2++, array[p3], 0.5, true, false);
+            Writes.write(array, p3--, array[p0], 0.5, true, false);
+            Writes.write(array, p0++, tmp, 0.5, true, false);
         }
+        if (p0 < p3) { // don't count reversals that don't do anything
+            if (p3 - p0 >= 3)
+                Writes.reversal(array, p0, p3, 1, true, false);
+            else
+                Writes.swap(array, p0, p3, 1, true, false);
+            Highlights.clearMark(2);
+        }
+    }
 
-        // Thanks to Timo Bingmann for providing a good reference for Quick Sort w/ LR pointers.
-        private void quickSort(int[] a, int p, int r, int d) {
-            Writes.recordDepth(d);
+    void multiSwap(int[] array, int a, int b, int len) {
+        for (int i = 0; i < len; i++)
+            Writes.swap(array, a + i, b + i, 1, true, false);
+    }
 
-            if (d >= log2(this.end2)) {
-                SmoothSort sort = new SmoothSort(this.arrayVisualizer);
-                sort.smoothSort(a, p, r, true);
-                return;
-            }
+    void multiSwapBW(int[] array, int a, int b, int len) {
+        for (int i = len - 1; i >= 0; i--)
+            Writes.swap(array, a + i, b + i, 1, true, false);
+    }
 
-            int length = r - p;
-            if (length > this.end2/Math.sqrt(log2(this.end2))) {
-                int pivot      = avg(p, r);
-                int pLeft      = p;
-                int pLeftL = avg31(pLeft, pivot);
-                int pLeftR = avg32(pLeft, pivot);
+    protected void insertTo(int[] array, int a, int b) {
+        Highlights.clearMark(2);
+        int temp = array[a];
+        int d = (a > b) ? -1 : 1;
+        for (int i = a; i != b; i += d)
+            Writes.write(array, i, array[i + d], 0.5, true, false);
+        if (a != b)
+            Writes.write(array, b, temp, 0.5, true, false);
+    }
 
-                int pRight     = r;
-                int pRightL = avg31(pivot, pRight);
-                int pRightR = avg32(pivot, pRight);
-
-
-                Writes.swap(a, 0, pLeft,     1, true, false);
-                Writes.swap(a, 1, pLeftL,     1, true, false);
-                Writes.swap(a, 2, pLeftR,     1, true, false);
-                Writes.swap(a, 3, pivot,     1, true, false);
-                Writes.swap(a, 4, pRightL,     1, true, false);
-                Writes.swap(a, 5, pRightR,     1, true, false);
-                Writes.swap(a, 6, pRight,     1, true, false);
-
-                sort.insertionSort(a, 0, 7);
-
-                Writes.swap(a, pLeft,     0,     1, true, false);
-                Writes.swap(a, pLeftL,     1,    1, true, false);
-                Writes.swap(a, pLeftR,     2,    1, true, false);
-                Writes.swap(a, pivot,     3,    1, true, false);
-                Writes.swap(a, pRightL, 4,    1, true, false);
-                Writes.swap(a, pRightR, 5,    1, true, false);
-                Writes.swap(a, pRight,     6,    1, true, false);
-
-                int x = a[pivot];
-
-                int i = p;
-                int j = r;
-
-                Highlights.markArray(3, pivot);
-
-                while (i <= j) {
-                    while (Reads.compareValues(a[i], x) == -1) {
-                        i++;
-                        Highlights.markArray(1, i);
-                        Delays.sleep(0.5);
-                    }
-                    while (Reads.compareValues(a[j], x) == 1) {
-                        j--;
-                        Highlights.markArray(2, j);
-                        Delays.sleep(0.5);
-                    }
-
-                    if (i <= j) {
-                        // Follow the pivot and highlight it.
-                        if (i == pivot) {
-                            Highlights.markArray(3, j);
-                        }
-                        if (j == pivot) {
-                            Highlights.markArray(3, i);
-                        }
-
-                        Writes.swap(a, i, j, 1, true, false);
-
-                        i++;
-                        j--;
-                    }
+    protected void rotate(int[] array, int a, int m, int b) {
+        Highlights.clearAllMarks();
+        if (a >= m || m >= b)
+            return;
+        int l = m - a, r = b - m;
+        if (l % r == 0 || r % l == 0) {
+            while (l > 1 && r > 1) {
+                if (r < l) {
+                    this.multiSwap(array, m - r, m, r);
+                    b -= r;
+                    m -= r;
+                    l -= r;
+                } else {
+                    this.multiSwap(array, a, m, l);
+                    a += l;
+                    m += l;
+                    r -= l;
                 }
-
-                //Writes.reversal(a, i, r, 0.5, true, false);
-
-
-                if (i < r) { Writes.recursion(); this.quickSort(a, i, r, d+1); }
-                if (p < j) { Writes.recursion(); this.quickSort(a, p, j, d+1); }
-
-
-            } else { Highlights.clearAllMarks(); this.stableDiamondInit(a, p, r+1); }
-        }
-
-        public void pull(int[] array, int a, int b, double sleep, boolean mark, boolean aux) {
-            for (int j = a; j < b; j++) {
-                Writes.swap(array, j, j + 1, sleep, mark, aux);
             }
+            if (r == 1)
+                this.insertTo(array, m, a);
+            else if (l == 1)
+                this.insertTo(array, a, b - 1);
+        } else
+            cycleReverse(array, a, m, b);
+    }
+
+    protected int binSearch(int[] array, int a, int b, int val, boolean left) {
+        while (a < b) {
+            int m = a + (b - a) / 2;
+            Highlights.markArray(2, m);
+            Delays.sleep(0.25);
+            int c = Reads.compareValues(val, array[m]);
+            if (c < 0 || (left && c == 0))
+                b = m;
+            else
+                a = m + 1;
         }
+        return a;
+    }
 
-        public static int log2(int n) { //stackoverflow version
-            if (n <= 0) throw new IllegalArgumentException();
-            return 31 - Integer.numberOfLeadingZeros(n);
+    protected int expSearch(int[] array, int a, int b, int val, boolean dir, boolean left) {
+        int i = 1;
+        int a1, b1;
+        if (dir) {
+            if (left)
+                while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0)
+                    i *= 2;
+            else
+                while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0)
+                    i *= 2;
+            a1 = a + i / 2;
+            b1 = Math.min(b, a - 1 + i);
+        } else {
+            if (left)
+                while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0)
+                    i *= 2;
+            else
+                while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
+                    i *= 2;
+            a1 = Math.max(a, b - i + 1);
+            b1 = b - i / 2;
         }
+        return binSearch(array, a1, b1, val, left);
+    }
 
+    protected void insertSort(int[] array, int a, int b) {
+        int i = a + 1;
+        if (i >= b)
+            return;
+        if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
+                i++;
+            if (i - a < 4)
+                Writes.swap(array, a, i - 1, 1.0, true, false);
+            else
+                Writes.reversal(array, a, i - 1, 1.0, true, false);
+        } else
+            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
+                i++;
+        Highlights.clearMark(2);
+        for (; i < b; i++)
+            insertTo(array, i, expSearch(array, a, i, array[i], false, false));
+    }
 
-    BlockInsertionSort sort = new BlockInsertionSort(this.arrayVisualizer);
-
-
-    private boolean isRangeSorted(int[] array, int start, int end, boolean mark, boolean markLast) {
-        for (int i = end - 1; i > start; --i) {
-            if (Reads.compareIndices(array, i - 1, i, 0.1, mark) > 0) {
-                //Highlights.incrementFancyFinishPosition();
-                if (markLast) Highlights.markArray(3, i + 1);
-                return false;
-            }
+    protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
+        while (a < m && m < b) {
+            int i = expSearch(array, m, b, array[a], true, true);
+            rotate(array, a, m, i);
+            int t = i - m;
+            m = i;
+            a += t + 1;
+            if (a >= m)
+                break;
+            a = expSearch(array, a, m, array[m], true, false);
         }
+    }
+
+    protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
+        while (b > m && m > a) {
+            int i = expSearch(array, a, m, array[b - 1], false, false);
+            rotate(array, i, m, b);
+            int t = m - i;
+            m = i;
+            b -= t + 1;
+            if (m <= a)
+                break;
+            b = expSearch(array, m, b, array[m - 1], false, true);
+        }
+    }
+
+    protected boolean merge(int[] array, int a, int m, int b) {
+        if (Reads.compareValues(array[m - 1], array[m]) <= 0)
+            return false;
+        a = expSearch(array, a, m, array[m], true, false);
+        b = expSearch(array, m, b, array[m - 1], false, true);
+        if (m - a > b - m)
+            inPlaceMergeBW(array, a, m, b);
+        else
+            inPlaceMergeFW(array, a, m, b);
         return true;
     }
 
-    private void quadStooge(int[] array, int pos, int len, int d) {
-        if (pos >= end) return;
-        if (pos + len >= end) len = end - pos;
+    protected boolean diamondMerge(int[] array, int a, int m, int b, int block) {
+        if (a >= m || m >= b)
+            return true;
+        if (Math.min(m - a, b - m) <= block)
+            return merge(array, a, m, b);
+        int q = (Math.min(m - a, b - m) - 1) / 2 + 1;
+        if (diamondMerge(array, m - q, m, m + q, block)) {
+            diamondMerge(array, a, m - q, m, block);
+            diamondMerge(array, m, m + q, b, block);
+            diamondMerge(array, a + q, m, b - q, block);
+            return true;
+        }
+        return false;
+    }
 
-        Writes.recordDepth(d);
-        if (isRangeSorted(array, pos, pos + len, true, false)) return;
-
-        //if (len > block && this.Reads.compareValues(array[pos], array[pos + len - 1]) == 1) {
-        //    Writes.swap(array, pos, pos + len - 1, 1, true, false);
-        //}
-        if (len <= block*2) {
-            sort.insertionSort(array, pos, pos+len);
+    protected void stoogeSort(int[] array, int a, int b, int block) {
+        if (b - a <= block) {
+            insertSort(array, a, b);
             return;
         }
-        this.Delays.sleep(0.5D);
+        int m = a + (b - a) / 2;
+        stoogeSort(array, a, m, block);
+        stoogeSort(array, m, b, block);
+        diamondMerge(array, a, m, b, block);
+    }
 
-        this.Highlights.markArray(1, pos);
-        this.Highlights.markArray(2, pos + len - 1);
-
-        int len1 = len / 2;
-        int len2 = (len + 1) / 2;
-        int len3 = (len1 + 1) / 2 + (len2 + 1) / 2;
-
-
-        Writes.recursion(5);
-        quadStooge(array, pos, len1, d + 1);
-        quadStooge(array, pos + len1, len2, d + 1);
-        quadStooge(array, pos + len1 / 2, len3, d + 1);
-        quadStooge(array, pos + len1, len2, d + 1);
-        quadStooge(array, pos, len1, d + 1);
-        if (len > 3) {
-            Writes.recursion();
-            quadStooge(array, pos + len1 / 2, len3, d + 1);
+    public int partition(int[] array, int a, int b, int p) {
+        int i = a, j = b;
+        Writes.swap(array, a, p, 1, true, false);
+        Highlights.markArray(3, a);
+        while (true) {
+            do {
+                i++;
+                Highlights.markArray(1, i);
+                Delays.sleep(0.5);
+            } while (i < j && Reads.compareIndices(array, i, a, 0, false) < 0);
+            do {
+                j--;
+                Highlights.markArray(2, j);
+                Delays.sleep(0.5);
+            } while (j >= i && Reads.compareIndices(array, j, a, 0, false) > 0);
+            if (i < j)
+                Writes.swap(array, i, j, 1, true, false);
+            else {
+                Writes.swap(array, a, j, 1, true, false);
+                Highlights.clearMark(3);
+                return j;
+            }
         }
     }
 
-    public void stableDiamond(int[] array, int start, int end) {
-
-        if (isRangeSorted(array, start, end, true, false)) return;
-
-            for (int i = block; i < end - start; i *= 2) {
-                for (int j = start; j < end; j += i) {
-                quadStooge(array, j, i, 0);}}
-        if (isRangeSorted(array, start, end, true, false)) return;
-        quadStooge(array, start, end, 0);
+    protected int medOf3(int[] array, int l0, int l1, int l2) {
+        int t;
+        if (Reads.compareIndices(array, l0, l1, 1, true) > 0) {
+            t = l0;
+            l0 = l1;
+            l1 = t;
+        }
+        if (Reads.compareIndices(array, l1, l2, 1, true) > 0) {
+            t = l1;
+            l1 = l2;
+            l2 = t;
+            if (Reads.compareIndices(array, l0, l1, 1, true) > 0)
+                return l0;
+        }
+        return l1;
     }
 
-    public void stableDiamondInit(int[] array, int start, int end) {
-        int len = end - start + 1;
+    // median of medians with customizable depth
+    protected int medOfMed(int[] array, int start, int end, int depth) {
+        if (end - start < 9 || depth <= 0)
+            return medOf3(array, start, start + (end - start) / 2, end);
+        int div = (end - start) / 8;
+        int m0 = medOfMed(array, start, start + 2 * div, --depth);
+        int m1 = medOfMed(array, start + 3 * div, start + 5 * div, depth);
+        int m2 = medOfMed(array, start + 6 * div, end, depth);
+        return medOf3(array, m0, m1, m2);
+    }
 
-        this.end = end;
-        block = (int)Math.floor(Math.sqrt(end-start + 1));
-        if (block*block == len) {
-            stableDiamond(array, start, end);
-        } else {
-            int n = len - block*block + 1;
+    public boolean getSortedRuns(int[] array, int a, int b) {
+        Highlights.clearAllMarks();
+        boolean reverseSorted = true;
+        boolean sorted = true;
+        int comp;
 
-            stableDiamond(array, start + n, end);
-            sort.insertionSort(array, start, start + n);
-
-            this.grailMergeWithoutBuffer(array, start, n, len);
+        for (int i = a; i < b - 1; i++) {
+            comp = Reads.compareIndices(array, i, i + 1, 0.5, true);
+            if (comp > 0)
+                sorted = false;
+            else
+                reverseSorted = false;
+            if ((!reverseSorted) && (!sorted))
+                return false;
         }
 
-        sort.insertionSort(array, end-(int)Math.sqrt(len), end);
+        if (reverseSorted && !sorted) {
+            Writes.reversal(array, a, b - 1, 1, true, false);
+            sorted = true;
+        }
 
+        return sorted;
+    }
+
+    protected void sortHelper(int[] array, int a, int b, int threshold) {
+        while (b - a > threshold) {
+            if (getSortedRuns(array, a, b))
+                return;
+            int pIdx = medOfMed(array, a, b - 1, (int) (Math.log(b - a) / Math.log(6)));
+            int p = partition(array, a, b, pIdx);
+            if (b - (p + 1) < p - a) {
+                sortHelper(array, p + 1, b, threshold);
+                b = p;
+            } else {
+                sortHelper(array, a, p, threshold);
+                a = p + 1;
+            }
+        }
+        stoogeSort(array, a, b, (int) Math.sqrt(b - a - 1) + 1);
+    }
+
+    public void sort(int[] array, int a, int b) {
+        sortHelper(array, a, b, (int) Math.pow(b - a, 0.67));
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        this.end2 = sortLength;
-        if (sortLength > 16) {
-            sort.insertionSort(array, 0, 7);
-            this.quickSort(array, 7, sortLength - 1, 0);
-            //sort2.insertionSort(array, 8, currentLength);
-            this.grailMergeWithoutBuffer(array, 0, 7, sortLength - 1);
-        } else sort.insertionSort(array, 0, sortLength);
+        sort(array, 0, sortLength);
+
     }
+
 }

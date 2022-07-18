@@ -453,7 +453,7 @@ final public class ArrayVisualizer {
                 ArrayVisualizer.this.visualClasses[9]  = new       CustomImage(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[10] = new          SineWave(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[11] = new         HoopStack(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[12] = new         PixelMesh(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[12] = new         PixelMeshRectangle(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[13] = new            Spiral(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[14] = new        SpiralDots(ArrayVisualizer.this);
 

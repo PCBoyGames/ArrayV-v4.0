@@ -119,7 +119,7 @@ final public class PDSegmentedSort extends GrailSorting {
                 }
             }
         }
-        if (initlimit) initend = last + 1;
+        if (initlimit) initend = last;
         else if (segmentcount == lastcheck) initlimit = true;
         return anyswaps;
     }

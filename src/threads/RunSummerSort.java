@@ -8,11 +8,15 @@ import sorts.concurrent.VanVoorhisFourFourSortIterative;
 import sorts.concurrent.VanVoorhisFourFourSortRecursive;
 import sorts.distribute.ShnexSort;
 import sorts.distribute.SkeadnySort;
-import sorts.esoteric.DistributionNetworkSort;
+import sorts.esoteric.DistributionNetworkSortOnce;
+import sorts.esoteric.DistributionNetworkSortTwice;
 import sorts.esoteric.SafeAssSort;
+import sorts.esoteric.ShuffleNetworkSort;
+import sorts.esoteric.ShuffleNetworkSortOnce;
 import sorts.exchange.AltQuasimiddleSort;
 import sorts.exchange.GoalkeeperSort;
 import sorts.exchange.HeadPullRoomSort;
+import sorts.exchange.NaoanSort;
 import sorts.exchange.NapoleonSortResolve;
 import sorts.exchange.NapoleonSortResolveNTS;
 import sorts.exchange.OptimizedGoalkeeperSort;
@@ -33,7 +37,9 @@ import sorts.exchange.FutureStrangeSort;
 import sorts.hybrid.CircleOptimizedWeaveMergeSort;
 import sorts.hybrid.ImprovedWeaveMergeSortIII;
 import sorts.hybrid.KitaSort;
+import sorts.hybrid.OptimizedMystifySort;
 import sorts.hybrid.OptimizedWeaveMergeSort;
+import sorts.hybrid.UnnamedSort;
 import sorts.merge.InPlaceMergeSortII;
 import sorts.merge.InPlaceMergeSortIV;
 import sorts.misc.InPlaceSmartSafeStalinSort;
@@ -41,6 +47,7 @@ import sorts.misc.PDSafeStalinSort;
 import sorts.misc.SmartSafeStalinSort;
 import sorts.quick.OOPSingularityQuickSort;
 import sorts.select.OutOfPlaceStableSelectionSort;
+import sorts.select.RectangleSelectionSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -81,7 +88,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
     public RunSummerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        sortCount = numSorts * 55;
+        sortCount = numSorts * 56;
     }
 
     protected synchronized void runIndividualSort(Sort sort, int bucketCount, int[] array, int defaultLength, double defaultSpeed, boolean slowSort, String shuffleName, int uniques, boolean alt) throws Exception {
@@ -167,17 +174,17 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort VV44Itr = new VanVoorhisFourFourSortIterative(arrayVisualizer);
         //runIndividualSort(VV44Itr, 0, array, 256, 1, false, shuffleName, 16, alt);
 
-        //Sort OOPSSelecion = new OutOfPlaceStableSelectionSort(arrayVisualizer);
-        //runIndividualSort(OOPSSelecion, 0, array, 128, 4, false, shuffleName, 16, alt);
+        //Sort OOPSSelection = new OutOfPlaceStableSelectionSort(arrayVisualizer);
+        //runIndividualSort(OOPSSelection, 0, array, 128, 4, false, shuffleName, 16, alt);
 
-        //Sort SafeAss = new DistributionNetworkSort(arrayVisualizer);
-        //runIndividualSort(SafeAss, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort SafeAss = new ShuffleNetworkSort(arrayVisualizer);
+        //runIndividualSort(SafeAss, 21, array, 512, 1, false, shuffleName, 16, alt);
 
-        //Sort Segmented = new SegmentedSort(arrayVisualizer);
-        //runIndividualSort(Segmented, 0, array, 128, 0.25, false, shuffleName, 16, alt);
+        Sort RectangleSelection = new RectangleSelectionSort(arrayVisualizer);
+        runIndividualSort(RectangleSelection, 0, array, 128, 0.5, false, shuffleName, 8, alt);
 
-        Sort PDSegmented = new PDSegmentedSort(arrayVisualizer);
-        runIndividualSort(PDSegmented, 0, array, 128, 0.25, false, shuffleName, 16, alt);
+        //Sort UniqueSelection = new UnnamedSort(arrayVisualizer);
+        //runIndividualSort(UniqueSelection, 0, array, 512, 1, false, shuffleName, 16, alt);
 
     }
 
@@ -316,6 +323,8 @@ final public class RunSummerSort extends MultipleSortThread {
         runSort(array, "Product of Digits", false);
         arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 55
         runSort(array, "Euler Totient Function", false);
+        arrayVisualizer.getArrayManager().setDistribution(Distributions.TWPK_FOUR); // 56
+        runSort(array, "TWPK's FOUR", false);
 
         /*
         */
@@ -339,7 +348,8 @@ final public class RunSummerSort extends MultipleSortThread {
                         arrayVisualizer.setHeading(seeds ? "ON" : "OFF");
                         arrayVisualizer.updateNow();
                         Thread.sleep(3000);
-                        arrayVisualizer.setCategory("PCBSAM for ArrayV");
+                        //arrayVisualizer.setCategory("PCBSAM for ArrayV");
+                        arrayVisualizer.setCategory("naoan1201");
                         arrayVisualizer.setHeading("");
                         arrayVisualizer.updateNow();
                         executeSortList(array);

@@ -563,6 +563,37 @@ public enum Distributions {
             }
         }
     },
+    TWPK_FOUR {
+        @Override
+        public String getName() {
+            return "TWPK's FOUR";
+        }
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int currentLength = ArrayVisualizer.getCurrentLength();
+            int m = 0;
+            for (int i = 0; i < currentLength; i++) {
+                array[i] = runFOUR(i);
+                if (array[i] > m) m = array[i];
+            }
+            double scale = (double) ((currentLength - 1) / (m * 1.5));
+            for (int i = 0; i < currentLength; i++) array[i] = (int) (array[i] * scale);
+        }
+        protected int runFOUR(int a) {
+            if (a == 0) return 2;
+            int[] letters = {4, 3, 3, 5, 4, 4, 3, 5, 5, 4};
+            int steps = 1;
+            int cur = 0;
+            int last = a;
+            while (last != 4) {
+                for (int i = last; i > 0; i /= 10) cur += letters[i % 10];
+                steps++;
+                last = cur;
+                cur = 0;
+            }
+            return steps;
+        }
+    },
     SEEDED_RANDOM {
         public String getName() {
             return "Random (Seeded)";

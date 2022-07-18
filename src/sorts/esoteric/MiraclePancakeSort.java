@@ -29,6 +29,6 @@ public final class MiraclePancakeSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        while (!isArraySorted(array, currentLength)) Writes.reversal(array, 0, currentLength, 0.25, true, false);
+        while (!isArraySorted(array, currentLength)) Writes.reversal(array, 0, currentLength - 1, 0.25, true, false);
     }
 }

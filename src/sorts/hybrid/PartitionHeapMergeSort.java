@@ -278,14 +278,15 @@ final public class PartitionHeapMergeSort extends Sort {
                     bufsz = splitloc - ptrloc;
                     stationary = true;
                 }
-                if (bufsz <= mergeStartBlockSize) binaryInsertion(array, ptrloc, splitloc - 1, -1);
-                else heapSort(ptrloc, splitloc - 1, array);
                 int startBuf = ptrloc + bufsz;
                 int chunksz = pivpos - currEnd;
                 if (chunksz < bufsz / 2) {
                     heapSort(splitloc, currentLength, array);
-                    return;
+                    currsz = splitloc - ptrloc;
+                    continue;
                 }
+                if (bufsz <= mergeStartBlockSize) binaryInsertion(array, ptrloc, splitloc - 1, -1);
+                else heapSort(ptrloc, splitloc - 1, array);
                 if (chunksz < splitloc - ptrloc) chunksz = splitloc - ptrloc;
                 mergeAtoB(array, currEnd - bufsz + 1, currEnd + 1, currEnd + 1, ptrloc, startBuf - 1, chunksz);
                 currsz -= bufsz;

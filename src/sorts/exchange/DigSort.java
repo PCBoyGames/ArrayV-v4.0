@@ -102,6 +102,7 @@ final public class DigSort extends Sort {
         BlockInsertionSortAdaRot blocksert = new BlockInsertionSortAdaRot(arrayVisualizer);
         int lastswap = 0;
         int len = currentLength;
+        int lastlen = len;
         int seg = checkSegments(array, 0, currentLength);
         if (seg == 2) circle(array, 0, currentLength - 1);
         else {
@@ -116,6 +117,7 @@ final public class DigSort extends Sort {
         boolean swap = true;
         int timesdone = 0;
         for (int i = 0; i < currentLength && swap; i = lastswap) {
+            lastlen = len;
             len = par(array, 0, currentLength);
             arrayVisualizer.setExtraHeading(" / Par(X): " + len + " / Iteration: " + (timesdone + 1));
             swap = false;
@@ -130,7 +132,7 @@ final public class DigSort extends Sort {
                 }
             }
             seg = checkSegments(array, lastswap, currentLength);
-            if (len == 1 || seg == 1) break;
+            if (len == 1 || seg == 1 || (timesdone > 0 && lastlen - len <= 3)) break;
             if (swap) {
                 for (int left = lastswap + 1; left <= maxswap; left++) {
                     if (Reads.compareIndices(array, left, left + 1, 0.1, true) > 0) {
@@ -147,7 +149,7 @@ final public class DigSort extends Sort {
             if (timesdone < 2) patternDefeat(array, 0, currentLength);
             timesdone++;
         }
-        if (len != 1 && seg == 1) {
+        if (len != 1 && seg == 1 || (timesdone > 0 && lastlen - len <= 3)) {
             arrayVisualizer.getDelays().setSleepRatio(ratio * 8);
             blocksert.insertionSort(array, lastswap, currentLength);
             arrayVisualizer.getDelays().setSleepRatio(ratio);

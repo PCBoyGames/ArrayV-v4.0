@@ -311,7 +311,7 @@ final public class RunSummerSort extends MultipleSortThread {
         arman.setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 43
         runSort(array, "Blocks", true);
         arman.setShuffleSingle(Shuffles.PRIME); // 44
-        runSort(array, "Prime-Numbered Index", true);
+        runSort(array, "Prime-Numbered Index", false);
         arman.setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 45
         arman.setShuffleSingle(Shuffles.ALREADY);
         runSort(array, "Natural Random", false);

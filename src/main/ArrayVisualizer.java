@@ -179,6 +179,7 @@ final public class ArrayVisualizer {
     private volatile boolean updateVisuals;
     private volatile int updateVisualsForced;
     public  volatile boolean benchmarking;
+    public  volatile static boolean doRSS = false;
 
     public static int MAX_LENGTH_POWER = 15;
 
@@ -1323,8 +1324,10 @@ final public class ArrayVisualizer {
     public static void main(String[] args) {
         System.setProperty("sun.java2d.d3d", "false");
         if (args.length > 0) {
-            ArrayVisualizer.MAX_LENGTH_POWER = Integer.parseInt(args[0]);
+            if (args[0].contains("RSS")) doRSS = true;
+            else ArrayVisualizer.MAX_LENGTH_POWER = Integer.parseInt(args[0]);
         }
+        if (args.length > 1) if (args[1].contains("RSS")) doRSS = true;
         new ArrayVisualizer();
     }
 }

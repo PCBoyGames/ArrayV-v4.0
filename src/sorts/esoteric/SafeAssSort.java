@@ -108,47 +108,46 @@ public final class SafeAssSort extends BogoSorting {
         Writes.arraycopy(tmp, 0, array, 0, currentLen, 0.1, true, true);
     }
 
-    protected boolean stableComp(int[] array, int[] table, int a, int b) {
-        int comp = Reads.compareIndices(array, table[a], table[b], 0, false);
-        return comp > 0 || (comp == 0 && Reads.compareOriginalIndices(table, a, b, 0, false) > 0);
+    protected void siftDown(int[] array, int[] keys, int r, int len, int a, int t) {
+        int j = r;
+        while (2*j + 1 < len) {
+            j = 2*j + 1;
+            if (j+1 < len) {
+                int cmp = Reads.compareOriginalIndices(array, a+keys[j+1], a+keys[j], 0, true);
+                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0))
+                    j++;
+            }
+        }
+        for (int cmp = Reads.compareOriginalIndices(array, a+t, a+keys[j], 0, true);
+            cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(t, keys[j]) > 0);
+            j = (j-1)/2,
+            cmp = Reads.compareOriginalIndices(array, a+t, a+keys[j], 0, true));
+        for (int t2; j > r; j = (j-1)/2) {
+            t2 = keys[j];
+            Highlights.markArray(3, j);
+            Writes.write(keys, j, t, 0, false, true);
+            t = t2;
+        }
+        Highlights.markArray(3, r);
+        Writes.write(keys, r, t, 0, false, true);
     }
 
-    protected void medianOfThree(int[] array, int[] table, int a, int b) {
-        int m = a + (b - 1 - a) / 2;
-        if (stableComp(array, table, a, m)) Writes.swap(table, a, m, 0, true, true);
-        if (stableComp(array, table, m, b - 1)) {
-            Writes.swap(table, m, b - 1, 0, false, true);
-            if (stableComp(array, table, a, m)) return;
+    protected void tableSort(int[] array, int[] keys, int a, int b) {
+        int len = b-a;
+        for (int i = (len-1)/2; i >= 0; i--)
+            this.siftDown(array, keys, i, len, a, keys[i]);
+        for (int i = len-1; i > 0; i--) {
+            int t = keys[i];
+            Highlights.markArray(3, i);
+            Writes.write(keys, i, keys[0], 0, false, true);
+            this.siftDown(array, keys, 0, i, a, t);
         }
-        Writes.swap(table, a, m, 0, false, true);
-    }
-
-    protected int partition(int[] array, int[] table, int a, int b, int p) {
-        int i = a - 1, j = b;
-        Highlights.markArray(3, p);
-        while (true) {
-            do i++; while (i < j && !stableComp(array, table, i, p));
-            do j--; while (j >= i && stableComp(array, table, j, p));
-            if (i < j) Writes.swap(table, i, j, 0, false, true);
-            else return j;
-        }
-    }
-
-    protected void quickSort(int[] array, int[] table, int a, int b) {
-        if (b - a < 3) {
-            if (b - a == 2 && stableComp(array, table, a, a + 1)) Writes.swap(table, a, a + 1, 0, false, true);
-            return;
-        }
-        medianOfThree(array, table, a, b);
-        int p = partition(array, table, a + 1, b, a);
-        Writes.swap(table, a, p, 0, false, true);
-        quickSort(array, table, a, p);
-        quickSort(array, table, p + 1, b);
+        Highlights.clearAllMarks();
     }
 
     protected void tableinvert(int[] array, int[] table, int currentLength) {
         for (int i = 0; i < currentLength; i++) Writes.write(table, i, i, 0, false, true);
-        quickSort(array, table, 0, currentLength);
+        tableSort(array, table, 0, currentLength);
     }
 
     protected void prepareIndexes(int[] array, int length) {

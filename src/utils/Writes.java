@@ -217,6 +217,28 @@ final public class Writes {
         }
     }
 
+    public void flySwap(int[] array, int a, int b, double pause, boolean mark, boolean auxwrite) {
+        if (ArrayVisualizer.sortCanceled()) throw new StopSort();
+        if (!auxwrite && a >= ArrayVisualizer.getCurrentLength()) {
+            System.err.println("Write to index " + a + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
+        }
+        if (!auxwrite && b >= ArrayVisualizer.getCurrentLength()) {
+            System.err.println("Write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
+        }
+        if (a == b) System.err.println("Self-flyswap at " + a + ".");
+        else {
+            if (mark) this.markSwap(a, b);
+            int tempa = array[a];
+            int tempb = array[b];
+            int diff = Math.abs(tempb - tempa);
+            for (int i = 0; i < diff; i++) {
+                this.write(array, a, tempa > tempb ? array[a] - 1 : array[a] + 1, pause, mark, auxwrite);
+                this.write(array, b, tempb > tempa ? array[b] - 1 : array[b] + 1, pause, mark, auxwrite);
+            }
+            Delays.sleep(pause);
+        }
+    }
+
     public void multiSwap(int[] array, int pos, int to, double sleep, boolean mark, boolean auxwrite) {
         if (to - pos > 0) {
             for (int i = pos; i < to; i++) {
@@ -275,6 +297,20 @@ final public class Writes {
         } else {
             this.reversals++;
             for (int i = length; i > start; i--) this.multiSwap(array, start, i, sleep, mark, auxwrite);
+        }
+    }
+
+    public void flyReversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
+        if (length - start < 0); //System.err.println("There is a Flying reversal of negative length.");
+        else if (length - start == 0); //System.err.println("Self-Flying reversal at " + start + ".");
+        else if (length - start < 3) {
+            //System.err.println("A Flying reversal of gap 1 can be done in a single flying swap.");
+            this.flySwap(array, start, length, sleep, mark, auxwrite);
+        } else {
+            this.reversals++;
+            for (int i = start; i < start + ((length - start + 1) / 2); i++) {
+                this.flySwap(array, i, start + length - i, sleep, mark, auxwrite);
+            }
         }
     }
 

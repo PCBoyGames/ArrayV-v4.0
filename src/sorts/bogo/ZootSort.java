@@ -33,7 +33,7 @@ public final class ZootSort extends BogoSorting {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         while (!isArraySorted(array, currentLength)) {
             bogoSwap(array, 0, currentLength, false);
-            Writes.reversal(array, 0, currentLength, delay, true, false);
+            Writes.reversal(array, 0, currentLength - 1, delay, true, false);
         }
     }
 }

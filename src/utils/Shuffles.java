@@ -718,11 +718,9 @@ public enum Shuffles {
         @Override
         public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
 
-            for (int i = 0; i < currentLen / 2; i += 2) {
-                Writes.swap(array, i, currentLen - i - 1, 0, true, false);
-                if (ArrayVisualizer.shuffleEnabled()) Delays.sleep(1);
-            }
+            for (int i = 0; i < currentLen / 2; i += 2) Writes.swap(array, i, currentLen - i - 1, delay ? 1 : 0, true, false);
         }
     },
     FINAL_RADIX {
@@ -1942,50 +1940,47 @@ public enum Shuffles {
             Writes.arraycopy(tmp, 0, array, 0, currentLen, delay ? 1 : 0, true, false);
         }
 
-        protected boolean stableComp(int[] array, int[] table, int a, int b, Reads Reads, Writes Writes, Highlights Highlights) {
-            int comp = Reads.compareIndices(array, table[a], table[b], 0, false);
-            return comp > 0 || (comp == 0 && Reads.compareOriginalIndices(table, a, b, 0, false) > 0);
+        protected void siftDown(int[] array, int[] keys, int r, int len, int a, int t, Reads Reads, Writes Writes, Highlights Highlights) {
+            int j = r;
+            while (2*j + 1 < len) {
+                j = 2*j + 1;
+                if (j+1 < len) {
+                    int cmp = Reads.compareIndices(array, a+keys[j+1], a+keys[j], 0, true);
+                    if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0))
+                        j++;
+                }
+            }
+            for (int cmp = Reads.compareIndices(array, a+t, a+keys[j], 0, true);
+                cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(t, keys[j]) > 0);
+                j = (j-1)/2,
+                cmp = Reads.compareIndices(array, a+t, a+keys[j], 0, true));
+            for (int t2; j > r; j = (j-1)/2) {
+                t2 = keys[j];
+                Highlights.markArray(3, j);
+                Writes.write(keys, j, t, 0, false, true);
+                t = t2;
+            }
+            Highlights.markArray(3, r);
+            Writes.write(keys, r, t, 0, false, true);
         }
 
-        protected void medianOfThree(int[] array, int[] table, int a, int b, Reads Reads, Writes Writes, Highlights Highlights) {
-            int m = a + (b - 1 - a) / 2;
-            if (stableComp(array, table, a, m, Reads, Writes, Highlights)) Writes.swap(table, a, m, 0, true, true);
-            if (stableComp(array, table, m, b - 1, Reads, Writes, Highlights)) {
-                Writes.swap(table, m, b - 1, 0, false, true);
-                if (stableComp(array, table, a, m, Reads, Writes, Highlights)) return;
+        protected void tableSort(int[] array, int[] keys, int a, int b, Reads Reads, Writes Writes, Highlights Highlights) {
+            int len = b-a;
+            for (int i = (len-1)/2; i >= 0; i--)
+                this.siftDown(array, keys, i, len, a, keys[i], Reads, Writes, Highlights);
+            for (int i = len-1; i > 0; i--) {
+                int t = keys[i];
+                Highlights.markArray(3, i);
+                Writes.write(keys, i, keys[0], 0, false, true);
+                this.siftDown(array, keys, 0, i, a, t, Reads, Writes, Highlights);
             }
-            Writes.swap(table, a, m, 0, false, true);
-        }
-
-        protected int partition(int[] array, int[] table, int a, int b, int p, Reads Reads, Writes Writes, Highlights Highlights) {
-            int i = a - 1, j = b;
-            Highlights.markArray(3, p);
-            while (true) {
-                do i++; while (i < j && !stableComp(array, table, i, p, Reads, Writes, Highlights));
-                do j--; while (j >= i && stableComp(array, table, j, p, Reads, Writes, Highlights));
-                if (i < j) Writes.swap(table, i, j, 0, false, true);
-                else return j;
-            }
-        }
-
-        protected void quickSort(int[] array, int[] table, int a, int b, Reads Reads, Writes Writes, Highlights Highlights) {
-            if (b - a < 3) {
-                if (b - a == 2 && stableComp(array, table, a, a + 1, Reads, Writes, Highlights))
-                    Writes.swap(table, a, a + 1, 0, false, true);
-                return;
-            }
-            medianOfThree(array, table, a, b, Reads, Writes, Highlights);
-            int p = partition(array, table, a + 1, b, a, Reads, Writes, Highlights);
-            Writes.swap(table, a, p, 0, false, true);
-            quickSort(array, table, a, p, Reads, Writes, Highlights);
-            quickSort(array, table, p + 1, b, Reads, Writes, Highlights);
+            Highlights.clearAllMarks();
         }
 
         protected void tableinvert(int[] array, int[] table, int currentLength, Reads Reads, Writes Writes, Highlights Highlights) {
             for (int i = 0; i < currentLength; i++) Writes.write(table, i, i, 0, false, true);
-            quickSort(array, table, 0, currentLength, Reads, Writes, Highlights);
+            tableSort(array, table, 0, currentLength, Reads, Writes, Highlights);
         }
-
     },
     PRIME {
         @Override

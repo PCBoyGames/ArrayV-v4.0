@@ -44,4 +44,8 @@ public class IndexedRotations {
     public static void radon(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.radon(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
+
+    public static void adaptable(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
+        Rotations.adaptable(array, start, mid - start, end - mid, pause, mark, auxwrite);
+    }
 }

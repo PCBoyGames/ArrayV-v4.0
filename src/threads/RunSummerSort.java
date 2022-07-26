@@ -1,5 +1,6 @@
 package threads;
 
+import main.ArrayManager;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
 import sorts.bogo.BoomSort;
@@ -14,6 +15,7 @@ import sorts.esoteric.SafeAssSort;
 import sorts.esoteric.ShuffleNetworkSort;
 import sorts.esoteric.ShuffleNetworkSortOnce;
 import sorts.exchange.AltQuasimiddleSort;
+import sorts.exchange.DigSort;
 import sorts.exchange.GoalkeeperSort;
 import sorts.exchange.HeadPullRoomSort;
 import sorts.exchange.NaoanSort;
@@ -39,6 +41,7 @@ import sorts.hybrid.ImprovedWeaveMergeSortIII;
 import sorts.hybrid.KitaSort;
 import sorts.hybrid.OptimizedMystifySort;
 import sorts.hybrid.OptimizedWeaveMergeSort;
+import sorts.hybrid.PartitionHeapMergeSort;
 import sorts.hybrid.UnnamedSort;
 import sorts.merge.InPlaceMergeSortII;
 import sorts.merge.InPlaceMergeSortIV;
@@ -180,29 +183,38 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort SafeAss = new ShuffleNetworkSort(arrayVisualizer);
         //runIndividualSort(SafeAss, 21, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort RectangleSelection = new RectangleSelectionSort(arrayVisualizer);
-        runIndividualSort(RectangleSelection, 0, array, 128, 0.5, false, shuffleName, 8, alt);
+        //Sort RectangleSelection = new RectangleSelectionSort(arrayVisualizer);
+        //runIndividualSort(RectangleSelection, 0, array, 128, 0.5, false, shuffleName, 8, alt);
 
         //Sort UniqueSelection = new UnnamedSort(arrayVisualizer);
         //runIndividualSort(UniqueSelection, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        Sort Dig = new DigSort(arrayVisualizer);
+        runIndividualSort(Dig, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort PartitionHeapMerge = new PartitionHeapMergeSort(arrayVisualizer);
+        //runIndividualSort(PartitionHeapMerge, 0, array, 512, 1, false, shuffleName, 16, alt);
 
     }
 
     @Override
     protected synchronized void executeSortList(int[] array) throws Exception {
 
-        /*
-        RSS BASIC (25)
-        */
+        // A simple shorthand.
+        ArrayManager arman = arrayVisualizer.getArrayManager();
 
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.LINEAR); // 1
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_RANDOM : Shuffles.RANDOM);
+        /*/
+        RSS BASIC (25)
+        /*/
+
+        arman.setDistribution(Distributions.LINEAR); // 1
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_RANDOM : Shuffles.RANDOM);
         runSort(array, "Random", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REVERSE); // 2
+        arman.setShuffleSingle(Shuffles.REVERSE); // 2
         runSort(array, "Reversed", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_ALMOST : Shuffles.ALMOST); // 3
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_ALMOST : Shuffles.ALMOST); // 3
         runSort(array, "Almost Sorted", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_RANDOM : Shuffles.RANDOM); // 4
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_RANDOM : Shuffles.RANDOM); // 4
         runSort(array, "Many Similar", false);
         if (stabilityproper) {
             arrayVisualizer.setComparator(2);
@@ -213,121 +225,121 @@ final public class RunSummerSort extends MultipleSortThread {
             arrayVisualizer.updateNow();
             Thread.sleep(3000);
         }
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_TAIL_LEGACY : Shuffles.SHUFFLED_TAIL_LEGACY); // 5
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_TAIL_LEGACY : Shuffles.SHUFFLED_TAIL_LEGACY); // 5
         runSort(array, "Scrambled End", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HEAD_LEGACY : Shuffles.SHUFFLED_HEAD_LEGACY); // 6
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HEAD_LEGACY : Shuffles.SHUFFLED_HEAD_LEGACY); // 6
         runSort(array, "Scrambled Start", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_MERGE); // 7
+        arman.setShuffleSingle(Shuffles.FINAL_MERGE); // 7
         runSort(array, "Final Merge", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SAWTOOTH); // 8
+        arman.setShuffleSingle(Shuffles.SAWTOOTH); // 8
         runSort(array, "Sawtooth", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.HALF_ROTATION); // 9
+        arman.setShuffleSingle(Shuffles.HALF_ROTATION); // 9
         runSort(array, "Half-Rotated", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_MERGE).addSingle(Shuffles.REVERSE); // 10
+        arman.setShuffleSingle(Shuffles.FINAL_MERGE).addSingle(Shuffles.REVERSE); // 10
         runSort(array, "Reversed Final Merge", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.ORGAN); // 11
+        arman.setShuffleSingle(Shuffles.ORGAN); // 11
         runSort(array, "Pipe Organ", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_RADIX); // 12
+        arman.setShuffleSingle(Shuffles.FINAL_RADIX); // 12
         runSort(array, "Final Radix", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_PAIRWISE : Shuffles.PAIRWISE); // 13
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_PAIRWISE : Shuffles.PAIRWISE); // 13
         runSort(array, "Final Pairwise", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.BST_TRAVERSAL); // 14
+        arman.setShuffleSingle(Shuffles.BST_TRAVERSAL); // 14
         runSort(array, "Binary Search Tree", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.HEAPIFIED); // 15
+        arman.setShuffleSingle(Shuffles.HEAPIFIED); // 15
         runSort(array, "Heap", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REVERSE).addSingle(Shuffles.SMOOTH); // 16
+        arman.setShuffleSingle(Shuffles.REVERSE).addSingle(Shuffles.SMOOTH); // 16
         runSort(array, "Smooth Heap", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REVERSE).addSingle(Shuffles.POPLAR); // 17
+        arman.setShuffleSingle(Shuffles.REVERSE).addSingle(Shuffles.POPLAR); // 17
         runSort(array, "Poplar Heap", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PARTIAL_REVERSE); // 18
+        arman.setShuffleSingle(Shuffles.PARTIAL_REVERSE); // 18
         runSort(array, "Half-Reversed", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.DOUBLE_LAYERED); // 19
+        arman.setShuffleSingle(Shuffles.DOUBLE_LAYERED); // 19
         runSort(array, "Evens Reversed", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_ODDS : Shuffles.SHUFFLED_ODDS); // 20
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_ODDS : Shuffles.SHUFFLED_ODDS); // 20
         runSort(array, "Scrambled Odds", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.INTERLACED); // 21
+        arman.setShuffleSingle(Shuffles.INTERLACED); // 21
         runSort(array, "Evens Up, Odds Down", true);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.BELL_CURVE); // 22
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.ALREADY);
+        arman.setDistribution(Distributions.BELL_CURVE); // 22
+        arman.setShuffleSingle(Shuffles.ALREADY);
         runSort(array, "Bell Curve", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.PERLIN_NOISE_CURVE); // 23
+        arman.setDistribution(Distributions.PERLIN_NOISE_CURVE); // 23
         runSort(array, "Perlin Noise Curve", false);
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_PERLIN_NOISE : Distributions.PERLIN_NOISE); // 24
+        arman.setDistribution(seeds ? Distributions.SEEDED_PERLIN_NOISE : Distributions.PERLIN_NOISE); // 24
         runSort(array, "Perlin Noise", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.LINEAR); // 25
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.TRIANGULAR);
+        arman.setDistribution(Distributions.LINEAR); // 25
+        arman.setShuffleSingle(Shuffles.TRIANGULAR);
         runSort(array, "Triangular", true);
 
-        /*
+        /*/
         RSS MADHOUSE PLUS (29)
-        */
+        /*/
 
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HALF : Shuffles.SHUFFLED_HALF); // 26
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_HALF : Shuffles.SHUFFLED_HALF); // 26
         runSort(array, "Scrambled Back Half", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_ENDS : Shuffles.SHUFFLED_ENDS); // 27
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_SHUFFLED_ENDS : Shuffles.SHUFFLED_ENDS); // 27
         runSort(array, "Both Sides Scrambled", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_ONLY_RUNS : Shuffles.ONLY_RUNS); // 28
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_ONLY_RUNS : Shuffles.ONLY_RUNS); // 28
         runSort(array, "Random Runs", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_NOISY : Shuffles.NOISY); // 29
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_NOISY : Shuffles.NOISY); // 29
         runSort(array, "Low Disparity", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_PARTITIONED :Shuffles.PARTITIONED); // 30
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_PARTITIONED :Shuffles.PARTITIONED); // 30
         runSort(array, "Partitioned", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SAWTOOTH).addSingle(Shuffles.REVERSE); // 31
+        arman.setShuffleSingle(Shuffles.SAWTOOTH).addSingle(Shuffles.REVERSE); // 31
         runSort(array, "Reversed Sawtooth", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.FINAL_BITONIC); // 32
+        arman.setShuffleSingle(Shuffles.FINAL_BITONIC); // 32
         runSort(array, "Final Bitonic", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.DOUBLE_LAYERED).addSingle(Shuffles.HALF_ROTATION); // 33
+        arman.setShuffleSingle(Shuffles.DOUBLE_LAYERED).addSingle(Shuffles.HALF_ROTATION); // 33
         runSort(array, "Diamond", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.REC_RADIX); // 34
+        arman.setShuffleSingle(Shuffles.REC_RADIX); // 34
         runSort(array, "Recursive Final Radix", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.INV_BST); // 35
+        arman.setShuffleSingle(Shuffles.INV_BST); // 35
         runSort(array, "Inverted Binary Tree", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.LOG_SLOPES); // 36
+        arman.setShuffleSingle(Shuffles.LOG_SLOPES); // 36
         runSort(array, "Logpile", false);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.TRI_HEAP); // 37
+        arman.setShuffleSingle(Shuffles.TRI_HEAP); // 37
         runSort(array, "Triangle Heap", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_CIRCLE : Shuffles.CIRCLE); // 38
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_CIRCLE : Shuffles.CIRCLE); // 38
         runSort(array, "Circle Pass", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.QSORT_BAD); // 39
+        arman.setShuffleSingle(Shuffles.QSORT_BAD); // 39
         runSort(array, "Quick Killer", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PDQ_BAD); // 40
+        arman.setShuffleSingle(Shuffles.PDQ_BAD); // 40
         runSort(array, "Pattern Quick Killer", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_GRAIL_BAD : Shuffles.GRAIL_BAD); // 41
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_GRAIL_BAD : Shuffles.GRAIL_BAD); // 41
         runSort(array, "Grail Killer", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.SHUF_MERGE_BAD); // 42
+        arman.setShuffleSingle(Shuffles.SHUF_MERGE_BAD); // 42
         runSort(array, "Shuffle Killer", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 43
+        arman.setShuffleSingle(seeds ? Shuffles.SEEDED_BLOCK_RANDOMLY : Shuffles.BLOCK_RANDOMLY); // 43
         runSort(array, "Blocks", true);
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.PRIME); // 44
+        arman.setShuffleSingle(Shuffles.PRIME); // 44
         runSort(array, "Prime-Numbered Index", true);
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 45
-        arrayVisualizer.getArrayManager().setShuffleSingle(Shuffles.ALREADY);
+        arman.setDistribution(seeds ? Distributions.SEEDED_RANDOM : Distributions.RANDOM); // 45
+        arman.setShuffleSingle(Shuffles.ALREADY);
         runSort(array, "Natural Random", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.SINE); // 46
+        arman.setDistribution(Distributions.SINE); // 46
         runSort(array, "Sine Wave", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.COSINE); // 47
+        arman.setDistribution(Distributions.COSINE); // 47
         runSort(array, "Cosine Wave", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.RULER); // 48
+        arman.setDistribution(Distributions.RULER); // 48
         runSort(array, "Ruler", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.BLANCMANGE); // 49
+        arman.setDistribution(Distributions.BLANCMANGE); // 49
         runSort(array, "Blancmange Curve", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIVISORS); // 50
+        arman.setDistribution(Distributions.DIVISORS); // 50
         runSort(array, "Sum of Divisors", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.FSD); // 51
+        arman.setDistribution(Distributions.FSD); // 51
         runSort(array, "Fly Straight, Dammit!", false);
-        arrayVisualizer.getArrayManager().setDistribution(seeds ? Distributions.SEEDED_REVLOG : Distributions.REVLOG); // 52
+        arman.setDistribution(seeds ? Distributions.SEEDED_REVLOG : Distributions.REVLOG); // 52
         runSort(array, "Decreasing Random", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.MODULO); // 53
+        arman.setDistribution(Distributions.MODULO); // 53
         runSort(array, "Modulo Function", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.DIGITS_PROD); // 54
+        arman.setDistribution(Distributions.DIGITS_PROD); // 54
         runSort(array, "Product of Digits", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.TOTIENT); // 55
+        arman.setDistribution(Distributions.TOTIENT); // 55
         runSort(array, "Euler Totient Function", false);
-        arrayVisualizer.getArrayManager().setDistribution(Distributions.TWPK_FOUR); // 56
+        arman.setDistribution(Distributions.TWPK_FOUR); // 56
         runSort(array, "TWPK's FOUR", false);
 
-        /*
-        */
+        /*/
+        /*/
     }
 
     @Override
@@ -348,8 +360,8 @@ final public class RunSummerSort extends MultipleSortThread {
                         arrayVisualizer.setHeading(seeds ? "ON" : "OFF");
                         arrayVisualizer.updateNow();
                         Thread.sleep(3000);
-                        //arrayVisualizer.setCategory("PCBSAM for ArrayV");
-                        arrayVisualizer.setCategory("naoan1201");
+                        arrayVisualizer.setCategory("PCBSAM for ArrayV");
+                        //arrayVisualizer.setCategory("naoan1201");
                         arrayVisualizer.setHeading("");
                         arrayVisualizer.updateNow();
                         executeSortList(array);

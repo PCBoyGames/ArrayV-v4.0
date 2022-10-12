@@ -419,7 +419,8 @@ public final class AyakaSort extends Sort {
         else merge(array, a, m2, b, p, true);
     }
 
-    public void rotateMerge(int[] array, int a, int m, int b, int p, int pLen) {
+    public void rotateMerge(int[] array, int a, int m, int b, int p, int pLen, int depth) {
+        Writes.recordDepth(depth);
         while (Math.min(m - a, b - m) > pLen) {
             if (boundCheck(array, a, m, b))
                 return;
@@ -444,11 +445,13 @@ public final class AyakaSort extends Sort {
             }
             rotate(array, m1, m, m2);
             if (b - (m3 + 1) < m3 - a) {
-                rotateMerge(array, m3 + 1, m2, b, p, pLen);
+                Writes.recursion();
+                rotateMerge(array, m3 + 1, m2, b, p, pLen, depth + 1);
                 m = m1;
                 b = m3;
             } else {
-                rotateMerge(array, a, m1, m3, p, pLen);
+                Writes.recursion();
+                rotateMerge(array, a, m1, m3, p, pLen, depth + 1);
                 m = m2;
                 a = m3 + 1;
             }
@@ -520,7 +523,7 @@ public final class AyakaSort extends Sort {
                     merge(array, i, i + j, Math.min(i + 2 * j, b1), p, true);
             for (; j < len; j *= 2) {
                 for (i = a1; i+j < b1; i += 2*j)
-                    rotateMerge(array, i, i + j, Math.min(i + 2 * j, b1), p, bLen);
+                    rotateMerge(array, i, i + j, Math.min(i + 2 * j, b1), p, bLen, 0);
             }
         }
         insertSort(array, p, p + bLen);

@@ -14,7 +14,7 @@ public final class BubblescanQuickSort extends Sort {
 
     public BubblescanQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        // TODO Auto-generated constructor stub
+
         this.setSortListName("Bubblescan Quick");
         this.setRunAllSortsName("Bubblescan Quick Sort");
         this.setRunSortName("Bubblescan Quicksort");
@@ -90,7 +90,6 @@ public final class BubblescanQuickSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        // TODO Auto-generated method stub
         this.insertSorter = new InsertionSort(this.arrayVisualizer);
         this.heapSorter = new MaxHeapSort(this.arrayVisualizer);
         sort(array, 0, sortLength, 2 * (int)(Math.log(sortLength) / Math.log(2.0D)));

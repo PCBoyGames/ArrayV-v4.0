@@ -1,19 +1,19 @@
 package sorts.misc;
 
 import main.ArrayVisualizer;
-import sorts.insert.BlockInsertionSortNeon;
+import sorts.merge.NaturalRotateMergeSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
 
-// #3 of Distray's Pop The Top Lineup
-final public class InPlaceOptimizedSafeStalinSort extends Sort {
-    public InPlaceOptimizedSafeStalinSort(ArrayVisualizer arrayVisualizer) {
+// #3 of Distray's Pop The Top Lineup, modified
+final public class InPlaceOptimizedSafeStalinSortInserts extends Sort {
+    public InPlaceOptimizedSafeStalinSortInserts(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
-        this.setSortListName("In-Place Optimized Safe Stalin");
-        this.setRunAllSortsName("In-Place Optimized Safe Stalin Sort");
-        this.setRunSortName("In-Place Optimized Safe Stalinsort");
+        this.setSortListName("In-Place Optimized Safe Stalin (Inserts)");
+        this.setRunAllSortsName("In-Place Optimized Safe Stalin Sort (Inserts)");
+        this.setRunSortName("In-Place Optimized Safe Stalinsort (Inserts)");
         this.setCategory("Impractical Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -24,11 +24,12 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
     }
 
     private int buildStalinRuns(int[] array, int start, int end) {
+        Highlights.clearAllMarks();
         int runs = 0;
         for (int i=start; i<end; i++) {
             for (int j=i+1; j<end; j++) {
                 if (Reads.compareValues(array[j], array[i]) >= 0) {
-                    if (++i != j) Writes.swap(array, j, i, 1, true, false);
+                    if (++i != j) Writes.insert(array, j, i, 0.5, true, false);
                 }
             }
             runs++;
@@ -56,12 +57,12 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
             while (mid > 0 && Reads.compareIndices(array, mid, right, 1, true) >= 0) {
                 mid--;
             }
-            IndexedRotations.neon(array, 0, left+1, currentLength, 1, true, false);
+            IndexedRotations.adaptable(array, 0, left+1, currentLength, 1, true, false);
             currentLength -= left-mid;
         } while (runs > 2);
         if (runs == 2) {
-            BlockInsertionSortNeon neon = new BlockInsertionSortNeon(arrayVisualizer);
-            neon.insertionSort(array, 0, currentLength);
+            NaturalRotateMergeSort merge = new NaturalRotateMergeSort(arrayVisualizer);
+            merge.runSort(array, currentLength, 0);
         }
     }
 }

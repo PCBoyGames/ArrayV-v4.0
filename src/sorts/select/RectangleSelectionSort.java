@@ -35,9 +35,8 @@ final public class RectangleSelectionSort extends Sort {
             int x = i % width;
             for (int j = i - x; j < currentLength; j += width) {
                 int start = j;
-                int end = j + width;
                 int sel = j < i ? j + x : j;
-                for (int k = sel + 1; k < end; k++) if (Reads.compareIndices(array, sel, k, 0.1, true) > 0) sel = k;
+                for (int k = sel + 1; k < j + width; k++) if (Reads.compareIndices(array, sel, k, 0.1, true) > 0) sel = k;
                 if (sel % width != x) Writes.swap(array, sel, start + x, 0.1, true, false);
             }
             int sel = i;

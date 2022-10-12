@@ -145,7 +145,8 @@ public class Rotations {
             Writes.write(array, a++, swap,     pause/2d, mark, auxwrite);
         }
         if (a < d) { //dont count reversals that dont do anything
-            Writes.reversal(array, a, d, pause, mark, auxwrite);
+            if (d - a > 2) Writes.reversal(array, a, d, pause, mark, auxwrite);
+            else Writes.swap(array, a, d, pause, mark, auxwrite);
             Highlights.clearMark(2);
         }
     }
@@ -333,6 +334,24 @@ public class Rotations {
                     }
                 Writes.reversal(array, a, c, pause, mark, auxwrite);
             }
+        }
+    }
+
+    public static void centered(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
+        if (lenA < 1 || lenB < 1)
+            return;
+        if (lenA < lenB) {
+            int h=(lenB - lenA) / 2;
+            blockSwap(array, pos, pos + lenA + h, lenA, pause, mark, auxwrite);
+            centered(array, pos + lenA + h, lenA, lenB - lenA - h, pause, mark, auxwrite);
+            centered(array, pos, lenA, h, pause, mark, auxwrite);
+        } else if (lenA == lenB) {
+            blockSwap(array, pos, pos+lenA, lenA, pause, mark, auxwrite);
+        } else {
+            int h=(lenA - lenB) / 2;
+            blockSwap(array, pos + h, pos + lenA, lenB, pause, mark, auxwrite);
+            centered(array, pos, h, lenB, pause, mark, auxwrite);
+            centered(array, pos + h + lenB, lenA - lenB - h, lenB, pause, mark, auxwrite);
         }
     }
 

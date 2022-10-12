@@ -1,7 +1,6 @@
 package sorts.misc;
 
 import main.ArrayVisualizer;
-import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
 /*
@@ -32,13 +31,12 @@ final public class SmartSafeStalinSort extends Sort {
     }
 
     protected int stepDown(int[] array, int end) {
-        for (int i = end - 1; i > 0; i--) for (int j = i - 1; j >= 0; j--) if (Reads.compareIndices(array, j, i, 0.125, true) > 0) return i + 1;
+        for (int i = end - 1; i > 0; i--) for (int j = i - 1; j >= 0; j--) if (Reads.compareIndices(array, j, i, 0.025, true) > 0) return i + 1;
         return 0;
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int total = currentLength;
         boolean pass = false;
         currentLength = stepDown(array, currentLength);
         while (!pass) {
@@ -47,12 +45,12 @@ final public class SmartSafeStalinSort extends Sort {
             int[] collect = Writes.createExternalArray(currentLength);
             int collection = 0;
             for (int i = 0; i + 1 < getlen; ) {
-                if (Reads.compareIndices(array, i, i + 1, 0.5, true) > 0) {
+                if (Reads.compareIndices(array, i, i + 1, 0.15, true) > 0) {
                     Writes.write(collect, collection, array[i + 1], 0, false, true);
                     collection++;
                     Writes.arraycopy(array, i + 2, array, i + 1, getlen - i - 1, 0, false, false);
                     array[getlen - 1] = -1;
-                    Delays.sleep(1);
+                    Delays.sleep(0.1);
                     getlen--;
                     pass = false;
                 } else i++;
@@ -61,21 +59,19 @@ final public class SmartSafeStalinSort extends Sort {
                 Highlights.clearAllMarks();
                 for (int i = 0; i < collection; i++) {
                     Writes.arraycopy(array, i, array, i + 1, getlen, 0, false, false);
-                    Writes.write(array, i, collect[i], 1, true, false);
+                    Writes.write(array, i, collect[i], 0.25, true, false);
                 }
             }
             Writes.deleteExternalArray(collect);
             currentLength--;
-            if (currentLength - 2 > 0) {
-                int cmp = Reads.compareIndices(array, currentLength - 2, currentLength - 1, 1, true);
-                while (cmp == 0 && currentLength - 2 >= 0) {
+            if (currentLength - 1 > 0) {
+                int cmp = Reads.compareIndices(array, currentLength - 1, currentLength, 1, true);
+                while (cmp == 0 && currentLength - 1 >= 0) {
                     currentLength--;
-                    if (currentLength - 2 >= 0) cmp = Reads.compareIndices(array, currentLength - 2, currentLength - 1, 4, true);
+                    if (currentLength - 1 >= 0) cmp = Reads.compareIndices(array, currentLength - 1, currentLength, 4, true);
                 }
             }
             currentLength = stepDown(array, currentLength);
         }
-        InsertionSort clean = new InsertionSort(arrayVisualizer);
-        clean.customInsertSort(array, 0, total, 10, false);
     }
 }

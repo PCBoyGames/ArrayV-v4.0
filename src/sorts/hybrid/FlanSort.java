@@ -1,15 +1,15 @@
 package sorts.hybrid;
 
-import sorts.templates.MultiWayMergeSorting;
-import main.ArrayVisualizer;
-
 import java.util.Random;
+
+import main.ArrayVisualizer;
+import sorts.templates.Sort;
 
 /*
  *
 MIT License
 
-Copyright (c) 2021 aphitorite
+Copyright (c) 2021-2022 aphitorite
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class FlanSort extends MultiWayMergeSorting {
+public final class FlanSort extends Sort {
     public FlanSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -39,7 +39,6 @@ final public class FlanSort extends MultiWayMergeSorting {
         this.setRunAllSortsName("Flan Sort");
         this.setRunSortName("Flansort");
         this.setCategory("Hybrid Sorts");
-        this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);
@@ -47,11 +46,24 @@ final public class FlanSort extends MultiWayMergeSorting {
         this.setBogoSort(false);
     }
 
-    //unstable sorting algorithm performing an average of
-    //O(n log n) comparisons and O(n) moves in O(1) memory
+    /**
+        ultimate sorting algorithm:
 
-    private final int G = 14;
-    private final int R = 4;
+        unstable sorting algorithm performing an average of
+        n log n + ~7n comparisons and O(n) moves in O(1) memory
+
+        makes the fewest comparisons among the sorts of its kind
+        achieves the ultimate goal of a n log n + O(n) comps in place O(n) moves sort
+
+        implements library sort from http://www.cs.sunysb.edu/~bender/newpub/BenderFaMo06-librarysort.pdf
+
+        @author aphitorite
+    */
+
+    private final int G = 14; //gap size
+    private final int R = 4;  //rebalancing factor
+
+    private Random rng;
 
     private int medianOfThree(int[] array, int a, int m, int b) {
         if (Reads.compareValues(array[m], array[a]) > 0) {
@@ -95,7 +107,7 @@ final public class FlanSort extends MultiWayMergeSorting {
         while (m > a) Writes.swap(array, --b, --m, 1, true, false);
     }
 
-    private int leftBlockSearch(int[] array, int a, int b, int val) {
+    private int randGapSearch(int[] array, int a, int b, int val) {
         int s = G+1;
 
         while (a < b) {
@@ -103,29 +115,13 @@ final public class FlanSort extends MultiWayMergeSorting {
             Highlights.markArray(3, m);
             Delays.sleep(0.25);
 
-            if (Reads.compareValues(val, array[m]) <= 0)
+            int cmp = Reads.compareValues(val, array[m]);
+
+            if (cmp < 0 || (cmp == 0 && this.rng.nextBoolean()))
                 b = m;
             else
                 a = m+s;
         }
-
-        Highlights.clearMark(3);
-        return a;
-    }
-    private int rightBlockSearch(int[] array, int a, int b, int val) {
-        int s = G+1;
-
-        while (a < b) {
-            int m = a+(((b-a)/s)/2)*s;
-            Highlights.markArray(3, m);
-            Delays.sleep(0.25);
-
-            if (Reads.compareValues(val, array[m]) < 0)
-                b = m;
-            else
-                a = m+s;
-        }
-
         Highlights.clearMark(3);
         return a;
     }
@@ -143,7 +139,6 @@ final public class FlanSort extends MultiWayMergeSorting {
             else
                 a = m+1;
         }
-
         Highlights.clearMark(3);
         return a;
     }
@@ -157,6 +152,31 @@ final public class FlanSort extends MultiWayMergeSorting {
     private void binaryInsertion(int[] array, int a, int b) {
         for (int i = a+1; i < b; i++)
             this.insertTo(array, array[i], i, this.rightBinSearch(array, a, i, array[i], false));
+    }
+
+    private boolean keyLessThan(int[] src, int[] pa, int a, int b) {
+        int cmp = Reads.compareValues(src[pa[a]], src[pa[b]]);
+        return cmp < 0 || (cmp == 0 && Reads.compareOriginalValues(a, b) < 0);
+    }
+
+    private void siftDown(int[] src, int[] heap, int[] pa, int t, int r, int size) {
+        while (2*r+2 < size) {
+            int nxt = 2*r+1;
+            int min = nxt + (this.keyLessThan(src, pa, heap[nxt], heap[nxt+1]) ? 0 : 1);
+
+            if (this.keyLessThan(src, pa, heap[min], t)) {
+                Writes.write(heap, r, heap[min], 0.25, true, true);
+                r = min;
+            }
+            else break;
+        }
+        int min = 2*r+1;
+
+        if (min < size && this.keyLessThan(src, pa, heap[min], t)) {
+            Writes.write(heap, r, heap[min], 0.25, true, true);
+            r = min;
+        }
+        Writes.write(heap, r, t, 0.25, true, true);
     }
 
     private void kWayMerge(int[] array, int[] heap, int[] pa, int s, int b, int p, int size) {
@@ -208,8 +228,6 @@ final public class FlanSort extends MultiWayMergeSorting {
             return;
         }
 
-        Random rng = new Random();
-
         int s = len;
         while (s >= 32) s = (s-1)/R + 1;
 
@@ -230,16 +248,13 @@ final public class FlanSort extends MultiWayMergeSorting {
                     Writes.swap(array, a+k, p + k*(G+1)+G, 1, true, false);
             }
 
-            int bLoc = this.leftBlockSearch(array, p+G, pEnd-(G+1), array[i]); //search gap location
+            int bLoc = this.randGapSearch(array, p+G, pEnd-(G+1), array[i]); //search gap location (exclude last key)
+                                                                             //in the case of equal valued keys perform randomized binary search
 
-            if (Reads.compareValues(array[i], array[bLoc]) == 0) { //handle equal values to prevent worst case O(n^2)
-                int eqEnd = this.rightBlockSearch(array, bLoc+(G+1), pEnd-(G+1), array[i]); //find the endpoint of the gaps with equal head element
-                bLoc += rng.nextInt((eqEnd-bLoc)/(G+1))*(G+1);                              //choose a random gap from the range of gaps
-            }
-
-            int loc  = this.rightBinSearch(array, bLoc-G, bLoc, bsv, bw); //search next empty space in gap
+            int loc  = this.rightBinSearch(array, bLoc-G, bLoc, bsv, bw);    //search next empty space in gap
 
             if (loc == bLoc) { //if there is no empty space filled elements in gap are split
+                              //dont increment i since no elements are inserted in this case
                 do bLoc += G+1;
                 while (bLoc < pEnd && this.rightBinSearch(array, bLoc-G, bLoc, bsv, bw) == bLoc);
 
@@ -255,7 +270,7 @@ final public class FlanSort extends MultiWayMergeSorting {
                 }
                 else { //if a gap is full find next non full gap to the right & shift the space down
                     int rotP = this.rightBinSearch(array, bLoc-G, bLoc, bsv, bw);
-                    int rotS = bLoc - Math.max(rotP, bLoc - G/2); //for odd G whether its floor or ceil(G/2) doesnt matter
+                    int rotS = bLoc - Math.max(rotP, bLoc - (G+1)/2); //ceiling division so that G == 1 works
                     this.shiftBW(array, loc-rotS, bLoc-rotS, bLoc);
                 }
             }
@@ -269,11 +284,13 @@ final public class FlanSort extends MultiWayMergeSorting {
     }
 
     @Override
-    public void runSort(int[] array, int length, int bucketCount) { //to benefit from worst case O(n log n) comparisons & O(n) moves
+    public void runSort(int[] array, int length, int bucketCount) { //to benefit from average case O(n log n) comparisons & O(n) moves
                                                                     //we would normally shuffle the array before sorting
                                                                     //but for the sake of demonstration this step is omitted
         int[] pa   = new int[G+2];
         int[] heap = new int[G+2];
+
+        this.rng = new Random();
 
         int alloc = pa.length + heap.length;
         Writes.changeAllocAmount(alloc);

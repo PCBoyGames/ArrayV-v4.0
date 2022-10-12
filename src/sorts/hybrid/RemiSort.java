@@ -1,7 +1,7 @@
 package sorts.hybrid;
 
-import sorts.templates.MultiWayMergeSorting;
 import main.ArrayVisualizer;
+import sorts.templates.Sort;
 
 /*
  *
@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class RemiSort extends MultiWayMergeSorting {
+public final class RemiSort extends Sort {
     public RemiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -37,7 +37,6 @@ final public class RemiSort extends MultiWayMergeSorting {
         this.setRunAllSortsName("Remi Sort");
         this.setRunSortName("Remisort");
         this.setCategory("Hybrid Sorts");
-        this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);
@@ -59,6 +58,31 @@ final public class RemiSort extends MultiWayMergeSorting {
         }
 
         return a;
+    }
+
+    private boolean keyLessThan(int[] src, int[] pa, int a, int b) {
+        int cmp = Reads.compareValues(src[pa[a]], src[pa[b]]);
+        return cmp < 0 || (cmp == 0 && Reads.compareOriginalValues(a, b) < 0);
+    }
+
+    private void siftDown(int[] src, int[] heap, int[] pa, int t, int r, int size) {
+        while (2*r+2 < size) {
+            int nxt = 2*r+1;
+            int min = nxt + (this.keyLessThan(src, pa, heap[nxt], heap[nxt+1]) ? 0 : 1);
+
+            if (this.keyLessThan(src, pa, heap[min], t)) {
+                Writes.write(heap, r, heap[min], 0.25, true, true);
+                r = min;
+            }
+            else break;
+        }
+        int min = 2*r+1;
+
+        if (min < size && this.keyLessThan(src, pa, heap[min], t)) {
+            Writes.write(heap, r, heap[min], 0.25, true, true);
+            r = min;
+        }
+        Writes.write(heap, r, t, 0.25, true, true);
     }
 
     private void siftDown(int[] array, int[] keys, int r, int len, int a, int t) {

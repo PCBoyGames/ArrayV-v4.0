@@ -51,7 +51,7 @@ final public class ReflectionSort extends Sort {
             }
             i = currentLength;
             anyswap = false;
-            while (i > 1) {
+            while (i > 0) {
                 Highlights.markArray(1, i - 1);
                 Highlights.markArray(2, i);
                 Delays.sleep(0.125);

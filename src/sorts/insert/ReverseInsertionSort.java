@@ -17,7 +17,7 @@ public final class ReverseInsertionSort extends Sort {
      */
     public ReverseInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        // TODO Auto-generated constructor stub
+
         this.setSortListName("Reverse Insertion");
         this.setRunAllSortsName("Reverse Insertion Sort");
         this.setRunSortName("Reverse Insertsort");
@@ -32,7 +32,6 @@ public final class ReverseInsertionSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) throws Exception {
-        // TODO Auto-generated method stub
         for (int i = length - 1; i >= 0; i--) {
             int current = array[i];
             int pos = i + 1;

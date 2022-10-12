@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import main.ArrayVisualizer;
-import sorts.insert.BlockInsertionSortNeon;
+import sorts.merge.NaturalMergeSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 import utils.Statistics;
@@ -53,7 +53,7 @@ final public class OptimizedSafeStalinSort extends Sort {
                         Writes.changeAuxWrites(1);
                         Highlights.markArray(1, j);
                         Delays.sleep(1);
-                        Writes.write(array, j, zero, 0, false, false);
+                        array[j] = zero;
                         zeroed++;
                     }
                 }
@@ -93,7 +93,7 @@ final public class OptimizedSafeStalinSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        BlockInsertionSortNeon two = new BlockInsertionSortNeon(arrayVisualizer);
+        NaturalMergeSort two = new NaturalMergeSort(arrayVisualizer);
         int workinglength = currentLength;
         Statistics.putStat("Stack");
         boolean check = false;
@@ -102,12 +102,12 @@ final public class OptimizedSafeStalinSort extends Sort {
             int size = stacks.size();
             reciteStacks(array, 0, workinglength, stacks);
             if (size > 2) {
-                IndexedRotations.neon(array, 0, firstlen, workinglength, 1, true, false);
+                IndexedRotations.adaptable(array, 0, firstlen, workinglength, 1, true, false);
                 if (!check) workinglength -= stepDown(array, workinglength);
                 Statistics.resetStat("Stack");
             } else {
                 Statistics.resetStat("Stack");
-                if (size == 2) two.insertionSort(array, 0, workinglength);
+                if (size == 2) two.runSort(array, workinglength, 0);
                 check = true;
             }
         }

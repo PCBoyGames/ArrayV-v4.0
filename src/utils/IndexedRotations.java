@@ -45,6 +45,10 @@ public class IndexedRotations {
         Rotations.radon(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
 
+    public static void centered(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
+        Rotations.centered(array, start, mid - start, end - mid, pause, mark, auxwrite);
+    }
+
     public static void adaptable(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.adaptable(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }

@@ -192,7 +192,7 @@ final public class PathOwOgenSort extends BogoSorting {
             return why(wrapped.getQuestion());
         }
         public boolean isPathogenic() {
-            return false; // They're already infected. Everything is a pathgen. Why even bother?
+            return false; // They're already infected. Everything is a pathogen. Why even bother?
         }
         @Override
         public void runSort(int[] array, int length, int buckets) {

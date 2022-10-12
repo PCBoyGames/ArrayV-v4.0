@@ -9,6 +9,7 @@ import main.ArrayVisualizer;
 
 import sorts.select.PoplarHeapSort;
 import sorts.select.SmoothSort;
+import sorts.select.AdaptiveVelvetSort;
 import sorts.select.MaxHeapSort;
 import sorts.select.TriangularHeapSort;
 import sorts.templates.PDQSorting;
@@ -53,6 +54,35 @@ public enum Shuffles {
             int currentLen = ArrayVisualizer.getCurrentLength();
             boolean delay = ArrayVisualizer.shuffleEnabled();
             classicshuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
+        }
+    },
+    NCRANDOM {
+        public String getName() {
+            return "Non-Cyclic Randomly";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random r = new Random();
+            boolean[] cycle = new boolean[currentLen];
+            for (int i=0; i<currentLen-1; i++) {
+                if (cycle[i])
+                    continue;
+                boolean cease = true;
+                for (int j=i+1; j<currentLen; j++) {
+                    cease = cease && cycle[j];
+                }
+                if (cease) break;
+                int z;
+                do {
+                    z = r.nextInt(currentLen-i-1)+i+1;
+                    Highlights.markArray(1, z);
+                    Delays.sleep(delay?0.5:0.00025);
+                } while (cycle[z]);
+                Writes.swap(array, i, z, delay?1:0, true, false);
+                cycle[z] = true;
+            }
         }
     },
     REVERSE {
@@ -231,10 +261,10 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -262,7 +292,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -290,7 +320,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest > start) {
-                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -320,10 +350,10 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -358,7 +388,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -393,7 +423,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest > start) {
-                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -782,10 +812,11 @@ public enum Shuffles {
             int currentLen = ArrayVisualizer.getCurrentLength();
             boolean delay = ArrayVisualizer.shuffleEnabled();
 
-            weaveRec(array, 0, currentLen, 1, delay ? 0.5 : 0, Writes);
+            weaveRec(array, 0, currentLen, 1, delay ? 0.5 : 0, Writes, 0);
         }
 
-        public void weaveRec(int[] array, int pos, int length, int gap, double delay, Writes Writes) {
+        public void weaveRec(int[] array, int pos, int length, int gap, double delay, Writes Writes, int d) {
+            Writes.recordDepth(d);
             if (length < 2) return;
 
             int mod2 = length % 2;
@@ -801,8 +832,10 @@ public enum Shuffles {
                 Writes.write(array, j+gap, temp[k], delay, true, false);
             }
 
-            weaveRec(array, pos, mid+mod2, 2*gap, delay/2, Writes);
-            weaveRec(array, pos+gap, mid, 2*gap, delay/2, Writes);
+            Writes.recursion();
+            weaveRec(array, pos, mid+mod2, 2*gap, delay/2, Writes, d + 1);
+            Writes.recursion();
+            weaveRec(array, pos+gap, mid, 2*gap, delay/2, Writes, d + 1);
         }
     },
     HALF_ROTATION {
@@ -1000,6 +1033,25 @@ public enum Shuffles {
             else      Delays.changeSkipped(false);
         }
     },
+    VELV_HEAP{
+        public String getName() {
+            return "Velvet Heapified";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            if (delay) Delays.setSleepRatio(Delays.getSleepRatio()*10);
+            else      Delays.changeSkipped(true);
+
+            AdaptiveVelvetSort velvet = new AdaptiveVelvetSort(ArrayVisualizer);
+            velvet.heap(array, 0, currentLen, 0);
+
+            if (delay) Delays.setSleepRatio(Delays.getSleepRatio()/10);
+            else      Delays.changeSkipped(false);
+        }
+    },
     CIRCLE {
         public String getName() {
             return "First Circle Pass";
@@ -1015,10 +1067,11 @@ public enum Shuffles {
             int n = 1;
             for (; n < currentLen; n*=2);
 
-            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.5 : 0, Reads, Writes);
+            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.5 : 0, Reads, Writes, 0);
         }
 
-        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes) {
+        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes, int d) {
+            Writes.recordDepth(d);
             if (lo == hi) return;
 
             int high = hi;
@@ -1033,8 +1086,12 @@ public enum Shuffles {
                 hi--;
             }
 
-            circleSortRoutine(array, low, low + mid, end, sleep/2, Reads, Writes);
-            if (low + mid + 1 < end) circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes);
+            Writes.recursion();
+            circleSortRoutine(array, low, low + mid, end, sleep/2, Reads, Writes, d + 1);
+            if (low + mid + 1 < end) {
+                Writes.recursion();
+                circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes, d + 1);
+            }
         }
     },
     PAIRWISE {
@@ -1085,17 +1142,20 @@ public enum Shuffles {
             int currentLen = ArrayVisualizer.getCurrentLength();
             boolean delay = ArrayVisualizer.shuffleEnabled();
 
-            reversalRec(array, 0, currentLen, delay ? 1 : 0, Writes);
+            reversalRec(array, 0, currentLen, delay ? 1 : 0, Writes, 0);
         }
 
-        public void reversalRec(int[] array, int a, int b, double sleep, Writes Writes) {
+        public void reversalRec(int[] array, int a, int b, double sleep, Writes Writes, int d) {
+            Writes.recordDepth(d);
             if (b-a < 2) return;
 
             Writes.reversal(array, a, b-1, sleep, true, false);
 
             int m = (a+b)/2;
-            this.reversalRec(array, a, m, sleep/2, Writes);
-            this.reversalRec(array, m, b, sleep/2, Writes);
+            Writes.recursion();
+            this.reversalRec(array, a, m, sleep/2, Writes, d + 1);
+            Writes.recursion();
+            this.reversalRec(array, m, b, sleep/2, Writes, d + 1);
         }
     },
     GRAY_CODE {
@@ -1107,10 +1167,11 @@ public enum Shuffles {
             int currentLen = ArrayVisualizer.getCurrentLength();
             boolean delay = ArrayVisualizer.shuffleEnabled();
 
-            reversalRec(array, 0, currentLen, false, delay ? 1 : 0, Writes);
+            reversalRec(array, 0, currentLen, false, delay ? 1 : 0, Writes, 0);
         }
 
-        public void reversalRec(int[] array, int a, int b, boolean bw, double sleep, Writes Writes) {
+        public void reversalRec(int[] array, int a, int b, boolean bw, double sleep, Writes Writes, int d) {
+            Writes.recordDepth(d);
             if (b-a < 3) return;
 
             int m = (a+b)/2;
@@ -1118,8 +1179,10 @@ public enum Shuffles {
             if (bw) Writes.reversal(array, a, m-1, sleep, true, false);
             else   Writes.reversal(array, m, b-1, sleep, true, false);
 
-            this.reversalRec(array, a, m, false, sleep/2, Writes);
-            this.reversalRec(array, m, b, true, sleep/2, Writes);
+            Writes.recursion();
+            this.reversalRec(array, a, m, false, sleep/2, Writes, d + 1);
+            Writes.recursion();
+            this.reversalRec(array, m, b, true, sleep/2, Writes, d + 1);
         }
     },
     SIERPINSKI {
@@ -1130,14 +1193,15 @@ public enum Shuffles {
         public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int currentLen = ArrayVisualizer.getCurrentLength();
             int[] triangle = new int[currentLen];
-            triangleRec(triangle, 0, currentLen);
+            triangleRec(triangle, 0, currentLen, Writes, 0);
 
             int[] temp = Arrays.copyOf(array, currentLen);
             for (int i = 0; i < currentLen; i++)
                 Writes.write(array, i, temp[triangle[i]], 1, true, false);
         }
 
-        public void triangleRec(int[] array, int a, int b) {
+        public void triangleRec(int[] array, int a, int b, Writes Writes, int d) {
+            Writes.recordDepth(d);
             if (b-a < 2) return;
             if (b-a == 2) {
                 array[a+1]++;
@@ -1148,9 +1212,12 @@ public enum Shuffles {
             for (int i = a;  i < t1; i++) array[i] += h;
             for (int i = t1; i < t2; i++) array[i] += 2*h;
 
-            triangleRec(array, a, t1);
-            triangleRec(array, t1, t2);
-            triangleRec(array, t2, b);
+            Writes.recursion();
+            triangleRec(array, a, t1, Writes, d + 1);
+            Writes.recursion();
+            triangleRec(array, t1, t2, Writes, d + 1);
+            Writes.recursion();
+            triangleRec(array, t2, b, Writes, d + 1);
         }
     },
     TRIANGULAR {
@@ -1203,10 +1270,11 @@ public enum Shuffles {
             int n = 1;
             for (; n < currentLen; n*=2);
 
-            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.25 : 0, Reads, Writes, false);
+            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.25 : 0, Reads, Writes, false, 0);
         }
 
-        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes, boolean dir) {
+        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes, boolean dir, int d) {
+            Writes.recordDepth(d);
             if (lo == hi) return;
 
             int high = hi;
@@ -1229,9 +1297,11 @@ public enum Shuffles {
                 }
             }
 
-            circleSortRoutine(array, low, low + mid, end, sleep, Reads, Writes, dir);
+            Writes.recursion();
+            circleSortRoutine(array, low, low + mid, end, sleep, Reads, Writes, dir, d + 1);
             if (low + mid + 1 < end) {
-                circleSortRoutine(array, low + mid + 1, high, end, sleep, Reads, Writes, !dir);
+                Writes.recursion();
+                circleSortRoutine(array, low + mid + 1, high, end, sleep, Reads, Writes, !dir, d + 1);
             }
         }
     },
@@ -1315,7 +1385,7 @@ public enum Shuffles {
                 Writes.write(temp, i, gas, sleep, true, true);
             }
 
-            pdqLoop(array, 0, currentLen, false, PDQSorting.pdqLog(currentLen));
+            pdqLoop(array, 0, currentLen, false, PDQSorting.pdqLog(currentLen), 0);
 
             for (int i = 0; i < currentLen; i++) {
                 Writes.write(array, i, copy[temp[i] - 1], sleep, true, false);
@@ -1356,7 +1426,8 @@ public enum Shuffles {
             return 0;
         }
 
-        protected void pdqLoop(int[] array, int begin, int end, boolean Branchless, int badAllowed) {
+        protected void pdqLoop(int[] array, int begin, int end, boolean Branchless, int badAllowed, int d) {
+            Writes.recordDepth(d);
             boolean leftmost = true;
 
             while (true) {
@@ -1431,7 +1502,8 @@ public enum Shuffles {
                                 return;
                         }
 
-                        this.pdqLoop(array, begin, pivotPos, Branchless, badAllowed);
+                        Writes.recursion();
+                        this.pdqLoop(array, begin, pivotPos, Branchless, badAllowed, d + 1);
                         begin = pivotPos + 1;
                         leftmost = false;
             }
@@ -1635,7 +1707,7 @@ public enum Shuffles {
                 Highlights.clearMark(2);
                 sort(array, keys, currentLen, delay ? 0.25 : 0, Writes);
 
-                push(array, keys, currentLen, blockLen, delay ? 0.25 : 0, Writes);
+                push(array, keys, currentLen, blockLen, delay ? 0.25 : 0, Writes, 0);
             }
         }
 
@@ -1645,7 +1717,8 @@ public enum Shuffles {
             Writes.reversal(array, a, b-1, sleep, true, false);
         }
 
-        public void push(int[] array, int a, int b, int bLen, double sleep, Writes Writes) {
+        public void push(int[] array, int a, int b, int bLen, double sleep, Writes Writes, int d) {
+            Writes.recordDepth(d);
             int len = b-a,
                 b1 = b - len%bLen, len1 = b1-a;
             if (len1 <= 2*bLen) return;
@@ -1654,16 +1727,17 @@ public enum Shuffles {
             while (2*m < len) m *= 2;
             m += a;
 
-            if (b1-m < bLen) push(array, a, m, bLen, sleep, Writes);
-            else {
+            if (b1-m < bLen) {
+                push(array, a, m, bLen, sleep, Writes, d + 1);
+            } else {
                 m = a+b1-m;
                 rotate(array, m-(bLen-2), b1-(bLen-1), b1, sleep, Writes);
                 Writes.multiSwap(array, a, m, sleep/2, true, false);
                 rotate(array, a, m, b1, sleep, Writes);
                 m = a+b1-m;
 
-                push(array, a, m, bLen, sleep/2, Writes);
-                push(array, m, b, bLen, sleep/2, Writes);
+                push(array, a, m, bLen, sleep/2, Writes, d + 1);
+                push(array, m, b, bLen, sleep/2, Writes, d + 1);
             }
         }
     },
@@ -2054,6 +2128,35 @@ public enum Shuffles {
             shuffle(array, 0, currentLen, delay ? 1 : 0, Writes);
         }
     },
+    SEEDED_NCRANDOM {
+        public String getName() {
+            return "Non-Cyclic Randomly (Seeded)";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Random r = new Random(1);
+            boolean[] cycle = new boolean[currentLen];
+            for (int i=0; i<currentLen-1; i++) {
+                if (cycle[i])
+                    continue;
+                boolean cease = true;
+                for (int j=i+1; j<currentLen; j++) {
+                    cease = cease && cycle[j];
+                }
+                if (cease) break;
+                int z;
+                do {
+                    z = r.nextInt(currentLen-i-1)+i+1;
+                    Highlights.markArray(1, z);
+                    Delays.sleep(delay?0.5:0.00025);
+                } while (cycle[z]);
+                Writes.swap(array, i, z, delay?1:0, true, false);
+                cycle[z] = true;
+            }
+        }
+    },
     SEEDED_ALMOST {
         public String getName() {
             return "Slight Shuffle (Seeded)";
@@ -2195,10 +2298,10 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2226,7 +2329,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + 1, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + 1, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2254,7 +2357,7 @@ public enum Shuffles {
                 int start = random.nextInt(currentLen);
                 int dest = random.nextInt(currentLen);
                 if (dest > start) {
-                    IndexedRotations.neon(array, start, start + 1, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + 1, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2284,10 +2387,10 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 else {
-                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2322,7 +2425,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest < start) {
-                    IndexedRotations.neon(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, dest, start, start + blockSize, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2357,7 +2460,7 @@ public enum Shuffles {
                 int start = blockSize * random.nextInt((currentLen/blockSize));
                 int dest = blockSize * random.nextInt(((currentLen/blockSize) + 1));
                 if (dest > start) {
-                    IndexedRotations.neon(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
+                    IndexedRotations.adaptable(array, start, start + blockSize, dest, delay ? 1 : 0, true, false);
                 }
                 for (int i = 0; i < currentLen; i++) {
                     if (array[i] != backtrack[i]) {
@@ -2534,10 +2637,11 @@ public enum Shuffles {
             int n = 1;
             for (; n < currentLen; n*=2);
 
-            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.5 : 0, Reads, Writes);
+            circleSortRoutine(array, 0, n-1, currentLen, delay ? 0.5 : 0, Reads, Writes, 0);
         }
 
-        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes) {
+        public void circleSortRoutine(int[] array, int lo, int hi, int end, double sleep, Reads Reads, Writes Writes, int d) {
+            Writes.recordDepth(d);
             if (lo == hi) return;
 
             int high = hi;
@@ -2552,8 +2656,12 @@ public enum Shuffles {
                 hi--;
             }
 
-            circleSortRoutine(array, low, low + mid, end, sleep/2, Reads, Writes);
-            if (low + mid + 1 < end) circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes);
+            Writes.recursion();
+            circleSortRoutine(array, low, low + mid, end, sleep/2, Reads, Writes, d + 1);
+            if (low + mid + 1 < end) {
+                Writes.recursion();
+                circleSortRoutine(array, low + mid + 1, high, end, sleep/2, Reads, Writes, d + 1);
+            }
         }
     },
     SEEDED_PAIRWISE {
@@ -2618,7 +2726,7 @@ public enum Shuffles {
                 Highlights.clearMark(2);
                 sort(array, keys, currentLen, delay ? 0.25 : 0, Writes);
 
-                push(array, keys, currentLen, blockLen, delay ? 0.25 : 0, Writes);
+                push(array, keys, currentLen, blockLen, delay ? 0.25 : 0, Writes, 0);
             }
         }
 
@@ -2628,7 +2736,7 @@ public enum Shuffles {
             Writes.reversal(array, a, b-1, sleep, true, false);
         }
 
-        public void push(int[] array, int a, int b, int bLen, double sleep, Writes Writes) {
+        public void push(int[] array, int a, int b, int bLen, double sleep, Writes Writes, int d) {
             int len = b-a,
                 b1 = b - len%bLen, len1 = b1-a;
             if (len1 <= 2*bLen) return;
@@ -2637,7 +2745,10 @@ public enum Shuffles {
             while (2*m < len) m *= 2;
             m += a;
 
-            if (b1-m < bLen) push(array, a, m, bLen, sleep, Writes);
+            if (b1-m < bLen) {
+                Writes.recursion();
+                push(array, a, m, bLen, sleep, Writes, d + 1);
+            }
             else {
                 m = a+b1-m;
                 rotate(array, m-(bLen-2), b1-(bLen-1), b1, sleep, Writes);
@@ -2645,8 +2756,10 @@ public enum Shuffles {
                 rotate(array, a, m, b1, sleep, Writes);
                 m = a+b1-m;
 
-                push(array, a, m, bLen, sleep/2, Writes);
-                push(array, m, b, bLen, sleep/2, Writes);
+                Writes.recursion();
+                push(array, a, m, bLen, sleep/2, Writes, d + 1);
+                Writes.recursion();
+                push(array, m, b, bLen, sleep/2, Writes, d + 1);
             }
         }
     },

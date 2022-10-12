@@ -42,6 +42,7 @@ public final class DvorakSort extends BogoSorting {
                 if (Reads.compareValues(letters[i], test[j]) == 0) {
                     select = j;
                     any = true;
+                    break;
                 }
             }
             if (any) Writes.write(test, select, min - 1, delay, true, true);
@@ -61,7 +62,7 @@ public final class DvorakSort extends BogoSorting {
         Writes.swap(array, i, j, delay, true, false);
         if (BogoSorting.randBoolean()) {
             if (array[i] == max) Writes.write(array, i, min - 1, delay, true, false);
-                Writes.write(array, i, array[i] + 1, delay, true, false);
+            Writes.write(array, i, array[i] + 1, delay, true, false);
         } else {
             if (array[j] == max) Writes.write(array, j, min - 1, delay, true, false);
             Writes.write(array, j, array[j] + 1, delay, true, false);

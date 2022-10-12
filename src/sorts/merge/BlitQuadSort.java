@@ -480,7 +480,7 @@ final public class BlitQuadSort extends Sort {
         int m = offs0 + block - 1, e = offs0 + nmemb - 1, s = offs1 + nmemb - block - 1, x, y;
         if (!cmpB(array[m], array[m+1]))
             return;
-        Writes.reversearraycopy(array, offs0+block, swap, offs1, nmemb-block, 1, true, swap!=main);
+        Writes.arraycopy(array, offs0+block, swap, offs1, nmemb-block, 1, true, swap!=main);
         while (s > offs1 + 1 && m > offs0 + 1) {
             if (cmpB(array[m-1], swap[s])) {
                 Writes.write(array, e--, array[m--], 1, true, array!=main);
@@ -524,9 +524,9 @@ final public class BlitQuadSort extends Sort {
             Writes.arraycopy(array, offs0+left, array, offs0, right, 1, true, array!=main);
             Writes.arraycopy(swap, offs1, array, offs0+right, left, 1, true, array!=main);
         } else if (right <= swapSize) {
-            Writes.reversearraycopy(array, offs0+left, swap, offs1, right, 1, true, swap!=main);
-            Writes.reversearraycopy(array, offs0, array, offs0+right, left, 1, true, array!=main);
-            Writes.reversearraycopy(swap, offs1, array, offs0, right, 1, true, swap!=main);
+            Writes.arraycopy(array, offs0+left, swap, offs1, right, 1, true, swap!=main);
+            Writes.arraycopy(array, offs0, array, offs0+right, left, 1, true, array!=main);
+            Writes.arraycopy(swap, offs1, array, offs0, right, 1, true, swap!=main);
         } else if ((bridge = Math.abs(right - left)) <= swapSize) {
             if (bridge == 0) {
                 for (int i=0; i<left; i++)
@@ -540,7 +540,7 @@ final public class BlitQuadSort extends Sort {
                     Writes.write(array, ptb--, array[ptc], 1, true, array!=main);
                     Writes.write(array, ptc--, array[pta--], 1, true, array!=main);
                 }
-                Writes.reversearraycopy(swap, offs1, array, offs0, bridge, 1, true, array!=main);
+                Writes.arraycopy(swap, offs1, array, offs0, bridge, 1, true, array!=main);
             } else {
                 Writes.arraycopy(array, offs0+right, swap, offs1, bridge, 1, true, swap!=main);
                 int pta = offs0, ptb = offs0 + right, ptc = offs0 + left;

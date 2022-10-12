@@ -12,7 +12,7 @@ final public class BadAppleSort extends Sort {
         this.setSortListName("Bad Apple");
         this.setRunAllSortsName("Bad Apple Sort");
         this.setRunSortName("Bad Apple Sort");
-        this.setCategory("Impractical Sorts");
+        this.setCategory("Esoteric Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);

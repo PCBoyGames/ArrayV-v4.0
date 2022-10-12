@@ -5,9 +5,10 @@ import java.util.BitSet;
 import java.util.Stack;
 
 import main.ArrayVisualizer;
-import sorts.insert.BlockInsertionSortNeonLessInsert;
+import sorts.merge.NaturalMergeSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
+import utils.Statistics;
 
 /*
 
@@ -77,6 +78,7 @@ public final class PDSafeStalinSort extends Sort {
         int zeroed = 0;
         while (zeroed < b - a) {
             Stack<Integer> currentStack = new Stack<>();
+            Statistics.addStat("Stack");
             for (int j = a; j < b; j++)
                 if (!bits.get(j - a))
                     if (currentStack.empty() || Reads.compareValues(currentStack.peek(), array[j]) <= 0) {
@@ -86,6 +88,7 @@ public final class PDSafeStalinSort extends Sort {
                         Highlights.markArray(1, j);
                         Delays.sleep(1);
                         bits.set(j - a);
+                        array[j] = Integer.MIN_VALUE;
                         zeroed++;
                     }
             stacksBuilt.add(currentStack);
@@ -125,8 +128,9 @@ public final class PDSafeStalinSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         if (patternDefeat(array, 0, length)) return;
-        BlockInsertionSortNeonLessInsert two = new BlockInsertionSortNeonLessInsert(arrayVisualizer);
+        NaturalMergeSort two = new NaturalMergeSort(arrayVisualizer);
         int n = length;
+        Statistics.putStat("Stack");
         boolean check = false;
         BitSet bits = new BitSet(length);
         while (!check && n > 1) {
@@ -134,10 +138,12 @@ public final class PDSafeStalinSort extends Sort {
             int size = stacks.size();
             reciteStacks(array, 0, n, stacks);
             if (size > 2) {
-                IndexedRotations.neon(array, 0, firstlen, n, 1, true, false);
+                IndexedRotations.adaptable(array, 0, firstlen, n, 1, true, false);
                 if (!check) n -= stepDown(array, n);
+                Statistics.resetStat("Stack");
             } else {
-                if (size == 2) two.insertionSort(array, 0, n);
+                Statistics.resetStat("Stack");
+                if (size == 2) two.runSort(array, n, 0);
                 check = true;
             }
         }

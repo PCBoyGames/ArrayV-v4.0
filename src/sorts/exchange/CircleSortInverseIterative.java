@@ -1,6 +1,7 @@
 package sorts.exchange;
 
 import main.ArrayVisualizer;
+import sorts.merge.QuadSort;
 import sorts.templates.Sort;
 
 /*
@@ -63,7 +64,8 @@ final public class CircleSortInverseIterative extends Sort {
                 gap *= 2;
             }
             if (gap / 2 != currentLength && !anyswaps) {
-                // TODO: Figure something out to put here.
+                QuadSort quad = new QuadSort(arrayVisualizer);
+                quad.runSort(array, currentLength, 0);
             }
         }
     }

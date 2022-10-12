@@ -99,7 +99,7 @@ final public class PandemicSort extends BogoSorting {
         }
 
         public boolean isPathogenic() {
-            return false; // They're already infected. Everything is a pathgen. Why even bother?
+            return false; // They're already infected. Everything is a pathogen. Why even bother?
         }
 
         @Override

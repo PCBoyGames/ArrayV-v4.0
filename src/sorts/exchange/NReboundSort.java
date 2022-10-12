@@ -28,13 +28,6 @@ final public class NReboundSort extends Sort {
         this.setQuestion("Enter the bounce for this sort:\n0 = Automatic", 0);
     }
 
-    protected int log2(int x) {
-        int n = 1;
-        while (1 << n < x) n++;
-        if (1 << n > x) n--;
-        return n;
-    }
-
     @Override
     public int validateAnswer(int answer) {
         if (answer < 0) return 0;
@@ -43,7 +36,7 @@ final public class NReboundSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int times) {
-        if (times == 0) times = currentLength / 16 >= 2 ? currentLength / 16: currentLength / 2;
+        if (times == 0) times = currentLength / 16 >= 2 ? currentLength / 16 : currentLength / 2;
         int dir = 1;
         int bounces = 0;
         int i = 0;

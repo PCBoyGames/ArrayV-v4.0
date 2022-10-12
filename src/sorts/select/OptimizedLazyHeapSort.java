@@ -55,21 +55,21 @@ final public class OptimizedLazyHeapSort extends Sort {
         return min;
     }
 
-    @Override
-    public void runSort(int[] array, int length, int bucketCount) {
-        int s = (int)Math.sqrt(length-1)+1;
+    public void lazyHeap(int[] array, int a, int b) {
+        int n = b - a;
+        int s = (int)Math.sqrt(n-1)+1;
 
-        int f = (length-1)%s+1;
-        int fMin = this.findMin(array, 0, 1, f, 1);
+        int f = a+((n-1)%s+1);
+        int fMin = this.findMin(array, a, a+1, f, 1);
 
-        for (int j = f; j < length; j += s) {
+        for (int j = f; j < b; j += s) {
             int min = this.findMin(array, j, j+1, j+s, 1);
 
             if (j != min) Writes.swap(array, j, min, 1, true, false);
         }
 
-        for (int j = 0; j < length;) {
-            int min = this.findMin(array, fMin, f, length, s);
+        for (int j = a; j < b;) {
+            int min = this.findMin(array, fMin, f, b, s);
 
             if (min == fMin) {
                 if (j != min) Writes.swap(array, j, min, 1, true, false);
@@ -96,5 +96,10 @@ final public class OptimizedLazyHeapSort extends Sort {
                 if (++j == f) f += s;
             }
         }
+    }
+
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+        lazyHeap(array, 0, length);
     }
 }

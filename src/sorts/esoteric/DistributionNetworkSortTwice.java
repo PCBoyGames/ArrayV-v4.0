@@ -36,7 +36,7 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setQuestion("Enter distribution:\n1: Sine Wave\n2: Cosine Wave\n3: Perlin Noise\n4: Perlin Noise Curve\n5: Bell Curve\n6: Ruler\n7: Blancmange Curve\n8: Sum of Divisors\n9: Fly Straight, Dammit!\n10: Decreasing Random\n11: Modulo Function\n12: Product of Digits\n13: Euler-Totient Function\n14: TWPK's FOUR\n(Default is 1)", 1);
+        this.setQuestion("Enter distribution:\n1: Sine Wave\n2: Cosine Wave\n3: Perlin Noise\n4: Perlin Noise Curve\n5: Bell Curve\n6: Ruler\n7: Blancmange Curve\n8: Sum of Divisors\n9: Fly Straight, Dammit!\n10: Decreasing Random\n11: Modulo Function\n12: Product of Digits\n13: Ramps\n14: Euler-Totient Function\n15: TWPK's FOUR\n16: Collatz Conjecture\n17: Weierstrass Function\n18: Sierpinski Triangle\n(Default is 1)", 1);
     }
 
     protected int stablereturn(int a) {
@@ -288,8 +288,24 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
             }
         }
 
-        // Euler-Totient Function
+        // Ramps
         if (type == 13) {
+            int ramp = 0;
+            int h = 0;
+            for (int i = 0; i < currentLen; i++) {
+                Highlights.markArray(1, i);
+                array[i] = h;
+                Writes.auxWrites++;
+                Delays.sleep(0.1);
+                if (h == ramp) {
+                    ramp++;
+                    h = 0;
+                } else h++;
+            }
+        }
+
+        // Euler-Totient Function
+        if (type == 14) {
             int[] minPrimeFactors = new int[currentLen];
             List<Integer> primes = new ArrayList<Integer>();
             Highlights.markArray(1, 0);
@@ -325,13 +341,43 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
         }
 
         // TWPK's FOUR
-        if (type == 14) {
+        if (type == 15) {
             for (int i = 0; i < currentLen; i++) {
                 Highlights.markArray(1, i);
                 array[i] = runFOUR(i);
                 Writes.auxWrites++;
                 Delays.sleep(0.1);
             }
+        }
+
+        // Collatz Conjecture
+        if (type == 16) {
+            array[0] = 0;
+            for (int i = 1; i < currentLen; i++) {
+                Highlights.markArray(1, i);
+                array[i] = runCollatz(i);
+                Writes.auxWrites++;
+                Delays.sleep(0.1);
+            }
+        }
+
+        // Weierstrass Function
+        if (type == 17) {
+            double a = 0.5, b = 3, n = currentLen;
+            for (int i = 0; i < n; i++) {
+                double y = 0;
+                double x = i / n;
+                for (int j = 0; j < 10; j++) y += Math.pow(a, j) * Math.cos(2 * Math.pow(b, j) * Math.PI * x);
+                Highlights.markArray(1, i);
+                array[i] = (int) ((0.5 + 0.25 * y) * n);
+                Writes.auxWrites++;
+                Delays.sleep(0.1);
+            }
+        }
+
+        // Sierpinski Triangle
+        if (type == 18) {
+            triangleRec(array, 0, currentLen, 0, currentLen);
         }
     }
 
@@ -379,6 +425,30 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
             cur = 0;
         }
         return steps;
+    }
+
+    protected int runCollatz(long a) {
+        int steps = 1;
+        while (a != 1) {
+            if (a % 2 == 1) a = 3 * a + 1;
+            else a /= 2;
+            steps++;
+        }
+        return steps;
+    }
+
+    protected void triangleRec(int[] array, int a, int b, int v1, int v2) {
+        if (b - a < 3) return;
+        int vm = (v1 + v2) / 2, t1 = (a + a + b) / 3, t2 = (a + b + b + 2) / 3;
+        for (int i = t1; i < t2; i++) {
+            Highlights.markArray(1, i);
+            array[i] = vm;
+            Writes.auxWrites++;
+            Delays.sleep(0.1);
+        }
+        triangleRec(array, a, t1, v1, vm);
+        triangleRec(array, t1, t2, vm, v2);
+        triangleRec(array, t2, b, v1, vm);
     }
 
     protected void linearInvert(int[] array, int currentLen) {
@@ -439,7 +509,7 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
     @Override
     public int validateAnswer(int answer) {
         if (answer < 1) return 1;
-        if (answer > 14) return 14;
+        if (answer > 18) return 18;
         return answer;
     }
 

@@ -43,6 +43,7 @@ public final class DeathdaySort extends BogoSorting {
                 if (Reads.compareValues(letters[i], test[j]) == 0) {
                     select = j;
                     any = true;
+                    break;
                 }
             }
             if (any) Writes.write(test, select, min - 1, delay, true, true);

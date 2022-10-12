@@ -1,7 +1,7 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.templates.BogoSorting;
+import sorts.templates.Sort;
 
 /*
 
@@ -12,12 +12,12 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class UnnamedSort extends BogoSorting {
-    public UnnamedSort(ArrayVisualizer arrayVisualizer) {
+final public class StablePebbleSort extends Sort {
+    public StablePebbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Unnamed");
-        this.setRunAllSortsName("Unnamed Sort");
-        this.setRunSortName("Unnamed Sort");
+        this.setSortListName("Stable Pebble");
+        this.setRunAllSortsName("Stable Pebble Sort");
+        this.setRunSortName("Stable Pebble Sort");
         this.setCategory("Hybrid Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -33,7 +33,6 @@ final public class UnnamedSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        if (isArraySorted(array, currentLength)) return;
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < currentLength; i++) {
@@ -44,9 +43,7 @@ final public class UnnamedSort extends BogoSorting {
         int[] holes = Writes.createExternalArray(size);
         for (int x = 0; x < currentLength; x++) {
             Highlights.markArray(1, x);
-            if (holes[stablereturn(array[x]) - min] != 1) {
-                Writes.write(holes, stablereturn(array[x]) - min, 1, 0.1, false, true);
-            }
+            if (holes[stablereturn(array[x]) - min] != 1) Writes.write(holes, stablereturn(array[x]) - min, 1, 0.1, false, true);
         }
         int collected = 0;
         for (int count = 0; count < size; count++) {
@@ -55,8 +52,8 @@ final public class UnnamedSort extends BogoSorting {
                     Highlights.markArray(1, i);
                     Highlights.clearMark(2);
                     Delays.sleep(0.1);
-                    if (Reads.compareValues(array[i], count + min) == 0) {
-                        if (collected != i) Writes.swap(array, collected, i, 0.1, true, false);
+                    if (Reads.compareValues(stablereturn(array[i]), count + min) == 0) {
+                        if (collected != i) Writes.insert(array, i, collected, 0.1, true, false);
                         collected++;
                         break;
                     }
@@ -68,14 +65,14 @@ final public class UnnamedSort extends BogoSorting {
             for (int i = 0; collected < currentLength; i++) {
                 for (int j = collected; j < currentLength; j++) {
                     if (Reads.compareIndices(array, i, j, 0.1, true) == 0) {
-                        if (collected != j) Writes.swap(array, collected, j, 0.1, true, false);
+                        if (collected != j) Writes.insert(array, j, collected, 0.1, true, false);
                         collected++;
                         break;
                     }
                 }
             }
             Highlights.clearAllMarks();
-            OptimizedPDMergeSort natural = new OptimizedPDMergeSort(arrayVisualizer);
+            LazicciSortAdaRot natural = new LazicciSortAdaRot(arrayVisualizer);
             natural.runSort(array, currentLength, 0);
         }
     }

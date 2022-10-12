@@ -43,7 +43,7 @@ public final class ReverseSelectionSort extends Sort {
      */
     public ReverseSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        // TODO Auto-generated constructor stub
+
         this.setSortListName("Reverse Selection");
         this.setRunAllSortsName("Reverse Selection Sort");
         this.setRunSortName("Reverse Selection Sort");
@@ -58,7 +58,6 @@ public final class ReverseSelectionSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        // TODO Auto-generated method stub
         for (int i = sortLength - 1; i >= 0; i--) {
             int highestindex = 0;
 

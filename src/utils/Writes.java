@@ -235,6 +235,8 @@ final public class Writes {
                 this.write(array, a, tempa > tempb ? array[a] - 1 : array[a] + 1, pause, mark, auxwrite);
                 this.write(array, b, tempb > tempa ? array[b] - 1 : array[b] + 1, pause, mark, auxwrite);
             }
+            this.updateSwap(auxwrite);
+            ArrayVisualizer.updateNow();
             Delays.sleep(pause);
         }
     }
@@ -274,10 +276,10 @@ final public class Writes {
     }
 
     public void reversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
-        if (length - start < 0); //System.err.println("There is a reversal of negative length.");
-        else if (length - start == 0); //System.err.println("Self-reversal at " + start + ".");
+        if (length - start < 0) System.err.println("There is a reversal of negative length.");
+        else if (length - start == 0) System.err.println("Self-reversal at " + start + ".");
         else if (length - start < 3) {
-            //System.err.println("A reversal of gap " + (length - start) + " can be done in a single swap.");
+            System.err.println("A reversal of gap " + (length - start) + " can be done in a single swap.");
             this.swap(array, start, length, sleep, mark, auxwrite);
         } else {
             this.reversals++;
@@ -289,10 +291,10 @@ final public class Writes {
     }
 
     public void bubbleReversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
-        if (length - start < 0); //System.err.println("There is a Bubble reversal of negative length.");
-        else if (length - start == 0); //System.err.println("Self-Bubble reversal at " + start + ".");
+        if (length - start < 0) System.err.println("There is a Bubble reversal of negative length.");
+        else if (length - start == 0) System.err.println("Self-Bubble reversal at " + start + ".");
         else if (length - start == 1) {
-            //System.err.println("A Bubble reversal of gap 1 can be done in a single swap.");
+            System.err.println("A Bubble reversal of gap 1 can be done in a single swap.");
             this.swap(array, start, length, sleep, mark, auxwrite);
         } else {
             this.reversals++;
@@ -301,16 +303,28 @@ final public class Writes {
     }
 
     public void flyReversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
-        if (length - start < 0); //System.err.println("There is a Flying reversal of negative length.");
-        else if (length - start == 0); //System.err.println("Self-Flying reversal at " + start + ".");
+        if (length - start < 0) System.err.println("There is a Flying reversal of negative length.");
+        else if (length - start == 0) System.err.println("Self-Flying reversal at " + start + ".");
         else if (length - start < 3) {
-            //System.err.println("A Flying reversal of gap 1 can be done in a single flying swap.");
+            System.err.println("A Flying reversal of gap " + (length - start) + " can be done in a single flying swap.");
             this.flySwap(array, start, length, sleep, mark, auxwrite);
         } else {
             this.reversals++;
             for (int i = start; i < start + ((length - start + 1) / 2); i++) {
                 this.flySwap(array, i, start + length - i, sleep, mark, auxwrite);
             }
+        }
+    }
+
+    public void flyBubbleReversal(int[] array, int start, int length, double sleep, boolean mark, boolean auxwrite) {
+        if (length - start < 0) System.err.println("There is a Flying Bubble reversal of negative length.");
+        else if (length - start == 0) System.err.println("Self-Flying Bubble reversal at " + start + ".");
+        else if (length - start == 1) {
+            System.err.println("A Flying Bubble reversal of gap 1 can be done in a single flying swap.");
+            this.flySwap(array, start, length, sleep, mark, auxwrite);
+        } else {
+            this.reversals++;
+            for (int i = length; i > start; i--) for (int j = start; j + 1 <= i; j++) this.flySwap(array, j, j + 1, sleep, mark, auxwrite);
         }
     }
 

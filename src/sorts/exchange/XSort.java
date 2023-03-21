@@ -24,10 +24,17 @@ final public class XSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
+        this.setQuestion("Enter the X gap for this sort:", 1);
     }
 
     @Override
-    public void runSort(int[] array, int currentLength, int bucketCount) {
+    public int validateAnswer(int answer) {
+        if (answer < 1) return 1;
+        return answer;
+    }
+
+    @Override
+    public void runSort(int[] array, int currentLength, int base) {
         int gap = currentLength;
         int i = 1;
         int xleft = 1;
@@ -44,17 +51,19 @@ final public class XSort extends Sort {
                     xleft = i + 1;
                     xright = i + gap - 1;
                     if (gap != 1) {
-                        for (int r = 0; r < gap - 1; r++) {
+                        for (int r = 0; r < gap - 1; r += base) {
                             if (Reads.compareValues(array[xleft - 1], array[xright - 1]) > 0) Writes.swap(array, xleft - 1, xright - 1, 0.001, true, false);
-                            xleft++;
-                            xright--;
+                            xleft += base;
+                            xright -= base;
                         }
                     }
                 }
                 i++;
             }
-            if (gap == 1 && !anyswaps) testpass = true;
-            else if (gap != 1 && !anyswaps) gap--;
+            if (!anyswaps) {
+                if (gap == 1) testpass = true;
+                else gap--;
+            }
         }
     }
 }

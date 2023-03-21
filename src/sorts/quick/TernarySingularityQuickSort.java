@@ -198,7 +198,8 @@ public final class TernarySingularityQuickSort extends Sort {
         }
     }
 
-    protected void merge(int[] array, int a, int m, int b) {
+    protected void merge(int[] array, int a, int m, int b, int d) {
+        Writes.recordDepth(d);
         int lenA = m - a, lenB = b - m;
         if (lenA <= 16 || lenB <= 16) {
             if (m - a > b - m)
@@ -221,8 +222,10 @@ public final class TernarySingularityQuickSort extends Sort {
             // [lenA-(c-r1)][lenB-r1][c-r1][r1]
             this.rotate(array, m - (c - r1), m, b - r1);
             int m1 = b - c;
-            this.merge(array, m1, b - r1, b);
-            this.merge(array, a, m1 - (lenB - r1), m1);
+            Writes.recursion();
+            this.merge(array, m1, b - r1, b, d + 1);
+            Writes.recursion();
+            this.merge(array, a, m1 - (lenB - r1), m1, d + 1);
         } else { // partitions c smallest elements
             int r1 = 0, r2 = lenA;
             while (r1 < r2) {
@@ -236,8 +239,10 @@ public final class TernarySingularityQuickSort extends Sort {
             // [r1][c-r1][lenA-r1][lenB-(c-r1)]
             this.rotate(array, a + r1, m, m + (c - r1));
             int m1 = a + c;
-            this.merge(array, a, a + r1, m1);
-            this.merge(array, m1, m1 + (lenA - r1), b);
+            Writes.recursion();
+            this.merge(array, a, a + r1, m1, d + 1);
+            Writes.recursion();
+            this.merge(array, m1, m1 + (lenA - r1), b, d + 1);
         }
     }
 
@@ -282,7 +287,7 @@ public final class TernarySingularityQuickSort extends Sort {
             if (i >= b)
                 return;
             j = findRun(array, i, b, mRun);
-            merge(array, a, i, j);
+            merge(array, a, i, j, 0);
             if (j >= b)
                 return;
             k = j;
@@ -291,7 +296,7 @@ public final class TernarySingularityQuickSort extends Sort {
                 if (i >= b)
                     break;
                 j = findRun(array, i, b, mRun);
-                merge(array, k, i, j);
+                merge(array, k, i, j, 0);
                 if (j >= b)
                     break;
                 k = j;
@@ -299,7 +304,8 @@ public final class TernarySingularityQuickSort extends Sort {
         }
     }
 
-    protected int[] partition(int[] array, int a, int b, int piv) {
+    protected int[] partition(int[] array, int a, int b, int piv, int d) {
+        Writes.recordDepth(d);
         if (b - a < 2) {
             int[] court = new int[] { a, a };
             int cmp = Reads.compareValues(array[a], piv);
@@ -311,8 +317,10 @@ public final class TernarySingularityQuickSort extends Sort {
             return court;
         }
         int m = a + (b - a) / 2;
-        int[] l = partition(array, a, m, piv);
-        int[] r = partition(array, m, b, piv);
+        Writes.recursion();
+        int[] l = partition(array, a, m, piv, d + 1);
+        Writes.recursion();
+        int[] r = partition(array, m, b, piv, d + 1);
         int l1 = l[0] - a, l2 = l[1] - l[0];
         int r1 = r[0] - m, r2 = r[1] - r[0];
         rotate(array, a + l1, m, m + r1);
@@ -320,7 +328,8 @@ public final class TernarySingularityQuickSort extends Sort {
         return new int[] { a + l1 + r1, a + l1 + r1 + l2 + r2 };
     }
 
-    protected void sortHelper(int[] array, int a, int b, int depth, int rep) {
+    protected void sortHelper(int[] array, int a, int b, int depth, int rep, int d) {
+        Writes.recordDepth(d);
         while (b - a > insertlimit) {
             if (depth >= depthlimit || rep >= 4) {
                 mergeSort(array, a, b);
@@ -331,16 +340,18 @@ public final class TernarySingularityQuickSort extends Sort {
                 pIdx++;
             if (pIdx >= b)
                 return;
-            int[] p = partition(array, a, b, array[pIdx - 1]);
+            int[] p = partition(array, a, b, array[pIdx - 1], 0);
             if (p[1] - p[0] == b - a)
                 return;
             rep = Math.min(b - p[1], p[0] - a) <= replimit ? rep + 1 : 0;
             depth++;
             if (b - p[1] < p[0] - a) {
-                sortHelper(array, p[1], b, depth, rep);
+                Writes.recursion();
+                sortHelper(array, p[1], b, depth, rep, d + 1);
                 b = p[0];
             } else {
-                sortHelper(array, a, p[0], depth, rep);
+                Writes.recursion();
+                sortHelper(array, a, p[0], depth, rep, d + 1);
                 a = p[1];
             }
         }
@@ -352,7 +363,7 @@ public final class TernarySingularityQuickSort extends Sort {
         insertlimit = Math.max(depthlimit / 2, 16);
         replimit = Math.max(depthlimit / 4, 2);
         if (findReverseRun(array, a, b) + 1 < b)
-            sortHelper(array, a, b, 0, 0);
+            sortHelper(array, a, b, 0, 0, 0);
     }
 
     @Override

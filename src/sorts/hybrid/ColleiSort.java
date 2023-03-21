@@ -35,7 +35,7 @@ public final class ColleiSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -73,7 +73,7 @@ public final class ColleiSort extends Sort {
         int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
         return binSearch(array, a1, b1, val, left);
     }
-    
+
     protected void multiSwap(int[] array, int a, int b, int len, boolean fw) {
         if (a == b)
             return;
@@ -94,7 +94,7 @@ public final class ColleiSort extends Sort {
         if (a != b)
             Writes.write(array, b, temp, 0.5, true, false);
     }
-    
+
     protected void insertToBWAux(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
@@ -103,7 +103,7 @@ public final class ColleiSort extends Sort {
         if (a != b)
             Writes.write(array, b, temp, 0.5, false, true);
     }
-    
+
     protected void shiftFWExt(int[] array, int a, int m, int b) {
         Highlights.clearMark(2);
         while (m < b)
@@ -163,18 +163,18 @@ public final class ColleiSort extends Sort {
             }
         }
     }
-    
+
     protected void mergeFromBuf(int[] array, int[] buf, int a, int m, int b, int bufLen) {
         int i = 0;
-        while(i < bufLen && m < b)
-            if(Reads.compareValues(buf[i], array[m]) <= 0)
+        while (i < bufLen && m < b)
+            if (Reads.compareValues(buf[i], array[m]) <= 0)
                 Writes.write(array, a++, buf[i++], 1, true, false);
             else
                 Writes.write(array, a++, array[m++], 1, true, false);
-        while(i < bufLen)
+        while (i < bufLen)
             Writes.write(array, a++, buf[i++], 1, true, false);
     }
-    
+
     protected void mergeFWExt(int[] array, int[] tmp, int a, int m, int b) {
         int s = m - a;
         Writes.arraycopy(array, a, tmp, 0, s, 1, true, true);
@@ -200,7 +200,7 @@ public final class ColleiSort extends Sort {
         while (i >= 0)
             Writes.write(array, --b, tmp[i--], 1, true, false);
     }
-    
+
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         while (a < m && m < b) {
             int i = leftExpSearch(array, m, b, array[a], true);
@@ -226,7 +226,7 @@ public final class ColleiSort extends Sort {
             b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
-    
+
     protected void merge(int[] array, int[] buf, int a, int m, int b) {
         Highlights.clearMark(2);
         if (Math.min(m - a, b - m) <= 8) {
@@ -239,7 +239,7 @@ public final class ColleiSort extends Sort {
         else
             mergeFWExt(array, buf, a, m, b);
     }
-    
+
     protected boolean getSubarray(int[] tags, int t, int mKey) {
         return Reads.compareOriginalValues(tags[t], tags[mKey]) < 0;
     }
@@ -275,7 +275,7 @@ public final class ColleiSort extends Sort {
             else
                 Writes.write(array, p++, array[j++], 1.0, true, false);
         }
-        if(i > p)
+        if (i > p)
             shiftFWExt(array, p, i, m);
         return j;
     }
@@ -299,14 +299,14 @@ public final class ColleiSort extends Sort {
         insertToBWAux(tags, 0, lCnt - 1);
         int mKey = blockSelect(array, tags, i, 1, bLen - 1, lCnt, bCnt, bLen);
         boolean frag = true;
-        while(l < lCnt && r < bCnt) {
-            if(frag) {
+        while (l < lCnt && r < bCnt) {
+            if (frag) {
                 do {
                     j += bLen;
                     l++;
                     key++;
                 } while (l < lCnt && getSubarray(tags, key, mKey));
-                if(l == lCnt) {
+                if (l == lCnt) {
                     i = mergeBlocks(array, i, j, b, i - bLen, true);
                     mergeFromBuf(array, buf, i - bLen, i, b, bLen);
                 } else
@@ -317,7 +317,7 @@ public final class ColleiSort extends Sort {
                     r++;
                     key++;
                 } while (r < bCnt && !getSubarray(tags, key, mKey));
-                if(r == bCnt) {
+                if (r == bCnt) {
                     shiftFWExt(array, i - bLen, i, b);
                     Writes.arraycopy(buf, 0, array, b - bLen, bLen, 1, true, false);
                 } else
@@ -326,7 +326,7 @@ public final class ColleiSort extends Sort {
             frag = !frag;
         }
     }
-    
+
     protected void smartBlockMerge(int[] array, int[] buf, int[] tags, int a, int m, int b, int bLen) {
         if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0)
             return;
@@ -345,7 +345,7 @@ public final class ColleiSort extends Sort {
                 mergeFWExt(array, buf, a, a1, b);
         }
     }
-    
+
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
         if (i < b)
@@ -366,7 +366,7 @@ public final class ColleiSort extends Sort {
         }
         return i;
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int len = b - a;
         if (len <= 32) {

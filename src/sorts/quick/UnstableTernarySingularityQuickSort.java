@@ -165,7 +165,8 @@ public final class UnstableTernarySingularityQuickSort extends Sort {
         return new int[] {i, j};
     }
 
-    protected void sortHelper(int[] array, int a, int b, int depth, int rep) {
+    protected void sortHelper(int[] array, int a, int b, int depth, int rep, int d) {
+        Writes.recordDepth(d);
         while (b - a > insertlimit) {
             if (depth >= depthlimit || rep >= 4) {
                 heap(array, a, b);
@@ -182,10 +183,12 @@ public final class UnstableTernarySingularityQuickSort extends Sort {
             rep = Math.min(b - p[1], p[0] - a) <= replimit ? rep + 1 : 0;
             depth++;
             if (b - p[1] < p[0] - a) {
-                sortHelper(array, p[1], b, depth, rep);
+                Writes.recursion();
+                sortHelper(array, p[1], b, depth, rep, d + 1);
                 b = p[0];
             } else {
-                sortHelper(array, a, p[0], depth, rep);
+                Writes.recursion();
+                sortHelper(array, a, p[0], depth, rep, d + 1);
                 a = p[1];
             }
         }
@@ -197,7 +200,7 @@ public final class UnstableTernarySingularityQuickSort extends Sort {
         insertlimit = Math.max(depthlimit / 2, 16);
         replimit = Math.max(depthlimit / 4, 2);
         if (findReverseRun(array, a, b) + 1 < b)
-            sortHelper(array, a, b, 0, 0);
+            sortHelper(array, a, b, 0, 0, 0);
     }
 
     @Override

@@ -320,7 +320,8 @@ public final class OOPTernarySingularityQuickSort extends Sort {
         return new int[] {p0, p0 + eqSize};
     }
 
-    protected void sortHelper(int[] array, int[] buf, int a, int b, int depth, int rep) {
+    protected void sortHelper(int[] array, int[] buf, int a, int b, int depth, int rep, int d) {
+        Writes.recordDepth(d);
         while (b - a > insertlimit) {
             if (depth >= depthlimit || rep >= 4) {
                 mergeSort(array, buf, a, b);
@@ -337,10 +338,12 @@ public final class OOPTernarySingularityQuickSort extends Sort {
             rep = Math.min(b - p[1], p[0] - a) <= replimit ? rep + 1 : 0;
             depth++;
             if (b - p[1] < p[0] - a) {
-                sortHelper(array, buf, p[1], b, depth, rep);
+                Writes.recursion();
+                sortHelper(array, buf, p[1], b, depth, rep, d + 1);
                 b = p[0];
             } else {
-                sortHelper(array, buf, a, p[0], depth, rep);
+                Writes.recursion();
+                sortHelper(array, buf, a, p[0], depth, rep, d + 1);
                 a = p[1];
             }
         }
@@ -353,7 +356,7 @@ public final class OOPTernarySingularityQuickSort extends Sort {
         replimit = Math.max(depthlimit / 4, 2);
         if (findReverseRun(array, a, b) + 1 < b) {
             int[] buf = Writes.createExternalArray(b - a);
-            sortHelper(array, buf, a, b, 0, 0);
+            sortHelper(array, buf, a, b, 0, 0, 0);
             Writes.deleteExternalArray(buf);
         }
     }

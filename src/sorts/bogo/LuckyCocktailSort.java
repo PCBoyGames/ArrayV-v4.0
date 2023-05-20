@@ -5,7 +5,7 @@ import sorts.templates.BogoSorting;
 
 /*
 
-PORTED TO ARRAYV BY PCBOYGAMES
+CODED FOR ARRAYV BY PCBOYGAMES
 
 ------------------------------
 - SORTING ALGORITHM MADHOUSE -

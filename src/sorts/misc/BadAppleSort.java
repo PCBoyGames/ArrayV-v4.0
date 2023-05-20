@@ -2,8 +2,34 @@ package sorts.misc;
 
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
-import java.util.Scanner;
-import java.io.File;
+import java.io.*;
+import java.util.Random;
+
+/*
+ *
+MIT License
+
+Copyright (c) 2022-2023 aphitorite
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ *
+ */
 
 final public class BadAppleSort extends Sort {
     public BadAppleSort(ArrayVisualizer arrayVisualizer) {
@@ -22,36 +48,39 @@ final public class BadAppleSort extends Sort {
     }
 
     @Override
-    public void runSort(int[] array, int currentLength, int bucketCount) {
-        File folder = null;
+    public void runSort(int[] array, int currentLength, int bucketCount) throws IOException {
+		final int N = 32768;
+		int[] temp = Writes.createExternalArray(N);
 
-        try {
-            folder = new File("C:/Users/patri/Documents/ba_frames/numbers");
-        }
-        catch(Exception e) {
-            System.out.println("File not found");
-            return;
-        }
+		Random r = new Random(0); // seeded shuffle (do not change)
 
-        Scanner scanner = null;
+		for(int i = 0; i < N; i++) {
+			int j = r.nextInt(i+1);
+			Writes.write(temp, i, temp[j], 0, false, true);
+			Writes.write(temp, j, i, 0, false, true);
+		}
 
-        for (final File file : folder.listFiles()) {
-            try {
-                scanner = new Scanner(file);
-            }
-            catch (Exception e) {
-                System.out.println("File not found");
-                return;
-            }
-            scanner.useDelimiter(" ");
+		String path = System.getProperty("user.dir") + "\\BadAppleSort";
+		try (BufferedInputStream inFile = new BufferedInputStream(new FileInputStream(path))) {
+			byte[] bytes = new byte[N/8];
 
-            int current = 0;
-            while (scanner.hasNext())
-                Writes.write(array, current++, Integer.parseInt(scanner.next()), 1, true, false);
+			int alloc = 6726656; // total amount of space in ints used
+			Writes.changeAllocAmount(alloc);
 
-            scanner.close();
-        }
-        for (int i = 0; i < currentLength; i++)
-            Writes.write(array, i, 0, 1, true, false);
+			int br = 0;
+
+			while(br != -1) {
+				br = inFile.read(bytes, 0, bytes.length);
+
+				for(int i = 0; i < currentLength; i++) {
+					int idx = (int)(N * (double)i/currentLength);
+					int q   = (bytes[idx >> 3] >> (idx & 7)) & 1;
+
+					Writes.write(array, i, q * (int)(temp[idx] * (double)currentLength/N), 0.015, true, false);
+				}
+			}
+			Writes.changeAllocAmount(-alloc);
+		}
+		Writes.deleteExternalArray(temp);
     }
 }

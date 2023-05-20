@@ -7,6 +7,7 @@ import sorts.bogo.BoomSort;
 import sorts.bogo.LuckyPrimeWeaveHighSort;
 import sorts.bogo.LuckyPrimeWeaveLowSort;
 import sorts.bogo.PapoSort;
+import sorts.bogo.ScrambleQuickSort;
 import sorts.concurrent.VanVoorhisFourFourSortIterative;
 import sorts.concurrent.VanVoorhisFourFourSortRecursive;
 import sorts.distribute.ShnexSort;
@@ -22,6 +23,7 @@ import sorts.exchange.ClampSort;
 import sorts.exchange.DeterministicSimpleArgoSort;
 import sorts.exchange.DigSort;
 import sorts.exchange.DragSort;
+import sorts.exchange.EggSort;
 import sorts.exchange.GoalkeeperSort;
 import sorts.exchange.HeadPullRoomSort;
 import sorts.exchange.LimitedSwapSort;
@@ -41,7 +43,7 @@ import sorts.exchange.PDSegmentedSort;
 import sorts.exchange.ParFutureStrangeSort;
 import sorts.exchange.ParSelectFutureStrangeSort;
 import sorts.exchange.ThirtySort;
-import sorts.exchange.UnnamedSort;
+import sorts.exchange.AccelerateSort;
 import sorts.exchange.ZigZagSort;
 import sorts.exchange.QuasimiddleSort;
 import sorts.exchange.SearchSort;
@@ -73,6 +75,7 @@ import sorts.hybrid.OptimizedWeaveMergeSort;
 import sorts.hybrid.PartitionHeapMergeSort;
 import sorts.hybrid.PebbleSort;
 import sorts.hybrid.StablePebbleSort;
+import sorts.hybrid.WeaveQuickSort;
 import sorts.insert.BigBlockInsertionSort;
 import sorts.insert.BlockInsertionSort;
 import sorts.insert.BlockInsertionSortAdaRot;
@@ -83,12 +86,15 @@ import sorts.merge.InPlaceMergeSortIV;
 import sorts.merge.RougeLazyStableSort;
 import sorts.quick.DunsparceSort;
 import sorts.quick.HeadPullQuickSort;
+import sorts.quick.InPlaceSergioSort;
+import sorts.quick.InPlaceUnstableSergioSort;
 import sorts.quick.IndexSmartSingularityQuickSort;
 import sorts.quick.MashuSort;
 import sorts.quick.MidSingularityQuickSort;
 import sorts.quick.OOPSingularityQuickSort;
 import sorts.quick.OOPSmartSingularityQuickSort;
 import sorts.quick.OOPTernarySingularityQuickSort;
+import sorts.quick.OptimizedInPlaceSergioSort;
 import sorts.quick.OptimizedMidSingularityQuickSort;
 import sorts.quick.OptimizedSmartSingularityQuickSort;
 import sorts.quick.QuagsireSort;
@@ -180,6 +186,8 @@ final public class RunSummerSort extends MultipleSortThread {
     protected synchronized void runSort(int[] array, String shuffleName, boolean alt) throws Exception {
 
         inputnum++;
+
+        if (alt) return;
 
         //Sort Quasimiddle = new QuasimiddleSort(arrayVisualizer);
         //runIndividualSort(Quasimiddle, 0, array, 128, 1, false, shuffleName, 16, alt);
@@ -305,12 +313,12 @@ final public class RunSummerSort extends MultipleSortThread {
         runIndividualSort(GnomeWeaveLow, 0, array, 300, 1, false, shuffleName, 15, alt);
 
         Sort OddEvenWeaveLow = new OddEvenWeaveLowSort(arrayVisualizer);
-        runIndividualSort(OddEvenWeaveLow, 0, array, 300, 1, false, shuffleName, 15, alt);*/
+        runIndividualSort(OddEvenWeaveLow, 0, array, 300, 1, false, shuffleName, 15, alt);
 
-        //Sort BubbleWeaveLow = new BubbleWeaveLowSort(arrayVisualizer);
-        //runIndividualSort(BubbleWeaveLow, 0, array, 300, 1, false, shuffleName, 15, alt);
+        Sort BubbleWeaveLow = new BubbleWeaveLowSort(arrayVisualizer);
+        runIndividualSort(BubbleWeaveLow, 0, array, 300, 1, false, shuffleName, 15, alt);
 
-        /*Sort ShellLow = new ShellLowSort(arrayVisualizer);
+        Sort ShellLow = new ShellLowSort(arrayVisualizer);
         runIndividualSort(ShellLow, 0, array, 300, 1, false, shuffleName, 15, alt);
 
         Sort LuckyWeaveLow = new LuckyPrimeWeaveLowSort(arrayVisualizer);
@@ -320,12 +328,12 @@ final public class RunSummerSort extends MultipleSortThread {
         runIndividualSort(GnomeWeaveHigh, 0, array, 300, 1, false, shuffleName, 15, alt);
 
         Sort OddEvenWeaveHigh = new OddEvenWeaveHighSort(arrayVisualizer);
-        runIndividualSort(OddEvenWeaveHigh, 0, array, 300, 1, false, shuffleName, 15, alt);*/
+        runIndividualSort(OddEvenWeaveHigh, 0, array, 300, 1, false, shuffleName, 15, alt);
 
-        //Sort BubbleWeaveHigh = new BubbleWeaveHighSort(arrayVisualizer);
-        //runIndividualSort(BubbleWeaveHigh, 0, array, 300, 1, false, shuffleName, 15, alt);
+        Sort BubbleWeaveHigh = new BubbleWeaveHighSort(arrayVisualizer);
+        runIndividualSort(BubbleWeaveHigh, 0, array, 300, 1, false, shuffleName, 15, alt);
 
-        /*Sort ShellHigh = new ShellHighSort(arrayVisualizer);
+        Sort ShellHigh = new ShellHighSort(arrayVisualizer);
         runIndividualSort(ShellHigh, 0, array, 300, 1, false, shuffleName, 15, alt);
 
         Sort LuckyWeaveHigh = new LuckyPrimeWeaveHighSort(arrayVisualizer);
@@ -385,11 +393,26 @@ final public class RunSummerSort extends MultipleSortThread {
         //Sort Cityscape = new CityscapeSortNS(arrayVisualizer);
         //runIndividualSort(Cityscape, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort Sergio = new SergioSort(arrayVisualizer);
+        //Sort Unnamed = new AccelerateSort(arrayVisualizer);
+        //runIndividualSort(Unnamed, 2, array, 64, 1, false, shuffleName, 16, alt);
+
+        //Sort ScrambleQuick = new ScrambleQuickSort(arrayVisualizer);
+        //runIndividualSort(ScrambleQuick, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        /*Sort Sergio = new SergioSort(arrayVisualizer);
         runIndividualSort(Sergio, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        //Sort Unnamed = new UnnamedSort(arrayVisualizer);
-        //runIndividualSort(Unnamed, 2, array, 512, 1, false, shuffleName, 16, alt);
+        Sort IPUSergio = new InPlaceUnstableSergioSort(arrayVisualizer);
+        runIndividualSort(IPUSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        Sort IPSergio = new InPlaceSergioSort(arrayVisualizer);
+        runIndividualSort(IPSergio, 0, array, 512, 1, false, shuffleName, 16, alt);*/
+
+        Sort OptiIPSergio = new OptimizedInPlaceSergioSort(arrayVisualizer);
+        runIndividualSort(OptiIPSergio, 16, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort Egg = new EggSort(arrayVisualizer);
+        //runIndividualSort(Egg, 0, array, 128, 1, false, shuffleName, 16, alt);
 
     }
 

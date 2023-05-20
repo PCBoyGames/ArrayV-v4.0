@@ -11,10 +11,25 @@ CODED FOR ARRAYV BY PCBOYGAMES
 - SORTING ALGORITHM MADHOUSE -
 ------------------------------
 
+CHANGELOG:
+
+SerSan-1.1 (05/20/2023)
+ - Make IPU, IP, and OIP versions.
+   + There was never a 1.0 for these, if you ask.
+ - Assure better recursion behavior. All "main" loops now use a tail recursion method.
+   + This required fixing the partition outputs of OOP Sergio to be more like the others in development.
+ - Fix visual inconsistency with HGM rotations.
+   + Before, rotating backwards equally would rotate forward on the last iteration.
+   + This was escpecially noticeable in IP and OIP during development.
+
+SerSan-1.0 (03/21/2023)
+ - Initial version.
+   + Only OOP Sergio was made and released with this version tag.
+
 */
 /**A Gapped Median-of-7 Out-of-Place Stable Quicksort.<p>
  * To use this algorithm in another, use {@code runSergioSort()} from a reference instance.
- * @version SerSan-1.0
+ * @version SerSan-1.1
  * @author PCBoy
 */
 final public class SergioSort extends GrailSorting {
@@ -70,7 +85,7 @@ final public class SergioSort extends GrailSorting {
                 lenB -= lenA;
             }
             if (lenA <= 1 || lenB <= 1) break;
-            while (lenA > lenB) {
+            while (lenA >= lenB) {
                 swapBlocksBackwards(array, pos + lenA - lenB, pos + lenA, lenB);
                 lenA -= lenB;
             }
@@ -167,7 +182,7 @@ final public class SergioSort extends GrailSorting {
         } else return false;
     }
 
-    protected int extmo7(int[] array, int start, int end) {
+    protected int extGMo7(int[] array, int start, int end) {
         for (int i = 0; i < 7; i++) Writes.write(ext, i, start + i * ((end - start) / 6), 0, false, true);
         int[][] network = {{0,6},{1,5},{1,2},{4,5},{0,1},{5,6},{1,5},{2,4},{1,2},{4,5},{3,4},{2,3},{3,4}};
         for (int i = 0; i < network.length; i++) indiceshandle(array, ext, network[i][0], network[i][1]);
@@ -325,24 +340,30 @@ final public class SergioSort extends GrailSorting {
             if (partedhere == 0) if (Reads.compareOriginalValues(ext[i], array[start + passed + tern + i]) != 0) partedhere = 1;
             Writes.write(array, start + passed + tern + i, ext[i], 0.5, true, false);
         }
-        int[] ret = {passed, tern, partedhere};
-        return ret;
+        return new int[] {start + passed, start + passed + tern, partedhere};
     }
 
     protected void sergio(int[] array, int start, int end, int depth, int depthlimit, int lensave) {
         Writes.recordDepth(depth);
-        if (end - start < 31 || depth > depthlimit) mergeSort(array, start, end + 1);
-        else if (pd(array, start, end + 1) < end) {
-            if (!sorted(array, start, end)) {
-                int pivot = extmo7(array, start, end);
-                int[] part = partition(array, start, end, pivot, lensave);
-                if (part[2] == 1) {
-                    Writes.recursion();
-                    sergio(array, start + part[0] + part[1], end, depth + 1, depthlimit, lensave);
-                    Writes.recursion();
-                    sergio(array, start, start + part[0] - 1, depth + 1, depthlimit, lensave);
-                } else mergeSort(array, start, end + 1);
-            }
+        int[] part = {end + 1, 0};
+        while (true) {
+            end = part[0] - 1;
+            if (end - start < 31 || depth > depthlimit) {
+                mergeSort(array, start, end + 1);
+                break;
+            } else if (pd(array, start, end + 1) < end) {
+                if (!sorted(array, start, end)) {
+                    int pivot = extGMo7(array, start, end);
+                    part = partition(array, start, end, pivot, lensave);
+                    if (part[2] == 1) {
+                        Writes.recursion();
+                        sergio(array, part[1], end, depth + 1, depthlimit, lensave);
+                    } else {
+                        mergeSort(array, start, end + 1);
+                        break;
+                    }
+                } else break;
+            } else break;
         }
     }
 

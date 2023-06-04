@@ -31,7 +31,7 @@ public final class InsertionBogoSort extends BogoSorting {
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);
-        this.setUnreasonableLimit(512);
+        this.setUnreasonableLimit(4096);
         this.setBogoSort(true);
     }
 
@@ -43,11 +43,11 @@ public final class InsertionBogoSort extends BogoSorting {
                 int t = array[i];
                 int j = i - 1;
                 while (j >= a && Reads.compareValues(array[j], t) > 0) {
-                    Writes.write(array, j + 1, array[j], 0.5, true, false);
+                    Writes.write(array, j + 1, array[j], this.delay, true, false);
                     j--;
                 }
                 if (j + 1 < i) {
-                    Writes.write(array, j + 1, t, 0.5, true, false);
+                    Writes.write(array, j + 1, t, this.delay, true, false);
                     anyChange = true;
                 }
             }

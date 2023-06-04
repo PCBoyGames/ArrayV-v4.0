@@ -80,7 +80,6 @@ final public class InPlaceSergioSort extends GrailSorting {
             }
         }
         return false;
-
     }
 
     protected void blockSwap(int[] array, int a, int b, int len) {

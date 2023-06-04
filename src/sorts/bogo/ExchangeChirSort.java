@@ -112,7 +112,7 @@ public final class ExchangeChirSort extends BogoSorting {
                 if (end > start) for (int i = start; i < end + 1; i++) if (Reads.compareIndices(array, i, i + 1, delay, true) > 0) Writes.swap(array, i, i + 1, delay, true, false);
             }
 
-            // Exchange Goro
+            // Exchange Slice Bogo
             if (choice == 8) {
                 int i1 = randInt(0, currentLength);
                 int i2 = randInt(0, currentLength);

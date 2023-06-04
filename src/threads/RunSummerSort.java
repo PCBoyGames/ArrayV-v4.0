@@ -35,6 +35,7 @@ import sorts.exchange.NapoleonSortResolveNTS;
 import sorts.exchange.OddEvenWeaveHighSort;
 import sorts.exchange.OddEvenWeaveLowSort;
 import sorts.exchange.OldDigSort;
+import sorts.exchange.OpiumSort;
 import sorts.exchange.OptimizedBabblurSort;
 import sorts.exchange.OptimizedDragSort;
 import sorts.exchange.OptimizedGoalkeeperSort;
@@ -108,10 +109,14 @@ import sorts.quick.UnboundedUnstableSingularityQuickSort;
 import sorts.quick.UnstableSingularityQuickSort;
 import sorts.quick.UnstableSmartSingularityQuickSort;
 import sorts.quick.UnstableTernarySingularityQuickSort;
+import sorts.select.MoreOptimizedOpiumSort;
+import sorts.select.OptimizedOpiumSort;
 import sorts.select.OutOfPlaceStableSelectionSort;
 import sorts.select.PeelBingoSort;
 import sorts.select.RectangleSelectionSort;
 import sorts.select.SandpaperBingoSort;
+import sorts.select.StableOpiumSort;
+import sorts.select.SwaplessOptimizedReverseSandpaperSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -187,7 +192,7 @@ final public class RunSummerSort extends MultipleSortThread {
 
         inputnum++;
 
-        if (alt) return;
+        //if (alt) return;
 
         //Sort Quasimiddle = new QuasimiddleSort(arrayVisualizer);
         //runIndividualSort(Quasimiddle, 0, array, 128, 1, false, shuffleName, 16, alt);
@@ -406,13 +411,28 @@ final public class RunSummerSort extends MultipleSortThread {
         runIndividualSort(IPUSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
 
         Sort IPSergio = new InPlaceSergioSort(arrayVisualizer);
-        runIndividualSort(IPSergio, 0, array, 512, 1, false, shuffleName, 16, alt);*/
+        runIndividualSort(IPSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
 
         Sort OptiIPSergio = new OptimizedInPlaceSergioSort(arrayVisualizer);
-        runIndividualSort(OptiIPSergio, 16, array, 512, 1, false, shuffleName, 16, alt);
+        runIndividualSort(OptiIPSergio, 16, array, 512, 1, false, shuffleName, 16, alt);*/
 
         //Sort Egg = new EggSort(arrayVisualizer);
         //runIndividualSort(Egg, 0, array, 128, 1, false, shuffleName, 16, alt);
+
+        //Sort SwaplessOptimizedReverseSandpaper = new SwaplessOptimizedReverseSandpaperSort(arrayVisualizer);
+        //runIndividualSort(SwaplessOptimizedReverseSandpaper, 0, array, 128, 1, false, shuffleName, 16, alt);
+
+        Sort Opium = new OpiumSort(arrayVisualizer);
+        runIndividualSort(Opium, 0, array, 128, 1, false, shuffleName, 16, false);
+
+        Sort OptimizedOpium = new OptimizedOpiumSort(arrayVisualizer);
+        runIndividualSort(OptimizedOpium, 0, array, 128, 1, false, shuffleName, 16, false);
+
+        Sort MoreOptimizedOpium = new MoreOptimizedOpiumSort(arrayVisualizer);
+        runIndividualSort(MoreOptimizedOpium, 0, array, 128, 1, false, shuffleName, 16, false);
+
+        Sort StableOpium = new StableOpiumSort(arrayVisualizer);
+        runIndividualSort(StableOpium, 0, array, 128, 1, false, shuffleName, 8, alt);
 
     }
 

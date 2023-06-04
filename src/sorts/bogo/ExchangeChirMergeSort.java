@@ -112,7 +112,7 @@ public final class ExchangeChirMergeSort extends BogoSorting {
             if (choice == 6) {
                 pull(array, BogoSorting.randInt(a, b), BogoSorting.randInt(a, b));
             }
-            //Exchange Goro
+            //Exchange Slice Bogo
             if (choice == 7) {
                 int i1 = BogoSorting.randInt(a, b);
                 int i2 = BogoSorting.randInt(a, b);

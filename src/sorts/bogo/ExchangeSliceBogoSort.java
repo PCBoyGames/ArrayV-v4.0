@@ -12,13 +12,12 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class ExchangeGoroSort extends BogoSorting {
-
-    public ExchangeGoroSort(ArrayVisualizer arrayVisualizer) {
+public final class ExchangeSliceBogoSort extends BogoSorting {
+    public ExchangeSliceBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Exchange Goro");
-        this.setRunAllSortsName("Exchange Goro Sort");
-        this.setRunSortName("Exchange Gorosort");
+        this.setSortListName("Exchange Slice Bogo");
+        this.setRunAllSortsName("Exchange Slice Bogo Sort");
+        this.setRunSortName("Exchange Slice Bogosort");
         this.setCategory("Bogo Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);

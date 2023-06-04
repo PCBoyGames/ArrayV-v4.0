@@ -49,38 +49,38 @@ final public class BadAppleSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) throws IOException {
-		final int N = 32768;
-		int[] temp = Writes.createExternalArray(N);
+        final int N = 32768;
+        int[] temp = Writes.createExternalArray(N);
 
-		Random r = new Random(0); // seeded shuffle (do not change)
+        Random r = new Random(0); // seeded shuffle (do not change)
 
-		for(int i = 0; i < N; i++) {
-			int j = r.nextInt(i+1);
-			Writes.write(temp, i, temp[j], 0, false, true);
-			Writes.write(temp, j, i, 0, false, true);
-		}
+        for(int i = 0; i < N; i++) {
+            int j = r.nextInt(i+1);
+            Writes.write(temp, i, temp[j], 0, false, true);
+            Writes.write(temp, j, i, 0, false, true);
+        }
 
-		String path = System.getProperty("user.dir") + "\\BadAppleSort";
-		try (BufferedInputStream inFile = new BufferedInputStream(new FileInputStream(path))) {
-			byte[] bytes = new byte[N/8];
+        String path = System.getProperty("user.dir") + "\\BadAppleSort";
+        try (BufferedInputStream inFile = new BufferedInputStream(new FileInputStream(path))) {
+            byte[] bytes = new byte[N/8];
 
-			int alloc = 6726656; // total amount of space in ints used
-			Writes.changeAllocAmount(alloc);
+            int alloc = 6726656; // total amount of space in ints used
+            Writes.changeAllocAmount(alloc);
 
-			int br = 0;
+            int br = 0;
 
-			while(br != -1) {
-				br = inFile.read(bytes, 0, bytes.length);
+            while(br != -1) {
+                br = inFile.read(bytes, 0, bytes.length);
 
-				for(int i = 0; i < currentLength; i++) {
-					int idx = (int)(N * (double)i/currentLength);
-					int q   = (bytes[idx >> 3] >> (idx & 7)) & 1;
+                for(int i = 0; i < currentLength; i++) {
+                    int idx = (int)(N * (double)i/currentLength);
+                    int q   = (bytes[idx >> 3] >> (idx & 7)) & 1;
 
-					Writes.write(array, i, q * (int)(temp[idx] * (double)currentLength/N), 0.015, true, false);
-				}
-			}
-			Writes.changeAllocAmount(-alloc);
-		}
-		Writes.deleteExternalArray(temp);
+                    Writes.write(array, i, q * (int)(temp[idx] * (double)currentLength/N), 0.015, true, false);
+                }
+            }
+            Writes.changeAllocAmount(-alloc);
+        }
+        Writes.deleteExternalArray(temp);
     }
 }

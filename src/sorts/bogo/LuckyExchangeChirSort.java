@@ -160,7 +160,7 @@ public final class LuckyExchangeChirSort extends BogoSorting {
                 // Exchange Bomo
                 if (choice == 6)
                     swapped = pull(array, BogoSorting.randInt(a, b), BogoSorting.randInt(a, b), luck);
-                // Exchange Goro
+                // Exchange Slice Bogo
                 if (choice == 7) {
                     int i1 = BogoSorting.randInt(a, b), i2 = BogoSorting.randInt(a, b);
                     if (i1 > i2) {

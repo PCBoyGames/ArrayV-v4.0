@@ -2081,6 +2081,41 @@ public enum Shuffles {
             return true;
         }
     },
+    PRIMES_REVERSED {
+        @Override
+        public String getName() {
+            return "Primes Reversed";
+        }
+
+        // sieve of Eratosthenes
+        void sieve(boolean[] f, int n) {
+            for (int i = 2; i <= n; i++)
+                f[i] = true;
+            for (int i = 2; i * i <= n; i++)
+                if (f[i])
+                    for (int j = i * i; j <= n; j += i)
+                        f[j] = false;
+        }
+
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            boolean[] f = new boolean[currentLen];
+            sieve(f, currentLen - 1);
+            int[] indices = new int[currentLen];
+            int cnt = 0;
+            for (int i1 = 0; i1 < currentLen; i1++)
+                if (f[i1]) {
+                    indices[cnt] = i1;
+                    cnt++;
+                }
+            for (int i = 0; i < cnt / 2; i++) {
+                Writes.swap(array, indices[i], indices[cnt - 1 - i], delay ? 1 : 0, true, false);
+            }
+
+        }
+    },
     ONLY_RUNS {
         public String getName() {
             return "Random Runs";

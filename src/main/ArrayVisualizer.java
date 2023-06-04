@@ -1107,6 +1107,7 @@ final public class ArrayVisualizer {
             boolean tempSound = this.Sounds.isEnabled();
             this.Sounds.toggleSound(false);
             this.Highlights.toggleFancyFinish(false);
+            this.setExtraHeading(" / Original order of dupes not maintained. Sort is not stable.");
 
             for (int j = unstableIdx; j < this.sortLength; j++) {
                 this.Highlights.markArray(j, j);
@@ -1115,10 +1116,10 @@ final public class ArrayVisualizer {
 
             JOptionPane.showMessageDialog(this.window, "This sort is not stable;\nIndices " + unstableIdx + " and " + (unstableIdx + 1) + " are out of order!", "Error", JOptionPane.OK_OPTION, null);
 
+            this.setExtraHeading("");
             this.Highlights.clearAllMarks();
             this.Sounds.toggleSound(tempSound);
-        }
-        else if (success && validateFailed) {
+        } else if (success && validateFailed) {
             boolean tempSound = this.Sounds.isEnabled();
             this.Sounds.toggleSound(false);
             this.Highlights.toggleFancyFinish(false);

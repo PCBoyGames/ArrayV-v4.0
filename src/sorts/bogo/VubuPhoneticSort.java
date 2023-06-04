@@ -179,7 +179,7 @@ public final class VubuPhoneticSort extends BogoSorting {
         return isRangeSorted(array, a, b) && randInt(0, array.length) == 0;
     }
 
-    public void vɯβu(int[] array, int a, int b) {
+    public void vubu(int[] array, int a, int b) {
       doProbableCheck:
         while(!isArrayProbablySorted(array, a, b)) {
             Writes.recursion();
@@ -199,6 +199,6 @@ public final class VubuPhoneticSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        vɯβu(array, 0, sortLength);
+        vubu(array, 0, sortLength);
     }
 }

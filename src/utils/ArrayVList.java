@@ -393,13 +393,6 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
             this.size = toIndex - fromIndex;
         }
 
-        public Integer set(int index, int e) {
-            rangeCheck(index);
-            int oldValue = ArrayVList.this.internal[offset + index];
-            ArrayVList.this.internal[offset + index] = e;
-            return oldValue;
-        }
-
         public Integer get(int index) {
             rangeCheck(index);
             return ArrayVList.this.internal[offset + index];
@@ -407,12 +400,6 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
 
         public int size() {
             return this.size;
-        }
-
-        public void add(int index, int e) {
-            rangeCheckForAdd(index);
-            parent.add(parentOffset + index, e);
-            size++;
         }
 
         public Integer remove(int index) {
@@ -444,11 +431,6 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
 
         private void rangeCheck(int index) {
             if (index < 0 || index >= this.size)
-                throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
-
-        private void rangeCheckForAdd(int index) {
-            if (index < 0 || index > this.size)
                 throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
 

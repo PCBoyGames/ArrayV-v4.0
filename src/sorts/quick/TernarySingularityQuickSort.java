@@ -200,6 +200,12 @@ public final class TernarySingularityQuickSort extends Sort {
 
     protected void merge(int[] array, int a, int m, int b, int d) {
         Writes.recordDepth(d);
+        if (a >= m || m >= b)
+            return;
+        if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0)
+            return;
+        a = expSearch(array, a, m, array[m], true, false);
+        b = expSearch(array, m, b, array[m - 1], false, true);
         int lenA = m - a, lenB = b - m;
         if (lenA <= 16 || lenB <= 16) {
             if (m - a > b - m)

@@ -76,8 +76,8 @@ final public class GritSort extends Sort {
 
     //calculates optimal segment size (result is order of O(sqrt(n log n)))
     private int calcSLen(int n, int m) {
-        int a = 0, b = n;
-        int logN = this.log2(n-1)+1;
+        int a = 2, b = n;
+        int logN = this.log2(Math.max(n, 2)-1)+1;
 
         while (a < b) {
             int ms = (a+b)/2, mq = n/(ms+1);
@@ -155,29 +155,17 @@ final public class GritSort extends Sort {
             }
             System.out.println("Warning: Integer overflow");
         }
-        public void decr(int idx) {
-            assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
-
-            int s = idx*w, i1 = pa+s+w;
-            for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
-                this.flipBit(i, j);
-                if (!this.getBit(i, j)) return;
-            }
-            System.out.println("Warning: Integer underflow");
-        }
     }
 
     private class BitArray2D {
         private final BitArray bits;
 
-        public final int x, y, length;
+        public final int x;
 
         public BitArray2D(int[] array, int pa, int pb, int x, int y, int w) {
             this.bits = new BitArray(array, pa, pb, x*y, w);
 
             this.x = x;
-            this.y = y;
-            this.length = x*y*w;
         }
 
         public void free() {
@@ -193,9 +181,6 @@ final public class GritSort extends Sort {
 
         public void incr(int i, int j) {
             this.bits.incr(j*this.x+i);
-        }
-        public void decr(int i, int j) {
-            this.bits.decr(j*this.x+i);
         }
     }
 

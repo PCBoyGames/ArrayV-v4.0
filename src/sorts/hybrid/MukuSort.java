@@ -112,49 +112,9 @@ final public class MukuSort extends Sort {
             }
             System.out.println("Warning: Integer overflow");
         }
-        public void decr(int idx) {
-            assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
-
-            int s = idx*w, i1 = pa+s+w;
-            for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
-                this.flipBit(i, j);
-                if (!this.getBit(i, j)) return;
-            }
-            System.out.println("Warning: Integer underflow");
-        }
     }
 
-    private class BitArray2D {
-        private final BitArray bits;
 
-        public final int x, y, length;
-
-        public BitArray2D(int[] array, int pa, int pb, int x, int y, int w) {
-            this.bits = new BitArray(array, pa, pb, x*y, w);
-
-            this.x = x;
-            this.y = y;
-            this.length = x*y*w;
-        }
-
-        public void free() {
-            this.bits.free();
-        }
-
-        public void set(int i, int j, int uInt) {
-            this.bits.set(j*this.x+i, uInt);
-        }
-        public int get(int i, int j) {
-            return this.bits.get(j*this.x+i);
-        }
-
-        public void incr(int i, int j) {
-            this.bits.incr(j*this.x+i);
-        }
-        public void decr(int i, int j) {
-            this.bits.decr(j*this.x+i);
-        }
-    }
 
     /*
        ____                           _   _____                 _   _
@@ -165,12 +125,6 @@ final public class MukuSort extends Sort {
 
     */
 
-    private void resetBits(int[] array, int pa, int pb, int bLen) {
-        for (int i = 0; i < bLen; i++, pa++, pb++)
-            if (Reads.compareIndices(array, pa, pb, 0.5, true) > 0)
-                Writes.swap(array, pa, pb, 0.5, true, false);
-    }
-
     private void multiSwap(int[] array, int a, int b, int len) {
         while (len-- > 0) Writes.swap(array, a++, b++, 1, true, false);
     }
@@ -178,12 +132,6 @@ final public class MukuSort extends Sort {
     private void rotate(int[] array, int a, int m, int b) {
         Highlights.clearAllMarks();
         IndexedRotations.cycleReverse(array, a, m, b, 1, true, false);
-    }
-
-    private void insertTo(int[] array, int tmp, int a, int b) {
-        Highlights.clearMark(2);
-        while (a > b) Writes.write(array, a, array[--a], 0.5, true, false);
-        Writes.write(array, b, tmp, 0.5, true, false);
     }
 
     private int leftBinSearch(int[] array, int a, int b, int val) {
@@ -1228,71 +1176,7 @@ final public class MukuSort extends Sort {
                                                    |_|
     */
 
-    private int selectRank(int[] array, int a, int a1, int a2, int b, int r) {
-        while (a < a1) {
-            int m = (a+a1)/2;
 
-            Highlights.markArray(2, m);
-
-            int c = a2, ce = a2;
-
-            for (int i = a2; i < b; i++) {
-                int cmp = Reads.compareIndexValue(array, i, array[m], 0.25, true);
-
-                c  += cmp <  0 ? 1 : 0;
-                ce += cmp <= 0 ? 1 : 0;
-            }
-
-            if (r >= c && r < ce) return m;
-
-            else if (r < c) a1 = m;
-            else           a  = m+1;
-        }
-        return a;
-    }
-
-    private void sort2(int[] array, int a, int a1, int a2, int b, int log2, int piv) {
-        boolean hasBuf = piv != -1;
-
-        int ak, keys, bits, a3;
-
-        //TODO: find that extra set of keys
-
-        /*if (!hasBuf) {
-            ak = this.selectRank(array, a, a1, a1, b, a2)+1;
-            keys = a1-ak; bits = log2*keys;
-
-            a2 = a1+bits;
-            int piv1 = array[ak-1];
-
-            //find bit buffer + partition
-
-            Arrays.sort(array, a1, a2); //sort filler zone using a block merge
-        }
-        else {
-            ak = this.rightBinSearch(array, a, a1, piv);
-            keys = a1-ak; bits = log2*keys;
-        }
-
-        //add items equal to pivot to zone
-
-        while (++a2 < b && Reads.compareIndices(array, a2-1, a2, 1, true) == 0);
-        if (a2 == b) { //edge case
-            this.inPlaceMergeFW(array, a, a1, b);
-            return;
-        }
-
-        a3 = a2+bits;
-
-        if (a3 >= b) { //edge case
-            Arrays.sort(array, a2, b);
-            this.inPlaceMergeFW(array, a, a1, b);
-            return;
-        }*/
-
-        //BitArray cnts = new BitArray(array, a2-bits, a2, keys, log2);
-
-    }
 
     /*
        ___                  _   _     _                          ____      _ _     ____             _
@@ -1312,8 +1196,6 @@ final public class MukuSort extends Sort {
 
     */
 
-    private void sort3(int[] array) {
-    }
     public void mainSort(int[] array, int a, int b) {
         int n = b-a;
 

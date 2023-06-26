@@ -81,21 +81,21 @@ public final class AdaptiveEctaSort extends Sort {
                 lenB -= lenA;
             }
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
-        while(a < b) {
+        while (a < b) {
             int m = a + (b - a) / 2;
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
             int c = Reads.compareValues(val, array[m]);
-            if(c < 0 || (left && c == 0))
+            if (c < 0 || (left && c == 0))
                 b = m;
             else
                 a = m+1;
         }
         return a;
     }
-    
+
     protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
         if (left)
@@ -159,23 +159,23 @@ public final class AdaptiveEctaSort extends Sort {
         return Reads.compareValues(array[m - 1], array[m]) <= 0
                   || checkReverseBounds(array, a, m, b);
     }
-    
+
     protected void mergeTo(int[] from, int[] to, int a, int m, int b, int p, boolean aux) {
         int i = a, j = m;
-        while(i < m && j < b) {
+        while (i < m && j < b) {
             Highlights.markArray(2, i);
             Highlights.markArray(3, j);
-            if(Reads.compareValues(from[i], from[j]) <= 0)
+            if (Reads.compareValues(from[i], from[j]) <= 0)
                 Writes.write(to, p++, from[i++], 1, true, aux);
             else
                 Writes.write(to, p++, from[j++], 1, true, aux);
         }
         Highlights.clearMark(3);
-        while(i < m) {
+        while (i < m) {
             Highlights.markArray(2, i);
             Writes.write(to, p++, from[i++], 1, true, aux);
         }
-        while(j < b) {
+        while (j < b) {
             Highlights.markArray(2, j);
             Writes.write(to, p++, from[j++], 1, true, aux);
         }
@@ -339,16 +339,16 @@ public final class AdaptiveEctaSort extends Sort {
             return;
         merge(array, buf, a, m, b);
     }
-    
+
     protected void pingPongMerge(int[] array, int[] buf, int a, int m1, int m2, int m3, int b) {
         int p = 0, p1 = p + m2-a, pEnd = p + b-a;
-        if(Reads.compareIndices(array, m1-1, m1, 1, true) > 0
+        if (Reads.compareIndices(array, m1-1, m1, 1, true) > 0
         || (m3 < b && Reads.compareIndices(array, m3-1, m3, 1, true) > 0)) {
             mergeTo(array, buf, a, m1, m2, p, true);
             mergeTo(array, buf, m2, m3, b, p1, true);
             mergeTo(buf, array, p, p1, pEnd, a, false);
         }
-        else 
+        else
             smartMerge(array, buf, a, m2, b);
     }
 
@@ -393,7 +393,7 @@ public final class AdaptiveEctaSort extends Sort {
         int[] buf  = Writes.createExternalArray(bufLen);
         int i;
         for (; 4 * j <= bufLen; j *= 4) {
-            for(i = a; i+2*j < b; i += 4*j)
+            for (i = a; i+2*j < b; i += 4*j)
                 pingPongMerge(array, buf, i, i+j, i+2*j, Math.min(i+3*j, b), Math.min(i+4*j, b));
             if (i + j < b)
                 smartMerge(array, buf, i, i + j, b);

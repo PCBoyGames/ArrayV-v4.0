@@ -21,7 +21,7 @@ public class ImprovedKWayQuickSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the number of pivots for this sort:", 4);
     }
-
+    
     @Override
     public int validateAnswer(int answer) {
         return Math.max(answer, 1);
@@ -36,7 +36,7 @@ public class ImprovedKWayQuickSort extends Sort {
         if (a != b)
             Writes.write(array, b, temp, 0.5, true, false);
     }
-
+    
     private int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -50,7 +50,7 @@ public class ImprovedKWayQuickSort extends Sort {
         }
         return a;
     }
-
+    
     protected int expSearch(int[] array, int a, int b, int val) {
         int i = 1;
         int a1, b1;
@@ -68,7 +68,7 @@ public class ImprovedKWayQuickSort extends Sort {
         }
         return binSearch(array, a1, b1, val, false);
     }
-
+    
     protected void insertSort(int[] array, int a, int b) {
         int i = a + 1;
         if (i >= b)
@@ -85,7 +85,7 @@ public class ImprovedKWayQuickSort extends Sort {
         for (; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
-
+    
     // Easy patch to avoid self-swaps.
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a != b)
@@ -176,7 +176,7 @@ public class ImprovedKWayQuickSort extends Sort {
             this.sortHelper(array, tmp, pb[i - 1], pb[i], pivCount);
         Writes.changeAllocAmount(-2 * bCnt);
     }
-
+    
     public void quickSort(int[] array, int a, int b, int pivCount) {
         int[] buf = Writes.createExternalArray(pivCount);
         sortHelper(array, buf, a, b, pivCount);

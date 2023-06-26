@@ -46,13 +46,11 @@ final public class SmartSafeStalinSort extends Sort {
             int collection = 0;
             for (int i = 0; i + 1 < getlen; ) {
                 if (Reads.compareIndices(array, i, i + 1, 0.15, true) > 0) {
-                    Writes.write(collect, collection, array[i + 1], 0, false, true);
-                    collection++;
-                    Writes.arraycopy(array, i + 2, array, i + 1, getlen - i - 1, 0, false, false);
+                    Writes.write(collect, collection++, array[i + 1], 0, false, true);
+                    Writes.arraycopy(array, i + 2, array, i + 1, getlen - i - 1, 0, pass = false, false);
                     array[getlen - 1] = -1;
                     Delays.sleep(0.1);
                     getlen--;
-                    pass = false;
                 } else i++;
             }
             if (!pass) {

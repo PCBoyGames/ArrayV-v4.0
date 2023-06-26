@@ -63,26 +63,16 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
-            if (w) {
-                Writes.write(array, j, v, 0.25, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
 
     protected void shell(int[] array, int start, int end) {
-        int gap = (int) ((end - start) / 2);
-        while (gap >= 2) {
-            shellPass(array, start, end, gap);
-            gap /= 2;
-        }
+        for (int gap = (int) ((end - start) / 2); gap >= 2; gap /= 2) shellPass(array, start, end, gap);
         shellPass(array, start, end, 1);
     }
 
@@ -105,24 +95,19 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
                 boolean brokeloop = false;
                 boolean brokencond = false;
                 boolean founditem = false;
-                while (right <= end) {
+                for (; right <= end; right++) {
                     if (Reads.compareValues(pivot, array[right - 1]) > 0) {
                         Highlights.markArray(3, pivotpos);
                         Highlights.clearMark(2);
                         if (right - left == 1) {
                             if (!founditem) item = array[left - 1];
-                            founditem = true;
-                            Writes.write(array, left - 1, array[left], 0.1, true, false);
+                            Writes.write(array, left - 1, array[left], 0.1, founditem = true, false);
                         } else brokeloop = true;
-                        if (brokeloop && !brokencond) {
-                            Writes.write(array, left - 1, item, 0.5, true, false);
-                            brokencond = true;
-                        }
+                        if (brokeloop && !brokencond) Writes.write(array, left - 1, item, 0.5, brokencond = true, false);
                         if (right - left > 1) Writes.swap(array, left - 1, right - 1, 0.5, true, false);
                         if (pivotpos == left - 1) pivotpos = right - 1;
                         left++;
                     }
-                    right++;
                 }
                 if (right > end && !brokeloop) Writes.write(array, left - 1, item, 0.5, true, false);
                 Highlights.clearAllMarks();
@@ -153,8 +138,6 @@ final public class ShellUnstableSingularityQuickSort extends Sort {
         insertlimit = Math.max((depthlimit / 2) - 1, 15);
         replimit = Math.max((depthlimit / 4), 2);
         int realstart = unstablepd(array, 0, currentLength);
-        if (realstart + 1 < currentLength) {
-            singularityQuick(array, 1, realstart + 1, currentLength, 0, 0);
-        }
+        if (realstart + 1 < currentLength) singularityQuick(array, 1, realstart + 1, currentLength, 0, 0);
     }
 }

@@ -24,16 +24,16 @@ public final class RandomCiuraCocktailShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
+    
     protected int[] gaps = {1, 4, 10, 23, 57, 132, 301, 701};
-
+    
     protected int ciura(int n) {
         if (n <= gaps.length) {
             return gaps[n - 1];
         }
         return (int)Math.pow(2.25, n);
     }
-
+    
     public void shellSort(int[] array, int a, int b) {
         int sortLength = b - a;
         int gap = 1;

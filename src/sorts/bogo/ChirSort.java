@@ -39,22 +39,10 @@ public final class ChirSort extends BogoSorting {
             if (choice == 2) Writes.swap(array, randInt(0, currentLength), randInt(0, currentLength), delay, true, false);
 
             // Bovo
-            if (choice == 3) {
-                int pull = randInt(0, currentLength - 1);
-                while (pull >= 0) {
-                    Writes.swap(array, pull, pull + 1, delay, true, false);
-                    pull--;
-                }
-            }
+            if (choice == 3) Writes.multiSwap(array, randInt(0, currentLength - 1), 0, delay, true, false);
 
             // Vogo
-            if (choice == 4) {
-                int pull = randInt(0, currentLength - 1);
-                while (pull + 1 < currentLength) {
-                    Writes.swap(array, pull, pull + 1, delay, true, false);
-                    pull++;
-                }
-            }
+            if (choice == 4) Writes.multiSwap(array, randInt(0, currentLength - 1), currentLength - 1, delay, true, false);
 
             // Bojo
             if (choice == 5) {
@@ -76,22 +64,9 @@ public final class ChirSort extends BogoSorting {
             }
 
             // Bomo
-            if (choice == 7) {
-                int start = randInt(0, currentLength - 1);
-                int end = randInt(0, currentLength - 1);
-                if (start > end) {
-                    for (int i = start; i > end + 1; i--) {
-                        Writes.swap(array, i, i - 1, delay, true, false);
-                    }
-                }
-                if (end > start) {
-                    for (int i = start; i < end + 1; i++) {
-                        Writes.swap(array, i, i + 1, delay, true, false);
-                    }
-                }
-            }
+            if (choice == 7) Writes.multiSwap(array, randInt(0, currentLength - 1), randInt(0, currentLength - 1), delay, true, false);
 
-            // Goro
+            // Slice Bogo
             if (choice == 8) {
                 int i1 = randInt(0, currentLength);
                 int i2 = randInt(0, currentLength);
@@ -105,14 +80,10 @@ public final class ChirSort extends BogoSorting {
             }
 
             // Baka (suited for number 9)
-            if (choice == 9) {
-                Writes.swap(array, 0, randInt(1, currentLength), delay, true, false);
-            }
+            if (choice == 9) Writes.swap(array, 0, randInt(1, currentLength), delay, true, false);
 
             // Nibi
-            if (choice == 10) {
-                Writes.swap(array, currentLength - 1, randInt(0, currentLength - 1), delay, true, false);
-            }
+            if (choice == 10) Writes.swap(array, currentLength - 1, randInt(0, currentLength - 1), delay, true, false);
         }
     }
 }

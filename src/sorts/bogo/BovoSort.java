@@ -29,13 +29,6 @@ public final class BovoSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int pull = 1;
-        while (!this.isArraySorted(array, currentLength)) {
-            pull = BogoSorting.randInt(0, currentLength - 1);
-            while (pull >= 0) {
-                Writes.swap(array, pull, pull + 1, this.delay, true, false);
-                pull--;
-            }
-        }
+        while (!isArraySorted(array, currentLength)) Writes.multiSwap(array, randInt(0, currentLength - 1), 0, delay, true, false);
     }
 }

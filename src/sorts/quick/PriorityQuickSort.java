@@ -35,10 +35,6 @@ final public class PriorityQuickSort extends Sort {
             return this.b-this.a;
         }
 
-        public int compare(Partition y) {
-            return (this.length() < y.length()) ? 1 : -1;
-        }
-
         @Override
         public int compareTo(Partition y) {
             return (this.length() < y.length()) ? 1 : -1;

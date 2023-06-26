@@ -59,9 +59,7 @@ public final class DeathdaySort extends BogoSorting {
     protected boolean analyzeMax(int[] array, int currentLength) {
         int select = 0;
         while (Reads.compareValues(max, array[select]) != 0) select++;
-        for (int i = select + 1; i < currentLength; i++) {
-            if (Reads.compareIndices(array, select, i, delay, true) == 0) return true;
-        }
+        for (int i = select + 1; i < currentLength; i++) if (Reads.compareIndices(array, select, i, delay, true) == 0) return true;
         return false;
     }
 
@@ -74,7 +72,7 @@ public final class DeathdaySort extends BogoSorting {
                 for (; i < currentLength; i++) Writes.write(array, i, max, 0, true, false);
                 break;
             }
-            Writes.write(array, i, BogoSorting.randInt(array[i - 1], max + 1), delay, true, false);
+            Writes.write(array, i, randInt(array[i - 1], max + 1), delay, true, false);
         }
         if (Reads.compareValues(array[currentLength - 1], max) != 0) return false;
         return true;

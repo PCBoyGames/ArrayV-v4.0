@@ -2,7 +2,6 @@ package sorts.merge;
 
 import main.ArrayVisualizer;
 import utils.IndexedRotations;
-import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
 

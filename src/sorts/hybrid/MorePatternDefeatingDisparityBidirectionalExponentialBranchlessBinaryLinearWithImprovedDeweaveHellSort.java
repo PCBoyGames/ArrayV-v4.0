@@ -181,7 +181,7 @@ final public class MorePatternDefeatingDisparityBidirectionalExponentialBranchle
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int size = currentLength, t = (int) Math.sqrt(currentLength);
+        int size = currentLength;
         binary = false;
         while (size > 1) {
             if (size == 2) {

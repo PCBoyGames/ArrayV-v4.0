@@ -56,9 +56,9 @@ public final class QWERTZSort extends BogoSorting {
     }
 
     protected void handleItems(int[] array, int currentLength) {
-        int i = BogoSorting.randInt(0, currentLength);
-        int j = BogoSorting.randInt(0, currentLength);
-        while (j == i) j = BogoSorting.randInt(0, currentLength);
+        int i = randInt(0, currentLength);
+        int j = randInt(0, currentLength);
+        while (j == i) j = randInt(0, currentLength);
         if (array[i] == max) Writes.write(array, i, min - 1, delay, true, false);
         if (array[j] == max) Writes.write(array, j, min - 1, delay, true, false);
         Writes.swap(array, i, j, delay, true, false);

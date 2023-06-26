@@ -20,7 +20,7 @@ final public class BarGraph extends Visual {
             if (width == 0) continue;
 
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
 
             else if (ArrayVisualizer.colorEnabled()) {
                 int val = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getIndexValue(array[i]): array[i];
@@ -34,11 +34,11 @@ final public class BarGraph extends Visual {
             this.mainRender.fillRect(j + 20, Renderer.getYOffset() + y, width, (int) ((val + 1) * Renderer.getYScale()));
             j += width;
         }
-        this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
         int length = Math.min(Renderer.getArrayLength(), ArrayVisualizer.getCurrentLength());
 
         boolean mark = false;
         for (int i = 0, j = 0; i < length; i++) {
+            this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], length, 0.25f, 1) : ArrayVisualizer.getHighlightColor());
             mark = mark || Highlights.containsPosition(i);
 
             int width = (int) (Renderer.getXScale() * (i + 1)) - j;

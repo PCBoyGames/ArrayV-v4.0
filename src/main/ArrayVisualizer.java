@@ -176,7 +176,6 @@ final public class ArrayVisualizer {
     private Writes Writes;
     private AntiQSort AntiQSort;
 
-    private volatile boolean updateVisuals;
     private volatile int updateVisualsForced;
     public  volatile boolean benchmarking;
     public  volatile static boolean doRSS = false;
@@ -612,7 +611,6 @@ final public class ArrayVisualizer {
      */
     @Deprecated
     public void toggleVisualUpdates(boolean bool) {
-        this.updateVisuals = bool;
     }
 
     public void forceVisualUpdate(int count) {
@@ -636,7 +634,6 @@ final public class ArrayVisualizer {
             }
         }
         this.benchmarking = enabled;
-        this.updateVisuals = !benchmarking;
         return this.benchmarking;
     }
 
@@ -972,13 +969,13 @@ final public class ArrayVisualizer {
         this.img = this.window.getGraphicsConfiguration().createCompatibleVolatileImage(this.cw, this.ch);
     }
     public Stroke getThickStroke() {
-        return new BasicStroke((float) (5 * this.getWindowRatio()));
+        return new BasicStroke((float) (10 * this.getWindowRatio()));
     }
     public Stroke getDefaultStroke() {
-        return new BasicStroke((float) (3 * this.getWindowRatio()));
+        return new BasicStroke((float) (6 * this.getWindowRatio()));
     }
     public Stroke getThinStroke() {
-        return new BasicStroke((float) (this.getWindowRatio()));
+        return new BasicStroke((float) (2 * this.getWindowRatio()));
     }
     public Stroke getCustomStroke(double size) {
         return new BasicStroke((float) (size * this.getWindowRatio()));
@@ -1286,7 +1283,7 @@ final public class ArrayVisualizer {
 
         this.window.setLocation(0, 0);
         this.window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.window.setTitle("w0rthy's Array Visualizer - " + (this.ComparisonSorts.length + this.DistributionSorts.length) + " Sorts, 15 Visual Styles, and Infinite Inputs to Sort");
+        this.window.setTitle("w0rthy's Array Visualizer (PCBoy's Personal Mod) - " + (this.ComparisonSorts.length + this.DistributionSorts.length) + " Sorts, 15 Visual Styles, and Infinite Inputs to Sort");
         this.window.setBackground(Color.BLACK);
         this.window.setIgnoreRepaint(true);
 

@@ -33,7 +33,6 @@ public final class GoofyAssaultSort extends BogoSorting {
             decCnt += i;
         }
         int[] bits = Writes.createExternalArray((currentLength-1)/b+1), aux = Writes.createExternalArray(currentLength);
-        int steps = 0;
         while (!isArraySorted(array, currentLength)) {
             Writes.arraycopy(array, 0, aux, 0, currentLength, 0.01, true, false);
             findindices:

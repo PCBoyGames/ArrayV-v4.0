@@ -34,10 +34,7 @@ final public class ShoveSandpaperSort extends Sort {
             for (int check = i + 1; check < currentLength; check++) {
                 if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) pull = i;
                 else pull = i + 1;
-                while (pull + 1 < currentLength) {
-                    Writes.swap(array, pull, pull + 1, 0.01, true, false);
-                    pull++;
-                }
+                Writes.multiSwap(array, pull, currentLength - 1, 0.01, true, false);
             }
         }
     }

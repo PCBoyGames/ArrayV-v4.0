@@ -72,8 +72,6 @@ final public class ShuffleDialog extends javax.swing.JDialog implements AppFrame
     private static final long serialVersionUID = 1L;
 
     private ArrayManager ArrayManager;
-    private JFrame Frame;
-    private UtilFrame UtilFrame;
     private List<Distributions> distributions;
     private static boolean perShuffleDelay = false;
 
@@ -87,9 +85,6 @@ final public class ShuffleDialog extends javax.swing.JDialog implements AppFrame
         super(frame, "ArrayV Advanced Shuffle Editor", true);
 
         this.ArrayManager = ArrayManager;
-        this.Frame = frame;
-        this.UtilFrame = utilFrame;
-
         initComponents();
 
         bypassEvents = true;

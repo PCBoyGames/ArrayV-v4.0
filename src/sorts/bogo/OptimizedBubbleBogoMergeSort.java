@@ -53,19 +53,16 @@ final public class OptimizedBubbleBogoMergeSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int base) {
         delay = 0.05;
-        int len = 2;
         int index = 0;
-        while (len < currentLength) {
+        for (int len = 2; len < currentLength; len *= 2) {
             index = 0;
             while (index + len - 1 < currentLength) {
-                if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, delay, true) > 0) Writes.swap(array, index, index + 1, delay, true, false);
-                }
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, delay, true) > 0) Writes.swap(array, index, index + 1, delay, true, false);}
                 else method(array, index, len);
                 Highlights.clearAllMarks();
                 index += len;
             }
-            len *= 2;
+
         }
         method(array, 0, currentLength);
     }

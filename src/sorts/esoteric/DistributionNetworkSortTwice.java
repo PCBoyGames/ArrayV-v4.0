@@ -52,15 +52,12 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -376,15 +373,12 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
         }
 
         // Sierpinski Triangle
-        if (type == 18) {
-            triangleRec(array, 0, currentLen, 0, currentLen);
-        }
+        if (type == 18) triangleRec(array, 0, currentLen, 0, currentLen);
     }
 
     protected double curveSum(int n, double x) {
         double sum = 0;
-        while (n >= 0)
-            sum += curve(n--, x);
+        while (n >= 0) sum += curve(n--, x);
         return sum;
     }
 
@@ -464,8 +458,7 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
             j = 2*j + 1;
             if (j+1 < len) {
                 int cmp = Reads.compareOriginalIndices(array, a+keys[j+1], a+keys[j], 0, true);
-                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0))
-                    j++;
+                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0)) j++;
             }
         }
         for (int cmp = Reads.compareOriginalIndices(array, a+t, a+keys[j], 0, true);
@@ -484,8 +477,7 @@ public final class DistributionNetworkSortTwice extends BogoSorting {
 
     protected void tableSort(int[] array, int[] keys, int a, int b) {
         int len = b-a;
-        for (int i = (len-1)/2; i >= 0; i--)
-            this.siftDown(array, keys, i, len, a, keys[i]);
+        for (int i = (len-1)/2; i >= 0; i--) this.siftDown(array, keys, i, len, a, keys[i]);
         for (int i = len-1; i > 0; i--) {
             int t = keys[i];
             Highlights.markArray(3, i);

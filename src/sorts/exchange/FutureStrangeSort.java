@@ -36,22 +36,14 @@ final public class FutureStrangeSort extends Sort {
         while (anyswaps) {
             anyswaps = false;
             int lastswap = 0;
-            int offset = 0;
-            while (offset != currentLength - 1) {
+            for (int offset = 0; offset != currentLength - 1; offset++) {
                 int mult = 1;
                 if (trustlen > 1) {
                     while (offset + mult < currentLength) mult *= 2;
                     mult /= 2;
                     while (mult >= trustlen) mult /= 2;
                 }
-                for (; mult >= 1; mult /= 2) {
-                    if (Reads.compareIndices(array, offset, offset + mult, 0.25, true) > 0) {
-                        Writes.swap(array, offset, offset + mult, 0.25, true, false);
-                        anyswaps = true;
-                        lastswap = offset;
-                    }
-                }
-                offset++;
+                for (; mult >= 1; mult /= 2) if (Reads.compareIndices(array, offset, offset + mult, 0.25, true) > 0) Writes.swap(array, lastswap = offset, offset + mult, 0.25, anyswaps = true, false);
             }
             currentLength = lastswap + 2 < currentLength ? lastswap + 1 : currentLength - 1;
             if (trustlen > 1) trustlen /= 2;

@@ -41,9 +41,7 @@ final public class NihilismSort extends Sort {
     private static String blank(String output) {
         int randomspaces = r.nextInt(10);
         String blankstring = "";
-        for (int i = 0; i < randomspaces; i++) {
-            blankstring = blankstring + " ";
-        }
+        for (int i = 0; i < randomspaces; i++) blankstring = blankstring + " ";
         return blankstring;
     }
 
@@ -59,10 +57,8 @@ final public class NihilismSort extends Sort {
 
         public Nothing(ArrayVisualizer arrayVisualizer, int index, boolean compare) {
             super(arrayVisualizer);
-            if (compare)
-                wrapped = wrapsCompare[index];
-            else
-                wrapped = wrapsDistr[index];
+            if (compare) wrapped = wrapsCompare[index];
+            else wrapped = wrapsDistr[index];
             instantiate();
         }
 
@@ -72,8 +68,7 @@ final public class NihilismSort extends Sort {
                 try {
                     v = i.get(wrapped);
                     i.set(this, v);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
-                }
+                } catch (IllegalArgumentException | IllegalAccessException e) {}
             }
         }
 
@@ -126,10 +121,8 @@ final public class NihilismSort extends Sort {
         }
         arrayVisualizer.getSortAnalyzer().sortSorts();
         arrayVisualizer.refreshSorts();
-        for (int i = 0; i < sorts0.size(); i++)
-            wrapsCompare[i] = Nothing.wrapped;
-        for (int i = 0; i < sorts1.size(); i++)
-            wrapsDistr[i] = Nothing.wrapped;
+        for (int i = 0; i < sorts0.size(); i++) wrapsCompare[i] = Nothing.wrapped;
+        for (int i = 0; i < sorts1.size(); i++) wrapsDistr[i] = Nothing.wrapped;
     }
 
     protected void overrideLength(int n) {

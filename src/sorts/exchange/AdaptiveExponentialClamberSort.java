@@ -53,21 +53,11 @@ final public class AdaptiveExponentialClamberSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 0;
-        int right = 1;
-        while (right < currentLength) {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            Delays.sleep(1);
-            if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-                Highlights.clearMark(2);
-                left = exponentSearch(array, 0, right - 1, array[right]);
-                while (left < right) {
-                    Writes.swap(array, left, right, 0.2, true, false);
-                    left++;
-                }
+        for (int right = 1; right < currentLength; right++) {
+            if (Reads.compareIndices(array, right - 1, right, 1, true) > 0) {
+                int left = exponentSearch(array, 0, right - 1, array[right]);
+                while (left < right) Writes.swap(array, left++, right, 0.2, true, false);
             }
-            right++;
         }
     }
 }

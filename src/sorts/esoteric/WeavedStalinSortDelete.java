@@ -1,5 +1,4 @@
 package sorts.esoteric;
-import java.math.BigInteger;
 
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
@@ -20,17 +19,7 @@ public class WeavedStalinSortDelete extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    // low complexity, high cost
-    private int loprime(int n) {
-        BigInteger p = BigInteger.ONE, j = p.add(p); // BigInteger.TWO doesn't exist to Eclipse, apparently
-        int i=1;
-        for (; i<n; i++, p=p.multiply(j), j=j.add(BigInteger.ONE)) {
-            if ((p.add(BigInteger.ONE).remainder(j)).equals(BigInteger.ZERO)) {
-                if (n%i==0) return i;
-            }
-        }
-        return n;
-    }
+
     // high complexity, low cost
     private int loprime2(int n) {
         int[] p = new int[n];

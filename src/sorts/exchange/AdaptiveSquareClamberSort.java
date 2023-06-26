@@ -29,7 +29,7 @@ final public class AdaptiveSquareClamberSort extends Sort {
 
     protected int squareSearch(int[] array, int a, int b, int value) {
         while (a < b) {
-            int m = (int)Math.sqrt(b * a);
+            int m = (int) Math.sqrt(b * a);
             Highlights.markArray(1, a);
             Highlights.markArray(3, m);
             Highlights.markArray(2, b);
@@ -43,20 +43,11 @@ final public class AdaptiveSquareClamberSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 0;
-        int right = 1;
-        while (right < currentLength) {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            Delays.sleep(1);
-            if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-                left = squareSearch(array, 0, right - 1, array[right]);
-                while (left < right) {
-                    Writes.swap(array, left, right, 0.2, true, false);
-                    left++;
-                }
+        for (int right = 1; right < currentLength; right++) {
+            if (Reads.compareIndices(array, right - 1, right, 1, true) > 0) {
+                int left = squareSearch(array, 0, right - 1, array[right]);
+                while (left < right) Writes.swap(array, left++, right, 0.2, true, false);
             }
-            right++;
         }
     }
 }

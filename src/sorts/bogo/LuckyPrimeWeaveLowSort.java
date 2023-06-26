@@ -58,10 +58,7 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
                 Delays.sleep(0.125);
             }
             while ((i - 1) + gap < currentLength) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, (i - 1) + gap);
-                Delays.sleep(0.125);
-                if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
+                if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.125, true) > 0) {
                     if (randInt(1, 101) <= luck) Writes.swap(array, i - 1, (i - 1) + gap, 0.125, true, false);
                     anyswaps = true;
                 }
@@ -112,10 +109,7 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
                 else boundi = 1;
                 testpass = true;
                 while (boundi < currentLength && testpass) {
-                    Highlights.markArray(1, boundi - 1);
-                    Highlights.markArray(2, boundi);
-                    Delays.sleep(0.125);
-                    if (Reads.compareValues(array[boundi - 1], array[boundi]) <= 0) boundi++;
+                    if (Reads.compareIndices(array, boundi - 1, boundi, 0.125, true) <= 0) boundi++;
                     else {
                         testpass = false;
                         lastbound = boundi;

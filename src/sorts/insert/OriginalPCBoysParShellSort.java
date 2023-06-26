@@ -73,9 +73,7 @@ public final class OriginalPCBoysParShellSort extends Sort {
                 j -= h;
                 w = true;
             }
-            if (w) {
-                Writes.write(array, j, v, 0.25, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
 

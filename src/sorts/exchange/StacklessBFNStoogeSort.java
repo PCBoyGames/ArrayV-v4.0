@@ -2,7 +2,6 @@ package sorts.exchange;
 
 import main.ArrayVisualizer;
 import sorts.templates.BestForNSorting;
-import utils.Statistics;
 
 final public class StacklessBFNStoogeSort extends BestForNSorting {
 

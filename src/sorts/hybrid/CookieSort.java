@@ -183,8 +183,7 @@ public class CookieSort extends GrailSorting {
                 j -= gap;
                 change = true;
             }
-            if (change)
-                Writes.write(array, j + gap, key, 1, true, false);
+            if (change) Writes.write(array, j + gap, key, 1, true, false);
         }
         Highlights.clearAllMarks();
         return gap;

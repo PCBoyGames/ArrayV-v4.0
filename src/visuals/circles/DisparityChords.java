@@ -1,8 +1,6 @@
 package visuals.circles;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Polygon;
 
 import main.ArrayVisualizer;
 import utils.Highlights;
@@ -49,44 +47,79 @@ final public class DisparityChords extends Visual {
         int width  = ArrayVisualizer.windowWidth();
         int height = ArrayVisualizer.windowHeight();
 
+        int[] px = new int[3];
+        int[] py = new int[3];
+
         int n = ArrayVisualizer.getCurrentLength();
         double r = Math.min(width, height)/2.5;
 
-        this.mainRender.setStroke(ArrayVisualizer.getThinStroke());
+        double q = Math.min(width, height)/2.75;
+        int p = (int)(q/12);
+
+        this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
 
         for (int i = n-1; i >= 0; i--) {
             this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
 
-            int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-            int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
-            int bx =  width/2 + (int)(r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
-            int by = height/2 + (int)(r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
+            int ax =  width/2 + (int)(0.875*r * Math.cos(Math.PI * (2d*i / n - 0.5)));
+            int ay = height/2 + (int)(0.875*r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+            int bx =  width/2 + (int)(0.875*r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
+            int by = height/2 + (int)(0.875*r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
 
             this.mainRender.drawLine(ax, ay, bx, by);
         }
-        this.mainRender.setStroke(ArrayVisualizer.getDefaultStroke());
 
         for (int i = 0; i < n; i++) {
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
-                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
+                this.mainRender.setColor(Color.WHITE);
 
-                int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
-                int bx =  width/2 + (int)(r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
-                int by = height/2 + (int)(r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
+                int ax =  width/2 + (int)(0.875*r * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                int ay = height/2 + (int)(0.875*r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+                int bx =  width/2 + (int)(0.875*r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
+                int by = height/2 + (int)(0.875*r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
 
                 this.mainRender.drawLine(ax, ay, bx, by);
+                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
             }
             else if (Highlights.containsPosition(i)) {
                 if (ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
-                else                                  this.mainRender.setColor(Color.WHITE);
+                else                                   this.mainRender.setColor(getIntColor(array[i], n, 0.25f, 1));
 
-                int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
-                int bx =  width/2 + (int)(r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
-                int by = height/2 + (int)(r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
+                int ax =  width/2 + (int)(0.875*r * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                int ay = height/2 + (int)(0.875*r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+                int bx =  width/2 + (int)(0.875*r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
+                int by = height/2 + (int)(0.875*r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
 
                 this.mainRender.drawLine(ax, ay, bx, by);
+
+                if (ArrayVisualizer.analysisEnabled()) this.extraRender.setColor(Color.LIGHT_GRAY);
+                else                                   this.extraRender.setColor(getIntColor(array[i], n, 0.25f, 1));
+
+                px[0] =  width/2 + (int)((q + p/4) * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                py[0] = height/2 + (int)((q + p/4) * Math.sin(Math.PI * (2d*i / n - 0.5)));
+
+                px[1] = px[0] + 2 * (int)(p * Math.cos(Math.PI * (2d*i / n - 0.67)));
+                py[1] = py[0] + 2 * (int)(p * Math.sin(Math.PI * (2d*i / n - 0.67)));
+
+                px[2] = px[0] + 2 * (int)(p * Math.cos(Math.PI * (2d*i / n - 0.33)));
+                py[2] = py[0] + 2 * (int)(p * Math.sin(Math.PI * (2d*i / n - 0.33)));
+
+                this.extraRender.fillPolygon(px, py, 3);
+
+                if (ArrayVisualizer.analysisEnabled()) this.extraRender.setColor(Color.DARK_GRAY);
+                else                                   this.extraRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
+
+                px[0] =  width/2 + (int)((q + p/1.25) * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                py[0] = height/2 + (int)((q + p/1.25) * Math.sin(Math.PI * (2d*i / n - 0.5)));
+
+                px[1] = px[0] + (int)(p * Math.cos(Math.PI * (2d*i / n - 0.67)));
+                py[1] = py[0] + (int)(p * Math.sin(Math.PI * (2d*i / n - 0.67)));
+
+                px[2] = px[0] + (int)(p * Math.cos(Math.PI * (2d*i / n - 0.33)));
+                py[2] = py[0] + (int)(p * Math.sin(Math.PI * (2d*i / n - 0.33)));
+
+                this.extraRender.fillPolygon(px, py, 3);
             }
         }
     }

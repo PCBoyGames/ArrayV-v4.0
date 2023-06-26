@@ -29,12 +29,9 @@ public final class ManGoofyAssaultSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         b = 31-Integer.numberOfLeadingZeros(currentLength);
-        int decCnt = 0;
         for (int i = 1; i < currentLength; i++) {
-            decCnt += i;
         }
         int[] bits = Writes.createExternalArray((currentLength-1)/b+1), aux = Writes.createExternalArray(currentLength);
-        int steps = 0;
         while (!isArraySorted(array, currentLength)) {
             Writes.arraycopy(array, 0, aux, 0, currentLength, 0.01, true, false);
             findindices:

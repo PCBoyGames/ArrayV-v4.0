@@ -67,8 +67,8 @@ public final class AssaultSort extends BogoSorting {
             Writes.arraycopy(array, 0, init, 0, currentLength, delay, true, true);
             boolean finalized = false;
             while (!finalized) {
-                for (int i = 0; i < currentLength; i++) Writes.write(array, i, BogoSorting.randInt(min, max + 1), delay, true, false);
-                while (!isArraySorted(array, currentLength)) for (int i = 0; i < currentLength; i++) Writes.write(array, i, BogoSorting.randInt(min, max + 1), delay, true, false);
+                for (int i = 0; i < currentLength; i++) Writes.write(array, i, randInt(min, max + 1), delay, true, false);
+                while (!isArraySorted(array, currentLength)) for (int i = 0; i < currentLength; i++) Writes.write(array, i, randInt(min, max + 1), delay, true, false);
                 finalized = isAnagram(array, init, currentLength);
             }
         }

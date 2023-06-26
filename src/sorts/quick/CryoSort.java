@@ -19,7 +19,7 @@ in collaboration with aphitorite and Scandum
  * <p>
  * To use this algorithm in another, use {@code quickSort()} from a reference
  * instance.
- * 
+ *
  * @author Ayako-chan - implementation of the sort
  * @author aphitorite - implementation if Rotate Mergesort
  * @author Scandum - the analyzer before sorting
@@ -40,11 +40,11 @@ public final class CryoSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     int equ(int a, int b) {
         return ((a - b) >> 31) + ((b - a) >> 31) + 1;
     }
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.75, true, false);
         else Writes.reversal(array, start, end, 0.75, true, false);
@@ -62,7 +62,7 @@ public final class CryoSort extends Sort {
             i++;
         }
     }
-    
+
     protected void rotate(int[] array, int a, int m, int b) {
         Highlights.clearAllMarks();
         if (a >= m || m >= b)
@@ -96,7 +96,7 @@ public final class CryoSort extends Sort {
             Highlights.clearMark(2);
         }
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
@@ -106,7 +106,7 @@ public final class CryoSort extends Sort {
         if (a != b)
             Writes.write(array, b, temp, 0.5, true, false);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -120,7 +120,7 @@ public final class CryoSort extends Sort {
         }
         return a;
     }
-    
+
     protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
         if (left) while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
@@ -134,7 +134,7 @@ public final class CryoSort extends Sort {
         else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
         return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
     }
-    
+
     protected void mergeFWExt(int[] array, int[] tmp, int a, int m, int b) {
         int s = m - a;
         Writes.arraycopy(array, a, tmp, 0, s, 1, true, true);
@@ -160,7 +160,7 @@ public final class CryoSort extends Sort {
         }
         while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
     }
-    
+
     protected void merge(int[] array, int[] buf, int a, int m, int b, boolean bnd) {
         if (bnd) {
             if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
@@ -177,7 +177,7 @@ public final class CryoSort extends Sort {
         else
             mergeFWExt(array, buf, a, m, b);
     }
-    
+
     public void rotateMerge(int[] array, int[] buf, int a, int m, int b) {
         while (Math.min(m - a, b - m) > buf.length) {
             if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
@@ -214,7 +214,7 @@ public final class CryoSort extends Sort {
         }
         merge(array, buf, a, m, b, true);
     }
-    
+
     protected boolean buildRuns(int[] array, int a, int b, int mRun) {
         int i = a + 1, j = a;
         boolean noSort = true;
@@ -236,34 +236,34 @@ public final class CryoSort extends Sort {
         }
         return noSort;
     }
-    
+
     protected void insertSort(int[] array, int a, int b) {
         buildRuns(array, a, b, b - a);
     }
-    
+
     public void mergeSort(int[] array, int[] buf, int a, int b) {
         int j = b - a;
         while (j >= 32) j = (j - 1) / 2 + 1;
         if (buildRuns(array, a, b, j)) return;
-        for(; j < b - a; j *= 2) {
-            for(int i = a; i+j < b; i += 2*j)
+        for (; j < b - a; j *= 2) {
+            for (int i = a; i+j < b; i += 2*j)
                 rotateMerge(array, buf, i, i + j, Math.min(i + 2 * j, b));
         }
     }
-    
+
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int tmp;
-        if(Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
             tmp = i1;
             i1 = i0;
         } else tmp = i0;
-        if(Reads.compareIndices(array, i1, i2, 1, true) > 0) {
-            if(Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
             return i2;
         }
         return i1;
     }
-    
+
     public int medP3(int[] array, int a, int b, int d) {
         if (b - a == 3 || (b - a > 3 && d == 0))
             return medOf3(array, a, a + (b - a) / 2, b - 1);
@@ -301,7 +301,7 @@ public final class CryoSort extends Sort {
         }
         return new int[] { p0, p0 + eqSize };
     }
-    
+
     protected int[] partition(int[] array, int[] buf, int a, int b, int piv) {
         if (b - a < 2) {
             int[] court = new int[] { a, a };
@@ -323,7 +323,7 @@ public final class CryoSort extends Sort {
         rotate(array, l[1], r[0], r[1]);
         return new int[] { l[0], l[1] + r2 };
     }
-    
+
     protected void sortHelper(int[] array, int[] buf, int a, int b, boolean bad) {
         while (b - a > 32) {
             int pIdx;
@@ -358,7 +358,7 @@ public final class CryoSort extends Sort {
     /**
      * Sorts the range {@code [a, b)} of {@code array} using a Median-of-Medians
      * Stable Quicksort with O(sqrt(n)) External Space.
-     * 
+     *
      * @param array the array
      * @param a     the start of the range, inclusive
      * @param b     the end of the range, exclusive

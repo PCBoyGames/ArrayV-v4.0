@@ -124,8 +124,7 @@ final public class PatternDefeatingDisparityBidirectionalExponentialLinearShellS
     }
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int size = currentLength, t = (int) Math.sqrt(currentLength),
-            t2 = (int) Math.cbrt(currentLength);
+        int size = currentLength;
 
         while (size > 1) {
             int disparity = this.disparity(array, 0, size);

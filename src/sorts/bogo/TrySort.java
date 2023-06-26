@@ -52,8 +52,6 @@ public final class TrySort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        while (true) {
-            if (findSwappedPair(array, currentLength)) break;
-        }
+        while (true) if (findSwappedPair(array, currentLength)) break;
     }
 }

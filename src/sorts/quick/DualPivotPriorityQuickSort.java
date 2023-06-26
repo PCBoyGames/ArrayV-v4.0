@@ -39,7 +39,6 @@ public final class DualPivotPriorityQuickSort extends Sort {
 
     class Partition implements Comparable<Partition> {
         public int a, b;
-        public boolean bad;
         public int divisor;
 
         public Partition(int a, int b, int divisor) {
@@ -78,17 +77,14 @@ public final class DualPivotPriorityQuickSort extends Sort {
 
     protected int expSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
-            i *= 2;
+        while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
         int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
         while (a1 < b1) {
             int m = a1 + (b1 - a1) / 2;
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
-            if (Reads.compareValues(val, array[m]) < 0)
-                b1 = m;
-            else
-                a1 = m + 1;
+            if (Reads.compareValues(val, array[m]) < 0) b1 = m;
+            else a1 = m + 1;
         }
         return a1;
     }
@@ -100,13 +96,12 @@ public final class DualPivotPriorityQuickSort extends Sort {
 
     // Easy patch to avoid self-swaps.
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
-        if (a != b)
-            Writes.swap(array, a, b, pause, mark, aux);
+        if (a != b) Writes.swap(array, a, b, pause, mark, aux);
     }
     
     protected int[] partitionTernary(int[] array, int a, int b, int piv) {
         int i = a, j = b;
-        for (int k = i; k < j; k++)
+        for (int k = i; k < j; k++) {
             if (Reads.compareIndexValue(array, k, piv, 0.5, true) < 0)
                 swap(array, k, i++, 0.5, true, false);
             else if (Reads.compareIndexValue(array, k, piv, 0.5, true) > 0) {
@@ -119,13 +114,14 @@ public final class DualPivotPriorityQuickSort extends Sort {
                 if (Reads.compareIndexValue(array, k, piv, 0.5, true) < 0)
                     swap(array, k, i++, 0.5, true, false);
             }
+        }
         Highlights.clearAllMarks();
         return new int[] { i, j };
     }
 
     protected int[] partition(int[] array, int a, int b, int piv1, int piv2) {
         int i = a, j = b;
-        for (int k = i; k < j; k++)
+        for (int k = i; k < j; k++) {
             if (Reads.compareIndexValue(array, k, piv1, 0.5, true) <= 0)
                 swap(array, k, i++, 0.5, true, false);
             else if (Reads.compareIndexValue(array, k, piv2, 0.5, true) >= 0) {
@@ -138,44 +134,26 @@ public final class DualPivotPriorityQuickSort extends Sort {
                 if (Reads.compareIndexValue(array, k, piv1, 0.5, true) <= 0)
                     swap(array, k, i++, 0.5, true, false);
             }
+        }
         Highlights.clearAllMarks();
         return new int[] { i, j };
     }
-
-    protected void ternaryQuick(int[] array, PriorityQueue<Partition> queue, int a, int b, int d, int piv) {
-        int[] p = partitionTernary(array, a, b, piv);
-        int lLen = p[0] - a, rLen = b - p[1], eqLen = p[1] - p[0];
-        if (eqLen == b - a)
-            ;
-        else if (lLen == 0) {
-            if (eqLen <= threshold)
-                d++;
-            if (rLen > threshold)
-                queue.offer(new Partition(p[1], b, d));
-            else
-                insertSort(array, p[1], b);
-        } else if (rLen == 0) {
-            if (eqLen <= threshold)
-                d++;
-            if (lLen > threshold)
-                queue.offer(new Partition(a, p[0], d));
-            else
-                insertSort(array, a, p[0]);
-        } else {
-            if (Math.min(lLen, rLen) <= threshold)
-                d++;
-            if (lLen > threshold)
-                queue.offer(new Partition(a, p[0], d));
-            else
-                insertSort(array, a, p[0]);
-            if (rLen > threshold)
-                queue.offer(new Partition(p[1], b, d));
-            else
-                insertSort(array, p[1], b);
-        }
+    
+    void consumePartition(int[] array, PriorityQueue<Partition> queue, int a, int b, int d) {
+        if (b - a > threshold) queue.offer(new Partition(a, b, d));
+        else insertSort(array, a, b);
     }
 
-    public void quickSort(int[] array, int left, int right) {
+    /*
+     * Taihennami's trick with Dual-Pivot Quicksort:
+     * - If pivot1 == pivot2:
+     *   partition: [E < pivot1][E == pivot1][E > pivot1]
+     *   recurse on [E < pivot1] and [E > pivot1]
+     * - Otherwise:
+     *   partition: [E <= pivot1][pivot1 < E < pivot2][E >= pivot2]
+     *   recurse on [E <= pivot1], [pivot1 < E < pivot2] and [E >= pivot2]
+     */
+    void innerSort(int[] array, int left, int right) {
         if (right - left <= this.threshold) {
             insertSort(array, left, right);
             return;
@@ -194,27 +172,33 @@ public final class DualPivotPriorityQuickSort extends Sort {
                 piv1 = array[a + s];
                 piv2 = array[b - 1 - s];
             }
-            if (pivCmp == 0) {
-                ternaryQuick(array, queue, a, b, d, piv1);
-                continue;
-            }
-            int[] pr = partition(array, a, b, piv1, piv2);
+            int[] pr;
+            if (pivCmp == 0) pr = partitionTernary(array, a, b, piv1);
+            else pr = partition(array, a, b, piv1, piv2);
             int m1 = pr[0], m2 = pr[1];
-            if (Math.min(m1 - a, Math.min(m2 - m1, b - m2)) <= this.threshold)
-                d++;
-            if (m1 - a > threshold)
-                queue.offer(new Partition(a, m1, d));
-            else
-                insertSort(array, a, m1);
-            if (m2 - m1 > threshold)
-                queue.offer(new Partition(m1, m2, d));
-            else
-                insertSort(array, m1, m2);
-            if (b - m2 > threshold)
-                queue.offer(new Partition(m2, b, d));
-            else
-                insertSort(array, m2, b);
+            if (pivCmp == 0 && m2 - m1 == b - a) continue;
+            if (Math.min(m1 - a, Math.min(m2 - m1, b - m2)) <= this.threshold) d++;
+            consumePartition(array, queue, a, m1, d);
+            if (pivCmp != 0)
+                consumePartition(array, queue, m1, m2, d);
+            consumePartition(array, queue, m2, b, d);
         }
+    }
+    
+    public void quickSort(int[] array, int a, int b) {
+        int z = 0, e = 0;
+        for (int i = a; i < b - 1; i++) {
+            int cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
+            z += cmp > 0 ? 1 : 0;
+            e += cmp == 0 ? 1 : 0;
+        }
+        if (z == 0) return;
+        if (z + e == b - a - 1) {
+            if (b - a < 4) Writes.swap(array, a, b - 1, 0.75, true, false);
+            else Writes.reversal(array, a, b - 1, 0.75, true, false);
+            return;
+        }
+        innerSort(array, a, b);
     }
 
     @Override

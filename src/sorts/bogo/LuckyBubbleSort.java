@@ -40,10 +40,7 @@ public final class LuckyBubbleSort extends BogoSorting {
         while (anyswaps) {
             anyswaps = false;
             for (int i = 0; i < currentLength - 1; i++) {
-                Highlights.markArray(1, i);
-                Highlights.markArray(2, i + 1);
-                Delays.sleep(0.01);
-                if (Reads.compareValues(array[i], array[i + 1]) > 0) {
+                if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
                     anyswaps = true;
                     if (randInt(1, 101) <= luck) Writes.swap(array, i, i + 1, 0.01, true, false);
                 }

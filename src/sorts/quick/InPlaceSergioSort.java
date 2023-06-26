@@ -106,16 +106,9 @@ final public class InPlaceSergioSort extends GrailSorting {
 
     protected void holyGriesMills(int[] array, int pos, int lenA, int lenB) {
         while (lenA > 1 && lenB > 1) {
-            while (lenA <= lenB) {
-                blockSwap(array, pos, pos + lenA, lenA);
-                pos += lenA;
-                lenB -= lenA;
-            }
+            for (; lenA <= lenB; pos += lenA, lenB -= lenA) blockSwap(array, pos, pos + lenA, lenA);
             if (lenA <= 1 || lenB <= 1) break;
-            while (lenA >= lenB) {
-                swapBlocksBackwards(array, pos + lenA - lenB, pos + lenA, lenB);
-                lenA -= lenB;
-            }
+            for (; lenA >= lenB; lenA -= lenB) swapBlocksBackwards(array, pos + lenA - lenB, pos + lenA, lenB);
         }
         if (lenA == 1) shiftForwards(array, pos, lenB);
         else if (lenB == 1) shiftBackwards(array, pos, lenA);
@@ -165,18 +158,14 @@ final public class InPlaceSergioSort extends GrailSorting {
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
+        for (int i = start; i < end; i++) {
+            int left = i;
             while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
-            right = i;
+            int right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);
                 else Writes.reversal(array, left, right, 0.75, true, false);
             }
-            i++;
         }
     }
 
@@ -240,13 +229,10 @@ final public class InPlaceSergioSort extends GrailSorting {
     }
 
     protected void insertionSort(int[] array, int a, int b) {
-        int i, j, len;
-        i = blockfindRun(array, a, b);
-        while (i < b) {
+        int j;
+        for (int i = blockfindRun(array, a, b); i < b; i = j) {
             j = blockfindRun(array, i, b);
-            len = j - i;
-            grailMergeWithoutBuffer(array, a, i - a, len);
-            i = j;
+            grailMergeWithoutBuffer(array, a, i - a, j - i);
         }
     }
 

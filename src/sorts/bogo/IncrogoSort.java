@@ -28,7 +28,7 @@ public final class IncrogoSort extends BogoSorting {
         this.setSortListName("Incrogo");
         this.setRunAllSortsName("Incrogo Sort");
         this.setRunSortName("Incrogosort");
-        this.setCategory("Impractical Sorts");
+        this.setCategory("Bogo Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);
@@ -65,9 +65,9 @@ public final class IncrogoSort extends BogoSorting {
         if (isArraySorted(array, sortLength)) return;
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-        for(int i = 0; i < sortLength; i++) {
-            if(array[i] < min) min = array[i];
-            if(array[i] > max) max = array[i];
+        for (int i = 0; i < sortLength; i++) {
+            if (array[i] < min) min = array[i];
+            if (array[i] > max) max = array[i];
         }
         int[] init = Writes.createExternalArray(sortLength);
         Writes.arraycopy(array, 0, init, 0, sortLength, delay, false, true);

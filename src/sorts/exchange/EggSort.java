@@ -27,18 +27,21 @@ public final class EggSort extends Sort {
         this.setBogoSort(false);
     }
 
-    protected int maxsorted(int[] array, int e, int i) {
-        int a = i - 1;
-        int b = e;
+    protected int maxsorted(int[] array, int start, int end) {
+        int a = end - 1;
+        int b = end - 1;
         boolean segment = true;
         while (segment) {
-            if (b - 1 < 0) return 0;
+            if (b - 1 < start) return start;
             if (Reads.compareIndices(array, b - 1, b, 0.1, true) > 0) segment = false;
             else b--;
         }
         int sel = b - 1;
-        for (int s = b - 2; s >= 0; s--) if (Reads.compareIndices(array, sel, s, 0.1, true) < 0) sel = s;
-        while (Reads.compareIndices(array, sel, a, 0.1, true) <= 0) a--;
+        for (int s = b - 2; s >= start; s--) if (Reads.compareIndices(array, sel, s, 0.1, true) < 0) sel = s;
+        while (Reads.compareIndices(array, sel, a, 0.1, true) <= 0) {
+            a--;
+            if (a < start) break;
+        }
         return a + 1;
     }
 
@@ -51,7 +54,7 @@ public final class EggSort extends Sort {
                 else Writes.insert(array, i + 1, 0, 0.01, true, false);
             }
             currentLength--;
-            currentLength = maxsorted(array, currentLength, currentLength);
+            currentLength = maxsorted(array, 0, currentLength);
         }
     }
 }

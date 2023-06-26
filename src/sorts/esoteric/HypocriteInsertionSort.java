@@ -29,9 +29,6 @@ public final class HypocriteInsertionSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        for (int i = 0; i < currentLength; i++) {
-            int val = currentLength - 1;
-            for (int j = i; j >= 0; j--) Writes.write(array, j, val--, 0.25, true, false);
-        }
+        for (int i = 0; i < currentLength; i++) for (int j = i, val = currentLength - 1; j >= 0; j--) Writes.write(array, j, val--, 0.25, true, false);
     }
 }

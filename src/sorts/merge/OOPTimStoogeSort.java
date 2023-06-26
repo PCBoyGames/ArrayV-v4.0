@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 /*
 
 Coded for ArrayV by Ayako-chan
-in collaboration with Control
+in collaboration with aphitorite Control
 
 -----------------------------
 - Sorting Algorithm Scarlet -
@@ -16,6 +16,7 @@ in collaboration with Control
 
 /**
  * @author Ayako-chan
+ * @author aphitorite
  * @author Control
  *
  */
@@ -106,11 +107,13 @@ public final class OOPTimStoogeSort extends Sort {
 
     protected void insertSort(int[] array, int a, int b) {
         int i = a + 1;
-        if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
-            Writes.reversal(array, a, i - 1, 1.0, true, false);
-        } else
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
+        if (i < b)
+            if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
+                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
+                if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, false);
+                else Writes.reversal(array, a, i - 1, 1.0, true, false);
+            } else
+                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         Highlights.clearMark(2);
         for (; i < b; i++)
             insertTo(array, i, rightExpSearch(array, a, i, array[i]));
@@ -244,26 +247,30 @@ public final class OOPTimStoogeSort extends Sort {
             mergeFW(array, tmp, a, m, b);
     }
 
-    protected void mergeSort(int[] array, int[] tmp, int a, int b) {
-        if (b - a < 24) {
+    public void mergeSort(int[] array, int[] tmp, int a, int b) {
+        if (b - a < 32) {
             insertSort(array, a, b);
             return;
         }
-        int third = (b - a) / 3;
+        int third = (b - a + 1) / 3;
         int m1 = a + third, m2 = b - third;
         mergeSort(array, tmp, a, m1);
         mergeSort(array, tmp, m1, m2);
         mergeSort(array, tmp, m2, b);
         smartMerge(array, tmp, a, m1, m2);
         smartMerge(array, tmp, m1, m2, b);
-        smartMerge(array, tmp, a, m1, m2);
+        smartMerge(array, tmp, a, m1, b);
+    }
+    
+    public void sortNow(int[] array, int a, int b) {
+        int[] buf = Writes.createExternalArray((b - a + 1) / 3);
+        mergeSort(array, buf, a, b);
+        Writes.deleteExternalArray(buf);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        int[] temp = Writes.createExternalArray(sortLength / 2);
-        mergeSort(array, temp, 0, sortLength);
-        Writes.deleteExternalArray(temp);
+        sortNow(array, 0, sortLength);
 
     }
 

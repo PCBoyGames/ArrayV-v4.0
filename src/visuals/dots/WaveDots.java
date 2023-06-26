@@ -47,16 +47,16 @@ final public class WaveDots extends Visual {
         if (ArrayVisualizer.linesEnabled()) {
             int lastX = 0;
             int lastY = (int) (((Renderer.getViewSize() - 20) / 2.5) * Math.sin((2 * Math.PI * ((double) array[0] / Renderer.getArrayLength()))) + Renderer.halfViewSize() - 20);
-            this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(2));
+            this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
 
             for (int i = 1, j = (int) Renderer.getXScale(); i < Renderer.getArrayLength(); i++) {
                 if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
-                    this.mainRender.setColor(Color.GREEN);
-                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
+                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
                 }
                 else if (Highlights.containsPosition(i)) {
-                    this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
-                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], Renderer.getArrayLength(), 0.25f, 1) : ArrayVisualizer.getHighlightColor());
+                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
                 }
                 else if (ArrayVisualizer.colorEnabled())
                     this.mainRender.setColor(getIntColor(array[i-1], ArrayVisualizer.getCurrentLength()));
@@ -70,7 +70,7 @@ final public class WaveDots extends Visual {
                 lastX = j;
                 lastY = y;
 
-                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(2));
+                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
 
                 int width = (int) (Renderer.getXScale() * (i + 1)) - j;
                 j += width;
@@ -82,7 +82,7 @@ final public class WaveDots extends Visual {
 
             for (int i = 0, j = 0; i < Renderer.getArrayLength(); i++) {
                 if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                    this.mainRender.setColor(Color.GREEN);
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
 
                 else if (ArrayVisualizer.colorEnabled())
                     this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
@@ -96,12 +96,16 @@ final public class WaveDots extends Visual {
                 int width = (int) (Renderer.getXScale() * (i + 1)) - j;
                 j += width;
             }
-            this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
 
             for (int i = 0, j = 0; i < Renderer.getArrayLength(); i++) {
                 if (Highlights.containsPosition(i)) {
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], Renderer.getArrayLength(), 0.25f, 1) : Color.RED);
                     int y = (int) (((Renderer.getViewSize() - 20) / 2.5) * Math.sin((2 * Math.PI * ((double) array[i] / Renderer.getArrayLength()))) + Renderer.halfViewSize() - 20);
-                    this.mainRender.fillRect(j + offset - (int)(1.5*dotS), Renderer.getYOffset() + y - (int)(1.5*dotS), 4*dotS, 4*dotS);
+                    this.mainRender.fillRect(j + offset - (int)(3*dotS), Renderer.getYOffset() + y - (int)(3*dotS), 6*dotS, 6*dotS);
+
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], Renderer.getArrayLength()) : Color.WHITE);
+
+                    this.mainRender.fillRect(j + offset - (int)(1.5*dotS), Renderer.getYOffset() + y - (int)(1.5*dotS), 3*dotS, 3*dotS);
                 }
                 int width = (int) (Renderer.getXScale() * (i + 1)) - j;
                 j += width;

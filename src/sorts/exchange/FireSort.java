@@ -56,19 +56,17 @@ final public class FireSort extends Sort {
         int testi = 1;
         boolean testpass = false;
         boolean testreverse = false;
-        boolean anyswaps = false;
         while (!testpass) {
             if (twistwait < 1) {
                 twistcheck += currentLength;
                 twistwait = twistcheck;
                 twist *= -1;
             } else twistwait--;
-            anyswaps = false;
+            boolean anyswaps = false;
             while (i + 1 <= currentLength && i >= 1 && !anyswaps) {
                 if (Reads.compareValues(array[i - 1], array[i]) * twist > 0) {
-                    Writes.swap(array, i - 1, i, 0.005, true, false);
+                    Writes.swap(array, i - 1, i, 0.005, anyswaps = true, false);
                     i -= twist;
-                    anyswaps = true;
                 } else i += twist;
             }
             if (i < 1) {

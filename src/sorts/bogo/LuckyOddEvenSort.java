@@ -36,21 +36,15 @@ final public class LuckyOddEvenSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int luck) {
-        int i = 0;
         int offset = 0;
         boolean anyswaps = false;
         boolean reset = true;
         while (reset) {
-            i = offset;
-            while (i + 1 < currentLength) {
-                Highlights.markArray(1, i);
-                Highlights.markArray(2, i + 1);
-                Delays.sleep(0.01);
-                if (Reads.compareValues(array[i], array[i + 1]) > 0) {
+            for (int i = offset; i + 1 < currentLength; i += 2) {
+                if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
                     anyswaps = true;
                     if (randInt(1, 101) <= luck) Writes.swap(array, i, i + 1, 0.01, true, false);
                 }
-                i += 2;
             }
             offset++;
             if (offset > 1) {

@@ -61,13 +61,13 @@ final public class HoopStack extends Visual {
             int y = (int) ((height - radiusY * 4) * i / (double) (length - 1));
 
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setColor(Color.WHITE);
 
             else if (Highlights.containsPosition(i)) {
                 if (ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
-                else                                  this.mainRender.setColor(Color.WHITE);
+                else                                   this.mainRender.setColor(getIntColor(array[i], length, 0.25f, 1));
 
-                this.mainRender.setStroke(ArrayVisualizer.getDefaultStroke());
+                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(12));
             }
             else this.mainRender.setColor(getIntColor(array[i], length));
 

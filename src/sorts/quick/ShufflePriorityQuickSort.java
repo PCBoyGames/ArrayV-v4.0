@@ -8,17 +8,17 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Kiriko-chan
+Coded for ArrayV by Ayako-chan
 in collaboration with aphitorite
 
------------------------------
-- Sorting Algorithm Scarlet -
------------------------------
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
 
  */
 
 /**
- * @author Kiriko-chan
+ * @author Ayako-chan
  * @author aphitorite
  *
  */
@@ -39,11 +39,12 @@ public final class ShufflePriorityQuickSort extends Sort {
     }
 
     class Partition implements Comparable<Partition> {
-        public int a, b;
+        public int a, b, badAllowed;
 
-        public Partition(int a, int b) {
+        public Partition(int a, int b, int badAllowed) {
             this.a = a;
             this.b = b;
+            this.badAllowed = badAllowed;
         }
 
         public int length() {
@@ -61,6 +62,19 @@ public final class ShufflePriorityQuickSort extends Sort {
     }
 
     int threshold = 32;
+
+    public static int log2(int n) {
+        int log = 0;
+        while ((n >>= 1) != 0)
+            ++log;
+        return log;
+    }
+
+    // Easy patch to avoid self-swaps.
+    public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
+        if (a != b)
+            Writes.swap(array, a, b, pause, mark, aux);
+    }
 
     void medianOfThree(int[] array, int a, int b) {
         int m = a + (b - 1 - a) / 2;
@@ -81,7 +95,7 @@ public final class ShufflePriorityQuickSort extends Sort {
     public void shuffle(int[] array, int a, int b) {
         Random rng = new Random();
         for (int i = a; i < b; i++) {
-            Writes.swap(array, i, i + rng.nextInt(b - i), 0.75, true, false);
+            swap(array, i, i + rng.nextInt(b - i), 0.75, true, false);
         }
     }
 
@@ -105,7 +119,7 @@ public final class ShufflePriorityQuickSort extends Sort {
             if (i < j)
                 Writes.swap(array, i, j, 1, true, false);
             else {
-                Writes.swap(array, p, j, 1, true, false);
+                swap(array, p, j, 1, true, false);
                 Highlights.clearMark(3);
                 return j;
             }
@@ -146,33 +160,89 @@ public final class ShufflePriorityQuickSort extends Sort {
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
 
-    public void quickSort(int[] array, int start, int end) {
-        if (end - start < this.threshold) {
+    private void siftDown(int[] array, int val, int i, int p, int n) {
+        while (4 * i + 1 < n) {
+            int max = val;
+            int next = i, child = 4 * i + 1;
+            for (int j = child; j < Math.min(child + 4, n); j++) {
+                if (Reads.compareValues(array[p + j], max) > 0) {
+                    max = array[p + j];
+                    next = j;
+                }
+            }
+            if (next == i)
+                break;
+            Writes.write(array, p + i, max, 1, true, false);
+            i = next;
+        }
+        Writes.write(array, p + i, val, 1, true, false);
+    }
+
+    protected void heapSort(int[] array, int a, int b) {
+        int n = b - a;
+        for (int i = (n - 1) / 4; i >= 0; i--)
+            this.siftDown(array, array[a + i], i, a, n);
+        for (int i = n - 1; i > 0; i--) {
+            Highlights.markArray(2, a + i);
+            int t = array[a + i];
+            Writes.write(array, a + i, array[a], 1, false, false);
+            this.siftDown(array, t, 0, a, i);
+        }
+    }
+
+    protected void innerSort(int[] array, int start, int end) {
+        if (end - start <= this.threshold) {
             insertSort(array, start, end);
             return;
         }
         PriorityQueue<Partition> q = new PriorityQueue<>((end - start - 1) / this.threshold + 1);
-        q.offer(new Partition(start, end));
+        q.offer(new Partition(start, end, log2(end - start)));
+        sortLoop:
         while (q.size() > 0) {
             Partition part = q.poll();
             int a = part.a, b = part.b, len = part.length();
+            int badAllowed = part.badAllowed;
             medianOfThree(array, a, b);
             int m = partition(array, a, b, a);
             int l = m - a, r = b - m - 1;
             while (l < len / 16 || r < len / 16) {
+                if (--badAllowed <= 0) {
+                    heapSort(array, a, b);
+                    continue sortLoop;
+                }
                 shuffle(array, a, b);
+                medianOfThree(array, a, b);
                 m = partition(array, a, b, a);
                 l = m - a; r = b - m - 1;
             }
             if (l >= threshold)
-                q.offer(new Partition(a, m));
+                q.offer(new Partition(a, m, badAllowed));
             else
                 insertSort(array, a, m);
             if (r >= threshold)
-                q.offer(new Partition(m + 1, b));
+                q.offer(new Partition(m + 1, b, badAllowed));
             else
                 insertSort(array, m + 1, b);
         }
+    }
+
+    public void quickSort(int[] array, int a, int b) {
+        int z = 0, e = 0;
+        for (int i = a; i < b - 1; i++) {
+            int cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
+            z += cmp > 0 ? 1 : 0;
+            e += cmp == 0 ? 1 : 0;
+        }
+        if (z == 0)
+            return;
+        if (z + e == b - a - 1) {
+            if (b - a < 4) {
+                Writes.swap(array, a, b - 1, 0.75, true, false);
+            } else
+                Writes.reversal(array, a, b - 1, 0.75, true, false);
+            return;
+        }
+        innerSort(array, a, b);
     }
 
     @Override

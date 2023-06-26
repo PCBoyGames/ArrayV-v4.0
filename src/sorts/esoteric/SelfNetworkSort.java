@@ -40,12 +40,11 @@ public final class SelfNetworkSort extends Sort {
 
     protected void pairsort(int[] array, int i, int j) {
         if (i > j) {
-            int temp = i; i = j; j = temp;
+            int temp = i;
+            i = j;
+            j = temp;
         }
-        if (Reads.compareIndices(array, i, j, 0.1, true) > 0) {
-            Writes.swap(array, i, j, 1, true, false);
-            changes = true;
-        }
+        if (Reads.compareIndices(array, i, j, 0.1, true) > 0) Writes.swap(array, i, j, 1, changes = true, false);
     }
 
     protected int bubblepass(int[] array, int currentLength) {

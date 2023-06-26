@@ -38,13 +38,11 @@ final public class BirthdayMergeSort extends BogoSorting {
             Highlights.markArray(1, x);
             Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, false, true);
         }
-        int j = start;
-        for (int count = 0; count < size; count++) {
-            for (int i = 0; i < holes[count]; i++) {
+        for (int count = 0, j = start; count < size; count++) {
+            for (int i = 0; i < holes[count]; i++, j++) {
                 Highlights.markArray(1, j);
                 Delays.sleep(1);
                 while (count + min != array[j]) Writes.write(array, j, randInt(min, max + 1), 0.1, true, false);
-                j++;
             }
         }
         Writes.deleteExternalArray(holes);
@@ -58,15 +56,13 @@ final public class BirthdayMergeSort extends BogoSorting {
             if (array[i] < min) min = array[i];
             if (array[i] > max) max = array[i];
         }
-        int len = 2;
         int index = 0;
-        while (len < currentLength) {
+        for (int len = 2; len < currentLength; len *= 2) {
             index = 0;
             while (index + len - 1 < currentLength) {
                 method(array, index, len);
                 index += len;
             }
-            len *= 2;
         }
         method(array, 0, currentLength);
     }

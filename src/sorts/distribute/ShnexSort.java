@@ -43,9 +43,8 @@ public final class ShnexSort extends Sort {
         int size = max - min + 1;
         int[] holes = new int[size];
         for (int x = 0; x < len; x++) {
-            if (holes[stablereturn(array[x]) - min] == 1) {
-                return false;
-            } else holes[stablereturn(array[x]) - min] = 1;
+            if (holes[stablereturn(array[x]) - min] == 1) return false;
+            else holes[stablereturn(array[x]) - min] = 1;
         }
         return true;
     }

@@ -1,7 +1,7 @@
 package sorts.select;
 
 import main.ArrayVisualizer;
-import sorts.templates.Sort;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class MoreOptimizedOpiumSort extends Sort {
+public final class MoreOptimizedOpiumSort extends MadhouseTools {
 
     int where;
 
@@ -30,35 +30,6 @@ public final class MoreOptimizedOpiumSort extends Sort {
         this.setBogoSort(false);
     }
 
-    protected int maxsorted(int[] array, int e, int i) {
-        int a = i - 1;
-        int b = e;
-        boolean segment = true;
-        while (segment) {
-            if (b - 1 < 0) return 0;
-            if (Reads.compareIndices(array, b - 1, b, 0.1, true) > 0) segment = false;
-            else b--;
-        }
-        int sel = b - 1;
-        for (int s = b - 2; s >= 0; s--) if (Reads.compareIndices(array, sel, s, 0.1, true) < 0) sel = s;
-        while (Reads.compareIndices(array, sel, a, 0.1, true) <= 0) a--;
-        return a + 1;
-    }
-
-    protected int minsorted(int[] array, int a, int b) {
-        int i = a;
-        boolean segment = true;
-        while (segment) {
-            if (i + 1 > b) return b;
-            if (Reads.compareIndices(array, i, i + 1, 0.1, true) > 0) segment = false;
-            else i++;
-        }
-        int sel = i + 1;
-        for (int s = i + 2; s < b; s++) if (Reads.compareIndices(array, sel, s, 0.1, true) > 0) sel = s;
-        while (Reads.compareIndices(array, sel, a, 0.1, true) >= 0) a++;
-        return a;
-    }
-
     protected boolean isLeast(int[] array, int[] ext, int index, int extcollect, int length) {
         where = index + 1;
         for (int i = index + 1; i < length; i++) if (Reads.compareIndices(array, index, where = i, 0.1, true) > 0) return false;
@@ -71,37 +42,59 @@ public final class MoreOptimizedOpiumSort extends Sort {
         return true;
     }
 
-    @Override
-    public void runSort(int[] array, int currentLength, int stable) {
-        if (stable != 574873) currentLength = maxsorted(array, currentLength, currentLength);
-        int[] collect = Writes.createExternalArray(currentLength);
-        for (int j = 0; j < currentLength; j++) collect[j] = -1;
+    public void opium(int[] array, int start, int end, boolean domax, boolean minskip) {
+        if (domax) end = maxSorted(array, start, end, 0.1, true);
+        int[] collect = Writes.createExternalArray(end - start);
+        for (int j = 0; j < end - start; j++) collect[j] = -1;
         int collected = 0;
-        int j = minsorted(array, 0, currentLength);
+        int j = minSorted(array, start, end, 0.1, true);
         int h = (where = 0);
-        for (int i = j; i < currentLength; j = where) {
-            if (j > currentLength - 1) {
+        for (int i = j; i < end; j = where) {
+            if (j >= end) {
                 for (int k = i; k <= h; k++) {
                     Writes.write(array, k, collect[k - i], 0.1, true, false);
                     collect[k - i] = -1;
                 }
-                for (int k = 0; k < currentLength; k++) collect[k] = -1;
-                where = (j = i);
-                collected = (h = 0);
+                for (int k = 0; k < end - start; k++) collect[k] = -1;
+                if (minskip) {
+                    int[] l = minSortedW(array, i, end, 0.1, true);
+                    if (l[1] == -1) return;
+                    i = l[0];
+                    where = l[1];
+                    j = where++;
+                    collected = 0;
+                    for (int k = i; k < j; k++) {
+                        Highlights.markArray(1, k);
+                        Writes.write(collect, collected++, array[k], 0.1, false, true);
+                    }
+                    if (i != j) Writes.write(array, i, array[j], 0.1, true, false);
+                    h = j++;
+                    i++;
+                } else {
+                    where = (j = i);
+                    collected = (h = 0);
+                }
             }
-            if (isLeast(array, collect, j, collected, currentLength)) {
-                Highlights.clearAllMarks();
-                if (i != j) Writes.write(array, i, array[j], 0.1, true, false);
-                i++;
-                h = j;
-            } else {
-                Highlights.clearAllMarks();
-                for (int k = j; k < Math.min(where, currentLength); k++) {
-                    Highlights.markArray(1, k);
-                    Writes.write(collect, collected++, array[k], 0.1, false, true);
+            if (j < end) {
+                if (isLeast(array, collect, j, collected, end)) {
+                    Highlights.clearAllMarks();
+                    if (i != j) Writes.write(array, i, array[j], 0.1, true, false);
+                    i++;
+                    h = j;
+                } else {
+                    Highlights.clearAllMarks();
+                    for (int k = j; k < Math.min(where, end); k++) {
+                        Highlights.markArray(1, k);
+                        Writes.write(collect, collected++, array[k], 0.1, false, true);
+                    }
                 }
             }
         }
         Writes.deleteExternalArray(collect);
+    }
+
+    @Override
+    public void runSort(int[] array, int currentLength, int bucketCount) {
+        opium(array, 0, currentLength, true, false);
     }
 }

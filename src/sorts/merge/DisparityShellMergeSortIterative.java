@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 /*
 
 Coded for ArrayV by Ayako-chan
-in collaboration with Control and mg-2018
+in collaboration with Control, mg-2018 and PCBoy
 
 -----------------------------
 - Sorting Algorithm Scarlet -
@@ -18,15 +18,16 @@ in collaboration with Control and mg-2018
  * @author Ayako-chan
  * @author Control
  * @author mg-2018
+ * @author PCBoy
  *
  */
-public final class DisparityShellMergeSort extends Sort {
+public final class DisparityShellMergeSortIterative extends Sort {
 
-    public DisparityShellMergeSort(ArrayVisualizer arrayVisualizer) {
+    public DisparityShellMergeSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Disparity Shell Merge");
-        this.setRunAllSortsName("Disparity Shell Merge Sort");
-        this.setRunSortName("Disparity Shell Mergesort");
+        this.setSortListName("Disparity Shell Merge (Iterative)");
+        this.setRunAllSortsName("Iterative Disparity Shell Merge Sort");
+        this.setRunSortName("Iterative Disparity Shell Mergesort");
         this.setCategory("Merge Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -38,25 +39,6 @@ public final class DisparityShellMergeSort extends Sort {
 
     final int WLEN = 3;
 
-    public static int nextGap(int g) {
-        int c = (g + 1) / 2 - (g + 1) / 18 - 1;
-        if (c < 4)
-            return 1;
-        do {
-            int a = c, b = g;
-            while (b > 0) {
-                int t = b;
-                b = a % b;
-                a = t;
-            }
-            if (a == 1)
-                break;
-            else
-                c++;
-        } while (true);
-        return c;
-    }
-
     protected boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;
         return b == 1;
@@ -66,10 +48,10 @@ public final class DisparityShellMergeSort extends Sort {
         Writes.write(bits, idx >> WLEN, bits[idx >> WLEN] | (1 << (idx & ((1 << WLEN) - 1))), 0, false, true);
     }
 
+    // Unlike PCBoy's version, this is NOT cheating.
     protected int findDisparity(int[] array, int a, int b) {
         int n = b - a;
         int[] max = new int[((n - 1) >> WLEN) + 1];
-        Writes.changeAllocAmount(max.length);
         int maxIdx = 0;
         for (int i = 1; i < n; i++) {
             if (Reads.compareIndices(array, a + i, a + maxIdx, 0, false) > 0) {
@@ -91,39 +73,55 @@ public final class DisparityShellMergeSort extends Sort {
                 p = i - j;
             j--;
         }
-        Writes.changeAllocAmount(-max.length);
         return p;
     }
 
-    public boolean shellPass(int[] array, int a, int b, int g, double sleep) {
-        boolean anywrite = false;
-        for (int i = a + g; i < b; i++) {
-            if (Reads.compareIndices(array, i - g, i, sleep, true) > 0) {
-                int t = array[i], j = i;
-                anywrite = true;
-                Highlights.clearMark(2);
-                do {
-                    Writes.write(array, j, array[j - g], sleep, true, false);
-                    j -= g;
-                } while (j - g >= a && Reads.compareValues(array[j - g], t) > 0);
-                Writes.write(array, j, t, sleep, true, false);
+    protected int shellPass(int[] array, int a, int b, int gap, int par, int lastgap) {
+        if (gap >= lastgap) return lastgap;
+        if (gap == lastgap - 1 && gap != 1) return lastgap;
+        lastgap = gap;
+        for (int i = a + gap; i < b; i++) {
+            int key = array[i];
+            int j = i - gap;
+            while (j >= a && Reads.compareValues(key, array[j]) < 0) {
+                Writes.write(array, j + gap, array[j], 1, true, false);
+                j -= gap;
             }
+            if (j + gap < i) Writes.write(array, j + gap, key, 1, true, false);
         }
-        return anywrite;
+        Highlights.clearAllMarks();
+        return gap;
+    }
+
+    protected void insertSort(int[] array, int a, int b) {
+        for (int i = a + 1; i < b; i ++) {
+            int t = array[i];
+            int j = i - 1;
+            while (j >= a && Reads.compareValues(array[j], t) > 0) {
+                Writes.write(array, j + 1, array[j], 0.5, true, false);
+                j--;
+            }
+            if (j + 1 < i)
+                Writes.write(array, j + 1, t, 0.5, true, false);
+        }
     }
 
     public void shellSort(int[] array, int a, int b) {
-        int g = b - a;
-        do {
-            int p = findDisparity(array, a, b);
-            if (p == 1)
+        double truediv = 3;
+        int lastpar = b - a;
+        int lastgap = b - a;
+        while (true) {
+            int par = findDisparity(array, a, b);
+            int passpar = par;
+            if (par >= lastpar) par = lastpar - (int) truediv;
+            if (par / (int) truediv <= 1) {
+                shellPass(array, a, b, 1, par, lastgap);
                 break;
-            g = nextGap(p);
-            if (!shellPass(array, a, b, g, 0.75)) {
-                g = nextGap(g);
-                shellPass(array, a, b, g, 0.75);
             }
-        } while (g != 1);
+            lastgap = shellPass(array, a, b, (int) ((par / (int) truediv) + par % (int) truediv), passpar, lastgap);
+            if (lastpar - par <= Math.sqrt(lastpar)) truediv *= 1.5;
+            lastpar = par;
+        }
     }
 
     public void mergeSort(int[] array, int a, int b) {
@@ -131,8 +129,8 @@ public final class DisparityShellMergeSort extends Sort {
         for (; mRun >= 32; mRun = (mRun + 1) / 2);
         int i;
         for (i = a; i+mRun<b; i+=mRun)
-            shellPass(array, i, i + mRun, 1, 0.5);
-        shellPass(array, i, b, 1, 0.5);
+            insertSort(array, i, i + mRun);
+        insertSort(array, i, b);
         for (int j = mRun; j < (b - a); j *= 2) {
             for (i = a; i + 2 * j <= b; i += 2 * j)
                 shellSort(array, i, i + 2 * j);

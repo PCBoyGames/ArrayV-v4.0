@@ -23,16 +23,16 @@ public final class ExponentialIntroSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     int middle;
     int sizeThreshold = 32;
-    
+
     public static int log2(int n) {
         int log = 0;
         while ((n >>= 1) != 0) ++log;
         return log;
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -62,7 +62,7 @@ public final class ExponentialIntroSort extends Sort {
         for (int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
-    
+
     private void siftDown(int[] array, int val, int i, int p, int n) {
         while (2 * i + 1 < n) {
             int max = val;
@@ -91,22 +91,22 @@ public final class ExponentialIntroSort extends Sort {
             this.siftDown(array, t, 0, a, i);
         }
     }
-    
+
     int medianof3(int[] arr, int left, int mid, int right) {
-        if(Reads.compareValues(arr[right], arr[left]) < 0) {
-            Writes.swap(arr, left, right, 1, true, false); 
+        if (Reads.compareValues(arr[right], arr[left]) < 0) {
+            Writes.swap(arr, left, right, 1, true, false);
         }
-        if(Reads.compareValues(arr[mid], arr[left]) < 0) {
+        if (Reads.compareValues(arr[mid], arr[left]) < 0) {
             Writes.swap(arr, mid, left, 1, true, false);
         }
-        if(Reads.compareValues(arr[right], arr[mid]) < 0) {
+        if (Reads.compareValues(arr[right], arr[mid]) < 0) {
             Writes.swap(arr, right, mid, 1, true, false);
         }
         middle = mid;
         Highlights.markArray(3, mid);
         return arr[mid];
     }
-    
+
     int partition(int[] a, int lo, int hi, int x) {
         int i = lo, j = hi;
         while (true) {
@@ -121,20 +121,20 @@ public final class ExponentialIntroSort extends Sort {
                 Delays.sleep(0.5);
                 j--;
             }
-            if(!(i < j)) {
+            if (!(i < j)) {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
                 return i;
             }
             // Follow the pivot and highlight it.
-            if(i == middle) Highlights.markArray(3, j);
-            if(j == middle) Highlights.markArray(3, i);
+            if (i == middle) Highlights.markArray(3, j);
+            if (j == middle) Highlights.markArray(3, i);
 
             Writes.swap(a, i, j, 1, true, false);
             i++;
         }
     }
-    
+
     void introsortLoop(int[] a, int lo, int hi, int depthLimit) {
         while (hi - lo > sizeThreshold) {
             if (depthLimit == 0) {
@@ -153,7 +153,7 @@ public final class ExponentialIntroSort extends Sort {
             }
         }
     }
-    
+
     public void quickSort(int[] array, int a, int b) {
         introsortLoop(array, a, b, 2 * log2(b - a));
         Highlights.clearAllMarks();

@@ -50,9 +50,6 @@ final public class LogSort extends Sort {
     //special thanks to Distray for revising the code / algorithm
     //median selection and sort helper code from AeosQSort by Anonymous0726
 
-    private int log2(int n) {
-        return 31-Integer.numberOfLeadingZeros(n);
-    }
     private int productLog(int n) {
         int r = 1;
         while ((r<<r)+r-1 < n) r++;

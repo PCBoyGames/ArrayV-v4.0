@@ -41,10 +41,7 @@ public final class LuckyGrateSort extends BogoSorting {
             anyswaps = false;
             for (int i = 0; i < currentLength - 1; i++) {
                 for (int j = currentLength - 1; j > i; j--) {
-                    Highlights.markArray(1, i);
-                    Highlights.markArray(2, j);
-                    Delays.sleep(0.01);
-                    if (Reads.compareValues(array[i], array[j]) > 0) {
+                    if (Reads.compareIndices(array, i, j, 0.01, true) > 0) {
                         anyswaps = true;
                         if (randInt(1, 101) <= luck) Writes.swap(array, i, j, 0.01, true, false);
                         break;

@@ -103,19 +103,19 @@ public final class BlockTimSort extends Sort {
     }
 
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
-        while(a < b) {
+        while (a < b) {
             int m = a + (b - a) / 2;
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
             int c = Reads.compareValues(val, array[m]);
-            if(c < 0 || (left && c == 0))
+            if (c < 0 || (left && c == 0))
                 b = m;
             else
                 a = m+1;
         }
         return a;
     }
-    
+
     protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
         if (left)
@@ -180,31 +180,31 @@ public final class BlockTimSort extends Sort {
 
     protected void mergeFromBuf(int[] array, int[] buf, int a, int m, int b, int bufLen) {
         int i = 0;
-        while(i < bufLen && m < b)
-            if(Reads.compareValues(buf[i], array[m]) <= 0)
+        while (i < bufLen && m < b)
+            if (Reads.compareValues(buf[i], array[m]) <= 0)
                 Writes.write(array, a++, buf[i++], 1, true, false);
             else
                 Writes.write(array, a++, array[m++], 1, true, false);
-        while(i < bufLen)
+        while (i < bufLen)
             Writes.write(array, a++, buf[i++], 1, true, false);
     }
 
     protected void mergeTo(int[] from, int[] to, int a, int m, int b, int p, boolean aux) {
         int i = a, j = m;
-        while(i < m && j < b) {
+        while (i < m && j < b) {
             Highlights.markArray(2, i);
             Highlights.markArray(3, j);
-            if(Reads.compareValues(from[i], from[j]) <= 0)
+            if (Reads.compareValues(from[i], from[j]) <= 0)
                 Writes.write(to, p++, from[i++], 1, true, aux);
             else
                 Writes.write(to, p++, from[j++], 1, true, aux);
         }
         Highlights.clearMark(3);
-        while(i < m) {
+        while (i < m) {
             Highlights.markArray(2, i);
             Writes.write(to, p++, from[i++], 1, true, aux);
         }
-        while(j < b) {
+        while (j < b) {
             Highlights.markArray(2, j);
             Writes.write(to, p++, from[j++], 1, true, aux);
         }
@@ -304,12 +304,12 @@ public final class BlockTimSort extends Sort {
 
     protected int mergeBlocks(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
-        while(i < m && j < b)
-            if(Reads.compareIndices(array, i, j, 0.0, true) <= 0)
+        while (i < m && j < b)
+            if (Reads.compareIndices(array, i, j, 0.0, true) <= 0)
                 Writes.write(array, p++, array[i++], 1.0, true, false);
             else
                 Writes.write(array, p++, array[j++], 1.0, true, false);
-        if(i > p)
+        if (i > p)
             shiftFWExt(array, p, i, m);
         return j;
     }
@@ -317,12 +317,12 @@ public final class BlockTimSort extends Sort {
     // same as mergeBlocks() except reverses equal items order
     protected int mergeBlocksRev(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
-        while(i < m && j < b)
-            if(Reads.compareIndices(array, i, j, 0.0, true) < 0)
+        while (i < m && j < b)
+            if (Reads.compareIndices(array, i, j, 0.0, true) < 0)
                 Writes.write(array, p++, array[i++], 1.0, true, false);
             else
                 Writes.write(array, p++, array[j++], 1.0, true, false);
-        if(i > p)
+        if (i > p)
             shiftFWExt(array, p, i, m);
         return j;
     }
@@ -342,14 +342,14 @@ public final class BlockTimSort extends Sort {
         insertToBW(tags, 0, lCnt - 1);
         int mKey = blockSelect(array, tags, i, 1, bLen - 1, lCnt, bCnt, bLen);
         boolean frag = true;
-        while(l < lCnt && r < bCnt) {
-            if(frag) {
+        while (l < lCnt && r < bCnt) {
+            if (frag) {
                 do {
                     j += bLen;
                     l++;
                     key++;
                 } while (l < lCnt && getSubarray(tags, key, mKey));
-                if(l == lCnt) {
+                if (l == lCnt) {
                     i = mergeBlocks(array, i, j, b, i - bLen);
                     mergeFromBuf(array, buf, i - bLen, i, b, bLen);
                 } else
@@ -360,7 +360,7 @@ public final class BlockTimSort extends Sort {
                     r++;
                     key++;
                 } while (r < bCnt && !getSubarray(tags, key, mKey));
-                if(r == bCnt) {
+                if (r == bCnt) {
                     shiftFWExt(array, i - bLen, i, b);
                     Writes.arraycopy(buf, 0, array, b - bLen, bLen, 1, true, false);
                 } else
@@ -382,13 +382,13 @@ public final class BlockTimSort extends Sort {
 
     protected void pingPongMerge(int[] array, int[] buf, int a, int m1, int m2, int m3, int b) {
         int p = 0, p1 = p + m2-a, pEnd = p + b-a;
-        if(Reads.compareIndices(array, m1-1, m1, 1, true) > 0
+        if (Reads.compareIndices(array, m1-1, m1, 1, true) > 0
         || (m3 < b && Reads.compareIndices(array, m3-1, m3, 1, true) > 0)) {
             mergeTo(array, buf, a, m1, m2, p, true);
             mergeTo(array, buf, m2, m3, b, p1, true);
             mergeTo(buf, array, p, p1, pEnd, a, false);
         }
-        else 
+        else
             smartMerge(array, buf, a, m2, b);
     }
 
@@ -433,7 +433,7 @@ public final class BlockTimSort extends Sort {
         int[] buf = Writes.createExternalArray(bLen);
         int i;
         for (; 4 * j <= bLen; j *= 4) {
-            for(i = a; i+2*j < b; i += 4*j)
+            for (i = a; i+2*j < b; i += 4*j)
                 pingPongMerge(array, buf, i, i+j, i+2*j, Math.min(i+3*j, b), Math.min(i+4*j, b));
             if (i + j < b)
                 smartMerge(array, buf, i, i + j, b);

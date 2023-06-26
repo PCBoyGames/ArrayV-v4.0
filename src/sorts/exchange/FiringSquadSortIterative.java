@@ -76,12 +76,8 @@ final public class FiringSquadSortIterative extends Sort {
 
     protected void init(int[] array, int start, int end, boolean firstdir) {
         firingSquad(array, start, end, firstdir);
-        int len = (end - start) / 2;
         boolean dir = true;
-        while (len > 1) {
-            for (int i = start; i + len <= end; i += len) firingSquad(array, i, i + len, dir = !dir);
-            len /= 2;
-        }
+        for (int len = (end - start) / 2; len > 1; len /= 2) for (int i = start; i + len <= end; i += len) firingSquad(array, i, i + len, dir = !dir);
     }
 
     @Override

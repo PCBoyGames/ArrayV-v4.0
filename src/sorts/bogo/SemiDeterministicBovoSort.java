@@ -29,21 +29,10 @@ public final class SemiDeterministicBovoSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int i = 1;
-        int pull = 1;
-        while (i + 1 <= currentLength) {
-            Highlights.markArray(1, i - 1);
-            Highlights.markArray(2, i);
-            Delays.sleep(this.delay);
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                pull = BogoSorting.randInt(i, currentLength);;
-                while (pull > 0) {
-                    Writes.swap(array, pull - 1, pull, this.delay, true, false);
-                    pull--;
-                }
-                i = 1;
-            } else {
-                i++;
+        for (int i = 1; i + 1 <= currentLength; i++) {
+            if (Reads.compareIndices(array, i - 1, i, delay, true) > 0) {
+                Writes.multiSwap(array, randInt(i, currentLength), 0, delay, true, false);
+                i = 0;
             }
         }
     }

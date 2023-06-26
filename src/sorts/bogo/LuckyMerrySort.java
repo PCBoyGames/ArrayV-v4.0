@@ -45,10 +45,7 @@ public final class LuckyMerrySort extends BogoSorting {
             im = very;
             can_someone_please = false;
             while (im + 1 <= time) {
-                Highlights.markArray(1, im - 1);
-                Highlights.markArray(2, im);
-                Delays.sleep(0.001);
-                if (Reads.compareValues(seats[im - 1], seats[im]) > 0) {
+                if (Reads.compareIndices(seats, im - 1, im, 0.001, true) > 0) {
                     can_someone_please = true;
                     dizzy = im;
                     while (dizzy + 1 <= time) {
@@ -62,10 +59,7 @@ public final class LuckyMerrySort extends BogoSorting {
                 very = 1;
                 stop_the_ride = true;
                 while (very != time && stop_the_ride) {
-                    Highlights.markArray(1, very - 1);
-                    Highlights.markArray(2, very);
-                    Delays.sleep(0.001);
-                    if (Reads.compareValues(seats[very - 1], seats[very]) <= 0) very++;
+                    if (Reads.compareIndices(seats, very - 1, very, 0.001, true) <= 0) very++;
                     else stop_the_ride = false;
                 }
             }

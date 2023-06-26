@@ -4,6 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 public final class GoroSort extends BogoSorting {
+
     public GoroSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Goro");
@@ -17,40 +18,33 @@ public final class GoroSort extends BogoSorting {
         this.setUnreasonableLimit(16);
         this.setBogoSort(true);
     }
-
-    protected void swap(int[] a, int l, int r, double d, boolean m, boolean x) {
-        if (l != r) Writes.swap(a, l, r, d, m, x);
+    
+    public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
+        if (a != b) Writes.swap(array, a, b, pause, mark, aux);
     }
-
-    protected void initializeGoro(int[] array, int arrayLen) {
-        int indexCount = -1;
-        int[] indexes = new int[arrayLen];
-        for (int init = 0; init < arrayLen; init++) indexes[init] = -1;
-        for (int i = 0; i < arrayLen; i++) if (Math.random() > 0.5D) indexes[++indexCount] = i;
-        if (indexCount <= 0) simpleSwap(array, arrayLen);
-        else goroSwap(array, indexes, indexCount);
-    }
-
-    protected void simpleSwap(int[] array, int arrayLen) {
-        int a = (int)(Math.random() * arrayLen);
-        int b = (int)(Math.random() * arrayLen);
-        if (a == b) {
-            if (b + 1 == arrayLen) b = 0;
-            else b++;
+    
+    void goroSwap(int[] array, int[] indices, int len) {
+        for (int i = 0; i < len; i++) Writes.visualClear(indices, i);
+        int cnt = 0;
+        for (int i = 0; i < len; i++)
+            if (BogoSorting.randBoolean())
+                Writes.write(indices, cnt++, i, delay, false, true);
+        if (cnt < 2)
+            swap(array, BogoSorting.randInt(0, len), BogoSorting.randInt(0, len), this.delay, true, false);
+        else {
+            for (int i = 0; i < cnt; i++) {
+                swap(array, indices[i], indices[BogoSorting.randInt(i, cnt)], delay, true, false);
+            }
         }
-        swap(array, a, b, delay, true, false);
-    }
-
-    protected void goroSwap(int[] array, int[] indexArr, int indexCount) {
-        for (int i = 0; i <= indexCount; i++) swap(array, goroRandPosition(indexCount), indexArr[i], delay, true, false);
-    }
-
-    protected int goroRandPosition(int indexCount) {
-        return (int) (Math.random() * (indexCount + 1));
     }
 
     @Override
-    public void runSort(int[] array, int currentLength, int bucketCount) {
-        while (!isArraySorted(array, currentLength)) initializeGoro(array, currentLength);
+    public void runSort(int[] array, int sortLength, int bucketCount) {
+        int[] indices = Writes.createExternalArray(sortLength);
+        while (!isArraySorted(array, sortLength))
+            goroSwap(array, indices, sortLength);
+        Writes.deleteExternalArray(indices);
+
     }
+
 }

@@ -36,14 +36,12 @@ public final class LuckyDebrisSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int luck) {
-        int i = 0;
         int start = 0;
         int end = 0;
         boolean anyrev = true;
         while (anyrev) {
             anyrev = false;
-            i = 0;
-            while (i < currentLength - 1) {
+            for (int i = 0; i < currentLength - 1; i++) {
                 start = i;
                 while (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0 && i < currentLength - 1) i++;
                 end = i;
@@ -54,7 +52,6 @@ public final class LuckyDebrisSort extends BogoSorting {
                     }
                     anyrev = true;
                 }
-                i++;
             }
         }
     }

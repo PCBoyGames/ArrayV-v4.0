@@ -42,18 +42,14 @@ final public class OOPSingularityQuickSort extends QuadSorting {
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
+        for (int i = start; i < end; i++) {
+            int left = i;
             while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
-            right = i;
+            int right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);
                 else Writes.reversal(array, left, right, 0.75, true, false);
             }
-            i++;
         }
     }
 
@@ -84,13 +80,8 @@ final public class OOPSingularityQuickSort extends QuadSorting {
         for (int i = start; i < end; i++) {
             Highlights.markArray(1, i);
             int cmp = Reads.compareValues(array[i], pivot);
-            if (cmp < 0) {
-                Writes.write(low, itemslow, array[i], 0.25, false, true);
-                itemslow++;
-            } else {
-                Writes.write(high, itemshigh, array[i], 0.25, false, true);
-                itemshigh++;
-            }
+            if (cmp < 0) Writes.write(low, itemslow++, array[i], 0.25, false, true);
+            else Writes.write(high, itemshigh++, array[i], 0.25, false, true);
         }
         Writes.arraycopy(low, 0, array, start, itemslow, 0.25, true, false);
         Writes.arraycopy(high, 0, array, start + itemslow, itemshigh, 0.25, true, false);
@@ -134,8 +125,6 @@ final public class OOPSingularityQuickSort extends QuadSorting {
         depthlimit = (int) Math.min(Math.sqrt(currentLength), 2 * log2(currentLength));
         insertlimit = Math.max((depthlimit / 2) - 1, 15);
         replimit = Math.max((depthlimit / 4), 2);
-        if (pd(array, 0, currentLength) + 1 < currentLength) {
-            singularityQuick(array, 1, currentLength, 0, 0);
-        }
+        if (pd(array, 0, currentLength) + 1 < currentLength) singularityQuick(array, 1, currentLength, 0, 0);
     }
 }

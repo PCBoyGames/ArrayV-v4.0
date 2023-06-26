@@ -20,7 +20,7 @@ final public class DisparityBarGraph extends Visual {
             if (width == 0) continue;
 
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
 
             else if (ArrayVisualizer.colorEnabled())
                 this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
@@ -33,9 +33,9 @@ final public class DisparityBarGraph extends Visual {
             this.mainRender.fillRect(j + 20, Renderer.getYOffset() + y, width, (int) (disp *  ArrayVisualizer.getCurrentLength() * Renderer.getYScale()));
             j += width;
         }
-        this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
 
         for (int i = 0, j = 0; i < Renderer.getArrayLength(); i++) {
+            this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], Renderer.getArrayLength(), 0.25f, 1) : ArrayVisualizer.getHighlightColor());
             int width = (int) (Renderer.getXScale() * (i + 1)) - j;
 
             if (Highlights.containsPosition(i)) {

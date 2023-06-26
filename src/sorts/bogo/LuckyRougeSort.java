@@ -41,10 +41,7 @@ public final class LuckyRougeSort extends BogoSorting {
         while (gap >= 1 && anyswaps) {
             anyswaps = false;
             for (int i = 0; i + gap < currentLength; i++) {
-                Highlights.markArray(1, i);
-                Highlights.markArray(2, i + gap);
-                Delays.sleep(1);
-                if (Reads.compareValues(array[i], array[i + gap]) > 0) {
+                if (Reads.compareIndices(array, i, i + gap, 1, true) > 0) {
                     anyswaps = true;
                     if (randInt(1, 101) <= luck) Writes.swap(array, i, i + gap, 1, true, false);
                 }

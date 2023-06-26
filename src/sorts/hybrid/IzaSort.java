@@ -227,13 +227,6 @@ final public class IzaSort extends Sort {
     //             //
     /////////////////
 
-    //@return - how many elements can fit in a tree within buffer size s
-    private int treeMaxCap(int s) {
-        int r = 1;
-        while ((1<<(r+1))*(r+3)-1 <= s) r++;
-        return (1<<(r+1))-2; //O(s/log s)
-    }
-
     //@return - tree buffer space needed to contain k elements
     private int treeBufferSpace(int k) {
         int log = this.log2(k+1);

@@ -30,25 +30,13 @@ final public class FallSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int left = 1;
-        int right = 2;
-        int highestlow = 0;
         while (left <= currentLength) {
-            right = left + 1;
-            highestlow = 0;
-            while (right <= currentLength) {
-                Highlights.markArray(1, left - 1);
-                Highlights.markArray(2, right - 1);
-                Delays.sleep(0.001);
-                if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
+            int highestlow = 0;
+            for (int right = left + 1; right <= currentLength; right++) {
+                if (Reads.compareIndices(array, left - 1, right - 1, 0.001, true) > 0) {
                     if (highestlow == 0) highestlow = right;
-                    else {
-                        Highlights.markArray(1, highestlow - 1);
-                        Highlights.markArray(2, right - 1);
-                        Delays.sleep(0.001);
-                        if (Reads.compareValues(array[highestlow - 1], array[right - 1]) < 0) highestlow = right;
-                    }
+                    else if (Reads.compareIndices(array, highestlow - 1, right - 1, 0.001, true) < 0) highestlow = right;
                 }
-                right++;
             }
             if (highestlow == 0) left++;
             else Writes.swap(array, left - 1, highestlow - 1, 0.001, true, false);

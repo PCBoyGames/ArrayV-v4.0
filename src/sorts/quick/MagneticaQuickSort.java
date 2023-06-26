@@ -55,7 +55,7 @@ final public class MagneticaQuickSort extends Sort {
         int cmp;
         Writes.write(stack, 1, left, 0, false, true);
         Writes.write(stack, 2, right, 0, false, true);
-        do{
+        do {
             right = stack[stackptr];
             left = stack[stackptr - 1];
             stackptr -= 2;
@@ -82,14 +82,11 @@ final public class MagneticaQuickSort extends Sort {
                     cmp = Reads.compareValues(p, array[pr]);
                     if (cmp > 0) {
                         Highlights.markArray(3, j);
-                        Writes.swap(array, pl, pr, 2, true, false);
-                        pl++;
+                        Writes.swap(array, pl++, pr, 2, true, false);
                     } else if (cmp < 0) {
                         for (; Reads.compareValues(p, array[j]) < 0; ) j--;
                         Highlights.markArray(3, pl);
-                        if (pr < j) Writes.swap(array, pr, j, 2, true, false);
-                        j--;
-                        pr--;
+                        if (pr < j) Writes.swap(array, pr--, j--, 2, true, false);
                     }
                 }
                 j = pl - 1;

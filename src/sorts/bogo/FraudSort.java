@@ -67,8 +67,8 @@ public final class FraudSort extends BogoSorting {
             Writes.arraycopy(array, 0, init, 0, currentLength, delay, true, true);
             boolean finalized = false;
             while (!finalized) {
-                Writes.write(array, BogoSorting.randInt(0, currentLength), BogoSorting.randInt(min, max + 1), delay, true, false);
-                while (!isArraySorted(array, currentLength)) Writes.write(array, BogoSorting.randInt(0, currentLength), BogoSorting.randInt(min, max + 1), delay, true, false);
+                Writes.write(array, randInt(0, currentLength), randInt(min, max + 1), delay, true, false);
+                while (!isArraySorted(array, currentLength)) Writes.write(array, randInt(0, currentLength), randInt(min, max + 1), delay, true, false);
                 finalized = isAnagram(array, init, currentLength);
             }
         }

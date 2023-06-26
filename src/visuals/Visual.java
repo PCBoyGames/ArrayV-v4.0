@@ -25,6 +25,22 @@ public abstract class Visual {
         return Color.getHSBColor(((float) i / length), 0.8F, 0.8F);
     }
 
+    public static Color getIntColor(int i, int length, int alpha) {
+        int a = Color.HSBtoRGB(((float) i / length), 0.8f, 0.8f);
+        Color b = Color.decode(String.valueOf(a));
+        return new Color(b.getRed(), b.getGreen(), b.getBlue(), alpha);
+    }
+
+    public static Color getIntColor(int i, int length, float S, float B) {
+        return Color.getHSBColor(((float) i / length), S, B);
+    }
+
+    public static Color getIntColor(int i, int length, float S, float B, int alpha) {
+        int a = Color.HSBtoRGB(((float) i / length), S, B);
+        Color b = Color.decode(String.valueOf(a));
+        return new Color(b.getRed(), b.getGreen(), b.getBlue(), alpha);
+    }
+
     public static void markBar(Graphics2D bar, boolean color, boolean rainbow, boolean analysis) {
         if (color || rainbow) {
             if (analysis) bar.setColor(Color.LIGHT_GRAY);
@@ -33,10 +49,6 @@ public abstract class Visual {
         else if (analysis)    bar.setColor(Color.BLUE);
         else                 bar.setColor(Color.RED);
     }
-    private static void markBarFancy(Graphics2D bar, boolean color, boolean rainbow) {
-        if (!color && !rainbow) bar.setColor(Color.RED);
-        else                   bar.setColor(Color.BLACK);
-    }
 
     public static void lineMark(Graphics2D line, double width, boolean color, boolean analysis) {
         line.setStroke(new BasicStroke((float) (9f * (width / 1280f))));
@@ -44,87 +56,11 @@ public abstract class Visual {
         else if (analysis) line.setColor(Color.BLUE);
         else line.setColor(Color.RED);
     }
-    //TODO: Change name to markLineFancy
-    public static void lineFancy(Graphics2D line, double width) {
-        line.setColor(Color.GREEN);
-        line.setStroke(new BasicStroke((float) (9f * (width / 1280f))));
-    }
-    //TODO: Change name to clearLine
-    public static void lineClear(Graphics2D line, boolean color, int[] array, int i, int length, double width) {
-        if (color) line.setColor(getIntColor(array[i], length));
-        else line.setColor(Color.WHITE);
-        line.setStroke(new BasicStroke((float) (3f * (width / 1280f))));
-    }
 
     public static void setRectColor(Graphics2D rect, boolean color, boolean analysis) {
         if (color) rect.setColor(Color.WHITE);
         else if (analysis) rect.setColor(Color.BLUE);
         else rect.setColor(Color.RED);
-    }
-
-    @SuppressWarnings("fallthrough")
-    //The longer the array length, the more bars marked. Makes the visual easier to see when bars are thinner.
-    public static void colorMarkedBars(int logOfLen, int index, Highlights Highlights, Graphics2D mainRender, boolean colorEnabled, boolean rainbowEnabled, boolean analysis) {
-        switch(logOfLen) {
-        case 15: if (Highlights.containsPosition(index - 15)) { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 14)) { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 13)) { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 12)) { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 11)) { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-        case 14: if (Highlights.containsPosition(index - 10)) { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 9))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 8))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-        case 13: if (Highlights.containsPosition(index - 7))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 6))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 5))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-        case 12: if (Highlights.containsPosition(index - 4))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-                 if (Highlights.containsPosition(index - 3))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-        case 11: if (Highlights.containsPosition(index - 2))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-        case 10: if (Highlights.containsPosition(index - 1))  { markBar(mainRender, colorEnabled, rainbowEnabled, analysis); break; }
-        default: if (Highlights.containsPosition(index))        markBar(mainRender, colorEnabled, rainbowEnabled, analysis);
-        }
-    }
-
-    @SuppressWarnings("fallthrough")
-    public static void drawFancyFinish(int logOfLen, int index, int position, Graphics2D mainRender, boolean colorEnabled, boolean rainbowEnabled) {
-        switch(logOfLen) {
-        case 15: if (index == position - 14) { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 14: if (index == position - 13) { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 13: if (index == position - 12) { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 12: if (index == position - 11) { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 11: if (index == position - 10) { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 10: if (index == position - 9)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 9:  if (index == position - 8)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 8:  if (index == position - 7)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 7:  if (index == position - 6)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 6:  if (index == position - 5)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 5:  if (index == position - 4)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 4:  if (index == position - 3)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 3:  if (index == position - 2)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        case 2:  if (index == position - 1)  { markBarFancy(mainRender, colorEnabled, rainbowEnabled); break; }
-        default: if (index == position)        markBarFancy(mainRender, colorEnabled, rainbowEnabled);
-        }
-    }
-
-    @SuppressWarnings("fallthrough")
-    public static void drawFancyFinishLine(int logOfLen, int index, int position, Graphics2D mainRender, double width, boolean colorEnabled) {
-        switch(logOfLen) {
-        case 15: if (index == position - 14) { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 14: if (index == position - 13) { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 13: if (index == position - 12) { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 12: if (index == position - 11) { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 11: if (index == position - 10) { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 10: if (index == position - 9)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 9:  if (index == position - 8)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 8:  if (index == position - 7)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 7:  if (index == position - 6)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 6:  if (index == position - 5)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 5:  if (index == position - 4)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 4:  if (index == position - 3)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 3:  if (index == position - 2)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        case 2:  if (index == position - 1)  { lineMark(mainRender, width, colorEnabled, false); break; }
-        default: if (index == position)        lineMark(mainRender, width, colorEnabled, false);
-        }
     }
 
     public abstract void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights);

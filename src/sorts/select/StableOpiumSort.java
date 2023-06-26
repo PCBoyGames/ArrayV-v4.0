@@ -25,7 +25,7 @@ public final class StableOpiumSort extends Sort {
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);
-        this.setUnreasonableLimit(8192);
+        this.setUnreasonableLimit(16384);
         this.setBogoSort(false);
     }
 
@@ -41,30 +41,22 @@ public final class StableOpiumSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(1);
-            while (j >= h && j - h >= start && Reads.compareValues(array[j - h], v) < 0) {
+            for (; j >= h && j - h >= start && Reads.compareValues(array[j - h], v) < 0; j -= h) {
                 Highlights.markArray(1, j);
                 Highlights.markArray(2, j - h);
                 Delays.sleep(1);
-                Writes.write(array, j, array[j - h], 1, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 1, w = true, false);
             }
-            if (w) {
-                Writes.write(array, j, v, 1, true, false);
-            }
+            if (w) Writes.write(array, j, v, 1, true, false);
         }
     }
 
     protected void bwdShell(int[] array, int start, int end) {
-        int gap = (int) ((end - start) / 2.3601);
-        while (gap > 2) {
-            shellPass(array, start, end, gap);
-            gap /= 2.3601;
-        }
+        for (int gap = (int) ((end - start) / 2.3601); gap > 2; gap /= 2.3601) shellPass(array, start, end, gap);
         shellPass(array, start, end, 1);
     }
 
-    protected void dupes(int[] array, int currentLength) {
+    protected boolean dupes(int[] array, int currentLength) {
         boolean found = false;
         HashSet<Integer> map = new HashSet<>();
         for (int i = 0; i < currentLength; i++) {
@@ -77,7 +69,7 @@ public final class StableOpiumSort extends Sort {
         if (!found) {
             map.clear();
             Writes.changeAllocAmount(-1 * currentLength);
-            return;
+            return false;
         }
         int unqs = map.size();
         int[] selections = Writes.createExternalArray(currentLength);
@@ -98,12 +90,13 @@ public final class StableOpiumSort extends Sort {
         Writes.deleteExternalArray(selections);
         map.clear();
         bwdShell(array, currentLength - unqs, currentLength);
+        return true;
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        dupes(array, currentLength);
+        boolean skip = dupes(array, currentLength);
         MoreOptimizedOpiumSort opium = new MoreOptimizedOpiumSort(arrayVisualizer);
-        opium.runSort(array, currentLength, 574873);
+        opium.opium(array, 0, currentLength, !skip, false);
     }
 }

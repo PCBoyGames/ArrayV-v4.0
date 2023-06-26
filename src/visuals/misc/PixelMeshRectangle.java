@@ -34,6 +34,9 @@ SOFTWARE.
  */
 
 final public class PixelMeshRectangle extends Visual {
+
+    public static boolean swapvals = false;
+
     public PixelMeshRectangle(ArrayVisualizer ArrayVisualizer) {
         super(ArrayVisualizer);
     }
@@ -41,37 +44,31 @@ final public class PixelMeshRectangle extends Visual {
     @Override
     public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
         if (Renderer.auxActive) return;
-
         int width = ArrayVisualizer.windowWidth()-40;
         int height = ArrayVisualizer.windowHeight()-50;
         int length = ArrayVisualizer.getCurrentLength();
-
-        int xa = (int)Math.ceil(Math.sqrt(length));
+        int xa = (int) Math.ceil(Math.sqrt(length));
         while (length % xa != 0) xa++;
         int ya = length / xa;
         int square = xa*ya;
-        double scale = (double)length / square;
-
+        double scale = (double) length / square;
+        if (swapvals) {
+            int tmp = xa;
+            xa = ya;
+            ya = tmp;
+        }
         int x = 0;
         int y = 0;
-        double xStep = (double)width / xa;
-        double yStep = (double)height / ya;
-
+        double xStep = (double) width / xa;
+        double yStep = (double) height / ya;
         for (int i = 0; i < square; i++) {
-            int idx = (int)(i * scale);
-
-            if (Highlights.fancyFinishActive() && idx < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
-
+            int idx = (int) (i * scale);
+            if (Highlights.fancyFinishActive() && idx < Highlights.getFancyFinishPosition()) this.mainRender.setColor(Color.WHITE);
             else if (Highlights.containsPosition(idx)) {
                 if (ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
-                else                                  this.mainRender.setColor(Color.WHITE);
-            }
-            else this.mainRender.setColor(getIntColor(array[idx], length));
-
-            this.mainRender.fillRect(20 + (int)(x * xStep), 40 + (int)(y * yStep),
-                                     (int)((x+1)*xStep - x*xStep)+1, (int)((y+1)*yStep - y*yStep)+1);
-
+                else this.mainRender.setColor(getIntColor(array[idx], length, 0.25f, 1));
+            } else this.mainRender.setColor(getIntColor(array[idx], length));
+            this.mainRender.fillRect(20 + (int) (x * xStep), 40 + (int) (y * yStep), (int) ((x+1)*xStep - x*xStep)+1, (int) ((y+1)*yStep - y*yStep)+1);
             if (++x == xa) {
                 x = 0;
                 y++;

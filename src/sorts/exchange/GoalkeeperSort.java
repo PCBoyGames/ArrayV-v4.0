@@ -52,8 +52,7 @@ final public class GoalkeeperSort extends Sort {
                     Writes.insert(array, 0, bound, 0.05, true, false);
                     bound--;
                     bound = score(array, bound);
-                }
-                else {
+                } else {
                     Highlights.markArray(2, goal - 1);
                     Writes.insert(array, 0, goal - 2, 0.05, true, false);
                 }

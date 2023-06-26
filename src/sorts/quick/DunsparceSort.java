@@ -268,8 +268,7 @@ public final class DunsparceSort extends Sort {
         return new int[] {pa, pb};
     }
 
-    protected void sortHelper(int[] array, int a, int b, boolean bad, int depth) {
-        Writes.recordDepth(depth);
+    protected void sortHelper(int[] array, int a, int b, boolean bad) {
         while (b - a > 16) {
             int pIdx;
             if (bad) {
@@ -295,13 +294,11 @@ public final class DunsparceSort extends Sort {
             }
             if (rLen < lLen) {
                 bad = rLen < lLen / 8;
-                Writes.recursion();
-                sortHelper(array, pr[1], b, bad, depth + 1);
+                sortHelper(array, pr[1], b, bad);
                 b = pr[0];
             } else {
                 bad = lLen < rLen / 8;
-                Writes.recursion();
-                sortHelper(array, a, pr[0], bad, depth + 1);
+                sortHelper(array, a, pr[0], bad);
                 a = pr[1];
             }
         }
@@ -348,7 +345,7 @@ public final class DunsparceSort extends Sort {
         if (streaks > len / 20 || balance <= sixth || balance + eq >= len - sixth) {
             laziestStable(array, a, b);
         } else {
-            sortHelper(array, a, b, false, 0);
+            sortHelper(array, a, b, false);
         }
     }
 

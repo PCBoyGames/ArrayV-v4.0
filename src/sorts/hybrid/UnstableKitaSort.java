@@ -66,15 +66,7 @@ final public class UnstableKitaSort extends Sort {
 
         return b;
     }
-    private void ninther(int[] array, int a, int b) {
-        int s = (b-a)/8;
 
-        int a1 = this.medianOfThree(array, a,     a+  s, a+2*s);
-        int m1 = this.medianOfThree(array, a+3*s, a+4*s, a+5*s);
-        int b1 = this.medianOfThree(array, a+6*s, a+7*s, b-1);
-
-        Writes.swap(array, a, this.medianOfThree(array, a1, m1, b1), 1, true, false);
-    }
     private void medianOfMedians(int[] array, int a, int b) {
         while (b-a > 2) {
             int m = a, i = a;

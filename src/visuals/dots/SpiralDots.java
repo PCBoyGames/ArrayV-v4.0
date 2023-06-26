@@ -1,8 +1,6 @@
 package visuals.dots;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Polygon;
 
 import main.ArrayVisualizer;
 import utils.Highlights;
@@ -54,17 +52,18 @@ final public class SpiralDots extends Visual {
 
         if (ArrayVisualizer.linesEnabled()) {
             double mult = (double) array[n-1] / ArrayVisualizer.getCurrentLength();
-            int lastX =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
-            int lastY = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
-            this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(2));
+            int lastX =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*n / n - 0.5)));
+            int lastY = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*n / n - 0.5)));
+            this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
 
             for (int i = 0; i < n; i++) {
-                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                    this.mainRender.setColor(Color.GREEN);
-
+                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
+                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
+                }
                 if (Highlights.containsPosition(i)) {
-                    this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
-                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], n, 0.25f, 1) : ArrayVisualizer.getHighlightColor());
+                    this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
                 }
                 else if (ArrayVisualizer.colorEnabled())
                     this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
@@ -72,11 +71,11 @@ final public class SpiralDots extends Visual {
                 else this.mainRender.setColor(Color.WHITE);
 
                 mult = (double) array[i] / ArrayVisualizer.getCurrentLength();
-                int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int y = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+                int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * ((2d*i+2) / n - 0.5)));
+                int y = height/2 + (int)(mult * r * Math.sin(Math.PI * ((2d*i+2) / n - 0.5)));
 
                 this.mainRender.drawLine(lastX, lastY, x, y);
-                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(2));
+                this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(4));
 
                 lastX = x;
                 lastY = y;
@@ -88,7 +87,7 @@ final public class SpiralDots extends Visual {
 
             for (int i = 0; i < n; i++) {
                 if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                    this.mainRender.setColor(Color.GREEN);
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
 
                 else if (ArrayVisualizer.colorEnabled())
                     this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
@@ -96,20 +95,24 @@ final public class SpiralDots extends Visual {
                 else this.mainRender.setColor(Color.WHITE);
 
                 double mult = (double) array[i] / ArrayVisualizer.getCurrentLength();
-                int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int y = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+                int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * ((2d*i+2) / n - 0.5)));
+                int y = height/2 + (int)(mult * r * Math.sin(Math.PI * ((2d*i+2) / n - 0.5)));
 
                 this.mainRender.fillRect(x, y, dotS, dotS);
             }
-            this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
 
             for (int i = 0; i < n; i++) {
                 if (Highlights.containsPosition(i)) {
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], Renderer.getArrayLength(), 0.25f, 1) : Color.RED);
                     double mult = (double) array[i] / ArrayVisualizer.getCurrentLength();
-                    int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                    int y = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+                    int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * ((2d*i+2) / n - 0.5)));
+                    int y = height/2 + (int)(mult * r * Math.sin(Math.PI * ((2d*i+2) / n - 0.5)));
 
-                    this.mainRender.fillRect(x - 2*dotS, y - 2*dotS, 4*dotS, 4*dotS);
+                    this.mainRender.fillRect(x - 3*dotS, y - 3*dotS, 6*dotS, 6*dotS);
+
+                    this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], Renderer.getArrayLength()) : Color.WHITE);
+
+                    this.mainRender.fillRect(x - (int)1.5*dotS, y - (int)1.5*dotS, 3*dotS, 3*dotS);
                 }
             }
         }

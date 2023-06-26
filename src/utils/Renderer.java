@@ -202,7 +202,7 @@ final public class Renderer {
         this.linkedpixdrawy = 0;
 
         this.doth = (int) (2 * (this.vsize / 480.0));
-        this.dots = (this.dotw + this.doth) / 2; //TODO: Does multiply/divide by 2 like this cancel out??
+        this.dots = (this.dotw + this.doth);
 
         this.length = length;
 

@@ -1,7 +1,6 @@
 package visuals.image;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -90,12 +89,6 @@ final public class CustomImage extends Visual {
     public BufferedImage getImage() {
         return this.img;
     }
-    public int getImgHeight() {
-        return this.imgHeight;
-    }
-    public int getImgWidth() {
-        return this.imgWidth;
-    }
 
     public String getCurrentImageName() {
         return this.currentImage;
@@ -126,19 +119,13 @@ final public class CustomImage extends Visual {
         this.currentImage = this.defaultArtwork;
         this.refreshCustomImage(menu);
     }
+
     public void loadCustomImage(ImageFrame menu) {
         CustomImageDialog dialog = new CustomImageDialog();
         this.imageFile = dialog.getFile();
         if (this.imageFile != null) {
             this.currentImage = this.imageFile.getName();
             this.refreshCustomImage(menu);
-        }
-    }
-    public void loadCustomImage(File file) {
-        this.imageFile = file;
-        if (this.imageFile != null) {
-            this.currentImage = this.imageFile.getName();
-            this.refreshCustomImage(ImageFrame.defaultFrame);
         }
     }
 
@@ -259,39 +246,6 @@ final public class CustomImage extends Visual {
         return success;
     }
 
-    public static void markCustomBar(ArrayVisualizer ArrayVisualizer, Graphics2D bar, Renderer Renderer, int width, boolean analysis) {
-        if (analysis) {
-            bar.setColor(new Color(0, 0, 1, .5f));
-        }
-        else {
-            bar.setColor(new Color(1, 0, 0, .5f));
-        }
-        bar.fillRect(Renderer.getOffset() + 20, 0, width, ArrayVisualizer.windowHeight());
-    }
-
-    @SuppressWarnings("fallthrough")
-    //The longer the array length, the more bars marked. Makes the visual easier to see when bars are thinner.
-    public static void colorCustomBars(int logOfLen, int index, Highlights Highlights, ArrayVisualizer ArrayVisualizer, Graphics2D bar, Renderer Renderer, int width, boolean analysis) {
-        switch(logOfLen) {
-        case 15: if (Highlights.containsPosition(index - 15)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 14)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 13)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 12)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 11)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 14: if (Highlights.containsPosition(index - 10)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 9))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 8))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 13: if (Highlights.containsPosition(index - 7))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 6))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 5))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 12: if (Highlights.containsPosition(index - 4))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if (Highlights.containsPosition(index - 3))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 11: if (Highlights.containsPosition(index - 2))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 10: if (Highlights.containsPosition(index - 1))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        default: if (Highlights.containsPosition(index))        markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis);
-        }
-    }
-
     @Override
     public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
         if (Renderer.auxActive) return;
@@ -360,13 +314,13 @@ final public class CustomImage extends Visual {
             int width = (int) (Renderer.getXScale() * (i + 1)) - j;
 
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
-                this.mainRender.setColor(new Color(0, 1, 0, .5f));
+                this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength(), 0.8f, 0.8f, 127));
 
                 if (width > 0) this.mainRender.fillRect(j + 20, 40, width, ArrayVisualizer.windowHeight()-10);
             }
             else if (Highlights.containsPosition(i)) {
-                if (ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(new Color(0, 0, 1, .5f));
-                else                                  this.mainRender.setColor(new Color(1, 0, 0, .5f));
+                if (ArrayVisualizer.analysisEnabled()) this.mainRender.setColor(new Color(0, 0, 1, .75f));
+                else                                   this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength(), 0.25f, 1, 191));
 
                 this.mainRender.fillRect(j + 20, 40, Math.max(width, 2), ArrayVisualizer.windowHeight()-10);
             }

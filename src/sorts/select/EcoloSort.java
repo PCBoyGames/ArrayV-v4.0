@@ -29,21 +29,11 @@ final public class EcoloSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 1;
-        int right = currentLength;
-        int way = 1;
-        int i = 1;
-        while (left <= right) {
-            if (way == 1) i = left;
-            else i = right;
-            while ((way == 1 && i < right) || (way == -1 && i > left)) {
+        for (int left = 1, right = currentLength, way = 1; left <= right; left++, right--, way *= -1) {
+            for (int i = way == 1 ? left : right; (way == 1 && i < right) || (way == -1 && i > left); i += way) {
                 if (Reads.compareIndices(array, left - 1, i - 1, 0.05, true) > 0) Writes.swap(array, left - 1, i - 1, 0.05, true, false);
                 if (Reads.compareIndices(array, i - 1, right - 1, 0.05, true) > 0) Writes.swap(array, i - 1, right - 1, 0.05, true, false);
-                i += way;
             }
-            left++;
-            right--;
-            way *= -1;
         }
     }
 }

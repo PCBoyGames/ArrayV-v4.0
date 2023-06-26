@@ -31,9 +31,7 @@ public final class CityscapeSortNS extends Sort {
         if (i == j) return;
         int a = Math.min(i, j);
         int b = Math.max(i, j);
-        if (Reads.compareIndices(array, a, b, 0.1, true) > 0) {
-            Writes.swap(array, a, b, 0.1, true, false);
-        }
+        if (Reads.compareIndices(array, a, b, 0.1, true) > 0) Writes.swap(array, a, b, 0.1, true, false);
     }
 
     protected void shellPass(int[] array, int start, int end, int gap) {
@@ -44,41 +42,34 @@ public final class CityscapeSortNS extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
-            if (w) {
-                Writes.write(array, j, v, 0.25, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
 
     protected void shell(int[] array, int start, int end) {
-        int gap = (int) ((end - start) / 2.25);
-        while (gap >= 2) {
-            shellPass(array, start, end, gap);
-            gap /= 2.25;
-        }
+        for (int gap = (int) ((end - start) / 2.25); gap >= 2; gap /= 2.25) shellPass(array, start, end, gap);
         shellPass(array, start, end, 1);
     }
 
-    protected int maxsorted(int[] array, int e, int i) {
-        int a = i - 1;
-        int b = e;
+    protected int maxsorted(int[] array, int start, int end) {
+        int a = end - 1;
+        int b = end - 1;
         boolean segment = true;
         while (segment) {
-            if (b - 1 < 0) return 0;
+            if (b - 1 < start) return start;
             if (Reads.compareIndices(array, b - 1, b, 0.1, true) > 0) segment = false;
             else b--;
         }
         int sel = b - 1;
-        for (int s = b - 2; s >= 0; s--) if (Reads.compareIndices(array, sel, s, 0.1, true) < 0) sel = s;
-        while (Reads.compareIndices(array, sel, a, 0.1, true) <= 0) a--;
+        for (int s = b - 2; s >= start; s--) if (Reads.compareIndices(array, sel, s, 0.1, true) < 0) sel = s;
+        while (Reads.compareIndices(array, sel, a, 0.1, true) <= 0) {
+            a--;
+            if (a < start) break;
+        }
         return a + 1;
     }
 
@@ -97,7 +88,7 @@ public final class CityscapeSortNS extends Sort {
                 if (h <= j) break;
             }
             shell(array, j, i);
-            i = maxsorted(array, j, i);
+            i = maxsorted(array, 0, i);
         }
     }
 }

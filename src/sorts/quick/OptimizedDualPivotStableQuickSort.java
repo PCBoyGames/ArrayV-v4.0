@@ -49,7 +49,6 @@ public final class OptimizedDualPivotStableQuickSort extends Sort {
 
     private int[] selectPiv(int[] array, int a, int b) {
         int s = (b-a)/3;
-        int piv1, piv2;
 
         if (Reads.compareIndices(array, a+s, a+s+s, 1, true) > 0)
             return new int[] {a+s+s, a+s};

@@ -56,12 +56,12 @@ public final class TortureSort extends BogoSorting {
     }
 
     protected void handleItems(int[] array, int currentLength) {
-        int i = BogoSorting.randInt(0, currentLength);
-        int j = BogoSorting.randInt(0, currentLength);
-        while (j == i) j = BogoSorting.randInt(0, currentLength);
+        int i = randInt(0, currentLength);
+        int j = randInt(0, currentLength);
+        while (j == i) j = randInt(0, currentLength);
         Writes.swap(array, i, j, delay, true, false);
-        if (BogoSorting.randBoolean()) Writes.write(array, i, BogoSorting.randInt(min, max + 1), delay, true, false);
-        else Writes.write(array, j, BogoSorting.randInt(min, max + 1), delay, true, false);
+        if (randBoolean()) Writes.write(array, i, randInt(min, max + 1), delay, true, false);
+        else Writes.write(array, j, randInt(min, max + 1), delay, true, false);
     }
 
     @Override

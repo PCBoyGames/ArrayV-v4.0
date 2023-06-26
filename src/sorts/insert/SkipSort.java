@@ -93,10 +93,10 @@ public final class SkipSort extends Sort {
     }
 
     private Node insertNode(int[] array, Node curr, int idx) {
-        while(curr.getNext() != null && Reads.compareIndices(array, idx, curr.getNext().getIdx(), 0.25, true) > 0)
+        while (curr.getNext() != null && Reads.compareIndices(array, idx, curr.getNext().getIdx(), 0.25, true) > 0)
             curr = curr.getNext();
 
-        if(curr.getLower() == null) {
+        if (curr.getLower() == null) {
             Node newNode = new Node(idx);
             newNode.setNext(curr.getNext());
             curr.setNext(newNode);
@@ -106,7 +106,7 @@ public final class SkipSort extends Sort {
 
         Node newLower = this.insertNode(array, curr.getLower(), idx);
 
-        if(newLower != null && this.rng.nextBoolean()) {
+        if (newLower != null && this.rng.nextBoolean()) {
             Node newNode = new Node(idx);
             newNode.setNext(curr.getNext());
             curr.setNext(newNode);
@@ -126,18 +126,18 @@ public final class SkipSort extends Sort {
 
         int iter = 30-Integer.numberOfLeadingZeros(length); // log2(n) - 1
 
-        while(iter-- > 0) {
+        while (iter-- > 0) {
             Node newHead = new Node(0);
             newHead.setLower(head);
             head = newHead;
         }
 
-        for(int i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
             this.insertNode(array, head, i);
 
         int[] tmp = Writes.createExternalArray(length);
 
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             bottom = bottom.getNext();
             int idx = bottom.getIdx();
 

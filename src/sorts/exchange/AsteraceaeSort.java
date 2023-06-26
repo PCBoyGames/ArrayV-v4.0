@@ -29,22 +29,17 @@ final public class AsteraceaeSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int i = 1;
+        int i;
         int firstswap = 2;
         boolean anyswaps = true;
-        boolean lastswap = false;
         while (anyswaps) {
             if (firstswap - 1 == 0) i = 1;
             else i = firstswap - 1;
             anyswaps = false;
-            lastswap = false;
+            boolean lastswap = false;
             while (i + 1 <= currentLength) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, i);
-                Delays.sleep(0.1);
-                if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                    Writes.swap(array, i - 1, i, 0.1, true, false);
-                    i++;
+                if (Reads.compareIndices(array, i - 1, i, 0.1, true) > 0) {
+                    Writes.swap(array, i - 1, i++, 0.1, true, false);
                     if (!anyswaps) firstswap = i - 1;
                     anyswaps = true;
                     lastswap = true;

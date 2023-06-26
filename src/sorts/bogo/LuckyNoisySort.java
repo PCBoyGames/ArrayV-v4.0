@@ -36,33 +36,23 @@ public final class LuckyNoisySort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int luck) {
-        int left = 1;
-        int right = 1;
         int verifyi = 1;
         boolean verifypass = false;
         while (!verifypass) {
-            right = verifyi + 1;
-            while (right <= currentLength) {
-                left = verifyi;
+            for (int right = verifyi + 1; right <= currentLength; right += 16) {
+                int left = verifyi;
                 while (left <= right && right <= currentLength) {
-                    Highlights.markArray(1, left - 1);
-                    Highlights.markArray(2, right - 1);
-                    Delays.sleep(0.005);
-                    if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
+                    if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) > 0) {
                         if (randInt(1, 101) <= luck) Writes.swap(array, left - 1, right - 1, 0.005, true, false);
                         if (right - 1 > verifyi) right--;
                         left = verifyi;
                     } else left++;
                 }
-                right += 16;
             }
             verifyi = 1;
             verifypass = true;
             while (verifyi < currentLength && verifypass) {
-                Highlights.markArray(1, verifyi - 1);
-                Highlights.markArray(2, verifyi);
-                Delays.sleep(0.005);
-                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) verifyi++;
+                if (Reads.compareIndices(array, verifyi - 1, verifyi, 0.005, true) <= 0) verifyi++;
                 else verifypass = false;
             }
         }

@@ -49,22 +49,15 @@ public final class WarSort extends Sort {
                 Writes.visualClear(extB, j);
             }
             arrayVisualizer.setExtraHeading(" / Splitting");
-            while (i < currentLength) {
+            for (; i < currentLength; i++) {
                 Highlights.markArray(1, i);
-                if (i % 2 == 0) {
-                    Writes.write(extA, extAlen, array[i], 0, false, true);
-                    extAlen++;
-                } else {
-                    Writes.write(extB, extBlen, array[i], 0, false, true);
-                    extBlen++;
-                }
+                if (i % 2 == 0) Writes.write(extA, extAlen++, array[i], 0, false, true);
+                else Writes.write(extB, extBlen++, array[i], 0, false, true);
                 Delays.sleep(0.25);
-                i++;
             }
-            i = currentLength - 1;
             changes = false;
             arrayVisualizer.setExtraHeading(" / Comparing");
-            while (i >= verifyi) {
+            for (i = currentLength - 1; i >= verifyi; i--) {
                 if (extAlen > 0 && extBlen > 0) {
                     int cmp = Reads.compareValues(extA[extAlen - 1], extB[extBlen - 1]);
                     if (cmp >= 0) {
@@ -94,7 +87,6 @@ public final class WarSort extends Sort {
                         extBlen--;
                     }
                 }
-                i--;
             }
             if (verifyi > 0) verifyi--;
             verifypass = true;

@@ -251,7 +251,6 @@ final public class PartitionHeapMergeSort extends Sort {
         int currsz = thirds;
         int ptrloc = 1;
         while (true) {
-            System.err.println("prtloc = " + ptrloc);
             int currEnd = ptrloc + currsz - 1;
             if (currsz <= rotateThreshold) {
                 for (int i = 0; i <= currsz - 1; i++) rotateTo(array, stablereturn(array[currEnd - i - 1]), currEnd - i, 1, currEnd + 1 - i, currentLength);

@@ -3,6 +3,7 @@ package visuals;
 import main.ArrayVisualizer;
 import utils.Highlights;
 import utils.Renderer;
+import visuals.misc.PixelMeshRectangle;
 
 /*
  *
@@ -127,4 +128,12 @@ public enum VisualStyles {
     }
 
     public abstract void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights);
+
+    public void swapvals() {
+        PixelMeshRectangle.swapvals = !PixelMeshRectangle.swapvals;
+    }
+
+    public void resetvals() {
+        PixelMeshRectangle.swapvals = false;
+    }
 }

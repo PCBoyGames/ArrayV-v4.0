@@ -1,7 +1,6 @@
 package sorts.merge;
 
 import main.ArrayVisualizer;
-import sorts.insert.BinaryInsertionSort;
 import sorts.insert.InsertionSort;
 import sorts.templates.GrailSorting;
 import utils.IndexedRotations;

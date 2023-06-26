@@ -1,8 +1,6 @@
 package visuals.circles;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Polygon;
 
 import main.ArrayVisualizer;
 import utils.Highlights;
@@ -52,30 +50,31 @@ final public class DisparityCircle extends Visual {
         int n = ArrayVisualizer.getCurrentLength();
         double r = Math.min(width, height)/2.5;
 
-        this.extraRender.setStroke(ArrayVisualizer.getThickStroke());
+        this.extraRender.setStroke(ArrayVisualizer.getCustomStroke(4));
         this.extraRender.setColor(ArrayVisualizer.getHighlightColor());
 
         int[] x =  {width/2, 0, 0};
         int[] y = {height/2, 0, 0};
 
         double disp = (1 + Math.cos((Math.PI * (array[n-1] - (n-1))) / (ArrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
-        x[2] =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
-        y[2] = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
+        x[2] =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*(n-0.5) / n - 0.5)));
+        y[2] = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*(n-0.5) / n - 0.5)));
 
         for (int i = 0; i < n; i++) {
             x[1] = x[2];
             y[1] = y[2];
 
             disp = (1 + Math.cos((Math.PI * (array[i] - i)) / (ArrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
-            x[2] =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-            y[2] = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+            x[2] =  width/2 + (int)(disp * r * Math.cos(Math.PI * ((2d*i+1) / n - 0.5)));
+            y[2] = height/2 + (int)(disp * r * Math.sin(Math.PI * ((2d*i+1) / n - 0.5)));
 
-            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
-
-            else if (Highlights.containsPosition(i)) {
-                this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
-                this.extraRender.drawPolygon(x, y, 3);
+            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
+                this.extraRender.setStroke(ArrayVisualizer.getCustomStroke(16));
+            } else if (Highlights.containsPosition(i)) {
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], n, 0.25f, 1) : ArrayVisualizer.getHighlightColor());
+                this.extraRender.setStroke(ArrayVisualizer.getCustomStroke(16));
+                this.extraRender.fillPolygon(x, y, 3);
             }
             else if (ArrayVisualizer.colorEnabled())
                 this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));

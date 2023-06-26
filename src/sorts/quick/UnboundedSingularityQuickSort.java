@@ -42,34 +42,25 @@ final public class UnboundedSingularityQuickSort extends Sort {
         // I have to bound it just a little, else the stack overflows.
         if (left < end && depth < 2047 && !sorted) {
             int right = left + 1;
-            int pull = 1;
             int pivot = array[left - 1];
             int originalpos = left - 1;
             boolean brokeloop = false;
             boolean brokencond = false;
-            while (right <= end) {
+            for (;right <= end; right++) {
                 if (Reads.compareValues(pivot, array[right - 1]) > 0) {
                     Highlights.clearMark(2);
-                    if (right - left == 1) {
-                        Writes.write(array, left - 1, array[left], 0.1, true, false);
-                    } else brokeloop = true;
+                    if (right - left == 1) Writes.write(array, left - 1, array[left], 0.1, true, false);
+                    else brokeloop = true;
                     if (brokeloop && !brokencond) {
                         Writes.write(array, left - 1, pivot, 0.1, true, false);
                         brokencond = true;
                     }
                     if (right - left > 1) {
-                        pull = right - 1;
-                        int item = array[pull];
                         Highlights.clearMark(2);
-                        while (pull >= left) {
-                            Writes.write(array, pull, array[pull - 1], 0.1, true, false);
-                            pull--;
-                        }
-                        Writes.write(array, pull, item, 0.1, true, false);
+                        Writes.insert(array, right - 1, left - 1, 0.1, true, false);
                     }
                     left++;
                 }
-                right++;
             }
             if (right > end && !brokeloop) Writes.write(array, left - 1, pivot, 0.1, true, false);
             boolean lsmall = left - start < end - (left + 1);

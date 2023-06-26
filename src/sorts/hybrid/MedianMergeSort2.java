@@ -2,7 +2,6 @@ package sorts.hybrid;
 
 import sorts.templates.Sort;
 import sorts.insert.BinaryInsertionSort;
-import sorts.insert.InsertionSort;
 
 import main.ArrayVisualizer;
 

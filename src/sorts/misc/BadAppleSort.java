@@ -54,7 +54,7 @@ final public class BadAppleSort extends Sort {
 
         Random r = new Random(0); // seeded shuffle (do not change)
 
-        for(int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) {
             int j = r.nextInt(i+1);
             Writes.write(temp, i, temp[j], 0, false, true);
             Writes.write(temp, j, i, 0, false, true);
@@ -69,10 +69,10 @@ final public class BadAppleSort extends Sort {
 
             int br = 0;
 
-            while(br != -1) {
+            while (br != -1) {
                 br = inFile.read(bytes, 0, bytes.length);
 
-                for(int i = 0; i < currentLength; i++) {
+                for (int i = 0; i < currentLength; i++) {
                     int idx = (int)(N * (double)i/currentLength);
                     int q   = (bytes[idx >> 3] >> (idx & 7)) & 1;
 

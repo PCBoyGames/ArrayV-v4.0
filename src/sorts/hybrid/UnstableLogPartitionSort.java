@@ -27,7 +27,7 @@ final public class UnstableLogPartitionSort extends GrailSorting {
         private final int[] array;
         private final int pa, pb, w;
 
-        public final int size, length;
+        public final int size;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;
@@ -35,7 +35,6 @@ final public class UnstableLogPartitionSort extends GrailSorting {
             this.pb = pb;
             this.size = size;
             this.w  = w;
-            this.length = size*w;
         }
 
         private void flipBit(int a, int b) {
@@ -43,26 +42,6 @@ final public class UnstableLogPartitionSort extends GrailSorting {
         }
         private boolean getBit(int a, int b) {
             return Reads.compareIndices(array, a, b, 0, false) > 0;
-        }
-        private void setBit(int a, int b, boolean bit) {
-            if (this.getBit(a, b) ^ bit)
-                this.flipBit(a, b);
-        }
-
-        public void free() {
-            int i1 = pa+length;
-            for (int i = pa, j = pb; i < i1; i++, j++)
-                this.setBit(i, j, false);
-        }
-
-        public void set(int idx, int uInt) {
-            assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
-
-            int s = idx*w, i1 = pa+s+w;
-            for (int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
-                this.setBit(i, j, (uInt & 1) == 1);
-
-            if (uInt > 0) System.out.println("Warning: Word too large");
         }
 
         public void xor(int idx, int uInt) {
@@ -93,16 +72,6 @@ final public class UnstableLogPartitionSort extends GrailSorting {
                 if (this.getBit(i, j)) return;
             }
             System.out.println("Warning: Integer overflow");
-        }
-        public void decr(int idx) {
-            assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
-
-            int s = idx*w, i1 = pa+s+w;
-            for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
-                this.flipBit(i, j);
-                if (!this.getBit(i, j)) return;
-            }
-            System.out.println("Warning: Integer underflow");
         }
     }
     private int medOf3(int[] array, int a, int b, int c) {

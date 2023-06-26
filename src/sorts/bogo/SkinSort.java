@@ -56,18 +56,18 @@ public final class SkinSort extends BogoSorting {
     }
 
     protected void handleItems(int[] array, int currentLength) {
-        int i = BogoSorting.randInt(0, currentLength);
-        int j = BogoSorting.randInt(0, currentLength);
-        while (j == i) j = BogoSorting.randInt(0, currentLength);
+        int i = randInt(0, currentLength);
+        int j = randInt(0, currentLength);
+        while (j == i) j = randInt(0, currentLength);
         Writes.swap(array, i, j, delay, true, false);
-        if (BogoSorting.randBoolean()) {
+        if (randBoolean()) {
             if (array[i] == min) Writes.write(array, i, max + 1, delay, true, false);
             Writes.write(array, i, array[i] - 1, delay, true, false);
         } else {
             if (array[i] == max) Writes.write(array, i, min - 1, delay, true, false);
             Writes.write(array, i, array[i] + 1, delay, true, false);
         }
-        if (BogoSorting.randBoolean()) {
+        if (randBoolean()) {
             if (array[j] == min) Writes.write(array, j, max + 1, delay, true, false);
             Writes.write(array, j, array[j] - 1, delay, true, false);
         } else {

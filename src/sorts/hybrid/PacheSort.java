@@ -292,8 +292,6 @@ public final class PacheSort extends Sort {
 
             if (m == r1) break;
 
-            int left = m-a, right = b-m-1;
-
             if (m > r1) b = m;
             else       a = m+1;
         }
@@ -306,8 +304,6 @@ public final class PacheSort extends Sort {
             int m = this.partition(array, a1, b1);
 
             if (m == r2) return;
-
-            int left = m-a1, right = b1-m-1;
 
             if (m > r2) b1 = m;
             else       a1 = m+1;

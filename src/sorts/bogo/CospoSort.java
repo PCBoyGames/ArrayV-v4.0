@@ -41,12 +41,10 @@ public final class CospoSort extends BogoSorting {
             Writes.write(holes, array[x] - min, holes[array[x] - min] + 1, 1, false, true);
         }
         Highlights.clearMark(2);
-        int j = 0;
-        for (int count = 0; count < size; count++) {
-            for (int i = 0; i < holes[count]; i++) {
+        for (int count = 0, j = 0; count < size; count++) {
+            for (int i = 0; i < holes[count]; i++, j++) {
                 Writes.write(correct, j, count + min, 1, false, true);
                 Highlights.markArray(1, j + 1);
-                j++;
             }
         }
         Writes.deleteExternalArray(holes);
@@ -88,9 +86,7 @@ public final class CospoSort extends BogoSorting {
                 spot2 = randInt(verifyL, verifyR + 1);
                 Highlights.markArray(1, spot2);
                 Delays.sleep(0);
-                if (spot1 != spot2) {
-                    spot2found = Reads.compareValues(array[spot2], correct[spot2]) != 0;
-                }
+                if (spot1 != spot2) spot2found = Reads.compareValues(array[spot2], correct[spot2]) != 0;
             }
             Writes.swap(array, spot1, spot2, delay, true, false);
             Highlights.clearAllMarks();

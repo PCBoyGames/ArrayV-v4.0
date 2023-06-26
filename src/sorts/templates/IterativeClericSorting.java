@@ -15,14 +15,14 @@ public abstract class IterativeClericSorting extends Sort {
     protected IterativeClericSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
+
     protected int end;
+
     protected int clericSortRoutine(int[] array, int length, double sleep) {
         int swapCount = 0;
         for (int gap = length / 2; gap > 0; gap /= 2) {
             for (int start = 0; start + gap < this.end; start += 2 * gap) {
-                int high = start + 2 * gap - 1;
-                int low = start;
-                while (low < high) {
+                for (int high = start + 2 * gap - 1, low = start; low < high; low++, high--) {
                     if (high < end && Reads.compareIndices(array, low, high, sleep / 2, true) > 0) {
                         Highlights.markArray(3, low);
                         Highlights.markArray(4, high);
@@ -30,8 +30,6 @@ public abstract class IterativeClericSorting extends Sort {
                         Highlights.clearAllMarks();
                         swapCount++;
                     }
-                    low++;
-                    high--;
                 }
             }
         }

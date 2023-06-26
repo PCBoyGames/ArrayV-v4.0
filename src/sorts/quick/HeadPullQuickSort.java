@@ -30,27 +30,9 @@ final public class HeadPullQuickSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int left = 1;
-        int right = 2;
-        int pull = 1;
-        boolean anyswaps = false;
         while (left != currentLength) {
-            right = left + 1;
-            anyswaps = false;
-            while (right <= currentLength) {
-                Highlights.markArray(1, left - 1);
-                Highlights.markArray(2, right - 1);
-                Delays.sleep(0.001);
-                if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                    pull = right - 1;
-                    while (pull >= 1) {
-                        Writes.swap(array, pull - 1, pull, 0.01, true, false);
-                        pull--;
-                    }
-                    left++;
-                    anyswaps = true;
-                }
-                right++;
-            }
+            boolean anyswaps = false;
+            for (int right = left + 1; right <= currentLength; right++) if (Reads.compareIndices(array, left - 1, right - 1, 0.001, true) > 0) Writes.multiSwap(array, right - 1, 0, 0.001, anyswaps = true, false);
             if (anyswaps) left = 1;
             else left++;
         }

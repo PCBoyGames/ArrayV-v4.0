@@ -36,22 +36,11 @@ final public class BaseNOddEvenSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int base) {
-        int i = 0;
         int offset = 0;
         boolean anyswaps = false;
         boolean reset = true;
         while (reset) {
-            i = offset;
-            while (i + 1 < currentLength) {
-                Highlights.markArray(1, i);
-                Highlights.markArray(2, i + 1);
-                Delays.sleep(0.025);
-                if (Reads.compareValues(array[i], array[i + 1]) > 0) {
-                    Writes.swap(array, i, i + 1, 0.075, true, false);
-                    anyswaps = true;
-                }
-                i += base;
-            }
+            for (int i = offset; i + 1 < currentLength; i += base) if (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0) Writes.swap(array, i, i + 1, 0.075, anyswaps = true, false);
             offset++;
             if (offset > base - 1) {
                 offset = 0;

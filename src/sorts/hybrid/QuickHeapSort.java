@@ -189,7 +189,7 @@ final public class QuickHeapSort extends Sort {
         }
     }
 
-    private void QuickHeapSort(int[] array, int a, int b) {
+    private void quickHeapSort(int[] array, int a, int b) {
         int start = a, end = b;
 
         while (end-start > 32) {
@@ -216,6 +216,6 @@ final public class QuickHeapSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        this.QuickHeapSort(array, 0, length);
+        this.quickHeapSort(array, 0, length);
     }
 }

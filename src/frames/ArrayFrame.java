@@ -152,7 +152,7 @@ final public class ArrayFrame extends javax.swing.JFrame {
         };
         this.addKeyListener(kListener);
 
-        int usePower = ArrayVisualizer.MAX_LENGTH_POWER * 100000;
+        int usePower = main.ArrayVisualizer.MAX_LENGTH_POWER * 100000;
         int useDefault = (int)Math.min(1100000, usePower);
         this.jLabel1 = new javax.swing.JLabel();
         this.jLabel2 = new javax.swing.JLabel();

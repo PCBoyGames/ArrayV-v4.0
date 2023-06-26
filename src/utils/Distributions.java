@@ -430,9 +430,6 @@ public enum Distributions {
         }
     },
     BLANCMANGE {
-
-        protected int w = 0;
-
         public String getName() {
             return "Blancmange Curve";
         }
@@ -446,15 +443,12 @@ public enum Distributions {
                 int value = (int)(currentLen * curveSum(floorLog2, (double)i/currentLen));
                 array[i] = value;
             }
-            System.err.println(w);
-            w = 0;
         }
 
         public double curveSum(int n, double x) {
             double sum = 0;
             while (n >= 0) {
                 sum += curve(n--, x);
-                w++;
             }
             return sum;
         }

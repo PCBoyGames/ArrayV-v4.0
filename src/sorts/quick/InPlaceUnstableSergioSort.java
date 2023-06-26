@@ -89,27 +89,17 @@ final public class InPlaceUnstableSergioSort extends Sort {
             boolean w = false;
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
-            Delays.sleep(1);
-            while (j >= h && j - h >= start && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            Delays.sleep(0.25);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(1);
-                Writes.write(array, j, array[j - h], 1, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
-            if (w) {
-                Writes.write(array, j, v, 1, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
 
     protected void shellSort(int[] array, int start, int end) {
-        int gap = (int) ((end - start) / 2.3601);
-        while (gap > 2) {
-            shellPass(array, start, end, gap);
-            gap /= 2.3601;
-        }
+        for (int gap = (int) ((end - start) / 2.3601); gap >= 2; gap /= 2.3601) shellPass(array, start, end, gap);
         shellPass(array, start, end, 1);
     }
 

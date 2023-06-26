@@ -46,8 +46,7 @@ public final class RandomShellMergeSort extends BogoSorting {
                 j -= gap;
                 change = true;
             }
-            if (change)
-                Writes.write(array, j + gap, key, 0.5, true, false);
+            if (change) Writes.write(array, j + gap, key, 0.5, true, false);
         }
         Highlights.clearAllMarks();
     }

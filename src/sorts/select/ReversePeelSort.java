@@ -35,9 +35,7 @@ final public class ReversePeelSort extends Sort {
                 if (right == left + stacked + 1) stacked = 0;
                 if (Reads.compareIndices(array, left, right, 0.05, true) > 0) {
                     Highlights.markArray(3, left);
-                    int item = array[right];
-                    for (int pull = right; pull > left; pull--) Writes.write(array, pull, array[pull - 1], 0.05, true, false);
-                    Writes.write(array, left, item, 0.05, true, false);
+                    Writes.insert(array, right, left, 0.05, true, false);
                     Highlights.clearMark(3);
                     stacked++;
                 }

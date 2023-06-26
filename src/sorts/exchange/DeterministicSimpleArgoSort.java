@@ -30,9 +30,7 @@ public final class DeterministicSimpleArgoSort extends Sort {
     protected int[] gaps = {1, 4, 10, 23, 57, 132, 301, 701, 1750, 3938, 8861};
 
     protected int ciura(int n) {
-        if (n <= gaps.length) {
-            return gaps[n - 1];
-        }
+        if (n <= gaps.length) return gaps[n - 1];
         return (int)Math.pow(2.25, n);
     }
 
@@ -49,15 +47,12 @@ public final class DeterministicSimpleArgoSort extends Sort {
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -76,17 +71,11 @@ public final class DeterministicSimpleArgoSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
-            if (w) {
-                Writes.write(array, j, v, 0.25, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
 

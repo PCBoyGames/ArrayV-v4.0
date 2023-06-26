@@ -53,15 +53,12 @@ public final class ShuffleNetworkSort extends BogoSorting {
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -93,14 +90,10 @@ public final class ShuffleNetworkSort extends BogoSorting {
         Random random = new Random();
 
         // Random
-        if (type == 1) {
-            bogoSwap(array, 0, currentLen, true);
-        }
+        if (type == 1) bogoSwap(array, 0, currentLen, true);
 
         // Reversed
-        if (type == 2) {
-            Writes.reversal(array, 0, currentLen, 0.1, true, true);
-        }
+        if (type == 2) Writes.reversal(array, 0, currentLen, 0.1, true, true);
 
         // Almost Sorted
         if (type == 3) {
@@ -195,9 +188,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
         }
 
         // Quick Partitions
-        if (type == 15) {
-            for (int point = currentLen; point >= 1; point /= 2) bogoSwap(array, (point / 2), point, true);
-        }
+        if (type == 15) for (int point = currentLen; point >= 1; point /= 2) bogoSwap(array, (point / 2), point, true);
 
         // Evens Up, Odds Down
         if (type == 16) {
@@ -212,9 +203,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
         }
 
         // Evens Reversed
-        if (type == 17) {
-            for (int i = 0; i < currentLen / 2; i += 2) Writes.swap(array, i, currentLen - i - 1, 0.1, true, true);
-        }
+        if (type == 17) for (int i = 0; i < currentLen / 2; i += 2) Writes.swap(array, i, currentLen - i - 1, 0.1, true, true);
 
         // Final Radix
         if (type == 18) {
@@ -229,9 +218,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
         }
 
         // Recursive Final Radix
-        if (type == 19) {
-            weaveRec(array, 0, currentLen, 1, 0.1);
-        }
+        if (type == 19) weaveRec(array, 0, currentLen, 1, 0.1);
 
         // Binary Search Tree
         if (type == 20) {
@@ -273,9 +260,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
         }
 
         // Heap
-        if (type == 22) {
-            heapify(array, 0, currentLen, 0.1, true);
-        }
+        if (type == 22) heapify(array, 0, currentLen, 0.1, true);
 
         // If you want Smooth, Poplar, or Triangle Heaps, well, too bad.
         // I can't properly implement them without the hassle of aux write conversion.
@@ -308,9 +293,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
         }
 
         // Recursive Reversal
-        if (type == 25) {
-            reversalRec(array, 0, currentLen, 0.1);
-        }
+        if (type == 25) reversalRec(array, 0, currentLen, 0.1);
 
         // Triangular
         if (type == 26) {
@@ -334,9 +317,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
         }
 
         // Quick Killer
-        if (type == 27) {
-            for (int j = currentLen - currentLen % 2 - 2, i = j - 1; i >= 0; i -= 2, j--) Writes.swap(array, i, j, 0.1, true, true);
-        }
+        if (type == 27) for (int j = currentLen - currentLen % 2 - 2, i = j - 1; i >= 0; i -= 2, j--) Writes.swap(array, i, j, 0.1, true, true);
 
         // Can't do the Pattern Quick one yet. Wish I could.
 
@@ -419,9 +400,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
 
     protected void heapify(int[] arr, int low, int high, double sleep, boolean isMax) {
         int length = high - low;
-        for (int i = length / 2; i >= 1; i--) {
-            siftDown(arr, i, length, low, sleep, isMax);
-        }
+        for (int i = length / 2; i >= 1; i--) siftDown(arr, i, length, low, sleep, isMax);
     }
 
     protected void circleSortRoutine(int[] array, int lo, int hi, int end) {
@@ -451,8 +430,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
     }
 
     public void push(int[] array, int a, int b, int bLen, double sleep) {
-        int len = b - a,
-            b1 = b - len % bLen, len1 = b1 - a;
+        int len = b - a, b1 = b - len % bLen, len1 = b1 - a;
         if (len1 <= 2 * bLen) return;
         int m = bLen;
         while (2 * m < len) m *= 2;
@@ -472,7 +450,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
     protected void shuffleMergeBad(int[] array, int[] tmp, int a, int m, int b, double sleep) {
         if ((b-a)%2 == 1) {
             if (m-a > b-m) a++;
-            else          b--;
+            else b--;
         }
         shuffleBad(array, tmp, a, b, sleep);
     }
@@ -520,8 +498,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
             j = 2*j + 1;
             if (j+1 < len) {
                 int cmp = Reads.compareOriginalIndices(array, a+keys[j+1], a+keys[j], 0, true);
-                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0))
-                    j++;
+                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j+1], keys[j]) > 0)) j++;
             }
         }
         for (int cmp = Reads.compareOriginalIndices(array, a+t, a+keys[j], 0, true);
@@ -540,8 +517,7 @@ public final class ShuffleNetworkSort extends BogoSorting {
 
     protected void tableSort(int[] array, int[] keys, int a, int b) {
         int len = b-a;
-        for (int i = (len-1)/2; i >= 0; i--)
-            this.siftDown(array, keys, i, len, a, keys[i]);
+        for (int i = (len-1)/2; i >= 0; i--) this.siftDown(array, keys, i, len, a, keys[i]);
         for (int i = len-1; i > 0; i--) {
             int t = keys[i];
             Highlights.markArray(3, i);

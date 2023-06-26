@@ -47,26 +47,20 @@ final public class DebrisSortEquality extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int i = 0;
-        int start = 0;
-        int end = 0;
         int first = 1;
         int last = currentLength - 1;
         int nextlast = currentLength - 1;
-        boolean firstfound = false;
         boolean anyrev = true;
-        boolean equalrun = false;
-        boolean anynonequal = false;
         while (anyrev) {
             anyrev = false;
-            firstfound = false;
+            boolean firstfound = false;
             if (first > 0) i = first - 1;
             else i = 0;
-            while (i < last) {
-                equalrun = false;
-                anynonequal = false;
-                start = i;
-                int comp = Reads.compareIndices(array, i, i + 1, 0.025, true);
-                while (comp >= 0 && i < last) {
+            for (; i < last; i++) {
+                boolean equalrun = false;
+                boolean anynonequal = false;
+                int start = i;
+                for (int comp = Reads.compareIndices(array, i, i + 1, 0.025, true); comp >= 0 && i < last; i++, comp = Reads.compareIndices(array, i, i + 1, 0.025, true)) {
                     if (!firstfound) {
                         first = i;
                         firstfound = true;
@@ -74,10 +68,8 @@ final public class DebrisSortEquality extends Sort {
                     nextlast = i + 1;
                     if (comp == 0) equalrun = true;
                     else anynonequal = true;
-                    i++;
-                    comp = Reads.compareIndices(array, i, i + 1, 0.025, true);
                 }
-                end = i;
+                int end = i;
                 if (start != end && anynonequal) {
                     if (end - start < 3 && !equalrun) Writes.swap(array, start, end, 0.075, true, false);
                     else {
@@ -86,7 +78,6 @@ final public class DebrisSortEquality extends Sort {
                     }
                     if (!equalrun || anynonequal) anyrev = true;
                 }
-                i++;
             }
             if (nextlast + 1 < currentLength) last = nextlast + 1;
             else last = currentLength - 1;

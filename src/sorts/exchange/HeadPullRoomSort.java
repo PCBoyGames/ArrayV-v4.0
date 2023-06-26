@@ -28,12 +28,8 @@ final public class HeadPullRoomSort extends Sort {
     }
 
     protected int min(int[] array, int start, int end) {
-        int i = start;
         int min = start;
-        while (i < end) {
-            if (Reads.compareIndices(array, i, min, 0.05, true) < 0) min = i;
-            i++;
-        }
+        for (int i = start; i < end; i++) if (Reads.compareIndices(array, i, min, 0.05, true) < 0) min = i;
         return min;
     }
 
@@ -53,8 +49,7 @@ final public class HeadPullRoomSort extends Sort {
                     pulled = true;
                     if (pull > check) check = pull;
                     while (pull > start) {
-                        Writes.swap(array, pull - 1, pull, 0.1, true, false);
-                        swap = true;
+                        Writes.swap(array, pull - 1, pull, 0.1, swap = true, false);
                         pull--;
                     }
                     i = start + 1;

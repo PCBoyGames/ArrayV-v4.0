@@ -60,10 +60,7 @@ final public class InPlaceOptimizedSmartSafeStalinSortSwaps extends Sort {
             nochan = true;
             for (int i = 1; i + 1 < currentLength; i++) {
                 if (Reads.compareIndices(array, collection - 1, i, 0.5, true) <= 0) {
-                    if (collection != i) {
-                        Writes.swap(array, i, collection, 0.5, true, false);
-                        nochan = false;
-                    }
+                    if (collection != i) Writes.swap(array, i, collection, 0.5, true, nochan = false);
                     pass = false;
                     collection++;
                 }

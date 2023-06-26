@@ -29,21 +29,18 @@ final public class DebrisIterativePopSort extends Sort {
 
     protected void bubble(int[] array, int s, int e, int dir) {
         int i = s;
-        int start = s;
-        int end = s;
         int first = s + 1;
         int last = e - 1;
         int nextlast = e - 1;
-        boolean firstfound = false;
         boolean anyrev = true;
         while (anyrev) {
             anyrev = false;
-            firstfound = false;
+            boolean firstfound = false;
             if (first > s) i = first - 1;
             else i = s;
-            while (i < last) {
-                start = i;
-                while (Reads.compareIndices(array, i, i + 1, 0.025, true) == dir && i < last) {
+            for (; i < last; i++) {
+                int start = i;
+                for (; Reads.compareIndices(array, i, i + 1, 0.025, true) == dir && i < last; i++) {
                     if (!firstfound) {
                         first = i;
                         firstfound = true;
@@ -51,13 +48,12 @@ final public class DebrisIterativePopSort extends Sort {
                     nextlast = i + 1;
                     i++;
                 }
-                end = i;
+                int end = i;
                 if (start != end) {
                     if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
                     else Writes.reversal(array, start, end, 0.075, true, false);
                     anyrev = true;
                 }
-                i++;
             }
             if (nextlast + 1 < e - 1) last = nextlast + 1;
             else last = e - 1;
@@ -66,19 +62,11 @@ final public class DebrisIterativePopSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int len = 2;
-        int index = 0;
-        int dir = -1;
-        while (len < currentLength) {
-            index = 0;
-            dir = -1;
-            while (index + len <= currentLength) {
-                bubble(array, index, index + len, dir);
-                index += len;
-                dir *= -1;
-            }
+        for (int len = 2; len < currentLength; len *= 2) {
+            int index = 0;
+            int dir = -1;
+            for (; index + len <= currentLength; index += len, dir *= -1) bubble(array, index, index + len, dir);
             if (index != currentLength) bubble(array, index, currentLength, dir);
-            len *= 2;
         }
         bubble(array, 0, currentLength, 1);
     }

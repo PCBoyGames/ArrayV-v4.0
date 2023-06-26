@@ -1,7 +1,6 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
 final public class DistaysStableSort extends Sort {

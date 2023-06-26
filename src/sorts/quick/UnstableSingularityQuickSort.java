@@ -92,24 +92,19 @@ final public class UnstableSingularityQuickSort extends Sort {
                 boolean brokeloop = false;
                 boolean brokencond = false;
                 boolean founditem = false;
-                while (right <= end) {
+                for (; right <= end; right++) {
                     if (Reads.compareValues(pivot, array[right - 1]) > 0) {
                         Highlights.markArray(3, pivotpos);
                         Highlights.clearMark(2);
                         if (right - left == 1) {
                             if (!founditem) item = array[left - 1];
-                            founditem = true;
-                            Writes.write(array, left - 1, array[left], 0.1, true, false);
+                            Writes.write(array, left - 1, array[left], 0.1, founditem = true, false);
                         } else brokeloop = true;
-                        if (brokeloop && !brokencond) {
-                            Writes.write(array, left - 1, item, 0.5, true, false);
-                            brokencond = true;
-                        }
+                        if (brokeloop && !brokencond) Writes.write(array, left - 1, item, 0.5, brokencond = true, false);
                         if (right - left > 1) Writes.swap(array, left - 1, right - 1, 0.5, true, false);
                         if (pivotpos == left - 1) pivotpos = right - 1;
                         left++;
                     }
-                    right++;
                 }
                 if (right > end && !brokeloop) Writes.write(array, left - 1, item, 0.5, true, false);
                 Highlights.clearAllMarks();
@@ -140,8 +135,6 @@ final public class UnstableSingularityQuickSort extends Sort {
         insertlimit = Math.max((depthlimit / 2) - 1, 15);
         replimit = Math.max((depthlimit / 4), 2);
         int realstart = unstablepd(array, 0, currentLength);
-        if (realstart + 1 < currentLength) {
-            singularityQuick(array, 1, realstart + 1, currentLength, 0, 0, 0);
-        }
+        if (realstart + 1 < currentLength) singularityQuick(array, 1, realstart + 1, currentLength, 0, 0, 0);
     }
 }

@@ -29,15 +29,11 @@ final public class RotateSelectSort extends Sort {
     }
 
     protected void rotatesel(int[] array, int start, int end) {
-        int i = start + 1;
         int min = start;
-        while (i < end) {
-            if (Reads.compareIndices(array, i, min, 0.05, true) < 0) min = i;
-            i++;
-        }
+        for (int i = start + 1; i < end; i++) if (Reads.compareIndices(array, i, min, 0.1, true) < 0) min = i;
         if (min != start) {
             Highlights.clearAllMarks();
-            IndexedRotations.neon(array, start, min, end, 0.5, true, false);
+            IndexedRotations.adaptable(array, start, min, end, 0.1, true, false);
         }
     }
 

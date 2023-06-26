@@ -3,7 +3,6 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
-import java.util.Arrays;
 
 /*
  *

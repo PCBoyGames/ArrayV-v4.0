@@ -42,15 +42,7 @@ public final class LuckySelectionSort extends BogoSorting {
             for (int i = 0; i < currentLength; i++) {
                 Highlights.markArray(3, i);
                 int lowestindex = i;
-                for (int j = i + 1; j < currentLength; j++) {
-                    Highlights.markArray(2, j);
-                    Delays.sleep(0.025);
-                    if (Reads.compareValues(array[j], array[lowestindex]) == -1) {
-                        lowestindex = j;
-                        Highlights.markArray(1, lowestindex);
-                        Delays.sleep(0.025);
-                    }
-                }
+                for (int j = i + 1; j < currentLength; j++) if (Reads.compareIndices(array, j, lowestindex, 0.025, true) == -1) lowestindex = j;
                 if (i != lowestindex) {
                     anyswaps = true;
                     if (randInt(1, 101) <= luck) Writes.swap(array, i, lowestindex, 0.025, true, false);

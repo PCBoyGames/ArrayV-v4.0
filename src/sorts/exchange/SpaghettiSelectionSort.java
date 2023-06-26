@@ -24,8 +24,8 @@ final public class SpaghettiSelectionSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         // have fun deciphering this bullshit!
         for (int h=0; h<currentLength; h++) {
-            a:for (int i=0; i<currentLength; i++) {
-                b:for (int j=h; j<currentLength; j++) {c:for (int k=h; k<currentLength; k++) {
+            for (int i=0; i<currentLength; i++) {
+                for (int j=h; j<currentLength; j++) {c:for (int k=h; k<currentLength; k++) {
                 if (Reads.compareValues(array[i],array[k]) > 0) {
                     continue;
                 }

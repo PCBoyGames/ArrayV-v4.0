@@ -30,20 +30,17 @@ final public class BadThirtySort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         boolean swaps = true;
-        int dir = 1;
-        while (swaps) {
+        for (int dir = 1; swaps; dir *= -1) {
             swaps = false;
             boolean escape = false;
             for (int i = 0; i < currentLength && !escape; i++) {
                 for (int j = dir == 1 ? i + 1 : currentLength - 1; ((dir == 1 && j < currentLength) || (dir == -1 && j > i)) && !escape; j += dir) {
                     if (Reads.compareIndices(array, i, j, 0.001, true) > 0) {
-                        swaps = true;
                         escape = true;
-                        Writes.swap(array, i, j, 0.001, true, false);
+                        Writes.swap(array, i, j, 0.001, swaps = true, false);
                     }
                 }
             }
-            dir *= -1;
         }
     }
 }

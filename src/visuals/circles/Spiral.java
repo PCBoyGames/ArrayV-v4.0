@@ -1,8 +1,6 @@
 package visuals.circles;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Polygon;
 
 import main.ArrayVisualizer;
 import utils.Highlights;
@@ -58,28 +56,28 @@ final public class Spiral extends Visual {
         int[] x =  {width/2, 0, 0};
         int[] y = {height/2, 0, 0};
 
-        double mult = (double) array[n-1] / ArrayVisualizer.getCurrentLength() - 1;
+        double mult = (double) (array[0] + 1) / ArrayVisualizer.getCurrentLength() - 1;
         mult = 1 - mult*mult;
 
-        x[2] =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
-        y[2] = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
+        x[2] =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*n / n - 0.5)));
+        y[2] = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*n / n - 0.5)));
 
         for (int i = 0; i < n; i++) {
             x[1] = x[2];
             y[1] = y[2];
 
-            mult = (double) array[i] / ArrayVisualizer.getCurrentLength() - 1;
+            mult = (double) (array[i] + 2) / ArrayVisualizer.getCurrentLength() - 1;
             mult = 1 - mult*mult;
 
-            x[2] =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-            y[2] = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+            x[2] =  width/2 + (int)(mult * r * Math.cos(Math.PI * ((2d*i+2) / n - 0.5)));
+            y[2] = height/2 + (int)(mult * r * Math.sin(Math.PI * ((2d*i+2) / n - 0.5)));
 
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
 
             else if (Highlights.containsPosition(i)) {
-                this.mainRender.setColor(ArrayVisualizer.getHighlightColor());
-                this.extraRender.drawPolygon(x, y, 3);
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], n, 0.25f, 1) : ArrayVisualizer.getHighlightColor());
+                this.extraRender.fillPolygon(x, y, 3);
             }
             else if (ArrayVisualizer.colorEnabled())
                 this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));

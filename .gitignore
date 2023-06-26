@@ -7,3 +7,5 @@ network_*.svg
 sorting_networks
 dist/*
 !dist/build.xml
+src/sorts/tests/ProveIt.java
+src/sorts/tests/TestMadhouse.java

@@ -83,27 +83,18 @@ final public class DigSort extends Sort {
                 max[i] = true;
             }
         }
-        int i = b - a - 1;
         int p = 1;
-        int j = b - a - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = b - a - 1, j = b - a - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[a + j]);
             while (maximum <= stablereturn(array[a + i]) && i >= p) i--;
             if (stablereturn(array[a + j]) > stablereturn(array[a + i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
 
     protected void circle(int[] array, int a, int b) {
-        int left = a;
-        int right = b;
-        while (left < right) {
-            if (Reads.compareIndices(array, left, right, 0.1, true) > 0) Writes.swap(array, left, right, 0.1, true, false);
-            left++;
-            right--;
-        }
+        for (; a < b; a++, b--) if (Reads.compareIndices(array, a, b, 0.5, true) > 0) Writes.swap(array, a, b, 0.5, true, false);
     }
 
     protected int checkSegments(int[] array, int start, int end) {
@@ -120,13 +111,9 @@ final public class DigSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
             if (w) Writes.write(array, j, v, 0.25, true, false);
         }
@@ -171,7 +158,7 @@ final public class DigSort extends Sort {
         }
         if (patternDefeat(array, 0, currentLength)) {
             arrayVisualizer.setExtraHeading(" / Exit: patternDefeat(array, 0, currentLength)");
-            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+            try {Thread.sleep(1000);} catch (InterruptedException e) {}
             arrayVisualizer.setExtraHeading("");
             return;
         }

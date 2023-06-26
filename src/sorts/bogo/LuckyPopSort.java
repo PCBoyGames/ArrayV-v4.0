@@ -33,10 +33,7 @@ final public class LuckyPopSort extends BogoSorting {
         while (anyswaps) {
             anyswaps = false;
             for (int i = start; i < end; i++) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, i);
-                Delays.sleep(0.05);
-                if (Reads.compareValues(array[i - 1], array[i]) == dir) {
+                if (Reads.compareIndices(array, i - 1, i, 0.05, true) == dir) {
                     anyswaps = true;
                     if (randInt(1, 101) <= luck) Writes.swap(array, i - 1, i, 0.05, true, false);
                 }

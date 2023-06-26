@@ -1,8 +1,6 @@
 package visuals.circles;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Polygon;
 
 import main.ArrayVisualizer;
 import utils.Highlights;
@@ -65,34 +63,48 @@ final public class ColorCircle extends Visual {
         x[0] =  width/2;
         y[0] = height/2;
 
-        x[2] =  width/2 + (int)(r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
-        y[2] = height/2 + (int)(r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
+        x[2] =  width/2 + (int)(r * Math.cos(Math.PI * (2d*(n-0.5) / n - 0.5)));
+        y[2] = height/2 + (int)(r * Math.sin(Math.PI * (2d*(n-0.5) / n - 0.5)));
 
         for (int i = 0; i < n; i++) {
             x[1] = x[2];
             y[1] = y[2];
 
-            x[2] =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-            y[2] = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+            x[2] =  width/2 + (int)(r * Math.cos(Math.PI * ((2d*i+1) / n - 0.5)));
+            y[2] = height/2 + (int)(r * Math.sin(Math.PI * ((2d*i+1) / n - 0.5)));
 
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setColor(Color.WHITE);
 
             else {
                 this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
 
                 if (Highlights.containsPosition(i)) {
                     if (ArrayVisualizer.analysisEnabled()) this.extraRender.setColor(Color.LIGHT_GRAY);
-                    else                                  this.extraRender.setColor(Color.WHITE);
+                    else                                   this.extraRender.setColor(getIntColor(array[i], n, 0.25f, 1));
 
-                    px[0] =  width/2 + (int)((r + p/4) * Math.cos(Math.PI * ((2d*i - 1) / n - 0.5)));
-                    py[0] = height/2 + (int)((r + p/4) * Math.sin(Math.PI * ((2d*i - 1) / n - 0.5)));
+                    px[0] =  width/2 + (int)((r + p/4) * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                    py[0] = height/2 + (int)((r + p/4) * Math.sin(Math.PI * (2d*i / n - 0.5)));
 
-                    px[1] = px[0] + (int)(p * Math.cos(Math.PI * ((2d*i - 1) / n - 0.67)));
-                    py[1] = py[0] + (int)(p * Math.sin(Math.PI * ((2d*i - 1) / n - 0.67)));
+                    px[1] = px[0] + 2 * (int)(p * Math.cos(Math.PI * (2d*i / n - 0.67)));
+                    py[1] = py[0] + 2 * (int)(p * Math.sin(Math.PI * (2d*i / n - 0.67)));
 
-                    px[2] = px[0] + (int)(p * Math.cos(Math.PI * ((2d*i - 1) / n - 0.33)));
-                    py[2] = py[0] + (int)(p * Math.sin(Math.PI * ((2d*i - 1) / n - 0.33)));
+                    px[2] = px[0] + 2 * (int)(p * Math.cos(Math.PI * (2d*i / n - 0.33)));
+                    py[2] = py[0] + 2 * (int)(p * Math.sin(Math.PI * (2d*i / n - 0.33)));
+
+                    this.extraRender.fillPolygon(px, py, 3);
+
+                    if (ArrayVisualizer.analysisEnabled()) this.extraRender.setColor(Color.DARK_GRAY);
+                    else                                   this.extraRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
+
+                    px[0] =  width/2 + (int)((r + p/1.25) * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                    py[0] = height/2 + (int)((r + p/1.25) * Math.sin(Math.PI * (2d*i / n - 0.5)));
+
+                    px[1] = px[0] + (int)(p * Math.cos(Math.PI * (2d*i / n - 0.67)));
+                    py[1] = py[0] + (int)(p * Math.sin(Math.PI * (2d*i / n - 0.67)));
+
+                    px[2] = px[0] + (int)(p * Math.cos(Math.PI * (2d*i / n - 0.33)));
+                    py[2] = py[0] + (int)(p * Math.sin(Math.PI * (2d*i / n - 0.33)));
 
                     this.extraRender.fillPolygon(px, py, 3);
                 }

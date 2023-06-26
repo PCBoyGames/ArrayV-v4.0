@@ -37,7 +37,7 @@ public final class NaturalRotateMergeSort extends Sort {
     }
 
     protected void rotate(int[] array, int a, int m, int b) {
-        IndexedRotations.adaptable(array, a, m, b, 1.0, true, false);
+        IndexedRotations.cycleReverse(array, a, m, b, 1.0, true, false);
     }
 
     protected int binarySearch(int[] array, int a, int b, int value, boolean left) {
@@ -54,8 +54,7 @@ public final class NaturalRotateMergeSort extends Sort {
         return a;
     }
 
-    public void merge(int[] array, int a, int m, int b, int d) {
-        Writes.recordDepth(d);
+    public void merge(int[] array, int a, int m, int b) {
         if (m - a < 1 || b - m < 1)
             return;
         int m1, m2, m3;
@@ -69,10 +68,8 @@ public final class NaturalRotateMergeSort extends Sort {
             m3 = (m2++) - (m - m1);
         }
         rotate(array, m1, m, m2);
-        Writes.recursion();
-        merge(array, m3 + 1, m2, b, d + 1);
-        Writes.recursion();
-        merge(array, a, m1, m3, d + 1);
+        merge(array, m3 + 1, m2, b);
+        merge(array, a, m1, m3);
     }
 
     protected int findRun(int[] array, int a, int b) {
@@ -104,7 +101,7 @@ public final class NaturalRotateMergeSort extends Sort {
             if (i >= b)
                 return;
             j = findRun(array, i, b);
-            merge(array, a, i, j, 0);
+            merge(array, a, i, j);
             Highlights.clearMark(2);
             if (j >= b)
                 return;
@@ -114,7 +111,7 @@ public final class NaturalRotateMergeSort extends Sort {
                 if (i >= b)
                     break;
                 j = findRun(array, i, b);
-                merge(array, k, i, j, 0);
+                merge(array, k, i, j);
                 if (j >= b)
                     break;
                 k = j;

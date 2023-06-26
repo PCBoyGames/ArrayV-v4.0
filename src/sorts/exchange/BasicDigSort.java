@@ -40,15 +40,12 @@ final public class BasicDigSort extends Sort {
                 max[i] = true;
             }
         }
-        int i = b - a - 1;
         int p = 1;
-        int j = b - a - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = b - a - 1, j = b - a - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[a + j]);
             while (maximum <= stablereturn(array[a + i]) && i >= p) i--;
             if (stablereturn(array[a + j]) > stablereturn(array[a + i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -58,14 +55,13 @@ final public class BasicDigSort extends Sort {
         int lastswap = 0;
         int len = currentLength;
         int maxswap = currentLength - 2;
-        boolean maxswapped;
         boolean swap = true;
         int timesdone = 0;
-        for (int i = 0; i < currentLength && swap; i = lastswap) {
+        for (int i = 0; i < currentLength && swap; i = lastswap, timesdone++) {
             len = par(array, 0, currentLength);
             arrayVisualizer.setExtraHeading(" / Par(X): " + len + " / Iteration: " + (timesdone + 1));
             swap = false;
-            maxswapped = false;
+            boolean maxswapped = false;
             for (int j = maxswap; j >= i; j--) {
                 if (Reads.compareIndices(array, j, j + 1, 0.1, true) > 0) {
                     Writes.swap(array, lastswap = j, j + 1, 0.1, swap = true, false);
@@ -88,7 +84,6 @@ final public class BasicDigSort extends Sort {
                     }
                 }
             }
-            timesdone++;
         }
         arrayVisualizer.setExtraHeading("");
     }

@@ -45,9 +45,7 @@ final public class ParFurtherRandomShellSort extends BogoSorting {
                 j -= h;
                 w = true;
             }
-            if (w) {
-                Writes.write(array, j, v, 0.25, true, false);
-            }
+            if (w) Writes.write(array, j, v, 0.25, true, false);
             h = randInt(1, i < bounding ? i + 1 : bounding + 1);
         }
     }

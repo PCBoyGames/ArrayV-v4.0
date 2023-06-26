@@ -67,8 +67,8 @@ public final class YoloSort extends BogoSorting {
             Writes.arraycopy(array, 0, init, 0, currentLength, delay, true, true);
             boolean finalized = false;
             while (!finalized) {
-                for (int i = 0; i < currentLength; i++) Writes.write(array, i, init[BogoSorting.randInt(0, currentLength)], delay, true, false);
-                while (!isArraySorted(array, currentLength)) for (int i = 0; i < currentLength; i++) Writes.write(array, i, init[BogoSorting.randInt(0, currentLength)], delay, true, false);
+                for (int i = 0; i < currentLength; i++) Writes.write(array, i, init[randInt(0, currentLength)], delay, true, false);
+                while (!isArraySorted(array, currentLength)) for (int i = 0; i < currentLength; i++) Writes.write(array, i, init[randInt(0, currentLength)], delay, true, false);
                 finalized = isAnagram(array, init, currentLength);
             }
         }

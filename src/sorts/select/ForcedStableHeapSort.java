@@ -3,8 +3,20 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
+/*
+
+Coded for ArrayV by Ayako-chan
+in collaboration with aphitorite
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
+
 /**
- * @author Yuri-chan2007
+ * @author Ayako-chan
+ * @author aphitorite
  *
  */
 public final class ForcedStableHeapSort extends Sort {
@@ -22,54 +34,52 @@ public final class ForcedStableHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
-    private boolean stableComp(int[] array, int[] key, int a, int b) {
-        int comp = Reads.compareIndices(array, a, b, 0.0, true);
-
-        return comp > 0 || (comp == 0 && Reads.compareOriginalIndices(key, a, b, 0.0, false) > 0);
-    }
-
-    private void stableSwap(int[] array, int[] key, int a, int b) {
-        Writes.swap(array, a, b, 0.0, true, false);
-        Writes.swap(key,   a, b, 1.0, false, true);
-    }
-
-    private void siftDown(int[] array, int[] key, int root, int dist, int start) {
-        while (root <= dist / 2) {
-            int leaf = 2 * root;
-            if (leaf < dist && this.stableComp(array, key, start + leaf, start + leaf - 1)) {
-                leaf++;
+    
+    void siftDown(int[] array, int[] keys, int val, int i, int p, int n, int kVal) {
+        while (2 * i + 1 < n) {
+            int max = val;
+            int kMax = kVal;
+            int next = i, child = 2 * i + 1;
+            for (int j = child; j < Math.min(child + 2, n); j++) {
+                int cmp = Reads.compareValues(array[p + j], max);
+                if (cmp > 0 || (cmp == 0 && Reads.compareOriginalValues(keys[j], kMax) > 0)) {
+                    max = array[p + j];
+                    kMax = keys[j];
+                    next = j;
+                }
             }
-            if (this.stableComp(array, key, start + leaf - 1, start + root - 1)) {
-                this.stableSwap(array, key, start + leaf - 1, start + root - 1);
-                root = leaf;
-            }
-            else break;
+            if (next == i) break;
+            Writes.write(array, p + i, max, 0, true, false);
+            Writes.write(keys, i, kMax, 1, false, true);
+            i = next;
         }
+        Writes.write(array, p + i, val, 0, true, false);
+        Writes.write(keys, i, kVal, 1, false, true);
     }
-
-    protected void heapify(int[] array, int[] key, int low, int high) {
-        int length = high - low;
-        for (int i = length / 2; i >= 1; i--) {
-            siftDown(array, key, i, length, low);
+    
+    public void customSort(int[] array, int a, int b) {
+        int n = b - a;
+        int[] keys = Writes.createExternalArray(n);
+        for (int i = 0; i < n; i++) {
+            Highlights.markArray(1, a + i);
+            Writes.write(keys, i, i, 0.5, false, true);
         }
-    }
-
-    protected void heapSort(int[] array, int[] key, int start, int length) {
-        heapify(array, key, start, length);
-        for (int i = length - start; i > 1; i--) {
-            this.stableSwap(array, key, start, start + i - 1);
-            siftDown(array, key, 1, i - 1, start);
+        for (int i = (n - 1) / 2; i >= 0; i--)
+            this.siftDown(array, keys, array[a + i], i, a, n, keys[i]);
+        for (int i = n - 1; i > 0; i--) {
+            Highlights.markArray(2, a + i);
+            int t = array[a + i];
+            int tk = keys[i];
+            Writes.write(array, a + i, array[a], 0, false, false);
+            Writes.write(keys, i, keys[0], 1, false, true);
+            this.siftDown(array, keys, t, 0, a, i, tk);
         }
+        Writes.deleteExternalArray(keys);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        int[] key = Writes.createExternalArray(sortLength);
-        for (int i = 0; i < sortLength; i++)
-            Writes.write(key, i, i, 0.5, true, true);
-        heapSort(array, key, 0, sortLength);
-        Writes.deleteExternalArray(key);
+        customSort(array, 0, sortLength);
 
     }
 

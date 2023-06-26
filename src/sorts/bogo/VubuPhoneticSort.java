@@ -20,34 +20,34 @@ public final class VubuPhoneticSort extends BogoSorting {
 
     // salvaged from Vutuuwu
     public void omegaPush(int[] array, int start, int end) {
-        for(int i=0; i<end-start-1; i++) {
+        for (int i=0; i<end-start-1; i++) {
             Writes.multiSwap(array, end-1, start, 0.01, true, false);
         }
     }
     public void omegaPushBW(int[] array, int start, int end) {
-        for(int i=0; i<end-start-1; i++) {
+        for (int i=0; i<end-start-1; i++) {
             Writes.multiSwap(array, start, end-1, 0.01, true, false);
         }
     }
     public void omegaPush(int[] array, int start, int end, int k) {
-        if(k==0) {
+        if (k==0) {
             omegaPush(array, start, end);
         } else
-            for(int i=0; i<end-start-1; i++) {
+            for (int i=0; i<end-start-1; i++) {
                 omegaPushBW(array, start, end, k-1);
             }
     }
     public void omegaPushBW(int[] array, int start, int end, int k) {
-        if(k==0) {
+        if (k==0) {
             omegaPushBW(array, start, end);
         } else
-            for(int i=0; i<end-start-1; i++) {
+            for (int i=0; i<end-start-1; i++) {
                 omegaPush(array, start, end, k-1);
             }
     }
     // O(2n-1 * (2^(n/2 + 1)))?
     private void omegaSwap(int[] array, int start, int end, int r) {
-        if(start >= end)
+        if (start >= end)
             return;
         Writes.recordDepth(r++);
         this.omegaPush(array, start, end+1, end-start);
@@ -57,30 +57,30 @@ public final class VubuPhoneticSort extends BogoSorting {
     }
     private void omegaOmegaPush1(int[] array, int start, int end, int depth) { // Clamber-esque push, because I want it to be the worst possible.
         depth++;
-        for(int j=end-1; j>=start; j--) {
+        for (int j=end-1; j>=start; j--) {
             omegaSwap(array, j, end-1, depth);
         }
     }
     private void omegaOmegaPushBW1(int[] array, int start, int end, int depth) {
         depth++;
-        for(int j=start+1; j<end; j++) {
+        for (int j=start+1; j<end; j++) {
             omegaSwap(array, start, j, depth);
         }
     }
     private void omegaOmegaPush(int[] array, int start, int end, int depth) {
         depth++;
-        for(int i=start; i<end-1; i++) {
+        for (int i=start; i<end-1; i++) {
             omegaOmegaPushBW1(array, start, end, depth);
         }
     }
     private void omegaOmegaPushBW(int[] array, int start, int end, int depth) {
         depth++;
-        for(int i=start; i<end-1; i++) {
+        for (int i=start; i<end-1; i++) {
             omegaOmegaPush1(array, start, end, depth);
         }
     }
     private void omegaOmegaSwap(int[] array, int start, int end, int r) {
-        if(start >= end)
+        if (start >= end)
             return;
         Writes.recordDepth(r++);
         this.omegaOmegaPush(array, start, end+1, r);
@@ -90,16 +90,16 @@ public final class VubuPhoneticSort extends BogoSorting {
     }
     private void omegaOmegaOmegaPushBW(int[] array, int start, int end, int depth) {
         depth++;
-        for(int j=start+1; j<end; j++) {
+        for (int j=start+1; j<end; j++) {
             omegaOmegaSwap(array, start, j, depth);
         }
     }
     private void what_why(int[] array, int start, int end, int d) {
         Writes.recordDepth(d++);
         int m=(end-start)/2;
-        if(m==0)
+        if (m==0)
             return;
-        for(int i=0;i<m;i++) {
+        for (int i=0;i<m;i++) {
             omegaOmegaOmegaPushBW(array, start, end, d);
         }
         what_why(array, start, start+m, d);
@@ -116,25 +116,25 @@ public final class VubuPhoneticSort extends BogoSorting {
     private int[] generateNegligiblyUnchangingList(int[] array) {
         int[][] lists = new int[array.length][];
       regenLists:
-        for(int ID=0; ID<lists.length;) {
+        for (int ID=0; ID<lists.length;) {
             lists[ID] = Writes.createExternalArray(array.length);
-            for(int i=0; i<array.length; i++) {
+            for (int i=0; i<array.length; i++) {
                 int r;
               rejectSample:
-                for(;;) {
+                for (;;) {
                     r = randInt(0, array.length);
-                    for(int j=0; j<i; j++) {
-                        if(Reads.compareOriginalValueIndex(lists[ID], r, j, 0.01, true) == 0)
+                    for (int j=0; j<i; j++) {
+                        if (Reads.compareOriginalValueIndex(lists[ID], r, j, 0.01, true) == 0)
                             continue rejectSample;
                     }
                     break;
                 }
                 Writes.write(lists[ID], i, r, 0.01, true, true);
             }
-            if(ID > 0) {
-                for(int i=0; i<array.length; i++) {
-                    if(Reads.compareOriginalValues(lists[ID-1][i], lists[ID][i]) != 0) {
-                        for(int ii=0; ii<=ID; ii++) {
+            if (ID > 0) {
+                for (int i=0; i<array.length; i++) {
+                    if (Reads.compareOriginalValues(lists[ID-1][i], lists[ID][i]) != 0) {
+                        for (int ii=0; ii<=ID; ii++) {
                             Writes.deleteExternalArray(lists[ID]);
                         }
                         ID=0; continue regenLists;
@@ -143,24 +143,24 @@ public final class VubuPhoneticSort extends BogoSorting {
             }
             ID++;
         }
-        for(int ID=1; ID<lists.length; ID++) {
+        for (int ID=1; ID<lists.length; ID++) {
             Writes.deleteExternalArray(lists[ID]);
         }
         return lists[0];
     }
 
     private int randomSearchInTable(int[] array, int a, int b, int k) {
-        if(Reads.compareOriginalIndices(array, b-1, k, 0.1, true) <= 0)
+        if (Reads.compareOriginalIndices(array, b-1, k, 0.1, true) <= 0)
             return b;
         int l = a, r = b;
-        while(l < r) {
+        while (l < r) {
             int m = randInt(a, b);
-            if(m <= l || m > r) continue;
+            if (m <= l || m > r) continue;
             int c = Reads.compareOriginalIndices(array, m, k, 0.1, true);
-            if(c <= 0) {
+            if (c <= 0) {
                 l = m + 1;
             }
-            if(c >= 0) {
+            if (c >= 0) {
                 r = m;
             }
         }
@@ -168,7 +168,7 @@ public final class VubuPhoneticSort extends BogoSorting {
     }
 
     private void insertTable(int[] table, int[] array, int a, int b) {
-        for(int i=a+1; i<b; i++) {
+        for (int i=a+1; i<b; i++) {
             int l = randomSearchInTable(table, a, i, table[i]);
             wotateOwO(table, l, 1, 1);
             wotateOwO(array, l, 1, 1);
@@ -181,12 +181,12 @@ public final class VubuPhoneticSort extends BogoSorting {
 
     public void vubu(int[] array, int a, int b) {
       doProbableCheck:
-        while(!isArrayProbablySorted(array, a, b)) {
+        while (!isArrayProbablySorted(array, a, b)) {
             Writes.recursion();
             int[] indice = generateNegligiblyUnchangingList(array);
             // if this works as intended, the chance of this passing is 1/((m-n)^n)
-            for(int i=a; i<b; i++) {
-                if(Reads.compareOriginalIndexValue(indice, i, a, 0.01, true) < 0 ||
+            for (int i=a; i<b; i++) {
+                if (Reads.compareOriginalIndexValue(indice, i, a, 0.01, true) < 0 ||
                    Reads.compareOriginalIndexValue(indice, i, b, 0.01, true) >= 0) {
                     Writes.deleteExternalArray(indice);
                     continue doProbableCheck;

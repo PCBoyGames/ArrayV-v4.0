@@ -48,12 +48,12 @@ public final class ProportionExtendSort extends Sort {
     private final int MIN_INSERT = 32;
 
     private int rightBinSearch(int[] array, int a, int b, int val) {
-        while(a < b) {
+        while (a < b) {
             int m = a+(b-a)/2;
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
 
-            if(Reads.compareValues(val, array[m]) < 0)
+            if (Reads.compareValues(val, array[m]) < 0)
                 b = m;
             else
                 a = m+1;
@@ -61,7 +61,7 @@ public final class ProportionExtendSort extends Sort {
         return a;
     }
     private void binaryInsert(int[] array, int a, int m, int b) {
-        for(int i = m; i < b; i++) {
+        for (int i = m; i < b; i++) {
             int t = array[i];
             Highlights.markArray(3, i);
             int j = this.rightBinSearch(array, a, i, t);
@@ -81,28 +81,28 @@ public final class ProportionExtendSort extends Sort {
                 Highlights.markArray(1, i);
                 Delays.sleep(0.5);
             }
-            while(i < j && Reads.compareValues(array[i], array[p]) < 0);
+            while (i < j && Reads.compareValues(array[i], array[p]) < 0);
 
             do {
                 j--;
                 Highlights.markArray(2, j);
                 Delays.sleep(0.5);
             }
-            while(j >= i && Reads.compareValues(array[j], array[p]) > 0);
+            while (j >= i && Reads.compareValues(array[j], array[p]) > 0);
 
-            if(i < j) Writes.swap(array, i, j, 1, false, false);
+            if (i < j) Writes.swap(array, i, j, 1, false, false);
             else {
                 Highlights.clearMark(3);
                 return i;
             }
         }
-        while(true);
+        while (true);
     }
 
     private void peSort(int[] array, int a, int b, int pSize) {
         int n = b-a;
 
-        if(n <= this.MIN_INSERT) {
+        if (n <= this.MIN_INSERT) {
             this.binaryInsert(array, a, a+1, b);
             return;
         }
@@ -114,21 +114,21 @@ public final class ProportionExtendSort extends Sort {
     }
 
     private void peRec(int[] array, int a, int m, int b, int pSize) {
-        if(b-a <= this.MIN_INSERT) {
+        if (b-a <= this.MIN_INSERT) {
             this.binaryInsert(array, a, Math.max(a+1, m), b);
             return;
         }
-        if(m-a < 1) {
+        if (m-a < 1) {
             this.peSort(array, a, b, Math.max(2, pSize/2));
             return;
         }
-        if(b-m < 1) return;
+        if (b-m < 1) return;
 
         int m1 = (a+m)/2;
         int m2 = this.partition(array, m, b, m1);
         int m3 = m2;
 
-        while(m-- > m1) Writes.swap(array, m, --m2, 1, true, false);
+        while (m-- > m1) Writes.swap(array, m, --m2, 1, true, false);
 
         this.peRec(array, a, m, m2, pSize);
         this.peRec(array, m2+1, m3, b, pSize);
@@ -136,7 +136,7 @@ public final class ProportionExtendSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int pSize) {
-        if(pSize < 2) pSize = 16;
+        if (pSize < 2) pSize = 16;
         this.peSort(array, 0, length, Math.min(pSize, length));
     }
 }

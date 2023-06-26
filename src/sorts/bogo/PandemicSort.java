@@ -42,9 +42,7 @@ final public class PandemicSort extends BogoSorting {
     private static String blank() {
         int randomspaces = r.nextInt(10);
         String blankstring = "";
-        for (int i = 0; i < randomspaces; i++) {
-            blankstring = blankstring + " ";
-        }
+        for (int i = 0; i < randomspaces; i++) blankstring = blankstring + " ";
         return blankstring;
     }
 
@@ -60,10 +58,8 @@ final public class PandemicSort extends BogoSorting {
 
         public Pandemic(ArrayVisualizer arrayVisualizer, int index, boolean compare) {
             super(arrayVisualizer);
-            if (compare)
-                wrapped = wrapsCompare[index];
-            else
-                wrapped = wrapsDistr[index];
+            if (compare) wrapped = wrapsCompare[index];
+            else wrapped = wrapsDistr[index];
             instantiate();
         }
 
@@ -73,8 +69,7 @@ final public class PandemicSort extends BogoSorting {
                 try {
                     v = i.get(wrapped);
                     i.set(this, v);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
-                }
+                } catch (IllegalArgumentException | IllegalAccessException e) {}
             }
         }
 
@@ -127,14 +122,8 @@ final public class PandemicSort extends BogoSorting {
         }
         arrayVisualizer.getSortAnalyzer().sortSorts();
         arrayVisualizer.refreshSorts();
-        for (int i = 0; i < sorts0.size(); i++)
-            wrapsCompare[i] = Pandemic.wrapped;
-        for (int i = 0; i < sorts1.size(); i++)
-            wrapsDistr[i] = Pandemic.wrapped;
-    }
-
-    protected int stablereturn(int a) {
-        return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
+        for (int i = 0; i < sorts0.size(); i++) wrapsCompare[i] = Pandemic.wrapped;
+        for (int i = 0; i < sorts1.size(); i++) wrapsDistr[i] = Pandemic.wrapped;
     }
 
     protected void runPandemic(int[] array, int currentLength) {
@@ -148,21 +137,14 @@ final public class PandemicSort extends BogoSorting {
         boolean all = false;
         while (!all) {
             all = true;
-            int j = 0;
-            while (j < currentLength && all) {
-                if (Reads.compareValues(array[j], random) == 0) j++;
-                else all = false;
-            }
+            for (int j = 0; j < currentLength && all; j++) if (Reads.compareValues(array[j], random) != 0) all = false;
             if (all) break;
             boolean change = false;
             while (!change) {
                 int i = randInt(0, currentLength);
                 Highlights.markArray(1, i);
                 Delays.sleep(0.01);
-                if (Reads.compareValues(array[i], random) != 0) {
-                    Writes.write(array, i, randInt(min, max + 1), 0.1, true, false);
-                    change = true;
-                }
+                if (Reads.compareValues(array[i], random) != 0) Writes.write(array, i, randInt(min, max + 1), 0.1, change = true, false);
             }
         }
     }

@@ -41,42 +41,47 @@ public final class AyakaSort extends Sort {
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
             int c = Reads.compareValues(val, array[m]);
-            if (c < 0 || (left && c == 0))
-                b = m;
-            else
-                a = m+1;
+            if (c < 0 || (left && c == 0)) b = m;
+            else a = m + 1;
         }
         return a;
     }
 
-    protected int expSearch(int[] array, int a, int b, int val, boolean dir, boolean left) {
+    protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        int a1, b1;
-        if (dir) {
-            if (left)
-                while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0)
-                    i *= 2;
-            else
-                while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0)
-                    i *= 2;
-            a1 = a + i / 2;
-            b1 = Math.min(b, a - 1 + i);
-        } else {
-            if (left)
-                while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0)
-                    i *= 2;
-            else
-                while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
-                    i *= 2;
-            a1 = Math.max(a, b - i + 1);
-            b1 = b - i / 2;
-        }
+        if (left)
+            while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
+        else
+            while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
+        int a1 = a + i / 2, b1 = Math.min(b, a - 1 + i);
         return binSearch(array, a1, b1, val, left);
     }
 
-    protected void multiSwap(int[] array, int a, int b, int len) {
-        for (int i = 0; i < len; i++)
-            Writes.swap(array, a + i, b + i, 1, true, false);
+    protected int rightExpSearch(int[] array, int a, int b, int val, boolean left) {
+        int i = 1;
+        if (left)
+            while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
+        else
+            while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
+        int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
+        return binSearch(array, a1, b1, val, left);
+    }
+
+    // Easy patch to avoid the "reversals can be done in a single swap" notes.
+    protected void reverse(int[] array, int a, int b) {
+        if (b - a >= 3) Writes.reversal(array, a, b, 1, true, false);
+        else Writes.swap(array, a, b, 1, true, false);
+    }
+
+    protected void multiSwap(int[] array, int a, int b, int len, boolean fw) {
+        if (a == b) // avoid self-swaps
+            return;
+        if (fw)
+            for (int i = 0; i < len; i++)
+                Writes.swap(array, a + i, b + i, 1, true, false);
+        else
+            for (int i = len - 1; i >= 0; i--)
+                Writes.swap(array, a + i, b + i, 1, true, false);
     }
 
     protected void insertTo(int[] array, int a, int b) {
@@ -85,42 +90,55 @@ public final class AyakaSort extends Sort {
         int d = (a > b) ? -1 : 1;
         for (int i = a; i != b; i += d)
             Writes.write(array, i, array[i + d], 0.5, true, false);
-        if (a != b)
-            Writes.write(array, b, temp, 0.5, true, false);
+        if (a != b) Writes.write(array, b, temp, 0.5, true, false);
     }
 
     protected void rotate(int[] array, int a, int m, int b) {
         Highlights.clearAllMarks();
-        if (a >= m || m >= b)
-            return;
-        int p0 = a, p1 = m - 1, p2 = m, p3 = b - 1;
-        int tmp;
-        while (p0 < p1 && p2 < p3) {
-            tmp = array[p1];
-            Writes.write(array, p1--, array[p0], 0.5, true, false);
-            Writes.write(array, p0++, array[p2], 0.5, true, false);
-            Writes.write(array, p2++, array[p3], 0.5, true, false);
-            Writes.write(array, p3--, tmp, 0.5, true, false);
-        }
-        while (p0 < p1) {
-            tmp = array[p1];
-            Writes.write(array, p1--, array[p0], 0.5, true, false);
-            Writes.write(array, p0++, array[p3], 0.5, true, false);
-            Writes.write(array, p3--, tmp, 0.5, true, false);
-        }
-        while (p2 < p3) {
-            tmp = array[p2];
-            Writes.write(array, p2++, array[p3], 0.5, true, false);
-            Writes.write(array, p3--, array[p0], 0.5, true, false);
-            Writes.write(array, p0++, tmp, 0.5, true, false);
-        }
-        if (p0 < p3) { // don't count reversals that don't do anything
-            // I had to do this due to Madhouse.
-            if (p3 - p0 >= 3)
-                Writes.reversal(array, p0, p3, 1, true, false);
-            else
-                Writes.swap(array, p0, p3, 1, true, false);
-            Highlights.clearMark(2);
+        if (a >= m || m >= b) return;
+        int l = m - a, r = b - m;
+        if (l % r == 0 || r % l == 0) {
+            while (l > 1 && r > 1)
+                if (r < l) {
+                    this.multiSwap(array, m - r, m, r, false);
+                    b -= r;
+                    m -= r;
+                    l -= r;
+                } else {
+                    this.multiSwap(array, a, m, l, true);
+                    a += l;
+                    m += l;
+                    r -= l;
+                }
+            if (r == 1) this.insertTo(array, m, a);
+            else if (l == 1) this.insertTo(array, a, b - 1);
+        } else {
+            int p0 = a, p1 = m - 1, p2 = m, p3 = b - 1;
+            int tmp;
+            while (p0 < p1 && p2 < p3) {
+                tmp = array[p1];
+                Writes.write(array, p1--, array[p0], 0.5, true, false);
+                Writes.write(array, p0++, array[p2], 0.5, true, false);
+                Writes.write(array, p2++, array[p3], 0.5, true, false);
+                Writes.write(array, p3--, tmp, 0.5, true, false);
+            }
+            while (p0 < p1) {
+                tmp = array[p1];
+                Writes.write(array, p1--, array[p0], 0.5, true, false);
+                Writes.write(array, p0++, array[p3], 0.5, true, false);
+                Writes.write(array, p3--, tmp, 0.5, true, false);
+            }
+            while (p2 < p3) {
+                tmp = array[p2];
+                Writes.write(array, p2++, array[p3], 0.5, true, false);
+                Writes.write(array, p3--, array[p0], 0.5, true, false);
+                Writes.write(array, p0++, tmp, 0.5, true, false);
+            }
+            if (p0 < p3) { // don't count reversals that don't do anything (doubles as self-reversal
+                           // avoidance)
+                reverse(array, p0, p3);
+                Highlights.clearMark(2);
+            }
         }
     }
 
@@ -141,11 +159,7 @@ public final class AyakaSort extends Sort {
                 i++;
                 nKeys++;
             }
-            // I had to do this due to Madhouse.
-            if (i - a >= 4)
-                Writes.reversal(array, a, i - 1, 1, true, false);
-            else
-                Writes.swap(array, a, i - 1, 1, true, false);
+            reverse(array, a, i - 1);
         }
         return nKeys;
     }
@@ -167,11 +181,7 @@ public final class AyakaSort extends Sort {
                 i--;
                 nKeys++;
             }
-            // I had to do this due to Madhouse.
-            if (b - i >= 4)
-                Writes.reversal(array, i, b - 1, 1, true, false);
-            else
-                Writes.swap(array, i, b - 1, 1, true, false);
+            reverse(array, i, b - 1);
         }
         return nKeys;
     }
@@ -225,10 +235,7 @@ public final class AyakaSort extends Sort {
         while (i < b) {
             if (Reads.compareIndices(array, i - 1, i++, 1, true) > 0) {
                 while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) > 0) i++;
-                if (i - j < 4)
-                    Writes.swap(array, j, i - 1, 1.0, true, false);
-                else
-                    Writes.reversal(array, j, i - 1, 1.0, true, false);
+                reverse(array, j, i - 1);
             } else
                 while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) <= 0) i++;
             if (i < b) {
@@ -236,7 +243,7 @@ public final class AyakaSort extends Sort {
                 j = i - (i - j - 1) % mRun - 1;
             }
             while (i - j < mRun && i < b) {
-                insertTo(array, i, expSearch(array, j, i, array[i], false, false));
+                insertTo(array, i, rightExpSearch(array, j, i, array[i], false));
                 i++;
             }
             j = i++;
@@ -245,213 +252,152 @@ public final class AyakaSort extends Sort {
     }
 
     protected void insertSort(int[] array, int a, int b) {
-        int i = a + 1;
-        if (i >= b)
-            return;
-        if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
-            if (i - a < 4)
-                Writes.swap(array, a, i - 1, 1.0, true, false);
-            else
-                Writes.reversal(array, a, i - 1, 1.0, true, false);
-        } else
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
-        Highlights.clearMark(2);
-        for (; i < b; i++)
-            insertTo(array, i, expSearch(array, a, i, array[i], false, false));
-    }
-
-    protected boolean checkReverseBounds(int[] array, int a, int m, int b) {
-        if (Reads.compareValues(array[a], array[b - 1]) > 0) {
-            rotate(array, a, m, b);
-            return true;
-        }
-        return false;
-    }
-
-    protected boolean boundCheck(int[] array, int a, int m, int b) {
-        if (a >= m || m >= b)
-            return true;
-        return Reads.compareValues(array[m - 1], array[m]) <= 0
-                  || checkReverseBounds(array, a, m, b);
+        buildRuns(array, a, b, b - a);
     }
 
     protected void mergeFW(int[] array, int a, int m, int b, int p) {
         int pLen = m - a;
-        multiSwap(array, a, p, pLen);
+        multiSwap(array, a, p, pLen, true);
         int i = 0, j = m, k = a;
-        while (i < pLen && j < b)
+        while (i < pLen && j < b) {
             if (Reads.compareValues(array[p + i], array[j]) <= 0)
                 Writes.swap(array, k++, p + (i++), 1, true, false);
             else
                 Writes.swap(array, k++, j++, 1, true, false);
-        while (i < pLen)
-            Writes.swap(array, k++, p + (i++), 1, true, false);
+        }
+        while (i < pLen) Writes.swap(array, k++, p + (i++), 1, true, false);
     }
 
     protected void mergeBW(int[] array, int a, int m, int b, int p) {
         int pLen = b - m;
-        multiSwap(array, m, p, pLen);
+        multiSwap(array, m, p, pLen, true);
         int i = pLen - 1, j = m - 1, k = b - 1;
-        while (i >= 0 && j >= a)
+        while (i >= 0 && j >= a) {
             if (Reads.compareValues(array[p + i], array[j]) >= 0)
                 Writes.swap(array, k--, p + (i--), 1, true, false);
             else
                 Writes.swap(array, k--, j--, 1, true, false);
-        while (i >= 0)
-            Writes.swap(array, k--, p + (i--), 1, true, false);
-    }
-
-    protected void mergeTo(int[] array, int a, int m, int b, int p) {
-        int i = a, j = m;
-        while (i < m && j < b)
-            if (Reads.compareValues(array[i], array[j]) <= 0)
-                Writes.swap(array, p++, i++, 1, true, false);
-            else
-                Writes.swap(array, p++, j++, 1, true, false);
-        while (i < m)
-            Writes.swap(array, p++, i++, 1, true, false);
-        while (j < b)
-            Writes.swap(array, p++, j++, 1, true, false);
+        }
+        while (i >= 0) Writes.swap(array, k--, p + (i--), 1, true, false);
     }
 
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         while (a < m && m < b) {
-            int i = expSearch(array, m, b, array[a], true, true);
+            int i = leftExpSearch(array, m, b, array[a], true);
             rotate(array, a, m, i);
             int t = i - m;
             m = i;
             a += t + 1;
-            if (a >= m)
-                break;
-            a = expSearch(array, a, m, array[m], true, false);
+            if (m >= b) break;
+            a = leftExpSearch(array, a, m, array[m], false);
         }
     }
 
     protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
         while (b > m && m > a) {
-            int i = expSearch(array, a, m, array[b - 1], false, false);
+            int i = rightExpSearch(array, a, m, array[b - 1], false);
             rotate(array, i, m, b);
             int t = m - i;
             m = i;
             b -= t + 1;
-            if (m <= a)
-                break;
-            b = expSearch(array, m, b, array[m - 1], false, true);
+            if (m <= a) break;
+            b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
 
     public void inPlaceMerge(int[] array, int a, int m, int b, boolean bnd) {
         if (bnd) {
-            if (boundCheck(array, a, m, b))
+            if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
+            a = leftExpSearch(array, a, m, array[m], false);
+            b = rightExpSearch(array, m, b, array[m - 1], true);
+            if (Reads.compareValues(array[a], array[b - 1]) > 0) {
+                rotate(array, a, m, b);
                 return;
-            a = expSearch(array, a, m, array[m], true, false);
-            b = expSearch(array, m, b, array[m - 1], false, true);
-            if (checkReverseBounds(array, a, m, b))
-                return;
+            }
         }
-        if (b - m < m - a)
-            inPlaceMergeBW(array, a, m, b);
-        else
-            inPlaceMergeFW(array, a, m, b);
+        if (b - m < m - a) inPlaceMergeBW(array, a, m, b);
+        else inPlaceMergeFW(array, a, m, b);
     }
 
-    protected void redistBuffer(int[] array, int a, int m, int b) {
-        int rPos = binSearch(array, m, b, array[a], true);
+    protected void redistBufferFW(int[] array, int a, int m, int b) {
+        int rPos = leftExpSearch(array, m, b, array[a], true);
         rotate(array, a, m, rPos);
-        int dist = rPos-m;
+        int dist = rPos - m;
         a += dist;
         m += dist;
-        int a1 = a+(m-a)/2;
-        rPos = binSearch(array, m, b, array[a1], true);
+        int a1 = a + (m - a) / 2;
+        rPos = leftExpSearch(array, m, b, array[a1], true);
         rotate(array, a1, m, rPos);
-        dist = rPos-m;
-        a1  += dist;
-        m   += dist;
-        inPlaceMerge(array, a, a1-dist, a1, false);
+        dist = rPos - m;
+        a1 += dist;
+        m += dist;
+        inPlaceMerge(array, a, a1 - dist, a1, false);
         inPlaceMerge(array, a1, m, b, false);
     }
 
     protected void redistBufferBW(int[] array, int a, int m, int b) {
-        int rPos = binSearch(array, a, m, array[b-1], false);
+        int rPos = rightExpSearch(array, a, m, array[b - 1], false);
         rotate(array, rPos, m, b);
-        int dist = m-rPos;
+        int dist = m - rPos;
         b -= dist;
         m -= dist;
-        int b1 = m+(b-m)/2;
-        rPos = binSearch(array, a, m, array[b1-1], false);
+        int b1 = m + (b - m) / 2;
+        rPos = rightExpSearch(array, a, m, array[b1 - 1], false);
         rotate(array, rPos, m, b1);
-        dist = m-rPos;
-        b1  -= dist;
-        m   -= dist;
-        inPlaceMerge(array, b1, b1+dist, b, false);
+        dist = m - rPos;
+        b1 -= dist;
+        m -= dist;
+        inPlaceMerge(array, b1, b1 + dist, b, false);
         inPlaceMerge(array, a, m, b1, false);
     }
 
     public void merge(int[] array, int a, int m, int b, int p, boolean bnd) {
         if (bnd) {
-            if (boundCheck(array, a, m, b))
+            if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
+            a = leftExpSearch(array, a, m, array[m], false);
+            b = rightExpSearch(array, m, b, array[m - 1], true);
+            if (Reads.compareValues(array[a], array[b - 1]) > 0) {
+                rotate(array, a, m, b);
                 return;
-            a = expSearch(array, a, m, array[m], true, false);
-            b = expSearch(array, m, b, array[m - 1], false, true);
-            if (checkReverseBounds(array, a, m, b))
-                return;
+            }
         }
         if (Math.min(m - a, b - m) <= 8) {
-            if (m - a > b - m)
-                inPlaceMergeBW(array, a, m, b);
-            else
-                inPlaceMergeFW(array, a, m, b);
-        } else if (b - m < m - a)
-            mergeBW(array, a, m, b, p);
-        else
-            mergeFW(array, a, m, b, p);
+            if (m - a > b - m) inPlaceMergeBW(array, a, m, b);
+            else inPlaceMergeFW(array, a, m, b);
+        } else if (b - m < m - a) mergeBW(array, a, m, b, p);
+        else mergeFW(array, a, m, b, p);
     }
 
-    public void pingPongMerge(int[] array, int a, int m1, int m2, int m3, int b, int p) {
-        if (Reads.compareValues(array[m1-1], array[m1]) > 0
-        || (m3 < b && Reads.compareValues(array[m3-1], array[m3]) > 0)) {
-            int p1 = p + m2-a, pEnd = p + b-a;
-            mergeTo(array, a, m1, m2, p);
-            mergeTo(array, m2, m3, b, p1);
-            mergeTo(array, p, p1, pEnd, a);
-        }
-        else merge(array, a, m2, b, p, true);
-    }
-
-    public void rotateMerge(int[] array, int a, int m, int b, int p, int pLen, int depth) {
-        Writes.recordDepth(depth);
+    public void rotateMerge(int[] array, int a, int m, int b, int p, int pLen) {
         while (Math.min(m - a, b - m) > pLen) {
-            if (boundCheck(array, a, m, b))
+            if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
+            a = leftExpSearch(array, a, m, array[m], false);
+            b = rightExpSearch(array, m, b, array[m - 1], true);
+            if (Reads.compareValues(array[a], array[b - 1]) > 0) {
+                rotate(array, a, m, b);
                 return;
-            a = expSearch(array, a, m, array[m], true, false);
-            b = expSearch(array, m, b, array[m - 1], false, true);
-            if (checkReverseBounds(array, a, m, b))
-                return;
+            }
             if (Math.min(m - a, b - m) <= pLen) {
                 merge(array, a, m, b, p, false);
                 return;
             }
             int m1, m2, m3;
-            if (m-a >= b-m) {
-                m1 = a+(m-a)/2;
+            if (m - a >= b - m) {
+                m1 = a + (m - a) / 2;
                 m2 = binSearch(array, m, b, array[m1], true);
-                m3 = m1+(m2-m);
-            }
-            else {
-                m2 = m+(b-m)/2;
+                m3 = m1 + (m2 - m);
+            } else {
+                m2 = m + (b - m) / 2;
                 m1 = binSearch(array, a, m, array[m2], false);
-                m3 = (m2++)-(m-m1);
+                m3 = (m2++) - (m - m1);
             }
             rotate(array, m1, m, m2);
             if (b - (m3 + 1) < m3 - a) {
-                Writes.recursion();
-                rotateMerge(array, m3 + 1, m2, b, p, pLen, depth + 1);
+                rotateMerge(array, m3 + 1, m2, b, p, pLen);
                 m = m1;
                 b = m3;
             } else {
-                Writes.recursion();
-                rotateMerge(array, a, m1, m3, p, pLen, depth + 1);
+                rotateMerge(array, a, m1, m3, p, pLen);
                 m = m2;
                 a = m3 + 1;
             }
@@ -462,8 +408,7 @@ public final class AyakaSort extends Sort {
     public void lazyStableSort(int[] array, int a, int b) {
         int j = b - a;
         for (; j >= 32; j = (j + 1) / 2);
-        if (buildRuns(array, a, b, j))
-            return;
+        if (buildRuns(array, a, b, j)) return;
         for (int i; j < b - a; j *= 2) {
             for (i = a; i + 2 * j <= b; i += 2 * j)
                 inPlaceMerge(array, i, i + j, i + 2 * j, true);
@@ -492,17 +437,16 @@ public final class AyakaSort extends Sort {
             if (lRun == ideal) bwBuf = false;
             else bwBuf = (rRun < 16 && lRun < 16) || rRun >= lRun;
         }
-        int keys = bwBuf ? findKeysBW(array, a, b, rRun, ideal)
-                         : findKeys(array, a, b, lRun, ideal);
-        if (keys == 1)
-            return;
+        int keys;
+        if (bwBuf) keys = findKeysBW(array, a, b, rRun, ideal);
+        else keys = findKeys(array, a, b, lRun, ideal);
+        if (keys == 1) return;
         if (keys <= 4) {
             lazyStableSort(array, a, b);
             return;
         }
         if (keys < ideal) {
-            while (bLen > keys)
-                bLen /= 2;
+            while (bLen > keys) bLen /= 2;
             keys = bLen;
         }
         int a1, b1, p;
@@ -523,21 +467,18 @@ public final class AyakaSort extends Sort {
                     merge(array, i, i + j, Math.min(i + 2 * j, b1), p, true);
             for (; j < len; j *= 2) {
                 for (i = a1; i+j < b1; i += 2*j)
-                    rotateMerge(array, i, i + j, Math.min(i + 2 * j, b1), p, bLen, 0);
+                    rotateMerge(array, i, i + j, Math.min(i + 2 * j, b1), p, bLen);
             }
         }
         insertSort(array, p, p + bLen);
         if (bwBuf) {
-            a = expSearch(array, a, b1, array[b1], true, false);
-            if (keys >= ideal/2)
-                this.redistBufferBW(array, a, b1, b);
-            else
-                inPlaceMerge(array, a, b1, b, false);
+            a = leftExpSearch(array, a, b1, array[b1], false);
+            if (keys >= ideal/2) redistBufferBW(array, a, b1, b);
+            else inPlaceMerge(array, a, b1, b, false);
         } else {
-            b = expSearch(array, a1, b, array[a1 - 1], false, true);
-            if (keys >= ideal/2) this.redistBuffer(array, a, a1, b);
-            else
-                inPlaceMerge(array, a, a1, b, false);
+            b = rightExpSearch(array, a1, b, array[a1 - 1], true);
+            if (keys >= ideal/2) redistBufferFW(array, a, a1, b);
+            else inPlaceMerge(array, a, a1, b, false);
         }
     }
 

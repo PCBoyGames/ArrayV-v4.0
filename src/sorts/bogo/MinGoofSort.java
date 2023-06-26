@@ -68,7 +68,7 @@ public final class MinGoofSort extends BogoSorting {
             boolean finalized = false;
             for (int i = 0; i < currentLength; i++) Writes.write(array, i, min, delay, true, false);
             while (!finalized) {
-                int j = BogoSorting.randInt(0, currentLength);
+                int j = randInt(0, currentLength);
                 if (array[j] == max) {
                     for (int i = 0; i < currentLength; i++) Writes.write(array, i, min, delay, true, false);
                 }

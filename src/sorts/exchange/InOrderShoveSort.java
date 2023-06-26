@@ -29,25 +29,15 @@ final public class InOrderShoveSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 0;
-        int right = 1;
-        int pull = 0;
-        while (left < currentLength) {
+        int right;
+        for (int left = 0; left < currentLength; left++) {
             right = left + 1;
             while (right < currentLength) {
-                Highlights.markArray(1, left);
-                Highlights.markArray(2, right);
-                Delays.sleep(0.125);
-                if (Reads.compareValues(array[left], array[right]) > 0) {
-                    pull = left;
-                    while (pull + 1 < currentLength) {
-                        Writes.swap(array, pull, pull + 1, 0.125, true, false);
-                        pull++;
-                    }
+                if (Reads.compareIndices(array, left, right, 0.01, true) > 0) {
+                    Writes.multiSwap(array, left, currentLength - 1, 0.01, true, false);
                     right = left + 1;
                 } else right++;
             }
-            left++;
         }
     }
 }

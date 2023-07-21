@@ -31,8 +31,7 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
     }
 
     protected void weave(int[] array, int[] pieces, int start, int len, int base) {
-        int writeval = 0;
-        for (int i = 0; i < base; i++) {
+        for (int i = 0, writeval = 0; i < base; i++) {
             for (int j = i; j < len; j += base) {
                 Highlights.markArray(1, start + writeval);
                 Highlights.markArray(2, start + j);
@@ -45,28 +44,11 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
     }
 
     protected void circle(int[] array, int a, int b) {
-        int left = a;
-        int right = b;
-        while (left < right) {
-            Highlights.markArray(1, left);
-            Highlights.markArray(2, right);
-            Delays.sleep(0.25);
-            if (Reads.compareValues(array[left], array[right]) > 0) Writes.swap(array, left, right, 0.25, true, false);
-            left++;
-            right--;
-        }
+        for (; a < b; a++, b--) if (Reads.compareIndices(array, a, b, 0.25, true) > 0) Writes.swap(array, a, b, 0.25, true, false);
     }
 
     protected void circlepass(int[] array, int start, int len) {
-        int gap = len;
-        while (gap > 1) {
-            int offset = 0;
-            while (offset + (gap - 1) < len) {
-                circle(array, start + offset, start + offset + (gap - 1));
-                offset += gap;
-            }
-            gap /= 2;
-        }
+        for (int gap = len; gap > 1; gap /= 2) for (int offset = 0; offset + (gap - 1) < len; offset += gap) circle(array, start + offset, start + offset + (gap - 1));
     }
 
     protected void method(int[] array, int start, int len) {
@@ -81,21 +63,12 @@ final public class TransposeModuloWeaveMergeSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int base) {
         int len = 2;
-        int index = 0;
-        while (len < currentLength) {
-            index = 0;
-            while (index + len - 1 < currentLength) {
-                if (len == 2) {
-                    Highlights.markArray(1, index);
-                    Highlights.markArray(2, index + 1);
-                    Delays.sleep(0.25);
-                    if (Reads.compareValues(array[index], array[index + 1]) > 0) Writes.swap(array, index, index + 1, 0.25, true, false);
-                }
+        for (; len < currentLength; len *= 2) {
+            for (int index = 0; index + len - 1 < currentLength; index += len) {
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, 0.25, true) > 0) Writes.swap(array, index, index + 1, 0.25, true, false);}
                 else method(array, index, len);
                 Highlights.clearAllMarks();
-                index += len;
             }
-            len *= 2;
         }
         if (len == currentLength) method(array, 0, currentLength);
         else quad.runSort(array, currentLength, 0);

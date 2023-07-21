@@ -52,22 +52,9 @@ final public class SwaplessHeadPullSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int i = 1;
-        int pull = 1;
-        int item = 0;
-        while (i + 1 <= currentLength) {
-            Highlights.markArray(1, i - 1);
-            Highlights.markArray(2, i);
-            Delays.sleep(0.1);
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                pull = i;
-                item = array[pull];
-                Highlights.clearMark(2);
-                while (pull > 0) {
-                    Writes.write(array, pull, array[pull - 1], 0.1, true, false);
-                    pull--;
-                }
-                Writes.write(array, 0, item, 0.1, true, false);
+        for (int i = 1; i + 1 <= currentLength;) {
+            if (Reads.compareIndices(array, i - 1, i, 0.1, true) > 0) {
+                Writes.insert(array, i, 0, 0.1, true, false);
                 i = 1;
             } else i++;
         }

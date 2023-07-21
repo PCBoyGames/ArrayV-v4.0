@@ -1,7 +1,7 @@
 package sorts.exchange;
 
 import main.ArrayVisualizer;
-import sorts.merge.NaturalRotateMergeSort;
+import sorts.merge.OptimizedNaturalRotateMergeSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
@@ -53,7 +53,7 @@ final public class LoopSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int looping = 0;
         while (looping < currentLength - 1) looping = loot(array, looping, currentLength);
-        NaturalRotateMergeSort merge = new NaturalRotateMergeSort(arrayVisualizer);
+        OptimizedNaturalRotateMergeSort merge = new OptimizedNaturalRotateMergeSort(arrayVisualizer);
         merge.runSort(array, currentLength, 0);
     }
 }

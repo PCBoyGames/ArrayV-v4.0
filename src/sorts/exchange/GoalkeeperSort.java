@@ -49,8 +49,7 @@ final public class GoalkeeperSort extends Sort {
                 for (goal = 2; goal <= bound && !found; goal++) if (Reads.compareIndices(array, 0, goal, 0.05, true) < 0) found = true;
                 if (!found) {
                     Highlights.markArray(2, bound);
-                    Writes.insert(array, 0, bound, 0.05, true, false);
-                    bound--;
+                    Writes.insert(array, 0, bound--, 0.05, true, false);
                     bound = score(array, bound);
                 } else {
                     Highlights.markArray(2, goal - 1);

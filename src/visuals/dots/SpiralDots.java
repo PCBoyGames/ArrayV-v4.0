@@ -61,7 +61,7 @@ final public class SpiralDots extends Visual {
                     this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? Color.WHITE : getIntColor(array[i], Renderer.getArrayLength()));
                     this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
                 }
-                if (Highlights.containsPosition(i)) {
+                else if (Highlights.containsPosition(i)) {
                     this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? getIntColor(array[i], n, 0.25f, 1) : ArrayVisualizer.getHighlightColor());
                     this.mainRender.setStroke(ArrayVisualizer.getCustomStroke(24));
                 }

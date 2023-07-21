@@ -35,9 +35,8 @@ final public class MyoSort extends Sort {
         Highlights.markArray(1, lo);
         Highlights.markArray(2, hi);
         Delays.sleep(0.001);
-        if (hi - lo == 1) {
-            if (Reads.compareIndices(array, lo, hi, 0.001, true) > 0) Writes.swap(array, lo, hi, 0.001, true, false);
-        } else if (hi - lo > 1) {
+        if (hi - lo == 1) {if (Reads.compareIndices(array, lo, hi, 0.001, true) > 0) Writes.swap(array, lo, hi, 0.001, true, false);}
+        else if (hi - lo > 1) {
             if (depth > 0) {
                 for (int j = 0; j < depth; j++) {
                     for (int i = lo + 1; i < hi; i++) {

@@ -49,21 +49,9 @@ final public class HeadPullSort extends Sort {
     }
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int i = 1;
-        int pull = 1;
-        i = 1;
-        while (i + 1 <= currentLength) {
-            Highlights.markArray(1, i - 1);
-            Highlights.markArray(2, i);
-            Delays.sleep(0.1);
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                pull = i;
-                while (pull > 0) {
-                    Writes.swap(array, pull - 1, pull, 0.1, true, false);
-                    pull--;
-                }
-                i = 1;
-            } else i++;
+        for (int i = 0; i + 1 < currentLength;) {
+            if (Reads.compareIndices(array, i, i + 1, 0.1, true) > 0) Writes.multiSwap(array, i + 1, i = 0, 0.1, true, false);
+            else i++;
         }
     }
 }

@@ -32,11 +32,10 @@ public final class InstinctBubbleSort extends Sort {
         int consecSorted = 1;
         int start;
         int firstswap = 1;
-        boolean anyswaps = false;
         for (int j = currentLength - 1; j > 0; j -= consecSorted) {
             if (firstswap - 1 < 0) start = 0;
             else start = firstswap - 1;
-            anyswaps = false;
+            boolean anyswaps = false;
             consecSorted = 1;
             for (int i = start; i < j; i++) {
                 Highlights.markArray(1, i);

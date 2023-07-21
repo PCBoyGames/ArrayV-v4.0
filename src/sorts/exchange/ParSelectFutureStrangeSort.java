@@ -41,15 +41,12 @@ final public class ParSelectFutureStrangeSort extends Sort {
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -67,8 +64,7 @@ final public class ParSelectFutureStrangeSort extends Sort {
             if (lasttrust - trustlen <= Math.sqrt(lasttrust) && trustedtest && trustlen > 32) break;
             trustedtest = true;
             int lastswap = 0;
-            int offset = 0;
-            while (offset != currentLength - 1) {
+            for (int offset = 0; offset != currentLength - 1; offset++) {
                 int mult = 1;
                 if (trustlen > 1) {
                     while (offset + mult < currentLength) mult *= 2;
@@ -85,7 +81,6 @@ final public class ParSelectFutureStrangeSort extends Sort {
                     }
                 }
                 if (select != offset) Writes.swap(array, select, offset, 0.25, true, false);
-                offset++;
             }
             currentLength = lastswap + 2 < currentLength ? lastswap + 1 : currentLength - 1;
         }

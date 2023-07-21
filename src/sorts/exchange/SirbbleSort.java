@@ -28,14 +28,8 @@ final public class SirbbleSort extends Sort {
     }
 
     protected int circle(int[] array, int a, int b) {
-        int left = a;
-        int right = b;
-        while (left < right) {
-            if (Reads.compareIndices(array, left, right, 0.1, true) > 0) Writes.swap(array, left, right, 0.1, true, false);
-            left++;
-            right--;
-        }
-        return left - 1;
+        for (; a < b; a++, b--) if (Reads.compareIndices(array, a, b, 0.1, true) > 0) Writes.swap(array, a, b, 0.1, true, false);
+        return a - 1;
     }
 
     @Override

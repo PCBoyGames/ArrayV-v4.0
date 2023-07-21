@@ -30,19 +30,12 @@ final public class ReversePushSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         boolean anyswaps = true;
-        int i = currentLength;
-        int gap = 1;
         while (anyswaps) {
             anyswaps = false;
-            i = currentLength;
-            gap = 1;
-            while (i - gap > 0) {
-                Highlights.markArray(1, (i - 1) - gap);
-                Highlights.markArray(2, i - 1);
-                Delays.sleep(0.01);
-                if (Reads.compareValues(array[(i - 1) - gap], array[i - 1]) > 0) {
-                    for (int j = 1; j <= gap; j++) Writes.swap(array, i - 1, (i - 1) - j, 0.01, true, false);
-                    anyswaps = true;
+            int gap = 1;
+            for (int i = currentLength; i - gap > 0;) {
+                if (Reads.compareIndices(array, (i - 1) - gap, i - 1, 0.01, true) > 0) {
+                    for (int j = 1; j <= gap; j++) Writes.swap(array, i - 1, (i - 1) - j, 0.01, anyswaps = true, false);
                     gap++;
                 } else i--;
             }

@@ -39,25 +39,39 @@ final public class ShipperSort extends MadhouseTools {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.05);
-            while (j >= h && j - h >= a && Reads.compareValues(array[j - h], v) > 0) {
-                Highlights.markArray(1, j);
+            for (; j >= h && j - h >= a && Reads.compareValues(array[j - h], v) > 0; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.05);
-                Writes.write(array, j, array[j - h], 0.1, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.1, w = true, false);
             }
             if (w) {
-                checks = true;
                 Writes.write(array, j, v, 0.1, true, false);
+                if (h > 4) checks = true;
                 h++;
             }
         }
+    }
+
+    protected void shellPass(int[] array, int start, int end, int gap) {
+        for (int h = gap, i = h + start; i < end; i++) {
+            int v = array[i];
+            int j = i;
+            boolean w = false;
+            Highlights.markArray(1, j);
+            Highlights.markArray(2, j - h);
+            Delays.sleep(0.5);
+            for (; j >= h && j - h >= start && Reads.compareValues(array[j - h], v) == 1; j -= h) {
+                Highlights.markArray(2, j - h);
+                Writes.write(array, j, array[j - h], 0.5, w = true, false);
+            }
+            if (w) Writes.write(array, j, v, 0.5, true, false);
+        }
+        Highlights.clearAllMarks();
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int start = 0;
         while (checks) shipPass(array, start = minSorted(array, start, currentLength, 0.01, true), currentLength);
+        shellPass(array, start, currentLength, 1);
     }
 }

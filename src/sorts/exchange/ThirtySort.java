@@ -29,17 +29,9 @@ final public class ThirtySort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int dir = 1;
-        for (int i = 0; i < currentLength; i++) {
+        for (int i = 0, dir = 1; i < currentLength; i++, dir *= -1) {
             boolean escape = false;
-            for (int j = dir == 1 ? i + 1 : currentLength - 1; ((dir == 1 && j < currentLength) || (dir == -1 && j > i)) && !escape; j += dir) {
-                if (Reads.compareIndices(array, i, j, 0.001, true) > 0) {
-                    escape = true;
-                    Writes.swap(array, i, j, 0.01, true, false);
-                    i--;
-                }
-            }
-            dir *= -1;
+            for (int j = dir == 1 ? i + 1 : currentLength - 1; ((dir == 1 && j < currentLength) || (dir == -1 && j > i)) && !escape; j += dir) if (Reads.compareIndices(array, i, j, 0.001, true) > 0) Writes.swap(array, i--, j, 0.01, escape = true, false);
         }
     }
 }

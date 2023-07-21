@@ -17,7 +17,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class CoprimeShellSort extends Sort {
     public CoprimeShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Coprime Shell Sort");
+        this.setSortListName("Coprime Shell");
         this.setRunAllSortsName("Coprime Shell Sort");
         this.setRunSortName("Coprime Shell Sort");
         this.setCategory("Insertion Sorts");
@@ -34,23 +34,19 @@ final public class CoprimeShellSort extends Sort {
         return true;
     }
 
-    protected void shellPass(int[] array, int start, int end, int gap) {
-        for (int h = gap, i = h + start; i < end; i++) {
+    protected void shellPass(int[] array, int currentLength, int gap) {
+        for (int h = gap, i = h; i < currentLength; i++) {
             int v = array[i];
             int j = i;
             boolean w = false;
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
-            Delays.sleep(0.5);
-            while (j >= h && j - h >= start && Reads.compareValues(array[j - h], v) > 0) {
-                Highlights.markArray(1, j);
+            Delays.sleep(0.25);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.5);
-                Writes.write(array, j, array[j - h], 0.5, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
-            if (w) Writes.write(array, j, v, 0.5, true, false);
+            if (w) Writes.write(array, j, v, 0.25, true, false);
         }
     }
 
@@ -70,9 +66,10 @@ final public class CoprimeShellSort extends Sort {
             }
             gaps.addLast(keeps);
         }
+        gaps.removeLast();
         System.err.println(gaps);
-        for (int i = gaps.removeLast(); !gaps.isEmpty(); i = gaps.removeLast()) shellPass(array, 0, currentLength, i);
-        shellPass(array, 0, currentLength, 1);
+        for (int i = gaps.removeLast(); !gaps.isEmpty(); i = gaps.removeLast()) shellPass(array, currentLength, i);
+        shellPass(array, currentLength, 1);
         gaps.clear();
     }
 }

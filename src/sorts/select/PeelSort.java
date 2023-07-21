@@ -30,8 +30,7 @@ final public class PeelSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int left = 0; left < currentLength; left++) {
-            int stacked = 0;
-            for (int right = currentLength - 1; right > left; right--) {
+            for (int right = currentLength - 1, stacked = 0; right > left; right--) {
                 if (Reads.compareIndices(array, left, right + stacked, 0.05, true) > 0) {
                     Highlights.markArray(3, left);
                     Writes.insert(array, right + stacked, left, 0.05, true, false);

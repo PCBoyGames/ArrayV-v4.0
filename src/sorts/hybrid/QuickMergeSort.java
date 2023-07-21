@@ -36,15 +36,15 @@ public final class QuickMergeSort extends Sort {
         setUnreasonableLimit(0);
         setBogoSort(false);
     }
-    
+
     public static int log2(int n) {
         int log = 0;
         while ((n >>= 1) != 0) ++log;
         return log;
     }
-    
+
     int threshold = 32;
-    
+
     int equ(int a, int b) {
         return ((a - b) >> 31) + ((b - a) >> 31) + 1;
     }
@@ -69,12 +69,12 @@ public final class QuickMergeSort extends Sort {
 
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int tmp;
-        if(Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
             tmp = i1;
             i1 = i0;
         } else tmp = i0;
-        if(Reads.compareIndices(array, i1, i2, 1, true) > 0) {
-            if(Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
             return i2;
         }
         return i1;
@@ -133,7 +133,7 @@ public final class QuickMergeSort extends Sort {
             Writes.write(array, i, array[i + d], 0.5, true, false);
         if (a != b) Writes.write(array, b, temp, 0.5, true, false);
     }
-    
+
     protected void mergeFWExt(int[] array, int[] tmp, int a, int m, int b) {
         int s = m - a;
         Writes.arraycopy(array, a, tmp, 0, s, 1, true, true);
@@ -159,7 +159,7 @@ public final class QuickMergeSort extends Sort {
         }
         while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
     }
-    
+
     protected void merge(int[] array, int[] buf, int a, int m, int b) {
         if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0) return;
         a = leftExpSearch(array, a, m, array[m], false);
@@ -168,7 +168,7 @@ public final class QuickMergeSort extends Sort {
         if (m - a > b - m) mergeBWExt(array, buf, a, m, b);
         else mergeFWExt(array, buf, a, m, b);
     }
-    
+
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
         if (i < b) {
@@ -217,19 +217,19 @@ public final class QuickMergeSort extends Sort {
         }
         Writes.deleteExternalArray(runs);
     }
-    
+
     protected int[] partition(int[] array, int[] buf, int a, int b, int piv) {
         Highlights.clearMark(2);
         // determines which elements do not need to be moved
         for (; a < b; a++) {
             Highlights.markArray(1, a);
             Delays.sleep(0.25);
-            if(Reads.compareValues(array[a], piv) >= 0) break;
+            if (Reads.compareValues(array[a], piv) >= 0) break;
         }
         for (; b > a; b--) {
             Highlights.markArray(1, b - 1);
             Delays.sleep(0.25);
-            if(Reads.compareValues(array[b - 1], piv) <= 0) break;
+            if (Reads.compareValues(array[b - 1], piv) <= 0) break;
         }
         // partitions the list stably
         int len = b - a;
@@ -250,7 +250,7 @@ public final class QuickMergeSort extends Sort {
         }
         return new int[] { p0, p0 + eqSize };
     }
-    
+
     void sortHelper(int[] array, int[] buf, int a, int b, int badAllowed, boolean bad, boolean doMerge) {
         if (b - a <= threshold) {
             insertSort(array, a, b);
@@ -289,7 +289,7 @@ public final class QuickMergeSort extends Sort {
             sortHelper(array, buf, pr[1], b, badAllowed, bad, true);
         }
     }
-    
+
     public void quickMergeSort(int[] array, int a, int b) {
         int len = b - a;
         int balance = 0, eq = 0, streaks = 0, dist, eqdist, loop, cnt = len, pos = a;

@@ -3,6 +3,7 @@ package sorts.templates;
 import java.util.concurrent.ThreadLocalRandom;
 
 import main.ArrayVisualizer;
+import utils.Rotations;
 
 /*
 
@@ -12,18 +13,35 @@ CODED FOR ARRAYV BY PCBOYGAMES
 - SORTING ALGORITHM MADHOUSE -
 ------------------------------
 
+CHANGELOG:
+
+MHT-1.0a (July 21, 2023)
+ - Minor rewrites and fixes.
+ - MHT now extends GrailSorting.
+   + I also decided to manage the rotation options the template uses.
+ - Add Rectangle algorithm functions.
+ - Add Rotation call functions.
+ - Add prime number functions.
+
+MHT-1.0 (June 26, 2023)
+ - Initial version.
+
 */
 /**The Madhouse Tools template contains many useful sorting algorithm development tools and utilities, brought to you in part by the Sorting Algorithm Madhouse.<p>
  * Compiled and rewritten by PCBoy.
- * @version MHT-1.0
+ * @version MHT-1.0a
  * @author Various
  */
-public abstract class MadhouseTools extends Sort {
+public abstract class MadhouseTools extends GrailSorting {
     protected MadhouseTools(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
 
-    /**Copied from the {@link BogoSorting} template to allow random integers to work alongside MadhouseTools.
+    /*-----------------------\
+    |SINCE MADHOUSE TOOLS 1.0|
+    \-----------------------*/
+
+    /**Copied from the {@link BogoSorting#randInt BogoSorting} template to allow random integers to work alongside MadhouseTools.
      * @param min The start of the range, inclusively.
      * @param max The end of the range, exclusively.
      * @return An {@code int} with a random integer in the range.
@@ -34,7 +52,7 @@ public abstract class MadhouseTools extends Sort {
         return ThreadLocalRandom.current().nextInt(min, max);
     }
 
-    /**Copied from the {@link BogoSorting} template to allow the Fisher–Yates shuffle function to work alongside MadhouseTools.
+    /**Copied from the {@link BogoSorting#bogoSwap BogoSorting} template to allow the Fisher–Yates shuffle function to work alongside MadhouseTools.
      * @param array The input array.
      * @param start The start of the range, inclusively.
      * @param end The end of the range, exclusively.
@@ -62,22 +80,22 @@ public abstract class MadhouseTools extends Sort {
      * @since MHT-1.0
     */
     public int[] maxSortedW(int[] array, int start, int end, double delay, boolean mark) {
-        int a = end - 1;
-        int b = end - 1;
+        int i = end - 1;
+        end--;
         boolean segment = true;
         while (segment) {
-            if (b - 1 < start) return new int[] {start, -1};
-            if (Reads.compareIndices(array, b - 1, b, delay, mark) > 0) segment = false;
-            else b--;
+            if (i - 1 < start) return new int[] {start, -1};
+            if (Reads.compareIndices(array, i - 1, i, delay, mark) > 0) segment = false;
+            else i--;
         }
-        int sel = b - 1;
-        for (int s = b - 2; s >= start; s--) if (Reads.compareIndices(array, sel, s, delay, mark) < 0) sel = s;
+        int sel = i - 1;
+        for (int s = i - 2; s >= start; s--) if (Reads.compareIndices(array, sel, s, delay, mark) < 0) sel = s;
         int where = sel;
-        while (Reads.compareIndices(array, sel, a, delay, mark) <= 0) {
-            a--;
-            if (a < start) break;
+        while (Reads.compareIndices(array, sel, end, delay, mark) <= 0) {
+            end--;
+            if (end < start) break;
         }
-        return new int[] {a + 1, where};
+        return new int[] {end + 1, where};
     }
 
     /**Defines the first unsorted position from the maximums in {@code O(n)}, given input {@code array} from bounds {@code [start, end)}.
@@ -195,14 +213,13 @@ public abstract class MadhouseTools extends Sort {
                 else if (i < start + 3) Writes.swap(array, start, i, delay * 2, mark, aux);
                 else Writes.reversal(array, start, i, delay * 2, mark, aux);
             }
-            return i + 1;
         } else {
             while (cmp <= 0 && i < end) {
                 i++;
                 if (i + 1 < end) cmp = Reads.compareIndices(array, i, i + 1, delay, mark);
             }
-            return i + 1;
         }
+        return Math.min(i + 1, end);
     }
 
     /**Defines a run from {@code array} starting at {@code start}, and if backward, reverses it.
@@ -229,7 +246,7 @@ public abstract class MadhouseTools extends Sort {
         }
         else while (i < end && Reads.compareIndices(array, i - 1, i, delay, mark) <= 0) i++;
         Highlights.clearMark(2);
-        return i;
+        return Math.min(i, end);
     }
 
     /**Performs a Pattern-Defeating operation that flips reversed runs from {@code array} between {@code (start, end]}.
@@ -256,7 +273,7 @@ public abstract class MadhouseTools extends Sort {
         return noSort;
     }
 
-    /**Defines the translated value of {@code val} in the array.
+    /**Defines the translated value of {@code value} in the array.
      * @param value The value to translate.
      * @return An {@code int} with the real value translated from the input.
      * @author Gaming32
@@ -272,6 +289,7 @@ public abstract class MadhouseTools extends Sort {
      * @param start The start of the input bounds, inclusively.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
      * @return An {@code int} with the resulting disparity.
      * @author Control
      * @since MHT-1.0
@@ -295,7 +313,6 @@ public abstract class MadhouseTools extends Sort {
             maximum = stableReturn(array[start + j]);
             while (maximum <= stableReturn(array[start + i]) && i >= p) i--;
             if (stableReturn(array[start + j]) > stableReturn(array[start + i]) && p < i - j) p = i - j;
-            j--;
         }
         Writes.changeAllocAmount(-(end - start));
         return p;
@@ -373,6 +390,7 @@ public abstract class MadhouseTools extends Sort {
             if (c < 0 || (left && c == 0)) end = m;
             else start = m + 1;
         }
+        Highlights.clearAllMarks();
         return start;
     }
 
@@ -434,5 +452,175 @@ public abstract class MadhouseTools extends Sort {
         int a1 = start + i / 2;
         int b1 = Math.min(end, start - 1 + i);
         return binarySearch(array, a1, b1, value, left, delay, mark);
+    }
+
+    /*------------------------\
+    |SINCE MADHOUSE TOOLS 1.0a|
+    \------------------------*/
+
+    /**Defines the dimensions of the square-most rectangle that contains an area of exactly {@code x}.
+     * @param x The area of the rectangle.
+     * @return An {@code int[]} with two values:<ul><li>{@code [0]}: the longer side length.</li><li>{@code [1]}: the shorter side length.</li></ul>
+     * @author PCBoy
+     * @since MHT-1.0a
+    */
+    public int[] getRectangleDimensions(int x) {
+        int a = x;
+        for (int p = (int) Math.ceil(Math.sqrt(x)); p < x; p++) {
+            if (x % p == 0) {
+                a = p;
+                break;
+            }
+        }
+        int b = x / a;
+        return new int[] {a, b};
+    }
+
+    /**Defines whether or not actions on indexes {@code a} and {@code b} of an {@code x}-by-{@code y} Rectangle sort are valid actions.
+     * @param x The length of the rectangle.
+     * @param y The height of the rectangle.
+     * @param a An index to check.
+     * @param b Another index to check.
+     * @return A {@code boolean}, whether indexes {@code a} and {@code b} are along a straight line inside the rectangle.
+     * @author PCBoy
+     * @since MHT-1.0a
+    */
+    public boolean isValidRectangleAction(int x, int y, int a, int b) {
+        if (a >= x * y || b >= x * y) return false;
+        else if (Math.abs(b - a) < x) {if (Math.floor(a / x) != Math.floor(b / x)) return false;}
+        else if (a % x != b % x) return false;
+        return true;
+    }
+
+    /**Performs an {@code array} rotation using a combination of Holy Gries-Mills and Contrev rotations.<p>
+     * This uses a length-based format. For the index format, use {@code rotateIndexed} instead.
+     * @param array The input array.
+     * @param pos The starting position of the rotation, inclusively.
+     * @param lenA The first length of the rotation, the subarray to move tailward.
+     * @param lenB The second length of the rotation, the subarray to move headward.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author PCBoy
+     * @author Team Holy Grail
+     * @author David Gries
+     * @author Harlan Mills
+     * @author Scandum
+     * @since MHT-1.0a
+    */
+    public void rotate(int[] array, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) {
+        Rotations.adaptable(array, pos, lenA, lenB, delay, mark, aux);
+    }
+
+    /**Replacement code for {@link GrailSorting#grailRotate} with a combination of Holy Gries-Mills and Contrev rotations.<p>
+     * This uses the same delay factor, mark setting, and aux setting parameters as {@link GrailSorting#grailSwap the original Grail swap code}. To customize these, use {@code rotate} directly or {@code rotateIndexed} instead.
+     * @param array The input array.
+     * @param pos The starting position of the rotation, inclusively.
+     * @param lenA The first length of the rotation, the subarray to move tailward.
+     * @param lenB The second length of the rotation, the subarray to move headward.
+     * @author PCBoy
+     * @author Team Holy Grail
+     * @author David Gries
+     * @author Harlan Mills
+     * @author Scandum
+     * @since MHT-1.0a
+    */
+    public void grailRotate(int[] array, int pos, int lenA, int lenB) {
+        rotate(array, pos, lenA, lenB, 1, true, false);
+    }
+
+    /**Performs an {@code array} rotation using a combination of Holy Gries-Mills and Contrev rotations.<p>
+     * This uses an index-based format. For the length format, use {@code rotate} directly instead.
+     * @param array The input array.
+     * @param a The starting position of the rotation, inclusively.
+     * @param b The second position of the rotation, indicating a split in subarrays. The index inclusively begins the second subarray, and exclusively ends the first.
+     * @param c The end position of the rotation, exclusively.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author PCBoy
+     * @author Team Holy Grail
+     * @author David Gries
+     * @author Harlan Mills
+     * @author Scandum
+     * @since MHT-1.0a
+    */
+    public void rotateIndexed(int[] array, int a, int b, int c, double delay, boolean mark, boolean aux) {
+        rotate(array, a, b - a, c - b, delay, mark, aux);
+    }
+
+    /**Defines a prime number less than {@code n}.
+     * @param n The initial number.
+     * @return An {@code int}, with the first prime number that is less than the input.<ul><li>Special Case: Returns {@code 1} if {@code n <= 2}.</li></ul>
+     * @author PCBoy
+     * @since MHT-1.0a
+     */
+    public int lessPrime(int n) {
+        boolean broken = false;
+        if (n <= 2) return 1;
+        while (!broken) {
+            n--;
+            for (int i = (int) Math.ceil(Math.sqrt(n)); i < n; i++) {
+                if (n % i == 0) break;
+                if (i == n - 1) broken = true;
+            }
+        }
+        return n;
+    }
+
+    /**Defines a prime number greater than {@code n}.
+     * @param n The initial number.
+     * @return An {@code int}, with the first prime number that is greater than the input.
+     * @author PCBoy
+     * @since MHT-1.0a
+     */
+    public int greaterPrime(int n) {
+        boolean broken = false;
+        while (!broken) {
+            n++;
+            for (int i = (int) Math.ceil(Math.sqrt(n)); i < n; i++) {
+                if (n % i == 0) break;
+                if (i == n - 1) broken = true;
+            }
+        }
+        return n;
+    }
+
+    /**Defines whether or not the two inputs {@code a} and {@code b} are coprime, meaning there are no prime factors in common.
+     * @param a The first number to check.
+     * @param b The second number to check.
+     * @return A {@code boolean}, whether {@code a} and {@code b} are coprime.
+     * @author PCBoy
+     * @since MHT-1.0a
+     */
+    public boolean coprime(int a, int b) {
+        for (int i = 2; i <= Math.min(a, b); i++) if (a % i == 0 && b % i == 0) return false;
+        return true;
+    }
+
+    /**Defines the prime number lowest in the prime factor tree of {@code n}.
+     * @param n The initial number.
+     * @return An {@code int}, with the first prime number that is in the factor tree.
+     * @author PCBoy
+     * @since MHT-1.0a
+     */
+    public int lowPrime(int n) {
+        if (n >= 2) for (int i = 2; i < n; i++) if (n % i == 0) return i;
+        return n;
+    }
+
+    /**Defines the prime number highest in the prime factor tree of {@code n}.
+     * @param n The initial number.
+     * @return An {@code int}, with the last prime number that is in the factor tree.
+     * @author PCBoy
+     * @since MHT-1.0a
+     */
+    public int highPrime(int n) {
+        int h = lowPrime(n);
+        while (n > 1) {
+            n /= h;
+            if (n > 1) h = lowPrime(n);
+        }
+        return h;
     }
 }

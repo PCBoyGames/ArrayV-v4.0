@@ -34,25 +34,17 @@ final public class WeavedIterativePopSort extends Sort {
         gap /= 2;
         int start = 0;
         int dir = -1;
-        boolean sorted = false;
         boolean finalized = false;
         while (!finalized) {
-            sorted = false;
-            int begin = start;
-            int end = currentLength;
-            while (!sorted) {
+            boolean sorted = false;
+            for (int begin = start, end = currentLength; !sorted;) {
                 sorted = true;
                 boolean beginfound = false;
                 int last = end;
                 for (int i = begin - gap > start ? begin - gap : start; i + gap < end; i += gap) {
                     if (Reads.compareIndices(array, i, i + gap, 0.025, true) == dir) {
-                        if (!beginfound) {
-                            beginfound = true;
-                            begin = i;
-                        }
-                        last = i + gap;
-                        Writes.swap(array, i, i + gap, 0.025, true, false);
-                        sorted = false;
+                        if (!beginfound) begin = i;
+                        Writes.swap(array, i, last = i + gap, 0.025, beginfound = true, sorted = false);
                     }
                 }
                 end = last;

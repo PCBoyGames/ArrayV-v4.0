@@ -32,18 +32,14 @@ final public class PDIterativePopSort extends Sort {
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
+        for (int i = start; i < end; i++) {
+            int left = i;
             while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
-            right = i;
+            int right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);
                 else Writes.reversal(array, left, right, 0.75, true, false);
             }
-            i++;
         }
     }
 
@@ -74,11 +70,10 @@ final public class PDIterativePopSort extends Sort {
         int c = 1;
         int s;
         int f = start + ((end - start) / 2);
-        boolean a = false;
         for (int j = end - 1; j > start; j -= c) {
             if (f - 1 < start) s = start;
             else s = f - 1;
-            a = false;
+            boolean a = false;
             c = 1;
             for (int i = s; i < j; i++) {
                 int cmp = Reads.compareIndices(array, i, i + 1, 0.025, true);
@@ -97,23 +92,17 @@ final public class PDIterativePopSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int len = 2;
-        int index = 0;
-        int dir = -1;
-        while (len < currentLength) {
-            index = 0;
-            dir = -1;
-            while (index + len <= currentLength) {
+        for (int len = 2; len < currentLength; len *= 2) {
+            int index = 0;
+            int dir = -1;
+            for (; index + len <= currentLength; index += len, dir *= -1) {
                 if (len == 2) {
                     int cmp = Reads.compareIndices(array, index, index + 1, 0.25, true);
                     if (cmp == dir) Writes.swap(array, index, index + 1, 0.75, true, false);
                     else if (cmp == 0) lessunique = true;
                 } else pd(array, index, index + len, dir);
-                index += len;
-                dir *= -1;
             }
             if (index != currentLength) pd(array, index, currentLength, dir);
-            len *= 2;
         }
         pd(array, 0, currentLength, 1);
     }

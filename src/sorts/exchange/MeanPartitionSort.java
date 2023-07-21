@@ -35,12 +35,8 @@ public final class MeanPartitionSort extends Sort {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for (int i = start; i < end; i++) {
-            if (array[i] < min) {
-                min = array[i];
-            }
-            if (array[i] > max) {
-                max = array[i];
-            }
+            if (array[i] < min) min = array[i];
+            if (array[i] > max) max = array[i];
         }
         int middle = min + ((max - min) / 2) + 1;
         arrayVisualizer.setExtraHeading(" / Assumption: " + middle);
@@ -53,9 +49,8 @@ public final class MeanPartitionSort extends Sort {
             Delays.sleep(0.25);
             int cmp = Reads.compareValues(array[i], middle);
             if (cmp < 0) {
-                if (start + itemslow != i) Writes.swap(array, i, start + itemslow, 0.25, true, false);
+                if (start + itemslow != i) Writes.swap(array, i, start + itemslow, 0.25, inlow = true, false);
                 itemslow++;
-                inlow = true;
             } else {
                 Delays.sleep(0.25);
                 inhigh = true;

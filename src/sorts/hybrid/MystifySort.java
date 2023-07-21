@@ -32,7 +32,7 @@ final public class MystifySort extends Sort {
         this.setQuestion("Enter the base for this sort:", 2);
     }
 
-    private void shellPass(int[] array, int currentLength, int gap) {
+    protected void shellPass(int[] array, int currentLength, int gap) {
         for (int h = gap, i = h; i < currentLength; i++) {
             int v = array[i];
             int j = i;
@@ -40,13 +40,9 @@ final public class MystifySort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
             if (w) Writes.write(array, j, v, 0.25, true, false);
         }

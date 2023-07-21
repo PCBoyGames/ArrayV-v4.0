@@ -27,18 +27,6 @@ final public class SplitCenterSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int way = 1;
-        int i = 1;
-        for (int r = 1; r < currentLength; r++) {
-            i = (int) Math.floor(currentLength / 2);
-            while (i < currentLength && i > 0) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, i);
-                Delays.sleep(0.005);
-                if (Reads.compareValues(array[i - 1], array[i]) > 0) Writes.swap(array, i - 1, i, 0.005, true, false);
-                i += way;
-            }
-            way *= -1;
-        }
-
+        for (int r = 1; r < currentLength; r++, way *= -1) for (int i = (int) Math.floor(currentLength / 2); i < currentLength && i > 0; i += way) if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) Writes.swap(array, i - 1, i, 0.005, true, false);
     }
 }

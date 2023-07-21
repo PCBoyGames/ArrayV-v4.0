@@ -51,15 +51,12 @@ public final class SimpleArgoSort extends Sort {
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -70,21 +67,17 @@ public final class SimpleArgoSort extends Sort {
         return swaps;
     }
 
-    protected void shellPass(int[] array, int currentLength, int gap) {
-        for (int h = gap, i = h; i < currentLength; i++) {
+    protected void shellPass(int[] array, int end, int gap) {
+        for (int h = gap, i = h; i < end; i++) {
             int v = array[i];
             int j = i;
             boolean w = false;
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
             if (w) Writes.write(array, j, v, 0.25, true, false);
         }

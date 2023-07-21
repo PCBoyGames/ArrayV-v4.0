@@ -50,9 +50,7 @@ final public class SearchSort extends Sort {
                 if (Reads.compareIndices(array, i, i + 1, 0.5, true) <= 0) i++;
                 else verify = false;
             }
-            if (i + 1 < currentLength) {
-                Writes.swap(array, i + 1, binarySearch(array, 0, i, array[i + 1]), 0.5, true, false);
-            }
+            if (i + 1 < currentLength) Writes.swap(array, i + 1, binarySearch(array, 0, i, array[i + 1]), 0.5, true, false);
         }
     }
 }

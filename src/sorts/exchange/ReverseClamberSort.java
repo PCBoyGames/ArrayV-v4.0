@@ -29,15 +29,6 @@ final public class ReverseClamberSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = currentLength - 2;
-        int right = currentLength - 1;
-        while (left >= 0) {
-            right = currentLength - 1;
-            while (right > left) {
-                if (Reads.compareIndices(array, left, right, 0.1, true) > 0) Writes.swap(array, left, right, 0.1, true, false);
-                right--;
-            }
-            left--;
-        }
+        for (int i = currentLength - 2; i >= 0; i--) for (int j = currentLength - 1; j > i; j--) if (Reads.compareIndices(array, i, j, 0.1, true) > 0) Writes.swap(array, i, j, 0.1, true, false);
     }
 }

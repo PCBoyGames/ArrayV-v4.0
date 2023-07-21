@@ -57,20 +57,11 @@ final public class PDBinaryClamberSort extends Sort {
             if (reverse > 0) Writes.swap(array, 0, reverse, 0.2, true, false);
             else pd = false;
         }
-        int left = 0;
-        int right = pd ? reverse + 1 : 2;
-        while (right < currentLength) {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            Delays.sleep(1);
-            if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-                left = binarySearch(array, 0, right - 1, array[right]);
-                while (left < right) {
-                    Writes.swap(array, left, right, 0.2, true, false);
-                    left++;
-                }
+        for (int right = pd ? reverse + 1 : 2; right < currentLength; right++) {
+            if (Reads.compareIndices(array, right - 1, right, 0.2, true) > 0) {
+                int left = binarySearch(array, 0, right - 1, array[right]);
+                while (left < right) Writes.swap(array, left++, right, 0.2, true, false);
             }
-            right++;
         }
     }
 }

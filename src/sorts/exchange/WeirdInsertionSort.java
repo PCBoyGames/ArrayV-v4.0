@@ -35,14 +35,7 @@ final public class WeirdInsertionSort extends Sort {
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
-            for (int i = 1; i < currentLength; i++) {
-                int j = i;
-                while (j > 0 && Reads.compareIndices(array, j - 1, j, 0.05, true) > 0) {
-                    Writes.swap(array, i, j - 1, 0.05, true, false);
-                    j--;
-                    sorted = false;
-                }
-            }
+            for (int i = 1; i < currentLength; i++) for (int j = i; j > 0 && Reads.compareIndices(array, j - 1, j, 0.05, true) > 0; j--) Writes.swap(array, i, j - 1, 0.05, true, sorted = false);
         }
     }
 }

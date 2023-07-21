@@ -63,9 +63,8 @@ final public class OptimizedSmartSafeStalinSort extends Sort {
                     }
                     else {
                         Highlights.markArray(2, p);
-                        if (p != m) {
-                            Writes.write(array, p++, array[m], 0.5, false, false);
-                        } else p++;
+                        if (p != m) Writes.write(array, p++, array[m], 0.5, false, false);
+                        else p++;
                         pass = false;
                     }
                 }

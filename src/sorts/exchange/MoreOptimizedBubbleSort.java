@@ -32,11 +32,10 @@ public final class MoreOptimizedBubbleSort extends Sort {
         int c = 1;
         int s;
         int f = 1;
-        boolean a = false;
         for (int j = currentLength - 1; j > 0; j -= c) {
             if (f - 1 < 0) s = 0;
             else s = f - 1;
-            a = false;
+            boolean a = false;
             c = 1;
             for (int i = s; i < j; i++) {
                 if (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0) {

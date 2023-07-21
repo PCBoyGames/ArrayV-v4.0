@@ -28,19 +28,10 @@ final public class PopPopSort extends Sort {
     }
 
     protected void bubble(int[] array, int start, int end, int dir) {
-        int i = start;
-        int j = start;
         int lastswap = end - 1;
         while (lastswap >= start + 1) {
-            i = start;
-            j = start;
-            while (i <= lastswap) {
-                if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) {
-                    Writes.swap(array, i - 1, i, 0.1, true, false);
-                    j = i;
-                }
-                i++;
-            }
+            int j = start;
+            for (int i = start; i <= lastswap; i++) if (Reads.compareIndices(array, i - 1, i, 0.1, true) == dir) Writes.swap(array, i - 1, j = i, 0.1, true, false);
             lastswap = j;
         }
     }

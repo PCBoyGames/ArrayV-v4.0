@@ -48,9 +48,7 @@ final public class LazionSort extends GrailSorting {
 
     protected void merge(int[] array, int start, int end, int base) {
         int blockLen = (end - start) / base;
-        for (int i = start; i + blockLen < end; i += blockLen) {
-            grailMergeWithoutBuffer(array, start, i - start + blockLen, blockLen);
-        }
+        for (int i = start; i + blockLen < end; i += blockLen) grailMergeWithoutBuffer(array, start, i - start + blockLen, blockLen);
     }
 
     protected void nonBn(int[] array, int start, int end) {
@@ -59,15 +57,10 @@ final public class LazionSort extends GrailSorting {
 
     protected void mergesLen(int[] array, int start, int end, int lengthstart, int base) {
         int len = lengthstart;
-        int index = start;
-        while (len < end - start) {
-            index = start;
-            while (index + len <= end) {
-                merge(array, index, index + len, base);
-                index += len;
-            }
+        for (; len < end - start; len *= base) {
+            int index = start;
+            for (; index + len <= end; index += len) merge(array, index, index + len, base);
             if (index != end) nonBn(array, index, end);
-            len *= base;
         }
         if (len == end - start) merge(array, start, end, base);
         else nonBn(array, start, end);
@@ -77,9 +70,7 @@ final public class LazionSort extends GrailSorting {
     public void runSort(int[] array, int currentLength, int base) {
         int blockLen = powlte((int) Math.sqrt(currentLength), base);
         int i;
-        for (i = 0; i + blockLen <= currentLength; i += blockLen) {
-            binsert.pdbinsert(array, i, i + blockLen, 0.5, false);
-        }
+        for (i = 0; i + blockLen <= currentLength; i += blockLen) binsert.pdbinsert(array, i, i + blockLen, 0.5, false);
         if (i < currentLength) binsert.pdbinsert(array, i, currentLength, 0.5, false);
         mergesLen(array, 0, currentLength, blockLen, base);
     }

@@ -35,12 +35,8 @@ public final class OOPSMeanPartitionSort extends Sort {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for (int i = start; i < end; i++) {
-            if (array[i] < min) {
-                min = array[i];
-            }
-            if (array[i] > max) {
-                max = array[i];
-            }
+            if (array[i] < min) min = array[i];
+            if (array[i] > max) max = array[i];
         }
         int[] low = Writes.createExternalArray(end - start);
         int[] high = Writes.createExternalArray(end - start);
@@ -53,15 +49,8 @@ public final class OOPSMeanPartitionSort extends Sort {
         for (int i = start; i < end; i++) {
             Highlights.markArray(1, i);
             int cmp = Reads.compareValues(array[i], middle);
-            if (cmp < 0) {
-                Writes.write(low, itemslow, array[i], 0.25, false, true);
-                itemslow++;
-                inlow = true;
-            } else {
-                Writes.write(high, itemshigh, array[i], 0.25, false, true);
-                itemshigh++;
-                inhigh = true;
-            }
+            if (cmp < 0) Writes.write(low, itemslow++, array[i], 0.25, false, inlow = true);
+            else Writes.write(high, itemshigh++, array[i], 0.25, false, inhigh = true);
         }
         Writes.arraycopy(low, 0, array, start, itemslow, 0.25, true, false);
         Writes.arraycopy(high, 0, array, start + itemslow, itemshigh, 0.25, true, false);

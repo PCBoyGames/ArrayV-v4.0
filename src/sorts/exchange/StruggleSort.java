@@ -33,7 +33,7 @@ public final class StruggleSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private void struggle(int[] array, int a, int b){
+    private void struggle(int[] array, int a, int b) {
         boolean sorted = false;
         while (!sorted) {
             sorted = true;

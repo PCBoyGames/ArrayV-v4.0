@@ -29,34 +29,19 @@ final public class NaturalHeadPullSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int i = 1;
-        int pull = 1;
         int verifyi = 1;
-        boolean currentswap = true;
         boolean verifypass = false;
         while (!verifypass) {
-            i = verifyi;
-            currentswap = true;
+            int i = verifyi;
+            boolean currentswap = true;
             while (i < currentLength && currentswap) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, i);
-                Delays.sleep(0.01);
-                if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                    pull = i;
-                    while (pull >= 1) {
-                        Writes.swap(array, pull - 1, pull, 0.01, true, false);
-                        pull--;
-                    }
-                    i++;
-                } else currentswap = false;
+                if (Reads.compareIndices(array, i - 1, i, 0.01, true) > 0) Writes.multiSwap(array, i++, 0, 0.01, true, false);
+                else currentswap = false;
             }
             verifyi = 1;
             verifypass = true;
             while (verifyi < currentLength && verifypass) {
-                Highlights.markArray(1, verifyi - 1);
-                Highlights.markArray(2, verifyi);
-                Delays.sleep(0.01);
-                if (Reads.compareValues(array[verifyi - 1], array[verifyi]) <= 0) verifyi++;
+                if (Reads.compareIndices(array, verifyi - 1, verifyi, 0.01, true) <= 0) verifyi++;
                 else verifypass = false;
             }
         }

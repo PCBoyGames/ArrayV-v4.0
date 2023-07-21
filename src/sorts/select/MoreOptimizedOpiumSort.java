@@ -46,10 +46,7 @@ public final class MoreOptimizedOpiumSort extends MadhouseTools {
         if (domax) end = maxSorted(array, start, end, 0.1, true);
         int[] collect = Writes.createExternalArray(end - start);
         for (int j = 0; j < end - start; j++) collect[j] = -1;
-        int collected = 0;
-        int j = minSorted(array, start, end, 0.1, true);
-        int h = (where = 0);
-        for (int i = j; i < end; j = where) {
+        for (int j = minSorted(array, start, end, 0.1, true), h = (where = 0), i = j, collected = 0; i < end; j = where) {
             if (j >= end) {
                 for (int k = i; k <= h; k++) {
                     Writes.write(array, k, collect[k - i], 0.1, true, false);

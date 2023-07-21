@@ -35,12 +35,8 @@ public final class StableMeanPartitionSort extends Sort {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for (int i = start; i < end; i++) {
-            if (array[i] < min) {
-                min = array[i];
-            }
-            if (array[i] > max) {
-                max = array[i];
-            }
+            if (array[i] < min) min = array[i];
+            if (array[i] > max) max = array[i];
         }
         int middle = min + ((max - min) / 2) + 1;
         arrayVisualizer.setExtraHeading(" / Assumption: " + middle);
@@ -52,15 +48,8 @@ public final class StableMeanPartitionSort extends Sort {
             Delays.sleep(0.25);
             int cmp = Reads.compareValues(array[i], middle);
             if (cmp < 0) {
-                int item = array[i];
-                boolean w = false;
-                for (int j = i; j > start + itemslow; j--) {
-                    Writes.write(array, j, array[j - 1], 0.025, true, false);
-                    w = true;
-                }
-                if (w) Writes.write(array, start + itemslow, item, 0.025, true, false);
+                Writes.insert(array, i, start + itemslow, 0.025, inlow = true, false);
                 itemslow++;
-                inlow = true;
             } else inhigh = true;
         }
         return itemslow;

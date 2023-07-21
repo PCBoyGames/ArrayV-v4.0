@@ -29,24 +29,12 @@ final public class StableForwardRunShoveSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 1;
-        int right = currentLength;
-        int pull = 1;
-        while (left != currentLength) {
-            right = currentLength;
+        for (int left = 1; left != currentLength; left++) {
+            int right = currentLength;
             while (left < right) {
-                Highlights.markArray(1, left - 1);
-                Highlights.markArray(2, right - 1);
-                Delays.sleep(0.0125);
-                if (Reads.compareValues(array[left - 1], array[right - 1]) > 0) {
-                    pull = left;
-                    while (pull < right) {
-                        if (Reads.compareValues(array[pull - 1], array[pull]) != 0) Writes.swap(array, pull - 1, pull, 0.0125, true, false);
-                        pull++;
-                    }
-                } else right--;
+                if (Reads.compareIndices(array, left - 1, right - 1, 0.0125, true) > 0) {for (int pull = left; pull < right; pull++) if (Reads.compareIndices(array, pull - 1, pull, 0.0125, true) != 0) Writes.swap(array, pull - 1, pull, 0.0125, true, false);}
+                else right--;
             }
-            left++;
         }
     }
 }

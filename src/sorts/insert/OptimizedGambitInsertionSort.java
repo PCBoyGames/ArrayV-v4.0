@@ -33,18 +33,14 @@ final public class OptimizedGambitInsertionSort extends Sort {
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
         else Writes.reversal(array, start, end, 0.075, true, false);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
+        for (int i = start; i < end; i++) {
+            int left = i;
             while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
-            right = i;
+            int right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);
                 else Writes.reversal(array, left, right, 0.75, true, false);
             }
-            i++;
         }
     }
 
@@ -68,8 +64,7 @@ final public class OptimizedGambitInsertionSort extends Sort {
     protected int gambitSearch(int[] array, int begin, int end, int target) {
         while (true) {
             int delta = end - begin;
-            if (delta <= 0)
-                break;
+            if (delta <= 0) break;
             int p = begin + delta / 2;
             if (Reads.compareIndices(array, p, target, 0.5, true) == 0)
                 return p;
@@ -89,13 +84,7 @@ final public class OptimizedGambitInsertionSort extends Sort {
         for (int bStart = 0, bEnd = end, i = start + offset; i < end; i++) {
             if (Reads.compareIndices(array, i - 1, i, 0.25, true) > 0) {
                 int target = gambitSearch(array, bStart, bEnd, i);
-                int tmp = array[i];
-                int j = i - 1;
-                while (j >= target && array[j] > tmp) {
-                    Writes.write(array, j + 1, array[j], 0.125, true, false);
-                    j--;
-                }
-                array[j + 1] = tmp;
+                if (target < i) Writes.insert(array, i, target, 0.125, true, false);
             }
         }
     }

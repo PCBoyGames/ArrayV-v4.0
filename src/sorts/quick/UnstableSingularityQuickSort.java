@@ -90,9 +90,7 @@ final public class UnstableSingularityQuickSort extends Sort {
                 int right = left + 1;
                 int item = 1;
                 boolean brokeloop = false;
-                boolean brokencond = false;
-                boolean founditem = false;
-                for (; right <= end; right++) {
+                for (boolean founditem = false, brokencond = false; right <= end; right++) {
                     if (Reads.compareValues(pivot, array[right - 1]) > 0) {
                         Highlights.markArray(3, pivotpos);
                         Highlights.clearMark(2);

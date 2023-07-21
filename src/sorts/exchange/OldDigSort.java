@@ -58,36 +58,27 @@ final public class OldDigSort extends Sort {
         return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
     }
 
-    protected int par(int[] array, int a, int b) {
-        boolean[] max = new boolean[b - a];
-        int maximum = stablereturn(array[a]);
-        for (int i = 1; i < b - a; i++) {
-            if (stablereturn(array[a + i]) > maximum) {
-                maximum = stablereturn(array[a + i]);
+    protected int par(int[] array, int len) {
+        boolean[] max = new boolean[len];
+        int maximum = stablereturn(array[0]);
+        for (int i = 1; i < len; i++) {
+            if (stablereturn(array[i]) > maximum) {
+                maximum = stablereturn(array[i]);
                 max[i] = true;
             }
         }
-        int i = b - a - 1;
         int p = 1;
-        int j = b - a - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
-            maximum = stablereturn(array[a + j]);
-            while (maximum <= stablereturn(array[a + i]) && i >= p) i--;
-            if (stablereturn(array[a + j]) > stablereturn(array[a + i]) && p < i - j) p = i - j;
-            j--;
+            maximum = stablereturn(array[j]);
+            while (maximum <= stablereturn(array[i]) && i >= p) i--;
+            if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
         }
         return p;
     }
 
     protected void circle(int[] array, int a, int b) {
-        int left = a;
-        int right = b;
-        while (left < right) {
-            if (Reads.compareIndices(array, left, right, 0.1, true) > 0) Writes.swap(array, left, right, 0.1, true, false);
-            left++;
-            right--;
-        }
+        for (; a < b; a++, b--) if (Reads.compareIndices(array, a, b, 0.1, true) > 0) Writes.swap(array, a, b, 0.1, true, false);
     }
 
     protected int checkSegments(int[] array, int start, int end) {
@@ -125,7 +116,7 @@ final public class OldDigSort extends Sort {
         int timesdone = 0;
         for (int i = 0; i < currentLength && swap; i = lastswap) {
             lastlen = len;
-            len = par(array, 0, currentLength);
+            len = par(array, currentLength);
             arrayVisualizer.setExtraHeading(" / Par(X): " + len + " / Iteration: " + (timesdone + 1));
             swap = false;
             maxswapped = false;

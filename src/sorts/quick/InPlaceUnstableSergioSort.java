@@ -90,7 +90,7 @@ final public class InPlaceUnstableSergioSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
+            for (; j >= h && j - h >= start && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
                 Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
@@ -118,9 +118,7 @@ final public class InPlaceUnstableSergioSort extends Sort {
                 else if (cmp < 0) break;
             }
             Highlights.clearMark(2);
-            if (i < j) {
-                Writes.swap(array, i, j, 1, true, false);
-            }
+            if (i < j) Writes.swap(array, i, j, 1, true, false);
             else {
                 if (i1 == b) return new int[] {a, b};
                 else if (j < i) j++;

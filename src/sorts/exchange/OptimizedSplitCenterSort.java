@@ -30,24 +30,13 @@ final public class OptimizedSplitCenterSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int way = 1;
-        int i = 1;
         int swapless = 0;
-        int runs = 1;
-        boolean anyswaps = false;
-        while (swapless < 2 && runs < currentLength) {
-            anyswaps = false;
-            i = (int) Math.floor(currentLength / 2);
-            while (i < currentLength && i > 0) {
-                if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) {
-                    Writes.swap(array, i - 1, i, 0.005, true, false);
-                    anyswaps = true;
-                }
-                i += way;
-            }
+        for (int runs = 1; swapless < 2 && runs < currentLength; runs++) {
+            boolean anyswaps = false;
+            for (int i = (int) Math.floor(currentLength / 2); i < currentLength && i > 0; i += way) if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) Writes.swap(array, i - 1, i, 0.005, anyswaps = true, false);
             way *= -1;
             if (!anyswaps) swapless++;
             else swapless = 0;
-            runs++;
         }
     }
 }

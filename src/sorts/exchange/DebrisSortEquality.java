@@ -28,19 +28,16 @@ final public class DebrisSortEquality extends Sort {
     }
 
     protected void stableSegmentReversal(int[] array, int start, int end) {
-        Writes.reversal(array, start, end, 0.075, true, false);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
-            while (Reads.compareIndices(array, i, i + 1, 0.025, true) == 0 && i < end) i++;
-            right = i;
+        if (end - start < 3) Writes.swap(array, start, end, 0.001, true, false);
+        else Writes.reversal(array, start, end, 0.001, true, false);
+        for (int i = start; i < end; i++) {
+            int left = i;
+            while (Reads.compareIndices(array, i, i + 1, 0.001, true) == 0 && i < end) i++;
+            int right = i;
             if (left != right) {
-                if (right - left < 3) Writes.swap(array, left, right, 0.075, true, false);
-                else Writes.reversal(array, left, right, 0.075, true, false);
+                if (right - left < 3) Writes.swap(array, left, right, 0.001, true, false);
+                else Writes.reversal(array, left, right, 0.001, true, false);
             }
-            i++;
         }
     }
 

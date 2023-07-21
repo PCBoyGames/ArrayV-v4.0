@@ -51,18 +51,12 @@ public final class TableAdaBinClamberSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int[] table = Writes.createExternalArray(currentLength);
         for (int i = 0; i < currentLength; i++) Writes.write(table, i, i, 0.5, true, true);
-        int left = 0;
-        int right = 1;
-        while (right < currentLength) {
+        for (int right = 1; right < currentLength; right++) {
             if (!stableComp(array, table, right - 1, right)) {
-                left = binarySearch(array, table, 0, right - 1, right);
+                int left = binarySearch(array, table, 0, right - 1, right);
                 Highlights.clearAllMarks();
-                while (left < right) {
-                    Writes.swap(table, left, right, 0.2, true, true);
-                    left++;
-                }
+                while (left < right) Writes.swap(table, left++, right, 0.2, true, true);
             }
-            right++;
         }
         Highlights.clearAllMarks();
         for (int i = 0; i < currentLength; i++) {
@@ -75,8 +69,7 @@ public final class TableAdaBinClamberSort extends Sort {
                     Writes.write(table, j, j, 1, true, true);
                     j = next;
                     next = table[next];
-                }
-                while (Reads.compareOriginalValues(next, i) != 0);
+                } while (Reads.compareOriginalValues(next, i) != 0);
                 Writes.write(array, j, t, 1, true, false);
                 Writes.write(table, j, j, 1, true, true);
             }

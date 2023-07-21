@@ -41,10 +41,7 @@ public final class OptimizedOpiumSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int[] collect = Writes.createExternalArray(currentLength);
         for (int j = 0; j < currentLength; j++) collect[j] = -1;
-        int collected = 0;
-        int j = 0;
-        int h = 0;
-        for (int i = j; i < currentLength; j++) {
+        for (int j = 0, h = 0, i = j, collected = 0; i < currentLength; j++) {
             if (j > currentLength - 1) {
                 j = i;
                 for (int k = i; k <= h; k++) {

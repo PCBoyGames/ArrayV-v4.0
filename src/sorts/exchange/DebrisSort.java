@@ -50,9 +50,8 @@ final public class DebrisSort extends Sort {
                 }
                 int end = i;
                 if (start != end) {
-                    if (end - start < 3) Writes.swap(array, start, end, 0.075, true, false);
-                    else Writes.reversal(array, start, end, 0.075, true, false);
-                    anyrev = true;
+                    if (end - start < 3) Writes.swap(array, start, end, 0.075, anyrev = true, false);
+                    else Writes.reversal(array, start, end, 0.075, anyrev = true, false);
                 }
             }
             if (nextlast + 1 < currentLength) last = nextlast + 1;

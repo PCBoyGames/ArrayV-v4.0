@@ -29,20 +29,15 @@ final public class MobMergeSort extends Sort {
     }
 
     protected void bubble(int[] array, int start, int end) {
-        int c = 1;
-        int s;
-        int f = start;
-        boolean a = false;
-        for (int j = end - 1; j > 0; j -= c) {
+        for (int c = 1, j = end - 1, s, f = start; j > 0; j -= c) {
             if (f - 1 < start) s = start;
             else s = f - 1;
-            a = false;
+            boolean a = false;
             c = 1;
-            for (int i = s; i < j; i++) {
-                if (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0) {
-                    Writes.swap(array, i, i + 1, 0.075, true, false);
-                    if (!a) f = i;
-                    a = true;
+            for (int k = s; k < j; k++) {
+                if (Reads.compareIndices(array, k, k + 1, 0.025, true) > 0) {
+                    if (!a) f = k;
+                    Writes.swap(array, k, k + 1, 0.075, a = true, false);
                     c = 1;
                 } else c++;
             }
@@ -61,11 +56,9 @@ final public class MobMergeSort extends Sort {
         int index = 0;
         while (len <= currentLength) {
             index = 0;
-            while (index + len <= currentLength) {
-                if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, 0.025, true) > 0) Writes.swap(array, index, index + 1, 0.075, true, false);
-                } else bubble(array, index, index + len);
-                index += len;
+            for (; index + len <= currentLength; index += len) {
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, 0.025, true) > 0) Writes.swap(array, index, index + 1, 0.075, true, false);}
+                else bubble(array, index, index + len);
             }
             if (index != currentLength) bubble(array, index, currentLength);
             len *= base;

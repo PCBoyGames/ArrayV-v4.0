@@ -89,8 +89,7 @@ final public class SingularityQuickSort extends Sort {
                 int pivot = array[left - 1];
                 int originalpos = left - 1;
                 boolean brokeloop = false;
-                boolean brokencond = false;
-                for (; right <= end; right++) {
+                for (boolean brokencond = false; right <= end; right++) {
                     if (Reads.compareValues(pivot, array[right - 1]) > 0) {
                         Highlights.clearMark(2);
                         if (right - left == 1) Writes.write(array, left - 1, array[left], 0.1, true, false);

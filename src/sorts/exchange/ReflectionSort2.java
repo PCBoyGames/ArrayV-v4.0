@@ -29,24 +29,19 @@ final public class ReflectionSort2 extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int dir = 1;
-        int i = 0;
         boolean setup = false;
         boolean sorted = false;
-        while (!sorted) {
-            i = dir == 1 || !setup ? 0 : currentLength - 2;
+        for (int dir = 1; !sorted; dir *= -1) {
+            int i = dir == 1 || !setup ? 0 : currentLength - 2;
             setup = true;
             sorted = true;
-            while (i >= 0 && i < currentLength - 1) {
+            for (; i >= 0 && i < currentLength - 1; i += dir) {
                 if (Reads.compareIndices(array, i, i + 1, 0.125, true) > 0) {
-                    Writes.swap(array, i, i + 1, 0.125, true, false);
+                    Writes.swap(array, i, i + 1, 0.125, true, sorted = false);
                     dir *= -1;
                     i = (currentLength - 1) - i;
-                    sorted = false;
                 }
-                i += dir;
             }
-            dir *= -1;
         }
     }
 }

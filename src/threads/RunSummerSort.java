@@ -3,7 +3,18 @@ package threads;
 import main.ArrayManager;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.exchange.SegForwardRunShoveSort;
 import sorts.hybrid.ByproductSort;
+import sorts.insert.CappedShipperSort;
+import sorts.insert.CiuraCappedShipperSort;
+import sorts.insert.ShipperSort;
+import sorts.merge.PseudoPriorityOptimizedNaturalRotateMergeSort;
+import sorts.select.EhatSort;
+import sorts.select.QhatSort;
+import sorts.select.WharSort;
+import sorts.select.WhaySort;
+import sorts.select.WhstSort;
+import sorts.select.WjatSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -55,7 +66,7 @@ final public class RunSummerSort extends MultipleSortThread {
             else arrayVisualizer.getArrayFrame().setUniqueSlider(defaultLength);
         }
         arrayManager.refreshArray(array, arrayVisualizer.getCurrentLength(), arrayVisualizer);
-        arrayVisualizer.setHeading(sort.getRunAllSortsName() + " (" + shuffleName + ": " + inputnum + "/65)");
+        arrayVisualizer.setHeading(sort.getRunAllSortsName() + " (" + shuffleName + ": " + inputnum + "/67)");
         double sortSpeed = 1.0;
         if (defaultLength < (arrayVisualizer.getCurrentLength() / 2)) sortSpeed = defaultSpeed * Math.pow((arrayVisualizer.getCurrentLength() / 2048d), 2);
         else sortSpeed = defaultSpeed * (arrayVisualizer.getCurrentLength() / 2048d);
@@ -327,6 +338,9 @@ final public class RunSummerSort extends MultipleSortThread {
         Sort RotateSelection = new RotateSelectSort(arrayVisualizer);
         runIndividualSort(RotateSelection, 0, array, 128, 1, false, shuffleName, 16, false);
 
+        Sort OutOfPlaceRotateSelection = new OutOfPlaceRotateSelectSort(arrayVisualizer);
+        runIndividualSort(OutOfPlaceRotateSelection, 0, array, 128, 1, false, shuffleName, 16, false);
+
         Sort Opium = new OpiumSort(arrayVisualizer);
         runIndividualSort(Opium, 0, array, 128, 1, false, shuffleName, 16, false);
 
@@ -345,15 +359,49 @@ final public class RunSummerSort extends MultipleSortThread {
         Sort PDStableOpium = new PDStableOpiumSort(arrayVisualizer);
         runIndividualSort(PDStableOpium, 0, array, 128, 1, false, shuffleName, 8, alt);*/
 
-        Sort Unnamed = new ByproductSort(arrayVisualizer);
-        //for (int i = 512; i >= 2; i--)
-        runIndividualSort(Unnamed, 0, array, 128, 1, false, shuffleName, 16, alt);
+        //Sort Unnamed = new ByproductSort(arrayVisualizer);
+        //for (int i = 500; i <= 512; i++)
+        //runIndividualSort(Unnamed, 0, array, 512, 1, false, shuffleName, 16, alt);
 
         //Sort cvern = new CavernousSort(arrayVisualizer);
         //runIndividualSort(cvern, 0, array, 1024*2, 1, false, shuffleName, 16, alt);
 
-        //Sort Shipper = new ShipperSort(arrayVisualizer);
-        //runIndividualSort(Shipper, 0, array, 128, 0.5, false, shuffleName, 16, alt);
+        /*Sort Shipper = new ShipperSort(arrayVisualizer);
+        runIndividualSort(Shipper, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        Sort ShipperCap = new CappedShipperSort(arrayVisualizer);
+        runIndividualSort(ShipperCap, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        Sort ShipperCapCiura = new CiuraCappedShipperSort(arrayVisualizer);
+        runIndividualSort(ShipperCapCiura, 0, array, 512, 0.5, false, shuffleName, 16, alt);*/
+
+        /*Sort Wjat = new WjatSort(arrayVisualizer);
+        Sort Whst = new WhstSort(arrayVisualizer);
+        Sort Qhat = new QhatSort(arrayVisualizer);
+        Sort Whay = new WhaySort(arrayVisualizer);
+        Sort Whar = new WharSort(arrayVisualizer);
+        Sort Ehat = new EhatSort(arrayVisualizer);
+        for (int i = 512; i <= 512; i++) {
+            runIndividualSort(Wjat, 0, array, i, 1, false, shuffleName, 16, alt);
+            runIndividualSort(Whst, 0, array, i, 1, false, shuffleName, 16, alt);
+            runIndividualSort(Qhat, 0, array, i, 1, false, shuffleName, 16, alt);
+            runIndividualSort(Whay, 0, array, i, 1, false, shuffleName, 16, alt);
+            runIndividualSort(Whar, 0, array, i, 1, false, shuffleName, 16, alt);
+            runIndividualSort(Ehat, 0, array, i, 1, false, shuffleName, 16, alt);
+        }*/
+
+        //Sort NaturalRotateMergeSort = new sorts.merge.NaturalRotateMergeSort(arrayVisualizer);
+        //runIndividualSort(NaturalRotateMergeSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort OptimizedNaturalRotateMergeSort = new sorts.merge.OptimizedNaturalRotateMergeSort(arrayVisualizer);
+        //runIndividualSort(OptimizedNaturalRotateMergeSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        Sort PPONRM = new PseudoPriorityOptimizedNaturalRotateMergeSort(arrayVisualizer);
+        runIndividualSort(PPONRM, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort OptimizedForwardRunShoveSort = new sorts.exchange.OptimizedForwardRunShoveSort(arrayVisualizer);
+        //runIndividualSort(OptimizedForwardRunShoveSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort SegForwardRunShove = new SegForwardRunShoveSort(arrayVisualizer);
+        //runIndividualSort(SegForwardRunShove, 0, array, 512, 1, false, shuffleName, 16, alt);
 
     }
 
@@ -500,21 +548,25 @@ final public class RunSummerSort extends MultipleSortThread {
         runSort(array, "Decreasing Random", false);
         arman.setDistribution(seeds ? Distributions.SEEDED_INCREASING_RANDOM : Distributions.INCREASING_RANDOM); // 57
         runSort(array, "Increasing Random", false);
-        arman.setDistribution(Distributions.MODULO); // 58
+        arman.setDistribution(Distributions.NOISY_UNIQUES); // 58
+        runSort(array, "Noisy Uniques", false);
+        arman.setDistribution(Distributions.MODULO); // 59
         runSort(array, "Modulo Function", false);
-        arman.setDistribution(Distributions.DIGITS_PROD); // 59
+        arman.setDistribution(Distributions.DIGITS_SUM); // 60
+        runSort(array, "Sum of Digits", false);
+        arman.setDistribution(Distributions.DIGITS_PROD); // 61
         runSort(array, "Product of Digits", false);
-        arman.setDistribution(Distributions.RAMP); // 60
+        arman.setDistribution(Distributions.RAMP); // 62
         runSort(array, "Ramps", false);
-        arman.setDistribution(Distributions.TOTIENT); // 61
+        arman.setDistribution(Distributions.TOTIENT); // 63
         runSort(array, "Euler Totient Function", false);
-        arman.setDistribution(Distributions.TWPK_FOUR); // 62
+        arman.setDistribution(Distributions.TWPK_FOUR); // 64
         runSort(array, "TWPK's FOUR", false);
-        arman.setDistribution(Distributions.COLLATZ); // 63
+        arman.setDistribution(Distributions.COLLATZ); // 65
         runSort(array, "Collatz Conjecture", false);
-        arman.setDistribution(Distributions.WEIERSTRASS); // 64
+        arman.setDistribution(Distributions.WEIERSTRASS); // 66
         runSort(array, "Weierstrass Function", false);
-        arman.setDistribution(Distributions.SIERPINSKI); // 65
+        arman.setDistribution(Distributions.SIERPINSKI); // 67
         runSort(array, "Sierpinski Triangle", false);
 
         /*/

@@ -30,7 +30,7 @@ final public class SwaplessPushSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         boolean anyswaps = true;
-        int i = 1;
+        int i;
         int first = 1;
         while (anyswaps) {
             anyswaps = false;
@@ -38,16 +38,10 @@ final public class SwaplessPushSort extends Sort {
             else i = 1;
             int gap = 1;
             while (i + gap <= currentLength) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, (i - 1) + gap);
-                Delays.sleep(0.01);
-                if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
+                if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.01, true) > 0) {
                     Highlights.clearMark(2);
-                    int item = array[(i - 1) + gap];
-                    for (int j = gap; j > 0; j--) Writes.write(array, i - 1 + j, array[i - 1 + j - 1], 0.01, true, false);
-                    Writes.write(array, (i - 1), item, 0.01, true, false);
                     if (!anyswaps) first = i;
-                    anyswaps = true;
+                    Writes.insert(array, i - 1 + gap, i - 1, 0.01, anyswaps = true, false);
                     gap++;
                 } else i++;
             }

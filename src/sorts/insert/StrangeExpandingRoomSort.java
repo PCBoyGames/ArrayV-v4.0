@@ -50,24 +50,15 @@ final public class StrangeExpandingRoomSort extends Sort {
         boolean inserts = false;
         boolean firstfound = false;
         for (int i = start + 1; i < currentLength; i++) {
-            if (Reads.compareValues(array[i - 1], array[i]) > 0) {
+            if (Reads.compareIndices(array, i - 1, i, 0.015, true) > 0) {
                 inserts = true;
-                int item = array[i];
                 int left = i - gap > start ? i - gap : start;
-                if (Reads.compareValues(array[left], item) <= 0) left = binarySearch(array, left + 1, i - 1, item);
-                Highlights.clearAllMarks();
-                Highlights.markArray(2, left);
-                for (int right = i; right > left; right--) Writes.write(array, right, array[right - 1], 0.015, true, false);
-                Writes.write(array, left, item, 0.015, true, false);
+                if (Reads.compareIndices(array, left, i, 0.015, true) <= 0) left = binarySearch(array, left + 1, i - 1, array[i]);
+                Writes.insert(array, last = i, left, 0.015, true, false);
                 if (!firstfound) {
                     first = left;
                     firstfound = true;
                 }
-                Highlights.clearAllMarks();
-                last = i;
-            } else {
-                Highlights.markArray(1, i);
-                Delays.sleep(0.015);
             }
         }
         return inserts;
@@ -86,9 +77,7 @@ final public class StrangeExpandingRoomSort extends Sort {
         boolean inserts = true;
         int end = currentLength;
         int initgap = base;
-        while (initgap < Math.sqrt(currentLength) + 1) {
-            initgap *= base;
-        }
+        while (initgap < Math.sqrt(currentLength) + 1) initgap *= base;
         for (int g = initgap; inserts; g *= base) {
             inserts = binsert(array, first, g, end);
             end = last;

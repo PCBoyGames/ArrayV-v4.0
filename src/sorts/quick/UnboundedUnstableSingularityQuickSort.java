@@ -46,9 +46,7 @@ final public class UnboundedUnstableSingularityQuickSort extends Sort {
             int right = left + 1;
             int item = 1;
             boolean brokeloop = false;
-            boolean brokencond = false;
-            boolean founditem = false;
-            while (right <= end) {
+            for (boolean founditem = false, brokencond = false; right <= end; right++) {
                 if (Reads.compareValues(pivot, array[right - 1]) > 0) {
                     Highlights.markArray(3, pivotpos);
                     Highlights.clearMark(2);
@@ -65,7 +63,6 @@ final public class UnboundedUnstableSingularityQuickSort extends Sort {
                     if (pivotpos == left - 1) pivotpos = right - 1;
                     left++;
                 }
-                right++;
             }
             if (right > end && !brokeloop) Writes.write(array, left - 1, item, 0.5, true, false);
             Highlights.clearAllMarks();

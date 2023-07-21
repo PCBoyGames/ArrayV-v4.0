@@ -29,11 +29,8 @@ final public class SwaplessIgnorantQuickSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 1;
-        int first = 1;
-        boolean anyswaps = false;
-        while (left != currentLength) {
-            anyswaps = false;
+        for (int left = 1, first = 1; left != currentLength;) {
+            boolean anyswaps = false;
             for (int right = left + 1; right <= currentLength; right++) {
                 if (Reads.compareIndices(array, left - 1, right - 1, 0.01, true) > 0) {
                     if (!anyswaps && left != 1) first = left;

@@ -32,24 +32,25 @@ public final class OriginalPCBoysParShellSort extends Sort {
         this.setQuestion("Enter the division constant for this sort:", 2);
     }
 
-    int par(int[] array, int len) {
+    protected int stablereturn(int a) {
+        return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
+    }
+
+    protected int par(int[] array, int len) {
         boolean[] max = new boolean[len];
-        int maximum = array[0];
+        int maximum = stablereturn(array[0]);
         for (int i = 1; i < len; i++) {
-            if (array[i] > maximum) {
-                maximum = array[i];
+            if (stablereturn(array[i]) > maximum) {
+                maximum = stablereturn(array[i]);
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
-            maximum = array[j];
-            while (maximum <= array[i] && i >= p) i--;
-            if (array[j] > array[i] && p < i - j) p = i - j;
-            j--;
+            maximum = stablereturn(array[j]);
+            while (maximum <= stablereturn(array[i]) && i >= p) i--;
+            if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
         }
         return p;
     }
@@ -65,13 +66,9 @@ public final class OriginalPCBoysParShellSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            while (j >= h && Reads.compareValues(array[j - h], v) == 1) {
-                Highlights.markArray(1, j);
+            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
-                Delays.sleep(0.25);
-                Writes.write(array, j, array[j - h], 0.25, true, false);
-                j -= h;
-                w = true;
+                Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }
             if (w) Writes.write(array, j, v, 0.25, true, false);
         }

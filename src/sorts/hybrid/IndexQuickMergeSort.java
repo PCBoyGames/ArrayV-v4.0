@@ -36,15 +36,15 @@ public final class IndexQuickMergeSort extends Sort {
         setUnreasonableLimit(0);
         setBogoSort(false);
     }
-    
+
     public static int log2(int n) {
         int log = 0;
         while ((n >>= 1) != 0) ++log;
         return log;
     }
-    
+
     int threshold = 32;
-    
+
     int equ(int a, int b) {
         return ((a - b) >> 31) + ((b - a) >> 31) + 1;
     }
@@ -69,12 +69,12 @@ public final class IndexQuickMergeSort extends Sort {
 
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int tmp;
-        if(Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
             tmp = i1;
             i1 = i0;
         } else tmp = i0;
-        if(Reads.compareIndices(array, i1, i2, 1, true) > 0) {
-            if(Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
             return i2;
         }
         return i1;
@@ -133,7 +133,7 @@ public final class IndexQuickMergeSort extends Sort {
             Writes.write(array, i, array[i + d], 0.5, true, false);
         if (a != b) Writes.write(array, b, temp, 0.5, true, false);
     }
-    
+
     protected void indexSort(int[] array, int[] idx, int a, int b) {
         for (int i = 0; i < b - a; i++) {
             int nxt = idx[i];
@@ -176,7 +176,7 @@ public final class IndexQuickMergeSort extends Sort {
         Highlights.clearMark(2);
         indexSort(array, idx, a, b);
     }
-    
+
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
         if (i < b) {
@@ -224,7 +224,7 @@ public final class IndexQuickMergeSort extends Sort {
         }
         Writes.deleteExternalArray(runs);
     }
-    
+
     int pivCmp(int v, int piv) {
         int c = Reads.compareValues(v, piv);
         if (c > 0)
@@ -233,7 +233,7 @@ public final class IndexQuickMergeSort extends Sort {
             return 0;
         return 1;
     }
-    
+
     protected int[] partition(int[] array, int[] idx, int a, int b, int piv) {
         Highlights.clearMark(2);
         int[] ptrs = new int[4];
@@ -253,7 +253,7 @@ public final class IndexQuickMergeSort extends Sort {
         for (int i = 0; i < ptrs.length; i++) ptrs[i] += a;
         return new int[] {ptrs[1], ptrs[2]};
     }
-    
+
     void sortHelper(int[] array, int[] buf, int a, int b, int badAllowed, boolean bad, boolean doMerge) {
         if (b - a <= threshold) {
             insertSort(array, a, b);
@@ -292,7 +292,7 @@ public final class IndexQuickMergeSort extends Sort {
             sortHelper(array, buf, pr[1], b, badAllowed, bad, true);
         }
     }
-    
+
     public void quickMergeSort(int[] array, int a, int b) {
         int len = b - a;
         int balance = 0, eq = 0, streaks = 0, dist, eqdist, loop, cnt = len, pos = a;

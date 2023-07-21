@@ -40,15 +40,12 @@ final public class ParReverseFutureStrangeSort extends Sort {
                 max[i] = true;
             }
         }
-        int i = len - 1;
         int p = 1;
-        int j = len - 1;
-        while (j >= 0 && i >= p) {
+        for (int i = len - 1, j = len - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[j]);
             while (maximum <= stablereturn(array[i]) && i >= p) i--;
             if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -60,8 +57,7 @@ final public class ParReverseFutureStrangeSort extends Sort {
         while (trustlen > 1) {
             trustlen = par(array, currentLength);
             int lastswap = 0;
-            int offset = 0;
-            while (offset != currentLength - 1) {
+            for (int offset = 0; offset != currentLength - 1; offset++) {
                 int mult = 1;
                 int parsemult = 1;
                 if (trustlen > 1) {
@@ -71,13 +67,7 @@ final public class ParReverseFutureStrangeSort extends Sort {
                 }
                 if (offset == 0) passmult = parsemult;
                 arrayVisualizer.setExtraHeading(" / Par(X): " + trustlen + " / Trusted: " + passmult);
-                for (; offset + mult < currentLength && mult <= trustlen; mult *= 2) {
-                    if (Reads.compareIndices(array, offset, offset + mult, 0.25, true) > 0) {
-                        Writes.swap(array, offset, offset + mult, 0.25, true, false);
-                        lastswap = offset;
-                    }
-                }
-                offset++;
+                for (; offset + mult < currentLength && mult <= trustlen; mult *= 2) if (Reads.compareIndices(array, offset, offset + mult, 0.25, true) > 0) Writes.swap(array, lastswap = offset, offset + mult, 0.25, true, false);
             }
             currentLength = lastswap + 2 < currentLength ? lastswap + 1 : currentLength - 1;
         }

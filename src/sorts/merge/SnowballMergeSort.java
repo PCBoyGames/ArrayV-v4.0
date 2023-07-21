@@ -46,13 +46,11 @@ final public class SnowballMergeSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;
-        int index = 0;
         while (len < currentLength) {
-            index = 0;
-            while (index + len <= currentLength) {
-                if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, 0.001, true) > 0) Writes.swap(array, index, index + 1, 0.1, true, false);
-                } else snowballs(array, index, index + len);
+            int index = 0;
+            for (; index + len <= currentLength; index += len) {
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, 0.001, true) > 0) Writes.swap(array, index, index + 1, 0.1, true, false);}
+                else snowballs(array, index, index + len);
                 index += len;
             }
             if (index != currentLength) snowballs(array, index, currentLength);

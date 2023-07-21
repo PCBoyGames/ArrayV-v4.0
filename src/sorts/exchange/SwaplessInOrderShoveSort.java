@@ -29,9 +29,8 @@ final public class SwaplessInOrderShoveSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int right;
         for (int left = 0; left < currentLength; left++) {
-            right = left + 1;
+            int right = left + 1;
             while (right < currentLength) {
                 if (Reads.compareIndices(array, left, right, 0.01, true) > 0) {
                     Highlights.clearAllMarks();

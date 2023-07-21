@@ -29,9 +29,8 @@ final public class CocktailPeelSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int stacked = 0;
         for (int left = 0; left < currentLength; left++) {
-            stacked = 0;
+            int stacked = 0;
             for (int right = currentLength - 1; right > left; right--) {
                 if (Reads.compareIndices(array, left, right + stacked, 0.05, true) > 0) {
                     Highlights.markArray(3, left);

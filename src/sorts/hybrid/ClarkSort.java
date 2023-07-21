@@ -31,23 +31,13 @@ final public class ClarkSort extends Sort {
 
     protected boolean circle(int[] array, int start, int end) {
         boolean swaps = false;
-        int i = start;
-        int j = end;
-        while (i < j) {
-            if (Reads.compareIndices(array, i, j, 0.5, true) > 0) {
-                Writes.swap(array, i, j, 1, true, false);
-                swaps = true;
-            }
-            i++;
-            j--;
-        }
+        for (; start < end; start++, end--) if (Reads.compareIndices(array, start, end, 0.5, true) > 0) Writes.swap(array, start, end, 1, swaps = true, false);
         return swaps;
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 1;
-        int index;
         boolean anyswaps = true;
         boolean swapA = false;
         while (len < currentLength) len *= 2;
@@ -57,16 +47,13 @@ final public class ClarkSort extends Sort {
         while (anyswaps) {
             anyswaps = false;
             len = first;
-            while (len > 1) {
-                index = 0;
-                while (index + len - 1 < currentLength) {
+            for (; len > 1; len /= 2) {
+                for (int index = 0; index + len - 1 < currentLength; index += len) {
                     if (len != 1) {
                         swapA = circle(array, index, index + len - 1);
                         anyswaps = anyswaps || swapA;
                     }
-                    index += len;
                 }
-                len /= 2;
             }
             if (anyswaps) first /= 4;
         }

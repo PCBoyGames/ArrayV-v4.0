@@ -37,29 +37,23 @@ final public class NReboundSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int times) {
         if (times == 0) times = currentLength / 16 >= 2 ? currentLength / 16 : currentLength / 2;
-        int dir = 1;
-        int bounces = 0;
-        int i = 0;
         boolean setup = false;
         boolean sorted = false;
-        while (!sorted) {
-            i = dir == 1 || !setup ? 0 : currentLength - 2;
-            bounces = 0;
+        for (int dir = 1; !sorted; dir *= -1) {
+            int i = dir == 1 || !setup ? 0 : currentLength - 2;
+            int bounces = 0;
             setup = true;
             sorted = true;
-            while (i >= 0 && i < currentLength - 1) {
+            for (; i >= 0 && i < currentLength - 1; i += dir) {
                 if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
-                    Writes.swap(array, i, i + 1, 0.01, true, false);
+                    Writes.swap(array, i, i + 1, 0.01, true, sorted = false);
                     bounces++;
                     if (bounces == times) {
                         dir *= -1;
                         bounces = 0;
                     }
-                    sorted = false;
                 }
-                i += dir;
             }
-            dir *= -1;
         }
     }
 }

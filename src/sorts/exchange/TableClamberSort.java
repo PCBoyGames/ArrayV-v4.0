@@ -53,8 +53,7 @@ public final class TableClamberSort extends Sort {
                     Writes.write(table, j, j, 1, true, true);
                     j = next;
                     next = table[next];
-                }
-                while (Reads.compareOriginalValues(next, i) != 0);
+                } while (Reads.compareOriginalValues(next, i) != 0);
                 Writes.write(array, j, t, 1, true, false);
                 Writes.write(table, j, j, 1, true, true);
             }

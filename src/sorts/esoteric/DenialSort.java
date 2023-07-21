@@ -35,6 +35,6 @@ public final class DenialSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        while (Reads.compareValues(array[0], array[1]) > 0) {}
+        while (Reads.compareValues(array[0], array[1]) > 0);
     }
 }

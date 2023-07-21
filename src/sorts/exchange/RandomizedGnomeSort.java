@@ -15,9 +15,9 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class RandomizedGnomeSort extends BogoSorting {
     public RandomizedGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Randomized Gnome");
-        this.setRunAllSortsName("Randomized Gnome Sort");
-        this.setRunSortName("Randomized Gnomesort");
+        this.setSortListName("Randomized Gnome (Inva)");
+        this.setRunAllSortsName("Randomized Gnome (Inva) Sort");
+        this.setRunSortName("Randomized Gnomesort (Invasort)");
         this.setCategory("Exchange Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);

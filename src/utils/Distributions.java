@@ -587,6 +587,21 @@ public enum Distributions {
             }
         }
     },
+    NOISY_UNIQUES {
+        public String getName() {
+            return "Noisy Uniques";
+        }
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer arrayVisualizer) {
+            Random random = new Random();
+            int n = arrayVisualizer.getCurrentLength() / 2;
+            int c = (int) Math.max(n / 2, 2);
+            n -= c / 2;
+            for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
+                array[i] = random.nextInt(c) + n;
+            }
+        }
+    },
     MODULO {
         public String getName() {
             return "Modulo Function";
@@ -597,6 +612,29 @@ public enum Distributions {
             int n = ArrayVisualizer.getCurrentLength();
 
             for (int i = 0; i < n; i++) array[i] = 2*(n%(i+1));
+        }
+    },
+    DIGITS_SUM { // O(n log_10(n))
+        public String getName() {
+            return "Sum of Digits";
+        }
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer ArrayVisualizer) {
+            int n = ArrayVisualizer.getCurrentLength();
+            int max = 0;
+
+            for (int j = 0; j < n; j++) {
+                array[j] = 1;
+
+                for (int i = j; i > 0; i /= 10)
+                    if (i%10 > 0) array[j] += i%10;
+
+                if (array[j] > max) max = array[j];
+            }
+            double scale = (double)(n-1)/max;
+
+            for (int i = 0; i < n; i++)
+                array[i] = (int)(array[i] * scale);
         }
     },
     DIGITS_PROD {

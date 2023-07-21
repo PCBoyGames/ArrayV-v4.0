@@ -36,34 +36,24 @@ final public class StrangeSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int offset = 1;
-        double mult = 1.0;
-        int bound = 1;
-        int base = bucketCount;
         boolean anyswaps = true;
         while (anyswaps) {
             anyswaps = false;
-            offset = 1;
-            while (offset != currentLength) {
-                mult = 1;
-                bound = 1;
+            for (int offset = 1; offset != currentLength; offset++) {
+                int mult = 1;
+                int bound = 1;
                 while (offset + mult <= currentLength) {
-                    Highlights.markArray(1, (int) (offset + mult / base) - 1);
-                    Highlights.markArray(2, (int) (offset + mult) - 1);
-                    Delays.sleep(0.1);
-                    if (Reads.compareValues(array[(int) (offset + mult / base) - 1], array[(int) (offset + mult) - 1]) > 0) {
-                        Writes.swap(array, (int) (offset + mult / base) - 1, (int) (offset + mult) - 1, 0.1, true, false);
-                        if (mult == 1 / base) {
-                            bound *= base;
+                    if (Reads.compareIndices(array, (int) (offset + mult / bucketCount) - 1, (int) (offset + mult) - 1, 0.1, true) > 0) {
+                        Writes.swap(array, (int) (offset + mult / bucketCount) - 1, (int) (offset + mult) - 1, 0.1, anyswaps = true, false);
+                        if (mult == 1 / bucketCount) {
+                            bound *= bucketCount;
                             mult = bound;
-                        } else mult /= base;
-                        anyswaps = true;
+                        } else mult /= bucketCount;
                     } else {
-                        bound *= base;
+                        bound *= bucketCount;
                         mult = bound;
                     }
                 }
-                offset++;
             }
         }
     }

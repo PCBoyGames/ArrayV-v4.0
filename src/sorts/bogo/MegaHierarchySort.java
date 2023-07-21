@@ -58,7 +58,7 @@ public class MegaHierarchySort extends BogoSorting {
                 b = f(a-1, b, array, length);
                 if (Reads.compareIndices(array, a-1, a, 0.01, true) > 0) {
                     Writes.swap(array, a-1, a, 0.01, true, false);
-                    if (holder != limit){
+                    if (holder != limit) {
                         i = 0;
                         limit--;
                     }

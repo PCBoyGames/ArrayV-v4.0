@@ -72,21 +72,9 @@ final public class ZigZagSort extends BestForNSorting {
                         compswap(array, start, end, 1);
                         compswap(array, start + 1, end - 1, 1);
                     } else {
-                        int k = start;
-                        while (k + (int) Math.ceil((end - start) / 2) <= end) {
-                            compswap(array, k, k + (int) Math.ceil((end - start) / 2), 1);
-                            k++;
-                        }
-                        k = start + 1;
-                        while (k + (int) Math.ceil((end - start) / 2) - 1 <= end) {
-                            compswap(array, k, k + (int) Math.ceil((end - start) / 2) - 1, 1);
-                            k++;
-                        }
-                        k = start;
-                        while (k + (int) Math.ceil((end - start) / 2) + 1 <= end) {
-                            compswap(array, k, k + (int) Math.ceil((end - start) / 2) - 1, 1);
-                            k++;
-                        }
+                        for (int k = start; k + (int) Math.ceil((end - start) / 2) <= end; k++) compswap(array, k, k + (int) Math.ceil((end - start) / 2), 1);
+                        for (int k = start + 1; k + (int) Math.ceil((end - start) / 2) - 1 <= end; k++) compswap(array, k, k + (int) Math.ceil((end - start) / 2) - 1, 1);
+                        for (int k = start; k + (int) Math.ceil((end - start) / 2) + 1 <= end; k++) compswap(array, k, k + (int) Math.ceil((end - start) / 2) - 1, 1);
                     }
                 }
             }
@@ -107,34 +95,16 @@ final public class ZigZagSort extends BestForNSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int size = currentLength;
-        while (size >= 2) {
-            int i = 1;
-            while (i + size - 1 <= currentLength) {
+        for (int size = currentLength; size >= 2; size = (int) Math.floor(size / 2)) {
+            for (int i = 1; i + size - 1 <= currentLength; i += size) reduce(array, i, i + size - 1);
+            for (int i = 1; i + size - 1 <= currentLength; i += (int) Math.floor(size / 2)) {
+                for (int j = i; j + (int) Math.ceil(size / 2) <= i + size - 1; j++) swap(array, j, j + (int) Math.ceil(size / 2));
                 reduce(array, i, i + size - 1);
-                i += size;
             }
-            i = 1;
-            while (i + size - 1 <= currentLength) {
-                int j = i;
-                while (j + (int) Math.ceil(size / 2) <= i + size - 1) {
-                    swap(array, j, j + (int) Math.ceil(size / 2));
-                    j++;
-                }
+            for (int i = currentLength - size + 1; i >= 1; i -= (int) Math.floor(size / 2)) {
+                for (int j = i; j + (int) Math.ceil(size / 2) <= i + size - 1; j++) swap(array, j, j + (int) Math.ceil(size / 2));
                 reduce(array, i, i + size - 1);
-                i += (int) Math.floor(size / 2);
             }
-            i = currentLength - size + 1;
-            while (i >= 1) {
-                int j = i;
-                while (j + (int) Math.ceil(size / 2) <= i + size - 1) {
-                    swap(array, j, j + (int) Math.ceil(size / 2));
-                    j++;
-                }
-                reduce(array, i, i + size - 1);
-                i -= (int) Math.floor(size / 2);
-            }
-            size = (int) Math.floor(size / 2);
         }
     }
 }

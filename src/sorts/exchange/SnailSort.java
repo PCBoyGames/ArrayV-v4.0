@@ -44,7 +44,7 @@ public final class SnailSort extends Sort {
         while (!sorted) {
             sorted = true;
             for (i = 0; i < currentLength - 1; i++) {
-                if (Reads.compareValues(array[i], array[i + 1]) == 1){
+                if (Reads.compareValues(array[i], array[i + 1]) == 1) {
                     Writes.swap(array, i, i + 1, 0.075, true, false);
                     sorted = false;
                 }

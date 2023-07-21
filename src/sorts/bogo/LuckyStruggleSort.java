@@ -36,18 +36,18 @@ public final class LuckyStruggleSort extends BogoSorting {
 
     @Override
     public int validateAnswer(int answer) {
-        if (answer < 1 || answer > 100){
+        if (answer < 1 || answer > 100) {
             return 50;
         }
         return answer;
     }
 
-    private void luckyStruggle(int[] array, int a, int b, int luck){
+    private void luckyStruggle(int[] array, int a, int b, int luck) {
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
             if (b - a + 1 < 3) {
-                for (int i = a; i + 1 < b; i++){
+                for (int i = a; i + 1 < b; i++) {
                     if (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0) {
                         sorted = false;
                         if (randInt(1, 101) <= luck) Writes.swap(array, i, i + 1, 0.075, true, false);

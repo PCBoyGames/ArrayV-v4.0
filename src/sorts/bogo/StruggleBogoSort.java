@@ -37,7 +37,7 @@ public final class StruggleBogoSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        while (!this.isArraySorted(array, currentLength)){
+        while (!this.isArraySorted(array, currentLength)) {
             int i = 0;
             if (currentLength < 3) {
                 if (Reads.compareIndices(array, i, i + 1, 0.025, true) > 0)

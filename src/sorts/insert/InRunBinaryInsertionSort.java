@@ -31,18 +31,14 @@ public final class InRunBinaryInsertionSort extends Sort {
     protected void stableSegmentReversal(int[] array, int start, int end, double delay, boolean aux) {
         if (end - start < 3) Writes.swap(array, start, end, delay, true, aux);
         else Writes.reversal(array, start, end, delay, true, aux);
-        int i = start;
-        int left;
-        int right;
-        while (i < end) {
-            left = i;
+        for (int i = start; i < end; i++) {
+            int left = i;
             while (Reads.compareIndices(array, i, i + 1, delay, true) == 0 && i < end) i++;
-            right = i;
+            int right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, delay, true, aux);
                 else Writes.reversal(array, left, right, delay, true, aux);
             }
-            i++;
         }
     }
 
@@ -93,17 +89,9 @@ public final class InRunBinaryInsertionSort extends Sort {
         Highlights.clearAllMarks();
         for (int i = pattern + 1; i < end; i++) {
             if (Reads.compareValues(array[i - 1], array[i]) > 0) {
-                int item = array[i];
-                int left = binarySearch(array, start, i - 1, item, delay);
-                Highlights.clearAllMarks();
+                int left = binarySearch(array, start, i - 1, array[i], delay);
                 Highlights.markArray(2, left);
-                boolean w = false;
-                for (int right = i; right > left; right--) {
-                    Writes.write(array, right, array[right - 1], delay / 20, true, aux);
-                    w = true;
-                }
-                if (w) Writes.write(array, left, item, delay, true, aux);
-                Highlights.clearAllMarks();
+                Writes.insert(array, i, left, delay / 20, true, aux);
             } else {
                 Highlights.markArray(1, i);
                 Delays.sleep(delay);

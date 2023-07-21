@@ -28,91 +28,37 @@ final public class AdaptiveClurgeSort extends Sort {
     }
 
     protected void method(int[] array, int start, int len) {
-        int left = start;
-        int right = start + (len / 2);
-        int searchbound = left;
+        int searchbound = start;
         boolean broken = false;
-        while (right < start + len && !broken) {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-                Highlights.markArray(3, searchbound);
-                Delays.sleep(1);
-                while (Reads.compareValues(array[searchbound], array[right]) <= 0) {
-                    searchbound++;
-                    Highlights.markArray(3, searchbound);
-                    Delays.sleep(1);
-                }
-                left = searchbound;
-                Highlights.markArray(3, searchbound);
-                while (left < right) {
-                    Writes.swap(array, left, right, 0.2, true, false);
-                    left++;
-                }
-                Highlights.clearMark(1);
+        for (int right = start + (len / 2); right < start + len && !broken; right++) {
+            if (Reads.compareIndices(array, right - 1, right, 1, true) > 0) {
+                while (Reads.compareIndices(array, searchbound, right, 1, true) <= 0) searchbound++;
+                for (int left = searchbound; left < right; left++) Writes.swap(array, left, right, 0.2, true, false);
                 searchbound++;
-            } else {
-                Delays.sleep(2);
-                Highlights.clearMark(3);
-                broken = true;
-            }
-            right++;
+            } else broken = true;
         }
     }
 
     protected void nonpow2(int[] array, int start, int len, int mid) {
-        int left = start;
-        int right = mid;
-        int searchbound = left;
-        while (right < start + len) {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-                Highlights.markArray(3, searchbound);
-                Delays.sleep(1);
+        int searchbound = start;
+        for (int right = mid; right < start + len; right++) {
+            if (Reads.compareIndices(array, right - 1, right, 1, true) > 0) {
                 int set = searchbound != start ? searchbound - 1 : start;
-                if (Reads.compareValues(array[set], array[right]) <= 0) {
-                    while (Reads.compareValues(array[searchbound], array[right]) <= 0) {
-                        searchbound++;
-                        Highlights.markArray(3, searchbound);
-                        Delays.sleep(1);
-                    }
-                } else {
+                if (Reads.compareIndices(array, set, right, 1, true) <= 0) while (Reads.compareIndices(array, searchbound, right, 1, true) <= 0) searchbound++;
+                else {
                     searchbound = start;
-                    while (Reads.compareValues(array[searchbound], array[right]) <= 0) {
-                        searchbound++;
-                        Highlights.markArray(3, searchbound);
-                        Delays.sleep(1);
-                    }
+                    while (Reads.compareIndices(array, searchbound, right, 1, true) <= 0) searchbound++;
                 }
-                left = searchbound;
-                Highlights.markArray(3, searchbound);
-                while (left < right) {
-                    Writes.swap(array, left, right, 0.2, true, false);
-                    left++;
-                }
-                Highlights.clearMark(1);
+                for (int left = searchbound; left < right; left++) Writes.swap(array, left, right, 0.2, true, false);
                 searchbound++;
-            } else {
-                Delays.sleep(2);
-                Highlights.clearMark(3);
             }
-            right++;
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int base) {
         int len = 2;
-        int index = 0;
-        while (len < currentLength) {
-            index = 0;
-            while (index + len - 1 < currentLength) {
-                method(array, index, len);
-                index += len;
-            }
-            len *= 2;
-        }
+        for (; len < currentLength; len *= 2) for (int index = 0; index + len - 1 < currentLength; index += len) method(array, index, len);
         if (len == currentLength) method(array, 0, currentLength);
         else nonpow2(array, 0, currentLength, len / 2);
     }

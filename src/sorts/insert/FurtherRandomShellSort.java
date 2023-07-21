@@ -122,14 +122,7 @@ final public class FurtherRandomShellSort extends BogoSorting {
     private int nextBound(int[] array, int currentLength, int bounding) {
         int gap = bounding;
         boolean passing = true;
-        while (passing && gap > Math.cbrt(currentLength)) {
-            for (int i = 0; i + gap < currentLength && passing; i++) {
-                if (Reads.compareIndices(array, i, i + gap, 0.005, true) > 0) {
-                    passing = false;
-                }
-            }
-            gap--;
-        }
+        for (; passing && gap > Math.cbrt(currentLength); gap--) for (int i = 0; i + gap < currentLength && passing; i++) if (Reads.compareIndices(array, i, i + gap, 0.005, true) > 0) passing = false;
         return gap;
     }
 

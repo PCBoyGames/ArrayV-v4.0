@@ -45,20 +45,14 @@ final public class SnowballIterativePopSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int len = 2;
-        int index = 0;
-        while (len < currentLength) {
+        for (int len = 2; len < currentLength; len *= 2) {
             int dir = -1;
-            index = 0;
-            while (index + len <= currentLength) {
-                if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, 0.001, true) == dir) Writes.swap(array, index, index + 1, 0.1, true, false);
-                } else snowballs(array, index, index + len, dir);
-                index += len;
-                dir *= -1;
+            int index = 0;
+            for (; index + len <= currentLength; index += len, dir *= -1) {
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, 0.001, true) == dir) Writes.swap(array, index, index + 1, 0.1, true, false);}
+                else snowballs(array, index, index + len, dir);
             }
             if (index != currentLength) snowballs(array, index, currentLength, dir);
-            len *= 2;
         }
         snowballs(array, 0, currentLength, 1);
     }

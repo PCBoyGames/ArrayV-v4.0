@@ -142,8 +142,7 @@ final public class PartitionHeapMergeSort extends Sort {
     protected void mergeAtoB(int[] arr, int mergeToIdx, int mergeFromIdx, int staA, int staB, int endIdx, int bufferSize) {
         bufferSize = bufferSize != -1 ? bufferSize : staB - staA;
         int ptrA = staA, ptrB = staB;
-        int i = staA;
-        while (true) {
+        for (int i = staA; true; i++) {
             boolean ptrAOver = ptrA - staA >= bufferSize;
             boolean ptrBOver = ptrB > endIdx || ptrB >= staB + bufferSize;
             if (ptrAOver && ptrBOver) break;
@@ -155,7 +154,6 @@ final public class PartitionHeapMergeSort extends Sort {
                 else idx = ptrB++;
             }
             swap(arr, mergeToIdx + i - mergeFromIdx, idx);
-            i++;
         }
     }
 
@@ -165,10 +163,8 @@ final public class PartitionHeapMergeSort extends Sort {
         if (reglen > mergeStartBlockSize) {
             int mergeFromIdx = sidx;
             int mergeToIdx = bidx;
-            int regionSize = mergeStartBlockSize;
-            while (reglen > regionSize) {
-                int i = 1;
-                while (true) {
+            for (int regionSize = mergeStartBlockSize; reglen > regionSize; regionSize *= 2) {
+                for (int i = 1; true; i++) {
                     int staA = (i - 1) * 2 * regionSize;
                     int staB = staA + regionSize;
                     if (staB > reglen) {
@@ -176,9 +172,7 @@ final public class PartitionHeapMergeSort extends Sort {
                         break;
                     }
                     mergeAtoB(array, mergeToIdx, mergeFromIdx, mergeFromIdx + staA, mergeFromIdx + staB, mergeFromIdx + reglen - 1, -1);
-                    i++;
                 }
-                regionSize *= 2;
                 int tempPtr = mergeFromIdx;
                 mergeFromIdx = mergeToIdx;
                 mergeToIdx = tempPtr;
@@ -215,8 +209,6 @@ final public class PartitionHeapMergeSort extends Sort {
 
     protected void rotateLeft(int[] array, int sidx, int eidx, int num) {
         Writes.reversal(array, sidx - 1, sidx + num - 2, 0.5, true, false);
-        //Writes.reversal(array, sidx + num - 1, eidx - 1, 0.5, true, false);
-        //Writes.reversal(array, sidx - 1, eidx - 1, 0.5, true, false);
         IndexedRotations.adaptable(array, sidx - 1, sidx + num - 1, eidx, 0.5, true, false);
     }
 

@@ -34,38 +34,21 @@ final public class OddEvenWeaveLowSort extends Sort {
         int noswapsfor = 0;
         int gap = currentLength;
         int primetesti = 2;
-        int i = 1;
         int boundi = 1;
-        double primetestrunning = 1.0;
-        boolean primetest = false;
-        boolean anyswaps = false;
         boolean testpass = false;
         boolean visualaesthetic = true;
         while (!testpass) {
-            i = check;
-            anyswaps = false;
-            Highlights.markArray(1, i - 1);
-            Highlights.markArray(2, (i - 1) + gap);
-            Delays.sleep(0.25);
-            while ((i - 1) + gap < currentLength) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, (i - 1) + gap);
-                Delays.sleep(0.25);
-                if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
-                    Writes.swap(array, i - 1, (i - 1) + gap, 0.25, true, false);
-                    anyswaps = true;
-                }
-                i += move;
-            }
+            boolean anyswaps = false;
+            for (int i = check; (i - 1) + gap < currentLength; i += move) if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.25, true) > 0) Writes.swap(array, i - 1, (i - 1) + gap, 0.25, anyswaps = true, false);
             if (!anyswaps && gap != 1) {
                 noswapsfor++;
                 if (noswapsfor == move) {
                     noswapsfor = 0;
                     lastmove = move;
-                    primetestrunning = move;
+                    double primetestrunning = move;
                     if (!visualaesthetic) {
                         while (primetestrunning == move) {
-                            primetest = false;
+                            boolean primetest = false;
                             primetesti = 2;
                             while (!primetest) {
                                 if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
@@ -80,7 +63,7 @@ final public class OddEvenWeaveLowSort extends Sort {
                     if (move != 1) {
                         primetestrunning = move;
                         while (primetestrunning == move) {
-                            primetest = false;
+                            boolean primetest = false;
                             primetesti = 2;
                             while (!primetest) {
                                 if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
@@ -102,10 +85,7 @@ final public class OddEvenWeaveLowSort extends Sort {
                 else boundi = 1;
                 testpass = true;
                 while (boundi < currentLength && testpass) {
-                    Highlights.markArray(1, boundi - 1);
-                    Highlights.markArray(2, boundi);
-                    Delays.sleep(0.25);
-                    if (Reads.compareValues(array[boundi - 1], array[boundi]) <= 0) boundi++;
+                    if (Reads.compareIndices(array, boundi - 1, boundi, 0.25, true) <= 0) boundi++;
                     else {
                         testpass = false;
                         lastbound = boundi;

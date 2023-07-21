@@ -53,8 +53,7 @@ final public class LimitedSwapSort extends Sort {
             int swapped = 0;
             for (int i = start; i + 1 < end && i + 1 < currentLength && swapped < swaps; i++) {
                 if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
-                    pass = false;
-                    Writes.swap(array, i, i + 1, 0.01, true, false);
+                    Writes.swap(array, i, i + 1, 0.01, true, pass = false);
                     if (swapped == 0) start = i;
                     swapped++;
                     if (i + 2 == end) if (end < currentLength) end++;
@@ -65,8 +64,7 @@ final public class LimitedSwapSort extends Sort {
             swapped = 0;
             for (int i = end - 2; i >= start && i >= 0 && swapped < swaps; i--) {
                 if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
-                    pass = false;
-                    Writes.swap(array, i, i + 1, 0.01, true, false);
+                    Writes.swap(array, i, i + 1, 0.01, true, pass = false);
                     if (swapped == 0) end = i + 2;
                     swapped++;
                     if (i == start) if (start > 0) start--;

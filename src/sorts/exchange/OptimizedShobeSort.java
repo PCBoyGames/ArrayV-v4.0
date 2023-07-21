@@ -90,11 +90,8 @@ final public class OptimizedShobeSort extends Sort {
             for (int i = start - 1 > 0 ? start - 1 : 0; i + 1 < currentLength; i++) {
                 int times = 0;
                 while (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
-                    Writes.multiSwap(array, i, currentLength - 1, 0.01, true, false);
-                    if (!startfound) {
-                        start = i;
-                        startfound = true;
-                    }
+                    if (!startfound) start = i;
+                    Writes.multiSwap(array, i, currentLength - 1, 0.01, startfound = true, false);
                     times++;
                     if (times == currentLength - i - 1) {
                         if (times > 3) Writes.reversal(array, i + 1, currentLength - 1, 0.01, true, false);

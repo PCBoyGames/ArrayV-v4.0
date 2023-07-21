@@ -37,7 +37,6 @@ final public class HeadPullRoomSort extends Sort {
         Highlights.clearMark(3);
         boolean swap = false;
         int i = start + 1;
-        int pull;
         int check = start;
         int highpull = min(array, start, end);
         Highlights.markArray(3, highpull);
@@ -45,13 +44,9 @@ final public class HeadPullRoomSort extends Sort {
             boolean pulled = false;
             while (!pulled) {
                 if (Reads.compareIndices(array, i - 1, i, 0.1, true) > 0) {
-                    pull = i;
+                    if (i > check) check = i;
+                    Writes.multiSwap(array, i, start, 0.1, swap = true, false);
                     pulled = true;
-                    if (pull > check) check = pull;
-                    while (pull > start) {
-                        Writes.swap(array, pull - 1, pull, 0.1, swap = true, false);
-                        pull--;
-                    }
                     i = start + 1;
                 } else i++;
             }

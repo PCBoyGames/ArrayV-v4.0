@@ -48,15 +48,12 @@ public class CookieSort extends GrailSorting {
                 max[i] = true;
             }
         }
-        int i = b - a - 1;
         int p = 1;
-        int j = b - a - 1;
-        while (j >= 0 && i >= p) {
+        for (int j = b - a - 1, i = b - a - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stablereturn(array[a + j]);
             while (maximum <= stablereturn(array[a + i]) && i >= p) i--;
             if (stablereturn(array[a + j]) > stablereturn(array[a + i]) && p < i - j) p = i - j;
-            j--;
         }
         return p;
     }
@@ -146,9 +143,7 @@ public class CookieSort extends GrailSorting {
             if (lenA < lenB) {
                 for (int i = 0; i < lenA; i++) {
                     int t = array[pos + i], j = pos + i + lenA;
-                    for (; j < end; j += lenA) {
-                        Writes.write(array, j - lenA, array[j], 1, true, false);
-                    }
+                    for (; j < end; j += lenA) Writes.write(array, j - lenA, array[j], 1, true, false);
                     Writes.write(array, j - lenA, t, 1, true, false);
                 }
                 pos += lenB;
@@ -157,9 +152,7 @@ public class CookieSort extends GrailSorting {
             } else {
                 for (int i = 0; i < lenB; i++) {
                     int t = array[pos + i + lenA], j = pos + i + lenA - lenB;
-                    for (; j >= pos; j -= lenB) {
-                        Writes.write(array, j + lenB, array[j], 1, true, false);
-                    }
+                    for (; j >= pos; j -= lenB) Writes.write(array, j + lenB, array[j], 1, true, false);
                     Writes.write(array, j + lenB, t, 1, true, false);
                 }
                 end = pos+lenB;
@@ -178,11 +171,7 @@ public class CookieSort extends GrailSorting {
             int key = array[i];
             int j = i - gap;
             boolean change = false;
-            while (j >= a && Reads.compareValues(key, array[j]) < 0) {
-                Writes.write(array, j + gap, array[j], 1, true, false);
-                j -= gap;
-                change = true;
-            }
+            for (; j >= a && Reads.compareValues(key, array[j]) < 0; j -= gap) Writes.write(array, j + gap, array[j], 1, change = true, false);
             if (change) Writes.write(array, j + gap, key, 1, true, false);
         }
         Highlights.clearAllMarks();
@@ -215,8 +204,7 @@ public class CookieSort extends GrailSorting {
     // BLOCKSERT
     protected int blockFindRun(int[] array, int a, int b) {
         int i = a + 1;
-        if (i == b)
-            return i;
+        if (i == b) return i;
         if (Reads.compareIndices(array, i - 1, i++, 1, true) == 1) {
             while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) == 1) i++;
             if (i - a > 3) Writes.reversal(array, a, i - 1, 1, true, false);
@@ -243,29 +231,20 @@ public class CookieSort extends GrailSorting {
         int pattern = pdUnstable(array, start, end);
         Highlights.clearAllMarks();
         for (int i = pattern + 1; i < end; i++) {
-            int item = array[i];
-            int left = binarySearch(array, start, i, item);
-            Highlights.clearAllMarks();
+            int left = binarySearch(array, start, i, array[i]);
             Highlights.markArray(2, left);
-            boolean w = false;
-            for (int right = i; right > left; right--) {
-                Writes.write(array, right, array[right - 1], 1 / 20, true, false);
-                w = true;
-            }
-            if (w) Writes.write(array, left, item, 1, true, false);
-            Highlights.clearAllMarks();
+            Writes.insert(array, i, left, 1 / 20, true, false);
         }
     }
 
     // MILK
     protected void milkPass(int[] array, int start, int end) {
-        int a = start;
         int b = start + ((end - start) / 2);
         int lasta = start;
         int consecutive = 0;
         boolean faultout = false;
         if (Reads.compareIndices(array, b - 1, b, 1, true) > 0) {
-            while (a < b && !faultout) {
+            for (int a = start; a < b && !faultout; a++) {
                 if (Reads.compareIndices(array, a, b, 1, true) > 0) {
                     for (int i = a; i < b; i++) Writes.swap(array, i, b + (i - a), 0.5, true, false);
                     if (a - lasta < 3) {
@@ -277,7 +256,6 @@ public class CookieSort extends GrailSorting {
                     }
                     lasta = a;
                 } else if (a - lasta > 1) consecutive = 0;
-                a++;
             }
             if (!faultout) blockInsertionSort(array, b, end);
         }
@@ -297,16 +275,13 @@ public class CookieSort extends GrailSorting {
     public void milkSortLen(int[] array, int start, int end, int lengthstart) {
         int len = lengthstart;
         int index = start;
-        while (len < end - start) {
+        for (; len < end - start; len *= 2) {
             index = start;
-            while (index + len <= end) {
-                if (len == 2) {
-                    if (Reads.compareIndices(array, index, index + 1, 1, true) > 0) Writes.swap(array, index, index + 1, 1, true, false);
-                } else milkPass(array, index, index + len);
-                index += len;
+            for (; index + len <= end; index += len) {
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, 1, true) > 0) Writes.swap(array, index, index + 1, 1, true, false);}
+                else milkPass(array, index, index + len);
             }
             if (index != end) milkNon2N(array, index, end, len);
-            len *= 2;
         }
         if (len == end - start) milkPass(array, start, end);
         else milkNon2N(array, start, end, len);
@@ -348,9 +323,8 @@ public class CookieSort extends GrailSorting {
         int blockLen = pow2lte((int) Math.sqrt(length));
         int endpoint = blockLen;
         while (endpoint + blockLen < length) endpoint += blockLen;
-        int i;
-        for (i = 0; i + blockLen <= endpoint; i += blockLen) if (start + i + blockLen > pd) handleInsert(array, start + i, start + i + blockLen);
-        for (i = 0; i + 2 * blockLen <= endpoint; i += 2 * blockLen) manageSize(array, start + i, blockLen, start + endpoint);
+        for (int i = 0; i + blockLen <= endpoint; i += blockLen) if (start + i + blockLen > pd) handleInsert(array, start + i, start + i + blockLen);
+        for (int i = 0; i + 2 * blockLen <= endpoint; i += 2 * blockLen) manageSize(array, start + i, blockLen, start + endpoint);
         handleInsert(array, start + endpoint, start + length);
         milkPass(array, start + endpoint - blockLen, start + length);
         milkSortLen(array, start, start + length, 4 * blockLen);

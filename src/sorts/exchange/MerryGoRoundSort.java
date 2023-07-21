@@ -26,23 +26,15 @@ final public class MerryGoRoundSort extends Sort {
     }
     @Override
     public void runSort(int[] seats, int time, int nausea) {
-        int im = 1;
         int very = 1;
-        int dizzy = 1;
-        boolean can_someone_please = false;
         boolean stop_the_ride = false;
         while (!stop_the_ride) {
-            im = very;
-            can_someone_please = false;
-            while (im + 1 <= time) {
-                Highlights.markArray(1, im - 1);
-                Highlights.markArray(2, im);
-                Delays.sleep(0.001);
-                if (Reads.compareValues(seats[im - 1], seats[im]) > 0) {
-                    can_someone_please = true;
-                    dizzy = im;
+            boolean can_someone_please = false;
+            for (int im = very; im + 1 <= time;) {
+                if (Reads.compareIndices(seats, im - 1, im, 0.001, true) > 0) {
+                    int dizzy = im;
                     while (dizzy + 1 <= time) {
-                        Writes.swap(seats, dizzy - 1, dizzy, 0.001, true, false);
+                        Writes.swap(seats, dizzy - 1, dizzy, 0.001, can_someone_please = true, false);
                         dizzy += 2;
                     }
                     if (im > 1) im--;
@@ -52,10 +44,7 @@ final public class MerryGoRoundSort extends Sort {
                 very = 1;
                 stop_the_ride = true;
                 while (very != time && stop_the_ride) {
-                    Highlights.markArray(1, very - 1);
-                    Highlights.markArray(2, very);
-                    Delays.sleep(0.001);
-                    if (Reads.compareValues(seats[very - 1], seats[very]) <= 0) very++;
+                    if (Reads.compareIndices(seats, very - 1, very, 0.001, true) <= 0) very++;
                     else stop_the_ride = false;
                 }
             }

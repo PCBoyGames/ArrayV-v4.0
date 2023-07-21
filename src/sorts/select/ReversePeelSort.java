@@ -29,8 +29,7 @@ final public class ReversePeelSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int stacked = 0;
-        for (int left = 0; left < currentLength; left++) {
+        for (int left = 0, stacked = 0; left < currentLength; left++) {
             for (int right = left + stacked + 1; right < currentLength; right++) {
                 if (right == left + stacked + 1) stacked = 0;
                 if (Reads.compareIndices(array, left, right, 0.05, true) > 0) {

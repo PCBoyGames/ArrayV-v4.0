@@ -91,9 +91,7 @@ final public class MagneticaQuickSort extends Sort {
                 }
                 j = pl - 1;
                 i = pr + 1;
-                if (insertion) {
-                    gear = (Math.max(right - i, j - left) > (Math.min(right - i, j - left) << 6) ? 1 : 0);
-                }
+                if (insertion) gear = (Math.max(right - i, j - left) > (Math.min(right - i, j - left) << 6) ? 1 : 0);
                 if (i + threshold < right) {
                     stackptr += 2;
                     Writes.write(stack, stackptr - 1, i, 0, false, true);
@@ -107,9 +105,7 @@ final public class MagneticaQuickSort extends Sort {
             }
         } while (stackptr != 0);
         Highlights.clearAllMarks();
-        if (insertion) {
-            insert.customInsertSort(array, lback, rback + 1, 0.5, false);
-        }
+        if (insertion) insert.customInsertSort(array, lback, rback + 1, 0.5, false);
     }
 
     @Override

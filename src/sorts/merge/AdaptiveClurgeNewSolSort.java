@@ -28,102 +28,45 @@ final public class AdaptiveClurgeNewSolSort extends Sort {
     }
 
     protected void method(int[] array, int start, int len) {
-        int left = start;
         int right = start + (len / 2);
-        int searchbound = left;
+        int searchbound = start;
         boolean broken = false;
-        if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-            while (right < start + len && !broken) {
-                Highlights.markArray(2, right);
-                Highlights.markArray(3, searchbound);
-                Delays.sleep(1);
-                while (Reads.compareValues(array[searchbound], array[right]) <= 0 && searchbound < right) {
-                    searchbound++;
-                    Highlights.markArray(3, searchbound);
-                    Delays.sleep(1);
-                }
+        if (Reads.compareIndices(array, right - 1, right, 1, true) > 0) {
+            for (; right < start + len && !broken; right++) {
+                while (Reads.compareIndices(array, searchbound, right, 1, true) <= 0 && searchbound < right) searchbound++;
                 if (searchbound == right) broken = true;
                 else {
-                    left = searchbound;
-                    Highlights.markArray(3, searchbound);
-                    while (left < right) {
-                        Writes.swap(array, left, right, 0.2, true, false);
-                        left++;
-                    }
-                    Highlights.clearMark(1);
+                    for (int left = searchbound; left < right; left++) Writes.swap(array, left, right, 0.2, true, false);
                     searchbound++;
                 }
-                right++;
             }
-        } else {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            Highlights.clearMark(3);
-            Delays.sleep(2);
         }
     }
 
     protected void nonpow2(int[] array, int start, int len, int mid) {
-        int left = start;
         int right = mid;
-        int searchbound = left;
-        if (Reads.compareValues(array[right - 1], array[right]) > 0) {
-            while (right < start + len) {
-                Highlights.markArray(1, right - 1);
-                Highlights.markArray(2, right);
-                Highlights.markArray(3, searchbound);
-                Delays.sleep(1);
+        int searchbound = start;
+        if (Reads.compareIndices(array, right - 1, right, 1, true) > 0) {
+            for (; right < start + len; right++, searchbound++) {
                 int set = searchbound != start ? searchbound - 1 : start;
-                if (Reads.compareValues(array[set], array[right]) <= 0) {
-                    while (Reads.compareValues(array[searchbound], array[right]) <= 0) {
-                        searchbound++;
-                        Highlights.markArray(3, searchbound);
-                        Delays.sleep(1);
-                    }
-                } else {
+                if (Reads.compareIndices(array, set, right, 0.1, true) <= 0) while (Reads.compareValues(array[searchbound], array[right]) <= 0) searchbound++;
+                else {
                     searchbound = start;
-                    while (Reads.compareValues(array[searchbound], array[right]) <= 0) {
-                        searchbound++;
-                        Highlights.markArray(3, searchbound);
-                        Delays.sleep(1);
-                    }
+                    while (Reads.compareIndices(array, searchbound, right, 1, true) <= 0) searchbound++;
                 }
-                left = searchbound;
-                Highlights.markArray(3, searchbound);
-                while (left < right) {
-                    Writes.swap(array, left, right, 0.2, true, false);
-                    left++;
-                }
-                Highlights.clearMark(1);
-                searchbound++;
-                right++;
+                for (int left = searchbound; left < right; left++) Writes.swap(array, left, right, 0.2, true, false);
             }
-        } else {
-            Highlights.markArray(1, right - 1);
-            Highlights.markArray(2, right);
-            Highlights.clearMark(3);
-            Delays.sleep(2);
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int base) {
         int len = 2;
-        int index = 0;
-        while (len < currentLength) {
-            index = 0;
-            while (index + len - 1 < currentLength) {
-                if (len == 2) {
-                    Highlights.markArray(1, index);
-                    Highlights.markArray(2, index + 1);
-                    Delays.sleep(1);
-                    if (Reads.compareValues(array[index], array[index + 1]) > 0) Writes.swap(array, index, index + 1, 0.2, true, false);
-                }
+        for (; len < currentLength; len *= 2) {
+            for (int index = 0; index + len - 1 < currentLength; index += len) {
+                if (len == 2) {if (Reads.compareIndices(array, index, index + 1, 1, true) > 0) Writes.swap(array, index, index + 1, 0.2, true, false);}
                 else method(array, index, len);
-                Highlights.clearAllMarks();
-                index += len;
             }
-            len *= 2;
         }
         if (len == currentLength) method(array, 0, currentLength);
         else nonpow2(array, 0, currentLength, len / 2);

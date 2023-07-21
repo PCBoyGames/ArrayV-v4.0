@@ -42,11 +42,10 @@ final public class PDPopSort extends Sort {
         int c = 1;
         int s = start + ((end - start) / 2);
         int f = 1;
-        boolean a = false;
         for (int j = end - 1; j > start; j -= c) {
             if (f - 1 < start) s = start;
             else s = f - 1;
-            a = false;
+            boolean a = false;
             c = 1;
             for (int i = s; i < j; i++) {
                 if (Reads.compareIndices(array, i, i + 1, 0.025, true) == dir) {
@@ -61,19 +60,11 @@ final public class PDPopSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int len = currentLength / 4;
-        int index = 0;
-        int dir = -1;
-        while (len < currentLength) {
-            index = 0;
-            dir = -1;
-            while (index + len <= currentLength) {
-                bubble(array, index, index + len, dir);
-                index += len;
-                dir *= -1;
-            }
+        for (int len = currentLength / 4; len < currentLength; len *= 2) {
+            int index = 0;
+            int dir = -1;
+            for (; index + len <= currentLength; index += len, dir *= -1) bubble(array, index, index + len, dir);
             if (index != currentLength) bubble(array, index, currentLength, dir);
-            len *= 2;
         }
         bubble(array, 0, currentLength, 1);
     }

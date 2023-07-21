@@ -36,29 +36,22 @@ final public class XSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int base) {
         int gap = currentLength;
-        int i = 1;
-        int xleft = 1;
-        int xright = 1;
-        boolean anyswaps = false;
         boolean testpass = false;
         while (!testpass) {
-            anyswaps = false;
-            i = 1;
-            while ((i - 1) + gap < currentLength) {
-                if (Reads.compareValues(array[i - 1], array[(i - 1) + gap]) > 0) {
-                    Writes.swap(array, i - 1, (i - 1) + gap, 0.001, true, false);
-                    anyswaps = true;
-                    xleft = i + 1;
-                    xright = i + gap - 1;
+            boolean anyswaps = false;
+            for (int i = 1; (i - 1) + gap < currentLength; i++) {
+                if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.001, true) > 0) {
+                    Writes.swap(array, i - 1, (i - 1) + gap, 0.001, anyswaps = true, false);
+                    int xleft = i + 1;
+                    int xright = i + gap - 1;
                     if (gap != 1) {
                         for (int r = 0; r < gap - 1; r += base) {
-                            if (Reads.compareValues(array[xleft - 1], array[xright - 1]) > 0) Writes.swap(array, xleft - 1, xright - 1, 0.001, true, false);
+                            if (Reads.compareIndices(array, xleft - 1, xright - 1, 0.001, true) > 0) Writes.swap(array, xleft - 1, xright - 1, 0.001, true, false);
                             xleft += base;
                             xright -= base;
                         }
                     }
                 }
-                i++;
             }
             if (!anyswaps) {
                 if (gap == 1) testpass = true;

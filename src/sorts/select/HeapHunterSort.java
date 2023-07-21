@@ -29,15 +29,13 @@ final public class HeapHunterSort extends HeapSorting {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int j = 0;
-        while (j < currentLength) {
+        for (int j = 0; j < currentLength; j++) {
             int k = currentLength - 1;
             while (Reads.compareIndices(array, j, k, 0.005, true) <= 0 && k > j) k--;
             if (k != j) {
                 Highlights.markArray(3, j);
                 heapify(array, j, k + 1, 0.1, false);
             }
-            j++;
             Highlights.clearAllMarks();
         }
     }

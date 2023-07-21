@@ -29,12 +29,11 @@ final public class ZipperSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int i = 0;
         int gap = 2;
         int first = 0;
         while (gap > 1) {
             gap = 1;
-            i = first > 1 ? first - 1 : 0;
+            int i = first > 1 ? first - 1 : 0;
             while (i + gap < currentLength) {
                 if (Reads.compareIndices(array, i, i + gap, 0.05, true) > 0) {
                     Writes.swap(array, i, i + gap, 0.1, true, false);

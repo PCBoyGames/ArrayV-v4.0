@@ -44,10 +44,9 @@ final public class SegmentedSort extends Sort {
                     int c2 = i + 1;
                     Highlights.clearMark(2);
                     Statistics.addStat("Rotation");
-                    if ((b2 - a) % (c1 - b1) == 0 || (c1 - b1) % (b2 - a) == 0) IndexedRotations.holyGriesMills(array, a, b2, c2, 0.1, true, false);
-                    else IndexedRotations.cycleReverse(array, a, b2, c2, 0.1, true, false);
+                    if ((b2 - a) % (c1 - b1) == 0 || (c1 - b1) % (b2 - a) == 0) IndexedRotations.holyGriesMills(array, a, b2, c2, 0.1, anyswaps = true, false);
+                    else IndexedRotations.cycleReverse(array, a, b2, c2, 0.1, anyswaps = true, false);
                     i = a - 1;
-                    anyswaps = true;
                 } else i = b1;
             }
         }

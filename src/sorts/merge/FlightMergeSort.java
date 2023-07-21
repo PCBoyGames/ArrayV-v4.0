@@ -59,16 +59,7 @@ final public class FlightMergeSort extends Sort {
             if (array[i] < min) min = array[i];
             if (array[i] > max) max = array[i];
         }
-        int len = 2;
-        int index = 0;
-        while (len < currentLength) {
-            index = 0;
-            while (index + len - 1 < currentLength) {
-                method(array, index, len);
-                index += len;
-            }
-            len *= 2;
-        }
+        for (int len = 2; len < currentLength; len *= 2) for (int index = 0; index + len - 1 < currentLength; index += len) method(array, index, len);
         method(array, 0, currentLength);
     }
 }

@@ -29,35 +29,17 @@ final public class StablePlaygroundSort extends Sort {
 
     protected int selectLowest(int[] array, int length) {
         int lowestindex = 0;
-        for (int j = 0; j < length; j++) {
-            Highlights.markArray(2, j);
-            Delays.sleep(0.005);
-            if (Reads.compareValues(array[j], array[lowestindex]) == -1) {
-                lowestindex = j;
-                Highlights.markArray(1, lowestindex);
-                Delays.sleep(0.005);
-            }
-        }
+        for (int j = 0; j < length; j++) if (Reads.compareIndices(array, j, lowestindex, 0.005, true) == -1) lowestindex = j;
         return lowestindex;
     }
 
     protected int selectNext(int[] array, int length, int target) {
         int lowesthigh = -1;
-        int right = 0;
-        while (right < length) {
-            Highlights.markArray(1, target);
-            Highlights.markArray(2, right);
-            Delays.sleep(0.005);
-            if (Reads.compareValues(array[target], array[right]) < 0) {
+        for (int right = 0; right < length; right++) {
+            if (Reads.compareIndices(array, target, right, 0.005, true) < 0) {
                 if (lowesthigh == -1) lowesthigh = right;
-                else {
-                    Highlights.markArray(1, lowesthigh);
-                    Highlights.markArray(2, right);
-                    Delays.sleep(0.005);
-                    if (Reads.compareValues(array[lowesthigh], array[right]) > 0) lowesthigh = right;
-                }
+                else if (Reads.compareIndices(array, lowesthigh, right, 0.005, true) > 0) lowesthigh = right;
             }
-            right++;
         }
         return lowesthigh;
     }
@@ -86,10 +68,9 @@ final public class StablePlaygroundSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int bound = currentLength;
         int lasttarget = 0;
         int target = 0;
-        while (bound > 1) {
+        for (int bound = currentLength; bound > 1; bound--) {
             lasttarget = selectLowest(array, bound);
             target = lasttarget;
             while (target != -1) {
@@ -99,7 +80,6 @@ final public class StablePlaygroundSort extends Sort {
                     lasttarget = target;
                 } else quit(array, bound, lasttarget);
             }
-            bound--;
         }
     }
 }

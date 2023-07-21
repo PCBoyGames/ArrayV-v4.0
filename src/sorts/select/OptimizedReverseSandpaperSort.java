@@ -34,11 +34,10 @@ final public class OptimizedReverseSandpaperSort extends Sort {
         int leftend = currentLength - 1;
         int end = currentLength - 1;
         int lastleft = 0;
-        int highestswap;
         while (anyenter) {
             anyenter = false;
             boolean startfound = false;
-            highestswap = 0;
+            int highestswap = 0;
             for (int i = start > 1 ? start - 1 : 0; i < leftend; i++) {
                 if (Reads.compareIndices(array, i, i + 1, 0.5, true) > 0) {
                     if (!startfound) start = i;

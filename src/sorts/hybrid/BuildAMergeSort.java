@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // Replace this with the path of the target algorithm.
-import sorts.select.MoreOptimizedOpiumSort;
+import sorts.exchange.OptimizedForwardRunShoveSort;
 
 /*
 
@@ -18,7 +18,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 final public class BuildAMergeSort extends Sort {
 
     // Replace both filenames with the filename of the target algorithm.
-    MoreOptimizedOpiumSort sort = new MoreOptimizedOpiumSort(arrayVisualizer);
+    OptimizedForwardRunShoveSort sort = new OptimizedForwardRunShoveSort(arrayVisualizer);
 
     // Optional for most sorts, but required for some.
     int NUMBER_Base = 2;
@@ -53,16 +53,7 @@ final public class BuildAMergeSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int base) {
-        int len = base;
-        int index = 0;
-        while (len < currentLength) {
-            index = 0;
-            while (index + len - 1 < currentLength) {
-                method(array, index, len);
-                index += len;
-            }
-            len *= base;
-        }
+        for (int len = base; len < currentLength; len *= base) for (int index = 0; index + len - 1 < currentLength; index += len) method(array, index, len);
         method(array, 0, currentLength);
     }
 }

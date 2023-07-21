@@ -28,102 +28,51 @@ final public class SplitCenterMergeSort extends Sort {
     }
 
     protected void method(int[] array, int start, int len) {
-        int way = 1;
-        int i = start;
-        int swapless = 0;
-        int runs = 0;
-        int first = start;
-        int nextfirst = start;
-        int last = start + len - 1;
-        int nextlast = start + len - 1;
-        boolean anyswaps = false;
-        while (swapless < 2 && runs < len) {
-            anyswaps = false;
-            i = (int) Math.floor(len / 2) + start;
-            while (i < last && i >= first) {
+        for (int runs = 0, way = 1, swapless = 0, first = start, nextfirst = start, last = start + len - 1, nextlast = start + len - 1; swapless < 2 && runs < len; runs++, way *= -1) {
+            boolean anyswaps = false;
+            for (int i = (int) Math.floor(len / 2) + start; i < last && i >= first; i += way) {
                 if (Reads.compareIndices(array, i, i + 1, 0.01, true) > 0) {
-                    Writes.swap(array, i, i + 1, 0.01, true, false);
-                    anyswaps = true;
+                    Writes.swap(array, i, i + 1, 0.01, anyswaps = true, false);
                     if (way == 1) nextlast = i + 1;
                     else nextfirst = i + 1;
                 }
-                i += way;
             }
             if (way == 1) last = nextlast;
             else first = nextfirst;
-            way *= -1;
-            if (!anyswaps) {
-                swapless++;
-            } else {
-                swapless = 0;
-            }
-            runs++;
+            if (!anyswaps) swapless++;
+            else swapless = 0;
         }
         if (len <= 4) {
-            int c = 1;
-            int s;
-            int f = start + (len / 2);
-            boolean a = false;
-            for (int j = start + len - 1; j > 0; j -= c) {
-                if (f - 1 < start) {
-                    s = start;
-                } else {
-                    s = f - 1;
-                }
-                a = false;
+            for (int c = 1, j = start + len - 1, s, f = start + (len / 2); j > 0; j -= c) {
+                if (f - 1 < start) s = start;
+                else s = f - 1;
+                boolean a = false;
                 c = 1;
                 for (int k = s; k < j; k++) {
                     if (Reads.compareIndices(array, k, k + 1, 0.025, true) > 0) {
-                        Writes.swap(array, k, k + 1, 0.075, true, false);
-                        if (!a) {
-                            f = k;
-                        }
-                        a = true;
+                        if (!a) f = k;
+                        Writes.swap(array, k, k + 1, 0.075, a = true, false);
                         c = 1;
-                    } else {
-                        c++;
-                    }
+                    } else c++;
                 }
             }
         }
     }
 
     protected void alternatemethod(int[] array, int currentLength) {
-        int way = 1;
-        int i = 1;
-        int swapless = 0;
-        int runs = 1;
-        boolean anyswaps = false;
-        while (swapless < 2 && runs < currentLength) {
-            anyswaps = false;
-            i = (int) Math.floor(currentLength / 2);
-            while (i < currentLength && i > 0) {
-                if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) {
-                    Writes.swap(array, i - 1, i, 0.005, true, false);
-                    anyswaps = true;
-                }
-                i += way;
-            }
-            way *= -1;
-            if (!anyswaps) {
-                swapless++;
-            } else {
-                swapless = 0;
-            }
-            runs++;
+        for (int runs = 0, way = 1, swapless = 0; swapless < 2 && runs < currentLength; runs++, way *= -1) {
+            boolean anyswaps = false;
+            for (int i = (int) Math.floor(currentLength / 2); i < currentLength && i > 0; i += way) if (Reads.compareIndices(array, i - 1, i, 0.005, true) > 0) Writes.swap(array, i - 1, i, 0.005, anyswaps = true, false);
+            if (!anyswaps) swapless++;
+            else swapless = 0;
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int len = 2;
-        int index = 0;
         while (len < currentLength) {
-            index = 0;
-            while (index + len - 1 < currentLength) {
-                method(array, index, len);
-                index += len;
-            }
+            for (int index = 0; index + len - 1 < currentLength; index += len) method(array, index, len);
             len *= 2;
         }
         if (len == currentLength) method(array, 0, currentLength);

@@ -54,7 +54,7 @@ final public class PureLogMergeSort extends Sort {
 
 	private int productLog(int n) {
 		int r = 1;
-		while((r<<r)+r-1 < n) r++;
+		while ((r<<r)+r-1 < n) r++;
 		return r;
 	}
 
@@ -63,12 +63,12 @@ final public class PureLogMergeSort extends Sort {
 	}
 
 	private int leftBinSearch(int[] array, int a, int b, int val) {
-		while(a < b) {
+		while (a < b) {
 			int m = (a+b) >>> 1;
 			Highlights.markArray(2, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) <= 0)
+			if (Reads.compareValues(val, array[m]) <= 0)
 				b = m;
 			else
 				a = m+1;
@@ -76,12 +76,12 @@ final public class PureLogMergeSort extends Sort {
 		return a;
 	}
 	private int rightBinSearch(int[] array, int a, int b, int val) {
-		while(a < b) {
+		while (a < b) {
 			int m = (a+b) >>> 1;
 			Highlights.markArray(2, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) < 0)
+			if (Reads.compareValues(val, array[m]) < 0)
 				b = m;
 			else
 				a = m+1;
@@ -95,8 +95,8 @@ final public class PureLogMergeSort extends Sort {
 	}
 
 	private void pivBufXor(int[] array, int pa, int pb, int v, int wLen) {
-		while(wLen-- > 0) {
-			if((v&1) == 1) Writes.swap(array, pa+wLen, pb+wLen, 1, true, false);
+		while (wLen-- > 0) {
+			if ((v&1) == 1) Writes.swap(array, pa+wLen, pb+wLen, 1, true, false);
 			v >>= 1;
 		}
 	}
@@ -104,7 +104,7 @@ final public class PureLogMergeSort extends Sort {
 	private int pivBufGet(int[] array, int pa, int piv, int pCmp, int wLen, int bit) {
 		int r = 0;
 
-		while(wLen-- > 0) {
+		while (wLen-- > 0) {
 			r <<= 1;
 			r |= (this.pivCmp(array[pa++], piv, pCmp) ? 0 : 1) ^ bit;
 		}
@@ -112,10 +112,10 @@ final public class PureLogMergeSort extends Sort {
 	}
 
 	private void blockCycle(int[] array, int p, int n, int p1, int bLen, int wLen, int piv, int pCmp, int bit) {
-		for(int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			int dest = this.pivBufGet(array, p+i*bLen, piv, pCmp, wLen, bit);
 
-			while(dest != i) {
+			while (dest != i) {
 				this.blockSwap(array, p+i*bLen, p+dest*bLen, bLen);
 				dest = this.pivBufGet(array, p+i*bLen, piv, pCmp, wLen, bit);
 			}
@@ -125,7 +125,7 @@ final public class PureLogMergeSort extends Sort {
 	}
 
 	private void blockSwap(int[] array, int a, int b, int s) {
-		while(s-- > 0) Writes.swap(array, a++, b++, 1, true, false);
+		while (s-- > 0) Writes.swap(array, a++, b++, 1, true, false);
 	}
 
 	private void rotate(int[] array, int a, int m, int b) {
@@ -140,17 +140,17 @@ final public class PureLogMergeSort extends Sort {
 
 		int i = 0, j = m;
 
-		while(i < s && j < b) {
+		while (i < s && j < b) {
 			Highlights.markArray(2, j);
 
-			if(Reads.compareValues(tmp[i], array[j]) <= 0)
+			if (Reads.compareValues(tmp[i], array[j]) <= 0)
 				Writes.write(array, a++, tmp[i++], 1, true, false);
 			else
 				Writes.write(array, a++, array[j++], 1, true, false);
 		}
 		Highlights.clearAllMarks();
 
-		while(i < s) Writes.write(array, a++, tmp[i++], 1, true, false);
+		while (i < s) Writes.write(array, a++, tmp[i++], 1, true, false);
 	}
 	private void mergeBWExt(int[] array, int[] tmp, int a, int m, int b) {
 		int s = b-m;
@@ -159,21 +159,21 @@ final public class PureLogMergeSort extends Sort {
 
 		int i = s-1, j = m-1;
 
-		while(i >= 0 && j >= a) {
+		while (i >= 0 && j >= a) {
 			Highlights.markArray(2, j);
 
-			if(Reads.compareValues(tmp[i], array[j]) >= 0)
+			if (Reads.compareValues(tmp[i], array[j]) >= 0)
 				Writes.write(array, --b, tmp[i--], 1, true, false);
 			else
 				Writes.write(array, --b, array[j--], 1, true, false);
 		}
 		Highlights.clearAllMarks();
 
-		while(i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
+		while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
 	}
 
 	private void blockMergeHelper(int[] array, int[] swap, int a, int m, int b, int p, int bLen, int piv, int pCmp, int bit) {
-		if(m-a <= 2*bLen) {
+		if (m-a <= 2*bLen) {
 			this.mergeFWExt(array, swap, a, m, b);
 			return;
 		}
@@ -185,8 +185,8 @@ final public class PureLogMergeSort extends Sort {
 
 		int c = 0;
 
-		while(c++ < 2*bLen) { //merge 2 blocks into buffer to create 2 buffers
-			if(Reads.compareValues(array[i], array[j]) <= 0) {
+		while (c++ < 2*bLen) { //merge 2 blocks into buffer to create 2 buffers
+			if (Reads.compareValues(array[i], array[j]) <= 0) {
 				Writes.write(swap, k++, array[i++], 1, true, true);
 				l++;
 			}
@@ -204,7 +204,7 @@ final public class PureLogMergeSort extends Sort {
 		c = 0;
 
 		do {
-			if(j == b || Reads.compareValues(array[i], array[j]) <= 0) {
+			if (j == b || Reads.compareValues(array[i], array[j]) <= 0) {
 				Writes.write(array, k++, array[i++], 1, true, false);
 				l++;
 			}
@@ -212,11 +212,11 @@ final public class PureLogMergeSort extends Sort {
 				Writes.write(array, k++, array[j++], 1, true, false);
 				r++;
 			}
-			if(++c == bLen) { //change buffer after every block
+			if (++c == bLen) { //change buffer after every block
 				this.pivBufXor(array, k-bLen, pc, t++, wLen);
 				pc += bLen;
 
-				if(left) l -= bLen;
+				if (left) l -= bLen;
 				else     r -= bLen;
 
 				left = l >= r;
@@ -226,7 +226,7 @@ final public class PureLogMergeSort extends Sort {
 				bCnt++;
 			}
 		}
-		while(i < m);
+		while (i < m);
 
 		int b1 = j-c;
 
@@ -243,11 +243,11 @@ final public class PureLogMergeSort extends Sort {
 		this.blockCycle(array, a+2*bLen, bCnt, p, bLen, wLen, piv, pCmp, bit);
 	}
 	private void blockMergeEasy(int[] array, int[] swap, int a, int m, int b, int p, int bLen, int piv, int pCmp, int bit) {
-		if(b-m <= 2*bLen) {
+		if (b-m <= 2*bLen) {
 			this.mergeBWExt(array, swap, a, m, b);
 			return;
 		}
-		if(m-a <= 2*bLen) {
+		if (m-a <= 2*bLen) {
 			this.mergeFWExt(array, swap, a, m, b);
 			return;
 		}
@@ -267,45 +267,45 @@ final public class PureLogMergeSort extends Sort {
 		//find lower ceil((A+B)/2) elements and then find max of halves to get median
 		//binary search is used for O(log n) performance
 
-		if(r < l) {
-			if(r <= 2*bLen) {
+		if (r < l) {
+			if (r <= bLen) {
 				this.mergeBWExt(array, swap, a, m, b);
 				return;
 			}
 			int la = 0, lb = r;
 
-			while(la < lb) {
+			while (la < lb) {
 				int lm = (la+lb) >>> 1;
 
-				if(Reads.compareIndices(array, m+lm, a+(lCnt-lm), 0.25, true) <= 0)
+				if (Reads.compareIndices(array, m+lm, a+(lCnt-lm)-1, 0.25, true) <= 0)
 					la = lm+1;
 				else
 					lb = lm;
 			}
-			if(la == 0)
-				med = array[a+(lCnt-la)-1];
+			if (la == 0)
+				med = array[a+lCnt-1];
 			else
 				med = Reads.compareIndices(array, m+la-1, a+(lCnt-la)-1, 0.25, true) > 0 ? array[m+la-1] : array[a+(lCnt-la)-1];
 		}
 		else {
-			if(l <= 2*bLen) {
+			if (l <= bLen) {
 				this.mergeFWExt(array, swap, a, m, b);
 				return;
 			}
 			int la = 0, lb = l;
 
-			while(la < lb) {
+			while (la < lb) {
 				int lm = (la+lb) >>> 1;
 
-				if(Reads.compareIndices(array, a+lm, m+(lCnt-lm), 0.25, true) < 0)
+				if (Reads.compareIndices(array, a+lm, m+(lCnt-lm)-1, 0.25, true) < 0)
 					la = lm+1;
 				else
 					lb = lm;
 			}
-			if(l == r && la == l)
+			if (l == r && la == l)
 				med = array[m-1];
-			else if(la == 0)
-				med = array[m+(lCnt-la)-1];
+			else if (la == 0)
+				med = array[m+lCnt-1];
 			else
 				med = Reads.compareIndices(array, a+la-1, m+(lCnt-la)-1, 0.25, true) >= 0 ? array[a+la-1] : array[m+(lCnt-la)-1];
 		}
@@ -329,11 +329,11 @@ final public class PureLogMergeSort extends Sort {
 	private void pureLogMergeSort(int[] array, int[] swap, int a, int b, int bLen) {
 		int j = this.MIN_INSERT;
 
-		for(int i = a; i < b; i += j)
+		for (int i = a; i < b; i += j)
 			this.smallSort.customBinaryInsert(array, i, Math.min(b, i+j), 0.25);
 
-		for(; j < b-a; j *= 2)
-			for(int i = a; i+j < b; i += 2*j)
+		for (; j < b-a; j *= 2)
+			for (int i = a; i+j < b; i += 2*j)
 				this.blockMerge(array, swap, i, i+j, Math.min(b, i+2*j), bLen);
 	}
 

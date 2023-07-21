@@ -30,58 +30,28 @@ final public class TumbleweedSort extends Sort {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int left = 1;
-        int lowesthigh = 1;
-        int right = 2;
-        int pull = 1;
         boolean anyless = false;
         while (left != currentLength) {
-            lowesthigh = left;
-            right = left + 1;
-            while (right <= currentLength) {
-                Highlights.markArray(1, left - 1);
-                Highlights.markArray(2, right - 1);
-                Delays.sleep(0.005);
-                if (Reads.compareValues(array[left - 1], array[right - 1]) < 1) {
+            int lowesthigh = left;
+            int right = left + 1;
+            for (; right <= currentLength; right++) {
+                if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) < 1) {
                     if (lowesthigh == left) lowesthigh = right;
-                    else {
-                        Highlights.markArray(1, lowesthigh - 1);
-                        Highlights.markArray(2, right - 1);
-                        Delays.sleep(0.005);
-                        if (Reads.compareValues(array[lowesthigh - 1], array[right - 1]) > 0) lowesthigh = right;
-                    }
+                    else if (Reads.compareIndices(array, lowesthigh - 1, right - 1, 0.005, true) > 0) lowesthigh = right;
                 }
-                right++;
             }
-            pull = left;
-            if (lowesthigh == left) {
-                while (pull + 1 <= currentLength) {
-                    Writes.swap(array, pull - 1, pull, 0.005, true, false);
-                    pull++;
-                }
-            } else {
+            if (lowesthigh == left) Writes.multiSwap(array, left - 1, currentLength - 1, 0.005, true, false);
+            else {
                 if (lowesthigh == left + 1) {
                     right = left + 1;
                     anyless = false;
                     while (right <= currentLength && !anyless) {
-                        Highlights.markArray(1, left - 1);
-                        Highlights.markArray(2, right - 1);
-                        Delays.sleep(0.005);
-                        if (Reads.compareValues(array[left - 1], array[right - 1]) == 1) anyless = true;
+                        if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) == 1) anyless = true;
                         else right++;
                     }
                     if (!anyless) left++;
-                    else {
-                        while (pull + 1 <= currentLength) {
-                            Writes.swap(array, pull - 1, pull, 0.005, true, false);
-                            pull++;
-                        }
-                    }
-                } else {
-                    while (pull + 1 != lowesthigh) {
-                        Writes.swap(array, pull - 1, pull, 0.005, true, false);
-                        pull++;
-                    }
-                }
+                    else Writes.multiSwap(array, left - 1, currentLength - 1, 0.005, true, false);
+                } else Writes.multiSwap(array, left - 1, lowesthigh - 1, 0.005, true, false);
             }
         }
     }

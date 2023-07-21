@@ -44,7 +44,7 @@ public final class CityscapeSort extends Sort {
             Highlights.markArray(1, j);
             Highlights.markArray(2, j - h);
             Delays.sleep(0.25);
-            for (; j >= h && Reads.compareValues(array[j - h], v) == 1; j -= h) {
+            for (; j >= h && j - h >= start && Reads.compareValues(array[j - h], v) == 1; j -= h) {
                 Highlights.markArray(2, j - h);
                 Writes.write(array, j, array[j - h], 0.25, w = true, false);
             }

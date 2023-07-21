@@ -42,37 +42,26 @@ final public class LuckyPrimeWeaveHighSort extends BogoSorting {
         int noswapsfor = 0;
         int gap = currentLength;
         int primetesti = 2;
-        int i = 1;
         int boundi = 1;
-        double primetestrunning = 1.0;
-        boolean primetest = false;
-        boolean anyswaps = false;
         boolean testpass = false;
         boolean visualaesthetic = true;
         while (!testpass) {
-            i = check;
-            anyswaps = false;
-            if ((i - 1) + gap < currentLength) {
-                Highlights.markArray(1, i - 1);
-                Highlights.markArray(2, (i - 1) + gap);
-                Delays.sleep(0.125);
-            }
-            while ((i - 1) + gap < currentLength) {
+            boolean anyswaps = false;
+            for (int i = check; (i - 1) + gap < currentLength; i += move) {
                 if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.125, true) > 0) {
                     if (randInt(1, 101) <= luck) Writes.swap(array, i - 1, (i - 1) + gap, 0.125, true, false);
                     anyswaps = true;
                 }
-                i += move;
             }
             if (!anyswaps && gap != 1) {
                 noswapsfor++;
                 if (noswapsfor == move) {
                     noswapsfor = 0;
                     lastmove = move;
-                    primetestrunning = move;
+                    double primetestrunning = move;
                     if (!visualaesthetic) {
                         while (primetestrunning != 1) {
-                            primetest = false;
+                            boolean primetest = false;
                             primetesti = 2;
                             while (!primetest) {
                                 if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {
@@ -87,7 +76,7 @@ final public class LuckyPrimeWeaveHighSort extends BogoSorting {
                     if (move != 1) {
                         primetestrunning = move;
                         while (primetestrunning != 1) {
-                            primetest = false;
+                            boolean primetest = false;
                             primetesti = 2;
                             while (!primetest) {
                                 if (Math.floor(primetestrunning / primetesti) == primetestrunning / primetesti) {

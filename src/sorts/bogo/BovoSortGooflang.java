@@ -38,31 +38,35 @@ public final class BovoSortGooflang extends BogoSorting {
         this.setBogoSort(true);
     }
 
-    public void nOmegaMultiSwap(int O, int[] array, int a, int b, int depth){
+    public void nOmegaMultiSwap(int O, int[] array, int a, int b, int depth) {
         if (a != b) {
+            int temp = array[a];
             Writes.recordDepth(depth);
             if (O == 1) {
                 if (b - a > 0) {
-                    for (int i = 1; i <= b - a; i++) {
-                        Writes.multiSwap(array, b, a, 0.1, true, false);
+                    for (int i = 0; i < b - a; i++) {
+                        Writes.multiSwap(array, a, b, 0.1, true, false);
                     }
                 } else {
-                    for (int i = 1; i <= a - b; i++) {
+                    for (int i = 0; i < a - b; i++) {
                         Writes.multiSwap(array, a, b, 0.1, true, false);
                     }
                 }
             } else {
                 if (b - a > 0) {
-                    for (int i = 1; i <= b - a; i++) {
+                    for (int i = 0; i < b - a; i++) {
                         Writes.recursion();
-                        nOmegaMultiSwap(O - 1, array, b, a, depth+1);
+                        nOmegaMultiSwap(O - 1, array, a, b, depth + 1);
                     }
                 } else {
-                    for (int i = 1; i <= a - b; i++) {
+                    for (int i = 0; i < a - b; i++) {
                         Writes.recursion();
-                        nOmegaMultiSwap(O - 1, array, a, b, depth+1);
+                        nOmegaMultiSwap(O - 1, array, a, b, depth + 1);
                     }
                 }
+            }
+            while (array[b] != temp) {
+                Writes.multiSwap(array, a, b, 0.1, true, false);
             }
         }
     }
@@ -70,7 +74,7 @@ public final class BovoSortGooflang extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         do {
-            nOmegaMultiSwap(currentLength, array, 0, randInt(1, currentLength), 0);
+            nOmegaMultiSwap(currentLength, array, randInt(1, currentLength), 0, 0);
         } while (!isArraySorted(array, currentLength));
     }
 }

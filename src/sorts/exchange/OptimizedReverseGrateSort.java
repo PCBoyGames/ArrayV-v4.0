@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class OptimizedReverseGrateSort extends Sort {
+public class OptimizedReverseGrateSort extends Sort {
     public OptimizedReverseGrateSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         setSortListName("Optimized Reverse Grate");

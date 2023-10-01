@@ -6,7 +6,7 @@ import sorts.select.MaxHeapSort;
 import sorts.select.OptimizedLazyHeapSort;
 import sorts.templates.Sort;
 
-public final class CavernousSort extends Sort {
+public class CavernousSort extends Sort {
 
     public CavernousSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -45,10 +45,10 @@ public final class CavernousSort extends Sort {
     }
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size, length;
+        public int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;
@@ -271,7 +271,7 @@ public final class CavernousSort extends Sort {
             Writes.swap(array, --b, r--, 0.5, true, false);
     }
 
-    private void blockmerge(int[] array, int a, int m, int b, int pb, int p, int piv, int C, final int w, boolean v) {
+    private void blockmerge(int[] array, int a, int m, int b, int pb, int p, int piv, int C, int w, boolean v) {
         int l = a, r = m, lb = a, rb = m, tc = 0;
         for (int c=0; c<2*w; c++) {
             if (r>=b||(l<m&&Reads.compareIndices(array, l, r, 0.5, true)<=0)) {
@@ -317,7 +317,7 @@ public final class CavernousSort extends Sort {
         blockcycle(array, a+2*w, p, tc, w, w, piv, C, v);
     }
 
-    private void blockmergehelp(int[] array, int a, int m, int b, int pb, int p, int piv, int c, final int w, boolean v) {
+    private void blockmergehelp(int[] array, int a, int m, int b, int pb, int p, int piv, int c, int w, boolean v) {
         int z = (b-m)%w;
         blockmerge(array, a, m, b-z, pb, p, piv, c, w, v);
         tailmerge(array, a, b-z, b, pb);

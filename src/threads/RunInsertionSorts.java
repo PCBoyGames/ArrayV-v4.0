@@ -32,7 +32,7 @@ SOFTWARE.
  *
  */
 
-final public class RunInsertionSorts extends MultipleSortThread {
+public class RunInsertionSorts extends MultipleSortThread {
     private Sort InsertionSort;
     private Sort DoubleInsertionSort;
     private Sort BinaryInsertionSort;

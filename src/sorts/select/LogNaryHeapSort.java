@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Meme Man
  *
  */
-public final class LogNaryHeapSort extends Sort {
+public class LogNaryHeapSort extends Sort {
 
     public LogNaryHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -22,13 +22,13 @@ public final class LogNaryHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public static int log2(int n) {
         int log = 0;
         while ((n >>= 1) != 0) ++log;
         return log;
     }
-    
+
     private void siftDown(int[] array, int val, int i, int p, int n, int base) {
         while (base * i + 1 < n) {
             int max = val;

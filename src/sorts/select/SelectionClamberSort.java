@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class SelectionClamberSort extends Sort {
+public class SelectionClamberSort extends Sort {
     public SelectionClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

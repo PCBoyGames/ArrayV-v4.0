@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ReverseClamberSort extends Sort {
+public class ReverseClamberSort extends Sort {
     public ReverseClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Reverse Clamber");

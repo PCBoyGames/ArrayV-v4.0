@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class HeadPullRoomSort extends Sort {
+public class HeadPullRoomSort extends Sort {
     public HeadPullRoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Head Pull Room");

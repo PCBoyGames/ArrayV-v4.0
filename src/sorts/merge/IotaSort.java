@@ -5,7 +5,7 @@ import sorts.insert.InsertionSort;
 import sorts.templates.GrailSorting;
 import utils.IndexedRotations;
 
-public final class IotaSort extends GrailSorting {
+public class IotaSort extends GrailSorting {
     public IotaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Iota");

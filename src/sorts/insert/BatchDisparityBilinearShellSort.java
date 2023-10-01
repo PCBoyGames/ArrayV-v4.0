@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BatchDisparityBilinearShellSort extends Sort {
+public class BatchDisparityBilinearShellSort extends Sort {
 
     public BatchDisparityBilinearShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

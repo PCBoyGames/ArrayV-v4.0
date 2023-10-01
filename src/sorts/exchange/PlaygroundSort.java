@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class PlaygroundSort extends Sort {
+public class PlaygroundSort extends Sort {
     public PlaygroundSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Playground");

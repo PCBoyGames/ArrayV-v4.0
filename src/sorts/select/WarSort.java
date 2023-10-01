@@ -13,7 +13,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class WarSort extends Sort {
+public class WarSort extends Sort {
     public WarSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("War");

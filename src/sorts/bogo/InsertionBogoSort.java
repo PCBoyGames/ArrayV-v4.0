@@ -19,7 +19,7 @@ in collaboration with yuji
  * @author yuji
  *
  */
-public final class InsertionBogoSort extends BogoSorting {
+public class InsertionBogoSort extends BogoSorting {
 
     public InsertionBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

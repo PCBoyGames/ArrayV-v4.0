@@ -20,7 +20,7 @@ in collaboration with aphitorite and PCBoy
  * @author PCBoy
  *
  */
-public final class UnstableTernarySingularityQuickSort extends Sort {
+public class UnstableTernarySingularityQuickSort extends Sort {
 
     public UnstableTernarySingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -173,10 +173,8 @@ public final class UnstableTernarySingularityQuickSort extends Sort {
                 return;
             }
             int pIdx = a + 1;
-            while (pIdx < b && Reads.compareIndices(array, pIdx - 1, pIdx, 0.125, true) <= 0)
-                pIdx++;
-            if (pIdx >= b)
-                return;
+            while (pIdx < b && Reads.compareIndices(array, pIdx - 1, pIdx, 0.125, true) <= 0) pIdx++;
+            if (pIdx >= b) return;
             int[] p = partition(array, a, b, array[pIdx - 1]);
             if (p[1] - p[0] == b - a)
                 return;
@@ -196,6 +194,14 @@ public final class UnstableTernarySingularityQuickSort extends Sort {
     }
 
     public void quickSort(int[] array, int a, int b) {
+        boolean sorted = true;
+        for (int i = a; i < b - 1; i++) {
+            if (Reads.compareIndices(array, i, i + 1, 0.5, true) > 0) {
+                sorted = false;
+                break;
+            }
+        }
+        if (sorted) return;
         depthlimit = (int) Math.min(Math.sqrt(b - a), 2 * log2(b - a));
         insertlimit = Math.max(depthlimit / 2, 16);
         replimit = Math.max(depthlimit / 4, 2);

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 
-final public class OreganoSort extends BogoSorting {
+public class OreganoSort extends BogoSorting {
     public OreganoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

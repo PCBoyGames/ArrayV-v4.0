@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class OutOfPlacePopSort extends Sort {
+public class OutOfPlacePopSort extends Sort {
     public OutOfPlacePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -1,5 +1,6 @@
 package sorts.hybrid;
 
+import sorts.quick.PDQBranchedSort;
 import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
@@ -27,7 +28,7 @@ SOFTWARE.
  *
  */
 
-final public class DropMergeSort extends Sort {
+public class DropMergeSort extends Sort {
     public DropMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -43,9 +44,9 @@ final public class DropMergeSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int RECENCY = 8;
-    private final int EARLY_OUT_TEST_AT = 4;
-    private final double EARLY_OUT_DISORDER_FRACTION = 0.6;
+    private int RECENCY = 8;
+    private int EARLY_OUT_TEST_AT = 4;
+    private double EARLY_OUT_DISORDER_FRACTION = 0.6;
 
     private void truncateArrayList(List<Integer> arrayList, int len) {
         int size = arrayList.size();

@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class HashSort extends Sort {
+public class HashSort extends Sort {
     public HashSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

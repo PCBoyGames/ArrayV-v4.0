@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CoprimeShellSort extends Sort {
+public class CoprimeShellSort extends Sort {
     public CoprimeShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Coprime Shell");

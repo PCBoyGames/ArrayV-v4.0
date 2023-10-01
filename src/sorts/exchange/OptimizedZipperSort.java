@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedZipperSort extends Sort {
+public class OptimizedZipperSort extends Sort {
     public OptimizedZipperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Zipper");

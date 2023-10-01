@@ -3,7 +3,6 @@ package sorts.merge;
 import java.util.ArrayList;
 
 import main.ArrayVisualizer;
-import sorts.templates.MadhouseTools;
 
 /*
 
@@ -15,10 +14,8 @@ EXTENDING CODE BY AYAKO-CHAN AND APHITORITE
 ------------------------------
 
 */
-final public class PseudoPriorityOptimizedNaturalRotateMergeSort extends MadhouseTools {
+public class PseudoPriorityOptimizedNaturalRotateMergeSort extends OptimizedNaturalRotateMergeSort {
 
-    int insertlimit = 8;
-    int seglimit = 16;
     ArrayList<Integer> indexes;
 
     public PseudoPriorityOptimizedNaturalRotateMergeSort(ArrayVisualizer arrayVisualizer) {
@@ -33,78 +30,6 @@ final public class PseudoPriorityOptimizedNaturalRotateMergeSort extends Madhous
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-    }
-
-    protected int mergeFindRun(int[] array, int a, int b) {
-        int i = stableFindRun(array, a, b, 0.5, true, false);
-        int j;
-        for (; i < a + seglimit && i < b; i = j) {
-            j = stableFindRun(array, i, b, 0.5, true, false);
-            grailMergeWithoutBuffer(array, a, i - a, j - i);
-        }
-        return i;
-    }
-
-    protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
-        while (a < m && m < b) {
-            int i = minExponentialSearch(array, m, b, array[a], true, 0.5, true);
-            rotateIndexed(array, a, m, i, 1, true, false);
-            int t = i - m;
-            m = i;
-            a += t + 1;
-            if (a >= m) break;
-            a = minExponentialSearch(array, a, m, array[m], false, 0.5, true);
-        }
-    }
-
-    protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
-        while (b > m && m > a) {
-            int i = maxExponentialSearch(array, a, m, array[b - 1], false, 0.5, true);
-            rotateIndexed(array, i, m, b, 1, true, false);
-            int t = m - i;
-            m = i;
-            b -= t + 1;
-            if (m <= a) break;
-            b = maxExponentialSearch(array, m, b, array[m - 1], true, 0.5, true);
-        }
-    }
-
-    protected void merge(int[] array, int a, int m, int b, int d) {
-        Writes.recordDepth(d);
-        int lenA = m - a, lenB = b - m;
-        if (lenA <= insertlimit || lenB <= insertlimit) {
-            if (m - a > b - m) inPlaceMergeBW(array, a, m, b);
-            else inPlaceMergeFW(array, a, m, b);
-            return;
-        }
-        int c = lenA + (lenB - lenA) / 2;
-        if (lenB < lenA) {
-            int r1 = 0, r2 = lenB;
-            while (r1 < r2) {
-                int ml = r1 + (r2 - r1) / 2;
-                if (Reads.compareValues(array[m - (c - ml)], array[b - ml - 1]) > 0) r2 = ml;
-                else r1 = ml + 1;
-            }
-            rotateIndexed(array, m - (c - r1), m, b - r1, 1, true, false);
-            int m1 = b - c;
-            Writes.recursion();
-            merge(array, m1, b - r1, b, d + 1);
-            Writes.recursion();
-            merge(array, a, m1 - (lenB - r1), m1, d + 1);
-        } else {
-            int r1 = 0, r2 = lenA;
-            while (r1 < r2) {
-                int ml = r1 + (r2 - r1) / 2;
-                if (Reads.compareValues(array[a + ml], array[m + (c - ml) - 1]) > 0) r2 = ml;
-                else r1 = ml + 1;
-            }
-            rotateIndexed(array, a + r1, m, m + (c - r1), 1, true, false);
-            int m1 = a + c;
-            Writes.recursion();
-            merge(array, a, a + r1, m1, d + 1);
-            Writes.recursion();
-            merge(array, m1, m1 + (lenA - r1), b, d + 1);
-        }
     }
 
     protected void initPass(int[] array, int start, int end) {
@@ -158,7 +83,6 @@ final public class PseudoPriorityOptimizedNaturalRotateMergeSort extends Madhous
         indexes = new ArrayList<>(extlen);
         Writes.changeAllocAmount(extlen);
         initPass(array, start, end);
-        System.err.println(indexes);
         while (indexes.size() > 1) findSmall(array, end);
         indexes.clear();
         Writes.changeAllocAmount(-1 * extlen);

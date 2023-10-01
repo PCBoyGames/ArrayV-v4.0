@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class ExchangeSliceBogoSort extends BogoSorting {
+public class ExchangeSliceBogoSort extends BogoSorting {
     public ExchangeSliceBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Exchange Slice Bogo");

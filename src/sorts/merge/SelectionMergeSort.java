@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author Yuri-chan
  *
  */
-public final class SelectionMergeSort extends Sort {
+public class SelectionMergeSort extends Sort {
 
     public SelectionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

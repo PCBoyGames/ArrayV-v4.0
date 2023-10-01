@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.LassoSorting;
 
 
-final public class LassoSort extends LassoSorting {
+public class LassoSort extends LassoSorting {
     public LassoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

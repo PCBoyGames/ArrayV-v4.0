@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CupcakeWrapperSort extends Sort {
+public class CupcakeWrapperSort extends Sort {
     public CupcakeWrapperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Cupcake Wrapper");

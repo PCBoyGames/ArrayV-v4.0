@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ClericSortIterative extends IterativeClericSorting {
+public class ClericSortIterative extends IterativeClericSorting {
     public ClericSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Cleric (Iterative)");

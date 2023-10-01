@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class OptimizedOddEvenMergeSort extends Sort {
+public class OptimizedOddEvenMergeSort extends Sort {
     public OptimizedOddEvenMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

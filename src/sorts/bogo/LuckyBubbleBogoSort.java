@@ -20,7 +20,7 @@ in collaboration with PCBoy and Meme Man
  * @author Meme Man
  *
  */
-public final class LuckyBubbleBogoSort extends BogoSorting {
+public class LuckyBubbleBogoSort extends BogoSorting {
 
     public LuckyBubbleBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

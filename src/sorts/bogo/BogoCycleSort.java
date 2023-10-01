@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class BogoCycleSort extends Sort {
+public class BogoCycleSort extends Sort {
     public BogoCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

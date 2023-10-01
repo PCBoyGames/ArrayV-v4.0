@@ -47,7 +47,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*                                                       */
 /*********************************************************/
 
-final public class UnstableGrailSort extends UnstableGrailSorting {
+public class UnstableGrailSort extends UnstableGrailSorting {
     public UnstableGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

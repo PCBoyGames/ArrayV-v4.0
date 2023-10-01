@@ -18,7 +18,7 @@ import utils.Statistics;
  * @author Distay                     *
  **************************************/
 
-final public class MoreOptimizedPigeonholeSort extends Sort {
+public class MoreOptimizedPigeonholeSort extends Sort {
     public MoreOptimizedPigeonholeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

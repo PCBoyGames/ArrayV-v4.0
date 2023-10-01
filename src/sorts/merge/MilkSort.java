@@ -3,7 +3,7 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
-public final class MilkSort extends Sort {
+public class MilkSort extends Sort {
     public MilkSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

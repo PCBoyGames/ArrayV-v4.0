@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Ayako-chan
  *
  */
-public final class ReverseBubbleSort extends Sort {
+public class ReverseBubbleSort extends Sort {
 
     public ReverseBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class WeavedVanVoorhisFourFourSortIterative extends Sort {
+public class WeavedVanVoorhisFourFourSortIterative extends Sort {
     public WeavedVanVoorhisFourFourSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

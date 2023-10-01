@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class WeaveMergeSort extends Sort {
+public class WeaveMergeSort extends Sort {
     public WeaveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

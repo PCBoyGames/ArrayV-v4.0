@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class BinaryInsertionSort extends BinaryInsertionSorting {
+public class BinaryInsertionSort extends BinaryInsertionSorting {
     public BinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

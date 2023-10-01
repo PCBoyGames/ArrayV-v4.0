@@ -39,7 +39,7 @@ SOFTWARE.
  * then the copy is sorted. Otherwise, the array is shuffled and the process is repeated.
  * </ul>
  */
-public final class SmartBogoBogoSort extends BogoSorting {
+public class SmartBogoBogoSort extends BogoSorting {
     public SmartBogoBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

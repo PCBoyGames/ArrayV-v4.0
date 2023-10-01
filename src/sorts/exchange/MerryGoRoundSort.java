@@ -10,7 +10,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class MerryGoRoundSort extends Sort {
+public class MerryGoRoundSort extends Sort {
     public MerryGoRoundSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Merry-Go-Round");

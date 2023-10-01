@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class PlasmaSort extends Sort {
+public class PlasmaSort extends Sort {
     int[] keys;
 
     private InsertionSort insertSorter;

@@ -3,7 +3,7 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
-public final class Calcium57Sort extends Sort {
+public class Calcium57Sort extends Sort {
     public Calcium57Sort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

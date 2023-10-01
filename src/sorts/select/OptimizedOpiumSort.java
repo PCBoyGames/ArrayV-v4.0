@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class OptimizedOpiumSort extends Sort {
+public class OptimizedOpiumSort extends Sort {
     public OptimizedOpiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Opium");

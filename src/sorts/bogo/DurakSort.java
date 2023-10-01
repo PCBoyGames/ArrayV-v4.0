@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class DurakSort extends BogoSorting {
+public class DurakSort extends BogoSorting {
 
     public DurakSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -18,7 +18,7 @@ public final class DurakSort extends BogoSorting {
         this.setUnreasonableLimit(11);
         this.setBogoSort(true);
     }
-    
+
     // Easy patch to avoid self-swaps.
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a != b) Writes.swap(array, a, b, pause, mark, aux);

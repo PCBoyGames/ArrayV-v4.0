@@ -32,7 +32,7 @@ Reversing a list of N values with Fire Sort will do S = 0.125N^3 + 0.5N^2
 swaps, which is (0.25N(N + 4))/(N - 1) times more swaps than Gnome Sort.
 
 */
-final public class FireSort extends Sort {
+public class FireSort extends Sort {
     public FireSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Fire");

@@ -34,7 +34,7 @@ SOFTWARE.
  *
  */
 
-final public class DisparityCircle extends Visual {
+public class DisparityCircle extends Visual {
 
     public DisparityCircle(ArrayVisualizer ArrayVisualizer) {
         super(ArrayVisualizer);

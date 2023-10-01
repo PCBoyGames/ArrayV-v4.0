@@ -17,7 +17,7 @@ This was a pain to fix...
 
  */
 
-public final class HeadPullSortGooflang extends Sort {
+public class HeadPullSortGooflang extends Sort {
     public HeadPullSortGooflang(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -39,22 +39,22 @@ public final class HeadPullSortGooflang extends Sort {
             Writes.recordDepth(depth);
             if (O == 1) {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.multiSwap(array, a, b, 0.1, true, false);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.multiSwap(array, a, b, 0.1, true, false);
                     }
                 }
             } else {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaMultiSwap(O - 1, array, a, b, depth + 1);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaMultiSwap(O - 1, array, a, b, depth + 1);
                     }
@@ -71,6 +71,7 @@ public final class HeadPullSortGooflang extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int i = 1;
         while (i + 1 <= currentLength) {
+            nOmegaMultiSwap(currentLength, array, i, 0, 0);
             if (Reads.compareIndices(array, i - 1, i, 0.1, true) > 0) {
                 nOmegaMultiSwap(currentLength, array, i, 0, 0);
                 i = 1;

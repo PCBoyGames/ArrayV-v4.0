@@ -5,7 +5,7 @@ import sorts.insert.InsertionSort;
 import sorts.templates.GrailSorting;
 
 // Distray stuff
-final public class OutOfPlaceLazyHeapSort extends GrailSorting {
+public class OutOfPlaceLazyHeapSort extends GrailSorting {
     public OutOfPlaceLazyHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

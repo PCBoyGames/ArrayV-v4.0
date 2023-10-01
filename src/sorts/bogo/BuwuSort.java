@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 /**
  * Buwusort rotates a random part of the array <0,rand> [very recursively] until sorted.
  */
-public final class BuwuSort extends BogoSorting {
+public class BuwuSort extends BogoSorting {
     public BuwuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

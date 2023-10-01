@@ -15,7 +15,7 @@ Free Documentation License".
  *
  */
 
-final public class PreAphiCycleSort extends Sort {
+public class PreAphiCycleSort extends Sort {
     public PreAphiCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -67,7 +67,7 @@ final public class PreAphiCycleSort extends Sort {
                 Highlights.markArray(1, pos);
             }
 
-            // Put val into final position
+            // Put val into position
             int tmp = array[pos];
             Writes.write(array, pos, val, 0.02, true, false);
             val = tmp;

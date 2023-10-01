@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class DiamondSortIterative extends Sort {
+public class DiamondSortIterative extends Sort {
     public DiamondSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

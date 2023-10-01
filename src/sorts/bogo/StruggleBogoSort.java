@@ -19,7 +19,7 @@ HEEEELP MEEEEEEEEEEEEEEE!
 
  */
 
-public final class StruggleBogoSort extends BogoSorting {
+public class StruggleBogoSort extends BogoSorting {
     public StruggleBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

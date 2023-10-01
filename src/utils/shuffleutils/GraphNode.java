@@ -9,8 +9,8 @@ import utils.ShuffleGraph;
 import utils.ShuffleInfo;
 
 public class GraphNode {
-    public static final int WIDTH = 250;
-    public static final int HEIGHT = 50;
+    public static int WIDTH = 250;
+    public static int HEIGHT = 50;
 
     public ShuffleInfo shuffle;
     public int x, y;

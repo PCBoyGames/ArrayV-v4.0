@@ -84,19 +84,19 @@ SOFTWARE.
  *
  */
 
-final public class ArrayVisualizer {
+public class ArrayVisualizer {
     private static ArrayVisualizer INSTANCE = null;
 
-    final JFrame window;
+    JFrame window;
 
-    final private int MIN_ARRAY_VAL;
-    final private int MAX_ARRAY_VAL;
+    private int MIN_ARRAY_VAL;
+    private int MAX_ARRAY_VAL;
 
-    final int[] array;
-    final int[] validateArray;
-    final int[] stabilityTable;
-    final int[] indexTable;
-    final ArrayList<int[]> arrays;
+    int[] array;
+    int[] validateArray;
+    int[] stabilityTable;
+    int[] indexTable;
+    ArrayList<int[]> arrays;
 
     private SortPair[] AllSorts; // First row of Comparison/DistributionSorts arrays consists of class names
     private SortPair[] ComparisonSorts; // First row of Comparison/DistributionSorts arrays consists of class names
@@ -119,7 +119,7 @@ final public class ArrayVisualizer {
     private Thread visualsThread;
 
     private volatile boolean visualsEnabled;
-    public final boolean disabledStabilityCheck;
+    public boolean disabledStabilityCheck;
 
     private String category;
     private String heading;
@@ -185,7 +185,11 @@ final public class ArrayVisualizer {
     private volatile boolean hidden;
     private volatile boolean frameSkipped;
 
+    private volatile boolean recursionStats = true;
     private volatile boolean moreStats = false;
+
+    private volatile boolean autoSkip = true;
+    public volatile boolean blaze = false;
 
     public ArrayVisualizer() {
         if (INSTANCE != null) {
@@ -395,7 +399,7 @@ final public class ArrayVisualizer {
 
         this.UtilFrame.reposition(this.ArrayFrame);
 
-        this.SHUFFLEANIM = true;
+        this.SHUFFLEANIM = !blaze;
         this.ANALYZE = false;
         this.POINTER = false;
         this.TEXTDRAW = true;
@@ -439,23 +443,25 @@ final public class ArrayVisualizer {
                 background.setColor(Color.BLACK);
                 int coltmp = 255;
 
-                ArrayVisualizer.this.visualClasses = new Visual[15];
+                ArrayVisualizer.this.visualClasses = new Visual[17];
 
-                ArrayVisualizer.this.visualClasses[0]  = new          BarGraph(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[1]  = new           Rainbow(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[2]  = new DisparityBarGraph(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[3]  = new       ColorCircle(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[4]  = new   DisparityCircle(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[5]  = new   DisparityChords(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[6]  = new     DisparityDots(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[7]  = new       ScatterPlot(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[8]  = new          WaveDots(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[9]  = new       CustomImage(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[10] = new          SineWave(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[11] = new         HoopStack(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[12] = new         PixelMeshRectangle(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[13] = new            Spiral(ArrayVisualizer.this);
-                ArrayVisualizer.this.visualClasses[14] = new        SpiralDots(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[0]  = new           BarGraph(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[1]  = new            Rainbow(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[2]  = new  DisparityBarGraph(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[3]  = new        ColorCircle(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[4]  = new    DisparityCircle(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[5]  = new    DisparityChords(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[6]  = new      DisparityDots(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[7]  = new        ScatterPlot(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[8]  = new           WaveDots(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[9]  = new        CustomImage(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[10] = new           SineWave(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[11] = new          HoopStack(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[12] = new PixelMeshRectangle(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[13] = new             Spiral(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[14] = new         SpiralDots(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[15] = new       TriangleMesh(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[16] = new       HilbertCurve(ArrayVisualizer.this);
 
                 while (ArrayVisualizer.this.visualsEnabled) {
                     if (ArrayVisualizer.this.updateVisualsForced == 0) {
@@ -553,8 +559,6 @@ final public class ArrayVisualizer {
                 this.statSnapshot.getComparisonCount(),
                 this.statSnapshot.getSwapCount(),
                 this.statSnapshot.getReversalCount(),
-                this.statSnapshot.getRecursionCount(),
-                this.statSnapshot.getRecursionDepth(),
 
                 this.statSnapshot.getMainWriteCount(),
                 this.statSnapshot.getAuxWriteCount(),
@@ -571,20 +575,24 @@ final public class ArrayVisualizer {
                 40,
                 25,
                 25,
-                25,
-                25,
                 40,
                 25,
                 25,
                 30
         );
+        if (recursionStats) {
+            Stats.add(8, this.statSnapshot.getRecursionCount());
+            Stats.add(9, this.statSnapshot.getRecursionDepth());
+            magicNumbers.add(8, 25);
+            magicNumbers.add(9, 25);
+        }
         if (this.statSnapshot.getBigO() != "") {
-            Stats.add(10, this.statSnapshot.getBigO());
-            magicNumbers.add(10, 25);
+            Stats.add(recursionStats ? 10 : 8, this.statSnapshot.getBigO());
+            magicNumbers.add(recursionStats ? 10 : 8, 25);
         }
         for (String z : this.statSnapshot.parseMap()) {
-            Stats.add(10, z);
-            magicNumbers.add(10, 25);
+            Stats.add(recursionStats ? 10 : 8, z);
+            magicNumbers.add(recursionStats ? 10 : 8, 25);
         }
         for (int i=0, offset = 0; i<Stats.size(); i++) {
             offset += magicNumbers.get(i);
@@ -1035,6 +1043,7 @@ final public class ArrayVisualizer {
 
     //TODO: This method is *way* too long. Break it apart.
     public synchronized void verifySortAndSweep() {
+        this.Sounds.fullVelocity(false);
         this.Highlights.toggleFancyFinish(true);
         this.Highlights.resetFancyFinish();
 
@@ -1046,6 +1055,7 @@ final public class ArrayVisualizer {
 
         String temp = this.heading;
         this.heading = "Verifying sort...";
+        this.extraHeading = "";
 
         int cmpVal = this.REVERSED ? -1 : 1;
 
@@ -1104,16 +1114,19 @@ final public class ArrayVisualizer {
             boolean tempSound = this.Sounds.isEnabled();
             this.Sounds.toggleSound(false);
             this.Highlights.toggleFancyFinish(false);
-            this.setExtraHeading(" / Original order of dupes not maintained. Sort is not stable.");
+            this.extraHeading = " / Original order of dupes not maintained. Sort is not stable.";
 
             for (int j = unstableIdx; j < this.sortLength; j++) {
                 this.Highlights.markArray(j, j);
-                this.Delays.sleep(sleepRatio);
+                this.Delays.sleep(blaze ? 0 : sleepRatio);
             }
 
-            JOptionPane.showMessageDialog(this.window, "This sort is not stable;\nIndices " + unstableIdx + " and " + (unstableIdx + 1) + " are out of order!", "Error", JOptionPane.OK_OPTION, null);
+            if (!blaze) {
+                if (autoSkip) {try {Thread.sleep(3000);} catch (InterruptedException e) {}}
+                else JOptionPane.showMessageDialog(this.window, "This sort is not stable;\nIndices " + unstableIdx + " and " + (unstableIdx + 1) + " are out of order!", "Error", JOptionPane.OK_OPTION, null);
+            }
 
-            this.setExtraHeading("");
+            this.extraHeading = "";
             this.Highlights.clearAllMarks();
             this.Sounds.toggleSound(tempSound);
         } else if (success && validateFailed) {
@@ -1194,6 +1207,9 @@ final public class ArrayVisualizer {
     }
     public void toggleLinkedDots(boolean Bool) {
         this.LINEDRAW = Bool;
+    }
+    public void toggleRecursionStats(boolean Bool) {
+        this.recursionStats = Bool;
     }
     public void toggleStatistics(boolean Bool) {
         this.TEXTDRAW = Bool;

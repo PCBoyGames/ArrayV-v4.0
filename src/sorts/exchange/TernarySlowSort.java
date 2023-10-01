@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author fungamer2
  *
  */
-public final class TernarySlowSort extends Sort {
+public class TernarySlowSort extends Sort {
 
     public TernarySlowSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

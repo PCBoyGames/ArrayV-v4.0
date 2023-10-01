@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class AdaptiveFoldSort extends Sort {
+public class AdaptiveFoldSort extends Sort {
     public AdaptiveFoldSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

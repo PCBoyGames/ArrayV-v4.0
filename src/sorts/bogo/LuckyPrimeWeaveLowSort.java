@@ -1,6 +1,6 @@
 package sorts.bogo;
 import main.ArrayVisualizer;
-import sorts.templates.BogoSorting;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -11,7 +11,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class LuckyPrimeWeaveLowSort extends BogoSorting {
+public class LuckyPrimeWeaveLowSort extends MadhouseTools {
     public LuckyPrimeWeaveLowSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lucky Prime Weave (Low Prime)");
@@ -45,7 +45,29 @@ final public class LuckyPrimeWeaveLowSort extends BogoSorting {
         int boundi = 1;
         boolean testpass = false;
         boolean visualaesthetic = true;
+        int[] tree = factorTree(gap);
+        String treeString = "[";
+        for (int i = 0; i < tree.length; i++) {
+            treeString += (tree[i] + ", ");
+        }
+        treeString = treeString.substring(0, treeString.length() - 2) + "]";
+        arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
+        for (int i = 0; i < currentLength; i++) {
+            Highlights.markArray(1, i);
+            Delays.sleep(0.25);
+        }
         while (!testpass) {
+            if (gap > 1) {
+                tree = factorTree(gap);
+                treeString = "[";
+                for (int i = 0; i < tree.length; i++) {
+                    treeString += (tree[i] + ", ");
+                }
+                treeString = treeString.substring(0, treeString.length() - 2) + "]";
+                arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
+            } else {
+                arrayVisualizer.setExtraHeading(" / 1 = []");
+            }
             boolean anyswaps = false;
             for (int i = check; (i - 1) + gap < currentLength; i += move) {
                 if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.125, true) > 0) {

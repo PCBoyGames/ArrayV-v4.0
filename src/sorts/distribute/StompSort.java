@@ -5,7 +5,7 @@ import java.util.Arrays;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class StompSort extends Sort {
+public class StompSort extends Sort {
     public StompSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Stomp");

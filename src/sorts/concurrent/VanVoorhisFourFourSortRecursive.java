@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class VanVoorhisFourFourSortRecursive extends Sort {
+public class VanVoorhisFourFourSortRecursive extends Sort {
     public VanVoorhisFourFourSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class FlightMergeSort extends Sort {
+public class FlightMergeSort extends Sort {
 
     int min;
     int max;

@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SegmentedSort extends Sort {
+public class SegmentedSort extends Sort {
     public SegmentedSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Segmented");

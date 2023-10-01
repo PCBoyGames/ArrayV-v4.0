@@ -6,11 +6,10 @@ import java.io.StringWriter;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
-final public class JErrorPane extends JOptionPane {
+public class JErrorPane extends JOptionPane {
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
 
     public volatile static boolean errorMessageActive = false;
 

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 thanks to Tanoshi, that came up with the idea too, and made me make a Java port of the algorithm
 */
 
-final public class LMSDRadixSort extends Sort {
+public class LMSDRadixSort extends Sort {
 
     public LMSDRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

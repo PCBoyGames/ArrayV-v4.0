@@ -14,7 +14,7 @@ import sorts.templates.Parallelize;
   * Author: Distray                         *
   *******************************************/
 
- public final class GnotAGnoblinSort extends BogoSorting implements Parallelize {
+ public class GnotAGnoblinSort extends BogoSorting implements Parallelize {
    public GnotAGnoblinSort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
 

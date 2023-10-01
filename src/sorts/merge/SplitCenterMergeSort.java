@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SplitCenterMergeSort extends Sort {
+public class SplitCenterMergeSort extends Sort {
     public SplitCenterMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Split Center Merge");

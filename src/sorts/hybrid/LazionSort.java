@@ -15,7 +15,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class LazionSort extends GrailSorting {
+public class LazionSort extends GrailSorting {
 
     BlockInsertionSortNeon blocksert = new BlockInsertionSortNeon(arrayVisualizer);
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
@@ -43,7 +43,7 @@ final public class LazionSort extends GrailSorting {
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
         Highlights.clearAllMarks();
-        Rotations.neon(array, pos, lenA, lenB, 0.5, true, false);
+        Rotations.adaptable(array, pos, lenA, lenB, 0.5, true, false);
     }
 
     protected void merge(int[] array, int start, int end, int base) {

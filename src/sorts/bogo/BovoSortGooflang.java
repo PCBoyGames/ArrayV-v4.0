@@ -22,7 +22,7 @@ NGTmFSRVpEVld4Q1ZVMUVNRDA9
 
  */
 
-public final class BovoSortGooflang extends BogoSorting {
+public class BovoSortGooflang extends BogoSorting {
     public BovoSortGooflang(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -44,22 +44,22 @@ public final class BovoSortGooflang extends BogoSorting {
             Writes.recordDepth(depth);
             if (O == 1) {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.multiSwap(array, a, b, 0.1, true, false);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.multiSwap(array, a, b, 0.1, true, false);
                     }
                 }
             } else {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaMultiSwap(O - 1, array, a, b, depth + 1);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaMultiSwap(O - 1, array, a, b, depth + 1);
                     }

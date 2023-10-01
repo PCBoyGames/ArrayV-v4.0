@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BlueFlameSort extends Sort {
+public class BlueFlameSort extends Sort {
     public BlueFlameSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Blue Flame");

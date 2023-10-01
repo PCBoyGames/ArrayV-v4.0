@@ -3,7 +3,7 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class BottomUpMergeSort extends Sort {
+public class BottomUpMergeSort extends Sort {
     private int[] scratchArray;
     private int copyLength;
 

@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-final public class QueueSort extends Sort {
+public class QueueSort extends Sort {
     public QueueSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

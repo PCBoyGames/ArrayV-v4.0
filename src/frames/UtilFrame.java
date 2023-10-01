@@ -56,8 +56,7 @@ SOFTWARE.
  *
  * @author S630690
  */
-final public class UtilFrame extends javax.swing.JFrame {
-    final private static long serialVersionUID = 1L;
+public class UtilFrame extends javax.swing.JFrame {
 
     private boolean jCheckBox9WarningShown = true; //set to false to enable warning
 
@@ -125,6 +124,7 @@ final public class UtilFrame extends javax.swing.JFrame {
         this.jCheckBox7 = new javax.swing.JCheckBox();
         this.jCheckBox8 = new javax.swing.JCheckBox();
         this.jCheckBox9 = new javax.swing.JCheckBox();
+        this.jCheckBox10 = new javax.swing.JCheckBox();
         this.jSlider = new javax.swing.JSlider(SwingConstants.VERTICAL, 1, 12, 11);
         this.jComboBox1 = new javax.swing.JComboBox();
 
@@ -198,7 +198,7 @@ final public class UtilFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setSelected(true);
+        jCheckBox1.setSelected(!ArrayVisualizer.blaze);
         jCheckBox1.setText("Show Shuffle");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -216,7 +216,7 @@ final public class UtilFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox3.setSelected(true);
+        jCheckBox3.setSelected(!ArrayVisualizer.blaze);
         jCheckBox3.setText("End Sweep Anim");
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -256,6 +256,15 @@ final public class UtilFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed();
+            }
+        });
+
+        jCheckBox10.setSelected(true);
+        jCheckBox10.setText("Recursion Stats");
+        jCheckBox10.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox10ActionPerformed();
             }
         });
 
@@ -330,6 +339,7 @@ final public class UtilFrame extends javax.swing.JFrame {
                                         .addComponent(this.jCheckBox7)
                                         .addComponent(this.jCheckBox8)
                                         .addComponent(this.jCheckBox9)
+                                        .addComponent(this.jCheckBox10)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, true)
                                                 .addComponent(this.jCheckBox5)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -379,6 +389,7 @@ final public class UtilFrame extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(this.jButton5)
                         .addGap(5, 5, 5)
+                        .addComponent(this.jCheckBox10)
                         .addComponent(this.jCheckBox6)
                         .addComponent(this.jCheckBox4))
                 );
@@ -496,10 +507,10 @@ final public class UtilFrame extends javax.swing.JFrame {
 
     private void jCheckBox5ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         if (jCheckBox5.isSelected()) {
-            Sounds.toggleSofterSounds(true);
+            Sounds.setSofterSounds(true);
         }
         else {
-            Sounds.toggleSofterSounds(false);
+            Sounds.setSofterSounds(false);
         }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
@@ -552,6 +563,10 @@ final public class UtilFrame extends javax.swing.JFrame {
         }
         ArrayVisualizer.toggleExternalArrays(jCheckBox9.isSelected());
     }//GEN-LAST:event_jCheckBox8ActionPerformed
+
+    private void jCheckBox10ActionPerformed() {
+        ArrayVisualizer.toggleRecursionStats(jCheckBox10.isSelected());
+    }
 
     private void jComboBox1ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         switch ((String)jComboBox1.getSelectedItem()) {
@@ -628,6 +643,7 @@ final public class UtilFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
+    private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JSlider jSlider;
     @SuppressWarnings("rawtypes")
     private javax.swing.JComboBox jComboBox1;

@@ -22,7 +22,7 @@ public class NilSort extends GrailSorting {
         this.setBogoSort(false);
     }
     public int buf, bufsz;
-    private static final int minblinsert = 8;
+    private static int minblinsert = 8;
     private BlockInsertionSortNeon blinserter;
 
     protected void grailRotate(int[] array, int pos, int lena, int lenb) {

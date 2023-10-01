@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class SimpleArgoSort extends Sort {
+public class SimpleArgoSort extends Sort {
     public SimpleArgoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Simple Argo");

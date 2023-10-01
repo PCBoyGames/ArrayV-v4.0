@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class InPlaceMergeSort extends Sort {
+public class InPlaceMergeSort extends Sort {
     public InPlaceMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

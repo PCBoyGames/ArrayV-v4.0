@@ -32,7 +32,7 @@ SOFTWARE.
  *
  */
 
-public final class PacheSort extends Sort {
+public class PacheSort extends Sort {
     public PacheSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -49,8 +49,8 @@ public final class PacheSort extends Sort {
 
     //simple average case O(n log n) comps O(n) moves sort
 
-    private final int MIN_INSERT = 32;
-    private final int MIN_HEAP   = 255;
+    private int MIN_INSERT = 32;
+    private int MIN_HEAP   = 255;
 
     private BinaryInsertionSort smallSort;
 
@@ -106,10 +106,10 @@ public final class PacheSort extends Sort {
     }
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size, length;
+        public int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;

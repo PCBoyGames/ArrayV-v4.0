@@ -47,7 +47,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*                                                       */
 /*********************************************************/
 
-final public class GrailSort extends GrailSorting {
+public class GrailSort extends GrailSorting {
     public GrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

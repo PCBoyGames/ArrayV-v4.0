@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import utils.IndexedRotations;
 
 
-final public class WhippingCreamSort extends Sort {
+public class WhippingCreamSort extends Sort {
 
     public WhippingCreamSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

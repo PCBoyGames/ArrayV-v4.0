@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class NaturalIndexMergeSort extends Sort {
+public class NaturalIndexMergeSort extends Sort {
 
     public NaturalIndexMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

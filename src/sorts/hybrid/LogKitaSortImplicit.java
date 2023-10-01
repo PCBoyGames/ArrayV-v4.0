@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
-final public class LogKitaSortImplicit extends Sort {
+public class LogKitaSortImplicit extends Sort {
     public LogKitaSortImplicit(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -227,7 +227,7 @@ final public class LogKitaSortImplicit extends Sort {
 
     // log partition with +1 blocksize technique applied
     private int partition(int[] array, int[] tmp, int a, int b, int p, int c) {
-        final int blk = tmp.length + 1;
+        int blk = tmp.length + 1;
         if (b-a < blk) return partitionEasy(array, tmp, a, b, p, c);
         int l = 0, r = 0, t = a, lb = 0, rb = 0;
         // type blocks

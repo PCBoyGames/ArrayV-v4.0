@@ -1,6 +1,6 @@
 package dialogs;
 
-final public class ExportShuffleDialog extends FileDialog {
+public class ExportShuffleDialog extends FileDialog {
     public ExportShuffleDialog() {
         super();
 

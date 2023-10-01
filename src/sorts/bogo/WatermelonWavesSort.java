@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class WatermelonWavesSort extends BogoSorting {
+public class WatermelonWavesSort extends BogoSorting {
     public WatermelonWavesSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Watermelon Waves");

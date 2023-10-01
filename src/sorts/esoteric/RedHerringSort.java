@@ -3,7 +3,7 @@ package sorts.esoteric;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-final public class RedHerringSort extends BogoSorting {
+public class RedHerringSort extends BogoSorting {
 
     // Improved Horror Sort
     public RedHerringSort(ArrayVisualizer arrayVisualizer) {

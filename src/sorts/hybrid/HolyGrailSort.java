@@ -52,7 +52,7 @@ import sorts.templates.HolyGrailSorting;
  * Special thanks to "The Studio" Discord community!
  */
 
-final public class HolyGrailSort extends HolyGrailSorting {
+public class HolyGrailSort extends HolyGrailSorting {
     public HolyGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

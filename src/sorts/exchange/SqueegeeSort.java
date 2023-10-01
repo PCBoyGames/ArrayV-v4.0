@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class SqueegeeSort extends Sort {
+public class SqueegeeSort extends Sort {
     public SqueegeeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

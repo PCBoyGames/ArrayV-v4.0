@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class InstinctClamberSort extends Sort {
+public class InstinctClamberSort extends Sort {
     public InstinctClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Instinct Clamber");

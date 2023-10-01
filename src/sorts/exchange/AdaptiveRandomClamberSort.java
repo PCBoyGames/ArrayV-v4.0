@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AdaptiveRandomClamberSort extends BogoSorting {
+public class AdaptiveRandomClamberSort extends BogoSorting {
     public AdaptiveRandomClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Random Clamber");

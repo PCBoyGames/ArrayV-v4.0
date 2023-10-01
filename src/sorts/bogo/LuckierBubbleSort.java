@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class LuckierBubbleSort extends BogoSorting {
+public class LuckierBubbleSort extends BogoSorting {
     public LuckierBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Luckier Bubble");

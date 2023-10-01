@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.MergeSorting;
 
 
-final public class SprawlSort extends MergeSorting {
+public class SprawlSort extends MergeSorting {
     public SprawlSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

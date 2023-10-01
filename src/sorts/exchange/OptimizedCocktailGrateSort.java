@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class OptimizedCocktailGrateSort extends Sort {
+public class OptimizedCocktailGrateSort extends Sort {
     public OptimizedCocktailGrateSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         setSortListName("Optimized Cocktail Grate");

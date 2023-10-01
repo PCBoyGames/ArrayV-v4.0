@@ -9,7 +9,7 @@ import sorts.templates.Sort;
  *
  * @author Sam Walko (Anonymous0726)
  */
-final public class AVLTreeSort extends Sort {
+public class AVLTreeSort extends Sort {
     public AVLTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

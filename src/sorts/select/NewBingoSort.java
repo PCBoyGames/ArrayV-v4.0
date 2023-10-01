@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class NewBingoSort extends Sort {
+public class NewBingoSort extends Sort {
     public NewBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

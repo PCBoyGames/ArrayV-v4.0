@@ -3,7 +3,7 @@ package sorts.concurrent;
 import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
-final public class BoseNelsonSortParallel extends Sort {
+public class BoseNelsonSortParallel extends Sort {
 
     public BoseNelsonSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

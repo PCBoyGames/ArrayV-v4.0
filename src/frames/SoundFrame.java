@@ -25,7 +25,6 @@ public class SoundFrame extends JFrame {
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
     private int instrumentChoice;

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedWhySort extends Sort {
+public class OptimizedWhySort extends Sort {
     public OptimizedWhySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Why");

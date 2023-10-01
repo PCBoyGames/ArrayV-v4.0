@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  *
  * @author Sam Walko (Anonymous0726)
  */
-final public class AATreeSort extends Sort {
+public class AATreeSort extends Sort {
     public AATreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

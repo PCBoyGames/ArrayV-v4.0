@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class VanVoorhisThreeThreeSort extends Sort {
+public class VanVoorhisThreeThreeSort extends Sort {
     public VanVoorhisThreeThreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

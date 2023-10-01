@@ -31,7 +31,7 @@ SOFTWARE.
  */
 
 public class ThreadedPDMergeSort extends BinaryPDMergeSort {
-    final int MAX_THREADS = 24;
+    int MAX_THREADS = 24;
     volatile int threadCount;
     volatile ReentrantLock countLock;
 

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class SynchronousEctaSort extends BlockMergeSorting {
+public class SynchronousEctaSort extends BlockMergeSorting {
     public SynchronousEctaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

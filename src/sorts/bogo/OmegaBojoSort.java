@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class OmegaBojoSort extends BogoSorting {
+public class OmegaBojoSort extends BogoSorting {
     public OmegaBojoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

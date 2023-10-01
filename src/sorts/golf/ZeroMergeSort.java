@@ -21,7 +21,7 @@ public class ZeroMergeSort extends GrailSorting {
         this.setBogoSort(false);
     }
     private int buf, bufsz;
-    private static final int minBinsert = 8;
+    private static int minBinsert = 8;
     private BranchlessBinaryInsertionSort binserter;
 
     protected void grailRotate(int[] array, int pos, int lena, int lenb) {

@@ -19,13 +19,13 @@ in collaboration with aphitorite and Scandum
  * <p>
  * To use this algorithm in another, use {@code quickGridSort()} from a reference
  * instance.
- * 
+ *
  * @author Ayako-chan - implementation of the sort
  * @author aphitorite - bucket splitting optimizations
  * @author Scandum - key idea / concept of Gridsort
  *
  */
-public final class KleeSort extends Sort {
+public class KleeSort extends Sort {
 
     public KleeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -80,7 +80,7 @@ public final class KleeSort extends Sort {
             this.siftDown(array, t, 0, a, i);
         }
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -110,7 +110,7 @@ public final class KleeSort extends Sort {
         for (int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
-    
+
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int tmp;
         if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
@@ -221,7 +221,7 @@ public final class KleeSort extends Sort {
         heapSort(array, m, b);
         int i = m - 1, j = b - 1;
         int c = n / 2;
-        
+
         while (c-- > 0) {
             if (Reads.compareValues(array[i], array[j]) > 0)
                 swap(array, --p, i--, 1, true, false);
@@ -229,7 +229,7 @@ public final class KleeSort extends Sort {
                 swap(array, --p, j--, 1, true, false);
         }
         int m1 = m;
-        
+
         while (i >= a && j >= m) {
             if (Reads.compareValues(array[i], array[j]) > 0)
                 swap(array, --m1, i--, 1, true, false);
@@ -241,17 +241,17 @@ public final class KleeSort extends Sort {
 
     protected void mergeTo(int[] array, int a, int m, int b, int p) {
         int i = a, j = m;
-        
+
         while (i < m && j < b) {
             if (Reads.compareValues(array[i], array[j]) <= 0)
                 Writes.swap(array, p++, i++, 1, true, false);
-            else 
+            else
                 Writes.swap(array, p++, j++, 1, true, false);
         }
         while (i < m) Writes.swap(array, p++, i++, 1, true, false);
         while (j < b) Writes.swap(array, p++, j++, 1, true, false);
     }
-    
+
     int gridSearch(int[] array, int[] indices, int l, int r, int key, int gap, int ofs) {
         while (l < r) {
             int m = r - (r - l) / 2;
@@ -262,7 +262,7 @@ public final class KleeSort extends Sort {
         Highlights.clearMark(2);
         return l;
     }
-    
+
     void gridSort(int[] array, int[] sizes, int[] indices, int a, int b, int p, int bLen) {
         int bLen2X = 2 * bLen;
         if (b - a <= bLen2X) {
@@ -328,7 +328,7 @@ public final class KleeSort extends Sort {
 
     /**
      * Sorts the range {@code [a, b)} of {@code array} using a Quick Gridsort.
-     * 
+     *
      * @param array the array
      * @param a     the start of the range, inclusive
      * @param b     the end of the range, exclusive

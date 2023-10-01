@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 
 // Image Sorting: Chaos
-final public class GrimmageSort extends GrailSorting {
+public class GrimmageSort extends GrailSorting {
     public GrimmageSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class ParShellSort extends Sort {
+public class ParShellSort extends Sort {
     public ParShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

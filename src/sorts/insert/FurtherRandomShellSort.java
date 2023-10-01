@@ -83,7 +83,7 @@ better us all for a brighter future.
  - PCBoy
 
 */
-final public class FurtherRandomShellSort extends BogoSorting {
+public class FurtherRandomShellSort extends BogoSorting {
     public FurtherRandomShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Further Randomized Shell");

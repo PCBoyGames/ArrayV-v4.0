@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class InRunBinaryInsertionSort extends Sort {
+public class InRunBinaryInsertionSort extends Sort {
 
     public InRunBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

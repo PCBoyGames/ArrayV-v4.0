@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class BaseNMergeSort extends Sort {
+public class BaseNMergeSort extends Sort {
     int[] tmp;
 
     private InsertionSort insertSorter;

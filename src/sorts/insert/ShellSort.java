@@ -6,7 +6,7 @@ import sorts.templates.ShellSorting;
 // Shell sort variant retrieved from:
 // https://www.cs.princeton.edu/~rs/talks/shellsort.ps
 
-final public class ShellSort extends ShellSorting {
+public class ShellSort extends ShellSorting {
     public ShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

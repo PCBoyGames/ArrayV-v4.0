@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class LuckyOddEvenSort extends BogoSorting {
+public class LuckyOddEvenSort extends BogoSorting {
     public LuckyOddEvenSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lucky Odd-Even");

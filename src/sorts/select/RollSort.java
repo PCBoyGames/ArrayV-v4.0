@@ -17,7 +17,7 @@ Ported from fungamer2's Python implementation.
 
  */
 
-public final class RollSort extends Sort {
+public class RollSort extends Sort {
     public RollSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

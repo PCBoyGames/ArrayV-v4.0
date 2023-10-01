@@ -32,7 +32,7 @@ SerSan-1.0 (03/21/2023)
  * @version SerSan-1.1
  * @author PCBoy
 */
-final public class SergioSort extends GrailSorting {
+public class SergioSort extends GrailSorting {
 
     int[] ext;
 

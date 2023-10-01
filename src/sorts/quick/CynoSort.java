@@ -21,7 +21,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class CynoSort extends Sort {
+public class CynoSort extends Sort {
 
     public CynoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

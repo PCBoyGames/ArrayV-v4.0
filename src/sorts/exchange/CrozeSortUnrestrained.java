@@ -12,7 +12,7 @@ import sorts.templates.BogoSorting;
  |   profanity filter going  |
  |          offline)         |
   \_________________________/ */
-final public class CrozeSortUnrestrained extends BogoSorting {
+public class CrozeSortUnrestrained extends BogoSorting {
     public CrozeSortUnrestrained(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Croze (Unrestrained)");

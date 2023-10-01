@@ -1,13 +1,13 @@
 package sorts.misc;
 
 import main.ArrayVisualizer;
-import sorts.merge.NaturalRotateMergeSort;
+import sorts.merge.OptimizedNaturalRotateMergeSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
 
 // #3 of Distray's Pop The Top Lineup
-final public class InPlaceOptimizedSafeStalinSortSwaps extends Sort {
+public class InPlaceOptimizedSafeStalinSortSwaps extends Sort {
     public InPlaceOptimizedSafeStalinSortSwaps(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -60,7 +60,7 @@ final public class InPlaceOptimizedSafeStalinSortSwaps extends Sort {
             currentLength -= left-mid;
         } while (runs > 2);
         if (runs == 2) {
-            NaturalRotateMergeSort merge = new NaturalRotateMergeSort(arrayVisualizer);
+            OptimizedNaturalRotateMergeSort merge = new OptimizedNaturalRotateMergeSort(arrayVisualizer);
             merge.runSort(array, currentLength, 0);
         }
     }

@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 //refactored version of original implementation by @Piotr Grochowski (in place merge 2)
-final public class BlockSwapMergeSort extends Sort {
+public class BlockSwapMergeSort extends Sort {
     public BlockSwapMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

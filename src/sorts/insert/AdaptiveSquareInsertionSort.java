@@ -7,9 +7,9 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class AdaptiveSquareInsertionSort extends Sort
+public class AdaptiveSquareInsertionSort extends Sort
 {
-    public AdaptiveSquareInsertionSort(final ArrayVisualizer arrayVisualizer) {
+    public AdaptiveSquareInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Square Insert");
         this.setRunAllSortsName("Adaptive Square Insertion Sort");
@@ -23,11 +23,11 @@ public final class AdaptiveSquareInsertionSort extends Sort
         this.setBogoSort(false);
     }
 
-    public boolean inbetween(final int a, final int b, final int c) {
+    public boolean inbetween(int a, int b, int c) {
         return b <= c && b >= a;
     }
 
-    public void binaryInsertSort(final int[] array, final int start, final int end, final double compSleep, final double writeSleep, final boolean direction) {
+    public void binaryInsertSort(int[] array, int start, int end, double compSleep, double writeSleep, boolean direction) {
         int x = start;
         if (this.Reads.compareIndices(array, x, x + 1, compSleep, true) >= 0) {
             while (this.Reads.compareValues(array[x + 1], array[x]) < 0 && x < end) {
@@ -37,7 +37,7 @@ public final class AdaptiveSquareInsertionSort extends Sort
         }
         for (int i = ++x; i < end; ++i) {
             boolean dir = direction;
-            final int num = array[i];
+            int num = array[i];
             int lo = start;
             int hi = i;
             if (this.Reads.compareIndices(array, i - 1, i, compSleep, true) > 0) {
@@ -72,12 +72,12 @@ public final class AdaptiveSquareInsertionSort extends Sort
         }
     }
 
-    public void customBinaryInsert(final int[] array, final int start, final int end, final double sleep) {
+    public void customBinaryInsert(int[] array, int start, int end, double sleep) {
         this.binaryInsertSort(array, start, end, sleep, sleep, false);
     }
 
     @Override
-    public void runSort(final int[] array, final int currentLength, final int bucketCount) {
+    public void runSort(int[] array, int currentLength, int bucketCount) {
         this.binaryInsertSort(array, 0, currentLength, 1.0, 0.05, true);
     }
 }

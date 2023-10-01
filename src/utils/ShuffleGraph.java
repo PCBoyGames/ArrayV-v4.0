@@ -25,7 +25,7 @@ public class ShuffleGraph implements Collection<ShuffleInfo> {
     public GraphNode dragCandidate;
     public double sleepRatio;
 
-    final static int DEFAULT_TEXT_SIZE = 24;
+    static int DEFAULT_TEXT_SIZE = 24;
     Map<String, Integer> textSizes = new HashMap<>();
 
     public ShuffleGraph() {

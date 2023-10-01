@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 /**
  * Exchange Bozosort randomly sorts any two elements until the array is sorted.
  */
-public final class ExchangeBozoSort extends BogoSorting {
+public class ExchangeBozoSort extends BogoSorting {
     public ExchangeBozoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

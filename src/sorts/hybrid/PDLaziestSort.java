@@ -8,7 +8,7 @@ import utils.IndexedRotations;
  * @author Yuri-chan2007
  *
  */
-public final class PDLaziestSort extends Sort {
+public class PDLaziestSort extends Sort {
 
     public PDLaziestSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

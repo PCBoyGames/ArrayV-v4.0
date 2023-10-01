@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class IterativeSelectionMergeSort extends Sort {
+public class IterativeSelectionMergeSort extends Sort {
     public IterativeSelectionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Iterative Selection Merge");

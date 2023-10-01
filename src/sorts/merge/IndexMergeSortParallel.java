@@ -34,7 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * @author Yuri-chan
  *
  */
-public final class IndexMergeSortParallel extends Sort {
+public class IndexMergeSortParallel extends Sort {
 
     public IndexMergeSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

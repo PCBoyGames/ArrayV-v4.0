@@ -17,7 +17,7 @@ Coded for ArrayV by Ayako-chan
  * @author Ayako-chan
  *
  */
-public final class InverseSelectionSort extends Sort {
+public class InverseSelectionSort extends Sort {
 
     public InverseSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -32,7 +32,7 @@ public final class InverseSelectionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
@@ -42,7 +42,7 @@ public final class InverseSelectionSort extends Sort {
         if (a != b)
             Writes.write(array, b, temp, 0.05, true, false);
     }
-    
+
     public void selectionSort(int[] array, int a, int b) {
         for (int i = a; i < b; i++) {
             int maxIdx = i;

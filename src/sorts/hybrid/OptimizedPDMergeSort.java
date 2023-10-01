@@ -30,7 +30,7 @@ SOFTWARE.
  */
 
 public class OptimizedPDMergeSort extends PDMergeSort {
-    final static int MIN_RUN_SIZE = 16;
+    static int MIN_RUN_SIZE = 16;
 
     public OptimizedPDMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

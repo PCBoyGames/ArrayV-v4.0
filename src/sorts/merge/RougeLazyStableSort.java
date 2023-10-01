@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RougeLazyStableSort extends Sort {
+public class RougeLazyStableSort extends Sort {
     public RougeLazyStableSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Rouge Lazy Stable");

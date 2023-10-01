@@ -6,7 +6,7 @@ import utils.IndexedRotations;
 
 import java.util.ArrayList;
 
-final public class CasinoSort extends Sort {
+public class CasinoSort extends Sort {
     public CasinoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

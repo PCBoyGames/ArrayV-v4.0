@@ -54,7 +54,7 @@ import sorts.templates.Sort;
  *
  * @author aphitorite
  */
-final public class AdaptiveGrailSort extends Sort {
+public class AdaptiveGrailSort extends Sort {
     public AdaptiveGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -383,7 +383,7 @@ final public class AdaptiveGrailSort extends Sort {
         else return Subarray.RIGHT;
     }
 
-    //returns mKey final position
+    //returns mKey position
     private int blockSelectSort(int[] array, int p, int t, int r, int d, int lCount, int bCount, int bLen) {
         int mKey = lCount;
 
@@ -520,7 +520,7 @@ final public class AdaptiveGrailSort extends Sort {
 
     //TODO: rewrite strat 2 merge to be more adaptive
 
-    //1024 items, 8 unique, linear, final merge pass
+    //1024 items, 8 unique, linear, merge pass
     //old: 5812 comps & 5762 writes
     //new: ???
 

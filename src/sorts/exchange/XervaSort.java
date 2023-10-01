@@ -26,7 +26,7 @@ This is a special time.
 
  */
 
-public final class XervaSort extends Sort {
+public class XervaSort extends Sort {
     public XervaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -42,7 +42,7 @@ public final class XervaSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private void compareReversal(int[] array, int a, int b, double delay, int depth){
+    private void compareReversal(int[] array, int a, int b, double delay, int depth) {
         if (a >= b) return;
         Writes.recordDepth(depth);
         do {

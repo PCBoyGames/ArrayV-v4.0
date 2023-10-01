@@ -58,13 +58,12 @@ SOFTWARE.
  * @author S630690
  */
 
-final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
+public class SortPrompt extends javax.swing.JFrame implements AppFrame {
 
     public class PlaceholderTextField extends JTextField {
         /**
          * Shamelessly copied from https://stackoverflow.com/a/16229082/8840278
          */
-        private static final long serialVersionUID = 1L;
         private String placeholder;
 
         public String getPlaceholder() {
@@ -72,14 +71,14 @@ final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
         }
 
         @Override
-        protected void paintComponent(final Graphics pG) {
+        protected void paintComponent(Graphics pG) {
             super.paintComponent(pG);
 
             if (placeholder == null || placeholder.length() == 0 || getText().length() > 0) {
                 return;
             }
 
-            final Graphics2D g = (Graphics2D) pG;
+            Graphics2D g = (Graphics2D) pG;
             g.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -88,14 +87,13 @@ final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
                 .getMaxAscent() + getInsets().top);
         }
 
-        public void setPlaceholder(final String s) {
+        public void setPlaceholder(String s) {
             placeholder = s;
         }
     }
 
     private static int lastCategory = -1;
 
-    private static final long serialVersionUID = 1L;
 
     private Hashtable<String, MultipleSortThread> categorySortThreads;
 
@@ -176,8 +174,6 @@ final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-
-            private static final long serialVersionUID = 1L;
 
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             @Override
@@ -340,7 +336,7 @@ final public class SortPrompt extends javax.swing.JFrame implements AppFrame {
                 break;
             }
         }
-        final SortPair selection = sortNotFinal;
+        SortPair selection = sortNotFinal;
         new Thread("SortingThread") {
             @Override
             public void run() {

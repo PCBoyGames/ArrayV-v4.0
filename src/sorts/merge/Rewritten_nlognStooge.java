@@ -11,7 +11,7 @@ import sorts.templates.MergeSorting;
  * @see https://www.youtube.com/watch?v=-htVEpAzsVM
  **/
 
-final public class Rewritten_nlognStooge extends MergeSorting {
+public class Rewritten_nlognStooge extends MergeSorting {
     public Rewritten_nlognStooge(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BasicDigSort extends Sort {
+public class BasicDigSort extends Sort {
     public BasicDigSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Dig (Basic)");

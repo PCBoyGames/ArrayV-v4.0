@@ -21,7 +21,7 @@ thousand times worse than Gnome Sort! Now that's impractical!
 RE8gTk9UIFVTRSBUSElTIFNPUlQsIEVWRVIh
 
 */
-final public class StupidFireSort extends Sort {
+public class StupidFireSort extends Sort {
     public StupidFireSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Stupid Fire");

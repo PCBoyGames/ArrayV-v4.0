@@ -1,6 +1,6 @@
 package dialogs;
 
-final public class RunScriptDialog extends FileDialog {
+public class RunScriptDialog extends FileDialog {
     public RunScriptDialog() {
         super();
 

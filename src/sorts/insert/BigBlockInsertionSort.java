@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BigBlockInsertionSort extends Sort {
+public class BigBlockInsertionSort extends Sort {
     public BigBlockInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Big Block Insertion");

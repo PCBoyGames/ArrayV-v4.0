@@ -10,7 +10,7 @@ import sorts.golf.CaiSortMkII;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
-final public class UnstablePartitionKotaSort extends Sort {
+public class UnstablePartitionKotaSort extends Sort {
     public UnstablePartitionKotaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Unstable Partition Kota");

@@ -40,7 +40,7 @@ SOFTWARE.
  *
  */
 
-final public class RunDistributionSort {
+public class RunDistributionSort {
     private ArrayManager arrayManager;
     private ArrayVisualizer arrayVisualizer;
     private Delays delayOps;

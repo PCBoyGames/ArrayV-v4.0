@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class OptimizedPancakeSort extends Sort {
+public class OptimizedPancakeSort extends Sort {
     public OptimizedPancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

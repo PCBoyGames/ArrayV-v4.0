@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class AdaptiveCreaseSort extends Sort {
+public class AdaptiveCreaseSort extends Sort {
     public AdaptiveCreaseSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

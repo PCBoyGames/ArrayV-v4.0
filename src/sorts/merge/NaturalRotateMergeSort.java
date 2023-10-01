@@ -20,7 +20,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class NaturalRotateMergeSort extends Sort {
+public class NaturalRotateMergeSort extends Sort {
 
     public NaturalRotateMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -70,9 +70,9 @@ public final class NaturalRotateMergeSort extends Sort {
         }
         rotate(array, m1, m, m2);
         Writes.recursion();
-        merge(array, m3 + 1, m2, b, d + 1);
-        Writes.recursion();
         merge(array, a, m1, m3, d + 1);
+        Writes.recursion();
+        merge(array, m3 + 1, m2, b, d + 1);
     }
 
     protected int findRun(int[] array, int a, int b) {

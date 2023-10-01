@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class LuckyOptimizedGnomeSort extends BogoSorting {
+public class LuckyOptimizedGnomeSort extends BogoSorting {
 
     public LuckyOptimizedGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class ExchangeGoroSort extends BogoSorting {
+public class ExchangeGoroSort extends BogoSorting {
 
     public ExchangeGoroSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -18,7 +18,7 @@ public final class ExchangeGoroSort extends BogoSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void compSwap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a > b) {
             int t = a;
@@ -28,7 +28,7 @@ public final class ExchangeGoroSort extends BogoSorting {
         if (Reads.compareIndices(array, a, b, pause, mark) > 0)
             Writes.swap(array, a, b, pause, mark, aux);
     }
-    
+
     void goroSwap(int[] array, int[] indices, int a, int len) {
         for (int i = 0; i < len; i++) Writes.visualClear(indices, i);
         int cnt = 0;
@@ -45,7 +45,7 @@ public final class ExchangeGoroSort extends BogoSorting {
             }
         }
     }
-    
+
     public void sort(int[] array, int a, int b) {
         int sortLength = b - a;
         int[] indices = Writes.createExternalArray(sortLength);

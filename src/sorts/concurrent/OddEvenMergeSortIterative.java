@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * work for array lengths other than powers of two!
  */
 
-final public class OddEvenMergeSortIterative extends Sort {
+public class OddEvenMergeSortIterative extends Sort {
     public OddEvenMergeSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

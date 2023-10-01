@@ -32,7 +32,7 @@ SOFTWARE.
  *
  */
 
-final public class RunDistributionSorts extends MultipleSortThread {
+public class RunDistributionSorts extends MultipleSortThread {
     private Sort CountingSort;
     private Sort PigeonholeSort;
     private Sort OptimizedPigeonholeSort;
@@ -106,9 +106,9 @@ final public class RunDistributionSorts extends MultipleSortThread {
         RunDistributionSorts.this.runIndividualSort(StacklessAmericanFlagSort, 128, array, 2048, 0.75, false);
         RunDistributionSorts.this.runIndividualSort(LSDRadixSort,                4, array, 2048, 1.5,  false);
 
-        Sounds.toggleSofterSounds(true);
+        Sounds.setSofterSounds(true);
         RunDistributionSorts.this.runIndividualSort(InPlaceLSDRadixSort,     10, array, 2048, 1,    false);
-        Sounds.toggleSofterSounds(false);
+        Sounds.setSofterSounds(false);
 
         RunDistributionSorts.this.runIndividualSort(MSDRadixSort,             4, array, 2048, 1.25, false);
         RunDistributionSorts.this.runIndividualSort(InPlaceMSDRadixSort,      4, array, 2048, 1.25, false);

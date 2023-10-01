@@ -17,7 +17,7 @@ Coded for ArrayV by Ayako-chan
  * @author Ayako-chan
  *
  */
-public final class FlakeSort extends Sort {
+public class FlakeSort extends Sort {
 
     public FlakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

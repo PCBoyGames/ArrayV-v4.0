@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author Kiriko-chan
  *
  */
-public final class SandpaperMergeSort extends Sort {
+public class SandpaperMergeSort extends Sort {
 
     public SandpaperMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

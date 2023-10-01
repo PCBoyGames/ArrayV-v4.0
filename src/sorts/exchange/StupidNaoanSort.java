@@ -17,7 +17,7 @@ I'm not calling you stupid, Naoan.
 
  */
 
-public final class StupidNaoanSort extends Sort {
+public class StupidNaoanSort extends Sort {
     public StupidNaoanSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

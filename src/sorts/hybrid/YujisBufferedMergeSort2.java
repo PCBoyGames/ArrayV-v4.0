@@ -30,7 +30,7 @@ SOFTWARE.
  */
 
 
-final public class YujisBufferedMergeSort2 extends Sort {
+public class YujisBufferedMergeSort2 extends Sort {
 
 
     public YujisBufferedMergeSort2(ArrayVisualizer arrayVisualizer) {

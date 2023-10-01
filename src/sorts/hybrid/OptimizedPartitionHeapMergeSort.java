@@ -7,7 +7,7 @@ import utils.IndexedRotations;
 // https://unownfo.s-ul.eu/sbOh9Z56
 // thing
 
-final public class OptimizedPartitionHeapMergeSort extends Sort {
+public class OptimizedPartitionHeapMergeSort extends Sort {
     public OptimizedPartitionHeapMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -146,7 +146,7 @@ final public class OptimizedPartitionHeapMergeSort extends Sort {
     }
 
     private void mergesort(int[] array, int a, int b, int t) {
-        final int minrun = 16;
+        int minrun = 16;
         for (int i = a; i < b; i+=minrun) {
             heap(array, i, Math.min(i+minrun, b));
         }

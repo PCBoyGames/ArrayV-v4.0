@@ -17,7 +17,7 @@ Sort so bad, it gives you diarrhea.
 
  */
 
-public final class NoroSort extends BogoSorting {
+public class NoroSort extends BogoSorting {
     public NoroSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

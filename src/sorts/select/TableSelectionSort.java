@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Kiriko-chan
  *
  */
-public final class TableSelectionSort extends Sort {
+public class TableSelectionSort extends Sort {
 
     public TableSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

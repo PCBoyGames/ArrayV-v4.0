@@ -5,7 +5,7 @@ import java.util.Comparator;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class MorePatternDefeatingDisparityBidirectionalExponentialBranchlessBinaryLinearWithImprovedDeweaveHellSort extends Sort {
+public class MorePatternDefeatingDisparityBidirectionalExponentialBranchlessBinaryLinearWithImprovedDeweaveHellSort extends Sort {
 
     public MorePatternDefeatingDisparityBidirectionalExponentialBranchlessBinaryLinearWithImprovedDeweaveHellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

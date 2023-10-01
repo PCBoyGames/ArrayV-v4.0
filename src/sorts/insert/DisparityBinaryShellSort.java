@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class DisparityBinaryShellSort extends Sort {
+public class DisparityBinaryShellSort extends Sort {
 
     public DisparityBinaryShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

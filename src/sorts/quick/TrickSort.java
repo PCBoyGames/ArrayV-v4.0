@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.select.ExpliciumSort;
 import sorts.templates.Sort;
 
-final public class TrickSort extends Sort {
+public class TrickSort extends Sort {
     public TrickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

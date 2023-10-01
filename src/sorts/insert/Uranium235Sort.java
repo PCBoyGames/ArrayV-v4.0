@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class Uranium235Sort extends Sort {
+public class Uranium235Sort extends Sort {
 
     public Uranium235Sort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

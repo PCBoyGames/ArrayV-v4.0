@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class UnstableKitaSort extends Sort {
+public class UnstableKitaSort extends Sort {
     public UnstableKitaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

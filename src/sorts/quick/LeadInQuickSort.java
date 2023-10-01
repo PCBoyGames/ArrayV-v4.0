@@ -6,7 +6,7 @@ import sorts.select.ExpliciumSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
-final public class LeadInQuickSort extends Sort {
+public class LeadInQuickSort extends Sort {
     public LeadInQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -30,7 +30,7 @@ final public class LeadInQuickSort extends Sort {
         AGGRESSIVE(5),
         OVERDRIVE(6),
         SINGULARITY(7);
-        public final int medianLevel;
+        public int medianLevel;
         Median(int level) {
             medianLevel = level;
         }

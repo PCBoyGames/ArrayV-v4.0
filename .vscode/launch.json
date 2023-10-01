@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PixelMeshImageMixed",
+            "request": "launch",
+            "mainClass": "test.PixelMeshImageMixed",
+            "projectName": "ArrayVisualizer-master"
+        },
+        {
+            "type": "java",
             "name": "Launch Tester",
             "request": "launch",
             "mainClass": "test.Tester",

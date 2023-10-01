@@ -16,7 +16,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class NihilismSort extends Sort {
+public class NihilismSort extends Sort {
 
     public NihilismSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -36,7 +36,7 @@ final public class NihilismSort extends Sort {
 
     private static NihilismSort self;
 
-    private static final Random r = new Random();
+    private static Random r = new Random();
 
     private static String blank(String output) {
         int randomspaces = r.nextInt(10);

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CircleSortParallel extends Sort {
+public class CircleSortParallel extends Sort {
     public CircleSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

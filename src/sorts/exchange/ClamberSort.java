@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ClamberSort extends Sort {
+public class ClamberSort extends Sort {
     public ClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Clamber");

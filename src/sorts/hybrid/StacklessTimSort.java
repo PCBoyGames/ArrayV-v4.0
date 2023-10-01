@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class StacklessTimSort extends Sort {
+public class StacklessTimSort extends Sort {
     public StacklessTimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -45,7 +45,7 @@ final public class StacklessTimSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int M = 7;
+    private int M = 7;
 
     private int highlight = 0;
 

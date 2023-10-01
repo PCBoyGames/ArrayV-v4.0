@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class MoreOptimizedOpiumSort extends MadhouseTools {
+public class MoreOptimizedOpiumSort extends MadhouseTools {
 
     int where;
 

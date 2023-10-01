@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CycleSort extends Sort {
+public class CycleSort extends Sort {
     public CycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

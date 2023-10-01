@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author McDude_73
  *
  */
-public final class DandelionSort extends Sort {
+public class DandelionSort extends Sort {
 
     public DandelionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

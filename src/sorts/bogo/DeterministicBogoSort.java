@@ -28,7 +28,7 @@ SOFTWARE.
  * <p>
  * Uses Heap's algorithm.
  */
-public final class DeterministicBogoSort extends BogoSorting {
+public class DeterministicBogoSort extends BogoSorting {
 
     public DeterministicBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

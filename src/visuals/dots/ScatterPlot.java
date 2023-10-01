@@ -33,7 +33,7 @@ SOFTWARE.
  *
  */
 
-final public class ScatterPlot extends Visual {
+public class ScatterPlot extends Visual {
     public ScatterPlot(ArrayVisualizer ArrayVisualizer) {
         super(ArrayVisualizer);
     }

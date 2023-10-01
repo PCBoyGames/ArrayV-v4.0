@@ -49,7 +49,7 @@ public abstract class KotaSorting extends Sort {
         super(arrayVisualizer);
     }
 
-    private final int CACHE_SIZE = 32;
+    private int CACHE_SIZE = 32;
 
     private int[] tags;
     private int[] cache;

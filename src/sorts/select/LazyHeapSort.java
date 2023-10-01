@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class LazyHeapSort extends Sort {
+public class LazyHeapSort extends Sort {
     public LazyHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

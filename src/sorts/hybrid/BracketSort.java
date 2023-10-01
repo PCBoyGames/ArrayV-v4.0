@@ -3,8 +3,8 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BracketSort extends Sort {
-    final static int NULL_VALUE = -1;
+public class BracketSort extends Sort {
+    static int NULL_VALUE = -1;
 
     int[] array;
     int length;

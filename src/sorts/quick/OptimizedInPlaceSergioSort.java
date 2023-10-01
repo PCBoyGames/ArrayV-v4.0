@@ -32,7 +32,7 @@ SerSan-1.0 (03/21/2023)
  * @version SerSan-1.1
  * @author PCBoy
 */
-final public class OptimizedInPlaceSergioSort extends GrailSorting {
+public class OptimizedInPlaceSergioSort extends GrailSorting {
 
     int[] ext;
     int extlen = 16;
@@ -166,21 +166,31 @@ final public class OptimizedInPlaceSergioSort extends GrailSorting {
         int swap;
         while (a < b && c < d) {
             swap = array[b];
+            Highlights.markArray(2, d);
             Writes.write(array, b--, array[a], 1, true, false);
+            Highlights.markArray(2, b);
             Writes.write(array, a++, array[c], 1, true, false);
+            Highlights.markArray(2, a);
             Writes.write(array, c++, array[d], 1, true, false);
+            Highlights.markArray(2, c);
             Writes.write(array, d--, swap, 1, true, false);
         }
         while (a < b) {
             swap = array[b];
+            Highlights.markArray(2, d);
             Writes.write(array, b--, array[a], 1, true, false);
+            Highlights.markArray(2, b);
             Writes.write(array, a++, array[d], 1, true, false);
+            Highlights.markArray(2, a);
             Writes.write(array, d--, swap, 1, true, false);
         }
         while (c < d) {
             swap = array[c];
+            Highlights.markArray(2, a);
             Writes.write(array, c++, array[d], 1, true, false);
+            Highlights.markArray(2, c);
             Writes.write(array, d--, array[a], 1, true, false);
+            Highlights.markArray(2, d);
             Writes.write(array, a++, swap, 1, true, false);
         }
         if (a < d) {

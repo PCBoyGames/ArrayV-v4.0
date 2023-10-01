@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SegForwardRunShoveSort extends MadhouseTools {
+public class SegForwardRunShoveSort extends MadhouseTools {
     public SegForwardRunShoveSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Segments of Forward Run Shove");

@@ -16,8 +16,8 @@ public class AccessFunction {
     private ArrayList<String> generatedA;
     private ArrayList<BigInteger> generatedB;
     private BigDecimal last = BigDecimal.ONE;
-    private static final HashMap<String, UnaryOperator<Double>> ENUM;
-    private static final HashMap<String, UnaryOperator<Long>> SpecialAccesses;
+    private static HashMap<String, UnaryOperator<Double>> ENUM;
+    private static HashMap<String, UnaryOperator<Long>> SpecialAccesses;
     private static BigInteger factorial(int num) {
         BigInteger n = BigInteger.valueOf(num);
         int y = num-1;

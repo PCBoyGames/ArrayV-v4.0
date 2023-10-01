@@ -25,7 +25,7 @@ Original name of this algorithm: Pattern-Improved Priority Logsort
  * @author Scandum
  *
  */
-public final class VentiSort extends Sort {
+public class VentiSort extends Sort {
 
     public VentiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

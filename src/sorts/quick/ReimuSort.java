@@ -29,7 +29,7 @@ Original name of this algorithm: Ternary Aeos Priority Quicksort
  * @author aphitorite - key idea / concept of Priority Quicksort
  *
  */
-public final class ReimuSort extends Sort {
+public class ReimuSort extends Sort {
 
     public ReimuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -96,12 +96,36 @@ public final class ReimuSort extends Sort {
     }
 
     public int medOfMed(int[] array, int a, int b) {
-        if (b - a <= 6) return a + (b - a) / 2;
-        int p = 1;
-        while (6 * p < b - a) p *= 3;
-        int l = medP3(array, a, a + p, -1), c = medOfMed(array, a + p, b - p), r = medP3(array, b - p, b, -1);
-        // median
-        return medOf3(array, l, c, r);
+        int log5 = 0, exp5 = 1, exp5_1 = 0;
+        int[] indices = new int[5];
+        int n = b - a;
+        while (exp5 < n) {
+            exp5_1 = exp5;
+            log5++;
+            exp5 *= 5;
+        }
+        if (log5 < 1) return a;
+        // fill indexes, recursing if required
+        if (log5 == 1) for (int i = a, j = 0; i < b; i++, j++) indices[j] = i;
+        else {
+            n = 0;
+            for (int i = a; i < b; i += exp5_1) {
+                indices[n] = medOfMed(array, i, Math.min(b, i + exp5_1));
+                n++;
+            }
+        }
+        // sort - insertion sort is good enough for 5 elements
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                if (Reads.compareIndices(array, indices[j], indices[j - 1], 0.5, true) < 0) {
+                    int t = indices[j];
+                    indices[j] = indices[j - 1];
+                    indices[j - 1] = t;
+                } else break;
+            }
+        }
+        // return median
+        return indices[(n - 1) / 2];
     }
 
     protected void stableSegmentReversal(int[] array, int start, int end) {
@@ -263,6 +287,10 @@ public final class ReimuSort extends Sort {
     }
 
     protected void sortHelper(int[] array, int[] buf, int[] tags, int l, int r, int bLen) {
+        if (r - l <= threshold) {
+            insertSort(array, l, r);
+            return;
+        }
         PriorityQueue<Partition> queue = new PriorityQueue<>((r - l - 1) / this.threshold + 1);
         queue.offer(new Partition(l, r, false));
         while (queue.size() > 0) {
@@ -298,6 +326,7 @@ public final class ReimuSort extends Sort {
      * @param b     the end of the range, exclusive
      */
     public void quickSort(int[] array, int a, int b) {
+        int len = b - a;
         int z = 0, e = 0;
         for (int i = a; i < b - 1; i++) {
             int cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
@@ -305,23 +334,19 @@ public final class ReimuSort extends Sort {
             e += cmp == 0 ? 1 : 0;
         }
         if (z == 0) return;
-        if (z + e == b - a -1) {
+        if (z + e == len - 1) {
             if (e > 0) stableSegmentReversal(array, a, b - 1);
             else if (b - a < 4) Writes.swap(array, a, b - 1, 0.75, true, false);
             else Writes.reversal(array, a, b - 1, 0.75, true, false);
             return;
         }
-        int len = b - a;
-        if (len <= threshold) insertSort(array, a, b);
-        else {
-            int bLen = 1;
-            while (bLen * bLen < len) bLen *= 2;
-            int[] buf = Writes.createExternalArray(3 * bLen);
-            int[] tags = Writes.createExternalArray(len / bLen);
-            sortHelper(array, buf, tags, a, b, bLen);
-            Writes.deleteExternalArray(buf);
-            Writes.deleteExternalArray(tags);
-        }
+        int bLen = 1;
+        while (bLen * bLen < len) bLen *= 2;
+        int[] buf = Writes.createExternalArray(3 * bLen);
+        int[] tags = Writes.createExternalArray(len / bLen);
+        sortHelper(array, buf, tags, a, b, bLen);
+        Writes.deleteExternalArray(buf);
+        Writes.deleteExternalArray(tags);
     }
 
     @Override

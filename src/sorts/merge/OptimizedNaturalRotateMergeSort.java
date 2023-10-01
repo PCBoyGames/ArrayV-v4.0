@@ -13,9 +13,9 @@ EXTENDING CODE BY AYAKO-CHAN AND APHITORITE
 ------------------------------
 
 */
-final public class OptimizedNaturalRotateMergeSort extends MadhouseTools {
+public class OptimizedNaturalRotateMergeSort extends MadhouseTools {
 
-    int insertlimit = 8;
+    protected int insertlimit = 8;
     int seglimit = 16;
 
     public OptimizedNaturalRotateMergeSort(ArrayVisualizer arrayVisualizer) {
@@ -76,9 +76,10 @@ final public class OptimizedNaturalRotateMergeSort extends MadhouseTools {
         }
     }
 
-    protected void merge(int[] array, int a, int m, int b, int d) {
+    public void merge(int[] array, int a, int m, int b, int d) {
         Writes.recordDepth(d);
         int lenA = m - a, lenB = b - m;
+        if (a >= m || m >= b) return;
         if (lenA <= insertlimit || lenB <= insertlimit) {
             if (m - a > b - m) inPlaceMergeBW(array, a, m, b);
             else inPlaceMergeFW(array, a, m, b);
@@ -95,9 +96,9 @@ final public class OptimizedNaturalRotateMergeSort extends MadhouseTools {
             rotateIndexed(array, m - (c - r1), m, b - r1, 1, true, false);
             int m1 = b - c;
             Writes.recursion();
-            merge(array, m1, b - r1, b, d + 1);
-            Writes.recursion();
             merge(array, a, m1 - (lenB - r1), m1, d + 1);
+            Writes.recursion();
+            merge(array, m1, b - r1, b, d + 1);
         } else {
             int r1 = 0, r2 = lenA;
             while (r1 < r2) {
@@ -116,11 +117,9 @@ final public class OptimizedNaturalRotateMergeSort extends MadhouseTools {
 
     protected void attemptSmall(int[] array, int[] sizes, int runs) {
         int min2 = 0;
-        System.err.println(runs);
         for (int i = 0; i + 1 < runs; i++) if (sizes[i] + sizes [i + 1] < sizes[min2] + sizes[min2 + 1]) min2 = i;
         int sum = 0;
         for (int i = 0; i < min2; i++) sum += sizes[i];
-        System.err.println(sum + " " + sizes[min2] + " " + sizes[min2 + 1] + " ENDS AT " + (sum + sizes[min2] + sizes[min2 + 1]));
         merge(array, sum, sum + sizes[min2], sum + sizes[min2] + sizes[min2 + 1], 0);
     }
 

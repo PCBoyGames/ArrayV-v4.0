@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShockSortAlt extends Sort {
+public class ShockSortAlt extends Sort {
 
     QuadSort quad = new QuadSort(arrayVisualizer);
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class DebrisSortEquality extends Sort {
+public class DebrisSortEquality extends Sort {
     public DebrisSortEquality(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Debris (Equality)");

@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-final public class DrunkenSailorSort extends BogoSorting {
+public class DrunkenSailorSort extends BogoSorting {
     public DrunkenSailorSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Drunken Sailor");
@@ -31,7 +31,7 @@ final public class DrunkenSailorSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int luck) {
         boolean invert = false;
-        final int slow = 128;
+        int slow = 128;
         while (!isArraySorted(array, currentLength)) {
             for (int i=0, m=0, max=0; m<slow*currentLength && i<currentLength-1; m++) {
                 if (invert ^ (Reads.compareValues(array[i], array[i+1]) == 1)) {

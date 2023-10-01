@@ -17,7 +17,7 @@ Coded for ArrayV by Ayako-chan
  * @author Ayako-chan
  *
  */
-public final class AdaptiveExponentialInsertionSort extends Sort {
+public class AdaptiveExponentialInsertionSort extends Sort {
 
     public AdaptiveExponentialInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

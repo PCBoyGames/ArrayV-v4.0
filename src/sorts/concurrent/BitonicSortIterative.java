@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * work for array lengths other than powers of two!
  */
 
-final public class BitonicSortIterative extends Sort {
+public class BitonicSortIterative extends Sort {
     public BitonicSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

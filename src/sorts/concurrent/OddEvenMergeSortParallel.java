@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class OddEvenMergeSortParallel extends Sort {
+public class OddEvenMergeSortParallel extends Sort {
     public OddEvenMergeSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

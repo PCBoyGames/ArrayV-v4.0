@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.ShellSorting;
 
-final public class ShellSortParallel extends ShellSorting {
+public class ShellSortParallel extends ShellSorting {
     public ShellSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RandomShellSort extends BogoSorting {
+public class RandomShellSort extends BogoSorting {
     public RandomShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Randomized Shell");

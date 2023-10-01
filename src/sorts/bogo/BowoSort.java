@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 /**
  * Bowosort rotates a random part of the array <0,rand> a random amount of times until sorted.
  */
-public final class BowoSort extends BogoSorting {
+public class BowoSort extends BogoSorting {
     public BowoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

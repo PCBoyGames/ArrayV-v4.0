@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BruhMomentSort extends Sort {
+public class BruhMomentSort extends Sort {
     public BruhMomentSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("BRUH MOMENT");

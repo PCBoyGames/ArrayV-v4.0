@@ -13,7 +13,7 @@ IN COLLABORATION WITH CONTROL AND MG-2018
 ------------------------------
 
 */
-public final class PCBoysParShellSort extends Sort {
+public class PCBoysParShellSort extends Sort {
 
     // Mess with these and see what you can come up with.
     // Both of these are used in line 108.

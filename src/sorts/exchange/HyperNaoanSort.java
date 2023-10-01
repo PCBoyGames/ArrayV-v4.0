@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class HyperNaoanSort extends Sort {
+public class HyperNaoanSort extends Sort {
 
     int h;
 

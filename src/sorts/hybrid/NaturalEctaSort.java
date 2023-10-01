@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class NaturalEctaSort extends Sort {
+public class NaturalEctaSort extends Sort {
 
     public NaturalEctaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

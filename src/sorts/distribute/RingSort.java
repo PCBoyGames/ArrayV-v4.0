@@ -5,7 +5,7 @@ import java.util.Arrays;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class RingSort extends Sort {
+public class RingSort extends Sort {
     public RingSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Ring");

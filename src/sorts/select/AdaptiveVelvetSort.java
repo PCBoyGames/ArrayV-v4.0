@@ -2,7 +2,7 @@ package sorts.select;
 
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
-final public class AdaptiveVelvetSort extends Sort {
+public class AdaptiveVelvetSort extends Sort {
     public AdaptiveVelvetSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -24,18 +24,18 @@ final public class AdaptiveVelvetSort extends Sort {
             Writes.swap(array, a, a+1, 1, true, false);
     }
 
-    public void heap(int[] array, int a, int b, int d) {
+    public void heap(int[] array, int a, int b, int d, boolean shuffle) {
         Writes.recordDepth(d);
         int m=a+(b-a)/2;
         if (a < m) {
             Writes.recursion();
-            heap(array, a, m, d + 1);
+            heap(array, a, m, d + 1, shuffle);
             Writes.recursion();
-            heap(array, m, b, d + 1);
+            heap(array, m, b, d + 1, shuffle);
             if (Reads.compareIndices(array, a, m, 1, true) > 0) {
-                Writes.swap(array, a, m, 1, true, false);
+                Writes.swap(array, a, m, shuffle ? 0 : 1, true, false);
                 Writes.recursion();
-                heap(array, m, b, d + 1);
+                heap(array, m, b, d + 1, shuffle);
             }
         }
     }
@@ -62,7 +62,7 @@ final public class AdaptiveVelvetSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        heap(array, 0, currentLength, 0);
+        heap(array, 0, currentLength, 0, false);
         for (int i=1; i<currentLength-1; i++)
             sift(array, 0, i, currentLength, 0);
     }

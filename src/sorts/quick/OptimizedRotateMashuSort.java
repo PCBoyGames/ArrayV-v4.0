@@ -31,7 +31,7 @@ Original name of this algorithm: Adaptive Ternary Rotate Priority Quicksort
  * @author Scandum - the analyzer before sorting
  *
  */
-public final class OptimizedRotateMashuSort extends Sort {
+public class OptimizedRotateMashuSort extends Sort {
 
     public OptimizedRotateMashuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

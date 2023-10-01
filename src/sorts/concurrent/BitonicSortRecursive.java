@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * http://www.inf.fh-flensburg.de/lang/algorithmen/sortieren/bitonic/oddn.htm
  */
 
-final public class BitonicSortRecursive extends Sort {
+public class BitonicSortRecursive extends Sort {
     private boolean direction = true;
 
     public BitonicSortRecursive(ArrayVisualizer arrayVisualizer) {

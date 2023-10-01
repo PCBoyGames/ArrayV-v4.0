@@ -5,7 +5,7 @@ import sorts.insert.BinaryInsertionSort;
 import sorts.templates.GrailSorting;
 
 
-final public class ExtraAdaptiveRemoteMergeSort extends GrailSorting {
+public class ExtraAdaptiveRemoteMergeSort extends GrailSorting {
     public ExtraAdaptiveRemoteMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

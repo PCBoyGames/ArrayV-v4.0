@@ -12,7 +12,7 @@ import main.SortAnalyzer.SortPair;
 import sorts.templates.Sort;
 import panes.JErrorPane;
 
-final public class MultipleScript {
+public class MultipleScript {
     public static class ScriptCommand {
         public static enum CommandType {
             SortCall,
@@ -86,7 +86,7 @@ final public class MultipleScript {
 
     private ArrayVisualizer arrayVisualizer;
 
-    private final Hashtable<String, Class<?>> sortNames;
+    private Hashtable<String, Class<?>> sortNames;
 
     public MultipleScript(ArrayVisualizer arrayVisualizer) {
         this.arrayVisualizer = arrayVisualizer;

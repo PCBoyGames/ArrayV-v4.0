@@ -3,7 +3,7 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class NaturalMergeSort extends Sort {
+public class NaturalMergeSort extends Sort {
     int[] merged;
 
     public NaturalMergeSort(ArrayVisualizer arrayVisualizer) {

@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-final public class SandpaperSort extends Sort {
+public class SandpaperSort extends Sort {
     public SandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

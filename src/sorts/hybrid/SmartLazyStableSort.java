@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Ayako-chan
  *
  */
-public final class SmartLazyStableSort extends Sort {
+public class SmartLazyStableSort extends Sort {
 
     public SmartLazyStableSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -22,7 +22,7 @@ public final class SmartLazyStableSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;

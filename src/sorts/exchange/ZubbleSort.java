@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class ZubbleSort extends Sort {
+public class ZubbleSort extends Sort {
     public ZubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

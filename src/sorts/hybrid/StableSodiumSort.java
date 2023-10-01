@@ -6,7 +6,7 @@ import sorts.insert.BinaryInsertionSort;
 import sorts.templates.GrailSorting;
 import utils.IndexedRotations;
 
-final public class StableSodiumSort extends GrailSorting {
+public class StableSodiumSort extends GrailSorting {
     public StableSodiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

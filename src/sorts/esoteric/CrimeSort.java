@@ -45,7 +45,7 @@ Thankfully you can do the time.
 
  */
 
-final public class CrimeSort extends BogoSorting {
+public class CrimeSort extends BogoSorting {
 
     private volatile int next = 0;
 
@@ -88,12 +88,12 @@ final public class CrimeSort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int sortLength, int magnitude) throws Exception {
-        final int A = magnitude;
+        int A = magnitude;
         next = 0;
 
         ArrayList<Thread> threads = new ArrayList<>();
 
-        final int[] tmp = Writes.createExternalArray(sortLength);
+        int[] tmp = Writes.createExternalArray(sortLength);
 
         for (int i = 0; i < sortLength; i++) {
             Writes.write(tmp, i, array[i], 0.25, true, true);
@@ -103,7 +103,7 @@ final public class CrimeSort extends BogoSorting {
         Delays.updateDelayForTimeSort(magnitude);
 
         for (int i = 0; i < sortLength; i++) {
-            final int index = i;
+            int index = i;
             threads.add(new Thread("TimeSort-" + i) {
                 @Override
                 public void run() {

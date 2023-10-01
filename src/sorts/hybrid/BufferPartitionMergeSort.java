@@ -32,7 +32,7 @@ SOFTWARE.
  *
  */
 
-final public class BufferPartitionMergeSort extends Sort {
+public class BufferPartitionMergeSort extends Sort {
     public BufferPartitionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

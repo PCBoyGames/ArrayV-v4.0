@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author McDude_73
  *
  */
-public final class FloatSort extends Sort {
+public class FloatSort extends Sort {
 
     public FloatSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

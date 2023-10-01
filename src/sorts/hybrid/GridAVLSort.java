@@ -3,7 +3,7 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class GridAVLSort extends Sort {
+public class GridAVLSort extends Sort {
     public GridAVLSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

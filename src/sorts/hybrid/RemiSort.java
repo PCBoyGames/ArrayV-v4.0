@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class RemiSort extends Sort {
+public class RemiSort extends Sort {
     public RemiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class StupidlyDaftOnionPopStoogeSort extends Sort {
+public class StupidlyDaftOnionPopStoogeSort extends Sort {
 
     boolean TOGGLE_stable = false;
 

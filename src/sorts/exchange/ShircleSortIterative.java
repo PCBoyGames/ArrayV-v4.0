@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShircleSortIterative extends IterativeShircleSorting {
+public class ShircleSortIterative extends IterativeShircleSorting {
     public ShircleSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Shircle (Iterative)");

@@ -15,7 +15,7 @@ IN COLLABORATION WITH ACEOFSPADESPRODUC100
 NOTE: Not actually an Insertion sort.
 
 */
-final public class WeirdInsertionSort extends Sort {
+public class WeirdInsertionSort extends Sort {
     public WeirdInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Weird \"Insertion\"");

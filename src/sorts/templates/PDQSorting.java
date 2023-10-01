@@ -20,7 +20,7 @@ applications, and to alter it and redistribute it freely, subject to the followi
  *
  */
 
-final class PDQPair {
+class PDQPair {
     private int pivotPosition;
     private boolean alreadyPartitioned;
 
@@ -41,11 +41,11 @@ final class PDQPair {
 public abstract class PDQSorting extends Sort {
     private MaxHeapSort heapSorter;
 
-    final private int insertSortThreshold = 24;
-    final private int nintherThreshold = 128;
-    final private int partialInsertSortLimit = 8;
-    final private int blockSize = 64;
-    final private int cachelineSize = 64;
+    private int insertSortThreshold = 24;
+    private int nintherThreshold = 128;
+    private int partialInsertSortLimit = 8;
+    private int blockSize = 64;
+    private int cachelineSize = 64;
 
     private int[] leftOffsets;
     private int[] rightOffsets;

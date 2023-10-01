@@ -3,7 +3,7 @@ package sorts.misc;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class BinaryQuasiPancakeSort extends Sort
+public class BinaryQuasiPancakeSort extends Sort
 {
     public BinaryQuasiPancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -19,9 +19,9 @@ public final class BinaryQuasiPancakeSort extends Sort
         this.setBogoSort(false);
     }
 
-    public int binarySearch(final int[] array, int start, int end, final int value) {
+    public int binarySearch(int[] array, int start, int end, int value) {
         while (start < end) {
-            final int mid = start + end >>> 1;
+            int mid = start + end >>> 1;
             this.Highlights.markArray(1, start);
             this.Highlights.markArray(2, mid);
             this.Highlights.markArray(3, end);
@@ -39,9 +39,9 @@ public final class BinaryQuasiPancakeSort extends Sort
         return start;
     }
 
-    public void runSort(final int[] array, final int length, final int bucketCount) {
+    public void runSort(int[] array, int length, int bucketCount) {
         for (int i = 1; i < length; ++i) {
-            final int j = this.binarySearch(array, 0, i, array[i]);
+            int j = this.binarySearch(array, 0, i, array[i]);
             if (j != i) {
                 this.Writes.reversal(array, j, i - 1, 0.2, true, false);
                 this.Writes.reversal(array, j, i, 0.2, true, false);

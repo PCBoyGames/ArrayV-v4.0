@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class SemiDeterministicBovoSort extends BogoSorting {
+public class SemiDeterministicBovoSort extends BogoSorting {
     public SemiDeterministicBovoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Semi-Deterministic Bovo");

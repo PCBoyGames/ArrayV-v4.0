@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class LuckyPopSort extends BogoSorting {
+public class LuckyPopSort extends BogoSorting {
     public LuckyPopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lucky Pop");

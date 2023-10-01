@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
-public final class LaziceSort extends Sort {
+public class LaziceSort extends Sort {
 
     public LaziceSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -19,7 +19,7 @@ public final class LaziceSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -79,7 +79,7 @@ public final class LaziceSort extends Sort {
             b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
-    
+
     public void merge(int[] array, int a, int m, int b) {
         if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0)
             return;

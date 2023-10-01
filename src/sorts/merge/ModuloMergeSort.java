@@ -3,7 +3,7 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class ModuloMergeSort extends Sort {
+public class ModuloMergeSort extends Sort {
     public ModuloMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

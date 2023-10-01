@@ -3,7 +3,7 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class DistaysStableSort extends Sort {
+public class DistaysStableSort extends Sort {
     public DistaysStableSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

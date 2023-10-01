@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * @author fungamer2
  *
  */
-public final class PseudoHeapSort extends Sort {
+public class PseudoHeapSort extends Sort {
 
     /**
      * @param arrayVisualizer

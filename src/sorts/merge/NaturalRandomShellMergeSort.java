@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class NaturalRandomShellMergeSort extends BogoSorting {
+public class NaturalRandomShellMergeSort extends BogoSorting {
 
     public NaturalRandomShellMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

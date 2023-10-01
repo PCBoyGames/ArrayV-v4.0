@@ -20,7 +20,7 @@ in collaboration with aphitorite and Distray
  * @author Distray
  *
  */
-public final class SimplifiedBlockTimSort extends Sort {
+public class SimplifiedBlockTimSort extends Sort {
 
     public SimplifiedBlockTimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

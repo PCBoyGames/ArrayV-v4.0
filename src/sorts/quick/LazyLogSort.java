@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class LazyLogSort extends Sort {
+public class LazyLogSort extends Sort {
 
     public LazyLogSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -65,12 +65,36 @@ public final class LazyLogSort extends Sort {
     }
 
     public int medOfMed(int[] array, int a, int b) {
-        if (b - a <= 6) return a + (b - a) / 2;
-        int p = 1;
-        while (6 * p < b - a) p *= 3;
-        int l = medP3(array, a, a + p, -1), c = medOfMed(array, a + p, b - p), r = medP3(array, b - p, b, -1);
-        // median
-        return medOf3(array, l, c, r);
+        int log5 = 0, exp5 = 1, exp5_1 = 0;
+        int[] indices = new int[5];
+        int n = b - a;
+        while (exp5 < n) {
+            exp5_1 = exp5;
+            log5++;
+            exp5 *= 5;
+        }
+        if (log5 < 1) return a;
+        // fill indexes, recursing if required
+        if (log5 == 1) for (int i = a, j = 0; i < b; i++, j++) indices[j] = i;
+        else {
+            n = 0;
+            for (int i = a; i < b; i += exp5_1) {
+                indices[n] = medOfMed(array, i, Math.min(b, i + exp5_1));
+                n++;
+            }
+        }
+        // sort - insertion sort is good enough for 5 elements
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                if (Reads.compareIndices(array, indices[j], indices[j - 1], 0.5, true) < 0) {
+                    int t = indices[j];
+                    indices[j] = indices[j - 1];
+                    indices[j - 1] = t;
+                } else break;
+            }
+        }
+        // return median
+        return indices[(n - 1) / 2];
     }
 
     protected void stableSegmentReversal(int[] array, int start, int end) {

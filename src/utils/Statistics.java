@@ -14,7 +14,7 @@ import java.util.Set;
 
 import main.ArrayVisualizer;
 
-final public class Statistics {
+public class Statistics {
     private String sortCategory;
     private String sortHeading;
     private String sortExtraHeading;

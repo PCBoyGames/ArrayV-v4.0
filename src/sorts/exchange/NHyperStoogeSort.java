@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class NHyperStoogeSort extends Sort {
+public class NHyperStoogeSort extends Sort {
     public NHyperStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

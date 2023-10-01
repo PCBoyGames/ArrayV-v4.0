@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class StableCycleSort extends Sort {
+public class StableCycleSort extends Sort {
     public StableCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -45,7 +45,7 @@ final public class StableCycleSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int WLEN = 3;
+    private int WLEN = 3;
 
     private boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;

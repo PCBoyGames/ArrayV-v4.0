@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class WjatSort extends MadhouseTools {
+public class WjatSort extends MadhouseTools {
     public WjatSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Wjat");

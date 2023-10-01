@@ -11,7 +11,7 @@ import sorts.templates.BogoSorting;
  * @author implemented in Java by Sam Walko (Anonymous0726)
  * @author refactored by EmeraldBlock
  */
-final public class MarkovSort extends BogoSorting {
+public class MarkovSort extends BogoSorting {
     public MarkovSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

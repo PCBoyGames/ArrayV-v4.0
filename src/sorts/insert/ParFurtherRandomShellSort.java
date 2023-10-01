@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ParFurtherRandomShellSort extends BogoSorting {
+public class ParFurtherRandomShellSort extends BogoSorting {
     public ParFurtherRandomShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Par(X) Further Randomized Shell");

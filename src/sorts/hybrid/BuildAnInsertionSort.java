@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // Replace this with the path of the target algorithm.
-import sorts.select.MoreOptimizedOpiumSort;
+import sorts.exchange.GnomeWeaveHighSort;
 
 /*
 
@@ -15,10 +15,10 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BuildAnInsertionSort extends Sort {
+public class BuildAnInsertionSort extends Sort {
 
     // Replace both filenames with the filename of the target algorithm.
-    MoreOptimizedOpiumSort sort = new MoreOptimizedOpiumSort(arrayVisualizer);
+    GnomeWeaveHighSort sort = new GnomeWeaveHighSort(arrayVisualizer);
 
     // Optional for most sorts, but required for some.
     int NUMBER_Base = 2;
@@ -40,6 +40,7 @@ final public class BuildAnInsertionSort extends Sort {
     protected void method(int[] array, int len) {
         try {sort.runSort(array, len, NUMBER_Base);}
         catch (Exception e) {e.printStackTrace();}
+        Highlights.clearAllMarks();
     }
 
     @Override

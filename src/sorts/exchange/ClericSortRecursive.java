@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ClericSortRecursive extends ClericSorting {
+public class ClericSortRecursive extends ClericSorting {
     public ClericSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Cleric (Recursive)");

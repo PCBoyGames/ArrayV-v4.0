@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BinaryGnomeSort extends Sort {
+public class BinaryGnomeSort extends Sort {
     public BinaryGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

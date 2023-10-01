@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 
 
-final public class AdaptiveRemoteMergeSort extends GrailSorting {
+public class AdaptiveRemoteMergeSort extends GrailSorting {
     public AdaptiveRemoteMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

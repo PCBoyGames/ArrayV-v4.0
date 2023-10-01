@@ -3,7 +3,7 @@ package sorts.esoteric;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class EpsilonFaithSort extends BogoSorting {
+public class EpsilonFaithSort extends BogoSorting {
     public EpsilonFaithSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

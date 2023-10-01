@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class VanVoorhisFourFourSortIterative extends Sort {
+public class VanVoorhisFourFourSortIterative extends Sort {
     public VanVoorhisFourFourSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

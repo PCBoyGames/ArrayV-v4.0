@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class RotateMergeSortParallel extends Sort {
+public class RotateMergeSortParallel extends Sort {
     public RotateMergeSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -8,7 +8,7 @@ import sorts.insert.BinaryDoubleInsertionSort;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
-final public class HeadQuicksort extends Sort {
+public class HeadQuicksort extends Sort {
     public HeadQuicksort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         arrayVisualizer.getTimer();

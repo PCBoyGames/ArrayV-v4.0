@@ -33,7 +33,7 @@ SOFTWARE.
  *
  */
 
-final public class RunScriptedSorts extends MultipleSortThread {
+public class RunScriptedSorts extends MultipleSortThread {
     private RunScriptDialog fileDialog;
     private String currentCategory;
 

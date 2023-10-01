@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class OptimizedIndexSort extends Sort {
+public class OptimizedIndexSort extends Sort {
     public OptimizedIndexSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

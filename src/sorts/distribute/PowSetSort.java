@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class PowSetSort extends Sort {
+public class PowSetSort extends Sort {
 
     int min;
     int max;

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class PeelBingoSort extends Sort {
+public class PeelBingoSort extends Sort {
     public PeelBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Peel Bingo");

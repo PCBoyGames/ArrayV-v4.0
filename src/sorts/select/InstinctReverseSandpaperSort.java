@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class InstinctReverseSandpaperSort extends Sort {
+public class InstinctReverseSandpaperSort extends Sort {
     public InstinctReverseSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Instinct Reverse Sandpaper");

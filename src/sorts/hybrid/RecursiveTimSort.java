@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author Kiriko-chan
  *
  */
-public final class RecursiveTimSort extends Sort {
+public class RecursiveTimSort extends Sort {
 
     public RecursiveTimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -24,7 +24,7 @@ public final class RecursiveTimSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int M = 7;
+    private int M = 7;
 
     private int highlight = 0;
 

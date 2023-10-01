@@ -7,7 +7,7 @@ import sorts.templates.BogoSorting;
  * @author Kiriko-chan
  *
  */
-public final class CircleBogoSort extends BogoSorting {
+public class CircleBogoSort extends BogoSorting {
 
     public CircleBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

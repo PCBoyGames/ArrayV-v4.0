@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RotateSelectSort extends Sort {
+public class RotateSelectSort extends Sort {
     public RotateSelectSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Rotate Selection");

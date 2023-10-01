@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * @author thatsOven
  *
  */
-public final class BufferedStoogeSort extends Sort {
+public class BufferedStoogeSort extends Sort {
 
     /**
      * @param arrayVisualizer

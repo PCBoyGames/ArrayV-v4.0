@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class QuarterMergeSort extends Sort {
+public class QuarterMergeSort extends Sort {
     private BinaryInsertionSort binaryInserter;
     private BlockSwapMergeSort finalMerger;
 

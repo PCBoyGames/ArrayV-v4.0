@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class MergeSort extends MergeSorting {
+public class MergeSort extends MergeSorting {
     public MergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

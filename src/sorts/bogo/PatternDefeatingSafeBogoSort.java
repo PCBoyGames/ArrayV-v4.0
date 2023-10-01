@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
 
-final public class PatternDefeatingSafeBogoSort extends Sort {
+public class PatternDefeatingSafeBogoSort extends Sort {
     public PatternDefeatingSafeBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

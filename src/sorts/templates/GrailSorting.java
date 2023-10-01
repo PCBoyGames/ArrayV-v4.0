@@ -47,7 +47,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*                                                       */
 /*********************************************************/
 
-final class GrailPair {
+class GrailPair {
     private int leftOverLen;
     private int leftOverFrag;
 
@@ -68,7 +68,7 @@ final class GrailPair {
 public abstract class GrailSorting extends Sort {
     private OptimizedGnomeSort grailInsertSorter;
 
-    final private int grailStaticBufferLen = 32; //Buffer length changed due to less numbers in this program being sorted than what Mr. Astrelin used for testing.
+    private int grailStaticBufferLen = 32; //Buffer length changed due to less numbers in this program being sorted than what Mr. Astrelin used for testing.
 
     protected GrailSorting(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class nlognStoogeSort extends MergeSorting {
+public class nlognStoogeSort extends MergeSorting {
     public nlognStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

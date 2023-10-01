@@ -17,7 +17,7 @@ Finally
 
  */
 
-public final class TernaryInsertionSort extends Sort {
+public class TernaryInsertionSort extends Sort {
     public TernaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -44,7 +44,7 @@ public final class TernaryInsertionSort extends Sort {
                 start = midB;
             } else {
                 start = midA;
-                end = midB;
+                //end = midB;
             }
             Highlights.markArray(2, midA);
             Highlights.markArray(3, midB);

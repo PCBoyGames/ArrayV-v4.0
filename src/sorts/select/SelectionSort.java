@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class SelectionSort extends Sort {
+public class SelectionSort extends Sort {
     public SelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

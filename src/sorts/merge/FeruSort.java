@@ -19,7 +19,7 @@ public class FeruSort extends GrailSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    private static final int fraction = 16;
+    private static int fraction = 16;
 
     private OptimizedMergeSort initial;
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class PDOpiumSort extends MadhouseTools {
+public class PDOpiumSort extends MadhouseTools {
     public PDOpiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Pattern-Defeating Opium");

@@ -20,7 +20,7 @@ import sorts.templates.BinaryQuickSorting;
  * @author Skeen
  */
 
-final public class BinaryQuickSortRecursive extends BinaryQuickSorting {
+public class BinaryQuickSortRecursive extends BinaryQuickSorting {
     public BinaryQuickSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

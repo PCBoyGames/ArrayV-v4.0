@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-public final class FlanSort extends Sort {
+public class FlanSort extends Sort {
     public FlanSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -60,8 +60,8 @@ public final class FlanSort extends Sort {
         @author aphitorite
     */
 
-    private final int G = 14; //gap size
-    private final int R = 4;  //rebalancing factor
+    private int G = 14; //gap size
+    private int R = 4;  //rebalancing factor
 
     private Random rng;
 

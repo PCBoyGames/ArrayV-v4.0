@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShircleSortRecursive extends ShircleSorting {
+public class ShircleSortRecursive extends ShircleSorting {
     public ShircleSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Shircle (Recursive)");

@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class AyatoSort extends Sort {
+public class AyatoSort extends Sort {
 
     public AyatoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

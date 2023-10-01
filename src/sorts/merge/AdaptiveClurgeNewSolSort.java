@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AdaptiveClurgeNewSolSort extends Sort {
+public class AdaptiveClurgeNewSolSort extends Sort {
     public AdaptiveClurgeNewSolSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Clurge (New Solution)");

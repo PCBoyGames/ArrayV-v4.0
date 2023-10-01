@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CiuraCappedShipperSort extends MadhouseTools {
+public class CiuraCappedShipperSort extends MadhouseTools {
 
     boolean checks = true;
     int cap;

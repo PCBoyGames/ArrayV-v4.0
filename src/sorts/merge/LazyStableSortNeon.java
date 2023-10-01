@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class LazyStableSortNeon extends GrailSorting {
+public class LazyStableSortNeon extends GrailSorting {
 
     public LazyStableSortNeon(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

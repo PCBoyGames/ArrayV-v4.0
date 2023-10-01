@@ -20,7 +20,7 @@ in collaboration with aphitorite and yuji
  * @author yuji
  *
  */
-public final class AdaptiveBufferedMergeSort extends Sort {
+public class AdaptiveBufferedMergeSort extends Sort {
 
     public AdaptiveBufferedMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -35,23 +35,23 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public static int getMinLevel(int n) {
         while (n >= 32) n = (n + 1) / 2;
         return n;
     }
-    
+
     // Easy patch to avoid self-swaps.
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a != b) Writes.swap(array, a, b, pause, mark, aux);
     }
-    
+
     void multiSwap(int[] array, int a, int b, int len) {
         if (a != b)
             for (int i = 0; i < len; i++)
                 Writes.swap(array, a + i, b + i, 1, true, false);
     }
-    
+
     void rotate(int[] array, int a, int m, int b) {
         int l = m - a, r = b - m;
 
@@ -95,7 +95,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
         return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
     }
-    
+
     protected void mergeFW(int[] array, int a, int m, int b, int p) {
         int pLen = m - a;
         multiSwap(array, a, p, pLen);
@@ -121,7 +121,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         }
         while (i >= 0) swap(array, k--, p + (i--), 1, true, false);
     }
-    
+
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         while (a < m && m < b) {
             int i = leftExpSearch(array, m, b, array[a], true);
@@ -145,7 +145,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
             b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
-    
+
     public void inPlaceMerge(int[] array, int a, int m, int b) {
         if (Reads.compareIndices(array, m - 1, m, 0.5, true) <= 0) return;
         a = leftExpSearch(array, a, m, array[m], false);
@@ -159,7 +159,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         else
             inPlaceMergeFW(array, a, m, b);
     }
-    
+
     public void merge(int[] array, int a, int m, int b, int p) {
         if (Reads.compareIndices(array, m - 1, m, 0.5, true) <= 0) return;
         a = leftExpSearch(array, a, m, array[m], false);
@@ -173,7 +173,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         else
             mergeFW(array, a, m, b, p);
     }
-    
+
     void lazyBufferedMergeFW(int[] array, int a, int m, int b, int p) {
         if (Reads.compareIndices(array, m - 1, m, 0.5, true) <= 0) return;
         a = leftExpSearch(array, a, m, array[m], false);
@@ -193,7 +193,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         }
         while (i < pLen) swap(array, k++, p+(i++), 1, true, false);
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
@@ -203,7 +203,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         if (a != b)
             Writes.write(array, b, temp, 0.5, true, false);
     }
-    
+
     protected boolean buildRuns(int[] array, int a, int b, int mRun) {
         int i = a + 1, j = a;
         boolean noSort = true;
@@ -226,15 +226,15 @@ public final class AdaptiveBufferedMergeSort extends Sort {
         }
         return noSort;
     }
-    
+
     public void mergeSort(int[] array, int a, int b, int p) {
         int length = b-a;
         if (length < 2) return;
-        
+
         int i, j = getMinLevel(length);
-        
+
         if (buildRuns(array, a, b, j)) return;
-        
+
         while (j < length) {
             for (i = a; i + 2 * j <= b; i += 2 * j)
                 this.merge(array, i, i + j, i + 2 * j, p);
@@ -243,7 +243,7 @@ public final class AdaptiveBufferedMergeSort extends Sort {
             j *= 2;
         }
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         if (b - a <= 32) {
             // insertion sort

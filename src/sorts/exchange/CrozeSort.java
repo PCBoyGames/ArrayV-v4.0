@@ -12,7 +12,7 @@ import sorts.templates.BogoSorting;
  |   alarm from profanity    |
  |   filter going offline)   |
   \_________________________/ */
-final public class CrozeSort extends BogoSorting {
+public class CrozeSort extends BogoSorting {
     public CrozeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Croze");

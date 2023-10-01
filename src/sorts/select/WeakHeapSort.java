@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 // Refactored from C++ code written by Manish Bhojasia, found here:
 // https://www.sanfoundry.com/cpp-program-implement-weak-heap/
-final public class WeakHeapSort extends Sort {
+public class WeakHeapSort extends Sort {
     public WeakHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

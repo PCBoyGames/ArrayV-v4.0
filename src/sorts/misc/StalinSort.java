@@ -3,7 +3,7 @@ package sorts.misc;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class StalinSort extends Sort {
+public class StalinSort extends Sort {
     public StalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

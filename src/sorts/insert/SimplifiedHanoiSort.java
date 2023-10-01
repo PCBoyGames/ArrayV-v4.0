@@ -5,7 +5,7 @@ import main.ArrayVisualizer;
 
 // This just sounds straight-up haunted on 16 numbers.
 // (Distray's Simplified Hanoi Sort)
-final public class SimplifiedHanoiSort extends Sort {
+public class SimplifiedHanoiSort extends Sort {
 
     public SimplifiedHanoiSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

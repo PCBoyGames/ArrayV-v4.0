@@ -17,7 +17,7 @@ Another brick in the wall of Stoogesort variants...
 
  */
 
-public final class StoogeSortGooflang extends Sort {
+public class StoogeSortGooflang extends Sort {
 
     int h;
 
@@ -68,22 +68,22 @@ public final class StoogeSortGooflang extends Sort {
             int temp = array[a];
             if (O == 1) {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.swap(array, a, b, 0.1, true, false);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.swap(array, a, b, 0.1, true, false);
                     }
                 }
             } else {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaSwap(O - 1, array, a, b, depth + 1);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaSwap(O - 1, array, a, b, depth + 1);
                     }

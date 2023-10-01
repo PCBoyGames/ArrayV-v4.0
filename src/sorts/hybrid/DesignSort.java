@@ -19,7 +19,7 @@ public class DesignSort extends Sort {
         this.setUnreasonableLimit(0);
     }
 
-    static final int grow = 3;
+    static int grow = 3;
 
     private int r0S, r0E, r1Sz;
     private BinaryInsertionSort inserter;

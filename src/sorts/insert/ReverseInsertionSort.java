@@ -10,7 +10,7 @@ import sorts.templates.Sort;
  * @author McDude73
  *
  */
-public final class ReverseInsertionSort extends Sort {
+public class ReverseInsertionSort extends Sort {
 
     /**
      * @param arrayVisualizer

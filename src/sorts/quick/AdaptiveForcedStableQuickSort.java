@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class AdaptiveForcedStableQuickSort extends Sort {
+public class AdaptiveForcedStableQuickSort extends Sort {
 
     public AdaptiveForcedStableQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

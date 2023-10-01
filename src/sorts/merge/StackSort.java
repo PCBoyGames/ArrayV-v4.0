@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 import utils.Statistics;
 
 
-final public class StackSort extends Sort {
+public class StackSort extends Sort {
     public StackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

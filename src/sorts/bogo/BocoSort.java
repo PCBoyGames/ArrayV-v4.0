@@ -3,7 +3,7 @@
  import main.ArrayVisualizer;
  import sorts.templates.BogoSorting;
  // Bocosort compares random values, and swaps the range values if greater.
- public final class BocoSort extends BogoSorting {
+ public class BocoSort extends BogoSorting {
    public BocoSort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
 

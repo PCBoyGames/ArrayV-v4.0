@@ -17,7 +17,7 @@ Time's up.
 
  */
 
-public final class NopeSort extends Sort {
+public class NopeSort extends Sort {
     public NopeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

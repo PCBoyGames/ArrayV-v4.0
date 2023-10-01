@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * @author EilrahcF
  *
  */
-public final class SlopeSort extends Sort {
+public class SlopeSort extends Sort {
 
     /**
      * @param arrayVisualizer

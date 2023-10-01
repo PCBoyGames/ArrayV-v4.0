@@ -1,6 +1,6 @@
 package utils;
 
-final class Range {
+class Range {
     public int start;
     public int end;
 

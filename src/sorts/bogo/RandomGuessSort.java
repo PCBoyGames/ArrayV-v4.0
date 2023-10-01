@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class RandomGuessSort extends BogoSorting {
+public class RandomGuessSort extends BogoSorting {
     public RandomGuessSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

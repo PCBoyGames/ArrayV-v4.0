@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class GanyuSort extends Sort {
+public class GanyuSort extends Sort {
 
     public GanyuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

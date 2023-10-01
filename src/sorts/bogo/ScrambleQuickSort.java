@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 And it's ternary, too! How about that, aphi?
 
 */
-final public class ScrambleQuickSort extends BogoSorting {
+public class ScrambleQuickSort extends BogoSorting {
     public ScrambleQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Scramble Quick");

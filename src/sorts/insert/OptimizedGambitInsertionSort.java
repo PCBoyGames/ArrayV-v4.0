@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedGambitInsertionSort extends Sort {
+public class OptimizedGambitInsertionSort extends Sort {
 
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
 

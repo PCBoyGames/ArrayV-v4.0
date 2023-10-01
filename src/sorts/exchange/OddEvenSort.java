@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * https://www.geeksforgeeks.org/odd-even-sort-brick-sort/
  */
 
-final public class OddEvenSort extends Sort {
+public class OddEvenSort extends Sort {
     public OddEvenSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

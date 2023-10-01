@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BinomialSmoothSort extends Sort {
+public class BinomialSmoothSort extends Sort {
     public BinomialSmoothSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

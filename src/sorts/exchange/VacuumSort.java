@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class VacuumSort extends Sort {
+public class VacuumSort extends Sort {
     public VacuumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

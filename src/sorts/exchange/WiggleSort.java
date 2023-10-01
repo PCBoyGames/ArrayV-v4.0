@@ -12,7 +12,7 @@ import sorts.templates.Sort;
  * @author EilrahcF
  *
  */
-public final class WiggleSort extends Sort {
+public class WiggleSort extends Sort {
 
     /**
      * @param arrayVisualizer

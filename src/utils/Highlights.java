@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class Highlights {
+public class Highlights {
     private volatile int[] Highlights;
     private volatile byte[] markCounts;
 
@@ -71,7 +71,7 @@ final public class Highlights {
             JErrorPane.invokeCustomErrorMessage("Failed to allocate mark arrays. The program will now exit.");
             System.exit(1);
         }
-        this.FANCYFINISH = true;
+        this.FANCYFINISH = !ArrayVisualizer.blaze;
         this.maxHighlightMarked = 0;
         this.markCount = 0;
 
@@ -143,6 +143,7 @@ final public class Highlights {
         return this.markCounts[arrayPosition] != 0;
     }
     public synchronized void markArray(int marker, int markPosition) {
+        if (markPosition >= Math.pow(2, main.ArrayVisualizer.MAX_LENGTH_POWER)) return;
         try {
             if (markPosition < 0) {
                 if (markPosition == -1) throw new Exception("Highlights.markArray(): Invalid position! -1 is reserved for the clearMark method.");

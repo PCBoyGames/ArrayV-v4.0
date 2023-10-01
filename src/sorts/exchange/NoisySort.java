@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class NoisySort extends Sort {
+public class NoisySort extends Sort {
     public NoisySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Noisy");

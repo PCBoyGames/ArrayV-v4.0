@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.Statistics;
 
-final public class OmegaLRQuickSort extends Sort {
+public class OmegaLRQuickSort extends Sort {
     public OmegaLRQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

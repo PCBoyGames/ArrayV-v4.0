@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class CircloidSort extends Sort {
+public class CircloidSort extends Sort {
     public CircloidSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

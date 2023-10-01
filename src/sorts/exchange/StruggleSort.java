@@ -17,7 +17,7 @@ A really cursed mix between Bubble and Stooge.
 
  */
 
-public final class StruggleSort extends Sort {
+public class StruggleSort extends Sort {
     public StruggleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

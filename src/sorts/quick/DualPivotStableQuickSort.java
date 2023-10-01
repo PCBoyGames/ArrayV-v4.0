@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-public final class DualPivotStableQuickSort extends Sort {
+public class DualPivotStableQuickSort extends Sort {
     public DualPivotStableQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

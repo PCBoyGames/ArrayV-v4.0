@@ -15,7 +15,7 @@ import main.ArrayVisualizer;
   * Distray                                 *
   *******************************************/
 
- public final class BogoSortEpsilonCommittee extends BogoSorting {
+ public class BogoSortEpsilonCommittee extends BogoSorting {
    public BogoSortEpsilonCommittee(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class ExchangeBojoSort extends BogoSorting {
+public class ExchangeBojoSort extends BogoSorting {
     public ExchangeBojoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Exchange Bojo");

@@ -11,7 +11,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class XSort extends Sort {
+public class XSort extends Sort {
     public XSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("X Pattern");

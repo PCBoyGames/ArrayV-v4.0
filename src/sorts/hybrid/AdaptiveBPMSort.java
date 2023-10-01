@@ -20,7 +20,7 @@ in collaboration with aphitorite and yuji
  * @author yuji
  *
  */
-public final class AdaptiveBPMSort extends Sort {
+public class AdaptiveBPMSort extends Sort {
 
     public AdaptiveBPMSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

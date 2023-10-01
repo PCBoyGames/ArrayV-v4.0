@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 Nightmares.
 
 */
-public final class WorstWorstSort extends BogoSorting {
+public class WorstWorstSort extends BogoSorting {
 
     int min;
 

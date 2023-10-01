@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import utils.Complex;
 import sorts.templates.BogoSorting;
 
-public final class MandelbrotSort extends BogoSorting {
+public class MandelbrotSort extends BogoSorting {
   public MandelbrotSort(ArrayVisualizer arrayVisualizer) {
     super(arrayVisualizer);
     this.setSortListName("Mandelbrot");

@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class InverseBinaryInsertionSort extends Sort {
+public class InverseBinaryInsertionSort extends Sort {
 
     public InverseBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -18,7 +18,7 @@ public final class InverseBinaryInsertionSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected void insertTo(int[] array, int a, int b, double sleep) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -29,7 +29,7 @@ public final class InverseBinaryInsertionSort extends Sort {
             Writes.write(array, b, temp, sleep, true, false);
         }
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, double sleep) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -42,7 +42,7 @@ public final class InverseBinaryInsertionSort extends Sort {
         }
         return a;
     }
-    
+
     public void insertSort(int[] array, int a, int b, double sleep) {
         for (int i = a + 1; i < b; i++)
             insertTo(array, b - 1, binSearch(array, a, i, array[b - 1], sleep), sleep / 8);

@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author mingyue12
  *
  */
-public final class IntroPseudoHeapSort extends Sort {
+public class IntroPseudoHeapSort extends Sort {
 
 
     public IntroPseudoHeapSort(ArrayVisualizer arrayVisualizer) {

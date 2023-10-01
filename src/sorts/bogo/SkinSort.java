@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class SkinSort extends BogoSorting {
+public class SkinSort extends BogoSorting {
 
     int min;
     int max;

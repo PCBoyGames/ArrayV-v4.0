@@ -48,12 +48,11 @@ SOFTWARE.
  *
  * @author S630690
  */
-final public class ShufflePrompt extends javax.swing.JFrame implements AppFrame {
+public class ShufflePrompt extends javax.swing.JFrame implements AppFrame {
 
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
 
     private ArrayManager ArrayManager;
     private JFrame Frame;

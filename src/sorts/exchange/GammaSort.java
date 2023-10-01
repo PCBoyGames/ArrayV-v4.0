@@ -15,7 +15,7 @@ import sorts.templates.BogoSorting;
   * Distray                                 *
   *******************************************/
 
- public final class GammaSort extends BogoSorting {
+ public class GammaSort extends BogoSorting {
    public GammaSort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
 

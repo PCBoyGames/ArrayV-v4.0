@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class TrollSort extends Sort {
+public class TrollSort extends Sort {
     public TrollSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -18,16 +18,15 @@ public final class TrollSort extends Sort {
         this.setUnreasonableLimit(128);
         this.setBogoSort(false);
     }
-  
+
     public void trollSort(int[] array, int start, int sortLength, int bucketCount, int trueLength) throws Exception {
         if (sortLength - start > 1) {
             trollSort(array, start, (start + sortLength) / 2, bucketCount, sortLength);
             trollSort(array, (start + sortLength) / 2, sortLength, bucketCount, sortLength);
-        } 
+        }
         for (int i = start + 1; i < sortLength; i++) {
             int num = array[i];
             int lo = start, hi = i;
-            int mid2 = (hi + lo) / 2;
             while (lo < hi) {
                 int mid = lo + (hi - lo) / 2;
                 this.Highlights.markArray(1, lo);
@@ -37,9 +36,9 @@ public final class TrollSort extends Sort {
                 if (this.Reads.compareValues(num, array[mid]) < 0) {
                     hi = mid;
                     continue;
-                } 
+                }
                 lo = mid + 1;
-            } 
+            }
             this.Highlights.clearMark(1);
             this.Highlights.clearMark(2);
             int j = i;
@@ -50,18 +49,18 @@ public final class TrollSort extends Sort {
         trollSort(array, start, (start + sortLength) / 2, bucketCount, sortLength);
         }
     }
-  
+
     private boolean isArraySorted(int[] array, int currentLength) {
         for (int i = 0; i < currentLength; i++) {
             if (this.Reads.compareIndices(array, i, i + 1, 0.1D, true) > 0) {
                 this.Highlights.incrementFancyFinishPosition();
                 return false;
-            } 
-        } 
+            }
+        }
         return true;
     }
-  
+
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        while (!isArraySorted(array, sortLength)) trollSort(array, 0, sortLength, bucketCount, sortLength); 
+        while (!isArraySorted(array, sortLength)) trollSort(array, 0, sortLength, bucketCount, sortLength);
     }
 }

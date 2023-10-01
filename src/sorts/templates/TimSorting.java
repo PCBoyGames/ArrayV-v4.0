@@ -58,7 +58,7 @@ import utils.Writes;
  * Tailored to ArrayVisualizer by MusicTheorist
  */
 
-final public class TimSorting {
+public class TimSorting {
     private Delays Delays;
     private Highlights Highlights;
     private Reads Reads;
@@ -81,20 +81,20 @@ final public class TimSorting {
      * of the minimum stack length required as a function of the length
      * of the array being sorted and the minimum merge sequence length.
      */
-    private static final int MIN_MERGE = 32;
+    private static int MIN_MERGE = 32;
     /**
      * The array being sorted.
      */
-    private final int[] a;
+    private int[] a;
     /**
      * ArrayVisualizer's current length.
      */
-    private final int len;
+    private int len;
     /**
      * When we get into galloping mode, we stay there until both runs win less
      * often than MIN_GALLOP consecutive times.
      */
-    private static final int MIN_GALLOP = 7;
+    private static int MIN_GALLOP = 7;
     /**
      * This controls when we get *into* galloping mode.  It is initialized
      * to MIN_GALLOP.  The mergeLo and mergeHi methods nudge it higher for
@@ -108,7 +108,7 @@ final public class TimSorting {
      * Unlike Tim's original C version, we do not allocate this much storage
      * when sorting smaller arrays.  This change was required for performance.
      */
-    private static final int INITIAL_TMP_STORAGE_LENGTH = 256;
+    private static int INITIAL_TMP_STORAGE_LENGTH = 256;
     /**
      * Temp storage for merges.
      */
@@ -124,8 +124,8 @@ final public class TimSorting {
      * and keeping all the info explicit simplifies the code.
      */
     private int stackSize = 0;  // Number of pending runs on stack
-    private final int[] runBase;
-    private final int[] runLen;
+    private int[] runBase;
+    private int[] runLen;
 
     public static int getMinRun() {
         return TimSorting.MIN_MERGE / 2;
@@ -544,7 +544,7 @@ final public class TimSorting {
             ofs += hint;
         } else { // key <= a[base + hint]
             // Gallop left until a[base+hint-ofs] < key <= a[base+hint-lastOfs]
-            final int maxOfs = hint + 1;
+            int maxOfs = hint + 1;
 
             ts.markArray(3, base + hint - ofs);
             ts.Delays.sleep(1);

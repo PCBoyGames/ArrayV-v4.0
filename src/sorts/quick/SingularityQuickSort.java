@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SingularityQuickSort extends Sort {
+public class SingularityQuickSort extends Sort {
 
     int depthlimit;
     int insertlimit;

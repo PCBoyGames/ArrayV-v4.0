@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 A Pop variant with a best, average, and worst complexity of O("f*ck").
 
 */
-final public class WhySort extends Sort {
+public class WhySort extends Sort {
     public WhySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Why");

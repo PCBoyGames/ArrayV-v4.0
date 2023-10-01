@@ -20,7 +20,7 @@ in collaboration with Project Nayuki and fungamer2
  * @author fungamer2
  *
  */
-public final class ExponentialQuasiPancakeSort extends Sort {
+public class ExponentialQuasiPancakeSort extends Sort {
 
     public ExponentialQuasiPancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -35,7 +35,7 @@ public final class ExponentialQuasiPancakeSort extends Sort {
         setUnreasonableLimit(0);
         setBogoSort(false);
     }
-    
+
     // Easy patch to avoid self-reversals and the "reversals can be done in a single
     // swap" notes.
     void reversal(int[] array, int a, int b, double sleep, boolean mark, boolean aux) {
@@ -43,7 +43,7 @@ public final class ExponentialQuasiPancakeSort extends Sort {
         if (b - a >= 3) Writes.reversal(array, a, b, sleep, mark, aux);
         else Writes.swap(array, a, b, sleep, mark, aux);
     }
-    
+
     protected int expSearch(int[] array, int a, int b, int val, double sleep) {
         int i = 1;
         while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
@@ -60,7 +60,7 @@ public final class ExponentialQuasiPancakeSort extends Sort {
         }
         return a1;
     }
-    
+
     public void sort(int[] array, int a, int b, double rSleep, double wSleep) {
         for (int i = a + 1; i < b; i++) {
             int j = expSearch(array, a, i, array[i], rSleep);

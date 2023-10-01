@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RecursivePushSort extends Sort {
+public class RecursivePushSort extends Sort {
     public RecursivePushSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Recursive Push");
@@ -99,6 +99,6 @@ final public class RecursivePushSort extends Sort {
             lastcheck = sorted(array, lastcheck, currentLength);
         }
         Highlights.clearAllMarks();
-        binsert(array, lastcheck, currentLength);
+        binsert(array, 0, currentLength);
     }
 }

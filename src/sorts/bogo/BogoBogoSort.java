@@ -42,7 +42,7 @@ SOFTWARE.
  * </ul>
  * Like in Bogosort, if the array is not sorted, it shuffles it and repeats the entire process.
  */
-public final class BogoBogoSort extends BogoSorting {
+public class BogoBogoSort extends BogoSorting {
     public BogoBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

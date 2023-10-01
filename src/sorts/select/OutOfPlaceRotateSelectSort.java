@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OutOfPlaceRotateSelectSort extends Sort {
+public class OutOfPlaceRotateSelectSort extends Sort {
 
     int[] ext;
 

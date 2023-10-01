@@ -20,7 +20,7 @@ in collaboration with Project Nayuki and fungamer2
  * @author fungamer2
  *
  */
-public final class BidiBinaryQuasiPancakeSort extends Sort {
+public class BidiBinaryQuasiPancakeSort extends Sort {
 
     public BidiBinaryQuasiPancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -35,7 +35,7 @@ public final class BidiBinaryQuasiPancakeSort extends Sort {
         setUnreasonableLimit(0);
         setBogoSort(false);
     }
-    
+
     // Easy patch to avoid self-reversals and the "reversals can be done in a single
     // swap" notes.
     void reversal(int[] array, int a, int b, double sleep, boolean mark, boolean aux) {
@@ -43,7 +43,7 @@ public final class BidiBinaryQuasiPancakeSort extends Sort {
         if (b - a >= 3) Writes.reversal(array, a, b, sleep, mark, aux);
         else Writes.swap(array, a, b, sleep, mark, aux);
     }
-    
+
     public void insertSort(int[] array, int start, int end, double rSleep, double wSleep) {
         boolean invert = false;
         int l, r, m;

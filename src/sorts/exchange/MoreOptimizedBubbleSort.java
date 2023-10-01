@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class MoreOptimizedBubbleSort extends Sort {
+public class MoreOptimizedBubbleSort extends Sort {
     public MoreOptimizedBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("More Optimized Bubble");

@@ -84,7 +84,7 @@ public class Rotations {
 
             if (lenA <= 1 || lenB <= 1) break;
 
-            while (lenA > lenB) {
+            while (lenA >= lenB) {
                 swapBlocksBackwards(array, pos + lenA - lenB, pos + lenA, lenB, pause, mark, auxwrite);
                 lenA -= lenB;
             }
@@ -127,21 +127,31 @@ public class Rotations {
 
         while (a < b && c < d) {
             swap = array[b];
+            if (mark) Highlights.markArray(2, d);
             Writes.write(array, b--, array[a], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, b);
             Writes.write(array, a++, array[c], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, a);
             Writes.write(array, c++, array[d], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, c);
             Writes.write(array, d--, swap,     pause/2d, mark, auxwrite);
         }
         while (a < b) {
             swap = array[b];
+            if (mark) Highlights.markArray(2, d);
             Writes.write(array, b--, array[a], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, b);
             Writes.write(array, a++, array[d], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, a);
             Writes.write(array, d--, swap,     pause/2d, mark, auxwrite);
         }
         while (c < d) {
             swap = array[c];
+            if (mark) Highlights.markArray(2, a);
             Writes.write(array, c++, array[d], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, c);
             Writes.write(array, d--, array[a], pause/2d, mark, auxwrite);
+            if (mark) Highlights.markArray(2, d);
             Writes.write(array, a++, swap,     pause/2d, mark, auxwrite);
         }
         if (a < d) { //dont count reversals that dont do anything
@@ -359,5 +369,13 @@ public class Rotations {
         if (lenA == 0 || lenB == 0) return;
         if (lenA % lenB == 0 || lenB % lenA == 0) Rotations.holyGriesMills(array, pos, lenA, lenB, pause, mark, auxwrite);
         else Rotations.cycleReverse(array, pos, lenA, lenB, pause, mark, auxwrite);
+    }
+
+    public static void simpleRot(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
+        while (lenA > 0 && lenB > 0) {
+            swapBlocksBackwards(array, pos, pos + lenB, lenA, pause, mark, auxwrite);
+            lenA %= lenB;
+            lenB -= lenA;
+        }
     }
 }

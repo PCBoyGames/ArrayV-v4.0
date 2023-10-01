@@ -19,7 +19,7 @@ in collaboration with Distray
  * @author Distray
  *
  */
-public final class SmoothBingoMergeSort extends Sort {
+public class SmoothBingoMergeSort extends Sort {
 
     public SmoothBingoMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

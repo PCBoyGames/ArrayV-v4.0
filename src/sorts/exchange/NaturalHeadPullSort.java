@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class NaturalHeadPullSort extends Sort {
+public class NaturalHeadPullSort extends Sort {
     public NaturalHeadPullSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Natural Head Pull");

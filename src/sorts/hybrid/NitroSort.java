@@ -17,7 +17,7 @@ Why do I keep doing this to myself?
 
  */
 
-public final class NitroSort extends Sort {
+public class NitroSort extends Sort {
     public NitroSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

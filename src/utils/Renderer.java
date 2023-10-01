@@ -31,7 +31,7 @@ SOFTWARE.
 
 // TODO: Many of these methods should exist solely in visual classes
 
-final class WindowState {
+class WindowState {
     private boolean windowUpdated;
     private boolean windowResized;
 
@@ -49,7 +49,7 @@ final class WindowState {
     }
 }
 
-final public class Renderer {
+public class Renderer {
     private volatile double xscl; //TODO: Change to xScale/yScale
     private volatile double yscl;
 

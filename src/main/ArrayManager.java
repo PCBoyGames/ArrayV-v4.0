@@ -38,7 +38,7 @@ SOFTWARE.
  *
  */
 
-final public class ArrayManager {
+public class ArrayManager {
     private utils.Shuffles[] shuffleTypes;
     private utils.Distributions[] distributionTypes;
     private String[] shuffleIDs;
@@ -218,7 +218,7 @@ final public class ArrayManager {
         }
 
         for (int i = length-1; i >= 0; i--)
-            Writes.write(array, i, --prefixSum[array[i]], 0.5, true, false);
+            Writes.write(array, i, --prefixSum[array[i]], ArrayVisualizer.blaze ? 0 : 0.5, true, false);
 
         ArrayVisualizer.setIndexTable();
 
@@ -226,10 +226,12 @@ final public class ArrayManager {
     }
 
     public void refreshArray(int[] array, int currentLen, ArrayVisualizer ArrayVisualizer) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            JErrorPane.invokeErrorMessage(e);
+        if (!ArrayVisualizer.blaze) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                JErrorPane.invokeErrorMessage(e);
+            }
         }
 
         ArrayVisualizer.resetAllStatistics();
@@ -258,10 +260,12 @@ final public class ArrayManager {
 
         Highlights.clearAllMarks();
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            JErrorPane.invokeErrorMessage(e);
+        if (!ArrayVisualizer.blaze) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                JErrorPane.invokeErrorMessage(e);
+            }
         }
 
         ArrayVisualizer.resetAllStatistics();

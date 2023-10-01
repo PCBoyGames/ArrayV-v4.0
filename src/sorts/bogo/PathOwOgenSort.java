@@ -23,7 +23,7 @@ class Pair<T, U> { // wrapper
         this.b = b;
     }
 }
-final public class PathOwOgenSort extends BogoSorting {
+public class PathOwOgenSort extends BogoSorting {
     public PathOwOgenSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("PathOwOgen");
@@ -40,7 +40,7 @@ final public class PathOwOgenSort extends BogoSorting {
         this.setPathogenName("STG-22 Alpha");
     }
     private static PathOwOgenSort self;
-    private static final Random r = new Random();
+    private static Random r = new Random();
     private static char[] punct = new char[] {
         '!', '?', '.'
     };
@@ -227,7 +227,7 @@ final public class PathOwOgenSort extends BogoSorting {
     }
     private void drunkDrunk(int[] array, int start, int end) {
         boolean invert = false;
-        final int slow = 128;
+        int slow = 128;
         while (!isRangeSorted(array, start, end)) {
             for (int i=start, m=0, max=start; m<slow*(end-start) && i<end-1; m++) {
                 if (invert ^ (Reads.compareValues(array[i], array[i+1]) == 1)) {

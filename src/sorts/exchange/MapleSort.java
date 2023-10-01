@@ -10,7 +10,7 @@ import main.ArrayVisualizer;
  |       and Sort Grid       |
  |(AKA: MapleMagicShovySeas) |
   \_________________________/ */
-final public class MapleSort extends Sort {
+public class MapleSort extends Sort {
     public MapleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

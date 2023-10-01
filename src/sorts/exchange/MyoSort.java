@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class MyoSort extends Sort {
+public class MyoSort extends Sort {
 
     int maxdepth;
 

@@ -8,8 +8,8 @@ import java.util.Map;
 
 import utils.ShuffleGraph;
 
-public final class GraphWriter {
-    public static final int VERSION = 3;
+public class GraphWriter {
+    public static int VERSION = 3;
 
     ShuffleGraph graph;
 

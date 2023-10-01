@@ -20,7 +20,7 @@ in collaboration with _fluffyy and Meme Man
  * @author Meme Man
  *
  */
-public final class LogNPivotQuickSort extends Sort {
+public class LogNPivotQuickSort extends Sort {
 
     public LogNPivotQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -37,14 +37,14 @@ public final class LogNPivotQuickSort extends Sort {
     }
 
     static double DELAY = 0.25;
-    
+
     public static int log2(int n) {
         int log = 0;
         while ((n >>= 1) != 0)
             ++log;
         return log;
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -77,7 +77,7 @@ public final class LogNPivotQuickSort extends Sort {
         for (int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
-    
+
     protected void sift(int[] array, int start, int root, int len, int tmp) {
         int j = root;
         while (2 * j + 1 < len) {
@@ -108,13 +108,13 @@ public final class LogNPivotQuickSort extends Sort {
             this.sift(array, start, 0, j, t);
         }
     }
-    
+
     // Easy patch to avoid self-swaps.
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a != b)
             Writes.swap(array, a, b, pause, mark, aux);
     }
-    
+
     void sort(int[] arr, int start, int stop, int d) {
         int len = stop - start;
         if (len > 16) {
@@ -155,11 +155,11 @@ public final class LogNPivotQuickSort extends Sort {
             insertSort(arr, start, stop);
         }
     }
-    
+
     public void quickSort(int[] array, int a, int b) {
         sort(array, a, b, 2 * log2(b - a));
     }
-    
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
         quickSort(array, 0, sortLength);

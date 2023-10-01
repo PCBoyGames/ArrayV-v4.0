@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class BufferedBlockSelectionMergeSort extends Sort {
+public class BufferedBlockSelectionMergeSort extends Sort {
     public BufferedBlockSelectionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

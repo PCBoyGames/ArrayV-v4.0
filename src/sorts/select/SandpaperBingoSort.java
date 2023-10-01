@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SandpaperBingoSort extends Sort {
+public class SandpaperBingoSort extends Sort {
     public SandpaperBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Sandpaper Bingo");

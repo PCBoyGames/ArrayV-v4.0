@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class LuckyBubbleSort extends BogoSorting {
+public class LuckyBubbleSort extends BogoSorting {
     public LuckyBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lucky Bubble");

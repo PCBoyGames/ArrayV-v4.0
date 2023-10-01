@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class DoubleHeapSort extends Sort {
+public class DoubleHeapSort extends Sort {
     public DoubleHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

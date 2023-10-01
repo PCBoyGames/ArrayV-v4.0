@@ -7,7 +7,7 @@ import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
-final public class K_itaSort extends Sort {
+public class K_itaSort extends Sort {
 
     public K_itaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

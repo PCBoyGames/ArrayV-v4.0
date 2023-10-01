@@ -23,7 +23,7 @@ in collaboration with aphitorite, Gaming32 and Scandum
  * @author Scandum
  *
  */
-public final class StableCynoSort extends Sort {
+public class StableCynoSort extends Sort {
 
     public StableCynoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

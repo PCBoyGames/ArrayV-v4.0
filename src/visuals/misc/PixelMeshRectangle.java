@@ -33,7 +33,7 @@ SOFTWARE.
  *
  */
 
-final public class PixelMeshRectangle extends Visual {
+public class PixelMeshRectangle extends Visual {
 
     public static boolean swapvals = false;
 

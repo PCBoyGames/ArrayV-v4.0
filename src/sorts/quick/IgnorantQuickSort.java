@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class IgnorantQuickSort extends Sort {
+public class IgnorantQuickSort extends Sort {
     public IgnorantQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Ignorant Quick");

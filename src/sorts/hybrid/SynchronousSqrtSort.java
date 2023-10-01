@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class SynchronousSqrtSort extends BlockMergeSorting {
+public class SynchronousSqrtSort extends BlockMergeSorting {
     public SynchronousSqrtSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

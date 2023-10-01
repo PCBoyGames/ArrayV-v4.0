@@ -23,7 +23,7 @@ in collaboration with aphitorite, Scandum and Californium-252
  * @author Californium-252
  *
  */
-public final class QuagsireSort extends Sort {
+public class QuagsireSort extends Sort {
 
     public QuagsireSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

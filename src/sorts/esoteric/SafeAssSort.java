@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class SafeAssSort extends BogoSorting {
+public class SafeAssSort extends BogoSorting {
 
     boolean changes = false;
     boolean changesthis = false;

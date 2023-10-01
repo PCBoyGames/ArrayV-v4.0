@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RandomizedGnomeSort extends BogoSorting {
+public class RandomizedGnomeSort extends BogoSorting {
     public RandomizedGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Randomized Gnome (Inva)");

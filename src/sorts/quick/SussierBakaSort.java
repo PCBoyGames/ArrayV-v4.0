@@ -5,7 +5,7 @@ import sorts.merge.UpdatedQuadSort;
 import sorts.merge.OnlinePDMSort;
 import sorts.templates.Sort;
 
-final public class SussierBakaSort extends Sort {
+public class SussierBakaSort extends Sort {
     public SussierBakaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

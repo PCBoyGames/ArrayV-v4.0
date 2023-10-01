@@ -17,7 +17,7 @@ Made to study Invasort's worst case.
 
  */
 
-public final class BadGnomeSort extends Sort {
+public class BadGnomeSort extends Sort {
     public BadGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

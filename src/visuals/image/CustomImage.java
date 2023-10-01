@@ -53,7 +53,7 @@ SOFTWARE.
  *  CustomImage visual and sort bar graph artwork (image/pic.jpg) created by
  *  aphitorite (https://github.com/aphitorite/ArrayVisualizer)
  */
-final public class CustomImage extends Visual {
+public class CustomImage extends Visual {
     public static CustomImage visual;
 
     private volatile BufferedImage img;
@@ -70,8 +70,8 @@ final public class CustomImage extends Visual {
     private volatile ImageFrame pictureMenu;
     private volatile LoadingDialog infoMsg;
 
-    //final private String defaultArtwork = "Summer Sorting by aphitorite";
-    final private String defaultArtwork = "The Madhouse Logo";
+    //private String defaultArtwork = "Summer Sorting by aphitorite";
+    private String defaultArtwork = "The Madhouse Logo";
     private String currentImage;
     private File imageFile;
 

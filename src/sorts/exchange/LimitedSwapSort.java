@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class LimitedSwapSort extends Sort {
+public class LimitedSwapSort extends Sort {
 
     public LimitedSwapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

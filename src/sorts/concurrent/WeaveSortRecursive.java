@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class WeaveSortRecursive extends Sort {
+public class WeaveSortRecursive extends Sort {
     public WeaveSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

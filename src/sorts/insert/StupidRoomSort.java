@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class StupidRoomSort extends Sort {
+public class StupidRoomSort extends Sort {
     public StupidRoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

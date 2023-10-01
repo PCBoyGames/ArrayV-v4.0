@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class BidirectionalInsertionSort extends Sort {
+public class BidirectionalInsertionSort extends Sort {
     public BidirectionalInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

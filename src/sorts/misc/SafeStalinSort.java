@@ -20,7 +20,7 @@ Help.
  - The Madhouse CEO
 
 */
-final public class SafeStalinSort extends Sort {
+public class SafeStalinSort extends Sort {
     public SafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

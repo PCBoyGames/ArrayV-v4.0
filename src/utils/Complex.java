@@ -6,14 +6,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 // not complete, but complete enough for MandelbrotSort
-public final class Complex extends Object
+public class Complex extends Object
 implements Comparable<Complex> {
-    //private static final long serialVersionUID = 5600679651837541971L;
+    //private static long serialVersionUID = 5600679651837541971L;
     public double real;
     public Imaginary imaginary;
 
 
-    public static final Class<Complex>  TYPE = (Class<Complex>) Complex.class;
+    public static Class<Complex>  TYPE = (Class<Complex>) Complex.class;
 
     public Complex() {
         this.real = 0d;

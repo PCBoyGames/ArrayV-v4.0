@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Yuri-chan2007
  *
  */
-public final class PatternDefeatingGnomeSort extends Sort {
+public class PatternDefeatingGnomeSort extends Sort {
 
     public PatternDefeatingGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

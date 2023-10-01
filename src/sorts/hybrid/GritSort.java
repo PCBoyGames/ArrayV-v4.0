@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class GritSort extends Sort {
+public class GritSort extends Sort {
     public GritSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -62,7 +62,7 @@ final public class GritSort extends Sort {
         @author aphitorite
     */
 
-    private final int MIN_SORT = 74; //at n < floor(74/2) the amount of pivots in gritPartition is < 2
+    private int MIN_SORT = 74; //at n < floor(74/2) the amount of pivots in gritPartition is < 2
 
     private int productLog(int n) {
         int r = 1;
@@ -96,10 +96,10 @@ final public class GritSort extends Sort {
     }
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size, length;
+        public int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;
@@ -158,9 +158,9 @@ final public class GritSort extends Sort {
     }
 
     private class BitArray2D {
-        private final BitArray bits;
+        private BitArray bits;
 
-        public final int x;
+        public int x;
 
         public BitArray2D(int[] array, int pa, int pb, int x, int y, int w) {
             this.bits = new BitArray(array, pa, pb, x*y, w);

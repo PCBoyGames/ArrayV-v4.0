@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OOPSingularityQuickSort extends QuadSorting {
+public class OOPSingularityQuickSort extends QuadSorting {
 
     int depthlimit;
     int insertlimit;

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // #1 of Distray's Pop The Top Lineup
-final public class ZubblePopSort extends Sort {
+public class ZubblePopSort extends Sort {
     public ZubblePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Zubble Pop");

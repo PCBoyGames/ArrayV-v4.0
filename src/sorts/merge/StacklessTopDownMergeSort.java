@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class StacklessTopDownMergeSort extends Sort {
+public class StacklessTopDownMergeSort extends Sort {
     public StacklessTopDownMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -7,7 +7,7 @@ import utils.Highlights;
 import utils.Renderer;
 import visuals.Visual;
 
-final public class DisparityBarGraph extends Visual {
+public class DisparityBarGraph extends Visual {
 
     public DisparityBarGraph(ArrayVisualizer ArrayVisualizer) {
         super(ArrayVisualizer);

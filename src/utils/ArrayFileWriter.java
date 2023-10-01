@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import panes.JErrorPane;
 
-public final class ArrayFileWriter {
+public class ArrayFileWriter {
     public static boolean writeArray(String fileName, int[] array, int length) {
         try {
             FileWriter writer = new FileWriter(fileName);

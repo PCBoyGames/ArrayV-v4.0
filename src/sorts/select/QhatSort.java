@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class QhatSort extends MadhouseTools {
+public class QhatSort extends MadhouseTools {
     public QhatSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Qhat");

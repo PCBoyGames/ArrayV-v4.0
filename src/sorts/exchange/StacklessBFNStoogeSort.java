@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.BestForNSorting;
 
-final public class StacklessBFNStoogeSort extends BestForNSorting {
+public class StacklessBFNStoogeSort extends BestForNSorting {
 
     int maxtouse;
 

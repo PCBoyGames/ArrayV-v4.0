@@ -3,7 +3,7 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 
-final public class QuickSPSort extends GrailSorting {
+public class QuickSPSort extends GrailSorting {
     public QuickSPSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

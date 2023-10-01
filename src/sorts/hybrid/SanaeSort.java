@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class SanaeSort extends Sort {
+public class SanaeSort extends Sort {
 
     public SanaeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

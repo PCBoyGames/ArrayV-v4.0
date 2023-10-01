@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class SelfNetworkSort extends Sort {
+public class SelfNetworkSort extends Sort {
 
     boolean changes = false;
 

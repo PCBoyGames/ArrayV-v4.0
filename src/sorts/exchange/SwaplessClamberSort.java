@@ -17,7 +17,7 @@ Coded for ArrayV by Kiriko-chan
  * @author Kiriko-chan
  *
  */
-public final class SwaplessClamberSort extends Sort {
+public class SwaplessClamberSort extends Sort {
 
     public SwaplessClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

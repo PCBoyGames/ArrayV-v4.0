@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CircleSortRouge extends Sort {
+public class CircleSortRouge extends Sort {
     public CircleSortRouge(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Circle (Rouge)");

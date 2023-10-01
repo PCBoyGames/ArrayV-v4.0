@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class OOPBufferedMergeSort extends Sort {
+public class OOPBufferedMergeSort extends Sort {
     private BinaryInsertionSort binaryInserter;
     private ReverseLazyStableSort finalMerger;
 

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class ImprovedWeaveMergeSortIII extends Sort {
+public class ImprovedWeaveMergeSortIII extends Sort {
     public ImprovedWeaveMergeSortIII(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

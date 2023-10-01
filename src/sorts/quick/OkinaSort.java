@@ -25,7 +25,7 @@ Original name of this algorithm: Pattern-Improved Aeos Priority Quicksort
  * @author Scandum
  *
  */
-public final class OkinaSort extends Sort {
+public class OkinaSort extends Sort {
 
     public OkinaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

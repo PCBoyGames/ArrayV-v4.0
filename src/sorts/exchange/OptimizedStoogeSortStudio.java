@@ -14,7 +14,7 @@ import sorts.templates.Sort;
  * @author EilrahcF      - Key ideas / concepts
  */
 
-final public class OptimizedStoogeSortStudio extends Sort {
+public class OptimizedStoogeSortStudio extends Sort {
     public OptimizedStoogeSortStudio(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

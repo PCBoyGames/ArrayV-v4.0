@@ -20,7 +20,7 @@ in collaboration with aphitorite Control
  * @author Control
  *
  */
-public final class OOPTimStoogeSort extends Sort {
+public class OOPTimStoogeSort extends Sort {
 
     public OOPTimStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -36,7 +36,7 @@ public final class OOPTimStoogeSort extends Sort {
         this.setBogoSort(false);
     }
 
-    final int M = 7;
+    int M = 7;
 
     int highlight = 0;
 
@@ -261,7 +261,7 @@ public final class OOPTimStoogeSort extends Sort {
         smartMerge(array, tmp, m1, m2, b);
         smartMerge(array, tmp, a, m1, b);
     }
-    
+
     public void sortNow(int[] array, int a, int b) {
         int[] buf = Writes.createExternalArray((b - a + 1) / 3);
         mergeSort(array, buf, a, b);

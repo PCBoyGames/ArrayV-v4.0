@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class ABACStoogeSort extends Sort {
+public class ABACStoogeSort extends Sort {
     public ABACStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

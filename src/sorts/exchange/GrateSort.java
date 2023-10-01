@@ -13,7 +13,7 @@ import sorts.templates.Sort;
  *           lists.
  *
  */
-public final class GrateSort extends Sort {
+public class GrateSort extends Sort {
 
     /**
      * @param arrayVisualizer

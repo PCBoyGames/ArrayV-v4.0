@@ -3,7 +3,7 @@ import java.lang.Object;
 import java.util.Objects;
 
 
-public final class Imaginary extends Object {
+public class Imaginary extends Object {
     public double value;
     public Imaginary() {
         this.value = 0d;

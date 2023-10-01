@@ -16,7 +16,7 @@ Free Documentation License".
  *
  */
 
-final public class IntroCircleSortIterative extends IterativeCircleSorting {
+public class IntroCircleSortIterative extends IterativeCircleSorting {
     public IntroCircleSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

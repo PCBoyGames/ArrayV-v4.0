@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AsteraceaeSort extends Sort {
+public class AsteraceaeSort extends Sort {
     public AsteraceaeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Asteraceae");

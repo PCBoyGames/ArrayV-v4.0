@@ -18,7 +18,7 @@ Coded for ArrayV by Kiriko-chan
  * @author Kiriko-chan
  *
  */
-public final class LazyStableTernaryQuickSort extends Sort {
+public class LazyStableTernaryQuickSort extends Sort {
 
     public LazyStableTernaryQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

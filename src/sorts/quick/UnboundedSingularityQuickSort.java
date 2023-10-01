@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class UnboundedSingularityQuickSort extends Sort {
+public class UnboundedSingularityQuickSort extends Sort {
 
     SingularityQuickSort justsortit = new SingularityQuickSort(arrayVisualizer);
 

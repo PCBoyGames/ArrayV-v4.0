@@ -5,7 +5,7 @@ import sorts.exchange.OptimizedStoogeSortStudio;
 import sorts.insert.BinaryInsertionSort;
 import sorts.templates.GrailSorting;
 
-final public class SodiumSort extends GrailSorting {
+public class SodiumSort extends GrailSorting {
     public SodiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

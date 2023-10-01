@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class YoloSort extends BogoSorting {
+public class YoloSort extends BogoSorting {
 
     int min;
 

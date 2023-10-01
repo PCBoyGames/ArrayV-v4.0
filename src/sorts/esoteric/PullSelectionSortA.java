@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.Statistics;
 
-public final class PullSelectionSortA extends Sort {
+public class PullSelectionSortA extends Sort {
     public PullSelectionSortA(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

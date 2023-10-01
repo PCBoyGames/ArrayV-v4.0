@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ReflectionSort2 extends Sort {
+public class ReflectionSort2 extends Sort {
     public ReflectionSort2(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Reflection 2");

@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 /*
  */
 
-final public class ProxmapSort extends Sort {
+public class ProxmapSort extends Sort {
     public ProxmapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

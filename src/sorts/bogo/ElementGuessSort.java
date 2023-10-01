@@ -17,7 +17,7 @@ Coded for ArrayV by Ayako-chan
  * @author Ayako-chan
  *
  */
-public final class ElementGuessSort extends BogoSorting {
+public class ElementGuessSort extends BogoSorting {
 
     public ElementGuessSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -29,7 +29,7 @@ public final class ElementGuessSort extends BogoSorting {
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);
-        this.setUnreasonableLimit(7);
+        this.setUnreasonableLimit(8);
         this.setBogoSort(false);
     }
 

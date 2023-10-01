@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CocktailPeelSort extends Sort {
+public class CocktailPeelSort extends Sort {
     public CocktailPeelSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Cocktail Peel");

@@ -23,7 +23,7 @@ in collaboration with aphitorite, Gaming32 and Scandum
  * @author Scandum
  *
  */
-public final class FaruSort extends Sort {
+public class FaruSort extends Sort {
 
     public FaruSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

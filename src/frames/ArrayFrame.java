@@ -56,8 +56,7 @@ SOFTWARE.
  * @author S630690
  */
 
-final public class ArrayFrame extends javax.swing.JFrame {
-    final private static long serialVersionUID = 1L;
+public class ArrayFrame extends javax.swing.JFrame {
 
     private int[] array;
 

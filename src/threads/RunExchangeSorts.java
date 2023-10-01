@@ -4,7 +4,6 @@ import main.ArrayVisualizer;
 import panes.JErrorPane;
 import sorts.exchange.*;
 import sorts.templates.Sort;
-import utils.Shuffles;
 
 /*
  *
@@ -32,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class RunExchangeSorts extends MultipleSortThread {
+public class RunExchangeSorts extends MultipleSortThread {
     private Sort UnoptimizedBubbleSort;
     private Sort BubbleSort;
     private Sort UnoptimizedCocktailShakerSort;
@@ -49,27 +48,13 @@ final public class RunExchangeSorts extends MultipleSortThread {
     private Sort CircleSortRecursive;
     private Sort CircleMergeSort;
     private Sort CircleSortIterative;
-    private Sort LLQuickSort;
-    private Sort LLQuickSortMiddlePivot;
-    private Sort LRQuickSort;
-    private Sort DualPivotQuickSort;
-    private Sort StableQuickSort;
-    private Sort StableQuickSortMiddlePivot;
-    private Sort ForcedStableQuickSort;
-    private Sort LazyStableQuickSort;
-    private Sort TableSort;
     private Sort OptimizedBubbleSort;
     private Sort OptimizedCocktailShakerSort;
     private Sort OptimizedStoogeSortStudio;
-    private Sort ooPQuickSort;
     private Sort FunSort;
     private Sort ClassicThreeSmoothCombSort;
-    private Sort IndexQuickSort;
-    private Sort LRQuickSortParallel;
     private Sort ReverseBubbleSort;
     private Sort ReverseGnomeSort;
-    private Sort StableQuickSortParallel;
-    private Sort StacklessQuickSort;
     private Sort ThreeSmoothCombSortParallel;
     private Sort ChinottoSort;
     private Sort CocktailGrateSort;
@@ -77,7 +62,6 @@ final public class RunExchangeSorts extends MultipleSortThread {
     private Sort ReverseGrateSort;
     private Sort GnomeWeaveHighSort;
     private Sort GnomeWeaveLowSort;
-    private Sort IterativeQuickSort;
     private Sort PseudoHeapSort;
     private Sort SlopeSort;
     private Sort TriSearchGnomeSort;
@@ -85,7 +69,7 @@ final public class RunExchangeSorts extends MultipleSortThread {
 
     public RunExchangeSorts(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.sortCount = 49;
+        this.sortCount = 34;
         this.categoryCount = this.sortCount;
 
         UnoptimizedBubbleSort         = new         UnoptimizedBubbleSort(this.arrayVisualizer);
@@ -108,23 +92,9 @@ final public class RunExchangeSorts extends MultipleSortThread {
         CircleSortRecursive           = new           CircleSortRecursive(this.arrayVisualizer);
         CircleSortIterative           = new           CircleSortIterative(this.arrayVisualizer);
         CircleMergeSort               = new               CircleMergeSort(this.arrayVisualizer);
-        LLQuickSort                   = new                   LLQuickSort(this.arrayVisualizer);
-        LLQuickSortMiddlePivot        = new        LLQuickSortMiddlePivot(this.arrayVisualizer);
-        LRQuickSort                   = new                   LRQuickSort(this.arrayVisualizer);
-        DualPivotQuickSort            = new            DualPivotQuickSort(this.arrayVisualizer);
-        StableQuickSort               = new               StableQuickSort(this.arrayVisualizer);
-        StableQuickSortMiddlePivot    = new    StableQuickSortMiddlePivot(this.arrayVisualizer);
-        ooPQuickSort                  = new                  ooPQuicksort(this.arrayVisualizer);
-        ForcedStableQuickSort         = new         ForcedStableQuickSort(this.arrayVisualizer);
-        LazyStableQuickSort           = new           LazyStableQuickSort(this.arrayVisualizer);
-        TableSort                     = new                     TableSort(this.arrayVisualizer);
         ClassicThreeSmoothCombSort    = new    ClassicThreeSmoothCombSort(this.arrayVisualizer);
-        IndexQuickSort                = new                IndexQuickSort(this.arrayVisualizer);
-        LRQuickSortParallel           = new           LRQuickSortParallel(this.arrayVisualizer);
         ReverseBubbleSort             = new             ReverseBubbleSort(this.arrayVisualizer);
         ReverseGnomeSort              = new              ReverseGnomeSort(this.arrayVisualizer);
-        StableQuickSortParallel       = new       StableQuickSortParallel(this.arrayVisualizer);
-        StacklessQuickSort            = new            StacklessQuickSort(this.arrayVisualizer);
         ThreeSmoothCombSortParallel   = new   ThreeSmoothCombSortParallel(this.arrayVisualizer);
         ChinottoSort                  = new                  ChinottoSort(this.arrayVisualizer);
         CocktailGrateSort             = new             CocktailGrateSort(this.arrayVisualizer);
@@ -132,7 +102,6 @@ final public class RunExchangeSorts extends MultipleSortThread {
         ReverseGrateSort              = new              ReverseGrateSort(this.arrayVisualizer);
         GnomeWeaveHighSort            = new            GnomeWeaveHighSort(this.arrayVisualizer);
         GnomeWeaveLowSort             = new             GnomeWeaveLowSort(this.arrayVisualizer);
-        IterativeQuickSort            = new            IterativeQuickSort(this.arrayVisualizer);
         PseudoHeapSort                = new                PseudoHeapSort(this.arrayVisualizer);
         SlopeSort                     = new                     SlopeSort(this.arrayVisualizer);
         TriSearchGnomeSort            = new            TriSearchGnomeSort(this.arrayVisualizer);
@@ -175,21 +144,6 @@ final public class RunExchangeSorts extends MultipleSortThread {
         RunExchangeSorts.this.runIndividualSort(CircleSortIterative,           0,   array, 1024, 1,     false);
         RunExchangeSorts.this.runIndividualSort(CircleMergeSort,               0,   array, 1024, 0.75,  false);
         RunExchangeSorts.this.runIndividualSort(PseudoHeapSort,                0,   array, 1024, 1.5,   false);
-        RunExchangeSorts.this.runIndividualSort(LLQuickSort,                   0,   array, 2048, arrayManager.containsShuffle(Shuffles.RANDOM) ? 1.5 : 5, false);
-        RunExchangeSorts.this.runIndividualSort(LLQuickSortMiddlePivot,        0,   array, 2048, 1.5,   false);
-        RunExchangeSorts.this.runIndividualSort(LRQuickSort,                   0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(LRQuickSortParallel,           0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(DualPivotQuickSort,            0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(StacklessQuickSort,            0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(IterativeQuickSort,            0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(StableQuickSort,               0,   array, 2048, arrayManager.containsShuffle(Shuffles.RANDOM) ? 1 : 6.5,    false);
-        RunExchangeSorts.this.runIndividualSort(StableQuickSortMiddlePivot,    0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(ooPQuickSort,                  0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(StableQuickSortParallel,       0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(ForcedStableQuickSort,         0,   array, 2048, 1,     false);
-        RunExchangeSorts.this.runIndividualSort(LazyStableQuickSort,           0,   array, 256,  0.5,   false);
-        RunExchangeSorts.this.runIndividualSort(TableSort,                     0,   array, 1024, 0.75,  false);
-        RunExchangeSorts.this.runIndividualSort(IndexQuickSort,                0,   array, 1024, 0.75,  false);
     }
 
     @Override

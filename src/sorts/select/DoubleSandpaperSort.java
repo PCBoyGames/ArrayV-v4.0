@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class DoubleSandpaperSort extends Sort {
+public class DoubleSandpaperSort extends Sort {
 
     public DoubleSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

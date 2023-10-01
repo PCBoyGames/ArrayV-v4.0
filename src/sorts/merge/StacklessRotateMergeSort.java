@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class StacklessRotateMergeSort extends Sort {
+public class StacklessRotateMergeSort extends Sort {
     public StacklessRotateMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

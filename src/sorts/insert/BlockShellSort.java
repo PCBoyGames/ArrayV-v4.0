@@ -4,7 +4,7 @@ import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
 
-final public class BlockShellSort extends Sort {
+public class BlockShellSort extends Sort {
 
     public BlockShellSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

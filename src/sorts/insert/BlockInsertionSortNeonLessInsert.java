@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 import utils.Rotations;
 
-final public class BlockInsertionSortNeonLessInsert extends GrailSorting {
+public class BlockInsertionSortNeonLessInsert extends GrailSorting {
     public BlockInsertionSortNeonLessInsert(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

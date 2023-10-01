@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class DeterministicSimpleArgoSort extends Sort {
+public class DeterministicSimpleArgoSort extends Sort {
     public DeterministicSimpleArgoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Deterministic Simple Argo");

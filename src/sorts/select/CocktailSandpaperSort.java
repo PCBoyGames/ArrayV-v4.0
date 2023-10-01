@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CocktailSandpaperSort extends Sort {
+public class CocktailSandpaperSort extends Sort {
     public CocktailSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

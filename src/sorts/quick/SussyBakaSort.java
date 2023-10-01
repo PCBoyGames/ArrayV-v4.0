@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 import utils.IndexedRotations;
 
-final public class SussyBakaSort extends BogoSorting {
+public class SussyBakaSort extends BogoSorting {
     public SussyBakaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -20,7 +20,7 @@ final public class SussyBakaSort extends BogoSorting {
         this.setBogoSort(false);
     }
 
-    private static final int sussyMode = 1;
+    private static int sussyMode = 1;
 
     private int cmp(int[] array, int pos0, int pos1) {
         int cmpv = Reads.compareIndices(array, pos1, pos0, 0.125, true);

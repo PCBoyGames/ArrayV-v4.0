@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.Timer;
 
-final public class BranchlessBubbleSort extends Sort {
+public class BranchlessBubbleSort extends Sort {
     private Timer Timer;
     public BranchlessBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

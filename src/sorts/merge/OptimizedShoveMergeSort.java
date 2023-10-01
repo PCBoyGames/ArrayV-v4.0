@@ -6,7 +6,7 @@ import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
 
-final public class OptimizedShoveMergeSort extends Sort {
+public class OptimizedShoveMergeSort extends Sort {
     public OptimizedShoveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -21,7 +21,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class DualPivotPriorityQuickSort extends Sort {
+public class DualPivotPriorityQuickSort extends Sort {
 
     public DualPivotPriorityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -98,7 +98,7 @@ public final class DualPivotPriorityQuickSort extends Sort {
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a != b) Writes.swap(array, a, b, pause, mark, aux);
     }
-    
+
     protected int[] partitionTernary(int[] array, int a, int b, int piv) {
         int i = a, j = b;
         for (int k = i; k < j; k++) {
@@ -138,7 +138,7 @@ public final class DualPivotPriorityQuickSort extends Sort {
         Highlights.clearAllMarks();
         return new int[] { i, j };
     }
-    
+
     void consumePartition(int[] array, PriorityQueue<Partition> queue, int a, int b, int d) {
         if (b - a > threshold) queue.offer(new Partition(a, b, d));
         else insertSort(array, a, b);
@@ -184,7 +184,7 @@ public final class DualPivotPriorityQuickSort extends Sort {
             consumePartition(array, queue, m2, b, d);
         }
     }
-    
+
     public void quickSort(int[] array, int a, int b) {
         int z = 0, e = 0;
         for (int i = a; i < b - 1; i++) {

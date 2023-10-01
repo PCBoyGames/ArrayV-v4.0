@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class UnoptimizedBubbleSort extends Sort {
+public class UnoptimizedBubbleSort extends Sort {
     public UnoptimizedBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

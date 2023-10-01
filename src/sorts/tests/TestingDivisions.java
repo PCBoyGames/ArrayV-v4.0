@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class TestingDivisions extends Sort {
+public class TestingDivisions extends Sort {
     public TestingDivisions(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Testing Divisions");

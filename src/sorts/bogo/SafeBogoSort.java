@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class SafeBogoSort extends Sort {
+public class SafeBogoSort extends Sort {
     public SafeBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

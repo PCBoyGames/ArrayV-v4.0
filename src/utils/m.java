@@ -2,7 +2,7 @@ package utils;
 
 import java.math.BigInteger;
 
-public final class m {
+public class m {
 
     /**
      * Returns the logarithm base BASE of the number X
@@ -116,8 +116,8 @@ public final class m {
         return (int)Math.ceil(x);
     }
 
-    public final double inf = Double.POSITIVE_INFINITY;
-    public final double NaN = Double.NaN;
+    public double inf = Double.POSITIVE_INFINITY;
+    public double NaN = Double.NaN;
     public static long flog2(BigInteger factorial) {
         return 0;
     }

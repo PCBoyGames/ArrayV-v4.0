@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class OptimizedSwaplessClamberSort extends Sort {
+public class OptimizedSwaplessClamberSort extends Sort {
 
     public OptimizedSwaplessClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

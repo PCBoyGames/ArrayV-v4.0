@@ -20,7 +20,7 @@ in collaboration with Distray
  * @author Distray
  *
  */
-public final class GhastSort extends Sort {
+public class GhastSort extends Sort {
 
     public GhastSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -83,7 +83,7 @@ public final class GhastSort extends Sort {
         int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
         return binSearch(array, a1, b1, val, left);
     }
-    
+
     protected boolean buildRuns(int[] array, int a, int b, int mRun) {
         int i = a + 1, j = a;
         boolean noSort = true;
@@ -108,7 +108,7 @@ public final class GhastSort extends Sort {
         }
         return noSort;
     }
-    
+
     public void mergeFW(int[] array, int start, int mid, int end) {
         if (start >= mid || mid >= end)
             return;
@@ -166,7 +166,7 @@ public final class GhastSort extends Sort {
             mergeBW(array, left, mid, right);
         }
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int j = 16;
         if (buildRuns(array, a, b, j))

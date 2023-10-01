@@ -20,7 +20,7 @@ in collaboraation with PCBoy
  * @author PCBoy
  *
  */
-public final class RandomShellMergeSort extends BogoSorting {
+public class RandomShellMergeSort extends BogoSorting {
 
     public RandomShellMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

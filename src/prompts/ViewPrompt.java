@@ -46,9 +46,8 @@ SOFTWARE.
  * @author S630690
  */
 
-final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
+public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
 
-    private static final long serialVersionUID = 1L;
 
     private ArrayVisualizer ArrayVisualizer;
     private JFrame Frame;
@@ -91,6 +90,8 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
         this.hoopStack         = new javax.swing.JButton();
         this.disparityBarGraph = new javax.swing.JButton();
         this.disparityChords   = new javax.swing.JButton();
+        this.triMesh           = new javax.swing.JButton();
+        this.hilbertCurve      = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -216,6 +217,22 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
             }
         });
 
+        triMesh.setText("Triangle Mesh");
+        triMesh.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                triMeshActionPerformed(evt);
+            }
+        });
+
+        hilbertCurve.setText("Hilbert Curve");
+        hilbertCurve.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hilbertCurveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
             layout.createParallelGroup(Alignment.CENTER)
@@ -227,7 +244,8 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
                         .addComponent(rainbow, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addComponent(colorCircle, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addComponent(disparity, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(disparityBarGraph, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(disparityBarGraph, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(triMesh, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(layout.createParallelGroup(Alignment.LEADING)
                         .addComponent(disparityDots, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
@@ -241,7 +259,8 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
                         .addComponent(spiral, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addComponent(customImage, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addComponent(spiralDots, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(disparityChords, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(disparityChords, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(hilbertCurve, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(18))
         );
         layout.setVerticalGroup(
@@ -274,6 +293,10 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
                         .addComponent(hoopStack)
                         .addComponent(disparityBarGraph)
                         .addComponent(disparityChords))
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(triMesh)
+                        .addComponent(hilbertCurve))
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
@@ -386,6 +409,18 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
         UtilFrame.jButton2ResetText();
         dispose();
     }
+    private void triMeshActionPerformed(java.awt.event.ActionEvent evt) {
+        setAllFieldsFalse();
+        ArrayVisualizer.setVisual(VisualStyles.TRI_MESH);
+        UtilFrame.jButton2ResetText();
+        dispose();
+    }
+    private void hilbertCurveActionPerformed(java.awt.event.ActionEvent evt) {
+        setAllFieldsFalse();
+        ArrayVisualizer.setVisual(VisualStyles.HILBERT_CURVE);
+        UtilFrame.jButton2ResetText();
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton barGraph;
@@ -403,5 +438,7 @@ final public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
     private javax.swing.JButton hoopStack;
     private javax.swing.JButton disparityBarGraph;
     private javax.swing.JButton disparityChords;
+    private javax.swing.JButton triMesh;
+    private javax.swing.JButton hilbertCurve;
     private javax.swing.JLabel jLabel1;
 }

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ReversePeelSort extends Sort {
+public class ReversePeelSort extends Sort {
     public ReversePeelSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Reverse Peel");

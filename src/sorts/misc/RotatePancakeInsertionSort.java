@@ -19,7 +19,7 @@ in collaboration with Gaming32
  * @author Gaming32
  *
  */
-public final class RotatePancakeInsertionSort extends Sort {
+public class RotatePancakeInsertionSort extends Sort {
 
     public RotatePancakeInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

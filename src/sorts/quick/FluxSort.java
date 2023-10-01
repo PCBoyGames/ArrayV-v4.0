@@ -4,7 +4,7 @@ package sorts.quick;
 import main.ArrayVisualizer;
 import sorts.templates.QuadSorting;
 
-final public class FluxSort extends QuadSorting {
+public class FluxSort extends QuadSorting {
     public FluxSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Flux");
@@ -100,7 +100,7 @@ final public class FluxSort extends QuadSorting {
     m4 = medianOf3(array, pos+14*div, pos+13*div, pos+15*div);
         return array[medianOf5(array, m2, m0, m1, m3, m4)];
     }
-    final int fluxOut = 24;
+    int fluxOut = 24;
     private void fluxPart(int[] array, int[] swap, int[] partitionOn, int offsMain, int len) {
         byte cmp;
         int size1 = 0, size2 = 0, offs = partitionOn == swap ? 0 : offsMain, ptx = offs;

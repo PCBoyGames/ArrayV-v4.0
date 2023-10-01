@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 // Code refactored from: https://www.ijitee.org/wp-content/uploads/papers/v8i12/L31671081219.pdf
 // Written by Professors Amit Kishor and Pankaj Pratap Singh
-final public class OptimizedStoogeSort extends Sort {
+public class OptimizedStoogeSort extends Sort {
     public OptimizedStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -22,7 +22,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class ShufflePriorityQuickSort extends Sort {
+public class ShufflePriorityQuickSort extends Sort {
 
     public ShufflePriorityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

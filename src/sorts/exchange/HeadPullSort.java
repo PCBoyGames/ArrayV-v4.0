@@ -33,7 +33,7 @@ nVLMt8ybzJrNmsyeU8y3zIrNlVTMuMy9zILNh8yeIMy3zYDMkcyqUMy4zL3Mqc2HTMy4zL7Nis2Z
 Qcy1zYvNnMywQ8y2zYHMkM2FRcy2zJLMjSHMt8yTzZfMncywCgogLSBUaGUgTWFkaG91c2UgQ0VP
 
 */
-final public class HeadPullSort extends Sort {
+public class HeadPullSort extends Sort {
     public HeadPullSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Head Pull");

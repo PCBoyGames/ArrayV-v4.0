@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class ParallelGrailSort extends Sort {
+public class ParallelGrailSort extends Sort {
     public ParallelGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

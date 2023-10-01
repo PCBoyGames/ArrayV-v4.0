@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class StablePermutationSort extends BogoSorting {
+public class StablePermutationSort extends BogoSorting {
     public StablePermutationSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

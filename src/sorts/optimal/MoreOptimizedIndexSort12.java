@@ -16,7 +16,7 @@ import sorts.templates.Sort;
  * @author Distay                     *
  **************************************/
 
-final public class MoreOptimizedIndexSort12 extends Sort {
+public class MoreOptimizedIndexSort12 extends Sort {
     public MoreOptimizedIndexSort12(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

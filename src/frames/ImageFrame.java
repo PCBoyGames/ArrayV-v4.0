@@ -25,7 +25,6 @@ public class ImageFrame extends JFrame {
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
     private volatile JPanel contentPane;
 
     private volatile JLabel lblNewLabel_2;

@@ -1,7 +1,7 @@
 package sorts.distribute;
 
 import main.ArrayVisualizer;
-import sorts.insert.UnstableInsertionSort;
+import sorts.insert.InsertionSort;
 import sorts.select.MaxHeapSort;
 import sorts.templates.Sort;
 
@@ -31,9 +31,9 @@ SOFTWARE.
  *
  */
 
-final public class StaticSort extends Sort {
+public class StaticSort extends Sort {
     MaxHeapSort heapSorter;
-    UnstableInsertionSort insertSorter;
+    InsertionSort insertSorter;
 
     public StaticSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -42,7 +42,6 @@ final public class StaticSort extends Sort {
         this.setRunAllSortsName("Static Sort");
         this.setRunSortName("Static Sort");
         this.setCategory("Distribution Sorts");
-        this.setComparisonBased(false);
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);
@@ -71,9 +70,7 @@ final public class StaticSort extends Sort {
         int[] count  = Writes.createExternalArray(auxLen + 1),
               offset = Writes.createExternalArray(auxLen + 1);
 
-        float CONST = (float) auxLen / (minMax[1] - minMax[0] + 4);
-
-        System.out.println(CONST);
+        float CONST = (float) auxLen / (minMax[1] - minMax[0] + 1);
 
         int idx;
         for (int i = a; i < b; i++) {
@@ -122,7 +119,7 @@ final public class StaticSort extends Sort {
             if (e - s > 16)
                 heapSorter.customHeapSort(array, s, e, 1);
             else
-                insertSorter.unstableInsertionSort(array, s, e);
+                insertSorter.customInsertSort(array, s, e, 1, false);
         }
 
         Writes.deleteExternalArray(count);
@@ -132,7 +129,7 @@ final public class StaticSort extends Sort {
     @Override
     public void runSort(int[] mainArray, int size, int bucketCount) throws Exception {
         heapSorter = new MaxHeapSort(this.arrayVisualizer);
-        insertSorter = new UnstableInsertionSort(this.arrayVisualizer);
+        insertSorter = new InsertionSort(this.arrayVisualizer);
 
         this.staticSort(mainArray, 0, size);
     }

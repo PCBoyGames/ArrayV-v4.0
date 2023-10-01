@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedGoalkeeperSort extends Sort {
+public class OptimizedGoalkeeperSort extends Sort {
     public OptimizedGoalkeeperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Goalkeeper");

@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BestForNRoomSort extends BestForNSorting {
+public class BestForNRoomSort extends BestForNSorting {
     public BestForNRoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Best For N Room");

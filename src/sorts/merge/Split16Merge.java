@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class Split16Merge extends Sort {
+public class Split16Merge extends Sort {
     public Split16Merge(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

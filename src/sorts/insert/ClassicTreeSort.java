@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class ClassicTreeSort extends Sort {
+public class ClassicTreeSort extends Sort {
     public ClassicTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

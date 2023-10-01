@@ -9,7 +9,7 @@ import sorts.templates.Sort;
  * @author fungamer2
  *
  */
-public final class RandomCocktailShellSort extends Sort {
+public class RandomCocktailShellSort extends Sort {
 
     public RandomCocktailShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -24,7 +24,7 @@ public final class RandomCocktailShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public void shellSort(int[] array, int a, int b) {
         int sortLength = b - a;
         int gap = sortLength / 2;

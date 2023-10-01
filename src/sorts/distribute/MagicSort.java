@@ -1,19 +1,32 @@
 package sorts.distribute;
 
+
 import main.ArrayVisualizer;
-import sorts.select.SelectionSort;
 import sorts.templates.Sort;
 
-public final class MagicSort extends Sort {
+/*
+MagicSort 2020 Copyright (C) thatsOven
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    SelectionSort select;
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details
 
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+public class MagicSort extends Sort {
     public MagicSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
         this.setSortListName("Magic");
-        this.setRunAllSortsName("Magic Sort");
-        this.setRunSortName("Magic Sort");
+        this.setRunAllSortsName("thatsOven's Magic Sort");
+        this.setRunSortName("thatsOven's Magic Sort");
         this.setCategory("Distribution Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -23,25 +36,48 @@ public final class MagicSort extends Sort {
         this.setBogoSort(false);
     }
 
+    public boolean checkEqual(int[] st_arr, int[] nd_arr, int length) {
+        for (int i = 0; i < length; i++) {
+            if (Reads.compareValues(st_arr[i], nd_arr[i]) != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        select = new SelectionSort(this.arrayVisualizer);
-        int[] aux = Writes.createExternalArray(currentLength);
-        Writes.arraycopy(array, 0, aux, 0, currentLength, 0.1, true, true);
-        select.selection(aux, 0, currentLength, 0.01, true);
-        boolean sorted = false;
-        while (!sorted) {
-            sorted = true;
-            for (int j = 0; j < currentLength; j++) {
-                if (Reads.compareValues(array[j], aux[j]) > 0) {
-                    Delays.sleep(0.05);
-                    Writes.write(array, j, array[j]-1, 0.05, true, false);
-                    sorted = false;
-                } else if (Reads.compareValues(array[j], aux[j]) < 0) {
-                    Delays.sleep(0.05);
-                    Writes.write(array, j, array[j]+1, 0.05, true, false);
-                    sorted = false;
+        int[] aux = new int[currentLength];
+        for (int i = 0; i < currentLength; i++) {
+            Writes.write(aux, i, array[i], 1, true, true);
+        }
+        for (int i = 0; i < currentLength - 1; i++) {
+            int lowestindex = i;
+            for (int j = i + 1; j < currentLength; j++) {
+                Highlights.markArray(2, j);
+                Delays.sleep(0.01);
+
+                if (Reads.compareValues(aux[j], aux[lowestindex]) == -1) {
+                    lowestindex = j;
+                    Highlights.markArray(1, lowestindex);
+                    Delays.sleep(0.01);
                 }
+            }
+            Writes.swap(aux, i, lowestindex, 0.02, true, true);
+        }
+        Highlights.clearAllMarks();
+        while (!this.checkEqual(array, aux, currentLength)) {
+            for (int i = 0; i < currentLength; i++) {
+                if (Reads.compareValues(array[i], aux[i]) > 0) {
+                    array[i] -= 1;
+                    Writes.changeWrites(1);
+                } else {
+                    if (Reads.compareValues(array[i], aux[i]) < 0) {
+                        array[i] += 1;
+                        Writes.changeWrites(1);
+                    }
+                }
+                Highlights.markArray(0, i);
             }
         }
     }

@@ -22,7 +22,7 @@ public abstract class LassoSorting extends Sort {
         super(arrayVisualizer);
     }
 
-    protected static final int nil = 0x80000000,
+    protected static int nil = 0x80000000,
                          growSpeed = 2;
     protected int BufSize, BufLoc, EctaKeyLoc;
     protected int[] KeySpace;

@@ -29,8 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class RotationTest extends Sort {
-    final double BLOCK_DIV = 6.98;
+public class RotationTest extends Sort {
+    double BLOCK_DIV = 6.98;
 
     public RotationTest(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

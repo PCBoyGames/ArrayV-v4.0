@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedRoomSort extends Sort {
+public class OptimizedRoomSort extends Sort {
 
     int first;
     int last;

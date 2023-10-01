@@ -3,7 +3,7 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class OptimizedLaziceSort extends Sort {
+public class OptimizedLaziceSort extends Sort {
 
     public OptimizedLaziceSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -18,7 +18,7 @@ public final class OptimizedLaziceSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -44,7 +44,7 @@ public final class OptimizedLaziceSort extends Sort {
         else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
         return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
     }
-    
+
     protected void multiSwap(int[] array, int a, int b, int len, boolean fw) {
         if (a == b) return;
         if (fw) for (int i = 0; i < len; i++) Writes.swap(array, a + i, b + i, 1, true, false);
@@ -108,7 +108,7 @@ public final class OptimizedLaziceSort extends Sort {
             }
         }
     }
-    
+
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         while (a < m && m < b) {
             int i = leftExpSearch(array, m, b, array[a], true);
@@ -132,7 +132,7 @@ public final class OptimizedLaziceSort extends Sort {
             b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
-    
+
     public void merge(int[] array, int a, int m, int b) {
         if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0)
             return;
@@ -145,7 +145,7 @@ public final class OptimizedLaziceSort extends Sort {
         if (b - m < m - a) inPlaceMergeBW(array, a, m, b);
         else inPlaceMergeFW(array, a, m, b);
     }
-    
+
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
         if (i >= b) return i;
@@ -165,7 +165,7 @@ public final class OptimizedLaziceSort extends Sort {
         }
         return i;
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int i, j, k;
         int mRun = b - a;

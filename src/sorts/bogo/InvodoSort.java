@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class InvodoSort extends BogoSorting {
+public class InvodoSort extends BogoSorting {
     public InvodoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Invodo");

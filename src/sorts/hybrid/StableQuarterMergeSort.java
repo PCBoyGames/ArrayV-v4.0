@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class StableQuarterMergeSort extends Sort {
+public class StableQuarterMergeSort extends Sort {
     ReverseLazyStableSort rotater;
     QuarterMergeSort sort;
     BlockSwapMergeSort fallbackSort;

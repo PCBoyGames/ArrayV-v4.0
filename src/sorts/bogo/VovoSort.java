@@ -17,7 +17,7 @@ import sorts.templates.BogoSorting;
 
  */
 
-public final class VovoSort extends BogoSorting {
+public class VovoSort extends BogoSorting {
     public VovoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

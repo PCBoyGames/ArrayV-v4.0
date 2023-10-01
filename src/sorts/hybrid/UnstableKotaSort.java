@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class UnstableKotaSort extends BlockMergeSorting {
+public class UnstableKotaSort extends BlockMergeSorting {
     public UnstableKotaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

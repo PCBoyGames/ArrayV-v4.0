@@ -17,7 +17,7 @@ Probably the end of the Struggle Saga.
 
  */
 
-public final class LuckyStruggleBogoSort extends BogoSorting {
+public class LuckyStruggleBogoSort extends BogoSorting {
     public LuckyStruggleBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

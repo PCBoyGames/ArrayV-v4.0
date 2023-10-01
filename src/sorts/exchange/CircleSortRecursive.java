@@ -15,7 +15,7 @@ Free Documentation License".
  *
  */
 
-final public class CircleSortRecursive extends CircleSorting {
+public class CircleSortRecursive extends CircleSorting {
     public CircleSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

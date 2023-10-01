@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class BadAppleSort extends Sort {
+public class BadAppleSort extends Sort {
     public BadAppleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -49,7 +49,7 @@ final public class BadAppleSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) throws IOException {
-        final int N = 32768;
+        int N = 32768;
         int[] temp = Writes.createExternalArray(N);
 
         Random r = new Random(0); // seeded shuffle (do not change)

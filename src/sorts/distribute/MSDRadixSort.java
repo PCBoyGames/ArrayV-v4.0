@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class MSDRadixSort extends Sort {
+public class MSDRadixSort extends Sort {
     public MSDRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

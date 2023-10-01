@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class LogMergeSort extends Sort {
+public class LogMergeSort extends Sort {
     public LogMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

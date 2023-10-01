@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class ExchangePapoSort extends BogoSorting {
+public class ExchangePapoSort extends BogoSorting {
 
     public ExchangePapoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -21,7 +21,7 @@ in collaboration with PCBoy and mariam-ts
  * @author mariam-ts
  *
  */
-public final class WeirdBubblePopSort extends Sort {
+public class WeirdBubblePopSort extends Sort {
 
     public WeirdBubblePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

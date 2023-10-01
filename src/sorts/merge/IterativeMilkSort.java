@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class IterativeMilkSort extends Sort {
+public class IterativeMilkSort extends Sort {
 
     BlockInsertionSortNeon insert = new BlockInsertionSortNeon(arrayVisualizer);
 

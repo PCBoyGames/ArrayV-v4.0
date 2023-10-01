@@ -3,7 +3,7 @@ package sorts.misc;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class PancakeInsertionSort extends Sort {
+public class PancakeInsertionSort extends Sort {
     public PancakeInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

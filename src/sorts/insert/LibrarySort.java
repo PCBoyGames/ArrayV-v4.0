@@ -32,7 +32,7 @@ SOFTWARE.
  *
  */
 
-final public class LibrarySort extends Sort {
+public class LibrarySort extends Sort {
     public LibrarySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -51,8 +51,8 @@ final public class LibrarySort extends Sort {
     //possible implementation of the library sort here https://en.wikipedia.org/wiki/Library_sort
     //makes O(1) insertions into gaps of constant size on random data using an extra (1+G)*n space
 
-    private final int G = 15;
-    private final int R = 4;
+    private int G = 15;
+    private int R = 4;
 
     private int max;
 

@@ -3,7 +3,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class GoofyAssaultSort extends BogoSorting {
+public class GoofyAssaultSort extends BogoSorting {
     public GoofyAssaultSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Goofy Assault");

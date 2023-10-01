@@ -14,7 +14,7 @@ BASED IN PART ON CODE FROM GEEKSFORGEEKS
 ------------------------------
 
 */
-final public class OptimizedSmartSafeStalinSort extends Sort {
+public class OptimizedSmartSafeStalinSort extends Sort {
 
     int segmentcount;
 

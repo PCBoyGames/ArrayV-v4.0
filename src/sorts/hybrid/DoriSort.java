@@ -20,7 +20,7 @@ in collaboration with aphitorite and Gaming32
  * @author Gaming32
  *
  */
-public final class DoriSort extends Sort {
+public class DoriSort extends Sort {
 
     public DoriSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -35,7 +35,7 @@ public final class DoriSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -67,7 +67,7 @@ public final class DoriSort extends Sort {
         int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
         return binSearch(array, a1, b1, val, left);
     }
-    
+
     protected void multiSwap(int[] array, int a, int b, int len, boolean fw) {
         if (a == b) return;
         if (fw)
@@ -136,7 +136,7 @@ public final class DoriSort extends Sort {
             }
         }
     }
-    
+
     protected void mergeFWExt(int[] array, int[] tmp, int a, int m, int b) {
         int s = m - a;
         Writes.arraycopy(array, a, tmp, 0, s, 1, true, true);
@@ -160,7 +160,7 @@ public final class DoriSort extends Sort {
                 Writes.write(array, --b, array[j--], 1, true, false);
         while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
     }
-    
+
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         while (a < m && m < b) {
             int i = leftExpSearch(array, m, b, array[a], true);
@@ -184,7 +184,7 @@ public final class DoriSort extends Sort {
             b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
-    
+
     protected void merge(int[] array, int[] buf, int a, int m, int b) {
         Highlights.clearMark(2);
         if (Math.min(m - a, b - m) <= 8) {
@@ -197,7 +197,7 @@ public final class DoriSort extends Sort {
         else
             mergeFWExt(array, buf, a, m, b);
     }
-    
+
     protected void blockCycle(int[] array, int[] buf, int[] keys, int a, int bLen, int bCnt) {
         for (int i = 0; i < bCnt; i++) {
             if (Reads.compareOriginalValues(i, keys[i]) != 0) {
@@ -280,7 +280,7 @@ public final class DoriSort extends Sort {
         }
         blockCycle(array, buf, tags, a, bLen, (b - a) / bLen);
     }
-    
+
     protected void smartBlockMerge(int[] array, int[] buf, int[] tags, int a, int m, int b, int bLen) {
         if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0) return;
         a = leftExpSearch(array, a, m, array[m], false);
@@ -296,7 +296,7 @@ public final class DoriSort extends Sort {
             if (a1 > a) mergeFWExt(array, buf, a, a1, b);
         }
     }
-    
+
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
         if (i < b)
@@ -313,7 +313,7 @@ public final class DoriSort extends Sort {
         }
         return i;
     }
-    
+
     /**
      * Sorts the range {@code [a, b)} of {@code array} using Extra-Adaptive Ectasort.
      * @param array the array

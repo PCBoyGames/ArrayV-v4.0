@@ -22,7 +22,7 @@ Original name of this algorithm: Pattern-Improved Equal-Optimized Logsort
  * @author Distray
  *
  */
-public final class GuujiSort extends Sort {
+public class GuujiSort extends Sort {
 
     public GuujiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

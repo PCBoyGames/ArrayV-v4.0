@@ -21,7 +21,7 @@ in collaboration with Meme Man
  * @author Meme Man - key ideas / concepts
  *
  */
-public final class IncrogoSort extends BogoSorting {
+public class IncrogoSort extends BogoSorting {
 
     public IncrogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

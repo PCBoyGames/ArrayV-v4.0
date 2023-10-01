@@ -27,7 +27,7 @@ import sorts.templates.Sort;
  * @see <a href="https://stackoverflow.com/a/12348866">
  * Iterative algorithm for Tower of Hanoi problem</a>
  */
-final public class HanoiSort extends Sort {
+public class HanoiSort extends Sort {
     // main array
     private int[] array;
     // Length of the array

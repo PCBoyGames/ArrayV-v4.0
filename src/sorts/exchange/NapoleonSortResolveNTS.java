@@ -14,7 +14,7 @@ FIXING ORIGINAL CODE BY ANONYMOUS0726
 ------------------------------
 
 */
-final public class NapoleonSortResolveNTS extends Sort {
+public class NapoleonSortResolveNTS extends Sort {
 
     int oob = 0;
 

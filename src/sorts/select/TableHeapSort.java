@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class TableHeapSort extends Sort {
+public class TableHeapSort extends Sort {
 
     public TableHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,7 +34,7 @@ public final class TableHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     void siftDown(int[] array, int[] keys, int i, int p, int n, int kVal) {
         while (2 * i + 1 < n) {
             int kMax = kVal;
@@ -54,7 +54,7 @@ public final class TableHeapSort extends Sort {
         Highlights.markArray(3, p + i);
         Writes.write(keys, i, kVal, 0.5, false, true);
     }
-    
+
     public void customSort(int[] array, int a, int b) {
         int len = b - a;
         int[] keys = Writes.createExternalArray(len);

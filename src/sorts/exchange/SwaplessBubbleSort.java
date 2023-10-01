@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class SwaplessBubbleSort extends Sort {
+public class SwaplessBubbleSort extends Sort {
     public SwaplessBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

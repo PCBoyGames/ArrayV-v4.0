@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 /**
  * You'll likely die before this sorts n=2
  */
-public final class VutuuwuSort extends BogoSorting {
+public class VutuuwuSort extends BogoSorting {
     public VutuuwuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

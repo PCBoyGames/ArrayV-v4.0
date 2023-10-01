@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-public final class OptimizedDualPivotStableQuickSort extends Sort {
+public class OptimizedDualPivotStableQuickSort extends Sort {
     public OptimizedDualPivotStableQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -45,7 +45,7 @@ public final class OptimizedDualPivotStableQuickSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int MIN_INSERT = 32;
+    private int MIN_INSERT = 32;
 
     private int[] selectPiv(int[] array, int a, int b) {
         int s = (b-a)/3;

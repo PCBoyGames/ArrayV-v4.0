@@ -19,7 +19,7 @@ in collaboration with aphitorite and Californium-252
  * @author Californium-252
  *
  */
-public final class DunsparceSort extends Sort {
+public class DunsparceSort extends Sort {
 
     public DunsparceSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

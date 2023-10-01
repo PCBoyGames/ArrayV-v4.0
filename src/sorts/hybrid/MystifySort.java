@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class MystifySort extends Sort {
+public class MystifySort extends Sort {
 
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
 

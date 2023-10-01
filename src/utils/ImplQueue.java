@@ -1,7 +1,7 @@
 package utils;
 
-public final class ImplQueue<E> {
-    private static final int maxGrow = 64;
+public class ImplQueue<E> {
+    private static int maxGrow = 64;
     private E[] queue;
     private int head, tail, streak;
     public ImplQueue() {

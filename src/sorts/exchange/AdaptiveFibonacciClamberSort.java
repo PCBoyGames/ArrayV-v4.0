@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AdaptiveFibonacciClamberSort extends Sort {
+public class AdaptiveFibonacciClamberSort extends Sort {
     public AdaptiveFibonacciClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Fibonacci Clamber");

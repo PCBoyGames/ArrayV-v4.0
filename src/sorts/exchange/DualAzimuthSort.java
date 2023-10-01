@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 import utils.Rotations;
 
-final public class DualAzimuthSort extends BogoSorting {
+public class DualAzimuthSort extends BogoSorting {
     public DualAzimuthSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Dual Azimuth");

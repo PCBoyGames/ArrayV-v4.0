@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class ExchangeChirMergeSort extends BogoSorting {
+public class ExchangeChirMergeSort extends BogoSorting {
 
     public ExchangeChirMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

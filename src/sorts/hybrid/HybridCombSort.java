@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class HybridCombSort extends CombSorting {
+public class HybridCombSort extends CombSorting {
     public HybridCombSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

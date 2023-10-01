@@ -17,7 +17,7 @@ Whoops, I Goofed Up™!
 
  */
 
-public final class UnfixedMinGoofSort extends BogoSorting {
+public class UnfixedMinGoofSort extends BogoSorting {
 
     int min;
 

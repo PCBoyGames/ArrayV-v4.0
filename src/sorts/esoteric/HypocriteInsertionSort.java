@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class HypocriteInsertionSort extends Sort {
+public class HypocriteInsertionSort extends Sort {
     public HypocriteInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Hypocrite Insertion");

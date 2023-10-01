@@ -15,7 +15,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class MagneticaQuickSort extends Sort {
+public class MagneticaQuickSort extends Sort {
 
     InsertionSort insert = new InsertionSort(arrayVisualizer);
     Random random = new Random();

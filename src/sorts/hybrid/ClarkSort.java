@@ -13,8 +13,8 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ClarkSort extends Sort {
-    QuadSort mergefinal = new QuadSort(arrayVisualizer);
+public class ClarkSort extends Sort {
+    QuadSort merger = new QuadSort(arrayVisualizer);
     public ClarkSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Clark");
@@ -58,6 +58,6 @@ final public class ClarkSort extends Sort {
             if (anyswaps) first /= 4;
         }
         Highlights.clearMark(2);
-        if (first != max) mergefinal.runSort(array, currentLength, 0);
+        if (first != max) merger.runSort(array, currentLength, 0);
     }
 }

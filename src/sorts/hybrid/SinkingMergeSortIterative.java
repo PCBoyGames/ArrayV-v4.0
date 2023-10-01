@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Yuri-chan
  *
  */
-public final class SinkingMergeSortIterative extends Sort {
+public class SinkingMergeSortIterative extends Sort {
 
     public SinkingMergeSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

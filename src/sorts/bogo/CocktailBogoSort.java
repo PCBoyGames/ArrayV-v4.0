@@ -8,7 +8,7 @@ import sorts.templates.BogoSorting;
  * It repeatedly shuffles the array,
  * dropping first and last remaining elements when they are in the correct place.
  */
-public final class CocktailBogoSort extends BogoSorting {
+public class CocktailBogoSort extends BogoSorting {
     public CocktailBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

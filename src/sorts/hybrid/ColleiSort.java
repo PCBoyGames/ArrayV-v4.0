@@ -20,7 +20,7 @@ in collaboration with aphitorite and Gaming32
  * @author Gaming32
  *
  */
-public final class ColleiSort extends Sort {
+public class ColleiSort extends Sort {
 
     public ColleiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -226,7 +226,7 @@ public final class ColleiSort extends Sort {
         return Reads.compareOriginalValues(tags[t], tags[mKey]) < 0;
     }
 
-    // returns mKey final position
+    // returns mKey position
     protected int blockSelect(int[] array, int[] tags, int p, int r, int d, int lCnt, int bCnt, int bLen) {
         int mKey = lCnt;
         for (int j = 0, k = lCnt + 1; j < k - 1; j++) {

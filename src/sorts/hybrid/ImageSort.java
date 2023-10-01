@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 import utils.ArrayVList;
 
 // Image Sorting: Chaos
-final public class ImageSort extends Sort {
+public class ImageSort extends Sort {
     public ImageSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -5,7 +5,7 @@ import sorts.hybrid.LazixioSort;
 import sorts.templates.ParallelSort;
 
 
-final public class ParallelTournamergeSort extends ParallelSort {
+public class ParallelTournamergeSort extends ParallelSort {
     public ParallelTournamergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

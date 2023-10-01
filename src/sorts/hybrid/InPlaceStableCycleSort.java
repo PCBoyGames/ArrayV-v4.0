@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class InPlaceStableCycleSort extends Sort {
+public class InPlaceStableCycleSort extends Sort {
     public InPlaceStableCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

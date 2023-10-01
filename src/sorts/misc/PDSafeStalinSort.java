@@ -28,7 +28,7 @@ in collaboration with Distray, PCBoy and stentor
  * @author stentor
  *
  */
-public final class PDSafeStalinSort extends Sort {
+public class PDSafeStalinSort extends Sort {
 
     public PDSafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

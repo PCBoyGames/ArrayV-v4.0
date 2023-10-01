@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class OptimizedSmoothBingoSort extends Sort {
+public class OptimizedSmoothBingoSort extends Sort {
     public OptimizedSmoothBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SwaplessInOrderShoveSort extends Sort {
+public class SwaplessInOrderShoveSort extends Sort {
     public SwaplessInOrderShoveSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Swapless In-Order Shove");

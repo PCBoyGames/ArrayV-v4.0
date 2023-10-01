@@ -21,7 +21,7 @@ in collaboration with Control, mg-2018 and PCBoy
  * @author PCBoy
  *
  */
-public final class DisparityShellMergeSortRecursive extends Sort {
+public class DisparityShellMergeSortRecursive extends Sort {
 
     public DisparityShellMergeSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -37,7 +37,7 @@ public final class DisparityShellMergeSortRecursive extends Sort {
         this.setBogoSort(false);
     }
 
-    final int WLEN = 3;
+    int WLEN = 3;
 
     protected boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;

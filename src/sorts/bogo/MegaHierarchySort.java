@@ -2,6 +2,7 @@ package sorts.bogo;
 
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
 
@@ -13,14 +14,15 @@ import sorts.templates.BogoSorting;
 |  (aka gooflang)  |
 /------------------/
 
-Credit to Tycho/Äonothem for the original concept of Fast-growing Hierachy Sort.
-
-Crashes on n=3.
+FEAR, RESILIENCE, HOPE.
 
  */
 
 
 public class MegaHierarchySort extends BogoSorting {
+
+    ThreadLocalRandom rand = ThreadLocalRandom.current();
+
     public MegaHierarchySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -36,32 +38,45 @@ public class MegaHierarchySort extends BogoSorting {
         this.setBogoSort(false);
     }
 
-    private long fgh(int a, long n) {
-        if (a == 0) {
-            return n+1;
-        } else {
-            long b = n;
-            for (long i = 0; i < n; i++) b = fgh(a-1, b);
-            System.out.println(a + " " + b);
-            return b;
-        }
-    }
-
-    private long f(int a, long n, int[] array, int length) {
-        long limit = fgh(a, n);
+    private long fgh(int a, long n, int d) {
+        Writes.recordDepth(d++);
         if (a == 0) {
             return n+1;
         } else {
             long b = n;
             for (long i = 0; i < n; i++) {
-                long holder = -fgh(a, n) + (long) (Math.random() * (limit - fgh(a, n)));
-                b = f(a-1, b, array, length);
-                if (Reads.compareIndices(array, a-1, a, 0.01, true) > 0) {
-                    Writes.swap(array, a-1, a, 0.01, true, false);
+                Writes.recursion();
+                b = fgh(a-1, b, d);
+            }
+            System.out.println(a + " " + b);
+            return b;
+        }
+    }
+
+    private long f(int a, long n, int[] array, int length, int d) {
+        Writes.recordDepth(d++);
+        long f = fgh(length, length, 0);
+        long limit = 2 * f;
+        if (a == 0) {
+            return n+1;
+        } else {
+            long b = n;
+            for (long i = 0; i < n;) {
+                Writes.recursion();
+                b = f(a-1, b, array, length, d);
+                if (Reads.compareValues(array[(a-2 < 0) ? a : a-2], array[(a-1 < 1) ? a+1 : a-1]) > 0) {
+                    Writes.swap(array, (a-2 < 0) ? a : a-2, (a-1 < 1) ? a+1 : a-1, 0.01, true, false);
+                }
+                if (0 != limit) {
+                    long holder = rand.nextLong(0, limit);
                     if (holder != limit) {
                         i = 0;
                         limit--;
+                    } else {
+                        i++;
                     }
+                } else {
+                    i++;
                 }
             }
             System.out.println(a + " " + b);
@@ -71,7 +86,6 @@ public class MegaHierarchySort extends BogoSorting {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        f(sortLength, sortLength, array, sortLength);
+        f(sortLength, sortLength, array, sortLength, 0);
     }
-
 }

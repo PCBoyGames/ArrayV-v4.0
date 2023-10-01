@@ -26,7 +26,7 @@ SOFTWARE.
  *
  */
 
-final public class ThreeSmoothCombSortParallel extends Sort {
+public class ThreeSmoothCombSortParallel extends Sort {
     public ThreeSmoothCombSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

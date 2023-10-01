@@ -33,7 +33,7 @@ class QRange {
         this.usable = false;
     }
 }
-final public class TriRandomGnomeSort extends BogoSorting {
+public class TriRandomGnomeSort extends BogoSorting {
     public TriRandomGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

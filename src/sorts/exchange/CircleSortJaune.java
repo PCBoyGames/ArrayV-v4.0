@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class CircleSortJaune extends Sort {
+public class CircleSortJaune extends Sort {
     public CircleSortJaune(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Circle (Jaune)");

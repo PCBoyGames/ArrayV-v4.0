@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedBubbleBogoSort extends BogoSorting {
+public class OptimizedBubbleBogoSort extends BogoSorting {
     public OptimizedBubbleBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Bubble Bogo");

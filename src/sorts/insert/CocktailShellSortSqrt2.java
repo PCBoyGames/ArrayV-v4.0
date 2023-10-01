@@ -25,7 +25,7 @@ SOFTWARE.
  *
  */
 
-final public class CocktailShellSortSqrt2 extends Sort {
+public class CocktailShellSortSqrt2 extends Sort {
 
     public CocktailShellSortSqrt2(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

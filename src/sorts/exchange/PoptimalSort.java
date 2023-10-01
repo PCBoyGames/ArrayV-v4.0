@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // #2 of Distray's Pop The Top Lineup
-final public class PoptimalSort extends Sort {
+public class PoptimalSort extends Sort {
     public PoptimalSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Poptimal");

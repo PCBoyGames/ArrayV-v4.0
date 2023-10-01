@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BaseNOddEvenSort extends Sort {
+public class BaseNOddEvenSort extends Sort {
     public BaseNOddEvenSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Base-N Odd-Even");

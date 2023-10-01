@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
-final public class PureFibHeapSort extends Sort {
+public class PureFibHeapSort extends Sort {
     public PureFibHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

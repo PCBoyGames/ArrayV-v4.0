@@ -25,7 +25,7 @@ public class CaiSort extends GrailSorting {
         this.setBogoSort(false);
     }
     private int buf, bufsz;
-    private static final int minBinsert = 8;
+    private static int minBinsert = 8;
     private BranchlessBinaryInsertionSort binserter;
 
     private class Buffer {

@@ -23,7 +23,7 @@ in collaboration with Control, mg-2018 and PCBoy
  * @author PCBoy
  *
  */
-public final class NDShellMergeSort extends Sort {
+public class NDShellMergeSort extends Sort {
 
     public NDShellMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

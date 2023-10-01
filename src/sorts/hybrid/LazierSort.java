@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class LazierSort extends Sort {
+public class LazierSort extends Sort {
     public LazierSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

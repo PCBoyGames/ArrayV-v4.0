@@ -21,7 +21,7 @@ import sorts.templates.Sort;
  *
  */
 
-final public class PatienceSort extends Sort {
+public class PatienceSort extends Sort {
     public PatienceSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -37,8 +37,7 @@ final public class PatienceSort extends Sort {
         this.setBogoSort(false);
     }
 
-    final private class Pile extends Stack<Integer> implements Comparable<Pile> {
-        private static final long serialVersionUID = 1L;
+    private class Pile extends Stack<Integer> implements Comparable<Pile> {
 
         public int compare(Pile y) {
             return Reads.compareValues(peek(), y.peek());

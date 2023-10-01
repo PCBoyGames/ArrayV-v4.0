@@ -3,7 +3,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 import sorts.insert.InsertionSort;
 
-final public class UnstableLogPartitionSort extends GrailSorting {
+public class UnstableLogPartitionSort extends GrailSorting {
     public UnstableLogPartitionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -24,10 +24,10 @@ final public class UnstableLogPartitionSort extends GrailSorting {
     }
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size;
+        public int size;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;

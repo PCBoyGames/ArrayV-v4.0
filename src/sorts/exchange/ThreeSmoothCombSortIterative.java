@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class ThreeSmoothCombSortIterative extends Sort {
+public class ThreeSmoothCombSortIterative extends Sort {
     public ThreeSmoothCombSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

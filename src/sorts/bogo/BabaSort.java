@@ -132,7 +132,7 @@ class Baba extends XY { // Baba itself
         return state.x + (state.y * boundCorner.x);
     }
 }
-final public class BabaSort extends BogoSorting {
+public class BabaSort extends BogoSorting {
     public BabaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

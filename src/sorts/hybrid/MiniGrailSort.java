@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class MiniGrailSort extends Sort {
+public class MiniGrailSort extends Sort {
     public MiniGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

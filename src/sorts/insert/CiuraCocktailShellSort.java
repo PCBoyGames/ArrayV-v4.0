@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  *
  */
 
-public final class CiuraCocktailShellSort extends Sort {
+public class CiuraCocktailShellSort extends Sort {
 
     /**
      * @param arrayVisualizer

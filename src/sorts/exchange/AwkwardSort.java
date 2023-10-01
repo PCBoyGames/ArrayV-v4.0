@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author aphitorite
  *
  */
-public final class AwkwardSort extends Sort {
+public class AwkwardSort extends Sort {
 
     public AwkwardSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

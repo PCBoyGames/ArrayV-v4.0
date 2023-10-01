@@ -21,7 +21,7 @@ in collaboration with aphitorite, Distray and PCBoy
  * @author PCBoy
  *
  */
-public final class OOPTernarySingularityQuickSort extends Sort {
+public class OOPTernarySingularityQuickSort extends Sort {
 
     public OOPTernarySingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -190,32 +190,6 @@ public final class OOPTernarySingularityQuickSort extends Sort {
             Writes.write(array, --b, tmp[i--], 1, true, false);
     }
 
-    protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
-        while (a < m && m < b) {
-            int i = expSearch(array, m, b, array[a], true, true);
-            rotate(array, a, m, i);
-            int t = i - m;
-            m = i;
-            a += t + 1;
-            if (a >= m)
-                break;
-            a = expSearch(array, a, m, array[m], true, false);
-        }
-    }
-
-    protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
-        while (b > m && m > a) {
-            int i = expSearch(array, a, m, array[b - 1], false, false);
-            rotate(array, i, m, b);
-            int t = m - i;
-            m = i;
-            b -= t + 1;
-            if (m <= a)
-                break;
-            b = expSearch(array, m, b, array[m - 1], false, true);
-        }
-    }
-
     protected void merge(int[] array, int[] buf, int a, int m, int b) {
         if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0)
             return;
@@ -225,12 +199,8 @@ public final class OOPTernarySingularityQuickSort extends Sort {
             rotate(array, a, m, b);
             return;
         }
-        if (Math.min(m - a, b - m) <= 8) {
-            if (m - a > b - m)
-                inPlaceMergeBW(array, a, m, b);
-            else
-                inPlaceMergeFW(array, a, m, b);
-        } else if (m - a > b - m)
+        Highlights.clearMark(2);
+        if (m - a > b - m)
             mergeBWExt(array, buf, a, m, b);
         else
             mergeFWExt(array, buf, a, m, b);
@@ -238,21 +208,12 @@ public final class OOPTernarySingularityQuickSort extends Sort {
 
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
-        boolean dir;
-        if (i < b)
-            dir = Reads.compareIndices(array, i - 1, i++, 0.5, true) <= 0;
-        else
-            dir = true;
-        if (dir)
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
-                i++;
-        else {
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
-                i++;
-            if (i - a < 4)
-                Writes.swap(array, a, i - 1, 1.0, true, false);
-            else
-                Writes.reversal(array, a, i - 1, 1.0, true, false);
+        if (i < b) {
+            if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
+                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
+                if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, false);
+                else Writes.reversal(array, a, i - 1, 1.0, true, false);
+            } else while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         }
         Highlights.clearMark(2);
         while (i - a < mRun && i < b) {
@@ -269,18 +230,16 @@ public final class OOPTernarySingularityQuickSort extends Sort {
 
     public void mergeSort(int[] array, int[] buf, int a, int b) {
         int i, j, k;
-        int mRun = b - a;
-        while (mRun >= 32)
-            mRun = (mRun - 1) / 2 + 1;
+        int mRun = 16;
         while (true) {
             i = findRun(array, a, b, mRun);
             if (i >= b)
-                return;
+                break;
             j = findRun(array, i, b, mRun);
             merge(array, buf, a, i, j);
             Highlights.clearMark(2);
             if (j >= b)
-                return;
+                break;
             k = j;
             while (true) {
                 i = findRun(array, k, b, mRun);
@@ -351,6 +310,14 @@ public final class OOPTernarySingularityQuickSort extends Sort {
     }
 
     public void quickSort(int[] array, int a, int b) {
+        boolean sorted = true;
+        for (int i = a; i < b - 1; i++) {
+            if (Reads.compareIndices(array, i, i + 1, 0.5, true) > 0) {
+                sorted = false;
+                break;
+            }
+        }
+        if (sorted) return;
         depthlimit = (int) Math.min(Math.sqrt(b - a), 2 * log2(b - a));
         insertlimit = Math.max(depthlimit / 2, 16);
         replimit = Math.max(depthlimit / 4, 2);

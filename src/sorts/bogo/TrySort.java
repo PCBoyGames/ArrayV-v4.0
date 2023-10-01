@@ -13,7 +13,7 @@ IN COLLABORATION WITH NAOAN1201
 ------------------------------
 
 */
-public final class TrySort extends BogoSorting {
+public class TrySort extends BogoSorting {
     public TrySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Try");

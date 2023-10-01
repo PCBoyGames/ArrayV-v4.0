@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class CaliforniumSort extends Sort {
+public class CaliforniumSort extends Sort {
     public CaliforniumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -3,11 +3,12 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import sorts.insert.InsertionSort;
-import sorts.exchange.LRQuickSort;
+import sorts.quick.LRQuickSort;
+
 import java.util.Random;
 
 
-final public class VarietySort extends Sort {
+public class VarietySort extends Sort {
     public VarietySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

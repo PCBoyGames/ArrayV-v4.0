@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class GoalkeeperSort extends Sort {
+public class GoalkeeperSort extends Sort {
 
     public GoalkeeperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

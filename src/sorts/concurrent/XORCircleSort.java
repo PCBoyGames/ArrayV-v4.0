@@ -3,7 +3,7 @@ package sorts.concurrent;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-final public class XORCircleSort extends BogoSorting {
+public class XORCircleSort extends BogoSorting {
     public XORCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class BottomUpHeapSort extends Sort {
+public class BottomUpHeapSort extends Sort {
     public BottomUpHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.CircleSorting;
 
-final public class ApollyonSort extends CircleSorting {
+public class ApollyonSort extends CircleSorting {
     private boolean direction = true;
 
     public ApollyonSort(ArrayVisualizer arrayVisualizer) {

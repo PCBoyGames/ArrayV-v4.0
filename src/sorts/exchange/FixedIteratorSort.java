@@ -17,7 +17,7 @@ A fixed version of Iterator sort, inheriting some of its characteristics (purely
 
  */
 
-public final class FixedIteratorSort extends Sort {
+public class FixedIteratorSort extends Sort {
     public FixedIteratorSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import utils. Rotations;
 
 
-final public class StableDemoDerbySort extends Sort {
+public class StableDemoDerbySort extends Sort {
     public StableDemoDerbySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

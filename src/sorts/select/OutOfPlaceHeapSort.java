@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class OutOfPlaceHeapSort extends Sort {
+public class OutOfPlaceHeapSort extends Sort {
     public OutOfPlaceHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

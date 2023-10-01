@@ -10,7 +10,7 @@ import sorts.templates.Sort;
   */
 
 
-final public class CorruptSort extends Sort {
+public class CorruptSort extends Sort {
     public CorruptSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -11,7 +11,7 @@ import sorts.templates.Sort;
 
 // This version was ported from the latest
 // Crumsort repo, as of <YYYYMMDD> 2022/03/09.
-final public class CrumSort extends Sort {
+public class CrumSort extends Sort {
     public CrumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Crum");
@@ -25,7 +25,7 @@ final public class CrumSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    final int crumOut = 28;
+    int crumOut = 28;
     private int crumAux = 32;
     private BlitQuadSort quadLatest;
 

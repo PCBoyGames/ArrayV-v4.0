@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedSplitCenterSort extends Sort {
+public class OptimizedSplitCenterSort extends Sort {
     public OptimizedSplitCenterSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Split Center");

@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class PatternDefeatingInsertionSort extends Sort {
+public class PatternDefeatingInsertionSort extends Sort {
     public PatternDefeatingInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

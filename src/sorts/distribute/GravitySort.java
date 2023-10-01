@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class GravitySort extends Sort {
+public class GravitySort extends Sort {
     public GravitySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

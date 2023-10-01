@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class TransposeModuloWeaveMergeSort extends Sort {
+public class TransposeModuloWeaveMergeSort extends Sort {
 
     QuadSort quad = new QuadSort(arrayVisualizer);
 

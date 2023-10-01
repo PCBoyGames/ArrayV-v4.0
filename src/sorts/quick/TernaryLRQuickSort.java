@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * Implemented in ArrayV by Gaming32
  * https://github.com/bingmann/sound-of-sorting/blob/master/src/SortAlgo.cpp#L449-L534
  */
-final public class TernaryLRQuickSort extends Sort {
+public class TernaryLRQuickSort extends Sort {
     public TernaryLRQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -6,7 +6,7 @@ import java.util.Random;
 import main.ArrayVisualizer;
 import sorts.templates.QuadSorting;
 
-final public class FluxSortLoadDamnit extends QuadSorting {
+public class FluxSortLoadDamnit extends QuadSorting {
     public FluxSortLoadDamnit(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Updated Flux");
@@ -138,7 +138,7 @@ final public class FluxSortLoadDamnit extends QuadSorting {
         fluxSort_selfSwap(pushTo, offset1, offset1+sqrt);
         return pushTo[offset1+sqrt/2];
     }
-    final int fluxOut = 24;
+    int fluxOut = 24;
 
 
     // Change: Array definitions changed to "buckets", to ensure functionality with a lack of proper pointers

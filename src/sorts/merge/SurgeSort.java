@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class SurgeSort extends Sort {
+public class SurgeSort extends Sort {
     public SurgeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

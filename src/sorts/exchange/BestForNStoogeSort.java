@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BestForNStoogeSort extends BestForNSorting {
+public class BestForNStoogeSort extends BestForNSorting {
 
     int maxtouse;
 

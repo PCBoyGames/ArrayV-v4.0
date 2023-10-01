@@ -67,13 +67,13 @@ enum Subarray {
 
 @SuppressWarnings("hiding")
 public abstract class HolyGrailSorting extends Sort {
-    final static double WRITE_DELAY = 1;
+    static double WRITE_DELAY = 1;
 
     private static Writes StWrites;
     private static Highlights StHighlights;
     private Comparator<Integer> cmp;
 
-    final static int STATIC_EXint_BUFFER_LEN = 512;
+    static int STATIC_EXint_BUFFER_LEN = 512;
 
     private int[] extBuffer;
     private int extBufferLen;
@@ -731,7 +731,7 @@ public abstract class HolyGrailSorting extends Sort {
         }
     }
 
-    // FUNCTION RE-RENAMED: last/final left blocks are used to calculate the length of the final merge
+    // FUNCTION RE-RENAMED: last/left blocks are used to calculate the length of the merge
     private static int countLastMergeBlocks(int[] array, int offset, int blockCount, int blockLen,
                                                            Comparator<Integer> cmp) {
         int blocksToMerge = 0;

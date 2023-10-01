@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShipperSort extends MadhouseTools {
+public class ShipperSort extends MadhouseTools {
 
     boolean checks = true;
 

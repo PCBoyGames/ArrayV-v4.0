@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class PairwiseMergeSortIterative extends Sort {
+public class PairwiseMergeSortIterative extends Sort {
     public PairwiseMergeSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

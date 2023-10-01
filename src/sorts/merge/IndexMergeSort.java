@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class IndexMergeSort extends Sort {
+public class IndexMergeSort extends Sort {
     public IndexMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

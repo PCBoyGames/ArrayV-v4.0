@@ -33,7 +33,7 @@ SOFTWARE.
  *
  */
 
-final public class QuickHeapSort extends Sort {
+public class QuickHeapSort extends Sort {
     public QuickHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

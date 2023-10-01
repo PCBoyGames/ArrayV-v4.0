@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Yuri-chan
  *
  */
-public final class PDExponentialInsertionSort extends Sort {
+public class PDExponentialInsertionSort extends Sort {
 
     public PDExponentialInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

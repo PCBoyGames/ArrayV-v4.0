@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class TernaryHeapSort extends Sort {
+public class TernaryHeapSort extends Sort {
     public TernaryHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

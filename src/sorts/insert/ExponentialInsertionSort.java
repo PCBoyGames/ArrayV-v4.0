@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class ExponentialInsertionSort extends Sort {
+public class ExponentialInsertionSort extends Sort {
 
     public ExponentialInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

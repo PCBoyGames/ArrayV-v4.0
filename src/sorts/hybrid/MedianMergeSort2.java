@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class MedianMergeSort2 extends Sort {
+public class MedianMergeSort2 extends Sort {
     public MedianMergeSort2(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

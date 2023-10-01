@@ -14,7 +14,7 @@ import sorts.templates.BogoSorting;
  * Average case: O((n*(n-1))!) ops?
  * Worst case: O(inf)
  */
-public final class OmegaBotoSort extends BogoSorting {
+public class OmegaBotoSort extends BogoSorting {
     public OmegaBotoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

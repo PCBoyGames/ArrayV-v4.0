@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class SwapMapSort extends Sort {
+public class SwapMapSort extends Sort {
     public SwapMapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

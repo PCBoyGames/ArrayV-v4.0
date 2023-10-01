@@ -18,7 +18,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class SimpleNaturalMergeSort extends Sort {
+public class SimpleNaturalMergeSort extends Sort {
 
     public SimpleNaturalMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

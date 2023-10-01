@@ -15,7 +15,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class PDSegmentedSort extends GrailSorting {
+public class PDSegmentedSort extends GrailSorting {
 
     int segmentcount;
     boolean initlimit;
@@ -50,8 +50,7 @@ final public class PDSegmentedSort extends GrailSorting {
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
         Statistics.addStat("Rotation");
-        if (lenA % lenB == 0 || lenB % lenA == 0) Rotations.holyGriesMills(array, pos, lenA, lenB, 0.1, true, false);
-        else Rotations.cycleReverse(array, pos, lenA, lenB, 0.1, true, false);
+        Rotations.adaptable(array, pos, lenA, lenB, 0.1, true, false);
     }
 
     protected void rotateReversal(int[] array, int a, int b, int depth) {

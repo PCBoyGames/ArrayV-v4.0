@@ -17,7 +17,7 @@ Finally.
 
  */
 
-public final class TernaryGnomeSort extends Sort {
+public class TernaryGnomeSort extends Sort {
     public TernaryGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -33,32 +33,39 @@ public final class TernaryGnomeSort extends Sort {
         this.setBogoSort(false);
     }
 
-    public int ternary(int[] array, int start, int end, int key, double sleep) {
-        while (start < end-1) {
-            int third = (end - start + 1) / 3,
-                midA = start + third,
-                midB = end - third;
-            if (Reads.compareValues(array[midA], key) == 1) {
-                end = midA;
-            } else if (Reads.compareValues(array[midB], key) == -1) {
-                start = midB;
-            } else {
-                start = midA;
-                end = midB;
+    public void ternaryGnome(int[] array, int a, int b) {
+        for (int i = a; i < b; i++) {
+            int lo = a, hi = i;
+            int num = array[i];
+            while (lo < hi - 1) {
+                int third = (hi - lo + 1) / 3,
+                    midA = lo + third,
+                    midB = hi - third;
+                if (Reads.compareValues(array[midA], num) > 0) {
+                    hi = midA;
+                } else if (Reads.compareValues(array[midB], num) < 0) {
+                    lo = midB;
+                } else {
+                    lo = midA;
+                    // hi = midB;
+                }
+                Highlights.markArray(2, midA);
+                Highlights.markArray(3, midB);
+                Delays.sleep(1);
             }
-            Highlights.markArray(2, midA);
-            Highlights.markArray(3, midB);
-            Delays.sleep(sleep);
+            Highlights.clearMark(2);
+            Highlights.clearMark(3);
+            int place = Reads.compareValues(array[lo], num) > 0 ? lo : hi;
+
+            Writes.multiSwap(array, i, place, 0.05, true, false);
+
+            Highlights.clearAllMarks();
         }
-        Highlights.clearMark(2);
-        Highlights.clearMark(3);
-        return Reads.compareValues(array[start], key) == 1 ? start : end;
     }
+
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        for (int i = 1; i < currentLength; i++) {
-            Writes.multiSwap(array, i, ternary(array, 0, i, array[i], 1), 0.05, true, false);
-        }
+        ternaryGnome(array, 0, currentLength);
     }
 }

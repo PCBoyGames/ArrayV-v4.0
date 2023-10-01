@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ForwardRunShoveSort extends Sort {
+public class ForwardRunShoveSort extends Sort {
     public ForwardRunShoveSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Forward Run Shove");

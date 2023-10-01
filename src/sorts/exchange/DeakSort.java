@@ -17,7 +17,7 @@ This sort was made completely on accident.
 
  */
 
-public final class DeakSort extends Sort {
+public class DeakSort extends Sort {
     public DeakSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

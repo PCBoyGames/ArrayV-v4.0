@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SnowballIterativePopSort extends Sort {
+public class SnowballIterativePopSort extends Sort {
     public SnowballIterativePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Snowball Iterative Pop");

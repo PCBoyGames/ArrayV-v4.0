@@ -20,7 +20,7 @@ in collaboration with yuji and PCBoy
  * @author PCBoy
  *
  */
-public final class LuckyCircloidSort extends BogoSorting {
+public class LuckyCircloidSort extends BogoSorting {
 
     public LuckyCircloidSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

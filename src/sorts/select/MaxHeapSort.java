@@ -15,7 +15,7 @@ Free Documentation License".
  *
  */
 
-final public class MaxHeapSort extends HeapSorting {
+public class MaxHeapSort extends HeapSorting {
     public MaxHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -18,7 +18,7 @@ the search direction is turned opposite, and the swap hunt restarts. This
 continues until a sweep in descending order can be made without any swaps.
 
 */
-final public class ReflectionSort extends Sort {
+public class ReflectionSort extends Sort {
     public ReflectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Reflection");

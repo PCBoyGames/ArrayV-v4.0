@@ -21,7 +21,7 @@ in collaboration with aphitorite, PCBoy and Scandum
  * @author Scandum
  *
  */
-public final class OptimizedSmartSingularityQuickSort extends Sort {
+public class OptimizedSmartSingularityQuickSort extends Sort {
 
     public OptimizedSmartSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

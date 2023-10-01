@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class TwoNSubPrimeShellSort extends Sort {
+public class TwoNSubPrimeShellSort extends Sort {
     public TwoNSubPrimeShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("<2^n Prime Shell");

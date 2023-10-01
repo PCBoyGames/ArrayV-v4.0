@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class ColemakSort extends BogoSorting {
+public class ColemakSort extends BogoSorting {
 
     int min;
     int max;

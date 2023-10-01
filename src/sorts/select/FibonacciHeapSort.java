@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
-final public class FibonacciHeapSort extends Sort {
+public class FibonacciHeapSort extends Sort {
     public FibonacciHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

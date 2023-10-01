@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class TrainTrackSort extends Sort {
+public class TrainTrackSort extends Sort {
     public TrainTrackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

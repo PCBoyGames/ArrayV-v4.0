@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShockSort extends Sort {
+public class ShockSort extends Sort {
 
     TimSort tim = new TimSort(arrayVisualizer);
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);

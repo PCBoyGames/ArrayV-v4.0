@@ -14,7 +14,7 @@ BASED IN PART ON CODE FROM GEEKSFORGEEKS
 ------------------------------
 
 */
-final public class PDSmartSafeStalinSort extends Sort {
+public class PDSmartSafeStalinSort extends Sort {
 
     int segmentcount;
 

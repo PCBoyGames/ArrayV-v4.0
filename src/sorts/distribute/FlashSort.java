@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
-final public class FlashSort extends Sort {
+public class FlashSort extends Sort {
     public FlashSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ZigZagSort extends BestForNSorting {
+public class ZigZagSort extends BestForNSorting {
     public ZigZagSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Zig-Zag");

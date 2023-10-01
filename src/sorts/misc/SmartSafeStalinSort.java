@@ -14,7 +14,7 @@ BASED IN PART ON CODE FROM GEEKSFORGEEKS
 ------------------------------
 
 */
-final public class SmartSafeStalinSort extends Sort {
+public class SmartSafeStalinSort extends Sort {
     public SmartSafeStalinSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

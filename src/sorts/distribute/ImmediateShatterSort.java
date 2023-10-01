@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class ImmediateShatterSort extends ShatterSorting {
+public class ImmediateShatterSort extends ShatterSorting {
     public ImmediateShatterSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

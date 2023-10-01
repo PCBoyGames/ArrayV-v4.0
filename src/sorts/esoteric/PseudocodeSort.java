@@ -7,7 +7,7 @@ enum Push {
     from(-1),
     to(1);
 
-    final int type;
+    int type;
 
     Push(int type) {
         this.type = type;
@@ -20,7 +20,7 @@ class Key {
     public static utils.Highlights Highlights;
     public static utils.Delays Delays;
 
-    public static final int alreadyGreatest = Integer.MIN_VALUE;
+    public static int alreadyGreatest = Integer.MIN_VALUE;
 
     int[] container;
     public int index;
@@ -60,7 +60,7 @@ class Key {
         Writes.multiSwap(key1.container, key1.index, to, 0.1, true, false);
     }
 }
-final public class PseudocodeSort extends BogoSorting {
+public class PseudocodeSort extends BogoSorting {
     public PseudocodeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

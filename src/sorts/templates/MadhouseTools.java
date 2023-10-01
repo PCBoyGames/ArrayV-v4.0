@@ -1,5 +1,6 @@
 package sorts.templates;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import main.ArrayVisualizer;
@@ -14,6 +15,13 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 CHANGELOG:
+
+MHT-1.0b (September 30, 2023)
+ - Minor rewrites and fixes.
+   + (Hopefully) fixed bound issues with the max-side exponential search.
+ - Minor rewrites and touchups of Javadocs.
+ - parX() comparisons are now counted.
+ - Aux rotations are now an option.
 
 MHT-1.0a (July 21, 2023)
  - Minor rewrites and fixes.
@@ -42,7 +50,7 @@ public abstract class MadhouseTools extends GrailSorting {
     \-----------------------*/
 
     /**Copied from the {@link BogoSorting#randInt BogoSorting} template to allow random integers to work alongside MadhouseTools.
-     * @param min The start of the range, inclusively.
+     * @param min The start of the range.
      * @param max The end of the range, exclusively.
      * @return An {@code int} with a random integer in the range.
      * @author Doug Lea
@@ -54,8 +62,8 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Copied from the {@link BogoSorting#bogoSwap BogoSorting} template to allow the Fisher–Yates shuffle function to work alongside MadhouseTools.
      * @param array The input array.
-     * @param start The start of the range, inclusively.
-     * @param end The end of the range, exclusively.
+     * @param start The start of the input bounds.
+     * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
      * @param aux A toggle for whether the operation is indicated in external space.
@@ -71,7 +79,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the first unsorted position from the maximums and where the next item in line is in {@code O(n)}, given input {@code array} from bounds {@code [start, end)}.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
@@ -100,7 +108,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the first unsorted position from the maximums in {@code O(n)}, given input {@code array} from bounds {@code [start, end)}.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
@@ -114,11 +122,11 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the first unsorted position from the minimums and where the next item in line is in {@code O(n)}, given input {@code array} from bounds {@code [start, end)}.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
-     * @return An {@code int[]} with two values:<ul><li>{@code [0]}: the index of the first unsorted minimum, inclusively.</li><li>{@code [1]}: the index of the next item in line.<ul><li>Special Case: returns {@code -1} if sorted.</li></ul></li></ul>
+     * @return An {@code int[]} with two values:<ul><li>{@code [0]}: the index of the first unsorted minimum.</li><li>{@code [1]}: the index of the next item in line.<ul><li>Special Case: returns {@code -1} if sorted.</li></ul></li></ul>
      * @author PCBoy
      * @since MHT-1.0
     */
@@ -142,11 +150,11 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the first unsorted position from the minimums in {@code O(n)}, given input {@code array} from bounds {@code [start, end)}.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
-     * @return An {@code int} with the index of the first unsorted minimum, inclusively.
+     * @return An {@code int} with the index of the first unsorted minimum.
      * @author PCBoy
      * @since MHT-1.0
     */
@@ -156,7 +164,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Performs a Stable Segment Reversal (SSR) on {@code array} items between {@code [start, end]}.
      * @param array The input array.
-     * @param start The start of the reversal, inclusively.
+     * @param start The start of the reversal.
      * @param end The end of the reversal, inclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
@@ -181,12 +189,12 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines a run from {@code array} starting at {@code start}, and if backward, stably reverses it.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
      * @param aux A toggle for whether the operation is indicated in external space.
-     * @return An {@code int} with the index where the run gets cut off.
+     * @return An {@code int} with the index where the run gets cut off, the last index of the run exclusively.
      * @author Ayako-chan
      * @author PCBoy
      * @since MHT-1.0
@@ -224,12 +232,12 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines a run from {@code array} starting at {@code start}, and if backward, reverses it.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
      * @param aux A toggle for whether the operation is indicated in external space.
-     * @return An {@code int} with the index where the run gets cut off.
+     * @return An {@code int} with the index where the run gets cut off, the last index of the run exclusively.
      * @author Ayako-chan
      * @author PCBoy
      * @since MHT-1.0
@@ -251,7 +259,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Performs a Pattern-Defeating operation that flips reversed runs from {@code array} between {@code (start, end]}.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param stable A toggle for whether the operation is performed stably or not.
      * @param delay The visual time of the operation, as a factor.
@@ -286,7 +294,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the maximum disparity of {@code array} section {@code [start, end)} in {@code O(n)} time.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
+     * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
      * @param delay The visual time of the operation, as a factor.
      * @param mark A toggle for whether highlights are made during the operation.
@@ -311,7 +319,19 @@ public abstract class MadhouseTools extends GrailSorting {
         for (int i = end - start - 1, j = end - start - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
             maximum = stableReturn(array[start + j]);
-            while (maximum <= stableReturn(array[start + i]) && i >= p) i--;
+            Highlights.markArray(1, start + j);
+            int c = stableReturn(array[start + i]);
+            Highlights.markArray(2, start + i);
+            Reads.addComparison();
+            Delays.sleep(delay);
+            while (maximum <= c && i >= p) {
+                i--;
+                c = stableReturn(array[start + i]);
+                Highlights.markArray(2, start + i);
+                Delays.sleep(delay);
+                Reads.addComparison();
+            }
+            Reads.addComparison();
             if (stableReturn(array[start + j]) > stableReturn(array[start + i]) && p < i - j) p = i - j;
         }
         Writes.changeAllocAmount(-(end - start));
@@ -366,8 +386,8 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines an index in a sorted segment of which is or approximates {@code value} in {@code O(log n)} time using a Binary search.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
-     * @param end The end of the input bounds, inclusively.
+     * @param start The start of the input bounds.
+     * @param end The end of the input bounds, exclusively.
      * @param value The value to search or approximate for.
      * @param left A toggle for whether the search looks for a left-most instance of the value.
      * @param delay The visual time of the operation, as a factor.
@@ -396,8 +416,8 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines an index in a sorted segment of which is or approximates {@code value} in {@code O(log n)} time using an Exponential search starting from the maximums.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
-     * @param end The end of the input bounds, inclusively.
+     * @param start The start of the input bounds.
+     * @param end The end of the input bounds, exclusively.
      * @param value The value to search or approximate for.
      * @param left A toggle for whether the search looks for a left-most instance of the value.
      * @param delay The visual time of the operation, as a factor.
@@ -409,7 +429,8 @@ public abstract class MadhouseTools extends GrailSorting {
      */
     public int maxExponentialSearch(int[] array, int start, int end, int value, boolean left, double delay, boolean mark) {
         int i = 1;
-        int cmp = Reads.compareValues(value, array[end - i]);
+        int cmp = -1;
+        if (end - i >= start) cmp = Reads.compareValues(value, array[end - i]);
         while (end - i >= start && (cmp < 0 || (left && cmp == 0))) {
             if (mark) {
                 Highlights.markArray(1, end - i / 2);
@@ -426,8 +447,8 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines an index in a sorted segment of which is or approximates {@code value} in {@code O(log n)} time using an Exponential search starting from the minimums.
      * @param array The input array.
-     * @param start The start of the input bounds, inclusively.
-     * @param end The end of the input bounds, inclusively.
+     * @param start The start of the input bounds.
+     * @param end The end of the input bounds, exclusively.
      * @param value The value to search or approximate for.
      * @param left A toggle for whether the search looks for a left-most instance of the value.
      * @param delay The visual time of the operation, as a factor.
@@ -486,7 +507,7 @@ public abstract class MadhouseTools extends GrailSorting {
      * @since MHT-1.0a
     */
     public boolean isValidRectangleAction(int x, int y, int a, int b) {
-        if (a >= x * y || b >= x * y) return false;
+        if (a >= x * y || b >= x * y || a < 0 || b < 0) return false;
         else if (Math.abs(b - a) < x) {if (Math.floor(a / x) != Math.floor(b / x)) return false;}
         else if (a % x != b % x) return false;
         return true;
@@ -495,7 +516,7 @@ public abstract class MadhouseTools extends GrailSorting {
     /**Performs an {@code array} rotation using a combination of Holy Gries-Mills and Contrev rotations.<p>
      * This uses a length-based format. For the index format, use {@code rotateIndexed} instead.
      * @param array The input array.
-     * @param pos The starting position of the rotation, inclusively.
+     * @param pos The starting position of the rotation.
      * @param lenA The first length of the rotation, the subarray to move tailward.
      * @param lenB The second length of the rotation, the subarray to move headward.
      * @param delay The visual time of the operation, as a factor.
@@ -515,7 +536,7 @@ public abstract class MadhouseTools extends GrailSorting {
     /**Replacement code for {@link GrailSorting#grailRotate} with a combination of Holy Gries-Mills and Contrev rotations.<p>
      * This uses the same delay factor, mark setting, and aux setting parameters as {@link GrailSorting#grailSwap the original Grail swap code}. To customize these, use {@code rotate} directly or {@code rotateIndexed} instead.
      * @param array The input array.
-     * @param pos The starting position of the rotation, inclusively.
+     * @param pos The starting position of the rotation.
      * @param lenA The first length of the rotation, the subarray to move tailward.
      * @param lenB The second length of the rotation, the subarray to move headward.
      * @author PCBoy
@@ -532,7 +553,7 @@ public abstract class MadhouseTools extends GrailSorting {
     /**Performs an {@code array} rotation using a combination of Holy Gries-Mills and Contrev rotations.<p>
      * This uses an index-based format. For the length format, use {@code rotate} directly instead.
      * @param array The input array.
-     * @param a The starting position of the rotation, inclusively.
+     * @param a The starting position of the rotation.
      * @param b The second position of the rotation, indicating a split in subarrays. The index inclusively begins the second subarray, and exclusively ends the first.
      * @param c The end position of the rotation, exclusively.
      * @param delay The visual time of the operation, as a factor.
@@ -551,7 +572,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines a prime number less than {@code n}.
      * @param n The initial number.
-     * @return An {@code int}, with the first prime number that is less than the input.<ul><li>Special Case: Returns {@code 1} if {@code n <= 2}.</li></ul>
+     * @return An {@code int} with the first prime number that is less than the input.<ul><li>Special Case: Returns {@code 1} if {@code n <= 2}.</li></ul>
      * @author PCBoy
      * @since MHT-1.0a
      */
@@ -570,7 +591,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines a prime number greater than {@code n}.
      * @param n The initial number.
-     * @return An {@code int}, with the first prime number that is greater than the input.
+     * @return An {@code int} with the first prime number that is greater than the input.
      * @author PCBoy
      * @since MHT-1.0a
      */
@@ -600,7 +621,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the prime number lowest in the prime factor tree of {@code n}.
      * @param n The initial number.
-     * @return An {@code int}, with the first prime number that is in the factor tree.
+     * @return An {@code int} with the first prime number that is in the factor tree.
      * @author PCBoy
      * @since MHT-1.0a
      */
@@ -611,7 +632,7 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Defines the prime number highest in the prime factor tree of {@code n}.
      * @param n The initial number.
-     * @return An {@code int}, with the last prime number that is in the factor tree.
+     * @return An {@code int} with the last prime number that is in the factor tree.
      * @author PCBoy
      * @since MHT-1.0a
      */
@@ -622,5 +643,153 @@ public abstract class MadhouseTools extends GrailSorting {
             if (n > 1) h = lowPrime(n);
         }
         return h;
+    }
+
+    /*------------------------\
+    |SINCE MADHOUSE TOOLS 1.0b|
+    \------------------------*/
+
+    /**Defines a list of prime factors of {@code n}.
+     * @param n The initial number.
+     * @return An {@code int[]} with all the values the make the prime factor tree of {@code n}.
+     * @author PCBoy
+     * @since MHT-1.0b
+     */
+    public int[] factorTree(int n) {
+        ArrayList<int[]> tree = new ArrayList<>();
+        while (n != 1) {
+            int trial = lowPrime(n);
+            tree.add(new int[] {trial});
+            n /= trial;
+        }
+        int[] print = new int[tree.size()];
+        for (int i = 0; i < tree.size(); i++) print[i] = tree.get(i)[0];
+        tree.clear();
+        return print;
+    }
+
+    /**Performs an {@code array} rotation using a Bridge rotation.<p>
+     * This uses a length-based format. For the index format, use {@code bridgeSpecifyAuxIndexed} instead.
+     * @param array The input array.
+     * @param ext The external space to use.
+     * @param pos The starting position of the rotation.
+     * @param lenA The first length of the rotation, the subarray to move tailward.
+     * @param lenB The second length of the rotation, the subarray to move headward.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author Scandum
+     * @since MHT-1.0b
+     */
+    public void bridgeSpecifyAux(int[] array, int[] ext, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) {
+        if (lenA < 1 || lenB < 1) return;
+        int pta = pos;
+        int ptb = pos + lenA;
+        int ptc = pos + lenB;
+        int ptd = ptb + lenB;
+        if (lenA < lenB) {
+            int bridge = lenB - lenA;
+            if (bridge < lenA) {
+                int loop = lenA;
+                Writes.arraycopy(array, ptb, ext, 0, bridge, delay, mark, true);
+                while (loop-- > 0) {
+                    Writes.write(array, --ptc, array[--ptd], delay / 2, mark, aux);
+                    Writes.write(array, ptd, array[--ptb], delay / 2, mark, aux);
+                }
+                Writes.arraycopy(ext, 0, array, pta, bridge, delay, mark, aux);
+            } else {
+                Writes.arraycopy(array, pta, ext, 0, lenA, delay, mark, true);
+                Writes.arraycopy(array, ptb, array, pta, lenB, delay, mark, aux);
+                Writes.arraycopy(ext, 0, array, ptc, lenA, delay, mark, aux);
+            }
+        } else {
+            int bridge = lenA - lenB;
+            if (bridge < lenB) {
+                int loop = lenB;
+                Writes.arraycopy(array, ptc, ext, 0, bridge, delay, mark, true);
+                while (loop-- > 0) {
+                    Writes.write(array, ptc++, array[pta], delay / 2, mark, aux);
+                    Writes.write(array, pta++, array[ptb++], delay / 2, mark, aux);
+                }
+                Writes.arraycopy(ext, 0, array, ptd - bridge, bridge, delay, mark, aux);
+            } else {
+                Writes.arraycopy(array, ptb, ext, 0, lenB, delay, mark, true);
+                while (lenA-- > 0) Writes.write(array, --ptd, array[--ptb], delay, mark, aux);
+                Writes.arraycopy(ext, 0, array, pta, lenB, delay, mark, aux);
+            }
+        }
+    }
+
+    /**Performs an {@code array} rotation using a Bridge rotation.<p>
+     * This uses an index-based format. For the length format, use {@code bridgeSpecifyAux} directly instead.
+     * @param array The input array.
+     * @param ext The external space to use.
+     * @param a The starting position of the rotation.
+     * @param b The second position of the rotation, indicating a split in subarrays. The index inclusively begins the second subarray, and exclusively ends the first.
+     * @param c The end position of the rotation, exclusively.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author Scandum
+     * @since MHT-1.0b
+     */
+    public void bridgeSpecifyAuxIndexed(int[] array, int[] ext, int a, int b, int c, double delay, boolean mark, boolean aux) {
+        bridgeSpecifyAux(array, ext, a, b - a, c - b, delay, mark, aux);
+    }
+
+    /**Performs an {@code array} rotation using a combination of Holy Gries-Mills, Bridge, and Contrev rotations.<p>
+     * This uses a length-based format. For the index format, use {@code rotateAuxIndexed} instead.
+     * @param array The input array.
+     * @param ext The external space to attempt Bridge using.<ul><li>Special Case: Only used if {@code Math.min(lenA, lenB) <= ext.length}.</li></ul>
+     * @param pos The starting position of the rotation.
+     * @param lenA The first length of the rotation, the subarray to move tailward.
+     * @param lenB The second length of the rotation, the subarray to move headward.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author PCBoy
+     * @author Team Holy Grail
+     * @author David Gries
+     * @author Harlan Mills
+     * @author Scandum
+     * @since MHT-1.0b
+     */
+    public void rotateAux(int[] array, int[] ext, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) {
+        if (lenA == 0 || lenB == 0) return;
+        if (lenA % lenB == 0 || lenB % lenA == 0) Rotations.holyGriesMills(array, pos, lenA, lenB, delay, mark, aux);
+        else if (Math.min(lenA, lenB) <= ext.length) bridgeSpecifyAux(array, ext, pos, lenA, lenB, delay, mark, aux);
+        else Rotations.cycleReverse(array, pos, lenA, lenB, delay, mark, aux);
+    }
+
+    /**Performs an {@code array} rotation using a combination of Holy Gries-Mills, Bridge, and Contrev rotations.<p>
+     * This uses an index-based format. For the length format, use {@code rotateAux} directly instead.
+     * @param array The input array.
+     * @param ext The external space to attempt Bridge using.<ul><li>Special Case: Only used if {@code Math.min(b - a, c - b) <= ext.length}.</li></ul>
+     * @param a The starting position of the rotation.
+     * @param b The second position of the rotation, indicating a split in subarrays. The index inclusively begins the second subarray, and exclusively ends the first.
+     * @param c The end position of the rotation, exclusively.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author PCBoy
+     * @author Team Holy Grail
+     * @author David Gries
+     * @author Harlan Mills
+     * @author Scandum
+     * @since MHT-1.0b
+     */
+    public void rotateAuxIndexed(int[] array, int[] ext, int a, int b, int c, double delay, boolean mark, boolean aux) {
+        rotateAux(array, ext, a, b - a, c - b, delay, mark, aux);
+    }
+
+    /**Performs a linear sortedness check on {@code array}.
+     * @param array The input array.
+     * @param a The start of the input bounds.
+     * @param b The end of the input bounds, exclusively.
+     * @return A {@code boolean}, whether the input is sorted.
+     */
+    public boolean isSorted(int[] array, int a, int b) {
+        for (int i = a; i + 1 < b; i++) if (Reads.compareValues(array[i], array[i + 1]) > 0) return false;
+        return true;
     }
 }

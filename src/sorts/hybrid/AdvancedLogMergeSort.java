@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class AdvancedLogMergeSort extends Sort {
+public class AdvancedLogMergeSort extends Sort {
 	public AdvancedLogMergeSort(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
 
@@ -48,15 +48,15 @@ final public class AdvancedLogMergeSort extends Sort {
 		this.setQuestion("Set block size (default: calculates minimum block length for current length)", 1);
 	}
 
-	private final int MIN_INSERT = 16;
+	private int MIN_INSERT = 16;
 
 	private BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 
 	private class BitArray {
-		private final int[] array;
-		private final int pa, pb, w;
+		private int[] array;
+		private int pa, pb, w;
 
-		public final int size;
+		public int size;
 
 		public BitArray(int[] array, int pa, int pb, int size, int w) {
 			this.array = array;

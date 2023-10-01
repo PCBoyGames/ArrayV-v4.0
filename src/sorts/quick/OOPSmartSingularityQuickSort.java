@@ -20,7 +20,7 @@ in collaboration with aphitorite and PCBoy
  * @author PCBoy
  *
  */
-public final class OOPSmartSingularityQuickSort extends Sort {
+public class OOPSmartSingularityQuickSort extends Sort {
 
     public OOPSmartSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

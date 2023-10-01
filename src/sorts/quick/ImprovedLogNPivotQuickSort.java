@@ -22,7 +22,7 @@ in collaboration with aphitorite and Meme Man
  * @author Meme Man
  *
  */
-public final class ImprovedLogNPivotQuickSort extends Sort {
+public class ImprovedLogNPivotQuickSort extends Sort {
 
     public ImprovedLogNPivotQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -37,14 +37,14 @@ public final class ImprovedLogNPivotQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public static int log2(int n) {
         int log = 0;
         while ((n >>= 1) != 0)
             ++log;
         return log;
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -55,7 +55,7 @@ public final class ImprovedLogNPivotQuickSort extends Sort {
             Writes.write(array, b, temp, 0.5, true, false);
         }
     }
-    
+
     private int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -69,7 +69,7 @@ public final class ImprovedLogNPivotQuickSort extends Sort {
         }
         return a;
     }
-    
+
     protected int expSearch(int[] array, int a, int b, int val) {
         int i = 1;
         while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
@@ -77,12 +77,12 @@ public final class ImprovedLogNPivotQuickSort extends Sort {
         int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
         return binSearch(array, a1, b1, val, false);
     }
-    
+
     protected void insertSort(int[] array, int a, int b) {
         for (int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
-    
+
     private void siftDown(int[] array, int val, int i, int p, int n) {
         while (4 * i + 1 < n) {
             int max = val;
@@ -112,7 +112,7 @@ public final class ImprovedLogNPivotQuickSort extends Sort {
             this.siftDown(array, t, 0, a, i);
         }
     }
-    
+
     // Easy patch to avoid self-swaps.
     public void swap(int[] array, int a, int b, double pause, boolean mark, boolean aux) {
         if (a != b)
@@ -208,7 +208,7 @@ public final class ImprovedLogNPivotQuickSort extends Sort {
             this.sortHelper(array, tmp, pb[i - 1], pb[i], depth);
         Writes.changeAllocAmount(-2 * bCnt);
     }
-    
+
     public void quickSort(int[] array, int a, int b) {
         if (b - a < 32) {
             insertSort(array, a, b);

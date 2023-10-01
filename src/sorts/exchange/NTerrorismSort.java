@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class NTerrorismSort extends Sort {
+public class NTerrorismSort extends Sort {
     public NTerrorismSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

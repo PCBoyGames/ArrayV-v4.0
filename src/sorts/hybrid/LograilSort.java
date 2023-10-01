@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class LograilSort extends Sort {
+public class LograilSort extends Sort {
 	public LograilSort(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
 
@@ -48,7 +48,7 @@ final public class LograilSort extends Sort {
 		this.setQuestion("Set block size (default: calculates minimum block length for current length)", 1);
 	}
 
-	private final int MIN_INSERT = 16;
+	private int MIN_INSERT = 16;
 
 	private BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 

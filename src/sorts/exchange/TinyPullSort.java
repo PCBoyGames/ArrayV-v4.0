@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class TinyPullSort extends Sort {
+public class TinyPullSort extends Sort {
     public TinyPullSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

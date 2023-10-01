@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class LuckyCombSort extends BogoSorting {
+public class LuckyCombSort extends BogoSorting {
     public LuckyCombSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lucky Comb");

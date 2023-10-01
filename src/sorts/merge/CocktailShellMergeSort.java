@@ -9,7 +9,7 @@ import sorts.templates.Sort;
  * @author fungamer2
  *
  */
-public final class CocktailShellMergeSort extends Sort {
+public class CocktailShellMergeSort extends Sort {
 
     public CocktailShellMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

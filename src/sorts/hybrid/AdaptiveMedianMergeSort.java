@@ -20,7 +20,7 @@ in collaboration with aphitorite and yuji
  * @author yuji
  *
  */
-public final class AdaptiveMedianMergeSort extends Sort {
+public class AdaptiveMedianMergeSort extends Sort {
 
     public AdaptiveMedianMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

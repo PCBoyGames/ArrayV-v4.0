@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * @author McDude_73
  *
  */
-public final class ChinottoSort extends Sort {
+public class ChinottoSort extends Sort {
 
     /**
      * @param arrayVisualizer

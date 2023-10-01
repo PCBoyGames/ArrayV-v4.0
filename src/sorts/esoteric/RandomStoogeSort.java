@@ -14,7 +14,7 @@ import sorts.templates.BogoSorting;
  */
 
 // Code refactored from: https://en.wikipedia.org/wiki/Stooge_sort
-final public class RandomStoogeSort extends BogoSorting {
+public class RandomStoogeSort extends BogoSorting {
     public RandomStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

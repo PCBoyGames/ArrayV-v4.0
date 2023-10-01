@@ -2,6 +2,7 @@ package sorts.hybrid;
 
 import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
+import utils.IndexedRotations;
 
 /*
 
@@ -138,28 +139,7 @@ public class CookieSort extends GrailSorting {
     }
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
-        int end = pos + lenA + lenB;
-        while (lenA > 0 && lenB > 0) {
-            if (lenA < lenB) {
-                for (int i = 0; i < lenA; i++) {
-                    int t = array[pos + i], j = pos + i + lenA;
-                    for (; j < end; j += lenA) Writes.write(array, j - lenA, array[j], 1, true, false);
-                    Writes.write(array, j - lenA, t, 1, true, false);
-                }
-                pos += lenB;
-                lenB %= lenA;
-                lenA -= lenB;
-            } else {
-                for (int i = 0; i < lenB; i++) {
-                    int t = array[pos + i + lenA], j = pos + i + lenA - lenB;
-                    for (; j >= pos; j -= lenB) Writes.write(array, j + lenB, array[j], 1, true, false);
-                    Writes.write(array, j + lenB, t, 1, true, false);
-                }
-                end = pos+lenB;
-                lenA %= lenB;
-                lenB -= lenA;
-            }
-        }
+        IndexedRotations.adaptable(array, pos, lenA, lenB, 1, true, false);
     }
 
     // SHELL

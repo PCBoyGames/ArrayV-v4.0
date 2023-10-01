@@ -17,7 +17,7 @@ Coded for ArrayV by Ayako-chan
  * @author Ayako-chan
  *
  */
-public final class CombBogoSort extends BogoSorting {
+public class CombBogoSort extends BogoSorting {
 
     public CombBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

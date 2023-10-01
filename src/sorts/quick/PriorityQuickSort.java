@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import sorts.insert.BinaryInsertionSort;
 import java.util.PriorityQueue;
 
-final public class PriorityQuickSort extends Sort {
+public class PriorityQuickSort extends Sort {
     public PriorityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -21,9 +21,9 @@ final public class PriorityQuickSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int MIN = 32;
+    private int MIN = 32;
 
-    private final class Partition implements Comparable<Partition> {
+    private class Partition implements Comparable<Partition> {
         public int a, b;
 
         public Partition(int a, int b) {

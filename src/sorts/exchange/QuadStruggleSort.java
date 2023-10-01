@@ -19,7 +19,7 @@ A really cursed mix between Bubble and Quad Stooge.
  * @author Ayako-chan
  *
  */
-public final class QuadStruggleSort extends Sort {
+public class QuadStruggleSort extends Sort {
 
     public QuadStruggleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,7 +34,7 @@ public final class QuadStruggleSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     boolean compSwap(int[] array, int a, int b) {
         if (Reads.compareIndices(array, a, b, 0.125, true) > 0) {
             Writes.swap(array, a, b, 0.125, false, false);
@@ -42,7 +42,7 @@ public final class QuadStruggleSort extends Sort {
         }
         return false;
     }
-    
+
     public void sort(int[] array, int a, int b) {
         if (b - a < 2) return;
         boolean anySwaps = true;

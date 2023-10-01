@@ -3,7 +3,7 @@ package sorts.concurrent;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class MergeExchangeSortRecursive extends Sort {
+public class MergeExchangeSortRecursive extends Sort {
 
     public MergeExchangeSortRecursive(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

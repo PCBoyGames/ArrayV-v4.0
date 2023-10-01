@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class SemiStoogeSort extends Sort {
+public class SemiStoogeSort extends Sort {
     public SemiStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

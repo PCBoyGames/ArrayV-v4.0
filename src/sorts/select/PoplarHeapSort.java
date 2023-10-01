@@ -53,7 +53,7 @@ public class PoplarHeapSort extends Sort {
     }
 
     // Insertion sort which doesn't check for empty sequences
-    private void unchecked_insertion_sort(int[] array, int first, int last) {
+    private void unchecked_insertion_sort(int[] array, int first, int last, boolean shuffle) {
         for (int cur = first + 1; cur != last; ++cur) {
             int sift = cur;
             int sift_1 = cur - 1;
@@ -63,23 +63,23 @@ public class PoplarHeapSort extends Sort {
             if (Reads.compareValues(array[sift], array[sift_1]) == -1) {
                 int tmp = array[sift];
                 do {
-                    Writes.write(array, sift, array[sift_1], 0.25, true, false);
+                    Writes.write(array, sift, array[sift_1], shuffle ? 0 : 0.25, true, false);
                 } while (--sift != first && Reads.compareValues(tmp, array[--sift_1]) == -1);
-                Writes.write(array, sift, tmp, 0.25, true, false);
+                Writes.write(array, sift, tmp, shuffle ? 0 : 0.25, true, false);
             }
         }
     }
 
-    private void insertion_sort(int[] array, int first, int last) {
+    private void insertion_sort(int[] array, int first, int last, boolean shuffle) {
         if (first == last) return;
-        unchecked_insertion_sort(array, first, last);
+        unchecked_insertion_sort(array, first, last, shuffle);
     }
 
     ////////////////////////////////////////////////////////////
     // Poplar heap specific helper functions
     ////////////////////////////////////////////////////////////
 
-    private void sift(int[] array, int first, int size) {
+    private void sift(int[] array, int first, int size, boolean shuffle) {
         if (size < 2) return;
 
         int root = first + (size - 1);
@@ -96,7 +96,7 @@ public class PoplarHeapSort extends Sort {
             }
             if (max_root == root) return;
 
-            Writes.swap(array, root, max_root, 0.75, true, false);
+            Writes.swap(array, root, max_root, shuffle ? 0 : 0.75, true, false);
             Highlights.clearMark(2);
 
             size /= 2;
@@ -134,11 +134,11 @@ public class PoplarHeapSort extends Sort {
         if (bigger != last_root) {
             Writes.swap(array, bigger, last_root, 0.75, true, false);
             Highlights.clearMark(2);
-            this.sift(array, bigger - (bigger_size - 1), bigger_size);
+            this.sift(array, bigger - (bigger_size - 1), bigger_size, false);
         }
     }
 
-    private void make_heap(int[] array, int first, int last) {
+    private void make_heap(int[] array, int first, int last, boolean shuffle) {
         int size = last - first;
         if (size < 2) return;
 
@@ -148,7 +148,7 @@ public class PoplarHeapSort extends Sort {
         // ones as the base case
         int small_poplar_size = 15;
         if (size <= small_poplar_size) {
-            this.unchecked_insertion_sort(array, first, last);
+            this.unchecked_insertion_sort(array, first, last, shuffle);
             return;
         }
 
@@ -160,7 +160,7 @@ public class PoplarHeapSort extends Sort {
         int next = it + small_poplar_size;
         while (true) {
             // Make a 15 element poplar
-            this.unchecked_insertion_sort(array, it, next);
+            this.unchecked_insertion_sort(array, it, next, shuffle);
 
             int poplar_size = small_poplar_size;
 
@@ -168,12 +168,12 @@ public class PoplarHeapSort extends Sort {
             for (int i = (poplar_level & (0 - poplar_level)) >> 1; i != 0; i >>= 1) {
                 it -= poplar_size;
                 poplar_size = 2 * poplar_size + 1;
-                this.sift(array, it, poplar_size);
+                this.sift(array, it, poplar_size, shuffle);
                 ++next;
             }
 
             if ((last - next) <= small_poplar_size) {
-                this.insertion_sort(array, next, last);
+                this.insertion_sort(array, next, last, shuffle);
                 return;
             }
 
@@ -194,12 +194,12 @@ public class PoplarHeapSort extends Sort {
         } while (size > 1);
     }
 
-    public void poplarHeapify(int[] array, int start, int length) {
-        this.make_heap(array, start, length);
+    public void poplarHeapify(int[] array, int start, int length, boolean shuffle) {
+        this.make_heap(array, start, length, shuffle);
     }
 
     public void heapSort(int[] array, int start, int end) {
-        this.make_heap(array, start, end);
+        this.make_heap(array, start, end, false);
         this.sort_heap(array, start, end);
     }
 

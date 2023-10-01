@@ -6,7 +6,7 @@ package sorts.esoteric;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class TerrorismSort extends Sort {
+public class TerrorismSort extends Sort {
     public TerrorismSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         setSortListName("Terrorism");

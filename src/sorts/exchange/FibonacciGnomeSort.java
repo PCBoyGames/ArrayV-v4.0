@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author mingyue12
  *
  */
-public final class FibonacciGnomeSort extends Sort {
+public class FibonacciGnomeSort extends Sort {
 
     public FibonacciGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class NapoleonSort extends Sort {
+public class NapoleonSort extends Sort {
     public NapoleonSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

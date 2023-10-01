@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
 
-final public class MoreSimplifiedHanoiSort extends Sort {
+public class MoreSimplifiedHanoiSort extends Sort {
 
     public MoreSimplifiedHanoiSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

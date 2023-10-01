@@ -21,7 +21,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class MOMPriorityQuickSort extends Sort {
+public class MOMPriorityQuickSort extends Sort {
 
     public MOMPriorityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

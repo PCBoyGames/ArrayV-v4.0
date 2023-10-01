@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class InverseSmoothSelectionSort extends Sort {
+public class InverseSmoothSelectionSort extends Sort {
     public InverseSmoothSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

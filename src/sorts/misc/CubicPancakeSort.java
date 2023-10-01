@@ -17,7 +17,7 @@ Self-explanatory.
 
  */
 
-public final class CubicPancakeSort extends Sort {
+public class CubicPancakeSort extends Sort {
     public CubicPancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

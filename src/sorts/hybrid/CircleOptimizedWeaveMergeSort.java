@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class CircleOptimizedWeaveMergeSort extends Sort {
+public class CircleOptimizedWeaveMergeSort extends Sort {
 
     QuadSort quad = new QuadSort(arrayVisualizer);
 

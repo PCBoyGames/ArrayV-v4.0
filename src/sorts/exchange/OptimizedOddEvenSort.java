@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedOddEvenSort extends Sort {
+public class OptimizedOddEvenSort extends Sort {
     public OptimizedOddEvenSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Odd-Even");

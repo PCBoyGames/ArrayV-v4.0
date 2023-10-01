@@ -10,7 +10,7 @@ import sorts.templates.Sort;
  * and slightly less time when finding mins compared to BaseNMerge
  */
 
-final public class MiepurgeSort extends Sort {
+public class MiepurgeSort extends Sort {
     public MiepurgeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

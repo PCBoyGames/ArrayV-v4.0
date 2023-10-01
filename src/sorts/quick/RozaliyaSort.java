@@ -22,7 +22,7 @@ in collaboration with aphitorite, Gaming32 and Scandum
  * @author Scandum
  *
  */
-public final class RozaliyaSort extends Sort {
+public class RozaliyaSort extends Sort {
 
     public RozaliyaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

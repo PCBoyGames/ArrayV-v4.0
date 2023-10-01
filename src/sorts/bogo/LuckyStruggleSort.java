@@ -17,7 +17,7 @@ Stop me.
 
  */
 
-public final class LuckyStruggleSort extends BogoSorting {
+public class LuckyStruggleSort extends BogoSorting {
     public LuckyStruggleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

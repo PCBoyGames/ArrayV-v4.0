@@ -3,7 +3,7 @@ package sorts.concurrent;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class PairwiseSortCursed extends Sort {
+public class PairwiseSortCursed extends Sort {
     public PairwiseSortCursed(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -2,7 +2,7 @@ package dialogs;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-final public class SoundbankDialog extends FileDialog {
+public class SoundbankDialog extends FileDialog {
     public SoundbankDialog() {
         super();
 

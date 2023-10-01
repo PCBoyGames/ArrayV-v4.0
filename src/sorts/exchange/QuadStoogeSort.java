@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * @author EilrahcF
  *
  */
-public final class QuadStoogeSort extends Sort {
+public class QuadStoogeSort extends Sort {
 
     /**
      * @param arrayVisualizer

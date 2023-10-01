@@ -20,7 +20,7 @@ in collaboration with aphitorite and PCBoy
  * @author PCBoy
  *
  */
-public final class UnstableSmartSingularityQuickSort extends Sort {
+public class UnstableSmartSingularityQuickSort extends Sort {
 
     public UnstableSmartSingularityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

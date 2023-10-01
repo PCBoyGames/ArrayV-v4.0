@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OutOfPlaceStableSelectionSort extends Sort {
+public class OutOfPlaceStableSelectionSort extends Sort {
     public OutOfPlaceStableSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Out-of-Place Stable Selection");

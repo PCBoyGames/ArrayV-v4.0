@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class NarniaSort extends Sort {
+public class NarniaSort extends Sort {
     public NarniaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

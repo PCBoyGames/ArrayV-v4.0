@@ -20,7 +20,7 @@ in collaboration with aphitorite and Scandum
  * @author Scandum
  *
  */
-public final class YukariSort extends Sort {
+public class YukariSort extends Sort {
 
     public YukariSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

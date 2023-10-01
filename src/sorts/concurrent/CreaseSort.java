@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CreaseSort extends Sort {
+public class CreaseSort extends Sort {
     public CreaseSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

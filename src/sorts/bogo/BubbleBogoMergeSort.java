@@ -7,7 +7,7 @@ import sorts.templates.BogoSorting;
  * @author Kiriko-chan
  *
  */
-public final class BubbleBogoMergeSort extends BogoSorting {
+public class BubbleBogoMergeSort extends BogoSorting {
 
     public BubbleBogoMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

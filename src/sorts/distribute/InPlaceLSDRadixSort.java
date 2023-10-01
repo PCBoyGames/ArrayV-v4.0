@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class InPlaceLSDRadixSort extends Sort {
+public class InPlaceLSDRadixSort extends Sort {
     public InPlaceLSDRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

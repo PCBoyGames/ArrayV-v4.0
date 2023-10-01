@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShellUnstableSingularityQuickSort extends Sort {
+public class ShellUnstableSingularityQuickSort extends Sort {
 
     int depthlimit;
     int insertlimit;

@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShepherdSort extends HeapSorting {
+public class ShepherdSort extends HeapSorting {
     public ShepherdSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Shepherd");

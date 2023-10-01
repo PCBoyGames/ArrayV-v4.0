@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class UnstableInsertionSort extends Sort {
+public class UnstableInsertionSort extends Sort {
     public UnstableInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

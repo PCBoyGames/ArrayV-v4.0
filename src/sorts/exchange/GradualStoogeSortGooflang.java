@@ -17,7 +17,7 @@ Another brick in the wall of Another brick in the wall of Another brick in the w
 
  */
 
-public final class GradualStoogeSortGooflang extends Sort {
+public class GradualStoogeSortGooflang extends Sort {
 
     int h;
 
@@ -68,7 +68,7 @@ public final class GradualStoogeSortGooflang extends Sort {
             int temp = array[a];
             if (O == 1) {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.swap(array, a, b, 0.1, true, false);
                     }
                 } else {
@@ -78,12 +78,12 @@ public final class GradualStoogeSortGooflang extends Sort {
                 }
             } else {
                 if (b - a > 0) {
-                    for (int i = 0; i < b - a; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaSwap(O - 1, array, a, b, depth + 1);
                     }
                 } else {
-                    for (int i = 0; i < a - b; i++) {
+                    for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++) {
                         Writes.recursion();
                         nOmegaSwap(O - 1, array, a, b, depth + 1);
                     }

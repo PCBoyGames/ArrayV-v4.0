@@ -19,7 +19,7 @@ in collaboration with _fluffyy
  * @author _fluffyy
  *
  */
-public final class SmartSemiMedianQuickSort extends Sort {
+public class SmartSemiMedianQuickSort extends Sort {
 
     public SmartSemiMedianQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

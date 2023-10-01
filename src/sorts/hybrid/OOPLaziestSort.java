@@ -13,7 +13,7 @@ import sorts.templates.Sort;
  * @author Yuri-chan2007
  *
  */
-public final class OOPLaziestSort extends Sort {
+public class OOPLaziestSort extends Sort {
 
     public OOPLaziestSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class BingoMergeSort extends Sort {
+public class BingoMergeSort extends Sort {
 
     public BingoMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

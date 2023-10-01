@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class GAVLTreeSort extends Sort {
+public class GAVLTreeSort extends Sort {
     public GAVLTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -56,8 +56,8 @@ final public class GAVLTreeSort extends Sort {
     }
 
     private class GAVLTree {
-        private final int[] array, tree, gSize;
-        private final int o;
+        private int[] array, tree, gSize;
+        private int o;
 
         private int g, size, kSize;
 

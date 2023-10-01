@@ -21,7 +21,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class DualPivotLLLPriorityQuickSort extends Sort {
+public class DualPivotLLLPriorityQuickSort extends Sort {
 
     public DualPivotLLLPriorityQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -36,7 +36,7 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     class Partition implements Comparable<Partition> {
         public int a, b;
         public int divisor;
@@ -61,7 +61,7 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
     }
 
     int threshold = 32;
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -86,12 +86,12 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
         }
         return a1;
     }
-    
+
     protected void insertSort(int[] array, int a, int b) {
         for (int i = a + 1; i < b; i++)
             insertTo(array, i, expSearch(array, a, i, array[i]));
     }
-    
+
     int pivCmp(int[] array, int idx, int piv1, int piv2, boolean bias) {
         Highlights.markArray(1, idx);
         Delays.sleep(0.5);
@@ -102,7 +102,7 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
         if (cmp > 0 || (bias && cmp == 0)) return 1;
         return 0;
     }
-    
+
     int[] partition(int[] array, int a, int b, int piv1, int piv2, boolean bias) {
         Highlights.clearMark(2);
         int i = a, j = a;
@@ -112,7 +112,7 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
             int cmp = pivCmp(array, k, piv1, piv2, bias);
             if (cmp <= 0) {
                 int t = array[k];
-                
+
                 Writes.write(array, k, array[j], 0.25, true, false);
                 if (cmp < 0) {
                     Writes.write(array, j, array[i], 0.25, true, false);
@@ -123,12 +123,12 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
         }
         return new int[] {i, j};
     }
-    
+
     void consumePartition(int[] array, PriorityQueue<Partition> queue, int a, int b, int d) {
         if (b - a > threshold) queue.offer(new Partition(a, b, d));
         else insertSort(array, a, b);
     }
-    
+
     void innerSort(int[] array, int left, int right) {
         if (right - left <= this.threshold) {
             insertSort(array, left, right);
@@ -149,7 +149,7 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
                 piv2 = array[b - 1 - s];
             }
             int[] pr;
-            
+
             pr = partition(array, a, b, piv1, piv2, pivCmp != 0);
             int m1 = pr[0], m2 = pr[1];
             if (pivCmp == 0 && m2 - m1 == b - a) continue;
@@ -159,7 +159,7 @@ public final class DualPivotLLLPriorityQuickSort extends Sort {
             consumePartition(array, queue, m2, b, d);
         }
     }
-    
+
     public void quickSort(int[] array, int a, int b) {
         int z = 0, e = 0;
         for (int i = a; i < b - 1; i++) {

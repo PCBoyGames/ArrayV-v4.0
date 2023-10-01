@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class StacklessBinaryQuickSort extends Sort {
+public class StacklessBinaryQuickSort extends Sort {
     public StacklessBinaryQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

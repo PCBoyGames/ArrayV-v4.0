@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class InPlaceMergeSortII extends Sort {
+public class InPlaceMergeSortII extends Sort {
     public InPlaceMergeSortII(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

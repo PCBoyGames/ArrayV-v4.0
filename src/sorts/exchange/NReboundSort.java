@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class NReboundSort extends Sort {
+public class NReboundSort extends Sort {
     public NReboundSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Bounce-N Rebound");

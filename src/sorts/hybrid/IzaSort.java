@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class IzaSort extends Sort {
+public class IzaSort extends Sort {
     public IzaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -61,8 +61,8 @@ final public class IzaSort extends Sort {
         @author aphitorite
     */
 
-    private final int MIN_INSERT = 32;
-    private final int MIN_HEAP   = 4095;
+    private int MIN_INSERT = 32;
+    private int MIN_HEAP   = 4095;
 
     private BinaryInsertionSort smallSort;
 
@@ -150,10 +150,10 @@ final public class IzaSort extends Sort {
     }
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size, length;
+        public int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;
@@ -233,9 +233,9 @@ final public class IzaSort extends Sort {
         return (1 << log) * (log + 2) - 1;
     }
 
-    private final class GAVLTree {
-        private final int[] array;
-        private final int o, p, pa, pb;
+    private class GAVLTree {
+        private int[] array;
+        private int o, p, pa, pb;
 
         private BitArray gSize;
         private int g, size, kSize;

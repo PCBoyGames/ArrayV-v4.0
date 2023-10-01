@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-final public class TheMarkovCouncilBurnsThemselvesOnSomeSoupSort extends BogoSorting {
+public class TheMarkovCouncilBurnsThemselvesOnSomeSoupSort extends BogoSorting {
     public TheMarkovCouncilBurnsThemselvesOnSomeSoupSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

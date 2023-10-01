@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-public final class SkipSort extends Sort {
+public class SkipSort extends Sort {
     public SkipSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

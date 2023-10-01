@@ -3,7 +3,7 @@ package sorts.merge;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class OutOfPlaceWeaveMergeSort extends Sort {
+public class OutOfPlaceWeaveMergeSort extends Sort {
 
     public OutOfPlaceWeaveMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class PatternDefeatingDisparityBidirectionalExponentialLinearShellSort extends Sort {
+public class PatternDefeatingDisparityBidirectionalExponentialLinearShellSort extends Sort {
 
     public PatternDefeatingDisparityBidirectionalExponentialLinearShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

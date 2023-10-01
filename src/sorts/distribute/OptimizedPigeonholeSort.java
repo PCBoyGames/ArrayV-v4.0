@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class OptimizedPigeonholeSort extends Sort {
+public class OptimizedPigeonholeSort extends Sort {
     public OptimizedPigeonholeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -7,8 +7,8 @@ import sorts.hybrid.KitaSort;
 import sorts.templates.Sort;
 import utils.ImplQueue;
 
-final public class StableReversal extends Sort {
-    final double BLOCK_DIV = 6.98;
+public class StableReversal extends Sort {
+    double BLOCK_DIV = 6.98;
 
     public StableReversal(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

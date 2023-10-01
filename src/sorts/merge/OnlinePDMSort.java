@@ -5,7 +5,7 @@ import utils.IndexedRotations;
 import sorts.templates.Sort;
 
 
-final public class OnlinePDMSort extends Sort {
+public class OnlinePDMSort extends Sort {
     public OnlinePDMSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

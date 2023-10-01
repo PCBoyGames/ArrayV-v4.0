@@ -3,7 +3,7 @@
  import main.ArrayVisualizer;
  import sorts.templates.BogoSorting;
 
- public final class LessBodoSort extends BogoSorting {
+ public class LessBodoSort extends BogoSorting {
    public LessBodoSort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);
 

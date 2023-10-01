@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class SimplifiedTreeSort extends Sort {
+public class SimplifiedTreeSort extends Sort {
     public SimplifiedTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

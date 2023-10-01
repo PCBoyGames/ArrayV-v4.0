@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SnowballMergeSort extends Sort {
+public class SnowballMergeSort extends Sort {
     public SnowballMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Snowball Merge");

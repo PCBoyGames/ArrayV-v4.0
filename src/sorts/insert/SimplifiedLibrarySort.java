@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class SimplifiedLibrarySort extends Sort {
+public class SimplifiedLibrarySort extends Sort {
     public SimplifiedLibrarySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -47,7 +47,7 @@ final public class SimplifiedLibrarySort extends Sort {
 
     //simple library sort with O(n) extra memory + counter & pointer array (n size combined)
 
-    private final int R = 4; //rebalancing factor (gaps have dynamic size)
+    private int R = 4; //rebalancing factor (gaps have dynamic size)
 
     private BinaryInsertionSort binaryInsert;
 

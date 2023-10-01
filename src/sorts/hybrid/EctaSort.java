@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class EctaSort extends Sort {
+public class EctaSort extends Sort {
     public EctaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

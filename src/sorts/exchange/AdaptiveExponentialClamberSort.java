@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AdaptiveExponentialClamberSort extends Sort {
+public class AdaptiveExponentialClamberSort extends Sort {
     public AdaptiveExponentialClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Exponential Clamber");

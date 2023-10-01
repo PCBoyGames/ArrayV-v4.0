@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import utils. Rotations;
 
 // Demolition Derby Sort: A mod of Cycle Sort with optimizations for small numbers.
-final public class DemoDerbySort extends Sort {
+public class DemoDerbySort extends Sort {
     public DemoDerbySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

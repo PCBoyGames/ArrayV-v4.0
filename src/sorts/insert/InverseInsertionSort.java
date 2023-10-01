@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class InverseInsertionSort extends Sort {
+public class InverseInsertionSort extends Sort {
     public InverseInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

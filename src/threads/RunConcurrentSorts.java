@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class RunConcurrentSorts extends MultipleSortThread {
+public class RunConcurrentSorts extends MultipleSortThread {
     private Sort FoldSort;
     private Sort CreaseSort;
     private Sort MatrixSort;

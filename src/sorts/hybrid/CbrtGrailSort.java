@@ -5,7 +5,7 @@ import sorts.insert.InsertionSort;
 import sorts.templates.GrailSorting;
 import utils.IndexedRotations;
 
-final public class CbrtGrailSort extends GrailSorting {
+public class CbrtGrailSort extends GrailSorting {
     public CbrtGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

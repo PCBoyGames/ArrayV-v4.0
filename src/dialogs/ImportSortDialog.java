@@ -2,7 +2,7 @@ package dialogs;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-final public class ImportSortDialog extends FileDialog {
+public class ImportSortDialog extends FileDialog {
     public ImportSortDialog() {
         super();
 

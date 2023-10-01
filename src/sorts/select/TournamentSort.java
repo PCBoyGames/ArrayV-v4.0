@@ -21,7 +21,7 @@ import sorts.templates.Sort;
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-final public class TournamentSort extends Sort {
+public class TournamentSort extends Sort {
     private int[] matches;
     private int tourney;
 

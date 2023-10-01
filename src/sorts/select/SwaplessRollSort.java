@@ -17,7 +17,7 @@ Ported from fungamer2's Python implementation.
 
  */
 
-public final class SwaplessRollSort extends Sort {
+public class SwaplessRollSort extends Sort {
     public SwaplessRollSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

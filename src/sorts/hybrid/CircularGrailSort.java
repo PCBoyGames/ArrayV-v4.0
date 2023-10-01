@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CircularGrailSort extends Sort {
+public class CircularGrailSort extends Sort {
     public CircularGrailSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class Reads {
+public class Reads {
     private volatile BigInteger comparisons;
     public volatile ArrayList<Integer> networkIndices;
 

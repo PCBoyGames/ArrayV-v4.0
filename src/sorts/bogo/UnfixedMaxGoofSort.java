@@ -17,7 +17,7 @@ Whoops, I Goofed Up™!
 
  */
 
-public final class UnfixedMaxGoofSort extends BogoSorting {
+public class UnfixedMaxGoofSort extends BogoSorting {
     public UnfixedMaxGoofSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

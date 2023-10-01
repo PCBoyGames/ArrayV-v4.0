@@ -2,7 +2,7 @@ package sorts.exchange;
 
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
-public final class MonolithicClurgeSort extends Sort {
+public class MonolithicClurgeSort extends Sort {
     public MonolithicClurgeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Monolithic Clurge");

@@ -32,7 +32,7 @@ SOFTWARE.
 /**
  * Bogosort randomly shuffles the array until it is sorted.
  */
-public final class OmegaOmegaBogoSort extends BogoSorting {
+public class OmegaOmegaBogoSort extends BogoSorting {
     public OmegaOmegaBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class SwapMergeSort extends Sort {
+public class SwapMergeSort extends Sort {
     private BinaryInsertionSort binaryInserter;
 
     public SwapMergeSort(ArrayVisualizer arrayVisualizer) {

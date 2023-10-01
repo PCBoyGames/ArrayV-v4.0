@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class SwaplessOptimizedReverseSandpaperSort extends Sort {
+public class SwaplessOptimizedReverseSandpaperSort extends Sort {
 
     public SwaplessOptimizedReverseSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

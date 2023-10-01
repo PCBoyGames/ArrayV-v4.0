@@ -34,7 +34,7 @@ public abstract class BlockMergeSorting extends Sort {
         super(arrayVisualizer);
     }
 
-    protected final int MRUN = 16;
+    protected int MRUN = 16;
 
     protected void shiftFW(int[] array, int a, int m, int b) {
         while (m < b) Writes.swap(array, a++, m++, 1, true, false);

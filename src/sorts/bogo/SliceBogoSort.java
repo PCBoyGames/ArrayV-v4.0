@@ -6,7 +6,7 @@ import sorts.templates.BogoSorting;
 /**
  * Slice Bogosort repeatedly shuffles random ranges of the array until it is sorted.
  */
-public final class SliceBogoSort extends BogoSorting {
+public class SliceBogoSort extends BogoSorting {
     public SliceBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

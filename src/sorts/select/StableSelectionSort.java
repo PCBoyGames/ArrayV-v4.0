@@ -25,7 +25,7 @@ SOFTWARE.
  *
  */
 
-final public class StableSelectionSort extends Sort {
+public class StableSelectionSort extends Sort {
 
     public StableSelectionSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import utils.IndexedRotations;
 
 // Distray, 4
-final public class InPlaceMergeSortIV extends Sort {
+public class InPlaceMergeSortIV extends Sort {
     public InPlaceMergeSortIV(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

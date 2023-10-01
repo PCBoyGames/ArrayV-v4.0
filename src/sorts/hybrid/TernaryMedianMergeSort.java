@@ -20,7 +20,7 @@ in collaboration with aphitorite and yuji
  * @author yuji
  *
  */
-public final class TernaryMedianMergeSort extends Sort {
+public class TernaryMedianMergeSort extends Sort {
 
     public TernaryMedianMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

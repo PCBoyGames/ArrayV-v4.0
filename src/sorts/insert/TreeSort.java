@@ -9,7 +9,7 @@ import sorts.templates.Sort;
  *
  * @author Sam Walko (Anonymous0726)
  */
-final public class TreeSort extends Sort {
+public class TreeSort extends Sort {
     public TreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 This algorithm is described here: https://arxiv.org/abs/2110.01111
 
 */
-final public class UnbelievableSort extends Sort {
+public class UnbelievableSort extends Sort {
     public UnbelievableSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Unbelievable");

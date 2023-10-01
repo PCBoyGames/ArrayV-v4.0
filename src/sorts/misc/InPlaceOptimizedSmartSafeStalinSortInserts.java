@@ -1,7 +1,7 @@
 package sorts.misc;
 
 import main.ArrayVisualizer;
-import sorts.merge.NaturalRotateMergeSort;
+import sorts.merge.OptimizedNaturalRotateMergeSort;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
@@ -15,7 +15,7 @@ BASED IN PART ON CODE FROM GEEKSFORGEEKS
 ------------------------------
 
 */
-final public class InPlaceOptimizedSmartSafeStalinSortInserts extends Sort {
+public class InPlaceOptimizedSmartSafeStalinSortInserts extends Sort {
 
     int segmentcount;
 
@@ -82,7 +82,7 @@ final public class InPlaceOptimizedSmartSafeStalinSortInserts extends Sort {
             currentLength = stepDown(array, currentLength);
         }
         if (nochan) {
-            NaturalRotateMergeSort merge = new NaturalRotateMergeSort(arrayVisualizer);
+            OptimizedNaturalRotateMergeSort merge = new OptimizedNaturalRotateMergeSort(arrayVisualizer);
             merge.runSort(array, currentLength, 0);
         }
     }

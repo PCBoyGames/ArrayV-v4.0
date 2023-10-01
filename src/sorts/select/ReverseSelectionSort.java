@@ -36,7 +36,7 @@ SOFTWARE.
  * @author mingyue12
  *
  */
-public final class ReverseSelectionSort extends Sort {
+public class ReverseSelectionSort extends Sort {
 
     /**
      * @param arrayVisualizer

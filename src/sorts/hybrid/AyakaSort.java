@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class AyakaSort extends Sort {
+public class AyakaSort extends Sort {
 
     public AyakaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

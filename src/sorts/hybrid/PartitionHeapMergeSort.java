@@ -19,7 +19,7 @@ I may need help fixing this. I know several things here aren't right.
 I left some comments behind just in case.
 
 */
-final public class PartitionHeapMergeSort extends Sort {
+public class PartitionHeapMergeSort extends Sort {
 
     PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
 

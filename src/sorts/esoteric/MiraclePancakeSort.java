@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class MiraclePancakeSort extends BogoSorting {
+public class MiraclePancakeSort extends BogoSorting {
     public MiraclePancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Miracle Pancake");

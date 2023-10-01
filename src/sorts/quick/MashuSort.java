@@ -31,7 +31,7 @@ Original name of this algorithm: Adaptive Ternary Stable Priority Quicksort
  * @author Scandum - the analyzer before sorting
  *
  */
-public final class MashuSort extends Sort {
+public class MashuSort extends Sort {
 
     public MashuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -70,7 +70,7 @@ public final class MashuSort extends Sort {
         }
     }
 
-    static final int M = 7;
+    static int M = 7;
 
     int threshold = 32;
     int highlight = 0;
@@ -121,12 +121,36 @@ public final class MashuSort extends Sort {
     }
 
     public int medOfMed(int[] array, int a, int b) {
-        if (b - a <= 6) return a + (b - a) / 2;
-        int p = 1;
-        while (6 * p < b - a) p *= 3;
-        int l = medP3(array, a, a + p, -1), c = medOfMed(array, a + p, b - p), r = medP3(array, b - p, b, -1);
-        // median
-        return medOf3(array, l, c, r);
+        int log5 = 0, exp5 = 1, exp5_1 = 0;
+        int[] indices = new int[5];
+        int n = b - a;
+        while (exp5 < n) {
+            exp5_1 = exp5;
+            log5++;
+            exp5 *= 5;
+        }
+        if (log5 < 1) return a;
+        // fill indexes, recursing if required
+        if (log5 == 1) for (int i = a, j = 0; i < b; i++, j++) indices[j] = i;
+        else {
+            n = 0;
+            for (int i = a; i < b; i += exp5_1) {
+                indices[n] = medOfMed(array, i, Math.min(b, i + exp5_1));
+                n++;
+            }
+        }
+        // sort - insertion sort is good enough for 5 elements
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                if (Reads.compareIndices(array, indices[j], indices[j - 1], 0.5, true) < 0) {
+                    int t = indices[j];
+                    indices[j] = indices[j - 1];
+                    indices[j - 1] = t;
+                } else break;
+            }
+        }
+        // return median
+        return indices[(n - 1) / 2];
     }
 
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
@@ -143,22 +167,16 @@ public final class MashuSort extends Sort {
 
     protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        if (left)
-            while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
-        else
-            while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
-        int a1 = a + i / 2, b1 = Math.min(b, a - 1 + i);
-        return binSearch(array, a1, b1, val, left);
+        if (left) while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
+        else while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
+        return binSearch(array, a + i / 2, Math.min(b, a - 1 + i), val, left);
     }
 
     protected int rightExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        if (left)
-            while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
-        else
-            while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
-        int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
-        return binSearch(array, a1, b1, val, left);
+        if (left) while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
+        else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
+        return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
     }
 
     protected void insertTo(int[] array, int a, int b) {
@@ -289,8 +307,7 @@ public final class MashuSort extends Sort {
                 while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
                 if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, false);
                 else Writes.reversal(array, a, i - 1, 1.0, true, false);
-            } else
-                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
+            } else while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         }
         Highlights.clearMark(2);
         while (i - a < mRun && i < b) {
@@ -301,7 +318,6 @@ public final class MashuSort extends Sort {
     }
 
     public void insertSort(int[] array, int a, int b) {
-        // technically an insertion sort
         findRun(array, a, b, b - a);
     }
 
@@ -370,6 +386,10 @@ public final class MashuSort extends Sort {
     }
 
     protected void innerSort(int[] array, int[] buf, int left, int right) {
+        if (right - left <= threshold) {
+            insertSort(array, left, right);
+            return;
+        }
         PriorityQueue<Partition> queue = new PriorityQueue<>((right - left - 1) / this.threshold + 1);
         queue.offer(new Partition(left, right, false));
         while (queue.size() > 0) {
@@ -407,10 +427,6 @@ public final class MashuSort extends Sort {
      */
     public void quickSort(int[] array, int a, int b) {
         int len = b - a;
-        if (len <= threshold) {
-            insertSort(array, a, b);
-            return;
-        }
         int balance = 0, eq = 0, streaks = 0, dist, eqdist, loop, cnt = len, pos = a;
         while (cnt > 16) {
             for (eqdist = dist = 0, loop = 0; loop < 16; loop++) {

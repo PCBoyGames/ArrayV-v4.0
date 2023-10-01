@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
-final public class OptimizedBottomUpMergeSort extends Sort {
+public class OptimizedBottomUpMergeSort extends Sort {
     public OptimizedBottomUpMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

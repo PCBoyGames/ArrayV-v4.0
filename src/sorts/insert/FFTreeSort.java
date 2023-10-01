@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class FFTreeSort extends Sort {
+public class FFTreeSort extends Sort {
     public FFTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

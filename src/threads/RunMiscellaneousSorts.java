@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class RunMiscellaneousSorts extends MultipleSortThread {
+public class RunMiscellaneousSorts extends MultipleSortThread {
     private Sort PancakeSort;
     private Sort BurntPancakeSort;
 

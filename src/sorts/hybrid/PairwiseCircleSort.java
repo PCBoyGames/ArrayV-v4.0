@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class PairwiseCircleSort extends Sort {
+public class PairwiseCircleSort extends Sort {
     public PairwiseCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

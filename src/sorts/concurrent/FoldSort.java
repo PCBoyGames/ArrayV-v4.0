@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class FoldSort extends Sort {
+public class FoldSort extends Sort {
     public FoldSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class SatoriSort extends Sort {
+public class SatoriSort extends Sort {
 
     public SatoriSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,14 +34,14 @@ public final class SatoriSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     static int ceilCbrt(int n) {
         int r = 0;
         while (r * r * r < n)
             r++;
         return r;
     }
-    
+
     protected void multiSwap(int[] array, int a, int b, int len, boolean fw) {
         if (a == b)
             return;
@@ -116,7 +116,7 @@ public final class SatoriSort extends Sort {
             }
         }
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -154,7 +154,7 @@ public final class SatoriSort extends Sort {
         int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
         return binSearch(array, a1, b1, val, left);
     }
-    
+
     protected boolean checkReverseBounds(int[] array, int a, int m, int b) {
         if (Reads.compareValues(array[a], array[b - 1]) > 0) {
             rotate(array, a, m, b);
@@ -169,7 +169,7 @@ public final class SatoriSort extends Sort {
         return Reads.compareValues(array[m - 1], array[m]) <= 0
                   || checkReverseBounds(array, a, m, b);
     }
-    
+
     protected boolean buildRuns(int[] array, int a, int b, int mRun) {
         int i = a + 1, j = a;
         boolean noSort = true;
@@ -194,7 +194,7 @@ public final class SatoriSort extends Sort {
         }
         return noSort;
     }
-    
+
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
         while (a < m && m < b) {
             int i = leftExpSearch(array, m, b, array[a], true);
@@ -220,7 +220,7 @@ public final class SatoriSort extends Sort {
             b = rightExpSearch(array, m, b, array[m - 1], true);
         }
     }
-    
+
     public void inPlaceMerge(int[] array, int a, int m, int b, boolean bnd) {
         if (bnd) {
             if (boundCheck(array, a, m, b))
@@ -235,7 +235,7 @@ public final class SatoriSort extends Sort {
         else
             inPlaceMergeFW(array, a, m, b);
     }
-    
+
     protected void fragmentedMergeFW(int[] array, int a, int m, int b, int s) {
         while (m - a > s) {
             int rPos;
@@ -251,7 +251,7 @@ public final class SatoriSort extends Sort {
         }
         inPlaceMerge(array, a, m, b, true);
     }
-    
+
     protected void fragmentedMergeBW(int[] array, int a, int m, int b, int s) {
         while (b - m > s) {
             int rPos;
@@ -267,7 +267,7 @@ public final class SatoriSort extends Sort {
         }
         inPlaceMerge(array, a, m, b, true);
     }
-    
+
     protected void fragmentedMerge(int[] array, int a, int m, int b, int s) {
         if (boundCheck(array, a, m, b))
             return;
@@ -280,7 +280,7 @@ public final class SatoriSort extends Sort {
         else
             fragmentedMergeFW(array, a, m, b, s);
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int len = b - a;
         if (len < 32) {

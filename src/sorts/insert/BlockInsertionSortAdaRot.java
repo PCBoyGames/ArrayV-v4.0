@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 import utils.Rotations;
 
-final public class BlockInsertionSortAdaRot extends GrailSorting {
+public class BlockInsertionSortAdaRot extends GrailSorting {
     public BlockInsertionSortAdaRot(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -21,8 +21,7 @@ final public class BlockInsertionSortAdaRot extends GrailSorting {
     }
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
-        if (lenA % lenB == 0 || lenB % lenA == 0) Rotations.holyGriesMills(array, pos, lenA, lenB, 1, true, false);
-        else Rotations.cycleReverse(array, pos, lenA, lenB, 1, true, false);
+        Rotations.adaptable(array, pos, lenA, lenB, 1, true, false);
     }
 
     private int findRun(int[] array, int a, int b) {

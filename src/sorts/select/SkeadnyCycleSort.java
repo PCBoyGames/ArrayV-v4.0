@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class SkeadnyCycleSort extends Sort {
+public class SkeadnyCycleSort extends Sort {
 
     public SkeadnyCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

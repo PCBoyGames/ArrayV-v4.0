@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class RendezvousSort extends Sort {
+public class RendezvousSort extends Sort {
     public RendezvousSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

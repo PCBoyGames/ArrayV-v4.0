@@ -17,7 +17,7 @@ As long as the first 2 items are sorted, the whole array is sorted.
 
  */
 
-public final class DenialSort extends Sort {
+public class DenialSort extends Sort {
     public DenialSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

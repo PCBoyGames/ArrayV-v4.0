@@ -121,6 +121,18 @@ public enum VisualStyles {
         public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
             ArrayVisualizer.getVisuals()[14].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
         }
+    },
+    TRI_MESH {
+        @Override
+        public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+            ArrayVisualizer.getVisuals()[15].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
+        }
+    },
+    HILBERT_CURVE {
+        @Override
+        public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+            ArrayVisualizer.getVisuals()[16].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
+        }
     };
 
     public VisualStyles getCurrentVisual() {

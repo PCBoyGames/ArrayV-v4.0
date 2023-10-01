@@ -20,7 +20,7 @@ in collaboration with aphitorite and Distray
  * @author Distray
  *
  */
-public final class AdaptiveEctaSort extends Sort {
+public class AdaptiveEctaSort extends Sort {
 
     public AdaptiveEctaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

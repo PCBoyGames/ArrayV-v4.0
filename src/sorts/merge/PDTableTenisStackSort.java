@@ -24,7 +24,7 @@ in collaboration with Distray, PCBoy and stentor
  * @author stentor
  *
  */
-public final class PDTableTenisStackSort extends Sort {
+public class PDTableTenisStackSort extends Sort {
 
     public PDTableTenisStackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -40,7 +40,7 @@ public final class PDTableTenisStackSort extends Sort {
         this.setBogoSort(false);
     }
 
-    final int WLEN = 3;
+    int WLEN = 3;
 
     protected boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;

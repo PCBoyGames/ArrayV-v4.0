@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.insert.InsertionSort;
 import sorts.templates.Sort;
 
-final public class PseudomedianOf11LRQuickSort extends Sort {
+public class PseudomedianOf11LRQuickSort extends Sort {
     public PseudomedianOf11LRQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class KitaSort extends Sort {
+public class KitaSort extends Sort {
     public KitaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

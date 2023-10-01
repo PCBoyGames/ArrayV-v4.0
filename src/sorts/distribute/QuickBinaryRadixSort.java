@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class QuickBinaryRadixSort extends Sort {
+public class QuickBinaryRadixSort extends Sort {
     public QuickBinaryRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

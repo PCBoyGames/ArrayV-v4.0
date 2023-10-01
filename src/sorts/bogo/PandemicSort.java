@@ -17,7 +17,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class PandemicSort extends BogoSorting {
+public class PandemicSort extends BogoSorting {
 
     public PandemicSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -37,7 +37,7 @@ final public class PandemicSort extends BogoSorting {
 
     private static PandemicSort self;
 
-    private static final Random r = new Random();
+    private static Random r = new Random();
 
     private static String blank() {
         int randomspaces = r.nextInt(10);

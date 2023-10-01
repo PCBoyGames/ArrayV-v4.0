@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class ParallelBlockMergeSort extends Sort {
+public class ParallelBlockMergeSort extends Sort {
     public ParallelBlockMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

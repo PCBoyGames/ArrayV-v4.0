@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class InstinctBubbleSort extends Sort {
+public class InstinctBubbleSort extends Sort {
     public InstinctBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Instinct Bubble");

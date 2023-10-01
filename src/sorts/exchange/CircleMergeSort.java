@@ -15,7 +15,7 @@ Free Documentation License".
  *
  */
 
-final public class CircleMergeSort extends IterativeCircleSorting {
+public class CircleMergeSort extends IterativeCircleSorting {
     public CircleMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

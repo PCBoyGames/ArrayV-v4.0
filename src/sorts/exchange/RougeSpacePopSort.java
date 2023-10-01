@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RougeSpacePopSort extends Sort {
+public class RougeSpacePopSort extends Sort {
     public RougeSpacePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Rouge-Space Pop");

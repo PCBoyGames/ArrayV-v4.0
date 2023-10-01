@@ -25,7 +25,7 @@ SOFTWARE.
  *
  */
 
-final public class PairwiseSortIterative extends Sort {
+public class PairwiseSortIterative extends Sort {
     public PairwiseSortIterative(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

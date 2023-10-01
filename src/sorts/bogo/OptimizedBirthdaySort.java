@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class OptimizedBirthdaySort extends BogoSorting {
+public class OptimizedBirthdaySort extends BogoSorting {
     public OptimizedBirthdaySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Birthday");

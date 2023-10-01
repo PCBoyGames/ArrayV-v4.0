@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class TumbleweedSort extends Sort {
+public class TumbleweedSort extends Sort {
     public TumbleweedSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Tumbleweed");
@@ -31,13 +31,13 @@ final public class TumbleweedSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int left = 1;
         boolean anyless = false;
-        while (left != currentLength) {
+        while (left < currentLength - 1) {
             int lowesthigh = left;
             int right = left + 1;
             for (; right <= currentLength; right++) {
-                if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) < 1) {
-                    if (lowesthigh == left) lowesthigh = right;
-                    else if (Reads.compareIndices(array, lowesthigh - 1, right - 1, 0.005, true) > 0) lowesthigh = right;
+                if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) <= 0) {
+                    if (lowesthigh == left) lowesthigh = right - 1;
+                    else if (Reads.compareIndices(array, lowesthigh - 1, right - 1, 0.005, true) > 0) lowesthigh = right - 1;
                 }
             }
             if (lowesthigh == left) Writes.multiSwap(array, left - 1, currentLength - 1, 0.005, true, false);
@@ -46,7 +46,7 @@ final public class TumbleweedSort extends Sort {
                     right = left + 1;
                     anyless = false;
                     while (right <= currentLength && !anyless) {
-                        if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) == 1) anyless = true;
+                        if (Reads.compareIndices(array, left - 1, right - 1, 0.005, true) > 0) anyless = true;
                         else right++;
                     }
                     if (!anyless) left++;

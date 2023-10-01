@@ -10,7 +10,7 @@ import sorts.templates.Sort;
  * @author PiotrGrochowski
  *
  */
-public final class AdaptiveBinaryInsertionSort extends Sort {
+public class AdaptiveBinaryInsertionSort extends Sort {
 
     /**
      * @param arrayVisualizer

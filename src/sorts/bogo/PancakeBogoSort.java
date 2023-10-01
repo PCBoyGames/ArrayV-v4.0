@@ -7,7 +7,7 @@ import sorts.templates.BogoSorting;
  * @author Ayako-chan
  *
  */
-public final class PancakeBogoSort extends BogoSorting {
+public class PancakeBogoSort extends BogoSorting {
 
     public PancakeBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class CompleteGraphSort extends Sort {
+public class CompleteGraphSort extends Sort {
     public CompleteGraphSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

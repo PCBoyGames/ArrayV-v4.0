@@ -37,7 +37,7 @@ For more information, please refer to <http://unlicense.org>
  */
 
 // structure to represent ranges within the array
-final class Range {
+class Range {
     public int start;
     public int end;
 
@@ -61,7 +61,7 @@ final class Range {
     }
 }
 
-final class Pull {
+class Pull {
     public int from, to, count;
     public Range range;
 
@@ -80,7 +80,7 @@ final class Pull {
 // calculate how to scale the index value to the range within the array
 // the bottom-up merge sort only operates on values that are powers of two,
 // so scale down to that power of two, then use a fraction to scale back again
-final class Iterator {
+class Iterator {
     public int size, power_of_two;
     public int numerator, decimal;
     public int denominator, decimal_step, numerator_step;
@@ -143,7 +143,7 @@ final class Iterator {
     }
 }
 
-final public class WikiSorting {
+public class WikiSorting {
     // use a small cache to speed up some of the operations
     // since the cache size is fixed, it's still O(1) memory!
     // just keep in mind that making it too small ruins the point (nothing will fit into it),
@@ -361,7 +361,7 @@ final public class WikiSorting {
                 A_index++;
                 insert_index++;
                 if (A_index == A_last) {
-                    // copy the remainder of B into the final array
+                    // copy the remainder of B into the array
                     Writes.arraycopy(from, B_index, into, insert_index, B_last - B_index, 1, true, tempwrite);
                     break;
                 }
@@ -374,7 +374,7 @@ final public class WikiSorting {
                 B_index++;
                 insert_index++;
                 if (B_index == B_last) {
-                    // copy the remainder of A into the final array
+                    // copy the remainder of A into the array
                     Writes.arraycopy(from, A_index, into, insert_index, A_last - A_index, 1, true, tempwrite);
                     break;
                 }
@@ -411,7 +411,7 @@ final public class WikiSorting {
         Highlights.clearMark(3);
         Highlights.clearMark(4);
 
-        // copy the remainder of A into the final array
+        // copy the remainder of A into the array
         if (cache != null) {
             Writes.arraycopy(cache, A_index, array, insert_index, A_last - A_index, 1, true, false);
         }
@@ -419,7 +419,7 @@ final public class WikiSorting {
 
     // merge operation using an internal buffer
     void MergeInternal(int[] array, Range A, Range B, Range buffer) {
-        // whenever we find a value to add to the final array, swap it with the value that's already in that spot
+        // whenever we find a value to add to the array, swap it with the value that's already in that spot
         // when this algorithm is finished, 'buffer' will contain its original contents, but in a different order
         int A_count = 0, B_count = 0, insert = 0;
 
@@ -444,7 +444,7 @@ final public class WikiSorting {
         }
         Highlights.clearMark(3);
 
-        // swap the remainder of A into the final array
+        // swap the remainder of A into the array
         BlockSwap(array, buffer.start + A_count, A.start + insert, A.length() - A_count);
     }
 

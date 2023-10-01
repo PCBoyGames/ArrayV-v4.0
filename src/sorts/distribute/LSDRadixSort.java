@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class LSDRadixSort extends Sort {
+public class LSDRadixSort extends Sort {
     public LSDRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

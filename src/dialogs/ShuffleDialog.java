@@ -64,12 +64,11 @@ SOFTWARE.
  *
  * @author S630690
  */
-final public class ShuffleDialog extends javax.swing.JDialog implements AppFrame {
+public class ShuffleDialog extends javax.swing.JDialog implements AppFrame {
 
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
 
     private ArrayManager ArrayManager;
     private List<Distributions> distributions;

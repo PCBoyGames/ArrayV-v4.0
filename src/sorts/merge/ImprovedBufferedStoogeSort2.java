@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class ImprovedBufferedStoogeSort2 extends Sort {
+public class ImprovedBufferedStoogeSort2 extends Sort {
     public ImprovedBufferedStoogeSort2(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -45,7 +45,7 @@ final public class ImprovedBufferedStoogeSort2 extends Sort {
         this.setBogoSort(false);
     }
 
-    private final int MIN_INSERT = 32;
+    private int MIN_INSERT = 32;
     private BinaryInsertionSort binInsSort;
 
     private void medianOfThree(int[] array, int a, int b) {

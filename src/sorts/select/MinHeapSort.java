@@ -15,7 +15,7 @@ Free Documentation License".
  *
  */
 
-final public class MinHeapSort extends HeapSorting {
+public class MinHeapSort extends HeapSorting {
     public MinHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -29,6 +29,10 @@ final public class MinHeapSort extends HeapSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+    }
+
+    public void makeHeap(int[] array, int start, int length, double sleep) {
+        this.heapify(array, start, length, sleep, false);
     }
 
     @Override

@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class StableOpiumSort extends Sort {
+public class StableOpiumSort extends Sort {
     public StableOpiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Stable Opium");

@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 // Code refactored from Python: http://wiki.c2.com/?SlowSort
 
-final public class SlowSort extends Sort {
+public class SlowSort extends Sort {
     public SlowSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

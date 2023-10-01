@@ -19,7 +19,7 @@ in collaboration with Gaming32
  * @author Gaming32
  *
  */
-public final class AdaptiveSwapMergeSort extends Sort {
+public class AdaptiveSwapMergeSort extends Sort {
 
     public AdaptiveSwapMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class SplaySort extends Sort {
+public class SplaySort extends Sort {
 
     //Splay sort is an adaptive algorithm based on splay tree data structure
     //It is O(n log n) in the average/worst case, and O(n) in the best case when the data is mostly sorted
@@ -25,7 +25,7 @@ final public class SplaySort extends Sort {
 
     // Splay tree code retrieved from https://www.geeksforgeeks.org/splay-tree-set-2-insert-delete/
 
-    final private class Node {
+    private class Node {
         int key;
         Node left, right;
 

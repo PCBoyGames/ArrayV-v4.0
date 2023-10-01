@@ -17,7 +17,7 @@ Worse than WorstWorstsort!
 
  */
 
-public final class HopoSort extends BogoSorting {
+public class HopoSort extends BogoSorting {
     public HopoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

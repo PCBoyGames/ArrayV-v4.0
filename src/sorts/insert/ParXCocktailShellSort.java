@@ -23,7 +23,7 @@ in collaboration with Control, mg-2018 and PCBoy
  * @author PCBoy
  *
  */
-public final class ParXCocktailShellSort extends Sort {
+public class ParXCocktailShellSort extends Sort {
 
     public ParXCocktailShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -38,9 +38,9 @@ public final class ParXCocktailShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     boolean dir;
-    
+
     protected int findDisparity(int[] array, int a, int b) {
         int n = b - a;
         BitSet max = new BitSet(n);
@@ -63,7 +63,7 @@ public final class ParXCocktailShellSort extends Sort {
         }
         return p;
     }
-    
+
     protected int shellPass(int[] array, int a, int b, int gap, int par, int lastgap) {
         if (gap >= lastgap) return lastgap;
         if (gap == lastgap - 1 && gap != 1) return lastgap;
@@ -93,7 +93,7 @@ public final class ParXCocktailShellSort extends Sort {
         Highlights.clearAllMarks();
         return gap;
     }
-    
+
     public void shellSort(int[] array, int a, int b) {
         double truediv = 3;
         int lastpar = b - a;

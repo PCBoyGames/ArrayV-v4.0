@@ -33,7 +33,7 @@ SOFTWARE.
  *
  */
 
-final public class RunHybridSorts extends MultipleSortThread {
+public class RunHybridSorts extends MultipleSortThread {
     private Sort HybridCombSort;
     private Sort IntroCircleSortRecursive;
     private Sort IntroCircleSortIterative;
@@ -62,33 +62,23 @@ final public class RunHybridSorts extends MultipleSortThread {
     private Sort MedianMergeSort;
     private Sort ThirdMergeSort;
     private Sort StableThirdMergeSort;
-    private Sort IntroSort;
     private Sort OptimizedBottomUpMergeSort;
-    private Sort OptimizedDualPivotQuickSort;
     private Sort OptimizedWeaveMergeSort;
-    private Sort StupidQuickSort;
-    private Sort LAQuickSort;
-    private Sort MedianOfSixteenAdaptiveQuickSort;
-    private Sort StacklessHybridQuickSort;
-    private Sort PDQBranchedSort;
-    private Sort PDQBranchlessSort;
     private Sort DropMergeSort;
     private Sort OptimizedPDMergeSort;
     private Sort BinaryPDMergeSort;
     private Sort FlanSort;
-    private Sort BubblescanQuickSort;
     private Sort BufferPartitionMergeSort;
     private Sort ParallelBlockMergeSort;
     private Sort ParallelGrailSort;
     private Sort RemiSort;
-    private Sort StacklessDualPivotQuickSort;
     private Sort AdaptiveGrailSort;
     private Sort BubbleMergeSort;
     private Sort ThreadedPDMergeSort;
 
     public RunHybridSorts(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.sortCount = 51;
+        this.sortCount = 41;
         this.categoryCount = this.sortCount;
 
         HybridCombSort                   = new                   HybridCombSort(this.arrayVisualizer);
@@ -121,23 +111,13 @@ final public class RunHybridSorts extends MultipleSortThread {
         MedianMergeSort                  = new                  MedianMergeSort(this.arrayVisualizer);
         ThirdMergeSort                   = new                 QuarterMergeSort(this.arrayVisualizer);
         StableThirdMergeSort             = new           StableQuarterMergeSort(this.arrayVisualizer);
-        IntroSort                        = new                        IntroSort(this.arrayVisualizer);
         OptimizedBottomUpMergeSort       = new       OptimizedBottomUpMergeSort(this.arrayVisualizer);
-        OptimizedDualPivotQuickSort      = new      OptimizedDualPivotQuickSort(this.arrayVisualizer);
         OptimizedWeaveMergeSort          = new          OptimizedWeaveMergeSort(this.arrayVisualizer);
-        StupidQuickSort                  = new                  StupidQuickSort(this.arrayVisualizer);
-        LAQuickSort                      = new                      LAQuickSort(this.arrayVisualizer);
-        MedianOfSixteenAdaptiveQuickSort = new MedianOfSixteenAdaptiveQuickSort(this.arrayVisualizer);
-        StacklessHybridQuickSort         = new         StacklessHybridQuickSort(this.arrayVisualizer);
-        PDQBranchedSort                  = new                  PDQBranchedSort(this.arrayVisualizer);
-        PDQBranchlessSort                = new                PDQBranchlessSort(this.arrayVisualizer);
         DropMergeSort                    = new                    DropMergeSort(this.arrayVisualizer);
-        BubblescanQuickSort              = new              BubblescanQuickSort(this.arrayVisualizer);
         BufferPartitionMergeSort         = new         BufferPartitionMergeSort(this.arrayVisualizer);
         ParallelBlockMergeSort           = new           ParallelBlockMergeSort(this.arrayVisualizer);
         ParallelGrailSort                = new                ParallelGrailSort(this.arrayVisualizer);
         RemiSort                         = new                         RemiSort(this.arrayVisualizer);
-        StacklessDualPivotQuickSort      = new      StacklessDualPivotQuickSort(this.arrayVisualizer);
         AdaptiveGrailSort                = new                AdaptiveGrailSort(this.arrayVisualizer);
         BinaryPDMergeSort                = new                BinaryPDMergeSort(this.arrayVisualizer);
         BubbleMergeSort                  = new                  BubbleMergeSort(this.arrayVisualizer);
@@ -185,18 +165,8 @@ final public class RunHybridSorts extends MultipleSortThread {
         RunHybridSorts.this.runIndividualSort(BufferPartitionMergeSort,         0, array, 2048, 1,    false);
         RunHybridSorts.this.runIndividualSort(ThirdMergeSort,                   0, array, 2048, 0.75, false);
         RunHybridSorts.this.runIndividualSort(StableThirdMergeSort,             0, array, 2048, 0.75, false);
-        RunHybridSorts.this.runIndividualSort(BubblescanQuickSort,              0, array, 2048, 1,    false);
-        RunHybridSorts.this.runIndividualSort(IntroSort,                        0, array, 2048, 1,    false);
         RunHybridSorts.this.runIndividualSort(OptimizedBottomUpMergeSort,       0, array, 2048, 1,    false);
-        RunHybridSorts.this.runIndividualSort(OptimizedDualPivotQuickSort,      0, array, 2048, 0.75, false);
         RunHybridSorts.this.runIndividualSort(OptimizedWeaveMergeSort,          0, array, 1024, 0.4,  false);
-        RunHybridSorts.this.runIndividualSort(StupidQuickSort,                  0, array, 1024, 1,    false);
-        RunHybridSorts.this.runIndividualSort(LAQuickSort,                      0, array, 2048, 0.75, false);
-        RunHybridSorts.this.runIndividualSort(MedianOfSixteenAdaptiveQuickSort, 0, array, 1024, 0.25, false);
-        RunHybridSorts.this.runIndividualSort(StacklessHybridQuickSort,         0, array, 2048, 0.75, false);
-        RunHybridSorts.this.runIndividualSort(StacklessDualPivotQuickSort,      0, array, 2048, 0.75, false);
-        RunHybridSorts.this.runIndividualSort(PDQBranchedSort,                  0, array, 2048, 0.75, false);
-        RunHybridSorts.this.runIndividualSort(PDQBranchlessSort,                0, array, 2048, 0.75, false);
         RunHybridSorts.this.runIndividualSort(DropMergeSort,                    0, array, 2048, 0.75, false);
     }
 

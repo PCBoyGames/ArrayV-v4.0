@@ -37,7 +37,7 @@ SOFTWARE.
  *
  * @author S630690
  */
-final public class Writes {
+public class Writes {
     public volatile long reversals;
     public volatile long recursions;
     public volatile long depth;
@@ -191,12 +191,17 @@ final public class Writes {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
         if (!auxwrite && a >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Write to index " + a + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
+            throw new Error();
         }
         if (!auxwrite && b >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
+            throw new Error();
         }
 
-        if (a == b) System.err.println("Self-swap at " + a + ".");
+        if (a == b) {
+            System.err.println("Self-swap at " + a + ".");
+            //throw new Error();
+        }
 
         else {
 
@@ -344,6 +349,7 @@ final public class Writes {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
         if (!auxwrite && at >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Write to index " + at + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
+            throw new Error();
         }
 
         if (mark) Highlights.markArray(1, at);

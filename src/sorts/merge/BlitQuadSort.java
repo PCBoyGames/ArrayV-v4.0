@@ -11,7 +11,7 @@ Copyright (C) 2014-2021 Igor van den Hoven ivdhoven@gmail.com
 
 // *Ported by Distray, version in wolfsort repo as of 03/08/2022*
 
-final public class BlitQuadSort extends Sort {
+public class BlitQuadSort extends Sort {
     private Timer Timer;
     public BlitQuadSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

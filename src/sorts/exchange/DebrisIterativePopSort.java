@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class DebrisIterativePopSort extends Sort {
+public class DebrisIterativePopSort extends Sort {
     public DebrisIterativePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Debris Iterative Pop");

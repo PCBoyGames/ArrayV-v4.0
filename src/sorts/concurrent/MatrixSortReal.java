@@ -7,7 +7,7 @@ import sorts.templates.Sort;
 Idea made by Control#2866 in The Studio Discord Server (https://discord.com/invite/2xGkKC2)
 */
 
-final public class MatrixSortReal extends Sort {
+public class MatrixSortReal extends Sort {
 
     public MatrixSortReal(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -2,7 +2,7 @@ package sorts.esoteric;
 
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
-public final class InterpolatorSort extends BogoSorting {
+public class InterpolatorSort extends BogoSorting {
     public InterpolatorSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

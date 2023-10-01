@@ -3,9 +3,9 @@ package sorts.concurrent;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class BitonicSortParallel extends Sort {
+public class BitonicSortParallel extends Sort {
     private int[] arr;
-    private final double DELAY = 1;
+    private double DELAY = 1;
     public BitonicSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Bitonic (Parallel)");

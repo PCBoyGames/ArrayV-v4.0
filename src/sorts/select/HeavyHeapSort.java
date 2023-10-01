@@ -15,7 +15,7 @@ Free Documentation License".
  *
  */
 
-final public class HeavyHeapSort extends HeapSorting {
+public class HeavyHeapSort extends HeapSorting {
     public HeavyHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

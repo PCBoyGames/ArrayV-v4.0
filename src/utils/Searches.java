@@ -24,7 +24,7 @@ public class Searches {
         EXTREMERANDOM(9),
         SQUARE(10),
         SLOPE(11);
-        public final int type;
+        public int type;
         Search(int type) {
             this.type = type;
         }

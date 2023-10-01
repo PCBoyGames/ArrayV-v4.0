@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // re-implemented to Java, ArrayV by mg-2018, 2021
 // 210704 ~ 210816
 
-final public class QuadSort extends QuadSorting {
+public class QuadSort extends QuadSorting {
     public QuadSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

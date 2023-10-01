@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 
-final public class SCPMergesort extends Sort {
+public class SCPMergesort extends Sort {
     public SCPMergesort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

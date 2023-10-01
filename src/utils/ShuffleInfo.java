@@ -5,11 +5,11 @@ import java.util.List;
 
 import main.ArrayVisualizer;
 
-final public class ShuffleInfo {
-    final boolean isDistribution;
-    final Distributions distribution;
-    final Shuffles shuffle;
-    final boolean warpDistribution;
+public class ShuffleInfo {
+    boolean isDistribution;
+    Distributions distribution;
+    Shuffles shuffle;
+    boolean warpDistribution;
 
     public ShuffleInfo(Distributions distribution, boolean warpDistribution) {
         this.isDistribution = true;

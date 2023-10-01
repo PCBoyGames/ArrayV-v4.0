@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class TableAdaBinClamberSort extends Sort {
+public class TableAdaBinClamberSort extends Sort {
 
     public TableAdaBinClamberSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

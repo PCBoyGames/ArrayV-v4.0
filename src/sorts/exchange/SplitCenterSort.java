@@ -10,7 +10,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SplitCenterSort extends Sort {
+public class SplitCenterSort extends Sort {
     public SplitCenterSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Split Center");

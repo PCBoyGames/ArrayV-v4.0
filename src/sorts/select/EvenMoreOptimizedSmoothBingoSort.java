@@ -6,7 +6,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 // #4 of Distray's Pop The Top Lineup
-final public class EvenMoreOptimizedSmoothBingoSort extends Sort {
+public class EvenMoreOptimizedSmoothBingoSort extends Sort {
     public EvenMoreOptimizedSmoothBingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

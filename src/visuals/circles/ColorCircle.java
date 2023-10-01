@@ -34,7 +34,7 @@ SOFTWARE.
  *
  */
 
-final public class ColorCircle extends Visual {
+public class ColorCircle extends Visual {
 
     public ColorCircle(ArrayVisualizer ArrayVisualizer) {
         super(ArrayVisualizer);

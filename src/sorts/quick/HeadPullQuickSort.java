@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class HeadPullQuickSort extends Sort {
+public class HeadPullQuickSort extends Sort {
     public HeadPullQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Head Pull Quick");

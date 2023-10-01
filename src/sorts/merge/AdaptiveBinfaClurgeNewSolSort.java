@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AdaptiveBinfaClurgeNewSolSort extends Sort {
+public class AdaptiveBinfaClurgeNewSolSort extends Sort {
     public AdaptiveBinfaClurgeNewSolSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Clurge (Binary Fallback) (New Solution)");

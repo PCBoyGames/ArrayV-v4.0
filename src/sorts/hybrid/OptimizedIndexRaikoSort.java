@@ -20,7 +20,7 @@ in collaboration with aphitorite and Gaming32
  * @author Gaming32
  *
  */
-public final class OptimizedIndexRaikoSort extends Sort {
+public class OptimizedIndexRaikoSort extends Sort {
 
     public OptimizedIndexRaikoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

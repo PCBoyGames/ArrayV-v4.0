@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class WeavedIterativePopSort extends Sort {
+public class WeavedIterativePopSort extends Sort {
     public WeavedIterativePopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Weaved Iterative Pop");

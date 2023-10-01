@@ -13,7 +13,7 @@ EXTENDING CODE FROM APHITORITE
 ------------------------------
 
 */
-public final class OptimizedDragSort extends Sort {
+public class OptimizedDragSort extends Sort {
 
     boolean[] sorted;
     int[] items;

@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ByproductSort extends MadhouseTools {
+public class ByproductSort extends MadhouseTools {
 
     boolean checks;
     int par;

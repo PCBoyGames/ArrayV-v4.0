@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  * @author mingyue12 - for the rest of this sorting algorithm
  *
  */
-public final class TriSearchGnomeSort extends Sort {
+public class TriSearchGnomeSort extends Sort {
 
     /**
      * @param arrayVisualizer

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class RectangleSelectionSort extends Sort {
+public class RectangleSelectionSort extends Sort {
     public RectangleSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Rectangle Selection");

@@ -17,8 +17,8 @@ import java.util.function.Consumer;
 import main.ArrayVisualizer;
 
 public class ArrayVList extends AbstractList<Integer> implements RandomAccess, Cloneable, java.io.Serializable {
-    final static int DEFAULT_CAPACITY = 128;
-    final static double DEFAULT_GROW_FACTOR = 2;
+    static int DEFAULT_CAPACITY = 128;
+    static double DEFAULT_GROW_FACTOR = 2;
 
     static ArrayVisualizer arrayVisualizer;
     static Reads Reads;
@@ -304,12 +304,12 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
         @Override
         public void forEachRemaining(Consumer<? super Integer> consumer) {
             Objects.requireNonNull(consumer);
-            final int size = ArrayVList.this.capacity;
+            int size = ArrayVList.this.capacity;
             int i = cursor;
             if (i >= size) {
                 return;
             }
-            final int[] internal = ArrayVList.this.internal;
+            int[] internal = ArrayVList.this.internal;
             if (i >= internal.length) {
                 throw new ConcurrentModificationException();
             }
@@ -380,9 +380,9 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
     }
 
     private class SubList extends AbstractList<Integer> implements RandomAccess {
-        private final ArrayVList parent;
-        private final int parentOffset;
-        private final int offset;
+        private ArrayVList parent;
+        private int parentOffset;
+        private int offset;
         int size;
 
         SubList(ArrayVList parent,
@@ -419,7 +419,7 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
             return listIterator();
         }
 
-        public ListIterator<Integer> listIterator(final int index) {
+        public ListIterator<Integer> listIterator(int index) {
             return null;
         }
 

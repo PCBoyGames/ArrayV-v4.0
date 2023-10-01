@@ -15,7 +15,7 @@ import sorts.templates.Sort;
 
 // Code refactored from the Python implementation found here: https://en.wikipedia.org/wiki/Pigeonhole_sort
 
-final public class PigeonholeSort extends Sort {
+public class PigeonholeSort extends Sort {
     public PigeonholeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

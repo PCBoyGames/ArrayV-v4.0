@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class DivisorSort extends Sort {
+public class DivisorSort extends Sort {
     public DivisorSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

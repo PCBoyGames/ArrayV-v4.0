@@ -36,7 +36,7 @@ SOFTWARE.
  *
  */
 
-final public class TimeSort extends Sort {
+public class TimeSort extends Sort {
     private InsertionSort insertSorter;
 
     private volatile int next = 0;
@@ -67,12 +67,12 @@ final public class TimeSort extends Sort {
     public void runSort(int[] array, int sortLength, int magnitude) throws Exception {
         insertSorter = new InsertionSort(this.arrayVisualizer);
 
-        final int A = magnitude;
+        int A = magnitude;
         next = 0;
 
         ArrayList<Thread> threads = new ArrayList<>();
 
-        final int[] tmp = Writes.createExternalArray(sortLength);
+        int[] tmp = Writes.createExternalArray(sortLength);
 
         for (int i = 0; i < sortLength; i++) {
             Writes.write(tmp, i, array[i], 0.25, true, true);
@@ -82,7 +82,7 @@ final public class TimeSort extends Sort {
         Delays.updateDelayForTimeSort(magnitude);
 
         for (int i = 0; i < sortLength; i++) {
-            final int index = i;
+            int index = i;
             threads.add(new Thread("TimeSort-" + i) {
                 @Override
                 public void run() {

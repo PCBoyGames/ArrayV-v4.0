@@ -19,14 +19,14 @@ import main.ArrayVisualizer;
 import panes.JErrorPane;
 
 public class SortingNetworkGenerator {
-    private static final File SORTING_NETWORKS_DIR = new File("sorting_networks");
+    private static File SORTING_NETWORKS_DIR = new File("sorting_networks");
 
     static {
         SORTING_NETWORKS_DIR.mkdirs();
     }
 
-    private static final class Comparator {
-        final int i1, i2;
+    private static class Comparator {
+        int i1, i2;
 
         Comparator(int i1, int i2) {
             this.i1 = i1;
@@ -55,9 +55,9 @@ public class SortingNetworkGenerator {
         }
     }
 
-    private static final class WriterBuilderProxy {
-        final PrintWriter writer;
-        final StringBuilder builder;
+    private static class WriterBuilderProxy {
+        PrintWriter writer;
+        StringBuilder builder;
 
         WriterBuilderProxy(PrintWriter writer) {
             this.writer = writer;
@@ -89,9 +89,9 @@ public class SortingNetworkGenerator {
         }
     }
 
-    private static final int OUT_BUFFER_SIZE = 16_777_216; // 32 MB
+    private static int OUT_BUFFER_SIZE = 16_777_216; // 32 MB
 
-    private static boolean encodeNetwork0(final Comparator[] comparators, final int n, final PrintWriter out) {
+    private static boolean encodeNetwork0(Comparator[] comparators, int n, PrintWriter out) {
         int scale = 1;
         int xScale = scale * 36;
         int yScale = scale * 20;

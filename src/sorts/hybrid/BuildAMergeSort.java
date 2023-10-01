@@ -15,7 +15,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BuildAMergeSort extends Sort {
+public class BuildAMergeSort extends Sort {
 
     // Replace both filenames with the filename of the target algorithm.
     OptimizedForwardRunShoveSort sort = new OptimizedForwardRunShoveSort(arrayVisualizer);

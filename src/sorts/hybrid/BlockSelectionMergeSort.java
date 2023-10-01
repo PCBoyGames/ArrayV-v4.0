@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class BlockSelectionMergeSort extends Sort {
+public class BlockSelectionMergeSort extends Sort {
     private BinaryInsertionSort binaryInserter;
     private ReverseLazyStableSort extraMerger;
 

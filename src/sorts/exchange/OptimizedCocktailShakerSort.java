@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class OptimizedCocktailShakerSort extends Sort {
+public class OptimizedCocktailShakerSort extends Sort {
     public OptimizedCocktailShakerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

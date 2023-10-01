@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
-final public class OnlineStacklessRotateMergeSort extends Sort {
+public class OnlineStacklessRotateMergeSort extends Sort {
     public OnlineStacklessRotateMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

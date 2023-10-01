@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /* An algorithm created by fungamer2 that works similar to the 2-opt algorithm for the Travelling Salesman Problem
 Time Complexity: O(n^3) */
-public final class TwoOptSort extends Sort {
+public class TwoOptSort extends Sort {
 
     public TwoOptSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

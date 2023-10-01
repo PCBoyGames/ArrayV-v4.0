@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-public final class ProportionExtendMergeSort extends Sort {
+public class ProportionExtendMergeSort extends Sort {
     public ProportionExtendMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -45,7 +45,7 @@ public final class ProportionExtendMergeSort extends Sort {
         this.setBogoSort(false);
     }
 
-	private final int MIN_INSERT = 8;
+	private int MIN_INSERT = 8;
 	private BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 
 	private void blockSwap(int[] array, int a, int b, int s) {

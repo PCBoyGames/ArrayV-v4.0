@@ -22,7 +22,7 @@ in collaboration with stentor
  * @author stentor
  *
  */
-public final class PDStackSort extends Sort {
+public class PDStackSort extends Sort {
 
     public PDStackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -38,7 +38,7 @@ public final class PDStackSort extends Sort {
         this.setBogoSort(false);
     }
 
-    final int WLEN = 3;
+    int WLEN = 3;
 
     protected boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;

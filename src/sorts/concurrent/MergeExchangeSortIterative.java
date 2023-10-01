@@ -3,7 +3,7 @@ package sorts.concurrent;
 import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
-final public class MergeExchangeSortIterative extends Sort {
+public class MergeExchangeSortIterative extends Sort {
 
     public MergeExchangeSortIterative(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

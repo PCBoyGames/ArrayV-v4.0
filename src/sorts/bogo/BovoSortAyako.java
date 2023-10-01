@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class BovoSortAyako extends BogoSorting {
+public class BovoSortAyako extends BogoSorting {
 
     public BovoSortAyako(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,7 +34,7 @@ public final class BovoSortAyako extends BogoSorting {
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
     }
-    
+
     void omegaMultiSwap(int[] array, int a, int b) {
         if (a > b) {
             for (int i = 0; i < a - b; i++)

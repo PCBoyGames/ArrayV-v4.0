@@ -6,7 +6,7 @@ import sorts.templates.Sort;
 /*
 
 Coded for ArrayV by Ayako-chan
-in collaboration with aphitorite and Distray
+in collaboration with aphitorite, Distray and Scandum
 
 +---------------------------+
 | Sorting Algorithm Scarlet |
@@ -18,9 +18,10 @@ in collaboration with aphitorite and Distray
  * @author Ayako-chan
  * @author aphitorite
  * @author Distray
+ * @author Scandum
  *
  */
-public final class KoishiSort extends Sort {
+public class KoishiSort extends Sort {
 
     public KoishiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -40,30 +41,60 @@ public final class KoishiSort extends Sort {
         return ((a - b) >> 31) + ((b - a) >> 31) + 1;
     }
 
-    protected int medOf3(int[] array, int l0, int l1, int l2) {
-        int t;
-        if (Reads.compareIndices(array, l0, l1, 1, true) > 0) {
-            t = l0; l0 = l1; l1 = t;
+    protected int medOf3(int[] array, int i0, int i1, int i2) {
+        int tmp;
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+            tmp = i1;
+            i1 = i0;
+        } else tmp = i0;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
+            return i2;
         }
-        if (Reads.compareIndices(array, l1, l2, 1, true) > 0) {
-            t = l1; l1 = l2; l2 = t;
-            if (Reads.compareIndices(array, l0, l1, 1, true) > 0) {
-                return l0;
-            }
-        }
-        return l1;
+        return i1;
     }
 
-    // median of medians with customizable depth
-    protected int medOfMed(int[] array, int start, int end, int depth) {
-        if (end-start < 9 || depth <= 0) {
-            return medOf3(array, start, start+(end-start)/2, end);
+    public int medP3(int[] array, int a, int b, int d) {
+        if (b - a == 3 || (b - a > 3 && d == 0))
+            return medOf3(array, a, a + (b - a) / 2, b - 1);
+        if (b - a < 3) return a + (b - a) / 2;
+        int t = (b - a) / 3;
+        int l = medP3(array, a, a + t, --d), c = medP3(array, a + t, b - t, d), r = medP3(array, b - t, b, d);
+        // median
+        return medOf3(array, l, c, r);
+    }
+
+    public int medOfMed(int[] array, int a, int b) {
+        int log5 = 0, exp5 = 1, exp5_1 = 0;
+        int[] indices = new int[5];
+        int n = b - a;
+        while (exp5 < n) {
+            exp5_1 = exp5;
+            log5++;
+            exp5 *= 5;
         }
-        int div = (end - start) / 8;
-        int m0 = medOfMed(array, start, start + 2 * div, --depth);
-        int m1 = medOfMed(array, start + 3 * div, start + 5 * div, depth);
-        int m2 = medOfMed(array, start + 6 * div, end, depth);
-        return medOf3(array, m0, m1, m2);
+        if (log5 < 1) return a;
+        // fill indexes, recursing if required
+        if (log5 == 1) for (int i = a, j = 0; i < b; i++, j++) indices[j] = i;
+        else {
+            n = 0;
+            for (int i = a; i < b; i += exp5_1) {
+                indices[n] = medOfMed(array, i, Math.min(b, i + exp5_1));
+                n++;
+            }
+        }
+        // sort - insertion sort is good enough for 5 elements
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                if (Reads.compareIndices(array, indices[j], indices[j - 1], 0.5, true) < 0) {
+                    int t = indices[j];
+                    indices[j] = indices[j - 1];
+                    indices[j - 1] = t;
+                } else break;
+            }
+        }
+        // return median
+        return indices[(n - 1) / 2];
     }
 
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
@@ -72,46 +103,34 @@ public final class KoishiSort extends Sort {
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
             int c = Reads.compareValues(val, array[m]);
-            if (c < 0 || (left && c == 0))
-                b = m;
-            else
-                a = m + 1;
+            if (c < 0 || (left && c == 0)) b = m;
+            else a = m + 1;
         }
         return a;
     }
 
     protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        if (left)
-            while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0)
-                i *= 2;
-        else
-            while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0)
-                i *= 2;
-        int a1 = a + i / 2, b1 = Math.min(b, a - 1 + i);
-        return binSearch(array, a1, b1, val, left);
+        if (left) while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
+        else while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
+        return binSearch(array, a + i / 2, Math.min(b, a - 1 + i), val, left);
     }
 
     protected int rightExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        if (left)
-            while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0)
-                i *= 2;
-        else
-            while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
-                i *= 2;
-        int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
-        return binSearch(array, a1, b1, val, left);
+        if (left) while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
+        else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
+        return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
     }
 
-    protected void insertTo(int[] array, int a, int b) {
+    protected void insertTo(int[] array, int a, int b, boolean aux) {
         Highlights.clearMark(2);
         int temp = array[a];
         int d = (a > b) ? -1 : 1;
         for (int i = a; i != b; i += d)
-            Writes.write(array, i, array[i + d], 0.5, true, false);
+            Writes.write(array, i, array[i + d], 0.5, true, aux);
         if (a != b)
-            Writes.write(array, b, temp, 0.5, true, false);
+            Writes.write(array, b, temp, 0.5, true, aux);
     }
 
     protected void mergeFWExt(int[] array, int[] tmp, int a, int m, int b) {
@@ -123,8 +142,7 @@ public final class KoishiSort extends Sort {
                 Writes.write(array, a++, tmp[i++], 1, true, false);
             else
                 Writes.write(array, a++, array[j++], 1, true, false);
-        while (i < s)
-            Writes.write(array, a++, tmp[i++], 1, true, false);
+        while (i < s) Writes.write(array, a++, tmp[i++], 1, true, false);
     }
 
     protected void mergeBWExt(int[] array, int[] tmp, int a, int m, int b) {
@@ -136,13 +154,11 @@ public final class KoishiSort extends Sort {
                 Writes.write(array, --b, tmp[i--], 1, true, false);
             else
                 Writes.write(array, --b, array[j--], 1, true, false);
-        while (i >= 0)
-            Writes.write(array, --b, tmp[i--], 1, true, false);
+        while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
     }
 
     protected void merge(int[] array, int[] buf, int a, int m, int b) {
-        if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0)
-            return;
+        if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0) return;
         a = leftExpSearch(array, a, m, array[m], false);
         b = rightExpSearch(array, m, b, array[m - 1], true);
         Highlights.clearMark(2);
@@ -156,21 +172,28 @@ public final class KoishiSort extends Sort {
         int i = a + 1;
         if (i < b)
             if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
-                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0)
-                    i++;
-                if (i - a < 4)
-                    Writes.swap(array, a, i - 1, 1.0, true, false);
-                else
-                    Writes.reversal(array, a, i - 1, 1.0, true, false);
-            } else
-                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0)
-                    i++;
+                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
+                if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, false);
+                else Writes.reversal(array, a, i - 1, 1.0, true, false);
+            } else while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         Highlights.clearMark(2);
         while (i - a < mRun && i < b) {
-            insertTo(array, i, rightExpSearch(array, a, i, array[i], false));
+            insertTo(array, i, rightExpSearch(array, a, i, array[i], false), false);
             i++;
         }
         return i;
+    }
+
+    public void insertSort(int[] array, int a, int b, boolean aux) {
+        int i = a + 1;
+        if (i < b)
+            if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
+                while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
+                if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, aux);
+                else Writes.reversal(array, a, i - 1, 1.0, true, aux);
+            } else while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
+        Highlights.clearMark(2);
+        for (; i < b; i++) insertTo(array, i, rightExpSearch(array, a, i, array[i], false), aux);
     }
 
     public void mergeSort(int[] array, int[] buf, int a, int b) {
@@ -178,22 +201,18 @@ public final class KoishiSort extends Sort {
         int mRun = 16;
         while (true) {
             i = findRun(array, a, b, mRun);
-            if (i >= b)
-                break;
+            if (i >= b) break;
             j = findRun(array, i, b, mRun);
             merge(array, buf, a, i, j);
             Highlights.clearMark(2);
-            if (j >= b)
-                break;
+            if (j >= b) break;
             k = j;
             while (true) {
                 i = findRun(array, k, b, mRun);
-                if (i >= b)
-                    break;
+                if (i >= b) break;
                 j = findRun(array, i, b, mRun);
                 merge(array, buf, k, i, j);
-                if (j >= b)
-                    break;
+                if (j >= b) break;
                 k = j;
             }
         }
@@ -222,11 +241,16 @@ public final class KoishiSort extends Sort {
         }
     }
 
-    protected void sortHelper(int[] array, int[] tmp, int swapoff, int start, int end, boolean aux) {
-        if (end - start < 2)
+    protected void sortHelper(int[] array, int[] tmp, int swapoff, int start, int end, boolean aux, boolean bad) {
+        if (end - start <= 32) {
+            insertSort(array, start, end, aux);
             return;
-        int pIdx = medOfMed(array, start, end - 1, (int) (Math.log(end - start) / Math.log(9)));
+        }
+        int pIdx;
+        if (bad) pIdx = medOfMed(array, start, end);
+        else pIdx = medP3(array, start, end, 1);
         int piv = array[pIdx];
+        Highlights.clearMark(2);
         int p0 = start, p1 = swapoff, p2 = swapoff + (end - start);
         for (int i = start; i < end; i++) {
             int cmp = Reads.compareIndexValue(array, i, piv, 0.5, true);
@@ -238,20 +262,20 @@ public final class KoishiSort extends Sort {
                 Writes.write(tmp, p1++, array[i], 0.5, false, !aux);
             }
         }
-        int eqSize = swapoff + (end - start) - p2;
-        copyReverse(tmp, p2, array, p0, eqSize, aux);
-        sortHelper(tmp, array, p0 + eqSize, swapoff, p1, !aux);
-        Writes.arraycopy(tmp, swapoff, array, p0 + eqSize, p1 - swapoff, 1.0, true, aux);
-        sortHelper(array, tmp, swapoff, start, p0, aux);
+        int eqLen = swapoff + (end - start) - p2;
+        copyReverse(tmp, p2, array, p0, eqLen, aux);
+        int lLen = p0 - start, rLen = p1 - swapoff;
+        if (eqLen == end - start) return;
+        if (lLen == 0) bad = eqLen < rLen / 8;
+        else if (rLen == 0) bad = eqLen < lLen / 8;
+        else bad = lLen < rLen / 8 || rLen < lLen / 8;
+        sortHelper(tmp, array, p0 + eqLen, swapoff, p1, !aux, bad);
+        Writes.arraycopy(tmp, swapoff, array, p0 + eqLen, p1 - swapoff, 1.0, true, aux);
+        sortHelper(array, tmp, swapoff, start, p0, aux, bad);
     }
 
     public void quickSort(int[] array, int a, int b) {
         int len = b - a;
-        if (len <= 32) {
-            // insertion sort
-            findRun(array, a, b, b - a);
-            return;
-        }
         int balance = 0, eq = 0, streaks = 0, dist, eqdist, loop, cnt = len, pos = a;
         while (cnt > 16) {
             for (eqdist = dist = 0, loop = 0; loop < 16; loop++) {
@@ -271,15 +295,11 @@ public final class KoishiSort extends Sort {
             eq += cmp == 0 ? 1 : 0;
             pos++;
         }
-        if (balance == 0)
-            return;
+        if (balance == 0) return;
         if (balance + eq == len - 1) {
-            if (eq > 0)
-                stableSegmentReversal(array, a, b - 1);
-            else if (b - a < 4)
-                Writes.swap(array, a, b - 1, 0.75, true, false);
-            else
-                Writes.reversal(array, a, b - 1, 0.75, true, false);
+            if (eq > 0) stableSegmentReversal(array, a, b - 1);
+            else if (b - a < 4) Writes.swap(array, a, b - 1, 0.75, true, false);
+            else Writes.reversal(array, a, b - 1, 0.75, true, false);
             return;
         }
         int[] buf = Writes.createExternalArray(len);
@@ -287,7 +307,7 @@ public final class KoishiSort extends Sort {
         if (streaks > len / 20 || balance <= sixth || balance + eq >= len - sixth)
             mergeSort(array, buf, a, b);
         else
-            sortHelper(array, buf, 0, a, b, false);
+            sortHelper(array, buf, 0, a, b, false, false);
         Writes.deleteExternalArray(buf);
     }
 

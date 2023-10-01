@@ -17,7 +17,7 @@ Coded for ArrayV by Ayako-chan
  * @author Ayako-chan
  *
  */
-public final class ExchangeCocktailBomoSort extends BogoSorting {
+public class ExchangeCocktailBomoSort extends BogoSorting {
 
     public ExchangeCocktailBomoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

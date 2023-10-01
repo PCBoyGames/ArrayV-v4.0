@@ -13,7 +13,7 @@ IN COLLABORATION WITH CONTROL AND MG-2018
 ------------------------------
 
 */
-public final class OriginalPCBoysParShellSort extends Sort {
+public class OriginalPCBoysParShellSort extends Sort {
 
     int lastgap;
 

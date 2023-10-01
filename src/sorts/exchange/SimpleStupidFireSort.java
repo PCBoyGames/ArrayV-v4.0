@@ -13,7 +13,7 @@ FROM A VARIANT OF STUPID FIRE SORT BY NAOAN1201
 ------------------------------
 
 */
-final public class SimpleStupidFireSort extends Sort {
+public class SimpleStupidFireSort extends Sort {
     public SimpleStupidFireSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Simple Stupid Fire");

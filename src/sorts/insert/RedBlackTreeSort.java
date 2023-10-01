@@ -9,7 +9,7 @@ import sorts.templates.Sort;
  *
  * @author Sam Walko (Anonymous0726)
  */
-final public class RedBlackTreeSort extends Sort {
+public class RedBlackTreeSort extends Sort {
     public RedBlackTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -5,7 +5,7 @@ import java.util.Comparator;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BranchlessBinaryInsertionSort extends Sort {
+public class BranchlessBinaryInsertionSort extends Sort {
     public BranchlessBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

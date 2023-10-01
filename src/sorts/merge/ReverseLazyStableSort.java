@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class ReverseLazyStableSort extends Sort {
+public class ReverseLazyStableSort extends Sort {
     private double sleep = 0.5;
     private boolean auxarr = false;
 

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 
-final public class QuantumBubbleSort extends BogoSorting {
+public class QuantumBubbleSort extends BogoSorting {
     public QuantumBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

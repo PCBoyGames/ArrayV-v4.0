@@ -9,7 +9,7 @@ import sorts.templates.Sort;
  * @author yuji
  *
  */
-public final class RandomCocktailCombSort extends Sort {
+public class RandomCocktailCombSort extends Sort {
 
     public RandomCocktailCombSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

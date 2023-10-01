@@ -19,7 +19,7 @@ in collaboration with Distray
  * @author Distray
  *
  */
-public final class ZubbleMergeSort extends Sort {
+public class ZubbleMergeSort extends Sort {
 
     public ZubbleMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class TwentyWayPopSort extends Sort {
+public class TwentyWayPopSort extends Sort {
     public TwentyWayPopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("20 Way Pop");

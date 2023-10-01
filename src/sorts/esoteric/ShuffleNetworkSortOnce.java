@@ -19,7 +19,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class ShuffleNetworkSortOnce extends BogoSorting {
+public class ShuffleNetworkSortOnce extends BogoSorting {
 
     boolean changes = false;
     boolean changesthis = false;
@@ -426,7 +426,7 @@ public final class ShuffleNetworkSortOnce extends BogoSorting {
     }
 
     public void rotate(int[] array, int a, int m, int b, double sleep) {
-        IndexedRotations.cycleReverse(array, a, m, b, 0.1, true, true);
+        IndexedRotations.adaptable(array, a, m, b, 0.1, true, true);
     }
 
     public void push(int[] array, int a, int b, int bLen, double sleep) {

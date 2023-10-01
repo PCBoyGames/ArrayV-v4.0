@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedReverseSandpaperSort extends Sort {
+public class OptimizedReverseSandpaperSort extends Sort {
     public OptimizedReverseSandpaperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Reverse Sandpaper");

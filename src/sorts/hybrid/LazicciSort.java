@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 import utils.Rotations;
 
-final public class LazicciSort extends GrailSorting {
+public class LazicciSort extends GrailSorting {
     public LazicciSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lazicci Stable");

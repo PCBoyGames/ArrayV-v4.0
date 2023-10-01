@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 
 
-final public class RoughSort extends Sort {
+public class RoughSort extends Sort {
     public RoughSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -93,6 +93,6 @@ final public class RoughSort extends Sort {
             k=0;
         }
         SmoothSort s = new SmoothSort(arrayVisualizer);
-        s.smoothSort(array, 0, length-1, true);
+        s.smoothSort(array, 0, length-1, true, false);
     }
 }

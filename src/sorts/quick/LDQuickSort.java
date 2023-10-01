@@ -3,7 +3,7 @@ package sorts.quick;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class LDQuickSort extends Sort {
+public class LDQuickSort extends Sort {
     public LDQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

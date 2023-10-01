@@ -20,7 +20,7 @@ in collaboration with aphitorite and Gaming32
  * @author Gaming32
  *
  */
-public final class MiniTimSort extends Sort {
+public class MiniTimSort extends Sort {
 
     public MiniTimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -42,7 +42,7 @@ public final class MiniTimSort extends Sort {
         return n;
     }
 
-    final int M = 7;
+    int M = 7;
 
     int highlight = 0;
 

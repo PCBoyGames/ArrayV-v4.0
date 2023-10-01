@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.HeapSorting;
 
-final public class GeapSort extends HeapSorting {
+public class GeapSort extends HeapSorting {
     public GeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

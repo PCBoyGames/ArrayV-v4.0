@@ -21,7 +21,7 @@ in collaboration with aphitorite, Distray and Potassium
  * @author Potassium
  *
  */
-public final class StablePotassiumSort extends Sort {
+public class StablePotassiumSort extends Sort {
 
     public StablePotassiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

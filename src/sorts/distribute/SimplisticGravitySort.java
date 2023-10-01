@@ -4,7 +4,7 @@ import sorts.templates.Sort;
 
 import main.ArrayVisualizer;
 
-final public class SimplisticGravitySort extends Sort {
+public class SimplisticGravitySort extends Sort {
 
     public SimplisticGravitySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

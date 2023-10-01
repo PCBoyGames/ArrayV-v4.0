@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class AsynchronousSort extends Sort {
+public class AsynchronousSort extends Sort {
     public AsynchronousSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

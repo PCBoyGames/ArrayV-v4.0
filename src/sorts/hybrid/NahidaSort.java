@@ -21,7 +21,7 @@ in collaboration with aphitorite, Gaming32 and Scandum
  * @author Scandum
  *
  */
-public final class NahidaSort extends Sort {
+public class NahidaSort extends Sort {
 
     public NahidaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

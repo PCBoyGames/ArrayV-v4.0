@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author Enver
  *
  */
-public final class ExponentialInsertionMergeSort extends Sort {
+public class ExponentialInsertionMergeSort extends Sort {
 
     public ExponentialInsertionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

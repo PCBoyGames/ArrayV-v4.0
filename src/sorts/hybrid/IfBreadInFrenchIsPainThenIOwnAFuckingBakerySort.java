@@ -2,7 +2,7 @@
 
  import main.ArrayVisualizer;
  import sorts.templates.BogoSorting;
- public final class IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort extends BogoSorting {
+ public class IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort extends BogoSorting {
 
    public IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort(ArrayVisualizer arrayVisualizer) {
      super(arrayVisualizer);

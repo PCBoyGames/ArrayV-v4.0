@@ -3,13 +3,13 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class RecursiveShellSort extends Sort {
+public class RecursiveShellSort extends Sort {
     public RecursiveShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
         this.setSortListName("Recursive Shell");
-        this.setRunAllSortsName("yuji's Recursive Shell Sort");
-        this.setRunSortName("yuji's Recursive Shell Sort");
+        this.setRunAllSortsName("Recursive Shell Sort");
+        this.setRunSortName("Recursive Shell Sort");
         this.setCategory("Insertion Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);

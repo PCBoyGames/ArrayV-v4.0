@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author fungamer2
  *
  */
-public final class CocktailShellSort extends Sort {
+public class CocktailShellSort extends Sort {
 
     /**
      * @param arrayVisualizer

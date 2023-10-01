@@ -3,8 +3,8 @@ package sorts.concurrent;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class DiamondSortRecursive extends Sort {
-    private final double DELAY = 0.05;
+public class DiamondSortRecursive extends Sort {
+    private double DELAY = 0.05;
     public DiamondSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Diamond (Recursive)");

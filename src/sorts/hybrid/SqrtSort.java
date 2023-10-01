@@ -42,7 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*                                                       */
 /*********************************************************/
 
-final class SqrtState {
+class SqrtState {
     private int leftOverLen;
     private int leftOverFrag;
 
@@ -60,7 +60,7 @@ final class SqrtState {
     }
 }
 
-final public class SqrtSort extends Sort {
+public class SqrtSort extends Sort {
     private InsertionSort insertSorter;
 
     public SqrtSort(ArrayVisualizer arrayVisualizer) {

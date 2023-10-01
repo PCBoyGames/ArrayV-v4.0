@@ -25,7 +25,7 @@ SOFTWARE.
  *
  */
 
-final public class FunSort extends Sort {
+public class FunSort extends Sort {
 
     public FunSort(ArrayVisualizer arrayVisualizer)  {
         super(arrayVisualizer);

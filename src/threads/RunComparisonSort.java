@@ -43,7 +43,7 @@ SOFTWARE.
  *
  */
 
-final public class RunComparisonSort {
+public class RunComparisonSort {
     private ArrayManager arrayManager;
     private ArrayVisualizer arrayVisualizer;
     private Delays delayOps;

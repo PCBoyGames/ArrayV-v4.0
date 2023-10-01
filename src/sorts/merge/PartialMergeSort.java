@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class PartialMergeSort extends Sort {
+public class PartialMergeSort extends Sort {
     public PartialMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

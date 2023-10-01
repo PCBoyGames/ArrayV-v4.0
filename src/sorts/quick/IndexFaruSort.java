@@ -22,7 +22,7 @@ in collaboration with aphitorite and Scandum
  * @author Scandum
  *
  */
-public final class IndexFaruSort extends Sort {
+public class IndexFaruSort extends Sort {
 
     public IndexFaruSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -26,7 +26,7 @@ public class CaiSortMkII extends GrailSorting {
     }
 
     public int buf, bufsz;
-    private static final int minBinsert = 8;
+    private static int minBinsert = 8;
     private BranchlessBinaryInsertionSort binserter;
 
     private class Buffer {

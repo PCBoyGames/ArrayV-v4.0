@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class DegloveSort extends BogoSorting {
+public class DegloveSort extends BogoSorting {
 
     int min;
     int max;

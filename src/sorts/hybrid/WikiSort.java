@@ -45,10 +45,10 @@ public class WikiSort extends Sort {
 
     // Cache sizes for WikiSort
 
-    // final private static int halfSize = (currentLen + 1) / 2;
-    // final private static int squareRoot = (int) (Math.sqrt((currentLen + 1) / 2) + 1);
-    // final private static int staticBuffer = 32;
-    // final private static int noBuffer = 0;
+    // private static int halfSize = (currentLen + 1) / 2;
+    // private static int squareRoot = (int) (Math.sqrt((currentLen + 1) / 2) + 1);
+    // private static int staticBuffer = 32;
+    // private static int noBuffer = 0;
 
     private int cache;
 

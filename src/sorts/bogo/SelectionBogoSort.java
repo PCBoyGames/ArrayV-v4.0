@@ -42,7 +42,7 @@ SOFTWARE.
  * <p>
  * Selection Bogosort can also be viewed as an optimized variation of Less Bogosort.
  */
-public final class SelectionBogoSort extends BogoSorting {
+public class SelectionBogoSort extends BogoSorting {
     public SelectionBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

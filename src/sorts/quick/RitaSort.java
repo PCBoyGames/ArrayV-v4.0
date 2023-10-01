@@ -27,7 +27,7 @@ in collaboration with aphitorite
  * @author aphitorite - key idea / concept of Priority Quicksort
  *
  */
-public final class RitaSort extends Sort {
+public class RitaSort extends Sort {
 
     public RitaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

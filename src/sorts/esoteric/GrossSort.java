@@ -5,7 +5,7 @@ import sorts.hybrid.IfBreadInFrenchIsPainThenIOwnAFuckingBakerySort;
 import sorts.templates.Sort;
 
 
-final public class GrossSort extends Sort {
+public class GrossSort extends Sort {
     public GrossSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

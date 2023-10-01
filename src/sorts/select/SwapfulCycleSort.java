@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class SwapfulCycleSort extends Sort {
+public class SwapfulCycleSort extends Sort {
 
     public SwapfulCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

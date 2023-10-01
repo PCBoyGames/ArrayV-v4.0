@@ -3,7 +3,7 @@ package sorts.concurrent;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BurningSortRec extends Sort {
+public class BurningSortRec extends Sort {
     public BurningSortRec(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

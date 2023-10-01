@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class BinarySiftHeapSort extends Sort {
+public class BinarySiftHeapSort extends Sort {
     public BinarySiftHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BestForNSort extends BestForNSorting {
+public class BestForNSort extends BestForNSorting {
 
     QuadSort quad = new QuadSort(arrayVisualizer);
 

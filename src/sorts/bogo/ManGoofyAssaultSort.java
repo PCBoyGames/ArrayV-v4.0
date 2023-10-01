@@ -4,7 +4,7 @@ package sorts.bogo;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class ManGoofyAssaultSort extends BogoSorting {
+public class ManGoofyAssaultSort extends BogoSorting {
     public ManGoofyAssaultSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Man Goofy Assault");

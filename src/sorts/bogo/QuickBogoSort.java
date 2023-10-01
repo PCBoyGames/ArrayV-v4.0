@@ -34,7 +34,7 @@ SOFTWARE.
  * it randomly shuffles the array until the pivot partitions the array.
  * The pivot is tracked as the array is shuffled.
  */
-public final class QuickBogoSort extends BogoSorting {
+public class QuickBogoSort extends BogoSorting {
     public QuickBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class LuckyCircleSort extends BogoSorting {
+public class LuckyCircleSort extends BogoSorting {
     public LuckyCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lucky Circle");

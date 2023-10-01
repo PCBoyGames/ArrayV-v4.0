@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class OptimizedBubbleSort extends Sort {
+public class OptimizedBubbleSort extends Sort {
     public OptimizedBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

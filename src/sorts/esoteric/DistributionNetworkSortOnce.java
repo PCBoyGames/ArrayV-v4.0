@@ -18,7 +18,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class DistributionNetworkSortOnce extends BogoSorting {
+public class DistributionNetworkSortOnce extends BogoSorting {
 
     boolean changes = false;
     boolean changesthis = false;

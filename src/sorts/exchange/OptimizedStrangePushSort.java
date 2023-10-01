@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedStrangePushSort extends Sort {
+public class OptimizedStrangePushSort extends Sort {
     public OptimizedStrangePushSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Strange Push");

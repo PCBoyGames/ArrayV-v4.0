@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 
 // Code refactored from: https://en.wikipedia.org/wiki/Stooge_sort
-final public class HexaStoogeSort extends Sort {
+public class HexaStoogeSort extends Sort {
     public HexaStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

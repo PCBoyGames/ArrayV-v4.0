@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class OptimizedBabblurSort extends Sort {
+public class OptimizedBabblurSort extends Sort {
 
     boolean swaps = true;
     boolean swapshere = false;

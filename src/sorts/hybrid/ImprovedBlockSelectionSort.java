@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class ImprovedBlockSelectionSort extends Sort {
+public class ImprovedBlockSelectionSort extends Sort {
     public ImprovedBlockSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

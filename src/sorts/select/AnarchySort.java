@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.ArrayVList;
 
-public final class AnarchySort extends Sort {
+public class AnarchySort extends Sort {
 
     public AnarchySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

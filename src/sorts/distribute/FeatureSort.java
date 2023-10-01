@@ -27,7 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-final public class FeatureSort extends Sort {
+public class FeatureSort extends Sort {
     public FeatureSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class PDIterativePopPopSort extends Sort {
+public class PDIterativePopPopSort extends Sort {
     public PDIterativePopPopSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Pattern-Defeating Iterative Pop Pop");

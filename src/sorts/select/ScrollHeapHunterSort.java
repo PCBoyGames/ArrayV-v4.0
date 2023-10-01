@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ScrollHeapHunterSort extends HeapSorting {
+public class ScrollHeapHunterSort extends HeapSorting {
     public ScrollHeapHunterSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Scroll Heap Hunter");

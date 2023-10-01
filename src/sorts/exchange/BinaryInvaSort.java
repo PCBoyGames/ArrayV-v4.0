@@ -17,7 +17,7 @@ Inva's resurrection.
 
  */
 
-public final class BinaryInvaSort extends BogoSorting {
+public class BinaryInvaSort extends BogoSorting {
     public BinaryInvaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

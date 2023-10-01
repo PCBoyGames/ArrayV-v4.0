@@ -19,7 +19,7 @@ in collaboration with PCBoy
  * @author PCBoy
  *
  */
-public final class PDRoomSort extends Sort {
+public class PDRoomSort extends Sort {
 
     public PDRoomSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,9 +34,9 @@ public final class PDRoomSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     int first, last;
-    
+
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.75, true, false);
         else Writes.reversal(array, start, end, 0.75, true, false);
@@ -54,7 +54,7 @@ public final class PDRoomSort extends Sort {
             i++;
         }
     }
-    
+
     protected int findReverseRun(int[] array, int start, int end) {
         int reverse = start;
         boolean lessunique = false;
@@ -79,7 +79,7 @@ public final class PDRoomSort extends Sort {
         }
         return reverse;
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -92,7 +92,7 @@ public final class PDRoomSort extends Sort {
         }
         return a;
     }
-    
+
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         if (a != b) {
@@ -127,7 +127,7 @@ public final class PDRoomSort extends Sort {
         }
         return change;
     }
-    
+
     public void sort(int[] array, int a, int b) {
         first = a;
         last = b;

@@ -10,7 +10,9 @@ import main.ArrayVisualizer;
 import sorts.select.PoplarHeapSort;
 import sorts.select.SmoothSort;
 import sorts.select.AdaptiveVelvetSort;
+import sorts.select.FlippedMinHeapSort;
 import sorts.select.MaxHeapSort;
+import sorts.select.MinHeapSort;
 import sorts.select.TriangularHeapSort;
 import sorts.templates.PDQSorting;
 
@@ -990,6 +992,31 @@ public enum Shuffles {
             heapSort.makeHeap(array, 0, currentLen, delay ? 1 : 0);
         }
     },
+    MIN_HEAPIFIED {
+        public String getName() {
+            return "Min Heapified";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            MinHeapSort heapSort = new MinHeapSort(ArrayVisualizer);
+            heapSort.makeHeap(array, 0, currentLen, delay ? 1 : 0);
+        }
+    },
+    FLEAPIFIED {
+        public String getName() {
+            return "Flipped Min Heapified";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+
+            FlippedMinHeapSort heapSort = new FlippedMinHeapSort(ArrayVisualizer);
+            heapSort.makeHeap(array, currentLen, !ArrayVisualizer.shuffleEnabled());
+        }
+    },
     SMOOTH {
         public String getName() {
             return "Smoothified";
@@ -999,7 +1026,7 @@ public enum Shuffles {
             int currentLen = ArrayVisualizer.getCurrentLength();
 
             SmoothSort smoothSort = new SmoothSort(ArrayVisualizer);
-            smoothSort.smoothHeapify(array, currentLen);
+            smoothSort.smoothHeapify(array, currentLen, !ArrayVisualizer.shuffleEnabled());
         }
     },
     POPLAR {
@@ -1011,7 +1038,7 @@ public enum Shuffles {
             int currentLen = ArrayVisualizer.getCurrentLength();
 
             PoplarHeapSort poplarHeapSort = new PoplarHeapSort(ArrayVisualizer);
-            poplarHeapSort.poplarHeapify(array, 0, currentLen);
+            poplarHeapSort.poplarHeapify(array, 0, currentLen, !ArrayVisualizer.shuffleEnabled());
         }
     },
     TRI_HEAP {
@@ -1027,7 +1054,7 @@ public enum Shuffles {
             else      Delays.changeSkipped(true);
 
             TriangularHeapSort triangularHeapSort = new TriangularHeapSort(ArrayVisualizer);
-            triangularHeapSort.triangularHeapify(array, currentLen);
+            triangularHeapSort.triangularHeapify(array, currentLen, !delay);
 
             if (delay) Delays.setSleepRatio(Delays.getSleepRatio()/10);
             else      Delays.changeSkipped(false);
@@ -1046,7 +1073,7 @@ public enum Shuffles {
             else      Delays.changeSkipped(true);
 
             AdaptiveVelvetSort velvet = new AdaptiveVelvetSort(ArrayVisualizer);
-            velvet.heap(array, 0, currentLen, 0);
+            velvet.heap(array, 0, currentLen, 0, !delay);
 
             if (delay) Delays.setSleepRatio(Delays.getSleepRatio()/10);
             else      Delays.changeSkipped(false);
@@ -1133,6 +1160,21 @@ public enum Shuffles {
             }
         }
     },
+    INC_REV {
+        public String getName() {
+            return "Increasing Reversals";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+
+            for (int i = 1; i * 2 - 1 < currentLen; i *= 2) {
+                if (i > 3) Writes.reversal(array, i, i * 2 - 1, delay ? 0.5 : 0, true, false);
+                else if (i > 1) Writes.swap(array, i, i * 2 - 1, delay ? 0.5 : 0, true, false);
+            }
+        }
+    },
     REC_REV {
         public String getName() {
             return "Recursive Reversal";
@@ -1149,7 +1191,9 @@ public enum Shuffles {
             Writes.recordDepth(d);
             if (b-a < 2) return;
 
-            Writes.reversal(array, a, b-1, sleep, true, false);
+            if (b-a > 3) Writes.reversal(array, a, b-1, sleep, true, false);
+            else Writes.swap(array, a, b - 1, sleep, true, false);
+
 
             int m = (a+b)/2;
             Writes.recursion();
@@ -1343,7 +1387,7 @@ public enum Shuffles {
         boolean hasCandidate;
         int gas, frozen, candidate;
 
-        final class PDQPair {
+        class PDQPair {
             private int pivotPosition;
             private boolean alreadyPartitioned;
 
@@ -1445,7 +1489,7 @@ public enum Shuffles {
                     this.pdqSortThree(array, begin + 1, begin + (halfSize - 1), end - 2);
                     this.pdqSortThree(array, begin + 2, begin + (halfSize + 1), end - 3);
                     this.pdqSortThree(array, begin + (halfSize - 1), begin + halfSize, begin + (halfSize + 1));
-                    Writes.swap(array, begin, begin + halfSize, 1, true, false);
+                    Writes.swap(array, begin, begin + halfSize, sleep, true, false);
                     Highlights.clearMark(2);
                 } else this.pdqSortThree(array, begin + halfSize, begin, end - 1);
 
@@ -1551,7 +1595,7 @@ public enum Shuffles {
             boolean alreadyParted = first >= last;
 
             while (first < last) {
-                Writes.swap(array, first, last, 1, true, false);
+                Writes.swap(array, first, last, sleep, true, false);
                 while (compare(array[++first], pivot) < 0) {
                     Highlights.markArray(1, first);
                 }
@@ -1638,7 +1682,7 @@ public enum Shuffles {
 
         private void pdqSortTwo(int[] array, int a, int b) {
             if (compare(array[b], array[a]) < 0) {
-                Writes.swap(array, a, b, 1, true, false);
+                Writes.swap(array, a, b, sleep, true, false);
             }
             Highlights.clearMark(2);
         }
@@ -1666,7 +1710,7 @@ public enum Shuffles {
         private void pdqUnguardInsertSort(int[] array, int begin, int end) {
             if (begin == end) return;
 
-            double sleep = 1/3d;
+            double sleep = delay ? 1/3d : 0;
 
             for (int cur = begin + 1; cur != end; ++cur) {
                 int sift = cur;

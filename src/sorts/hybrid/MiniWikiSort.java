@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class MiniWikiSort extends Sort {
+public class MiniWikiSort extends Sort {
     public MiniWikiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -12,7 +12,7 @@ import sorts.templates.Sort;
  * @author EilrahcF
  *
  */
-public final class GambitInsertionSort extends Sort {
+public class GambitInsertionSort extends Sort {
 
     /**
      * @param arrayVisualizer

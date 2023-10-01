@@ -30,7 +30,7 @@ SOFTWARE.
  *
  */
 
-final public class LazierestSort extends Sort {
+public class LazierestSort extends Sort {
     public LazierestSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lazierest Stable");

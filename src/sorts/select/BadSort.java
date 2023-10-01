@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * https://stackoverflow.com/questions/27389344/is-there-a-sorting-algorithm-with-a-worst-case-time-complexity-of-n3
  */
 
-final public class BadSort extends Sort {
+public class BadSort extends Sort {
     public BadSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

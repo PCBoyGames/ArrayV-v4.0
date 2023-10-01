@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class BubbleSort extends Sort {
+public class BubbleSort extends Sort {
     public BubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

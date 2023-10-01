@@ -19,7 +19,7 @@ IN COLLABORATION WITH STENTOR AND DISTRAY
 ------------------------------
 
 */
-final public class OptimizedSafeStalinSort extends Sort {
+public class OptimizedSafeStalinSort extends Sort {
 
     int firstlen;
     int secondlen;

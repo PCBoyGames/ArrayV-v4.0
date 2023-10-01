@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class BirthdayMergeSort extends BogoSorting {
+public class BirthdayMergeSort extends BogoSorting {
 
     int min;
     int max;

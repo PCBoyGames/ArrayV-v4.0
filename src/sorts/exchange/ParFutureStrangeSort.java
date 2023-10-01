@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ParFutureStrangeSort extends Sort {
+public class ParFutureStrangeSort extends Sort {
     public ParFutureStrangeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Par Future Strange");

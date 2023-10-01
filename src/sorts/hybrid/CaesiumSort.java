@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 
-final public class CaesiumSort extends GrailSorting {
+public class CaesiumSort extends GrailSorting {
     public CaesiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

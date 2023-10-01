@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class OptimizedOutOfPlaceHeapSort extends Sort {
+public class OptimizedOutOfPlaceHeapSort extends Sort {
     public OptimizedOutOfPlaceHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -48,7 +48,7 @@ final public class OptimizedOutOfPlaceHeapSort extends Sort {
     //implements modifications to quick heap sort from https://arxiv.org/pdf/1209.4214.pdf
     //to "out of place heap" already in arrayv
 
-    private final int WLEN = 3;
+    private int WLEN = 3;
 
     private boolean getBit(int[] bits, int idx) {
         int b = (bits[idx >> WLEN]) >> (idx & ((1 << WLEN) - 1)) & 1;

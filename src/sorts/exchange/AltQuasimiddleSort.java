@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class AltQuasimiddleSort extends Sort {
+public class AltQuasimiddleSort extends Sort {
     public AltQuasimiddleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Quasimiddle (Alt)");

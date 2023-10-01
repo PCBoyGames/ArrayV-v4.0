@@ -1,6 +1,6 @@
 package dialogs;
 
-final public class ImportShuffleDialog extends FileDialog {
+public class ImportShuffleDialog extends FileDialog {
     public ImportShuffleDialog() {
         super();
 

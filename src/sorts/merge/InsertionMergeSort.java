@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author Enver
  *
  */
-public final class InsertionMergeSort extends Sort {
+public class InsertionMergeSort extends Sort {
 
     public InsertionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

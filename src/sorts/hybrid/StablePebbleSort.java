@@ -1,7 +1,7 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.merge.NaturalRotateMergeSort;
+import sorts.merge.OptimizedNaturalRotateMergeSort;
 import sorts.templates.Sort;
 
 /*
@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class StablePebbleSort extends Sort {
+public class StablePebbleSort extends Sort {
     public StablePebbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Stable Pebble");
@@ -73,7 +73,7 @@ final public class StablePebbleSort extends Sort {
                 }
             }
             Highlights.clearAllMarks();
-            NaturalRotateMergeSort natural = new NaturalRotateMergeSort(arrayVisualizer);
+            OptimizedNaturalRotateMergeSort natural = new OptimizedNaturalRotateMergeSort(arrayVisualizer);
             natural.runSort(array, currentLength, 0);
         }
     }

@@ -3,7 +3,7 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class SinkingMergeSortParallel extends Sort {
+public class SinkingMergeSortParallel extends Sort {
 
     public SinkingMergeSortParallel(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

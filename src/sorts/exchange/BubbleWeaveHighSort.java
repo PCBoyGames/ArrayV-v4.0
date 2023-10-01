@@ -1,7 +1,7 @@
 package sorts.exchange;
 
 import main.ArrayVisualizer;
-import sorts.templates.Sort;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class BubbleWeaveHighSort extends Sort {
+public class BubbleWeaveHighSort extends MadhouseTools {
     public BubbleWeaveHighSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Bubble Weave (High Prime)");
@@ -31,6 +31,23 @@ public final class BubbleWeaveHighSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int gap = currentLength;
         while (true) {
+            if (gap > 1) {
+                int[] tree = factorTree(gap);
+                String treeString = "[";
+                for (int i = 0; i < tree.length; i++) {
+                    treeString += (tree[i] + ", ");
+                }
+                treeString = treeString.substring(0, treeString.length() - 2) + "]";
+                arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
+            } else {
+                arrayVisualizer.setExtraHeading(" / 1 = []");
+            }
+            if (gap == currentLength) {
+                for (int i = 0; i < currentLength; i++) {
+                    Highlights.markArray(1, i);
+                    Delays.sleep(0.25);
+                }
+            }
             int end = currentLength - 1;
             int swap = currentLength - 1;
             int start = 0;
@@ -60,6 +77,7 @@ public final class BubbleWeaveHighSort extends Sort {
             gap /= primetesti;
             if (gap == 1) break;
         }
+        arrayVisualizer.setExtraHeading(" / 1 = []");
         MoreOptimizedBubbleSort mob = new MoreOptimizedBubbleSort(arrayVisualizer);
         mob.runSort(array, currentLength, 0);
     }

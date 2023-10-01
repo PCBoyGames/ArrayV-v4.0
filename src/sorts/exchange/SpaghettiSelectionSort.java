@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class SpaghettiSelectionSort extends Sort {
+public class SpaghettiSelectionSort extends Sort {
     public SpaghettiSelectionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

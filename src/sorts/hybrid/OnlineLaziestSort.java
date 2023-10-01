@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class OnlineLaziestSort extends Sort {
+public class OnlineLaziestSort extends Sort {
     public OnlineLaziestSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Online Laziest Stable");

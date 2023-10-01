@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class StrandSort extends Sort {
+public class StrandSort extends Sort {
     public StrandSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

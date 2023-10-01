@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class SwaplessIgnorantQuickSort extends Sort {
+public class SwaplessIgnorantQuickSort extends Sort {
     public SwaplessIgnorantQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Swapless Ignorant Quick");

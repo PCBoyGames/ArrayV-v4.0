@@ -34,7 +34,7 @@ SOFTWARE.
  *
  */
 
-final public class MukuSort extends Sort {
+public class MukuSort extends Sort {
     public MukuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -53,10 +53,10 @@ final public class MukuSort extends Sort {
     BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size, length;
+        public int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array = array;
@@ -765,8 +765,8 @@ final public class MukuSort extends Sort {
 
     */
 
-    private final int G = 14;
-    private final int R = 4;
+    private int G = 14;
+    private int R = 4;
 
     private Random rng;
 

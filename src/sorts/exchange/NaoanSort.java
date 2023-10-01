@@ -2,7 +2,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class NaoanSort extends Sort {
+public class NaoanSort extends Sort {
     public NaoanSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Naoan");

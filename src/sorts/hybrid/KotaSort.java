@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class KotaSort extends Sort {
+public class KotaSort extends Sort {
     public KotaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

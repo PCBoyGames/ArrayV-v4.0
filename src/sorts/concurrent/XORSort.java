@@ -3,7 +3,7 @@ package sorts.concurrent;
 import sorts.templates.Sort;
 import main.ArrayVisualizer;
 
-final public class XORSort extends Sort {
+public class XORSort extends Sort {
     public XORSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

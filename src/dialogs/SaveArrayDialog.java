@@ -1,6 +1,6 @@
 package dialogs;
 
-final public class SaveArrayDialog extends FileDialog {
+public class SaveArrayDialog extends FileDialog {
     public SaveArrayDialog() {
         super();
 

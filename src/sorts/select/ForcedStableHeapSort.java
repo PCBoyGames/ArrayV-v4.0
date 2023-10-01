@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class ForcedStableHeapSort extends Sort {
+public class ForcedStableHeapSort extends Sort {
 
     public ForcedStableHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,7 +34,7 @@ public final class ForcedStableHeapSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     void siftDown(int[] array, int[] keys, int val, int i, int p, int n, int kVal) {
         while (2 * i + 1 < n) {
             int max = val;
@@ -56,7 +56,7 @@ public final class ForcedStableHeapSort extends Sort {
         Writes.write(array, p + i, val, 0, true, false);
         Writes.write(keys, i, kVal, 1, false, true);
     }
-    
+
     public void customSort(int[] array, int a, int b) {
         int n = b - a;
         int[] keys = Writes.createExternalArray(n);

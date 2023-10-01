@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class ShuffledTreeSort extends Sort {
+public class ShuffledTreeSort extends Sort {
     public ShuffledTreeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

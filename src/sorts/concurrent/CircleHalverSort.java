@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CircleHalverSort extends Sort {
+public class CircleHalverSort extends Sort {
     public CircleHalverSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

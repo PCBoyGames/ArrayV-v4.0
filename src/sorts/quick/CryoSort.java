@@ -21,11 +21,11 @@ in collaboration with aphitorite and Scandum
  * instance.
  *
  * @author Ayako-chan - implementation of the sort
- * @author aphitorite - implementation if Rotate Mergesort
+ * @author aphitorite - implementation of Rotate Mergesort
  * @author Scandum - the analyzer before sorting
  *
  */
-public final class CryoSort extends Sort {
+public class CryoSort extends Sort {
 
     public CryoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -39,6 +39,12 @@ public final class CryoSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        setQuestion("Enter the number of items of the merging buffer (default: 64)", 64);
+    }
+
+    @Override
+    public int validateAnswer(int answer) {
+        return Math.max(answer, 0);
     }
 
     int equ(int a, int b) {
@@ -63,10 +69,7 @@ public final class CryoSort extends Sort {
         }
     }
 
-    protected void rotate(int[] array, int a, int m, int b) {
-        Highlights.clearAllMarks();
-        if (a >= m || m >= b)
-            return;
+    protected void rotateNoBuf(int[] array, int a, int m, int b) {
         int p0 = a, p1 = m - 1, p2 = m, p3 = b - 1;
         int tmp;
         while (p0 < p1 && p2 < p3) {
@@ -89,10 +92,69 @@ public final class CryoSort extends Sort {
             Writes.write(array, p0++, tmp, 0.5, true, false);
         }
         if (p0 < p3) { // don't count reversals that don't do anything
-            if (p3 - p0 >= 3)
-                Writes.reversal(array, p0, p3, 1, true, false);
-            else
-                Writes.swap(array, p0, p3, 1, true, false);
+            if (p3 - p0 >= 3) Writes.reversal(array, p0, p3, 1, true, false);
+            else Writes.swap(array, p0, p3, 1, true, false);
+            Highlights.clearMark(2);
+        }
+    }
+
+    protected void rotate(int[] array, int[] buf, int a, int m, int b) {
+        Highlights.clearAllMarks();
+        if (a >= m || m >= b) return;
+        if (buf == null) {
+            rotateNoBuf(array, a, m, b);
+            return;
+        }
+        int pos = a, left = m - a, right = b - m;
+        int pta = pos, ptb = pos + left, ptc = pos + right, ptd = ptb + right;
+        if (left < right) {
+            int bridge = right - left;
+            if (bridge < left) {
+                int loop = left;
+                if (bridge > buf.length) {
+                    rotateNoBuf(array, a, m, b);
+                    return;
+                }
+                Writes.arraycopy(array, ptb, buf, 0, bridge, 1, true, true);
+                while (loop-- > 0) {
+                    Writes.write(array, --ptc, array[--ptd], 0.5, true, false);
+                    Writes.write(array, ptd, array[--ptb], 0.5, true, false);
+                }
+                Writes.arraycopy(buf, 0, array, pta, bridge, 1, true, false);
+            } else {
+                if (left > buf.length) {
+                    rotateNoBuf(array, a, m, b);
+                    return;
+                }
+                Writes.arraycopy(array, pta, buf, 0, left, 1, true, true);
+                Writes.arraycopy(array, ptb, array, pta, right, 1, true, false);
+                Writes.arraycopy(buf, 0, array, ptc, left, 1, true, false);
+            }
+        } else if (right < left) {
+            int bridge = left - right;
+            if (bridge < right) {
+                if (bridge > buf.length) {
+                    rotateNoBuf(array, a, m, b);
+                    return;
+                }
+                int loop = right;
+                Writes.arraycopy(array, ptc, buf, 0, bridge, 1, true, true);
+                while (loop-- > 0) {
+                    Writes.write(array, ptc++, array[pta], 0.5, true, false);
+                    Writes.write(array, pta++, array[ptb++], 0.5, true, false);
+                }
+                Writes.arraycopy(buf, 0, array, ptd - bridge, bridge, 1, true, false);
+            } else {
+                if (right > buf.length) {
+                    rotateNoBuf(array, a, m, b);
+                    return;
+                }
+                Writes.arraycopy(array, ptb, buf, 0, right, 1, true, true);
+                while (left-- > 0) Writes.write(array, --ptd, array[--ptb], 1, true, false);
+                Writes.arraycopy(buf, 0, array, pta, right, 1, true, false);
+            }
+        } else {
+            while (left-- > 0) Writes.swap(array, pta++, ptb++, 1, true, false);
             Highlights.clearMark(2);
         }
     }
@@ -113,10 +175,8 @@ public final class CryoSort extends Sort {
             Highlights.markArray(2, m);
             Delays.sleep(0.25);
             int c = Reads.compareValues(val, array[m]);
-            if (c < 0 || (left && c == 0))
-                b = m;
-            else
-                a = m + 1;
+            if (c < 0 || (left && c == 0)) b = m;
+            else a = m + 1;
         }
         return a;
     }
@@ -161,16 +221,7 @@ public final class CryoSort extends Sort {
         while (i >= 0) Writes.write(array, --b, tmp[i--], 1, true, false);
     }
 
-    protected void merge(int[] array, int[] buf, int a, int m, int b, boolean bnd) {
-        if (bnd) {
-            if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
-            a = leftExpSearch(array, a, m, array[m], false);
-            b = rightExpSearch(array, m, b, array[m - 1], true);
-            if (Reads.compareValues(array[a], array[b - 1]) > 0) {
-                rotate(array, a, m, b);
-                return;
-            }
-        }
+    protected void merge(int[] array, int[] buf, int a, int m, int b) {
         Highlights.clearMark(2);
         if (m - a > b - m)
             mergeBWExt(array, buf, a, m, b);
@@ -179,40 +230,47 @@ public final class CryoSort extends Sort {
     }
 
     public void rotateMerge(int[] array, int[] buf, int a, int m, int b) {
-        while (Math.min(m - a, b - m) > buf.length) {
-            if (a >= m || m >= b || Reads.compareValues(array[m - 1], array[m]) <= 0) return;
-            a = leftExpSearch(array, a, m, array[m], false);
-            b = rightExpSearch(array, m, b, array[m - 1], true);
-            if (Reads.compareValues(array[a], array[b - 1]) > 0) {
-                rotate(array, a, m, b);
-                return;
-            }
-            if (Math.min(m - a, b - m) <= buf.length) {
-                merge(array, buf, a, m, b, false);
-                return;
-            }
-            int m1, m2, m3;
-            if (m-a >= b-m) {
-                m1 = a+(m-a)/2;
-                m2 = binSearch(array, m, b, array[m1], true);
-                m3 = m1+(m2-m);
-            } else {
-                m2 = m+(b-m)/2;
-                m1 = binSearch(array, a, m, array[m2], false);
-                m3 = (m2++)-(m-m1);
-            }
-            rotate(array, m1, m, m2);
-            if (b - (m3 + 1) < m3 - a) {
-                rotateMerge(array, buf, m3 + 1, m2, b);
-                m = m1;
-                b = m3;
-            } else {
-                rotateMerge(array, buf, a, m1, m3);
-                m = m2;
-                a = m3 + 1;
-            }
+        if (a >= m || m >= b) return;
+        if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0) return;
+        a = leftExpSearch(array, a, m, array[m], false);
+        b = rightExpSearch(array, m, b, array[m - 1], true);
+        if (Reads.compareValues(array[a], array[b - 1]) > 0) {
+            rotate(array, buf, a, m, b);
+            return;
         }
-        merge(array, buf, a, m, b, true);
+        int lenA = m - a, lenB = b - m;
+        if (Math.min(m - a, b - m) <= buf.length) {
+            merge(array, buf, a, m, b);
+            return;
+        }
+        int c = lenA + (lenB - lenA) / 2;
+        if (lenB < lenA) { // partitions c largest elements
+            int r1 = 0, r2 = lenB;
+            while (r1 < r2) {
+                int ml = r1 + (r2 - r1) / 2;
+                if (Reads.compareValues(array[m - (c - ml)], array[b - ml - 1]) > 0) r2 = ml;
+                else r1 = ml + 1;
+            }
+            // [lenA-(c-r1)][c-r1][lenB-r1][r1]
+            // [lenA-(c-r1)][lenB-r1][c-r1][r1]
+            this.rotate(array, buf, m - (c - r1), m, b - r1);
+            int m1 = b - c;
+            this.rotateMerge(array, buf, m1, b - r1, b);
+            this.rotateMerge(array, buf, a, m1 - (lenB - r1), m1);
+        } else { // partitions c smallest elements
+            int r1 = 0, r2 = lenA;
+            while (r1 < r2) {
+                int ml = r1 + (r2 - r1) / 2;
+                if (Reads.compareValues(array[a + ml], array[m + (c - ml) - 1]) > 0) r2 = ml;
+                else r1 = ml + 1;
+            }
+            // [r1][lenA-r1][c-r1][lenB-(c-r1)]
+            // [r1][c-r1][lenA-r1][lenB-(c-r1)]
+            this.rotate(array, buf, a + r1, m, m + (c - r1));
+            int m1 = a + c;
+            this.rotateMerge(array, buf, a, a + r1, m1);
+            this.rotateMerge(array, buf, m1, m1 + (lenA - r1), b);
+        }
     }
 
     protected boolean buildRuns(int[] array, int a, int b, int mRun) {
@@ -275,12 +333,36 @@ public final class CryoSort extends Sort {
     }
 
     public int medOfMed(int[] array, int a, int b) {
-        if (b - a <= 6) return a + (b - a) / 2;
-        int p = 1;
-        while (6 * p < b - a) p *= 3;
-        int l = medP3(array, a, a + p, -1), c = medOfMed(array, a + p, b - p), r = medP3(array, b - p, b, -1);
-        // median
-        return medOf3(array, l, c, r);
+        int log5 = 0, exp5 = 1, exp5_1 = 0;
+        int[] indices = new int[5];
+        int n = b - a;
+        while (exp5 < n) {
+            exp5_1 = exp5;
+            log5++;
+            exp5 *= 5;
+        }
+        if (log5 < 1) return a;
+        // fill indexes, recursing if required
+        if (log5 == 1) for (int i = a, j = 0; i < b; i++, j++) indices[j] = i;
+        else {
+            n = 0;
+            for (int i = a; i < b; i += exp5_1) {
+                indices[n] = medOfMed(array, i, Math.min(b, i + exp5_1));
+                n++;
+            }
+        }
+        // sort - insertion sort is good enough for 5 elements
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                if (Reads.compareIndices(array, indices[j], indices[j - 1], 0.5, true) < 0) {
+                    int t = indices[j];
+                    indices[j] = indices[j - 1];
+                    indices[j - 1] = t;
+                } else break;
+            }
+        }
+        // return median
+        return indices[(n - 1) / 2];
     }
 
     protected int[] partitionEasy(int[] array, int[] buf, int a, int b, int piv) {
@@ -317,10 +399,10 @@ public final class CryoSort extends Sort {
         int[] l = partition(array, buf, a, m, piv);
         int[] r = partition(array, buf, m, b, piv);
         int r1 = r[0] - m, r2 = r[1] - r[0];
-        rotate(array, l[0], m, r[0]);
+        rotate(array, buf, l[0], m, r[0]);
         l[0] += r1;
         l[1] += r1;
-        rotate(array, l[1], r[0], r[1]);
+        rotate(array, buf, l[1], r[0], r[1]);
         return new int[] { l[0], l[1] + r2 };
     }
 
@@ -342,12 +424,11 @@ public final class CryoSort extends Sort {
                 a = p[1];
                 continue;
             }
+            bad = lLen < rLen / 8 || rLen < lLen / 8;
             if (rLen < lLen) {
-                bad = rLen < lLen / 8;
                 sortHelper(array, buf, p[1], b, bad);
                 b = p[0];
             } else {
-                bad = lLen < rLen / 8;
                 sortHelper(array, buf, a, p[0], bad);
                 a = p[1];
             }
@@ -357,18 +438,14 @@ public final class CryoSort extends Sort {
 
     /**
      * Sorts the range {@code [a, b)} of {@code array} using a Median-of-Medians
-     * Stable Quicksort with O(sqrt(n)) External Space.
+     * Stable Quicksort with O(1) External Space.
      *
      * @param array the array
      * @param a     the start of the range, inclusive
      * @param b     the end of the range, exclusive
      */
-    public void quickSort(int[] array, int a, int b) {
+    public void quickSort(int[] array, int a, int b, int bLen) {
         int len = b - a;
-        if (len <= 32) {
-            insertSort(array, a, b);
-            return;
-        }
         int balance = 0, eq = 0, streaks = 0, dist, eqdist, loop, cnt = len, pos = a;
         while (cnt > 16) {
             for (eqdist = dist = 0, loop = 0; loop < 16; loop++) {
@@ -395,8 +472,6 @@ public final class CryoSort extends Sort {
             else Writes.reversal(array, a, b - 1, 0.75, true, false);
             return;
         }
-        int bLen = 1;
-        while (bLen * bLen < b - a) bLen *= 2;
         int[] buf = Writes.createExternalArray(bLen);
         int sixth = len / 6;
         if (streaks > len / 20 || balance <= sixth || balance + eq >= len - sixth)
@@ -407,7 +482,7 @@ public final class CryoSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        quickSort(array, 0, sortLength);
+        quickSort(array, 0, sortLength, bucketCount);
 
     }
 

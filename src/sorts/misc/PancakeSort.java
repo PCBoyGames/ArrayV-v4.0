@@ -12,7 +12,7 @@ import sorts.templates.Sort;
  * https://www.ideserve.co.in/learn/pancake-sorting
  */
 
-final public class PancakeSort extends Sort {
+public class PancakeSort extends Sort {
     public PancakeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

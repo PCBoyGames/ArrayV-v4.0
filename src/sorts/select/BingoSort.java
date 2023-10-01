@@ -19,7 +19,7 @@ import sorts.templates.Sort;
  * >> Imported and Translated (from Pascal) by Joel "McDude73" Zaleschuk
  */
 
-final public class BingoSort extends Sort {
+public class BingoSort extends Sort {
     public BingoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

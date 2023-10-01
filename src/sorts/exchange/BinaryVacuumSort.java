@@ -2,7 +2,7 @@ package sorts.exchange;
 
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
-final public class BinaryVacuumSort extends BogoSorting {
+public class BinaryVacuumSort extends BogoSorting {
     public BinaryVacuumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

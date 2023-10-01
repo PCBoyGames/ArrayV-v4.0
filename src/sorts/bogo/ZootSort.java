@@ -14,7 +14,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 It's one simple change that makes it work twice as hard.
 
 */
-public final class ZootSort extends BogoSorting {
+public class ZootSort extends BogoSorting {
     public ZootSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Zoot");

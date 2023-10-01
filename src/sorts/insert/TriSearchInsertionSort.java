@@ -3,23 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-/*
-TriSearch Insertion Sort 2020 Copyright (C) thatsOven
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-final public class TriSearchInsertionSort extends Sort {
+public class TriSearchInsertionSort extends Sort {
     public TriSearchInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -35,20 +19,20 @@ final public class TriSearchInsertionSort extends Sort {
         this.setBogoSort(false);
     }
 
-    public int triSearch(int[] arr, int l, int h, int val, double sleep) {
+    public int triSearch(int[] arr, int l, int h, int val) {
         int mid = l + ((h-l) / 2);
         Highlights.markArray(0, l);
         Highlights.markArray(1, h);
         Highlights.markArray(2, mid);
-        Delays.sleep(sleep);
+        Delays.sleep(40);
         if (Reads.compareValues(val, arr[l]) < 0) {
             return l;
         } else {
             if (Reads.compareValues(val, arr[h]) < 0) {
                 if (Reads.compareValues(val, arr[mid]) < 0) {
-                    return this.triSearch(arr, l+1, mid-1, val, sleep);
+                    return this.triSearch(arr, l+1, mid-1, val);
                 } else {
-                    return this.triSearch(arr, mid+1, h-1, val, sleep);
+                    return this.triSearch(arr, mid+1, h-1, val);
                 }
             } else {
                 return h+1;
@@ -61,7 +45,7 @@ final public class TriSearchInsertionSort extends Sort {
             int num = array[i];
             int lo = start;
 
-            lo = this.triSearch(array, start, i-1, num, compSleep);
+            lo = this.triSearch(array, start, i-1, num);
             Highlights.clearAllMarks();
 
             int j = i - 1;

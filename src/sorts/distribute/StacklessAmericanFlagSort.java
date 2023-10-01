@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class StacklessAmericanFlagSort extends Sort {
+public class StacklessAmericanFlagSort extends Sort {
     public StacklessAmericanFlagSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

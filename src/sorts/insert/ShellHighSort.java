@@ -1,7 +1,7 @@
 package sorts.insert;
 
 import main.ArrayVisualizer;
-import sorts.templates.Sort;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class ShellHighSort extends Sort {
+public class ShellHighSort extends MadhouseTools {
     public ShellHighSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Shell (High Prime)");
@@ -47,7 +47,20 @@ final public class ShellHighSort extends Sort {
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int primetesti = 2;
         int gap = currentLength;
+        int[] tree = factorTree(gap);
+        String treeString = "[";
+        for (int i = 0; i < tree.length; i++) {
+            treeString += (tree[i] + ", ");
+        }
+        treeString = treeString.substring(0, treeString.length() - 2) + "]";
+        arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
         while (gap != 1) {
+            if (gap == currentLength) {
+                for (int i = 0; i < currentLength; i++) {
+                    Highlights.markArray(1, i);
+                    Delays.sleep(0.25);
+                }
+            }
             double primetestrunning = gap;
             while (primetestrunning != 1) {
                 boolean primetest = false;
@@ -60,6 +73,17 @@ final public class ShellHighSort extends Sort {
                 }
             }
             gap /= primetesti;
+            if (gap > 1) {
+                tree = factorTree(gap);
+                treeString = "[";
+                for (int i = 0; i < tree.length; i++) {
+                    treeString += (tree[i] + ", ");
+                }
+                treeString = treeString.substring(0, treeString.length() - 2) + "]";
+                arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
+            } else {
+                arrayVisualizer.setExtraHeading(" / 1 = []");
+            }
             shellPass(array, currentLength, gap);
         }
     }

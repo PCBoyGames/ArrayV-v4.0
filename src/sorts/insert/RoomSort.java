@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class RoomSort extends Sort {
+public class RoomSort extends Sort {
     double delay = 0.015;
     InsertionSort insertionSort;
 

@@ -5,7 +5,7 @@ import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
 
-final public class BzsurgeSort extends Sort {
+public class BzsurgeSort extends Sort {
     public BzsurgeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

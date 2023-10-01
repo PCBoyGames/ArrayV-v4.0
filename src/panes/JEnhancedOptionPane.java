@@ -7,24 +7,23 @@ import javax.swing.JOptionPane;
 
 // Many thanks to Freek de Bruijn on StackOverflow for providing a custom JOptionPane.
 // https://stackoverflow.com/questions/14407804/how-to-change-the-default-text-of-buttons-in-joptionpane-showinputdialog?noredirect=1&lq=1
-final public class JEnhancedOptionPane extends JOptionPane {
+public class JEnhancedOptionPane extends JOptionPane {
  /**
   *
   */
- private static final long serialVersionUID = 1L;
 
- public static String showInputDialog(final String title, final Object message, final Object[] options) throws HeadlessException {
-     final JOptionPane pane = new JOptionPane(message, QUESTION_MESSAGE,
+ public static String showInputDialog(String title, Object message, Object[] options) throws HeadlessException {
+     JOptionPane pane = new JOptionPane(message, QUESTION_MESSAGE,
                                               OK_CANCEL_OPTION, null,
                                               options, null);
      pane.setWantsInput(true);
      pane.setComponentOrientation((getRootFrame()).getComponentOrientation());
      pane.setMessageType(QUESTION_MESSAGE);
      pane.selectInitialValue();
-     final JDialog dialog = pane.createDialog(null, title);
+     JDialog dialog = pane.createDialog(null, title);
      dialog.setVisible(true);
      dialog.dispose();
-     final Object value = pane.getInputValue();
+     Object value = pane.getInputValue();
      return (value == UNINITIALIZED_VALUE) ? null : (String) value;
  }
 }

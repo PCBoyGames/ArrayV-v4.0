@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author PiotrGrochowski
  *
  */
-public final class ShoveSort extends Sort {
+public class ShoveSort extends Sort {
 
     public ShoveSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

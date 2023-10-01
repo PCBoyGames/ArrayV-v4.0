@@ -13,7 +13,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class DigSort extends Sort {
+public class DigSort extends Sort {
 
     int segends = 0;
 

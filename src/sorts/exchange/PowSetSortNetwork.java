@@ -17,7 +17,7 @@ Uh oh.
 
  */
 
-public final class PowSetSortNetwork extends Sort {
+public class PowSetSortNetwork extends Sort {
 
     int mincomp;
 

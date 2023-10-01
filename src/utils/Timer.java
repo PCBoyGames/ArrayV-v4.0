@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class Timer {
+public class Timer {
     private DecimalFormat formatter;
 
     private volatile String minuteFormat;

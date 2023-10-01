@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-final public class RotatePartitionMergeSort extends Sort {
+public class RotatePartitionMergeSort extends Sort {
     public RotatePartitionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

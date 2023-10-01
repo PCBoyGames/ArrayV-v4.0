@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class UnoptimizedFateSort extends Sort {
+public class UnoptimizedFateSort extends Sort {
     public UnoptimizedFateSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Unoptimized Fate");

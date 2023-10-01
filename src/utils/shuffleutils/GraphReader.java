@@ -16,8 +16,8 @@ import utils.ShuffleGraph;
 import utils.ShuffleInfo;
 import utils.Shuffles;
 
-public final class GraphReader {
-    public final class MalformedGraphFileException extends Exception {
+public class GraphReader {
+    public class MalformedGraphFileException extends Exception {
         public MalformedGraphFileException() {
             super();
         }
@@ -27,7 +27,7 @@ public final class GraphReader {
         }
     }
 
-    private final class PartialElement {
+    private class PartialElement {
         int left, right;
 
         public PartialElement(int left, int right) {
@@ -36,7 +36,7 @@ public final class GraphReader {
         }
     }
 
-    public final static int[] COMPATIBLE_VERSIONS = {0, 1, 2, 3};
+    public static int[] COMPATIBLE_VERSIONS = {0, 1, 2, 3};
     static Set<Integer> compatibleVersionsSet;
 
     Scanner scanner;

@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
 // #6 of Distray's Pop The Top Lineup
-public final class LuckierRogueSort extends BogoSorting {
+public class LuckierRogueSort extends BogoSorting {
     public LuckierRogueSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Luckier Rogue");

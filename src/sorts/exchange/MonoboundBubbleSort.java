@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class MonoboundBubbleSort extends Sort {
+public class MonoboundBubbleSort extends Sort {
     public MonoboundBubbleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

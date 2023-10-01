@@ -7,7 +7,7 @@ import utils.Highlights;
 import utils.Renderer;
 import visuals.Visual;
 
-final public class BarGraph extends Visual {
+public class BarGraph extends Visual {
 
     public BarGraph(ArrayVisualizer ArrayVisualizer) {
         super(ArrayVisualizer);

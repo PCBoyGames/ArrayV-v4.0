@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class FiringSquadSortRecursive extends Sort {
+public class FiringSquadSortRecursive extends Sort {
 
     boolean swaps = true;
 

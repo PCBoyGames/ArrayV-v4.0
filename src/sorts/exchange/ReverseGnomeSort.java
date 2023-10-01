@@ -30,7 +30,7 @@ SOFTWARE.
  * @author Ayako-chan
  *
  */
-public final class ReverseGnomeSort extends Sort {
+public class ReverseGnomeSort extends Sort {
 
     public ReverseGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

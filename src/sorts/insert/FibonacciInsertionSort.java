@@ -25,7 +25,7 @@ SOFTWARE.
  *
  */
 
-final public class FibonacciInsertionSort extends Sort {
+public class FibonacciInsertionSort extends Sort {
 
     public FibonacciInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

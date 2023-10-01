@@ -1,6 +1,6 @@
 package dialogs;
 
-final public class LoadCustomDistributionDialog extends FileDialog {
+public class LoadCustomDistributionDialog extends FileDialog {
     public LoadCustomDistributionDialog() {
         super();
 

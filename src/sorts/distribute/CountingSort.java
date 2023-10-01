@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CountingSort extends Sort {
+public class CountingSort extends Sort {
     public CountingSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

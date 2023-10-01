@@ -26,7 +26,7 @@ SOFTWARE.
  *
  */
 
-final public class PairwiseCombSort extends Sort {
+public class PairwiseCombSort extends Sort {
     public PairwiseCombSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

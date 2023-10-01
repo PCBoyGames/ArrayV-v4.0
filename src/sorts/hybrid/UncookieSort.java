@@ -11,7 +11,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-final public class UncookieSort extends CookieSort {
+public class UncookieSort extends CookieSort {
 
     public UncookieSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class DragSort extends Sort {
+public class DragSort extends Sort {
     public DragSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

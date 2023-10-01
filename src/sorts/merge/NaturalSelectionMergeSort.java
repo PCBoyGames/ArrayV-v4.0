@@ -20,7 +20,7 @@ in collaboration with aphitorite and _fluffyy
  * @author _fluffyy
  *
  */
-public final class NaturalSelectionMergeSort extends Sort {
+public class NaturalSelectionMergeSort extends Sort {
 
     public NaturalSelectionMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

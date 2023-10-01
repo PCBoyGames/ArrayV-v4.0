@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public final class ParCiuraShellSort extends Sort {
+public class ParCiuraShellSort extends Sort {
     public ParCiuraShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Par Shell (Ciura)");

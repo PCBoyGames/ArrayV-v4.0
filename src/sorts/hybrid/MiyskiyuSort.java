@@ -8,7 +8,7 @@ import sorts.templates.Sort;
  * @author yuji
  *
  */
-public final class MiyskiyuSort extends Sort {
+public class MiyskiyuSort extends Sort {
 
     public MiyskiyuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class CocktailShakerSort extends Sort {
+public class CocktailShakerSort extends Sort {
     public CocktailShakerSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

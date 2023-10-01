@@ -1,6 +1,6 @@
 package sorts.exchange;
 import main.ArrayVisualizer;
-import sorts.templates.Sort;
+import sorts.templates.MadhouseTools;
 /*
 
 PORTED TO ARRAYV BY PCBOYGAMES
@@ -20,7 +20,7 @@ if the length is a prime number itself, it will resort to plain OptiGnome.
 Try lengths like 1365, 2310, or 4199, and it will appear more diverse.
 
 */
-final public class GnomeWeaveHighSort extends Sort {
+public class GnomeWeaveHighSort extends MadhouseTools {
     public GnomeWeaveHighSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Gnome Weave (High Prime)");
@@ -41,16 +41,39 @@ final public class GnomeWeaveHighSort extends Sort {
         int icheck = 1;
         int primetesti = 2;
         boolean finalgap = false;
+        int[] tree = factorTree(gap);
+        String treeString = "[";
+        for (int i = 0; i < tree.length; i++) {
+            treeString += (tree[i] + ", ");
+        }
+        treeString = treeString.substring(0, treeString.length() - 2) + "]";
+        arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
+        for (int i = 0; i < currentLength; i++) {
+            Highlights.markArray(1, i);
+            Delays.sleep(0.25);
+        }
         while (!finalgap) {
+            if (gap > 1) {
+                tree = factorTree(gap);
+                treeString = "[";
+                for (int i = 0; i < tree.length; i++) {
+                    treeString += (tree[i] + ", ");
+                }
+                treeString = treeString.substring(0, treeString.length() - 2) + "]";
+                arrayVisualizer.setExtraHeading(" / " + gap + " = " + treeString);
+            } else {
+                arrayVisualizer.setExtraHeading(" / 1 = []");
+            }
             int i = icheck;
             int bound = icheck;
-            Highlights.markArray(1, i - 1);
-            Highlights.markArray(2, (i - 1) + gap);
-            Delays.sleep(0.25);
             while ((i - 1) + gap < currentLength) {
                 if (Reads.compareIndices(array, i - 1, (i - 1) + gap, 0.25, true) > 0) {
                     Writes.swap(array, i - 1, (i - 1) + gap, 0.25, true, false);
-                    if (i - gap > 0) i -= gap;
+                    if (i == icheck) {
+                        bound += gap;
+                        i = bound;
+                    }
+                    else if (i - gap > 0) i -= gap;
                 } else {
                     bound += gap;
                     i = bound;

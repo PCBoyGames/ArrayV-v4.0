@@ -3,7 +3,7 @@ package sorts.quick;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class TernaryIndexQuickSort extends Sort {
+public class TernaryIndexQuickSort extends Sort {
 
     public TernaryIndexQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

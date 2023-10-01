@@ -2,7 +2,7 @@ package sorts.templates;
 
 import java.util.Comparator;
 
-final public class SortComparator implements Comparator<Sort> {
+public class SortComparator implements Comparator<Sort> {
     public SortComparator() {}
 
     @Override

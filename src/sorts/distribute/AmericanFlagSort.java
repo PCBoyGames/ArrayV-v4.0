@@ -43,7 +43,7 @@ limitations under the License.
  * @author Justin Wetherell <phishman3579@gmail.com>
  */
 
-final public class AmericanFlagSort extends Sort {
+public class AmericanFlagSort extends Sort {
         private int NUMBER_OF_BUCKETS = 128; // ex. 10 for base 10 numbers
 
         public AmericanFlagSort(ArrayVisualizer arrayVisualizer) {

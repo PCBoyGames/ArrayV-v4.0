@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.GrailSorting;
 import utils.Rotations;
 
-final public class LazicciSortAdaRot extends GrailSorting {
+public class LazicciSortAdaRot extends GrailSorting {
     public LazicciSortAdaRot(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Lazicci Stable (\"Adaptive\" Rotation Rule)");

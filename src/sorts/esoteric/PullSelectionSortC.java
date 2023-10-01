@@ -3,7 +3,7 @@ package sorts.esoteric;
 import main.ArrayVisualizer;
 import sorts.templates.BogoSorting;
 
-public final class PullSelectionSortC extends BogoSorting {
+public class PullSelectionSortC extends BogoSorting {
     public PullSelectionSortC(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -14,7 +14,7 @@ import sorts.templates.Sort;
  */
 
 // Code refactored from: https://en.wikipedia.org/wiki/Stooge_sort
-final public class StoogeSort extends Sort {
+public class StoogeSort extends Sort {
     public StoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

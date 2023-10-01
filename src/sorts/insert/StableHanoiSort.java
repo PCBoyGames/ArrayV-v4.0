@@ -11,7 +11,7 @@ import sorts.templates.Sort;
  *
  * @author Sam Walko (Anonymous0726)
  */
-final public class StableHanoiSort extends Sort {
+public class StableHanoiSort extends Sort {
     // main array
     private int[] array;
     // Length of the array

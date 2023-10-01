@@ -2,7 +2,7 @@ package dialogs;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-final public class CustomImageDialog extends FileDialog {
+public class CustomImageDialog extends FileDialog {
     public CustomImageDialog() {
         super();
 

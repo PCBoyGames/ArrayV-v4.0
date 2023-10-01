@@ -31,7 +31,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // *Ported by Distray, version in wolfsort repo as of 2022/03/08*
 
-final public class UpdatedQuadSort extends Sort {
+public class UpdatedQuadSort extends Sort {
     private Timer Timer;
     public UpdatedQuadSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

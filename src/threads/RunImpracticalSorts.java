@@ -62,7 +62,7 @@ SOFTWARE.
  *
  */
 
-final public class RunImpracticalSorts extends MultipleSortThread {
+public class RunImpracticalSorts extends MultipleSortThread {
     private Sort BadSort;
     private Sort StoogeSort;
     private Sort StableStoogeSort;
@@ -152,7 +152,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
         RunImpracticalSorts.this.runIndividualSort(NapoleonSort,              0, array, 6,   0.005,  true);
 
         // Bogosorts
-        Sounds.toggleSofterSounds(true);
+        Sounds.setSofterSounds(true);
         // the not-bad ones
         RunImpracticalSorts.this.runIndividualSort(SelectionBogoSort,         0, array, 64,  1e-9,   true);
         RunImpracticalSorts.this.runIndividualSort(BubbleBogoSort,            0, array, 40,  1e-9,   true);
@@ -176,7 +176,7 @@ final public class RunImpracticalSorts extends MultipleSortThread {
         RunImpracticalSorts.this.runIndividualSort(GuessSort,                 0, array,  4,  1e-9,   true);
         // aaaaa
         RunImpracticalSorts.this.runIndividualSort(BogoBogoSort,              0, array,  4,  1e-9,   true);
-        Sounds.toggleSofterSounds(false);
+        Sounds.setSofterSounds(false);
     }
 
     @Override

@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class BadBadSort extends Sort {
+public class BadBadSort extends Sort {
     public BadBadSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

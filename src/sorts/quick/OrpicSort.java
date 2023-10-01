@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.select.SmoothSort;
 import sorts.templates.Sort;
 
-final public class OrpicSort extends Sort {
+public class OrpicSort extends Sort {
     public OrpicSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -44,7 +44,7 @@ final public class OrpicSort extends Sort {
         }
         medianGap = (r-p+1) / medianSize;
         if (medianGap < 1) {
-            this.small.smoothSort(a, p, r, true);
+            this.small.smoothSort(a, p, r, true, false);
             return;
         }
         if (medianGap > 1)

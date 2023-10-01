@@ -8,7 +8,7 @@ import sorts.templates.Sort;
 import utils.Statistics;
 
 
-final public class TableTennisStackSort extends Sort {
+public class TableTennisStackSort extends Sort {
     public TableTennisStackSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -24,7 +24,7 @@ final public class TableTennisStackSort extends Sort {
         this.setBogoSort(false);
     }
     // Credit to Stentor for the original algorithm
-    final int zero = Integer.MIN_VALUE;
+    int zero = Integer.MIN_VALUE;
     private ArrayList<Stack<Integer>> buildStacks(int[] array, int start, int end) {
         ArrayList<Stack<Integer>> stacksBuilt = new ArrayList<>();
         int zeroed = 0;

@@ -46,7 +46,7 @@ public class EhatSort extends MadhouseTools {
                 while (swapshere) {
                     swapshere = false;
                     Highlights.clearAllMarks();
-                    par = parX(array, 0, len, 0.1, true);
+                    par = len > 0 ? parX(array, 0, len, 0.1, true) : 1;
                     for (int i = 0; i < len; i++) {
                         int coll = 0;
                         for (int j = Math.min(i + par, len - 1); j > i; j--) {
@@ -69,7 +69,7 @@ public class EhatSort extends MadhouseTools {
                 while (swapshere) {
                     swapshere = false;
                     Highlights.clearAllMarks();
-                    par = parX(array, 0, len, 0.1, true);
+                    par = len > 0 ? parX(array, 0, len, 0.1, true) : 1;
                     for (int i = 0; i < len; i++) {
                         int coll = 0;
                         for (int j = Math.min(i + par, len - 1); j > i; j--) {

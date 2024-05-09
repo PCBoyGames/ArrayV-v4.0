@@ -29,12 +29,12 @@ SOFTWARE.
  *
  */
 
-public class FastGravitySort extends Sort {
+final public class FastGravitySort extends Sort {
     public FastGravitySort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
         this.setSortListName("Fast Gravity");
-        this.setRunAllSortsName("Gravity (Bead) Sort");
+        this.setRunAllSortsName("Gravity Sort");
         this.setRunSortName("Beadsort");
         this.setCategory("Distribution Sorts");
         this.setComparisonBased(false);
@@ -74,7 +74,7 @@ public class FastGravitySort extends Sort {
 
 			//iterate for every item in array and x
     		for (int i = 0; i < length; i++) {
-				int inc = (i >= length-y[j] ? 1 : 0) - (x[i] >= j ? 1 : 0);
+				int inc = (((length-y[j]-i-1) >> 31) & 1) - (((j-x[i]-1) >> 31) & 1);
 
 				//update the main array
 				array[i] += inc;

@@ -443,7 +443,7 @@ public class ArrayVisualizer {
                 background.setColor(Color.BLACK);
                 int coltmp = 255;
 
-                ArrayVisualizer.this.visualClasses = new Visual[17];
+                ArrayVisualizer.this.visualClasses = new Visual[18];
 
                 ArrayVisualizer.this.visualClasses[0]  = new           BarGraph(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[1]  = new            Rainbow(ArrayVisualizer.this);
@@ -462,6 +462,7 @@ public class ArrayVisualizer {
                 ArrayVisualizer.this.visualClasses[14] = new         SpiralDots(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[15] = new       TriangleMesh(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[16] = new       HilbertCurve(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[17] = new          DataTrace(ArrayVisualizer.this);
 
                 while (ArrayVisualizer.this.visualsEnabled) {
                     if (ArrayVisualizer.this.updateVisualsForced == 0) {
@@ -529,12 +530,19 @@ public class ArrayVisualizer {
         System.arraycopy(this.DistributionSorts, 0, this.AllSorts, this.ComparisonSorts.length, this.DistributionSorts.length);
     }
 
+    @SuppressWarnings("unchecked")
     private <T> ArrayList<T> arrList(T... vals) {
-        ArrayList<T> x = new ArrayList<>();
-        for (T i : vals) {
-            x.add(i);
+        if (vals == null) {
+            throw new NullPointerException("Input array cannot be null.");
         }
-        return x;
+
+        ArrayList<T> resultList = new ArrayList<>();
+        for (T i : vals) {
+            if (i != null) {
+                resultList.add(i);
+            }
+        }
+        return resultList;
     }
 
     private void drawStats(Color textColor, boolean dropShadow) {
@@ -1299,7 +1307,7 @@ public class ArrayVisualizer {
 
         this.window.setLocation(0, 0);
         this.window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.window.setTitle("w0rthy's Array Visualizer (PCBoy's Personal Mod) - " + (this.ComparisonSorts.length + this.DistributionSorts.length) + " Sorts, 15 Visual Styles, and Infinite Inputs to Sort");
+        this.window.setTitle("w0rthy's Array Visualizer (PCBoy's Personal Mod) - " + (this.ComparisonSorts.length + this.DistributionSorts.length) + " Sorts, 18 Visual Styles, and Infinite Inputs to Sort");
         this.window.setBackground(Color.BLACK);
         this.window.setIgnoreRepaint(true);
 

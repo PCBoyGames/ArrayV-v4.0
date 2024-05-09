@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Ayako-chan
+Coded for ArrayV by Harumi
 in collaboration with aphitorite
 
 +---------------------------+
@@ -15,11 +15,11 @@ in collaboration with aphitorite
  */
 
 /**
- * @author Ayako-chan
+ * @author Harumi
  * @author aphitorite
  *
  */
-public class GanyuSort extends Sort {
+public final class GanyuSort extends Sort {
 
     public GanyuSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -56,8 +56,16 @@ public class GanyuSort extends Sort {
 
     void merge(int[] array, int[] tag0, int[] tag1, int o, int a, int m, int b) {
         int ta = a - o, tm = m - o, tb = b - o, ti = ta, tj = tm,
-                i = a + tag0[ti], j = m + tag0[tj],
-                t = 0;
+                t = ta;
+        if (ti == tm) {
+            while (tj < tb) Writes.write(tag1, t++, tag0[tj++]+(tm-ta), 0.5, false, true);
+            return;
+        }
+        if (tj == tb) {
+            while (ti < tm) Writes.write(tag1, t++, tag0[ti++], 0.5, false, true);
+            return;
+        }
+        int i = a + tag0[ti], j = m + tag0[tj];
         Highlights.markArray(2, i);
         Highlights.markArray(3, j);
         while (ti < tm || tj < tb) {
@@ -81,10 +89,6 @@ public class GanyuSort extends Sort {
                 }
             }
         }
-        for (int k = 0; k < tb - ta; k++) {
-            Highlights.markArray(1, a + k);
-            Writes.write(tag0, ta + k, tag1[k], 0.5, false, true);
-        }
     }
 
     public void mergeSort(int[] array, int a, int b) {
@@ -93,11 +97,11 @@ public class GanyuSort extends Sort {
         int[] tag1 = Writes.createExternalArray(len);
         boolean inv = false;
         for (int j = 1; j < b - a; j *= 2) {
-            for (int i = a; i + j < b; i += 2 * j)
-                merge(array, tag0, tag1, a, i, i + j, Math.min(i + 2 * j, b));
+            for (int i = a; i < b; i += 2 * j)
+                merge(array, inv ? tag0 : tag1, inv ? tag1 : tag0, a, i, Math.min(i + j, b), Math.min(i + 2 * j, b));
             inv = !inv;
         }
-        indexSort(array, tag0, a, b);
+        indexSort(array, inv ? tag0 : tag1, a, b);
         Writes.deleteExternalArray(tag0);
         Writes.deleteExternalArray(tag1);
     }

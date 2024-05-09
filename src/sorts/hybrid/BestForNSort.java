@@ -46,6 +46,12 @@ public class BestForNSort extends BestForNSorting {
         if (l > b) quad.runSort(array, l, 0);
     }
 
+    public void callNetwork(int[] array, int s, int e) {
+        Statistics.putStat("Network Use");
+        Statistics.addStat("Network Use");
+        initNetwork(array, s, e - s);
+    }
+
     @Override
     public int validateAnswer(int answer) {
         if (answer > 64) return 64;

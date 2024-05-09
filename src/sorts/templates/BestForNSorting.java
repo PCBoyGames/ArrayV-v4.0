@@ -35,8 +35,19 @@ public abstract class BestForNSorting extends Sort {
             else if (l < 50) for (int i = 0; i < BestForNSortingRes2.best2[l - 39].length; i++) cs(array, s, BestForNSortingRes2.best2[l - 39][i][0], BestForNSortingRes2.best2[l - 39][i][1]);
             else if (l < 58) for (int i = 0; i < BestForNSortingRes3.best3[l - 50].length; i++) cs(array, s, BestForNSortingRes3.best3[l - 50][i][0], BestForNSortingRes3.best3[l - 50][i][1]);
             else if (l < 65) for (int i = 0; i < BestForNSortingRes4.best4[l - 58].length; i++) cs(array, s, BestForNSortingRes4.best4[l - 58][i][0], BestForNSortingRes4.best4[l - 58][i][1]);
+        } else {
+            System.err.println("BestForN only supports lengths up to 64.");
+            return;
         }
-        else {
+    }
+
+    public void weaveInitNetwork(int[] array, int s, int l, int g) {
+        if (l < 65) {
+            if (l < 39) for (int i = 0; i < BestForNSortingRes1.best1[l].length; i++) cs(array, s, BestForNSortingRes1.best1[l][i][0] * g, BestForNSortingRes1.best1[l][i][1] * g);
+            else if (l < 50) for (int i = 0; i < BestForNSortingRes2.best2[l - 39].length; i++) cs(array, s, BestForNSortingRes2.best2[l - 39][i][0] * g, BestForNSortingRes2.best2[l - 39][i][1] * g);
+            else if (l < 58) for (int i = 0; i < BestForNSortingRes3.best3[l - 50].length; i++) cs(array, s, BestForNSortingRes3.best3[l - 50][i][0] * g, BestForNSortingRes3.best3[l - 50][i][1] * g);
+            else if (l < 65) for (int i = 0; i < BestForNSortingRes4.best4[l - 58].length; i++) cs(array, s, BestForNSortingRes4.best4[l - 58][i][0] * g, BestForNSortingRes4.best4[l - 58][i][1] * g);
+        } else {
             System.err.println("BestForN only supports lengths up to 64.");
             return;
         }

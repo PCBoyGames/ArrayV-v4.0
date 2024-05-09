@@ -30,7 +30,7 @@ public class GameOfLifeSort extends MadhouseTools {
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);
-        this.setUnreasonableLimit(1024);
+        this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
     }
 
@@ -43,10 +43,10 @@ public class GameOfLifeSort extends MadhouseTools {
     protected int checkCells(int[] board, int boardSize, int i) {
         int alive = 8;
         int[] dims = getRectangleDimensions(boardSize);
-        boolean left = isValidRectangleAction(dims[0], dims[1], i, i - 1);
-        boolean down = isValidRectangleAction(dims[0], dims[1], i, i + dims[0]);
-        boolean up = isValidRectangleAction(dims[0], dims[1], i, i - dims[0]);
-        boolean right = isValidRectangleAction(dims[0], dims[1], i, i + 1);
+        boolean left = i - 1 >= 0 ? isValidRectangleAction(dims[0], dims[1], i, i - 1) : false;
+        boolean down = i + dims[0] < boardSize ? isValidRectangleAction(dims[0], dims[1], i, i + dims[0]) : false;
+        boolean up = i - dims[0] >= 0 ? isValidRectangleAction(dims[0], dims[1], i, i - dims[0]) : false;
+        boolean right = i + 1 < boardSize ? isValidRectangleAction(dims[0], dims[1], i, i + 1) : false;
         if (left) {if (cellCompare(board[i - 1])) alive--;}
         else alive--;
         if (down && left) {if (cellCompare(board[i + dims[0] - 1])) alive--;}
@@ -104,14 +104,27 @@ public class GameOfLifeSort extends MadhouseTools {
         return active;
     }
 
+    protected boolean boardSame(int[] board, int[] save, int boardSize) {
+        for (int i = 0; i < boardSize; i++) {
+            if (Reads.compareValues(board[i], save[i]) != 0) {
+                Writes.arraycopy(board, i, save, i, boardSize - i, 0, true, true);
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected void life(int[] board, int[] items, int boardSize) {
         for (int i = 0; i < boardSize; i++) Writes.write(board, i, randInt(0, 2) * boardSize / 2, 0.1, true, false);
         cellsAlive = 1;
         boolean active = true;
+        int[] checkSave = Writes.createExternalArray(boardSize);
         for (int i = 0; i < boardSize && cellsAlive > 0 && active; i++) {
             active = iterate(board, items, boardSize);
             Delays.sleep(10);
+            if (cellsAlive > 0 && active && i % 6 == 0) if (boardSame(board, checkSave, boardSize)) break;
         }
+        Writes.deleteExternalArray(checkSave);
     }
 
     @Override

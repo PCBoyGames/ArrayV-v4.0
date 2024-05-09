@@ -18,7 +18,7 @@ Coded for ArrayV by Kiriko-chan
  * @author Kiriko-chan
  *
  */
-public class LazyStableTernaryQuickSort extends Sort {
+public final class LazyStableTernaryQuickSort extends Sort {
 
     public LazyStableTernaryQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -74,87 +74,79 @@ public class LazyStableTernaryQuickSort extends Sort {
         v2 = medianOf3(array, a + div * 6, a + div * 7, a + div * 8);
         return medianOf3(array, v0, v1, v2);
     }
-
-    protected int leftBinSearch(int[] array, int a, int b, int val) {
+    
+    protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
-            if (Reads.compareValues(val, array[m]) <= 0)
-                b = m;
-            else
-                a = m + 1;
+            Highlights.markArray(2, m);
+            Delays.sleep(0.25);
+            int c = Reads.compareValues(val, array[m]);
+            if (c < 0 || (left && c == 0)) b = m;
+            else a = m + 1;
         }
         return a;
     }
 
-    protected int rightBinSearch(int[] array, int a, int b, int val) {
-        while (a < b) {
-            int m = a + (b - a) / 2;
-            if (Reads.compareValues(val, array[m]) < 0)
-                b = m;
-            else
-                a = m + 1;
-        }
-        return a;
+    protected int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
+        int i = 1;
+        if (left) while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
+        else while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
+        return binSearch(array, a + i / 2, Math.min(b, a - 1 + i), val, left);
     }
 
-    protected int rightExpSearch(int[] array, int a, int b, int val) {
+    protected int rightExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
-            i *= 2;
-        return rightBinSearch(array, Math.max(a, b - i + 1), b - i / 2, val);
-    }
-
-    protected int leftBoundSearch(int[] array, int a, int b, int val) {
-        int i = 1;
-        while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0)
-            i *= 2;
-        return rightBinSearch(array, a + i / 2, Math.min(b, a - 1 + i), val);
-    }
-
-    protected int rightBoundSearch(int[] array, int a, int b, int val) {
-        int i = 1;
-        while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0)
-            i *= 2;
-        return leftBinSearch(array, Math.max(a, b - i + 1), b - i / 2, val);
+        if (left) while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
+        else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
+        return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
     }
 
     protected void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
-        boolean change = false;
-        while (a > b) {
-            Writes.write(array, a, array[--a], 0.5, true, false);
-            change = true;
-        }
-        if (change)
-            Writes.write(array, b, temp, 0.5, true, false);
+        int d = (a > b) ? -1 : 1;
+        for (int i = a; i != b; i += d)
+            Writes.write(array, i, array[i + d], 0.5, true, false);
+        if (a != b) Writes.write(array, b, temp, 0.5, true, false);
     }
 
     protected void rotate(int[] array, int a, int m, int b, double sleep) {
         IndexedRotations.holyGriesMills(array, a, m, b, sleep, true, false);
     }
 
+    protected boolean buildRuns(int[] array, int a, int b, int mRun) {
+        int i = a + 1, j = a;
+        boolean noSort = true;
+        while (i < b) {
+            if (Reads.compareIndices(array, i - 1, i++, 1, true) > 0) {
+                while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) > 0) i++;
+                if (i - j < 4) Writes.swap(array, j, i - 1, 1.0, true, false);
+                else Writes.reversal(array, j, i - 1, 1.0, true, false);
+            } else while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) <= 0) i++;
+            if (i < b) {
+                noSort = false;
+                j = i - (i - j - 1) % mRun - 1;
+            }
+            while (i - j < mRun && i < b) {
+                insertTo(array, i, binSearch(array, j, i, array[i], false));
+                i++;
+            }
+            j = i++;
+        }
+        return noSort;
+    }
+
     protected void insertSort(int[] array, int a, int b) {
-        int i = a + 1;
-        if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
-            Writes.reversal(array, a, i - 1, 1.0, true, false);
-        } else
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
-        Highlights.clearMark(2);
-        for (; i < b; i++)
-            insertTo(array, i, rightExpSearch(array, a, i, array[i]));
+        buildRuns(array, a, b, b - a);
     }
 
     // Refactored from PDQSorting.java
     protected boolean partialInsert(int[] array, int a, int b) {
-        if (a == b)
-            return true;
+        if (a == b) return true;
         double sleep = 0.25;
         int c = 0;
         for (int i = a + 1; i < b; i++) {
-            if (c > partialInsertLimit)
-                return false;
+            if (c > partialInsertLimit) return false;
             if (Reads.compareIndices(array, i - 1, i, sleep, true) > 0) {
                 Highlights.clearMark(2);
                 int t = array[i];
@@ -170,57 +162,34 @@ public class LazyStableTernaryQuickSort extends Sort {
         return true;
     }
 
-    protected boolean buildRuns(int[] array, int a, int b, int mRun) {
-        int i = a + 1, j = a;
-        boolean noSort = true;
-        while (i < b) {
-            if (Reads.compareIndices(array, i - 1, i++, 1, true) > 0) {
-                while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) > 0) i++;
-                Writes.reversal(array, j, i - 1, 1, true, false);
-            } else
-                while (i < b && Reads.compareIndices(array, i - 1, i, 1, true) <= 0) i++;
-            if (i < b) {
-                noSort = false;
-                j = i - (i - j - 1) % mRun - 1;
-            }
-            while (i - j < mRun && i < b) {
-                insertTo(array, i, rightBinSearch(array, j, i, array[i]));
-                i++;
-            }
-            j = i++;
-        }
-        return noSort;
-    }
-
     protected void inPlaceMergeFW(int[] array, int a, int m, int b) {
-        int i = a, j = m, k;
-        while (i < j && j < b)
-            if (Reads.compareValues(array[i], array[j]) == 1) {
-                k = leftBinSearch(array, j + 1, b, array[i]);
-                rotate(array, i, j, k, 1.0);
-                i += k - j;
-                j = k;
-            } else
-                i++;
+        while (a < m && m < b) {
+            int i = leftExpSearch(array, m, b, array[a], true);
+            rotate(array, a, m, i, 1.0);
+            int t = i - m;
+            m = i;
+            a += t + 1;
+            if (m >= b) break;
+            a = leftExpSearch(array, a, m, array[m], false);
+        }
     }
 
     protected void inPlaceMergeBW(int[] array, int a, int m, int b) {
-        int i = m - 1, j = b - 1, k;
-        while (j > i && i >= a)
-            if (Reads.compareValues(array[i], array[j]) > 0) {
-                k = rightBinSearch(array, a, i, array[j]);
-                rotate(array, k, i + 1, j + 1, 1.0);
-                j -= (i + 1) - k;
-                i = k - 1;
-            } else
-                j--;
+        while (b > m && m > a) {
+            int i = rightExpSearch(array, a, m, array[b - 1], false);
+            rotate(array, i, m, b, 1.0);
+            int t = m - i;
+            m = i;
+            b -= t + 1;
+            if (m <= a) break;
+            b = rightExpSearch(array, m, b, array[m - 1], true);
+        }
     }
 
     public void smartInPlaceMerge(int[] array, int a, int m, int b) {
-        if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0)
-            return;
-        a = leftBoundSearch(array, a, m, array[m]);
-        b = rightBoundSearch(array, m, b, array[m - 1]);
+        if (Reads.compareIndices(array, m - 1, m, 0.0, true) <= 0) return;
+        a = leftExpSearch(array, a, m, array[m], false);
+        b = rightExpSearch(array, m, b, array[m - 1], true);
         if (Reads.compareIndices(array, a, b - 1, 0.0, true) > 0)
             rotate(array, a, m, b, 1.0);
         else if (b - m < m - a)
@@ -251,7 +220,7 @@ public class LazyStableTernaryQuickSort extends Sort {
             if (cmp < 0) {
                 do {
                     j++;
-                    cmp = Reads.compareIndexValue(array, j, p, 0.5, true);
+                    if (j < b) cmp = Reads.compareIndexValue(array, j, p, 0.5, true);
                 } while (j < b && cmp < 0);
                 rotate(array, pa, i, j, 0.25);
                 pa += j - i;
@@ -260,7 +229,7 @@ public class LazyStableTernaryQuickSort extends Sort {
             } else if (cmp == 0) {
                 do {
                     j++;
-                    cmp = Reads.compareIndexValue(array, j, p, 0.5, true);
+                    if (j < b) cmp = Reads.compareIndexValue(array, j, p, 0.5, true);
                 } while (j < b && cmp == 0);
                 rotate(array, pb, i, j, 0.25);
                 pb += j - i;
@@ -268,7 +237,7 @@ public class LazyStableTernaryQuickSort extends Sort {
             } else
                 do {
                     i++;
-                    cmp = Reads.compareIndexValue(array, i, p, 0.5, true);
+                    if (i < b) cmp = Reads.compareIndexValue(array, i, p, 0.5, true);
                 } while (i < b && cmp > 0);
         }
         Highlights.clearMark(2);
@@ -285,8 +254,7 @@ public class LazyStableTernaryQuickSort extends Sort {
             PivotPair p = partition(array, a, b, piv);
             int pa = p.pa, pb = p.pb;
             int l = pa - a, r = b - pb, eqLen = pb - pa;
-            if (eqLen == b - a)
-                return;
+            if (eqLen == b - a) return;
             if ((l == 0 || r == 0) || (l / r >= 16 || r / l >= 16)) {
                 piv = medianOf9(array, a, b);
                 p = partition(array, a, b, piv);
@@ -295,11 +263,9 @@ public class LazyStableTernaryQuickSort extends Sort {
                 l = pa - a;
                 r = b - pb;
                 eqLen = pb - pa;
-                if (eqLen == b - a)
-                    return;
+                if (eqLen == b - a) return;
             }
-            if (partialInsert(array, a, pa) && partialInsert(array, pb, b))
-                return;
+            if (partialInsert(array, a, pa) && partialInsert(array, pb, b)) return;
             if (l > r) {
                 quickSort(array, pb, b, --d);
                 b = pa;
@@ -317,7 +283,7 @@ public class LazyStableTernaryQuickSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        quickSort(array, 0, sortLength, 2 * floorLog(sortLength));
+        customSort(array, 0, sortLength);
 
     }
 

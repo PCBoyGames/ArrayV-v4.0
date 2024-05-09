@@ -48,12 +48,12 @@ public class BufMerge2 extends Sort {
     private int sqrtn;
 
     private void blockSwapFW(int[] array, int a, int b, int len) {
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             Writes.swap(array, a + i, b + i, 0.5, true, false);
     }
 
     private void blockSwapBW(int[] array, int a, int b, int len) {
-        for(int i = len - 1; i >= 0; i--)
+        for (int i = len - 1; i >= 0; i--)
             Writes.swap(array, a + i, b + i, 0.5, true, false);
     }
 

@@ -38,6 +38,7 @@ public class ParShellShellSort extends MadhouseTools {
     }
 
     protected void shellPass(int[] array, int currentLength, int gap) {
+        if (gap >= par) return;
         for (int h = gap, i = h; i < currentLength; i++) {
             int v = array[i];
             int j = i;

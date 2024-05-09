@@ -3,6 +3,8 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
+import java.util.Random;
+
 /*
  *
 MIT License
@@ -29,12 +31,12 @@ SOFTWARE.
  *
  */
 
-public class FastInsertionSort extends Sort {
+final public class FastInsertionSort extends Sort {
     public FastInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
         this.setSortListName("Fast Insertion");
-        this.setRunAllSortsName("Binary Insertion Sort");
+        this.setRunAllSortsName("Insertion Sort");
         this.setRunSortName("Insertsort");
         this.setCategory("Insertion Sorts");
         this.setComparisonBased(true);
@@ -45,30 +47,28 @@ public class FastInsertionSort extends Sort {
         this.setBogoSort(false);
     }
 
-	private int rightBinSearch(int[] array, int a, int b, int val) {
-		while (a < b) {
-			int m = (a+b) >>> 1;
-			Highlights.markArray(2, m);
-			Delays.sleep(0.25);
-
-			if (Reads.compareValues(val, array[m]) < 0)
-				b = m;
-			else
-				a = m+1;
-		}
-		return a;
-	}
-
     @Override
-    public void runSort(int[] array, int currentLength, int bucketCount) {
-		for (int i = 1; i < currentLength; i++) {
-			int t = array[i];
-			int j = this.rightBinSearch(array, 0, i, t);
-			Highlights.clearMark(2);
+    public void runSort(int[] array, int n, int bucketCount) {
+		Random r = new Random();
 
-			System.arraycopy(array, j, array, j+1, i-j);
-			Writes.changeWrites(i-j);
-			Writes.write(array, j, t, 0.5, true, false);
+		for (int j = 1; j < n; j++) {
+			Highlights.markArray(1, j);
+
+			if (Reads.compareIndices(array, j-1, j, 0.5, false) > 0) {
+				Highlights.clearMark(1);
+
+				int i = j;
+				int t = array[j];
+
+				do array[i] = array[--i];
+				while (i > 0 && array[i-1] > t);
+
+				Reads.setComparisons(Reads.getComparisons().intValue() + j-i);
+				Writes.changeWrites(j-i);
+
+				Highlights.markArray(2, i+r.nextInt(j-i));
+				Writes.write(array, i, t, (double)j/n, true, false);
+			}
 		}
     }
 }

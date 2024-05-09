@@ -46,7 +46,7 @@ public class QhatSort extends MadhouseTools {
                 while (swapshere) {
                     swapshere = false;
                     Highlights.clearAllMarks();
-                    par = parX(array, 0, len, 0.1, true);
+                    par = len > 0 ? parX(array, 0, len, 0.1, true) : 1;
                     for (int i = 0; i < len; i++) for (int j = i + 1; j <= Math.min(i + par, len - 1); j++) if (isValidRectangleAction(dims[0], dims[1], i, j)) if (Reads.compareIndices(array, i, j, 0.05, true) > 0) Writes.swap(array, i, j, 0.05, swapshere = (checks = true), false);
                     len -= dims[0];
                 }
@@ -59,7 +59,7 @@ public class QhatSort extends MadhouseTools {
                 while (swapshere) {
                     swapshere = false;
                     Highlights.clearAllMarks();
-                    par = parX(array, 0, len, 0.1, true);
+                    par = len > 0 ? parX(array, 0, len, 0.1, true) : 1;
                     for (int i = 0; i < len; i++) for (int j = i + 1; j <= Math.min(i + par, len - 1); j++) if (isValidRectangleAction(dims[1], dims[0], i, j)) if (Reads.compareIndices(array, i, j, 0.05, true) > 0) Writes.swap(array, i, j, 0.05, swapshere = (checks = true), false);
                     len -= dims[1];
                 }

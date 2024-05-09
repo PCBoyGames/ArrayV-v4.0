@@ -95,7 +95,7 @@ public class InPlaceStrandSort extends Sort {
         while (sortStart <= end) {
             for (int i = sortStart; i < end; i++) {
                 if (Reads.compareIndices(array, i, sortStart-1, 1, true) > 0) {
-                    Writes.swap(array, sortStart++, i, 2, true, false);
+                    if (sortStart != i) Writes.swap(array, sortStart++, i, 2, true, false);
                 }
             }
             if (iterations > 0) {

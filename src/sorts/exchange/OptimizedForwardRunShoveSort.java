@@ -29,7 +29,6 @@ public class OptimizedForwardRunShoveSort extends MadhouseTools {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        if (patternDefeat(array, 0, currentLength, false, 0.1, true, false)) return;
         int[] expect = maxSortedW(array, 0, currentLength, 0.1, true);
         currentLength = expect[0];
         int expectval = stableReturn(array[expect[1]]);

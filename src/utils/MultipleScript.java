@@ -158,6 +158,7 @@ public class MultipleScript {
         return runScript(scanner);
     }
 
+    @SuppressWarnings("resource")
     public ScriptCommand[] runScript(File file) {
         Scanner scanner;
         try {

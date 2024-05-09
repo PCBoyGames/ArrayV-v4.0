@@ -4,13 +4,19 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
 /*
- * The original Laziest Stable Sort was made by aphitorite.
- * This variant uses out-of-place merging.
- *
+
+Coded for ArrayV by Harumi
+extending code by aphitorite
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
  */
 
 /**
- * @author Yuri-chan2007
+ * @author Harumi
+ * @author aphitorite
  *
  */
 public class OOPLaziestSort extends Sort {
@@ -32,50 +38,55 @@ public class OOPLaziestSort extends Sort {
     private void insertTo(int[] array, int a, int b) {
         Highlights.clearMark(2);
         int temp = array[a];
-        while (a > b) Writes.write(array, a, array[--a], 0.5, true, false);
-        Writes.write(array, b, temp, 0.5, true, false);
+        boolean change = false;
+        while (a > b) Writes.write(array, a, array[--a], 0.5, change = true, false);
+        if (change) Writes.write(array, b, temp, 0.5, true, false);
     }
 
     private int rightBinSearch(int[] array, int a, int b, int val) {
         while (a < b) {
-            int m = a+(b-a)/2;
-
-            if (Reads.compareValues(val, array[m]) < 0)
-                b = m;
-            else
-                a = m+1;
+            int m = a + (b - a) / 2;
+            if (Reads.compareValues(val, array[m]) < 0) b = m;
+            else a = m+1;
         }
-
         return a;
     }
 
+    protected int findRun(int[] array, int a, int b) {
+        int i = a + 1;
+        if (i >= b) return i;
+        boolean dir = Reads.compareIndices(array, i - 1, i++, 0.5, true) <= 0;
+        while (i < b) {
+            if (dir ^ Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) break;
+            i++;
+        }
+        if (!dir) {
+            if (i - a < 4) Writes.swap(array, a, i - 1, 0.5, true, false);
+            else Writes.reversal(array, a, i - 1, 0.5, true, false);
+        }
+        Highlights.clearMark(2);
+        return i;
+    }
+
     private void binaryInsertion(int[] array, int a, int b) {
-        for (int i = a+1; i < b; i++)
+        for (int i = findRun(array, a, b); i < b; i++)
             this.insertTo(array, i, this.rightBinSearch(array, a, i, array[i]));
     }
 
-    protected void merge(int[] array, int[] temp, int start, int mid, int end) {
-        for (int i = 0; i < mid - start; i++) {
-            Highlights.markArray(1, i + start);
-            Writes.write(temp, i, array[i + start], 1, false, true);
-        }
-
-        int bufferPointer = 0;
-        int left = start;
-        int right = mid;
-
-        while (left < right && right < end) {
-            Highlights.markArray(2, right);
-            if (Reads.compareValues(temp[bufferPointer], array[right]) <= 0)
-                Writes.write(array, left++, temp[bufferPointer++], 1, true, false);
+    protected void merge(int[] array, int[] tmp, int a, int m, int b) {
+        if (Reads.compareIndices(array, m - 1, m, 0, false) <= 0) return;
+        int s = m - a;
+        Writes.arraycopy(array, a, tmp, 0, s, 1, true, true);
+        int i = 0, j = m;
+        while (i < s && j < b) {
+            Highlights.markArray(2, j);
+            if (Reads.compareValues(tmp[i], array[j]) <= 0)
+                Writes.write(array, a++, tmp[i++], 1, true, false);
             else
-                Writes.write(array, left++, array[right++], 1, true, false);
+                Writes.write(array, a++, array[j++], 1, true, false);
         }
         Highlights.clearMark(2);
-
-        while (left < right)
-            Writes.write(array, left++, temp[bufferPointer++], 0.5, true, false);
-        Highlights.clearAllMarks();
+        while (i < s) Writes.write(array, a++, tmp[i++], 1, true, false);
     }
 
     public void laziestStableSort(int[] array, int start, int end) {

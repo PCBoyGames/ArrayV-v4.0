@@ -764,7 +764,7 @@ public enum Distributions {
                 if (array[i] > m) m = array[i];
             }
             if (currentLength > 3 && currentLength < 22 || currentLength > 27 && currentLength < 120) return; // I have no choice.
-            double scale = ((currentLength - 1) / m);
+            double scale = 1.0 * (currentLength - 1) / m;
             for (int i = 0; i < currentLength; i++) array[i] = (int) (array[i] * scale);
         }
         protected int runCollatz(long a) {

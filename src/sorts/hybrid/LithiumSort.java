@@ -28,6 +28,25 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*
+ * Lithium Sort
+ *
+ * A conceptually optimal in-place block merge sorting algorithm.
+ * This algorithm introduces some ideas, that in conjunction with a heavier usage of
+ * scrolling buffers, code optimizations and other tricks (like the ones in Holy GrailSort),
+ * minimizes moves and comparisons for every step of the in-place block merge sorting procedure.
+ *
+ * Time complexity: O(n log n) best/average/worst
+ * Space complexity: O(1)
+ * Stable: Yes
+ *
+ * Special thanks to aphitorite for creating the kota merging algorithm, which enables
+ * strategy 1's block merging routine to be optimal; the dualMerge routine, which simplifies
+ * the rest of the code as well as improving performance; the buffer redistribution algorithm,
+ * found in Adaptive Grailsort; the smarter block selection algorithm, used in the blockSelect
+ * routine, and part of the code for some of the other routines.
+ */
+
 public class LithiumSort extends Sort {
     public LithiumSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -43,7 +62,7 @@ public class LithiumSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private static int RUN_SIZE           = 32,
+    private static final int RUN_SIZE           = 32,
                              SMALL_SORT         = 256,
                              MAX_STRAT4_UNIQUE  = 8,
                              SMALL_MERGE        = 16;
@@ -58,10 +77,10 @@ public class LithiumSort extends Sort {
     private boolean dualBuf;
 
     private class BitArray {
-        private int[] array;
-        private int pa, pb, w;
+        private final int[] array;
+        private final int pa, pb, w;
 
-        public int size, length;
+        public final int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array  = array;
@@ -149,10 +168,12 @@ public class LithiumSort extends Sort {
     }
 
     public void rotate(int[] array, int a, int m, int b) {
-        int rl = b - m,
-            ll = m - a;
+        int rl  = b - m,
+            ll  = m - a,
+            bl  = this.bufLen,
+            min = rl != ll && Math.min(bl, Math.min(rl, ll)) > SMALL_MERGE ? bl : 1;
 
-        while (rl > 1 && ll > 1) {
+        while (rl > min && ll > min) {
             if (rl < ll) {
                 blockSwapFW(array, a, m, rl);
                 a  += rl;
@@ -166,6 +187,23 @@ public class LithiumSort extends Sort {
 
         if      (rl == 1) insertToLeft( array, m, a);
         else if (ll == 1) insertToRight(array, a, b - 1);
+        if (min == 1 || rl <= 1 || ll <= 1) return;
+
+        if (rl < ll) {
+            blockSwapBW(array, m, this.bufPos, rl);
+
+            for (int i = m + rl - 1; i >= a + rl; i--)
+                Writes.swap(array, i, i - rl, 0.5, true, false);
+
+            blockSwapBW(array, this.bufPos, a, rl);
+        } else {
+            blockSwapFW(array, a, this.bufPos, ll);
+
+            for (int i = a; i < b - ll; i++)
+                Writes.swap(array, i, i + ll, 0.5, true, false);
+
+            blockSwapFW(array, this.bufPos, b - ll, ll);
+        }
     }
 
     private int binarySearch(int[] array, int a, int b, int value, boolean left) {
@@ -253,6 +291,67 @@ public class LithiumSort extends Sort {
 
         while (r >= this.bufPos)
             Writes.swap(array, o--, r--, 0.5, true, false);
+    }
+
+    private void mergeWithScrollingBufferBW(int[] array, int a, int m, int b) {
+        int l = m - 1,
+            r = b - 1,
+            o = r + m - a;
+
+        while (r >= m && l >= a) {
+            if (Reads.compareIndices(array, r, l, 0.5, true) >= 0)
+                 Writes.swap(array, o--, r--, 0.5, true, false);
+            else Writes.swap(array, o--, l--, 0.5, true, false);
+        }
+
+        while (r >= m)
+            Writes.swap(array, o--, r--, 0.5, true, false);
+
+        while (l >= a)
+            Writes.swap(array, o--, l--, 0.5, true, false);
+    }
+
+    private void shift(int[] array, int a, int m, int b, boolean left) {
+		if (left) {
+			if (m == b) return;
+
+			while (m > a)
+				Writes.swap(array, --b, --m, 0.5, true, false);
+		} else {
+			if (m == a) return;
+
+			while (m < b)
+                Writes.swap(array, a++, m++, 0.5, true, false);
+		}
+	}
+
+    private void dualMergeFW(int[] array, int a, int m, int b, int r) {
+        int i = a,
+            j = m,
+            k = a - r;
+
+        while (k < i && i < m) {
+            if (Reads.compareIndices(array, i, j, 0.5, true) <= 0)
+                 Writes.swap(array, k++, i++, 0.5, true, false);
+            else Writes.swap(array, k++, j++, 0.5, true, false);
+        }
+
+        if(k < i)
+            shift(array, j - r, j, b, false);
+        else {
+            int i2 = m - 1,
+                j2 = b - 1;
+            k = i2 + b - j;
+
+            while (i2 >= i && j2 >= j) {
+                if (Reads.compareIndices(array, i2, j2, 0.5, true) > 0)
+                     Writes.swap(array, k--, i2--, 0.5, true, false);
+                else Writes.swap(array, k--, j2--, 0.5, true, false);
+            }
+
+            while (j2 >= j)
+                Writes.swap(array, k--, j2--, 0.5, true, false);
+        }
     }
 
     private void swapKeys(int[] array, BitArray bits, int a, int b) {
@@ -575,16 +674,35 @@ public class LithiumSort extends Sort {
     }
 
     private void lithiumLoop(int[] array, int a, int b) {
-        int r = RUN_SIZE;
+        int r = RUN_SIZE,
+            e = b - this.keyLen;
         while (r <= this.bufLen) {
             int twoR = 2 * r, i;
-            for (i = a; i < b - twoR; i += twoR)
-                this.mergeWithBufferBW(array, i, i + r, i + twoR, true);
+            for (i = a; i < e - twoR; i += twoR);
 
-            if (i + r < b) this.mergeWithBufferBW(array, i, i + r, b, true);
+            if (i + r < e)
+                mergeWithScrollingBufferBW(array, i, i + r, e);
+            else shift(array, i, e, e + r, true);
+
+            for (i -= twoR; i >= a; i -= twoR)
+                mergeWithScrollingBufferBW(array, i, i + r, i + twoR);
+
+            int oldR = r;
+            r = twoR;
+            twoR *= 2;
+
+            for (i = a + oldR; i + twoR < e + oldR; i += twoR)
+                dualMergeFW(array, i, i + r, i + twoR, oldR);
+
+            if (i + r < e + oldR)
+                dualMergeFW(array, i, i + r, e + oldR, oldR);
+            else shift(array, i - oldR, i, e + oldR, false);
 
             r = twoR;
         }
+
+        b = e;
+        e += this.keyLen;
 
         boolean strat3 = this.blockLen == 0;
 
@@ -626,9 +744,26 @@ public class LithiumSort extends Sort {
 
         this.firstMerge(array, a, a + r, b, strat3);
 
-        int e = b + this.keyLen;
+        this.bufLen = 0;
         insertSort(array, b, e);
-        mergeInPlaceBW(array, a, b, e, true);
+
+        r = binarySearch(array, a, b, array[e - 1], false);
+        rotate(array, r, b, e);
+
+        int d = b - r;
+        e -= d;
+        b -= d;
+
+        int b0 = b + (e - b) / 2;
+        r = binarySearch(array, a, b, array[b0 - 1], false);
+        rotate(array, r, b, b0);
+
+        d   = b - r;
+        b0 -= d;
+        b  -= d;
+
+        mergeInPlaceBW(array, b0, b0 + d, e, true);
+        mergeInPlaceBW(array, a, b, b0, true);
     }
 
     // strategy 4
@@ -686,7 +821,7 @@ public class LithiumSort extends Sort {
         }
 
         sortRuns(array, a, b - keysFound);
-        this.lithiumLoop(array, a, b - keysFound);
+        this.lithiumLoop(array, a, b);
     }
 
     public void sort(int[] array, int a, int b) {

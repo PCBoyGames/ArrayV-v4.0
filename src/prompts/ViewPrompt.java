@@ -92,6 +92,7 @@ public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
         this.disparityChords   = new javax.swing.JButton();
         this.triMesh           = new javax.swing.JButton();
         this.hilbertCurve      = new javax.swing.JButton();
+        this.dataTrace         = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -233,6 +234,14 @@ public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
             }
         });
 
+        dataTrace.setText("Data Trace");
+        dataTrace.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataTraceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
             layout.createParallelGroup(Alignment.CENTER)
@@ -252,7 +261,8 @@ public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
                         .addComponent(sineWave, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addComponent(waveDots, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addComponent(dotGraph, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                        .addComponent(hoopStack, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(hoopStack, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dataTrace, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(layout.createParallelGroup(Alignment.LEADING)
                         .addComponent(pixelMesh, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
@@ -296,7 +306,8 @@ public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(triMesh)
-                        .addComponent(hilbertCurve))
+                        .addComponent(hilbertCurve)
+                        .addComponent(dataTrace))
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
@@ -421,6 +432,12 @@ public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
         UtilFrame.jButton2ResetText();
         dispose();
     }
+    private void dataTraceActionPerformed(java.awt.event.ActionEvent evt) {
+        setAllFieldsFalse();
+        ArrayVisualizer.setVisual(VisualStyles.DATA_TRACE);
+        UtilFrame.jButton2ResetText();
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton barGraph;
@@ -440,5 +457,6 @@ public class ViewPrompt extends javax.swing.JFrame implements AppFrame {
     private javax.swing.JButton disparityChords;
     private javax.swing.JButton triMesh;
     private javax.swing.JButton hilbertCurve;
+    private javax.swing.JButton dataTrace;
     private javax.swing.JLabel jLabel1;
 }

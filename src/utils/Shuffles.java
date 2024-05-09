@@ -1349,6 +1349,35 @@ public enum Shuffles {
             }
         }
     },
+    CONE_PASS {
+        public String getName() {
+            return "Cone Pass From Reverse";
+        }
+        @Override
+        public void shuffleArray(int[] array, ArrayVisualizer ArrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
+            int currentLen = ArrayVisualizer.getCurrentLength();
+            boolean delay = ArrayVisualizer.shuffleEnabled();
+            Reads Reads = ArrayVisualizer.getReads();
+            Writes.reversal(array, 0, currentLen - 1, delay ? 0.5 : 0, true, false);
+            cone(array, 0, currentLen - 1, Writes, Reads, delay);
+        }
+
+        protected void cone(int[] array, int a, int b, Writes Writes, Reads Reads, boolean delay) {
+            if (a >= b) return;
+            for (int i = 0; i < (b - a + 1) / 2; i++) conePass(array, a, b, i, 0, Writes, Reads, delay);
+        }
+
+        protected void conePass(int[] array, int a, int b, int c, int d, Writes Writes, Reads Reads, boolean delay) {
+            if (a >= b || a + c >= b - c) return;
+            Writes.recordDepth(d++);
+            if (Reads.compareIndices(array, a + c, b - c, delay ? 0.5 : 0, true) > 0) Writes.swap(array, a + c, b - c, delay ? 0.5 : 0, true, false);
+            int m = (b - a) / 2;
+            Writes.recursion();
+            conePass(array, a, a + m, c, d, Writes, Reads, delay);
+            Writes.recursion();
+            conePass(array, b - m, b, c, d, Writes, Reads, delay);
+        }
+    },
     MODULO {
         public String getName() {
             return "Modulo";

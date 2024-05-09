@@ -5,8 +5,18 @@ import sorts.insert.InsertionSort;
 import sorts.select.MaxHeapSort;
 import sorts.templates.Sort;
 
+/*
+
+Coded for ArrayV by Harumi
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
+
 /**
- * @author Ayako-chan
+ * @author Harumi
  *
  */
 public class SimpleHybridQuickSort extends Sort {
@@ -28,26 +38,17 @@ public class SimpleHybridQuickSort extends Sort {
     MaxHeapSort heapSorter;
     InsertionSort insertSorter;
 
-    private int medianOfThree(int[] array, int a, int m, int b) {
-        if (Reads.compareValues(array[m], array[a]) > 0) {
-            if (Reads.compareValues(array[m], array[b]) < 0)
-                return m;
-
-            if (Reads.compareValues(array[a], array[b]) > 0)
-                return a;
-
-            else
-                return b;
-        } else {
-            if (Reads.compareValues(array[m], array[b]) > 0)
-                return m;
-
-            if (Reads.compareValues(array[a], array[b]) < 0)
-                return a;
-
-            else
-                return b;
+    private int medianOfThree(int[] array, int i0, int i1, int i2) {
+        int tmp;
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+            tmp = i1;
+            i1 = i0;
+        } else tmp = i0;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
+            return i2;
         }
+        return i1;
     }
 
     private int ninther(int[] array, int a, int b) {
@@ -84,8 +85,10 @@ public class SimpleHybridQuickSort extends Sort {
                 Delays.sleep(0.5D);
             }
 
-            if (i <= j)
-                Writes.swap(array, i++, j--, 1.0D, true, false);
+            if (i <= j) {
+                if (i != j) Writes.swap(array, i, j, 1.0D, true, false);
+                i++; j--;
+            }
 
         }
         return i;
@@ -100,18 +103,27 @@ public class SimpleHybridQuickSort extends Sort {
             int piv = medianOfThreeNinthers(array, a, b - 1);
             int p = partition(array, a, b - 1, array[piv]);
             depthLimit--;
-            sort(array, p, b, depthLimit);
-            b = p;
+            if (b - p < p - a) {
+                sort(array, p, b, depthLimit);
+                b = p;
+            } else {
+                sort(array, a, p, depthLimit);
+                a = p;
+            }
         }
 
         insertSorter.customInsertSort(array, a, b, 0.5D, false);
     }
 
-    @Override
-    public void runSort(int[] array, int sortLength, int bucketCount) {
+    public void quickSort(int[] array, int a, int b) {
         insertSorter = new InsertionSort(arrayVisualizer);
         heapSorter = new MaxHeapSort(arrayVisualizer);
-        sort(array, 0, sortLength, 2 * (int) (Math.log(sortLength) / Math.log(2.0D)));
+        sort(array, a, b, 2 * (int) (Math.log(b - a) / Math.log(2)));
+    }
+
+    @Override
+    public void runSort(int[] array, int sortLength, int bucketCount) {
+        quickSort(array, 0, sortLength);
 
     }
 

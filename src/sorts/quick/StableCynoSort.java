@@ -23,7 +23,7 @@ in collaboration with aphitorite, Gaming32 and Scandum
  * @author Scandum
  *
  */
-public class StableCynoSort extends Sort {
+public final class StableCynoSort extends Sort {
 
     public StableCynoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -38,7 +38,7 @@ public class StableCynoSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
+    
     class Partition implements Comparable<Partition> {
         public int a, b;
         public boolean bad;
@@ -63,13 +63,13 @@ public class StableCynoSort extends Sort {
             return 0;
         }
     }
-
+    
     int threshold = 32;
-
+    
     int equ(int a, int b) {
         return ((a - b) >> 31) + ((b - a) >> 31) + 1;
     }
-
+    
     protected void stableSegmentReversal(int[] array, int start, int end) {
         if (end - start < 3) Writes.swap(array, start, end, 0.75, true, false);
         else Writes.reversal(array, start, end, 0.75, true, false);
@@ -87,23 +87,23 @@ public class StableCynoSort extends Sort {
             i++;
         }
     }
-
+    
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int t;
-        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+        if(Reads.compareIndices(array, i0, i1, 1, true) > 0) {
             t = i1;
             i1 = i0;
         } else t = i0;
-        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
-            if (Reads.compareIndices(array, t, i2, 1, true) > 0) return t;
+        if(Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if(Reads.compareIndices(array, t, i2, 1, true) > 0) return t;
             return i2;
         }
         return i1;
     }
-
+    
     int[] medOf5(int[] array, int[] indices) {
         for (int i = 0; i < 5; i++) {
-            for (int j = i; j > 0; j--) {
+            for(int j = i; j > 0; j--) {
                 if (Reads.compareIndices(array, indices[j], indices[j - 1], 0.5, true) < 0) {
                     int t = indices[j];
                     indices[j] = indices[j - 1];
@@ -113,7 +113,7 @@ public class StableCynoSort extends Sort {
         }
         return new int[] {indices[1], indices[3]};
     }
-
+    
     int[] medOf15(int[] array, int start, int end) {
         int    length = end - start;
         int      half =  length / 2;
@@ -144,7 +144,7 @@ public class StableCynoSort extends Sort {
         int[] samples = new int[] {i, i+1, i+2, i+3, i+4};
         return medOf5(array, samples);
     }
-
+    
     int[] mOMHelper(int[] array, int start, int length) {
         if (length == 5) return medOf5Consec(array, start);
 
@@ -181,7 +181,7 @@ public class StableCynoSort extends Sort {
         meds[1] = medOf3(array, meds0[1], meds1[1], meds2[1]);
         return meds;
     }
-
+    
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -259,7 +259,7 @@ public class StableCynoSort extends Sort {
         if (m - a > b - m) mergeBWExt(array, buf, a, m, b);
         else mergeFWExt(array, buf, a, m, b);
     }
-
+    
     protected int findRun(int[] array, int a, int b, int mRun) {
         int i = a + 1;
         if (i < b) {
@@ -277,12 +277,12 @@ public class StableCynoSort extends Sort {
         }
         return i;
     }
-
+    
     public void insertSort(int[] array, int a, int b) {
         // alias for convenience
         findRun(array, a, b, b - a);
     }
-
+    
     public void mergeSort(int[] array, int[] buf, int a, int b) {
         int len = b - a;
         if (len <= threshold) {
@@ -309,7 +309,7 @@ public class StableCynoSort extends Sort {
         }
         Writes.deleteExternalArray(runs);
     }
-
+    
     int pivCmpSP(int v, int piv) {
         int c = Reads.compareValues(v, piv);
         if (c > 0)
@@ -318,8 +318,8 @@ public class StableCynoSort extends Sort {
             return 0;
         return 1;
     }
-
-    protected int[] partTernary(int[] array, int[] buf, int a, int b, int piv) {
+    
+    protected int[] partitionSP(int[] array, int[] buf, int a, int b, int piv) {
         Highlights.clearMark(2);
         int[] ptrs = new int[4];
         for (int i = a; i < b; i++) {
@@ -337,8 +337,8 @@ public class StableCynoSort extends Sort {
         for (int i = 0; i < ptrs.length; i++) ptrs[i] += a;
         return new int[] {ptrs[1], ptrs[2]};
     }
-
-    int pivCmp(int v, int piv1, int piv2) {
+    
+    int pivCmpDP(int v, int piv1, int piv2) {
         int cmp = Reads.compareValues(v, piv1);
         if (cmp < 0) return 0; // v < piv1
         if (cmp == 0) return 1; // v == piv1
@@ -348,31 +348,31 @@ public class StableCynoSort extends Sort {
         if (cmp == 0) return 3; // v == piv2
         return 4; // v > piv2
     }
-
-    protected int[] partition(int[] array, int[] buf, int a, int b, int piv1, int piv2) {
+    
+    protected int[] partitionDP(int[] array, int[] buf, int a, int b, int piv1, int piv2) {
         Highlights.clearMark(2);
         int[] ptrs = new int[6];
         for (int i = a; i < b; i++) {
             Highlights.markArray(1, i);
             Delays.sleep(0.5);
             Writes.write(buf, i - a, array[i], 0.5, false, true);
-            int c = pivCmp(array[i], piv1, piv2);
+            int c = pivCmpDP(array[i], piv1, piv2);
             ptrs[c]++;
         }
         for (int i = 1; i < ptrs.length; i++) ptrs[i] += ptrs[i-1];
         for (int i = b - a - 1; i >= 0; i--) {
-            int c = pivCmp(buf[i], piv1, piv2);
+            int c = pivCmpDP(buf[i], piv1, piv2);
             Writes.write(array, a + --ptrs[c], buf[i], 1, true, false);
         }
         for (int i = 0; i < ptrs.length; i++) ptrs[i] += a;
         return new int[] {ptrs[1], ptrs[2], ptrs[3], ptrs[4]};
     }
-
+    
     void consumePartition(int[] array, PriorityQueue<Partition> queue, int a, int b, boolean bad) {
         if (b - a > threshold) queue.offer(new Partition(a, b, bad));
         else insertSort(array, a, b);
     }
-
+    
     void innerSort(int[] array, int[] buf, int left, int right) {
         PriorityQueue<Partition> queue = new PriorityQueue<>((right - left - 1) / this.threshold + 1);
         queue.offer(new Partition(left, right, false));
@@ -388,7 +388,7 @@ public class StableCynoSort extends Sort {
             } else pr = medOf15(array, a, b);
             int piv1 = array[pr[0]], piv2 = array[pr[1]];
             if (Reads.compareValues(piv1, piv2) == 0) {
-                pr = partTernary(array, buf, a, b, piv1);
+                pr = partitionSP(array, buf, a, b, piv1);
                 int lLen = pr[0] - a, rLen = b - pr[1], eqLen = pr[1] - pr[0];
                 if (eqLen == b - a) continue;
                 if (rLen == 0) {
@@ -402,8 +402,9 @@ public class StableCynoSort extends Sort {
                 bad = rLen / 8 > lLen || lLen / 8 > rLen;
                 consumePartition(array, queue, a, pr[0], bad);
                 consumePartition(array, queue, pr[1], b, bad);
+                continue;
             }
-            pr = partition(array, buf, a, b, piv1, piv2);
+            pr = partitionDP(array, buf, a, b, piv1, piv2);
             int lLen = pr[0] - a, mLen = pr[2] - pr[1], rLen = b - pr[3];
             if (lLen > mLen) {
                 if (lLen > rLen) // l > m, r
@@ -420,7 +421,7 @@ public class StableCynoSort extends Sort {
             consumePartition(array, queue, pr[3], b, bad);
         }
     }
-
+    
     public void quickSort(int[] array, int a, int b) {
         int len = b - a;
         if (len <= threshold) {

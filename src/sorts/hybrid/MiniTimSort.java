@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Ayako-chan
+Coded for ArrayV by Harumi
 in collaboration with aphitorite and Gaming32
 
 +---------------------------+
@@ -15,12 +15,12 @@ in collaboration with aphitorite and Gaming32
  */
 
 /**
- * @author Ayako-chan
+ * @author Harumi
  * @author aphitorite
  * @author Gaming32
  *
  */
-public class MiniTimSort extends Sort {
+public final class MiniTimSort extends Sort {
 
     public MiniTimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -35,14 +35,13 @@ public class MiniTimSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
+    
     public static int getMinLevel(int n) {
-        while (n >= 32)
-            n = (n - 1) / 2 + 1;
+        while (n >= 32) n = (n - 1) / 2 + 1;
         return n;
     }
 
-    int M = 7;
+    final int M = 7;
 
     int highlight = 0;
 
@@ -74,29 +73,25 @@ public class MiniTimSort extends Sort {
 
     protected int leftExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0)
-            i *= 2;
+        while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
         return leftBinSearch(array, a + i / 2, Math.min(b, a - 1 + i), val);
     }
 
     protected int rightExpSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0)
-            i *= 2;
+        while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
         return rightBinSearch(array, Math.max(a, b - i + 1), b - i / 2, val);
     }
 
     protected int leftBoundSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0)
-            i *= 2;
+        while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
         return rightBinSearch(array, a + i / 2, Math.min(b, a - 1 + i), val);
     }
 
     protected int rightBoundSearch(int[] array, int a, int b, int val) {
         int i = 1;
-        while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0)
-            i *= 2;
+        while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
         return leftBinSearch(array, Math.max(a, b - i + 1), b - i / 2, val);
     }
 
@@ -113,19 +108,14 @@ public class MiniTimSort extends Sort {
 
     protected void insertSort(int[] array, int a, int b) {
         int i = a + 1;
-        if (i >= b)
-            return;
+        if (i >= b) return;
         if (Reads.compareIndices(array, i - 1, i++, 0.5, true) > 0) {
             while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) > 0) i++;
-            if (i - a < 4)
-                Writes.swap(array, a, i - 1, 1.0, true, false);
-            else
-                Writes.reversal(array, a, i - 1, 1.0, true, false);
-        } else
-            while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
+            if (i - a < 4) Writes.swap(array, a, i - 1, 1.0, true, false);
+            else Writes.reversal(array, a, i - 1, 1.0, true, false);
+        } else while (i < b && Reads.compareIndices(array, i - 1, i, 0.5, true) <= 0) i++;
         Highlights.clearMark(2);
-        for (; i < b; i++)
-            insertTo(array, i, rightExpSearch(array, a, i, array[i]));
+        for (; i < b; i++) insertTo(array, i, rightExpSearch(array, a, i, array[i]));
     }
 
     // galloping mode code refactored from TimSorting.java
@@ -281,7 +271,7 @@ public class MiniTimSort extends Sort {
         }
         return i;
     }
-
+    
     public void mergeSortWithBuf(int[] array, int[] buf, int a, int b) {
         if (b - a < 32) {
             insertSort(array, a, b);
@@ -294,16 +284,18 @@ public class MiniTimSort extends Sort {
             Writes.write(runs, rf++, r, 0.5, false, true);
             r = findRun(array, r, b, mRun);
         }
+        Writes.write(runs, rf, b, 0.5, false, true);
         while (rf > 1) {
-            for (int i = 0; i < rf - 1; i+=2)
-                smartMerge(array, buf, runs[i], runs[i+1], i + 2 >= rf ? b : runs[i + 2]);
-            for (int i = 1, j = 2; i < rf; i++, j+=2, rf--) {
-                Writes.write(runs, i, runs[j], 0.5, false, true);
+            int j = 0;
+            for (int i = 0; i < rf; i+=2, j++) {
+                if (i + 1 < rf) smartMerge(array, buf, runs[i], runs[i+1], i + 2 >= rf ? b : runs[i + 2]);
+                if (j != i) Writes.write(runs, j, runs[i], 0.5, false, true);
             }
+            rf = j;
         }
         Writes.deleteExternalArray(runs);
     }
-
+    
     public void mergeSort(int[] array, int a, int b) {
         int[] buf = Writes.createExternalArray((b - a) / 2);
         mergeSortWithBuf(array, buf, a, b);

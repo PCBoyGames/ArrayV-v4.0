@@ -1,14 +1,13 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.insert.BinaryInsertionSort;
 import sorts.templates.Sort;
 
 /*
  *
 MIT License
 
-Copyright (c) 2020 Gaming32
+Copyright (c) 2023 Gaming32, fixed by Ayako-chan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +30,6 @@ SOFTWARE.
  */
 
 public class SwapMergeSort extends Sort {
-    private BinaryInsertionSort binaryInserter;
 
     public SwapMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -48,63 +46,58 @@ public class SwapMergeSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private void moveDown(int[] array, int start, int dest) {
-        for (int i = dest; i < start; i++) {
-            Writes.swap(array, i, start, 0.025, true, false);
+    protected void insertTo(int[] array, int a, int b) {
+        Highlights.clearMark(2);
+        if (a != b) {
+            int temp = array[a];
+            int d = (a > b) ? -1 : 1;
+            for (int i = a; i != b; i += d)
+                Writes.write(array, i, array[i + d], 0.5, true, false);
+            Writes.write(array, b, temp, 0.5, true, false);
         }
     }
 
-    private void merge(int[] array, int leftStart, int rightStart, int end) {
-        int left = leftStart;
-        int right = rightStart;
+    protected int expSearch(int[] array, int a, int b, int val) {
+        int i = 1;
+        while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
+        int a1 = Math.max(a, b - i + 1), b1 = b - i / 2;
+        while (a1 < b1) {
+            int m = a1 + (b1 - a1) / 2;
+            Highlights.markArray(2, m);
+            Delays.sleep(0.25);
+            if (Reads.compareValues(val, array[m]) < 0) b1 = m;
+            else a1 = m + 1;
+        }
+        return a1;
+    }
 
-        while (left < right) {
-            Highlights.markArray(3, left);
-            Delays.sleep(0.025);
-            if (left >= end || right >= end) {
-                break;
-            }
-            else if (Reads.compareValues(array[left], array[right]) <= 0) {
-                left += 1;
-            }
-            else {
-                moveDown(array, right, left);
-                left += 1;
-                right += 1;
-            }
+    protected void insertSort(int[] array, int a, int b) {
+        for (int i = a + 1; i < b; i++)
+            insertTo(array, i, expSearch(array, a, i, array[i]));
+    }
+
+    public void merge(int[] array, int a, int m, int b) {
+        int i = a, j = m;
+        while (i < j && j < b) {
+            if (Reads.compareValues(array[i], array[j]) > 0)
+                Writes.multiSwap(array, j++, i, 0.025, true, false);
+            i++;
         }
     }
 
-    private void mergeRun(int[] array, int start, int mid, int end) {
-        if (start == mid) return;
-
-        mergeRun(array, start, (mid+start)/2, mid);
-        mergeRun(array, mid, (mid+end)/2, end);
-
-        if (end - start < 32) {
+    public void mergeSort(int[] array, int a, int b) {
+        if (b - a < 32) {
+            insertSort(array, a, b);
             return;
         }
-        else if (end - start == 32) {
-            binaryInserter.customBinaryInsert(array, start, Math.min(array.length, end + 1), 0.333);
-        }
-        else {
-            merge(array, start, mid, end);
-        }
+        int m = a + (b - a) / 2;
+        mergeSort(array, a, m);
+        mergeSort(array, m, b);
+        merge(array, a, m, b);
     }
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-        binaryInserter = new BinaryInsertionSort(arrayVisualizer);
-
-        if (length < 32) {
-            binaryInserter.customBinaryInsert(array, 0, length, 0.333);
-            return;
-        }
-
-        int start = 0;
-        int end = length;
-        int mid = start + ((end - start) / 2);
-
-        mergeRun(array, start, mid, end);
+        mergeSort(array, 0, length);
     }
 }

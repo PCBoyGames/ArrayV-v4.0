@@ -4,8 +4,20 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import utils.IndexedRotations;
 
+/*
+
+Coded for ArrayV by Harumi
+extending code by aphitorite
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
+
 /**
- * @author Yuri-chan2007
+ * @author Harumi
+ * @author aphitorite
  *
  */
 public class PDLaziestSort extends Sort {
@@ -24,69 +36,81 @@ public class PDLaziestSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private void insertionSort(int[] array, int a, int b, double sleep, boolean auxwrite) {
-        int i = a + 1;
-        if (Reads.compareIndices(array, i - 1, i++, sleep, true) == 1) {
-            while (i < b && Reads.compareIndices(array, i - 1, i, sleep, true) == 1) i++;
-            Writes.reversal(array, a, i - 1, sleep, true, auxwrite);
-        }
-        else while (i < b && Reads.compareIndices(array, i - 1, i, sleep, true) <= 0) i++;
-
-        Highlights.clearMark(2);
-
-        while (i < b) {
-            int current = array[i];
-            int pos = i - 1;
-            while (pos >= a && Reads.compareValues(array[pos], current) > 0) {
-                Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
-                pos--;
-            }
-            Writes.write(array, pos + 1, current, sleep, true, auxwrite);
-
-            i++;
-        }
-    }
-
     private void rotate(int[] array, int a, int m, int b) {
-        IndexedRotations.cycleReverse(array, a, m, b, 1.0, true, false);
+        Highlights.clearAllMarks();
+        IndexedRotations.adaptable(array, a, m, b, 1.0, true, false);
     }
 
-    private int leftBinSearch(int[] array, int a, int b, int val) {
+    private int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
-            int m = a+(b-a)/2;
-
-            if (Reads.compareValues(val, array[m]) <= 0)
-                b = m;
-            else
-                a = m+1;
+            int m = a + (b - a) / 2;
+            Highlights.markArray(2, m);
+            Delays.sleep(0.25);
+            int c = Reads.compareValues(val, array[m]);
+            if (c < 0 || (left && c == 0)) b = m;
+            else a = m + 1;
         }
-
         return a;
     }
 
-    private int leftExpSearch(int[] array, int a, int b, int val) {
+    private int leftExpSearch(int[] array, int a, int b, int val, boolean left) {
         int i = 1;
-        while (a-1+i < b && Reads.compareValues(val, array[a-1+i]) > 0) i *= 2;
-
-        return this.leftBinSearch(array, a+i/2, Math.min(b, a-1+i), val);
+        if (left) while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) > 0) i *= 2;
+        else while (a - 1 + i < b && Reads.compareValues(val, array[a - 1 + i]) >= 0) i *= 2;
+        return binSearch(array, a + i / 2, Math.min(b, a - 1 + i), val, left);
     }
 
-    private void inPlaceMerge(int[] array, int a, int m, int b) {
-        int i = a, j = m, k;
+    protected int rightExpSearch(int[] array, int a, int b, int val, boolean left) {
+        int i = 1;
+        if (left) while (b - i >= a && Reads.compareValues(val, array[b - i]) <= 0) i *= 2;
+        else while (b - i >= a && Reads.compareValues(val, array[b - i]) < 0) i *= 2;
+        return binSearch(array, Math.max(a, b - i + 1), b - i / 2, val, left);
+    }
 
-        while (i < j && j < b) {
-            if (Reads.compareValues(array[i], array[j]) == 1) {
-                k = this.leftExpSearch(array, j+1, b, array[i]);
-                this.rotate(array, i, j, k);
+    protected int findRun(int[] array, int a, int b, double sleep, boolean auxwrite) {
+        int i = a + 1;
+        if (i >= b) return i;
+        boolean dir = Reads.compareIndices(array, i - 1, i++, sleep, true) <= 0;
+        while (i < b) {
+            if (dir ^ Reads.compareIndices(array, i - 1, i, sleep, true) <= 0) break;
+            i++;
+        }
+        if (!dir) {
+            if (i - a < 4) Writes.swap(array, a, i - 1, sleep, true, auxwrite);
+            else Writes.reversal(array, a, i - 1, sleep, true, auxwrite);
+        }
+        Highlights.clearMark(2);
+        return i;
+    }
 
-                i += k-j;
-                j = k;
+    private void insertionSort(int[] array, int a, int b, double sleep, boolean auxwrite) {
+        for (int i = findRun(array, a, b, sleep, auxwrite); i < b; i++) {
+            int current = array[i];
+            int dest = rightExpSearch(array, a, i, current, false);
+            int pos = i - 1;
+            while (pos >= dest) {
+                Writes.write(array, pos + 1, array[pos], sleep, true, auxwrite);
+                pos--;
             }
-            else i++;
+            if (pos + 1 < i) Writes.write(array, pos + 1, current, sleep, true, auxwrite);
         }
     }
 
-    protected void laziestStableSort(int[] array, int start, int end) {
+    private void inPlaceMerge(int[] array, int a, int m, int b) {
+        if (Reads.compareIndices(array, m - 1, m, 0, false) <= 0) return;
+        a = leftExpSearch(array, a, m, array[m], false);
+        while (a < m && m < b) {
+            int i = leftExpSearch(array, m, b, array[a], true);
+            rotate(array, a, m, i);
+            int t = i - m;
+            m = i;
+            a += t + 1;
+            if (m >= b) break;
+            a = leftExpSearch(array, a, m, array[m], false);
+        }
+    }
+
+    public void laziestStableSort(int[] array, int start, int end) {
         int len = end - start;
         if (len <= 16) {
             insertionSort(array, start, end, 0.5, false);

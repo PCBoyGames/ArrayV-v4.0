@@ -3,6 +3,20 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
+/*
+
+Coded for ArrayV by Harumi
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
+
+/**
+ * @author Harumi
+ *
+ */
 public class SinkingMergeSortParallel extends Sort {
 
     public SinkingMergeSortParallel(ArrayVisualizer arrayVisualizer) {
@@ -28,11 +42,11 @@ public class SinkingMergeSortParallel extends Sort {
             this.b = b;
         }
         public void run() {
-            SinkingMergeSortParallel.this.sort(a, b);
+            SinkingMergeSortParallel.this.sortHelper(a, b);
         }
     }
 
-    public void bubbleSort(int start, int end) {
+    private void bubbleSort(int start, int end) {
         int consecSorted = 1;
         for (int i = end - 1; i > start; i -= consecSorted) {
             consecSorted = 1;
@@ -46,9 +60,8 @@ public class SinkingMergeSortParallel extends Sort {
         }
     }
 
-    public void sort(int a, int b) {
-        if (b - a <= 16) {
-            bubbleSort(a, b);
+    private void sortHelper(int a, int b) {
+        if (b - a < 2) {
             return;
         }
         int m = a + (b - a) / 2;
@@ -67,10 +80,14 @@ public class SinkingMergeSortParallel extends Sort {
         bubbleSort(a, b);
     }
 
+    public void sort(int[] array, int a, int b) {
+        this.array = array;
+        sortHelper(a, b);
+    }
+
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        this.array = array;
-        sort(0, sortLength);
+        sort(array, 0, sortLength);
 
     }
 

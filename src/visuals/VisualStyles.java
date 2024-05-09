@@ -133,6 +133,12 @@ public enum VisualStyles {
         public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
             ArrayVisualizer.getVisuals()[16].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
         }
+    },
+    DATA_TRACE{
+        @Override
+        public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+            ArrayVisualizer.getVisuals()[17].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
+        }
     };
 
     public VisualStyles getCurrentVisual() {

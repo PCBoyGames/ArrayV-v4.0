@@ -74,7 +74,11 @@ public class BismuthSort extends MadhouseTools {
     protected void blockSelect(int[] array, int start, int end, int mid, int bSize) {
         for (int i = start, sel = i, right = mid, f = 0; i + bSize <= end; i += bSize, sel = i, f = 0) {
             if (i == mid) {
-                for (; mid + 2 * bSize <= Math.min(right, end - bSize); mid += bSize) if (fcomp(array, mid, mid + bSize, f++) >= 0) break;
+                for (; mid + 2 * bSize <= Math.min(right, end - bSize); mid += bSize) {
+                    int cmp = fcomp(array, mid, mid + bSize, f++);
+                    if (cmp > 0) break;
+                    else if (cmp == 0 && bSize > 1) if (fcomp(array, mid + bSize - 1, mid + 2 * bSize - 1, f++) > 0) break;
+                }
                 mid += bSize;
             }
             for (int j = Math.max(i + bSize, mid); j <= Math.min(right, end - bSize); j += bSize) {
@@ -102,8 +106,8 @@ public class BismuthSort extends MadhouseTools {
         boolean did = false;
         if (Reads.compareIndices(array, start, end - 1, 1, true) >= 0) rotateIndexed(array, start, mid, end, 1, did = true, false);
         else if (Reads.compareIndices(array, start, end - 2, 1, true) >= 0) {
-            grailMergeWithoutBuffer(array, start, mid - start, end - mid);
-            did = true;
+            rotateIndexed(array, start, mid, end - 1, 1, did = true, false);
+            Writes.insert(array, end - 1, maxExponentialSearch(array, start, end - 1, array[end - 1], false, 1, true), 1, true, false);
         }
         return did;
     }
@@ -140,7 +144,7 @@ public class BismuthSort extends MadhouseTools {
         if (skip) for (; i < tEnd; i += bSize) if (Reads.compareIndices(array, i - 1, mid - 1, 1, true) > 0) break;
         sEnd = skip ? minExponentialSearch(array, i - bSize, i, array[mid - 1], true, 1, true) : end;
         if (doesRotate(array, start, mid, sEnd)) return start;
-        if (Math.min(mid - start, sEnd - mid) > 9) giveUpMerge(array, start, mid, sEnd, bSize, mid - start < sEnd - mid, false, false, 0);
+        if (Math.min(mid - start, sEnd - mid) > 9) giveUpMergeOneRotate(array, start, mid, sEnd, bSize, mid - start < sEnd - mid, false, false, 0);
         else grailMergeWithoutBuffer(array, start, mid - start, sEnd - mid);
         return sEnd;
     }
@@ -176,10 +180,11 @@ public class BismuthSort extends MadhouseTools {
         mid = pos;
         if (side) start = pos - s;
         else end = pos + s;
-        while (s > g + 1) {
+        while (s > g + 1 && Math.min(mid - start, end - mid) > 8) {
+            if (doesRotate(array, start, mid, end)) return;
             pos = side ? minExponentialSearch(array, mid, end, array[start + g], true, 1, true) : maxExponentialSearch(array, start, mid, array[end - g - 1], false, 1, true);
             rotateIndexed(array, side ? start + g : pos, mid, side ? pos : end - g, 1, true, false);
-            if (((side && pos > mid) || (!side && pos < mid)) && Math.min(g, Math.abs(pos - mid)) > 8) {
+            if (((side && pos > mid) || (!side && pos < mid)) && Math.abs(pos - mid) > 8) {
                 Writes.recursion();
                 giveUpMerge(array, side ? start : pos, side ? start + g : end - g, side ? pos : end, bSize, side, false, false, d + 1);
             } else grailMergeWithoutBuffer(array, side ? start : pos, side ? g : end - pos - g, side ? pos - start - g : g);
@@ -187,6 +192,69 @@ public class BismuthSort extends MadhouseTools {
             mid = pos;
             if (side) start = pos - s;
             else end = pos + s;
+            if (mid - start < end - mid != side) {
+                side = !side;
+                s = side ? mid - start : end - mid;
+            }
+        }
+        if (s > 0) grailMergeWithoutBuffer(array, start, side ? s : mid - start, side ? end - start - s : Math.min(s + 1, b - mid));
+    }
+
+    protected void giveUpMergeOneRotate(int[] array, int start, int mid, int end, int bSize, boolean side, boolean pre, boolean searches, int d) {
+        Writes.recordDepth(d);
+        if (pre) insertions(array, side ? start : mid, side ? mid : end);
+        if (searches) start = minExponentialSearch(array, start, mid, array[mid], true, 1, true);
+        if (searches) end = maxExponentialSearch(array, mid, end, array[mid - 1], false, 1, true);
+        if (Math.min(mid - start, end - mid) <= 8) {
+            grailMergeWithoutBuffer(array, start, mid - start, end - mid);
+            return;
+        }
+        if (mid - start < end - mid != side) side = !side;
+        int pos = side ? minExponentialSearch(array, mid, end, array[start], true, 1, true) : maxExponentialSearch(array, start, mid, array[end - 1], false, 1, true), s = side ? mid - start - 1 : end - mid - 1, g = side ? (mid - start) / 2 : (end - mid) / 2;
+        rotateIndexed(array, side ? start : pos, mid, side ? pos : end, 1, true, false);
+        mid = pos;
+        if (side) start = pos - s;
+        else end = pos + s;
+        if (doesRotate(array, start, mid, end)) return;
+        pos = side ? centerBiasSearch(array, mid, end, array[start + g], true, 1, true) : centerBiasSearch(array, start, mid, array[end - g - 1], false, 1, true);
+        rotateIndexed(array, side ? start + g : pos, mid, side ? pos : end - g, 1, true, false);
+        giveUpMerge(array, side ? start : pos, side ? start + g : end - g, side ? pos : end, bSize, side, false, false, d);
+        giveUpMerge(array, side ? pos - (s - g) + 1 : start, pos, side ? end : pos + s - g, bSize, side, false, false, d);
+    }
+
+    // Unused, but here just in case I get any ideas.
+    protected void giveUpMergeRotate(int[] array, int start, int mid, int end, int bSize, boolean side, boolean pre, boolean searches, int d) {
+        Writes.recordDepth(d);
+        if (pre) insertions(array, side ? start : mid, side ? mid : end);
+        if (searches) start = minExponentialSearch(array, start, mid, array[mid], true, 1, true);
+        if (searches) end = maxExponentialSearch(array, mid, end, array[mid - 1], false, 1, true);
+        if (Math.min(mid - start, end - mid) <= 8) {
+            grailMergeWithoutBuffer(array, start, mid - start, end - mid);
+            return;
+        }
+        if (mid - start < end - mid != side) side = !side;
+        int pos = side ? minExponentialSearch(array, mid, end, array[start], true, 1, true) : maxExponentialSearch(array, start, mid, array[end - 1], false, 1, true), s = side ? mid - start - 1 : end - mid - 1, g = side ? (mid - start) / 2 : (end - mid) / 2, b = end;
+        rotateIndexed(array, side ? start : pos, mid, side ? pos : end, 1, true, false);
+        mid = pos;
+        if (side) start = pos - s;
+        else end = pos + s;
+        while (s > g + 1 && Math.min(mid - start, end - mid) > 8) {
+            if (doesRotate(array, start, mid, end)) return;
+            pos = side ? centerBiasSearch(array, mid, end, array[start + g], true, 1, true) : centerBiasSearch(array, start, mid, array[end - g - 1], false, 1, true);
+            rotateIndexed(array, side ? start + g : pos, mid, side ? pos : end - g, 1, true, false);
+            if (((side && pos > mid) || (!side && pos < mid)) && Math.abs(pos - mid) > 8) {
+                Writes.recursion();
+                giveUpMergeRotate(array, side ? start : pos, side ? start + g : end - g, side ? pos : end, bSize, side, false, false, d + 1);
+            } else grailMergeWithoutBuffer(array, side ? start : pos, side ? g : end - pos - g, side ? pos - start - g : g);
+            s -= g + 1;
+            mid = pos;
+            if (side) start = pos - s;
+            else end = pos + s;
+            if (mid - start < end - mid != side) {
+                side = !side;
+                s = side ? mid - start : end - mid;
+            }
+            g = side ? (mid - start) / 2 : (end - mid) / 2;
         }
         if (s > 0) grailMergeWithoutBuffer(array, start, side ? s : mid - start, side ? end - start - s : Math.min(s + 1, b - mid));
     }
@@ -206,8 +274,8 @@ public class BismuthSort extends MadhouseTools {
             for (; s + cur <= deadEnd; s += cur) merge(array, s, s + cur, s + cur / 2, start, getSize, useBuffers);
             if (s + cur / 2 <= deadEnd) merge(array, s, deadEnd, s + cur / 2, start, getSize, useBuffers);
         }
-        if (getSize > 10 && useBuffers) giveUpMerge(array, start, start + getSize, deadEnd, getSize, true, true, true, 0);
-        if (balance > 0) giveUpMerge(array, start, deadEnd, deadEnd + balance, getSize, false, true, true, 0);
+        if (getSize > 10 && useBuffers) giveUpMergeOneRotate(array, start, start + getSize, deadEnd, getSize, true, true, true, 0);
+        if (balance > 0) giveUpMergeOneRotate(array, start, deadEnd, deadEnd + balance, getSize, false, true, true, 0);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class PeelBingoSort extends Sort {
         super(arrayVisualizer);
         this.setSortListName("Peel Bingo");
         this.setRunAllSortsName("Peel Bingo Sort");
-        this.setRunSortName("Peel Bingo Sort");
+        this.setRunSortName("Peel Bingosort");
         this.setCategory("Selection Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);

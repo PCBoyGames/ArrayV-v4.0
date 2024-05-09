@@ -16,6 +16,14 @@ CODED FOR ARRAYV BY PCBOYGAMES
 
 CHANGELOG:
 
+MHT-1.1 (March 22, 2024)
+ - Add center bias search.
+ - Add a simple stable swap.
+ - Improve an start to manage sort bugfixing efforts.
+   + In-depth error messages are now displayed when certain functions are given invalid parameters.
+     * Rotations of length zero are still allowed, as they are executed with no error.
+   + If any compatability issues arise from this update, please report them.
+
 MHT-1.0b (September 30, 2023)
  - Minor rewrites and fixes.
    + (Hopefully) fixed bound issues with the max-side exponential search.
@@ -56,7 +64,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author Doug Lea
      * @since MHT-1.0
      */
-    public int randInt(int min, int max) {
+    public int randInt(int min, int max) throws RuntimeException {
+        if (min >= max) throw new RuntimeException("MadhouseTools: Invalid range for random integer, since min is after or at max: (" + min + ", " + max + ")");
         return ThreadLocalRandom.current().nextInt(min, max);
     }
 
@@ -70,7 +79,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author w0rthy
      * @since MHT-1.0
      */
-    public void shuffleArray(int[] array, int start, int end, double delay, boolean mark, boolean aux) {
+    public void shuffleArray(int[] array, int start, int end, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for random shuffle, since start is after or at end: (" + start + ", " + end + ")");
         for (int i = start; i < end; ++i) {
             int j = randInt(i, end);
             if (i != j) Writes.swap(array, i, j, delay, mark, aux);
@@ -87,7 +97,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0
     */
-    public int[] maxSortedW(int[] array, int start, int end, double delay, boolean mark) {
+    public int[] maxSortedW(int[] array, int start, int end, double delay, boolean mark) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for max sorted check, since start is after or at end: (" + start + ", " + end + ")");
         int i = end - 1;
         end--;
         boolean segment = true;
@@ -130,7 +141,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0
     */
-    public int[] minSortedW(int[] array, int start, int end, double delay, boolean mark) {
+    public int[] minSortedW(int[] array, int start, int end, double delay, boolean mark) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for min sorted check, since start is after or at end: (" + start + ", " + end + ")");
         int i = start;
         boolean segment = true;
         while (segment) {
@@ -172,8 +184,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0
      */
-    public void stableSegmentReversal(int[] array, int start, int end, double delay, boolean mark, boolean aux) {
-        if (end - start <= 0) return;
+    public void stableSegmentReversal(int[] array, int start, int end, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for stable segment reversal, since start is after or at end: (" + start + ", " + end + ")");
         if (end - start < 3) Writes.swap(array, start, end, delay * 0.3, mark, aux);
         else Writes.reversal(array, start, end, delay * 0.3, mark, aux);
         for (int i = start; i < end; i++) {
@@ -199,7 +211,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0
      */
-    public int stableFindRun(int[] array, int start, int end, double delay, boolean mark, boolean aux) {
+    public int stableFindRun(int[] array, int start, int end, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for stable run detection, since start is after or at end: (" + start + ", " + end + ")");
         int i = start;
         boolean lessunique = false;
         boolean different = false;
@@ -242,7 +255,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0
      */
-    public int findRun(int[] array, int start, int end, double delay, boolean mark, boolean aux) {
+    public int findRun(int[] array, int start, int end, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for run detection, since start is after or at end: (" + start + ", " + end + ")");
         int i = start + 1;
         if (i == end) return i;
         int cmp = Reads.compareIndices(array, i - 1, i++, delay, mark);
@@ -257,7 +271,7 @@ public abstract class MadhouseTools extends GrailSorting {
         return Math.min(i, end);
     }
 
-    /**Performs a Pattern-Defeating operation that flips reversed runs from {@code array} between {@code (start, end]}.
+    /**Performs a Pattern-Defeating operation that flips reversed runs from {@code array} between {@code [start, end)}.
      * @param array The input array.
      * @param start The start of the input bounds.
      * @param end The end of the input bounds, exclusively.
@@ -270,7 +284,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0
      */
-    public boolean patternDefeat(int[] array, int start, int end, boolean stable, double delay, boolean mark, boolean aux) {
+    public boolean patternDefeat(int[] array, int start, int end, boolean stable, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for pattern defeat, since start is after or at end: (" + start + ", " + end + ")");
         int i = start + 1, j = start;
         boolean noSort = true;
         while (i < end) {
@@ -302,7 +317,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author Control
      * @since MHT-1.0
      */
-    public int parX(int[] array, int start, int end, double delay, boolean mark) {
+    public int parX(int[] array, int start, int end, double delay, boolean mark) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for disparity check, since start is after or at end: (" + start + ", " + end + ")");
         boolean[] max = new boolean[end - start];
         Writes.changeAllocAmount(end - start);
         int maximum = stableReturn(array[start]);
@@ -485,7 +501,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0a
     */
-    public int[] getRectangleDimensions(int x) {
+    public int[] getRectangleDimensions(int x) throws RuntimeException {
+        if (x <= 0) throw new RuntimeException("MadhouseTools: Invalid area for rectangle dimensions, since value is not greater than 0: " + x);
         int a = x;
         for (int p = (int) Math.ceil(Math.sqrt(x)); p < x; p++) {
             if (x % p == 0) {
@@ -506,8 +523,9 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author PCBoy
      * @since MHT-1.0a
     */
-    public boolean isValidRectangleAction(int x, int y, int a, int b) {
-        if (a >= x * y || b >= x * y || a < 0 || b < 0) return false;
+    public boolean isValidRectangleAction(int x, int y, int a, int b) throws RuntimeException {
+        if (x <= 0 || y <= 0) throw new RuntimeException("MadhouseTools: Invalid dimensions for rectangle action, since one or more dimensions are not greater than 0: (" + x + ", " + y + ")");
+        else if (a >= x * y || b >= x * y || a < 0 || b < 0) throw new RuntimeException("MadhouseTools: Invalid indices for rectangle action, since one or more are out of bounds of the rectangle: (" + a + ", " + b + ")");
         else if (Math.abs(b - a) < x) {if (Math.floor(a / x) != Math.floor(b / x)) return false;}
         else if (a % x != b % x) return false;
         return true;
@@ -529,7 +547,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author Scandum
      * @since MHT-1.0a
     */
-    public void rotate(int[] array, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) {
+    public void rotate(int[] array, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (lenA < 0 || lenB < 0) throw new RuntimeException("MadhouseTools: Invalid lengths for rotation, since one or both values are not positive: (" + lenA + ", " + lenB + ")");
         Rotations.adaptable(array, pos, lenA, lenB, delay, mark, aux);
     }
 
@@ -546,7 +565,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author Scandum
      * @since MHT-1.0a
     */
-    public void grailRotate(int[] array, int pos, int lenA, int lenB) {
+    public void grailRotate(int[] array, int pos, int lenA, int lenB) throws RuntimeException {
+        if (lenA < 0 || lenB < 0) throw new RuntimeException("MadhouseTools: Invalid lengths for Grail's rotation, since one or both values are not positive: (" + lenA + ", " + lenB + ")");
         rotate(array, pos, lenA, lenB, 1, true, false);
     }
 
@@ -681,7 +701,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author Scandum
      * @since MHT-1.0b
      */
-    public void bridgeSpecifyAux(int[] array, int[] ext, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) {
+    public void bridgeSpecifyAux(int[] array, int[] ext, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (lenA < 0 || lenB < 0) throw new RuntimeException("MadhouseTools: Invalid lengths for bridge rotation, since one or both values are not positive: (" + lenA + ", " + lenB + ")");
         if (lenA < 1 || lenB < 1) return;
         int pta = pos;
         int ptb = pos + lenA;
@@ -754,8 +775,8 @@ public abstract class MadhouseTools extends GrailSorting {
      * @author Scandum
      * @since MHT-1.0b
      */
-    public void rotateAux(int[] array, int[] ext, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) {
-        if (lenA == 0 || lenB == 0) return;
+    public void rotateAux(int[] array, int[] ext, int pos, int lenA, int lenB, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (lenA < 0 || lenB < 0) throw new RuntimeException("MadhouseTools: Invalid lengths for aux rotation, since one or both values are not positive: (" + lenA + ", " + lenB + ")");
         if (lenA % lenB == 0 || lenB % lenA == 0) Rotations.holyGriesMills(array, pos, lenA, lenB, delay, mark, aux);
         else if (Math.min(lenA, lenB) <= ext.length) bridgeSpecifyAux(array, ext, pos, lenA, lenB, delay, mark, aux);
         else Rotations.cycleReverse(array, pos, lenA, lenB, delay, mark, aux);
@@ -784,12 +805,100 @@ public abstract class MadhouseTools extends GrailSorting {
 
     /**Performs a linear sortedness check on {@code array}.
      * @param array The input array.
-     * @param a The start of the input bounds.
-     * @param b The end of the input bounds, exclusively.
+     * @param start The start of the input bounds.
+     * @param end The end of the input bounds, exclusively.
      * @return A {@code boolean}, whether the input is sorted.
+     * @author Various
+     * @since MHT-1.0b
      */
-    public boolean isSorted(int[] array, int a, int b) {
-        for (int i = a; i + 1 < b; i++) if (Reads.compareValues(array[i], array[i + 1]) > 0) return false;
+    public boolean isSorted(int[] array, int start, int end) throws RuntimeException {
+        if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for sortedness detection, since start is after or at end: (" + start + ", " + end + ")");
+        for (int i = start; i + 1 < end; i++) if (Reads.compareValues(array[i], array[i + 1]) > 0) return false;
         return true;
+    }
+
+    /*-----------------------\
+    |SINCE MADHOUSE TOOLS 1.1|
+    \-----------------------*/
+
+    /**Defines an index in a sorted segment of which is or approximates {@code value} in {@code O(log n)} time using a Center Bias hybrid search.
+     * @param array The input array.
+     * @param start The start of the input bounds.
+     * @param end The end of the input bounds, exclusively.
+     * @param value The value to search or approximate for.
+     * @param left A toggle for whether the search looks for a left-most instance of the value.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @return An {@code int} with the resulting index.
+     * @author Ayako-chan
+     * @author PCBoy
+     * @since MHT-1.1
+    */
+    public int centerBiasSearch(int[] array, int start, int end, int value, boolean left, double delay, boolean mark) {
+        if (end - start < 3) return binarySearch(array, start, end, value, left, delay, mark);
+        int m = start + (end - start) / 2;
+        int c = Reads.compareValues(value, array[m]);
+        if (mark) {
+            Highlights.markArray(1, start);
+            Highlights.markArray(2, m);
+            Highlights.markArray(3, end);
+        }
+        Delays.sleep(delay);
+        if (mark) Highlights.clearMark(3);
+        if (c == 0) {
+            if (left) return maxExponentialSearch(array, start, m + 1, value, left, delay, mark);
+            else return minExponentialSearch(array, m, end, value, left, delay, mark);
+        } else if (c < 0) return maxExponentialSearch(array, start, m, value, left, delay, mark);
+        else return minExponentialSearch(array, m + 1, end, value, left, delay, mark);
+    }
+
+    /**Performs a special type of swap that maintains stability across an entire section of an array thus spanned.
+     * @param array The input array.
+     * @param l The left element in the section.
+     * @param r The right element in the section.
+     * @param delay The visual time of the operation, as a factor.
+     * @param mark A toggle for whether highlights are made during the operation.
+     * @param aux A toggle for whether the operation is indicated in external space.
+     * @author PCBoy
+     * @since MHT-1.1
+    */
+    public void stableSwap(int[] array, int l, int r, double delay, boolean mark, boolean aux) throws RuntimeException {
+        if (l > r) throw new RuntimeException("MadhouseTools: Invalid positions for stable swap, since l is after r: (" + l + ", " + r + ")");
+        int temp = array[r];
+        boolean moved = true;
+        for (int j = r; j - 1 >= l; j--) {
+            if (Reads.compareIndexValue(array, j - 1, temp, delay, mark) != 0) {
+                Writes.write(array, j, array[j - 1], delay, mark, aux);
+                moved = true;
+            } else {
+                int temp2 = array[j - 1];
+                Writes.write(array, j, temp, delay, mark, aux);
+                moved = true;
+                temp = temp2;
+            }
+        }
+        if (moved) Writes.write(array, l, temp, delay, mark, aux);
+        temp = array[l + 1];
+        moved = false;
+        for (int j = l + 1; j + 1 <= r; j++) {
+            if (Reads.compareValueIndex(array, temp, j + 1, delay, mark) != 0) {
+                Writes.write(array, j, array[j + 1], delay, mark, aux);
+                moved = true;
+            } else {
+                int temp2 = array[j + 1];
+                Writes.write(array, j, temp, delay, mark, aux);
+                moved = true;
+                temp = temp2;
+            }
+        }
+        if (moved) Writes.write(array, r, temp, delay, mark, false);
+    }
+
+    public int compareIndicesI1(int[] array, int a, int b, double sleep, boolean mark) {
+        return Reads.compareIndices(array, a - 1, b - 1, sleep, mark);
+    }
+
+    public void swapI1(int[] array, int a, int b, double sleep, boolean mark, boolean aux) {
+        Writes.swap(array, a - 1, b - 1, sleep, mark, aux);
     }
 }

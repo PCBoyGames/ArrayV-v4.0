@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Ayako-chan
+Coded for ArrayV by Harumi
 in collaboration with aphitorite
 
 +---------------------------+
@@ -15,11 +15,11 @@ in collaboration with aphitorite
  */
 
 /**
- * @author Ayako-chan
+ * @author Harumi
  * @author aphitorite
  *
  */
-public class LazyLogSort extends Sort {
+public final class LazyLogSort extends Sort {
 
     public LazyLogSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -34,6 +34,8 @@ public class LazyLogSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
+
+    static int partialInsertLimit = 8;
 
     int productLog(int n) {
         int r = 1;
@@ -221,6 +223,27 @@ public class LazyLogSort extends Sort {
             insertTo(array, i, expSearch(array, a, i, array[i]), 0.25);
     }
 
+    //Refactored from PDQSorting.java
+    protected boolean partialInsert(int[] array, int a, int b) {
+        if (a == b) return true;
+        double sleep = 0.25;
+        int c = 0;
+        for (int i = a + 1; i < b; i++) {
+            if (c > partialInsertLimit) return false;
+            if (Reads.compareIndices(array, i - 1, i, sleep, true) > 0) {
+                int t = array[i];
+                int j = i;
+                do {
+                    Writes.write(array, j, array[j - 1], sleep, true, false);
+                    j--;
+                } while (j - 1 >= a && Reads.compareValues(array[j - 1], t) > 0);
+                Writes.write(array, j, t, sleep, true, false);
+                c += i - j;
+            }
+        }
+        return true;
+    }
+
     boolean pivCmp(int v, int piv, boolean eqLower) {
         int c = Reads.compareValues(v, piv);
         return c < 0 || (eqLower && c == 0);
@@ -255,14 +278,23 @@ public class LazyLogSort extends Sort {
         }
     }
 
-    protected int[] partition(int[] array, int a, int b, int bLen, int piv, boolean bias) {
-        boolean allEqual = true;
+    protected int[] partition(int[] array, int a, int b, int bLen, int piv, boolean eqLower) {
+        for (; a < b; a++) {
+            Highlights.markArray(1, a);
+            Delays.sleep(0.25);
+            if (!this.pivCmp(array[a], piv, eqLower)) break;
+        }
+        for (; b > a; b--) {
+            Highlights.markArray(1, b-1);
+            Delays.sleep(0.25);
+            if (this.pivCmp(array[b-1], piv, eqLower)) break;
+        }
+        boolean allEqual = b == a;
         if (b - a <= bLen) {
             int j = a;
             for (int i = a; i < b; i++) {
                 int cmp = Reads.compareIndexValue(array, i, piv, 0.25, true);
-                allEqual &= cmp == 0;
-                if (cmp < 0 || bias && cmp == 0)
+                if (cmp < 0 || eqLower && cmp == 0)
                     insertTo(array, i, j++, 0.25);
             }
             return new int[] {j, allEqual ? 1 : 0};
@@ -272,8 +304,7 @@ public class LazyLogSort extends Sort {
         int lb = 0, rb = 0;
         for (int i = a; i < b; i++) {
             int cmp = Reads.compareIndexValue(array, i, piv, 0.25, true);
-            allEqual &= cmp == 0;
-            if (cmp < 0 || bias && cmp == 0) {
+            if (cmp < 0 || eqLower && cmp == 0) {
                 insertTo(array, i, p + l++, 0.25);
                 if (l == bLen) {
                     l = 0;
@@ -296,57 +327,49 @@ public class LazyLogSort extends Sort {
             int bCnt = lb + rb;
             int wLen = 32 - Integer.numberOfLeadingZeros(min - 1); // ceil(log2(min))
             for (int i = 0, j = 0, k = 0; i < min; i++) { // set bit buffers
-                while (!this.pivCmp(array[a + j * bLen + wLen], piv, bias)) j++;
-                while (this.pivCmp(array[a + k * bLen + wLen], piv, bias)) k++;
+                while (!this.pivCmp(array[a + j * bLen + wLen], piv, eqLower)) j++;
+                while (this.pivCmp(array[a + k * bLen + wLen], piv, eqLower)) k++;
                 this.pivBufXor(array, a + (j++) * bLen, a + (k++) * bLen, i, wLen);
             }
             if (lb < rb) {
                 for (int i = bCnt - 1, j = 0; j < rb; i--) // swap right to left
-                    if (!this.pivCmp(array[a + i * bLen + wLen], piv, bias))
+                    if (!this.pivCmp(array[a + i * bLen + wLen], piv, eqLower))
                         this.multiSwap(array, a + i * bLen, a + (bCnt - (++j)) * bLen, bLen, false);
-                this.blockCycle(array, a, lb, m, bLen, wLen, piv, bias, 0);
+                this.blockCycle(array, a, lb, m, bLen, wLen, piv, eqLower, 0);
             } else {
                 for (int i = 0, j = 0; j < lb; i++) // swap left to right
-                    if (this.pivCmp(array[a + i * bLen + wLen], piv, bias))
+                    if (this.pivCmp(array[a + i * bLen + wLen], piv, eqLower))
                         this.multiSwap(array, a + i * bLen, a + (j++) * bLen, bLen, true);
-                this.blockCycle(array, m, rb, a, bLen, wLen, piv, bias, 1);
+                this.blockCycle(array, m, rb, a, bLen, wLen, piv, eqLower, 1);
             }
         }
         rotate(array, m, b - r - l, b - r);
         return new int[] {m + l, allEqual ? 1 : 0};
     }
 
-    protected void sortHelper(int[] array, int a, int b, int bLen, boolean bad, boolean bias) {
+    protected void sortHelper(int[] array, int a, int b, int bLen, boolean bad) {
         while (b - a > 32) {
             int pIdx;
             if (bad) pIdx = medOfMed(array, a, b);
             else pIdx = medP3(array, a, b, 1);
-            int[] pr = partition(array, a, b, bLen, array[pIdx], bias);
+            int[] pr = partition(array, a, b, bLen, array[pIdx], false);
             int m = pr[0];
-            if (pr[1] != 0) return;
             if (m == a) {
-                bias = !bias;
-                pr = partition(array, a, b, bLen, array[pIdx], bias);
+                pr = partition(array, a, b, bLen, array[pIdx], true);
                 m = pr[0];
                 bad = (b - m) / 8 > m - a;
+                if (!bad && pr[1] != 0 && partialInsert(array, m, b)) return;
                 a = m;
-                continue;
-            }
-            if (m == b) {
-                bias = !bias;
-                pr = partition(array, a, b, bLen, array[pIdx], bias);
-                m = pr[0];
-                bad = (m - a) / 8 > b - m;
-                b = m;
                 continue;
             }
             int lLen = m - a, rLen = b - m;
             bad = rLen / 8 > lLen || lLen / 8 > rLen;
+            if (!bad && pr[1] != 0 && partialInsert(array, a, m) && partialInsert(array, m, b)) return;
             if (lLen > rLen) {
-                sortHelper(array, m, b, bLen, bad, bias);
+                sortHelper(array, m, b, bLen, bad);
                 b = m;
             } else {
-                sortHelper(array, a, m, bLen, bad, bias);
+                sortHelper(array, a, m, bLen, bad);
                 a = m;
             }
         }
@@ -367,7 +390,7 @@ public class LazyLogSort extends Sort {
             else Writes.reversal(array, a, b - 1, 0.75, true, false);
             return;
         }
-        sortHelper(array, a, b, productLog(b - a), false, false);
+        sortHelper(array, a, b, productLog(b - a), false);
     }
 
     @Override

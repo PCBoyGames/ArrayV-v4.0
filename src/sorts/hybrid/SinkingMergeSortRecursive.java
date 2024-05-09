@@ -3,8 +3,18 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
+/*
+
+Coded for ArrayV by Harumi
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
+
 /**
- * @author Yuri-chan
+ * @author Harumi
  *
  */
 public class SinkingMergeSortRecursive extends Sort {
@@ -38,13 +48,12 @@ public class SinkingMergeSortRecursive extends Sort {
     }
 
     public void sort(int[] array, int start, int end, double sleep) {
-        if (end - start > 16) {
+        if (end - start > 1) {
             int mid = start + (end - start) / 2;
             sort(array, start, mid, sleep);
             sort(array, mid, end, sleep);
             bubbleSort(array, start, end, sleep);
-        } else
-            bubbleSort(array, start, end, sleep);
+        }
     }
 
     @Override

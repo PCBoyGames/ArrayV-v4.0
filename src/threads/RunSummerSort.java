@@ -3,7 +3,124 @@ package threads;
 import main.ArrayManager;
 import main.ArrayVisualizer;
 import panes.JErrorPane;
+import sorts.bogo.ScrambleQuickSort;
+import sorts.concurrent.VanVoorhisFourFourSortIterative;
+import sorts.concurrent.VanVoorhisFourFourSortRecursive;
+import sorts.exchange.AccelerateSort;
+import sorts.exchange.BabblurSort;
+import sorts.exchange.BasicDigSort;
+import sorts.exchange.CityscapeSortNS;
+import sorts.exchange.ClampSort;
+import sorts.exchange.DeterministicSimpleArgoSort;
+import sorts.exchange.DigSort;
+import sorts.exchange.DragSort;
+import sorts.exchange.EggSort;
+import sorts.exchange.EvubSort;
+import sorts.exchange.FiringSquadSortIterative;
+import sorts.exchange.FiringSquadSortRecursive;
+import sorts.exchange.ForwardRunShoveSort;
+import sorts.exchange.InOrderShoveSort;
+import sorts.exchange.JerenSort;
+import sorts.exchange.LoopSort;
+import sorts.exchange.LootSort;
+import sorts.exchange.OldDigSort;
+import sorts.exchange.OpiumSort;
+import sorts.exchange.OptimizedBabblurSort;
+import sorts.exchange.OptimizedDragSort;
+import sorts.exchange.OptimizedInOrderShoveSort;
+import sorts.exchange.OptimizedShobeSort;
+import sorts.exchange.PDInOrderShoveSort;
+import sorts.exchange.PairwisePoptimalSort;
+import sorts.exchange.SearchSort;
+import sorts.exchange.SegForwardRunShoveSort;
+import sorts.exchange.ShobeSort;
+import sorts.exchange.SpreadSort;
+import sorts.exchange.SwaplessInOrderShoveSort;
+import sorts.exchange.SwivelSort;
+import sorts.exchange.UnnamedSort;
+import sorts.exchange.ZigZagSort;
 import sorts.hybrid.BismuthSort;
+import sorts.hybrid.ByproductSort;
+import sorts.hybrid.CavernousSort;
+import sorts.hybrid.HeliumSort;
+import sorts.hybrid.IzaSort;
+import sorts.hybrid.KitaSort;
+import sorts.hybrid.KleeSort;
+import sorts.hybrid.LonginusSort;
+import sorts.hybrid.OptimizedPartitionHeapMergeSort;
+import sorts.hybrid.PartitionHeapMergeSort;
+import sorts.hybrid.PebbleSort;
+import sorts.hybrid.ShiftSort;
+import sorts.hybrid.StablePebbleSort;
+import sorts.insert.BigBlockInsertionSort;
+import sorts.insert.BlockInsertionSortAdaRot;
+import sorts.insert.CappedShipperSort;
+import sorts.insert.CiuraCappedShipperSort;
+import sorts.insert.FhellSort;
+import sorts.insert.IPStableBadShellSort;
+import sorts.insert.ParShellShellSort;
+import sorts.insert.RurshSort;
+import sorts.insert.ShellShellSort;
+import sorts.insert.ShipperSort;
+import sorts.merge.InPlaceMergeSortII;
+import sorts.merge.RougeLazyStableSort;
+import sorts.quick.CountingDualPivotQuickSort;
+import sorts.quick.CountingPivotQuickSort;
+import sorts.quick.IPCountingDualPivotQuickSort;
+import sorts.quick.IPCountingPivotQuickSort;
+import sorts.quick.IPTernaryCountingPivotQuickSort;
+import sorts.quick.InPlaceSergioSort;
+import sorts.quick.InPlaceUnstableSergioSort;
+import sorts.quick.IndexSmartSingularityQuickSort;
+import sorts.quick.MashuSort;
+import sorts.quick.MidSingularityQuickSort;
+import sorts.quick.OOPCountingDualPivotQuickSort;
+import sorts.quick.OOPCountingPivotQuickSort;
+import sorts.quick.OOPSingularityQuickSort;
+import sorts.quick.OOPSmartSingularityQuickSort;
+import sorts.quick.OOPTernaryCountingDualPivotQuickSort;
+import sorts.quick.OOPTernaryCountingPivotQuickSort;
+import sorts.quick.OOPTernarySingularityQuickSort;
+import sorts.quick.OptimizedInPlaceSergioSort;
+import sorts.quick.OptimizedMidSingularityQuickSort;
+import sorts.quick.OptimizedSmartSingularityQuickSort;
+import sorts.quick.SergioSort;
+import sorts.quick.ShellUnstableSingularityQuickSort;
+import sorts.quick.SingularityQuickSort;
+import sorts.quick.SmartSingularityQuickSort;
+import sorts.quick.TernaryCountingPivotQuickSort;
+import sorts.quick.TernarySingularityQuickSort;
+import sorts.quick.UnboundedSingularityQuickSort;
+import sorts.quick.UnboundedUnstableSingularityQuickSort;
+import sorts.quick.UnstableSingularityQuickSort;
+import sorts.quick.UnstableSmartSingularityQuickSort;
+import sorts.quick.UnstableTernarySingularityQuickSort;
+import sorts.select.CrinkleSort;
+import sorts.select.EhatSort;
+import sorts.select.MoreOptimizedOpiumSort;
+import sorts.select.OptimizedOpiumSort;
+import sorts.select.OptimizedOutOfPlaceRotateSelectSort;
+import sorts.select.OptimizedRollSort;
+import sorts.select.OptimizedRotateSelectSort;
+import sorts.select.OutOfPlaceRotateSelectSort;
+import sorts.select.PDOpiumSort;
+import sorts.select.PDOutOfPlaceRotateSelectSort;
+import sorts.select.PDRollSort;
+import sorts.select.PDRotateSelectSort;
+import sorts.select.PDStableOpiumSort;
+import sorts.select.PasserbySort;
+import sorts.select.PeelBingoSort;
+import sorts.select.QhatSort;
+import sorts.select.RollSort;
+import sorts.select.RotateSelectSort;
+import sorts.select.SandpaperBingoSort;
+import sorts.select.StableOpiumSort;
+import sorts.select.SwaplessOptimizedReverseSandpaperSort;
+import sorts.select.SwaplessRollSort;
+import sorts.select.WharSort;
+import sorts.select.WhaySort;
+import sorts.select.WhstSort;
+import sorts.select.WjatSort;
 import sorts.templates.Sort;
 import utils.Distributions;
 import utils.Shuffles;
@@ -47,7 +164,7 @@ public class RunSummerSort extends MultipleSortThread {
     }
 
     protected synchronized void runIndividualSort(Sort sort, int bucketCount, int[] array, int defaultLength, double defaultSpeed, boolean slowSort, String shuffleName, int uniques, boolean alt) throws Exception {
-        //if (inputnum < 5) return;
+        //if (inputnum < 40) return;
         Delays.setSleepRatio(1);
         if (defaultLength != arrayVisualizer.getCurrentLength()) arrayFrame.setLengthSlider(defaultLength);
         if (shuffleName == "Many Similar" || shuffleName == "More Similar" || shuffleName == "Stability Test") arrayVisualizer.getArrayFrame().setUniqueSlider(uniques);
@@ -188,53 +305,53 @@ public class RunSummerSort extends MultipleSortThread {
         //Sort DeterministicArgo = new DeterministicSimpleArgoSort(arrayVisualizer);
         //runIndividualSort(DeterministicArgo, 0, array, 1024, 1, false, shuffleName, 16, alt);
 
-        /*Sort Sing = new SingularityQuickSort(arrayVisualizer);
-        runIndividualSort(Sing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort Sing = new SingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(Sing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort UnstSing = new UnstableSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnstSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort UnstSing = new UnstableSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(UnstSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort ShllUnstSing = new ShellUnstableSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(ShllUnstSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort ShllUnstSing = new ShellUnstableSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(ShllUnstSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort UnbdSing = new UnboundedSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnbdSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort UnbdSing = new UnboundedSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(UnbdSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort UnbdUnstSing = new UnboundedUnstableSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnbdUnstSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort UnbdUnstSing = new UnboundedUnstableSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(UnbdUnstSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort OOPSing = new OOPSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(OOPSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort OOPSing = new OOPSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(OOPSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort TernSing = new TernarySingularityQuickSort(arrayVisualizer);
-        runIndividualSort(TernSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort TernSing = new TernarySingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(TernSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort UnstTernSing = new UnstableTernarySingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnstTernSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort UnstTernSing = new UnstableTernarySingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(UnstTernSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort OOPTernSing = new OOPTernarySingularityQuickSort(arrayVisualizer);
-        runIndividualSort(OOPTernSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort OOPTernSing = new OOPTernarySingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(OOPTernSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort MidSing = new MidSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(MidSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort MidSing = new MidSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(MidSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort OptiMidSing = new OptimizedMidSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(OptiMidSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort OptiMidSing = new OptimizedMidSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(OptiMidSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort SmartSing = new SmartSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(SmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort SmartSing = new SmartSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(SmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort OptiSmartSing = new OptimizedSmartSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(OptiSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort OptiSmartSing = new OptimizedSmartSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(OptiSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort UnstSmartSing = new UnstableSmartSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(UnstSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort UnstSmartSing = new UnstableSmartSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(UnstSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort IdxSmartSing = new IndexSmartSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(IdxSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort IdxSmartSing = new IndexSmartSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(IdxSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort OOPSmartSing = new OOPSmartSingularityQuickSort(arrayVisualizer);
-        runIndividualSort(OOPSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);*/
+        //Sort OOPSmartSing = new OOPSmartSingularityQuickSort(arrayVisualizer);
+        //runIndividualSort(OOPSmartSing, 0, array, 512, 1, false, shuffleName, 16, alt);
 
         //Sort Cityscape = new CityscapeSortNS(arrayVisualizer);
         //runIndividualSort(Cityscape, 0, array, 512, 1, false, shuffleName, 16, alt);
@@ -245,17 +362,17 @@ public class RunSummerSort extends MultipleSortThread {
         //Sort ScrambleQuick = new ScrambleQuickSort(arrayVisualizer);
         //runIndividualSort(ScrambleQuick, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        /*Sort Sergio = new SergioSort(arrayVisualizer);
-        runIndividualSort(Sergio, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort Sergio = new SergioSort(arrayVisualizer);
+        //runIndividualSort(Sergio, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort IPUSergio = new InPlaceUnstableSergioSort(arrayVisualizer);
-        runIndividualSort(IPUSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort IPUSergio = new InPlaceUnstableSergioSort(arrayVisualizer);
+        //runIndividualSort(IPUSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort IPSergio = new InPlaceSergioSort(arrayVisualizer);
-        runIndividualSort(IPSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //Sort IPSergio = new InPlaceSergioSort(arrayVisualizer);
+        //runIndividualSort(IPSergio, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort OptiIPSergio = new OptimizedInPlaceSergioSort(arrayVisualizer);
-        runIndividualSort(OptiIPSergio, 16, array, 512, 1, false, shuffleName, 16, alt);*/
+        //Sort OptiIPSergio = new OptimizedInPlaceSergioSort(arrayVisualizer);
+        //runIndividualSort(OptiIPSergio, 16, array, 512, 1, false, shuffleName, 16, alt);
 
         //Sort Egg = new EggSort(arrayVisualizer);
         //runIndividualSort(Egg, 0, array, 128, 1, false, shuffleName, 16, alt);
@@ -266,99 +383,105 @@ public class RunSummerSort extends MultipleSortThread {
         //Sort Klee = new KleeSort(arrayVisualizer);
         //runIndividualSort(Klee, 0, array, 512, 1, false, shuffleName, 16, alt);
 
-        /*Sort InOrderShove = new InOrderShoveSort(arrayVisualizer);
-        runIndividualSort(InOrderShove, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort InOrderShove = new InOrderShoveSort(arrayVisualizer);
+        //runIndividualSort(InOrderShove, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort SwaplessIOShove = new SwaplessInOrderShoveSort(arrayVisualizer);
-        runIndividualSort(SwaplessIOShove, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort SwaplessIOShove = new SwaplessInOrderShoveSort(arrayVisualizer);
+        //runIndividualSort(SwaplessIOShove, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort OptimizedInOrderShove = new OptimizedInOrderShoveSort(arrayVisualizer);
-        runIndividualSort(OptimizedInOrderShove, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort OptimizedInOrderShove = new OptimizedInOrderShoveSort(arrayVisualizer);
+        //runIndividualSort(OptimizedInOrderShove, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort PDInOrderShove = new PDInOrderShoveSort(arrayVisualizer);
-        runIndividualSort(PDInOrderShove, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort PDInOrderShove = new PDInOrderShoveSort(arrayVisualizer);
+        //runIndividualSort(PDInOrderShove, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort Roll = new RollSort(arrayVisualizer);
-        runIndividualSort(Roll, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort Roll = new RollSort(arrayVisualizer);
+        //runIndividualSort(Roll, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort SwaplessRoll = new SwaplessRollSort(arrayVisualizer);
-        runIndividualSort(SwaplessRoll, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort SwaplessRoll = new SwaplessRollSort(arrayVisualizer);
+        //runIndividualSort(SwaplessRoll, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort OptimizedRoll = new OptimizedRollSort(arrayVisualizer);
-        runIndividualSort(OptimizedRoll, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort OptimizedRoll = new OptimizedRollSort(arrayVisualizer);
+        //runIndividualSort(OptimizedRoll, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort PDRoll = new PDRollSort(arrayVisualizer);
-        runIndividualSort(PDRoll, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort PDRoll = new PDRollSort(arrayVisualizer);
+        //runIndividualSort(PDRoll, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort RotateSelection = new RotateSelectSort(arrayVisualizer);
-        runIndividualSort(RotateSelection, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort RotateSelection = new RotateSelectSort(arrayVisualizer);
+        //runIndividualSort(RotateSelection, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort OptimizedRotateSelect = new OptimizedRotateSelectSort(arrayVisualizer);
-        runIndividualSort(OptimizedRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort OptimizedRotateSelect = new OptimizedRotateSelectSort(arrayVisualizer);
+        //runIndividualSort(OptimizedRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort PDRotateSelect = new PDRotateSelectSort(arrayVisualizer);
-        runIndividualSort(PDRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort PDRotateSelect = new PDRotateSelectSort(arrayVisualizer);
+        //runIndividualSort(PDRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort OutOfPlaceRotateSelection = new OutOfPlaceRotateSelectSort(arrayVisualizer);
-        runIndividualSort(OutOfPlaceRotateSelection, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort OutOfPlaceRotateSelection = new OutOfPlaceRotateSelectSort(arrayVisualizer);
+        //runIndividualSort(OutOfPlaceRotateSelection, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort OptimizedOutOfPlaceRotateSelect = new OptimizedOutOfPlaceRotateSelectSort(arrayVisualizer);
-        runIndividualSort(OptimizedOutOfPlaceRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort OptimizedOutOfPlaceRotateSelect = new OptimizedOutOfPlaceRotateSelectSort(arrayVisualizer);
+        //runIndividualSort(OptimizedOutOfPlaceRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort PDOutOfPlaceRotateSelect = new PDOutOfPlaceRotateSelectSort(arrayVisualizer);
-        runIndividualSort(PDOutOfPlaceRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort PDOutOfPlaceRotateSelect = new PDOutOfPlaceRotateSelectSort(arrayVisualizer);
+        //runIndividualSort(PDOutOfPlaceRotateSelect, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort Opium = new OpiumSort(arrayVisualizer);
-        runIndividualSort(Opium, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort Opium = new OpiumSort(arrayVisualizer);
+        //runIndividualSort(Opium, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort OptimizedOpium = new OptimizedOpiumSort(arrayVisualizer);
-        runIndividualSort(OptimizedOpium, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort OptimizedOpium = new OptimizedOpiumSort(arrayVisualizer);
+        //runIndividualSort(OptimizedOpium, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort MoreOptimizedOpium = new MoreOptimizedOpiumSort(arrayVisualizer);
-        runIndividualSort(MoreOptimizedOpium, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort MoreOptimizedOpium = new MoreOptimizedOpiumSort(arrayVisualizer);
+        //runIndividualSort(MoreOptimizedOpium, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort StableOpium = new StableOpiumSort(arrayVisualizer);
-        runIndividualSort(StableOpium, 0, array, 128, 1, false, shuffleName, 8, alt);
+        //Sort StableOpium = new StableOpiumSort(arrayVisualizer);
+        //runIndividualSort(StableOpium, 0, array, 128, 1, false, shuffleName, 8, alt);
 
-        Sort PDOpium = new PDOpiumSort(arrayVisualizer);
-        runIndividualSort(PDOpium, 0, array, 128, 1, false, shuffleName, 16, false);
+        //Sort PDOpium = new PDOpiumSort(arrayVisualizer);
+        //runIndividualSort(PDOpium, 0, array, 128, 1, false, shuffleName, 16, false);
 
-        Sort PDStableOpium = new PDStableOpiumSort(arrayVisualizer);
-        runIndividualSort(PDStableOpium, 0, array, 128, 1, false, shuffleName, 8, alt);
+        //Sort PDStableOpium = new PDStableOpiumSort(arrayVisualizer);
+        //runIndividualSort(PDStableOpium, 0, array, 128, 1, false, shuffleName, 8, alt);
 
-        //Sort Unnamed = new ByproductSort(arrayVisualizer);
+        //Sort Unnamed2 = new ByproductSort(arrayVisualizer);
         //for (int i = 500; i <= 512; i++)
-        //runIndividualSort(Unnamed, 0, array, i, 1, false, shuffleName, 16, alt);
+        //runIndividualSort(Unnamed2, 0, array, i, 1, false, shuffleName, 16, alt);
 
         //Sort cvern = new CavernousSort(arrayVisualizer);
         //runIndividualSort(cvern, 0, array, 1024*2, 1, false, shuffleName, 16, alt);*/
 
-        /*Sort Shipper = new ShipperSort(arrayVisualizer);
-        runIndividualSort(Shipper, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        //Sort Shipper = new ShipperSort(arrayVisualizer);
+        //runIndividualSort(Shipper, 0, array, 512, 0.5, false, shuffleName, 16, alt);
 
-        Sort ShipperCap = new CappedShipperSort(arrayVisualizer);
-        runIndividualSort(ShipperCap, 0, array, 512, 0.5, false, shuffleName, 16, alt);
+        //Sort ShipperCap = new CappedShipperSort(arrayVisualizer);
+        //runIndividualSort(ShipperCap, 0, array, 512, 0.5, false, shuffleName, 16, alt);
 
-        Sort ShipperCapCiura = new CiuraCappedShipperSort(arrayVisualizer);
-        runIndividualSort(ShipperCapCiura, 0, array, 512, 0.5, false, shuffleName, 16, alt);*/
+        //Sort ShipperCapCiura = new CiuraCappedShipperSort(arrayVisualizer);
+        //runIndividualSort(ShipperCapCiura, 0, array, 512, 0.5, false, shuffleName, 16, alt);
 
-        /*Sort Wjat = new WjatSort(arrayVisualizer);
-        Sort Whst = new WhstSort(arrayVisualizer);
-        Sort Qhat = new QhatSort(arrayVisualizer);
-        Sort Whay = new WhaySort(arrayVisualizer);
-        Sort Whar = new WharSort(arrayVisualizer);
-        Sort Ehat = new EhatSort(arrayVisualizer);
-        for (int i = 512; i <= 512; i++) {
-            runIndividualSort(Wjat, 0, array, i, 1, false, shuffleName, 16, alt);
-            runIndividualSort(Whst, 0, array, i, 1, false, shuffleName, 16, alt);
-            runIndividualSort(Qhat, 0, array, i, 1, false, shuffleName, 16, alt);
-            runIndividualSort(Whay, 0, array, i, 1, false, shuffleName, 16, alt);
-            runIndividualSort(Whar, 0, array, i, 1, false, shuffleName, 16, alt);
-            runIndividualSort(Ehat, 0, array, i, 1, false, shuffleName, 16, alt);
-        }*/
+        //Sort Wjat = new WjatSort(arrayVisualizer);
+        //Sort Whst = new WhstSort(arrayVisualizer);
+        //Sort Qhat = new QhatSort(arrayVisualizer);
+        //Sort Whay = new WhaySort(arrayVisualizer);
+        //Sort Whar = new WharSort(arrayVisualizer);
+        //Sort Ehat = new EhatSort(arrayVisualizer);
+        //for (int i = 512; i <= 512; i++) {
+            //runIndividualSort(Wjat, 0, array, i, 1, false, shuffleName, 16, alt);
+            //runIndividualSort(Whst, 0, array, i, 1, false, shuffleName, 16, alt);
+            //runIndividualSort(Qhat, 0, array, i, 1, false, shuffleName, 16, alt);
+            //runIndividualSort(Whay, 0, array, i, 1, false, shuffleName, 16, alt);
+            //runIndividualSort(Whar, 0, array, i, 1, false, shuffleName, 16, alt);
+            //runIndividualSort(Ehat, 0, array, i, 1, false, shuffleName, 16, alt);
+        //}
+
+        //Sort ForwardRunShove = new ForwardRunShoveSort(arrayVisualizer);
+        //runIndividualSort(ForwardRunShove, 0, array, 256, 1, false, shuffleName, 16, alt);
 
         //Sort OptimizedForwardRunShoveSort = new sorts.exchange.OptimizedForwardRunShoveSort(arrayVisualizer);
-        //runIndividualSort(OptimizedForwardRunShoveSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //runIndividualSort(OptimizedForwardRunShoveSort, 0, array, 256, 1, false, shuffleName, 16, alt);
+
+        //Sort PDForwardRunShoveSort = new sorts.exchange.PDForwardRunShoveSort(arrayVisualizer);
+        //runIndividualSort(PDForwardRunShoveSort, 0, array, 256, 1, false, shuffleName, 16, alt);
 
         //Sort SegForwardRunShove = new SegForwardRunShoveSort(arrayVisualizer);
         //runIndividualSort(SegForwardRunShove, 0, array, 512, 1, false, shuffleName, 16, alt);
@@ -367,7 +490,7 @@ public class RunSummerSort extends MultipleSortThread {
         //runIndividualSort(ShellShell, 3, array, 512, 1, false, shuffleName, 16, alt);
 
         //Sort ParShellShell = new ParShellShellSort(arrayVisualizer);
-        //runIndividualSort(ParShellShell, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //runIndividualSort(ParShellShell, 3, array, 512, 1, false, shuffleName, 16, alt);
 
         //Sort PairwiseWeave = new PairwisePoptimalSort(arrayVisualizer);
         //runIndividualSort(PairwiseWeave, 0, array, 512, 1, false, shuffleName, 16, alt);
@@ -375,26 +498,66 @@ public class RunSummerSort extends MultipleSortThread {
         //Sort Shift = new ShiftSort(arrayVisualizer);
         //runIndividualSort(Shift, 0, array, 256, 1, false, shuffleName, 16, alt);
 
-        /*Sort Helium = new HeliumSort(arrayVisualizer);
-        runIndividualSort(Helium, 0, array, 512, 1, false, shuffleName, 16, alt);
-        runIndividualSort(Helium, 1, array, 512, 1, false, shuffleName, 16, alt);
-        runIndividualSort(Helium, 2, array, 512, 1, false, shuffleName, 16, alt);*/
+        //Sort Helium = new HeliumSort(arrayVisualizer);
+        //runIndividualSort(Helium, 0, array, 512, 1, false, shuffleName, 16, alt);
+        //runIndividualSort(Helium, 1, array, 512, 1, false, shuffleName, 16, alt);
+        //runIndividualSort(Helium, 2, array, 512, 1, false, shuffleName, 16, alt);
 
-        Sort Bismuth = new BismuthSort(arrayVisualizer);
-        Sort BismuthSortNoBuffers = new sorts.hybrid.BismuthSortNoBuffers(arrayVisualizer);
+        //Sort Bismuth = new BismuthSort(arrayVisualizer);
+        //Sort BismuthSortNoBuffers = new sorts.hybrid.BismuthSortNoBuffers(arrayVisualizer);
 
         //for (int i = 64; i <= Math.pow(2, 20); i *= 2) {
-            //for (int j = 1; j <= 512; j *= 2) {
-            //if (j > 10)
-            runIndividualSort(BismuthSortNoBuffers, 1, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
-            runIndividualSort(BismuthSortNoBuffers, 2, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
-            runIndividualSort(BismuthSortNoBuffers, 8, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
-            runIndividualSort(BismuthSortNoBuffers, 32, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
-            runIndividualSort(BismuthSortNoBuffers, 64, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
-            runIndividualSort(Bismuth, 32, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
-            runIndividualSort(Bismuth, 64, array, 1024, arrayVisualizer.blaze ? 1e9 : 0.5, false, shuffleName, 16, alt);
+            //for (int j = 16; j <= 65536; j *= 2) {
 
+                /*runIndividualSort(BismuthSortNoBuffers, 1, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);
+                runIndividualSort(BismuthSortNoBuffers, 2, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);
+                runIndividualSort(BismuthSortNoBuffers, 8, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);
+                runIndividualSort(BismuthSortNoBuffers, 32, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);
+                runIndividualSort(BismuthSortNoBuffers, 64, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);*/
+                //runIndividualSort(Bismuth, 32, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);
+                //runIndividualSort(Bismuth, 64, array, 1024, arrayVisualizer.blaze ? 1e9 : 1, false, shuffleName, 16, alt);
+                //if (j > 10) runIndividualSort(Bismuth, j, array, 131072, 1, false, shuffleName, 16, alt);
+                //runIndividualSort(BismuthSortNoBuffers, j, array, 131072, 1, false, shuffleName, 16, alt);
+            //}
         //}
+
+        //Sort Passerby = new PasserbySort(arrayVisualizer);
+        //for (int i = 64; i <= 128; i++)
+        //runIndividualSort(Passerby, 0, array, 256, arrayVisualizer.blaze ? 1e9 : 0.25, false, shuffleName, 16, alt);
+
+        //Sort Crinkle = new CrinkleSort(arrayVisualizer);
+        //runIndividualSort(Crinkle, 0, array, 128, 0.1, false, shuffleName, 16, alt);
+
+        //Sort Fhell = new FhellSort(arrayVisualizer);
+        //for (int i = 512; i <= 1024; i++)
+        //runIndividualSort(Fhell, 0, array, i, 1, false, shuffleName, 16, alt);
+
+        //Sort Longinus = new LonginusSort(arrayVisualizer);
+        //for (int i = 16; i < 8192; i++)
+        //runIndividualSort(Longinus, 0, array, 1024, 1, false, shuffleName, 16, alt);
+
+        //Sort Rursh = new RurshSort(arrayVisualizer);
+        //runIndividualSort(Rursh, 0, array, 128, 1, false, shuffleName, 16, alt);
+
+        //Sort Swivel = new SwivelSort(arrayVisualizer);
+        //runIndividualSort(Swivel, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort Jeren = new JerenSort(arrayVisualizer);
+        //runIndividualSort(Jeren, 0, array, 128, 1, false, shuffleName, 16, alt);
+
+        //Sort IPStableBadShellSort = new IPStableBadShellSort(arrayVisualizer);
+        //runIndividualSort(IPStableBadShellSort, 0, array, 512, 1, false, shuffleName, 16, alt);
+
+        //Sort BFNSpreadSort = new sorts.exchange.BFNSpreadSort(arrayVisualizer);
+        //Sort SpreadSort = new SpreadSort(arrayVisualizer);
+        //for (int i = 2; i <= 64; i *= 2) {
+            //runIndividualSort(BFNSpreadSort, i, array, 256, 1, false, shuffleName, 16, alt);
+            //runIndividualSort(SpreadSort, i, array, 256, 1, false, shuffleName, 16, alt);
+        //}
+
+        Sort Unnamed = new UnnamedSort(arrayVisualizer);
+        runIndividualSort(Unnamed, 0, array, 128, 1e9, false, shuffleName, 16, alt);
+
     }
 
     @Override

@@ -191,11 +191,11 @@ public class Writes {
         if (ArrayVisualizer.sortCanceled()) throw new StopSort();
         if (!auxwrite && a >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Write to index " + a + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
-            throw new Error();
+            //throw new Error();
         }
         if (!auxwrite && b >= ArrayVisualizer.getCurrentLength()) {
             System.err.println("Write to index " + b + ", which is out of bounds for the current length (" + ArrayVisualizer.getCurrentLength() + ").");
-            throw new Error();
+            //throw new Error();
         }
 
         if (a == b) {

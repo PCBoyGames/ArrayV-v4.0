@@ -45,6 +45,7 @@ public class ShiftSort extends MadhouseTools {
     }
 
     protected int mergeFindRun(int[] array, int a, int b) {
+        if (a >= b) return a;
         int i = findRun(array, a, b, 0.1, true, false);
         int j;
         for (; i < a + 16 && i < b; i = j) {
@@ -158,7 +159,7 @@ public class ShiftSort extends MadhouseTools {
         int s = 0;
         for (; s + sqrt < currentLength; s += sqrt) block(array, s, s + sqrt);
         block(array, s, currentLength);
-        for (s = minSorted(array, 1, currentLength, 0.01, true), currentLength = maxSorted(array, s, currentLength, 0.01, true); s < currentLength; s = minSorted(array, s, currentLength, 0.01, true), currentLength = maxSorted(array, s, currentLength - 1, 0.01, true)) {
+        for (s = minSorted(array, 1, currentLength, 0.01, true), currentLength = s < currentLength ? maxSorted(array, s, currentLength, 0.01, true) : currentLength; s < currentLength; s = s < currentLength ? minSorted(array, s, currentLength, 0.01, true) : s, currentLength = s < currentLength ? maxSorted(array, s, currentLength - 1, 0.01, true) : currentLength) {
             for (g = s; g + sqrt < currentLength; g += sqrt) block(array, g, g + sqrt);
             block(array, g, currentLength);
             s = minSorted(array, s + 1, currentLength, 0.01, true);

@@ -51,8 +51,8 @@ public class FastLSDRadixSort extends Sort {
 
         int highestpower = Reads.analyzeMaxLog(array, sortLength, bucketCount, 0.5, true);
 
-		int[] pos = Writes.createExternalArray(bucketCount+1);
-		int[] tmp = Writes.createExternalArray(sortLength);
+        int[] pos = Writes.createExternalArray(bucketCount+1);
+        int[] tmp = Writes.createExternalArray(sortLength);
 
         for (int p = 0; p <= highestpower; p++) {
             for (int i = 0; i < sortLength; i++) {
@@ -60,28 +60,28 @@ public class FastLSDRadixSort extends Sort {
 
                 int digit = Reads.getDigit(array[i], p, bucketCount);
 
-				Writes.write(pos, digit+1, pos[digit+1]+1, 0, false, true);
-				Writes.write(tmp, i, array[i], 0.5, true, true);
+                Writes.write(pos, digit+1, pos[digit+1]+1, 0, false, true);
+                Writes.write(tmp, i, array[i], 0.5, true, true);
             }
-			for (int i = 2; i < bucketCount; i++)
-				Writes.write(pos, i, pos[i]+pos[i-1], 0, false, true);
+            for (int i = 2; i < bucketCount; i++)
+                Writes.write(pos, i, pos[i]+pos[i-1], 0, false, true);
 
-			for (int i = 0; i < bucketCount; i++)
-				if (pos[i] < sortLength) Highlights.markArray(i, pos[i]);
+            for (int i = 0; i < bucketCount; i++)
+                if (pos[i] < sortLength) Highlights.markArray(i, pos[i]);
 
-			for (int i = 0; i < sortLength; i++) {
-				int digit = Reads.getDigit(tmp[i], p, bucketCount);
+            for (int i = 0; i < sortLength; i++) {
+                int digit = Reads.getDigit(tmp[i], p, bucketCount);
 
-				Writes.write(array, pos[digit], tmp[i], 0, false, false);
-				Writes.write(pos, digit, pos[digit]+1, 0.5, false, true);
+                Writes.write(array, pos[digit], tmp[i], 0, false, false);
+                Writes.write(pos, digit, pos[digit]+1, 0.5, false, true);
 
-				if (pos[digit] < sortLength) Highlights.markArray(digit, pos[digit]);
-				else                        Highlights.clearMark(digit);
-			}
-			Highlights.clearAllMarks();
+                if (pos[digit] < sortLength) Highlights.markArray(digit, pos[digit]);
+                else                        Highlights.clearMark(digit);
+            }
+            Highlights.clearAllMarks();
 
-			for (int i = 0; i < bucketCount; i++)
-				Writes.write(pos, i, 0, 0, false, true);
+            for (int i = 0; i < bucketCount; i++)
+                Writes.write(pos, i, 0, 0, false, true);
         }
         Writes.deleteExternalArray(pos);
         Writes.deleteExternalArray(tmp);

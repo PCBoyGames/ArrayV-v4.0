@@ -43,7 +43,7 @@ public class LazionSort extends GrailSorting {
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
         Highlights.clearAllMarks();
-        Rotations.adaptable(array, pos, lenA, lenB, 0.5, true, false);
+        Rotations.adaptableRevised(array, pos, lenA, lenB, 0.5, true, false);
     }
 
     protected void merge(int[] array, int start, int end, int base) {

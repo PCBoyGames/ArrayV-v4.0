@@ -378,4 +378,10 @@ public class Rotations {
             lenB -= lenA;
         }
     }
+
+    public static void adaptableRevised(int[] array, int pos, int lenA, int lenB, double pause, boolean mark, boolean auxwrite) {
+        if (lenA == 0 || lenB == 0) return;
+        if ((lenA % lenB == 0 && lenA / lenB < 4) || (lenB % lenA == 0 && lenB / lenA < 4) || Math.min(lenA, lenB) == 1) Rotations.holyGriesMills(array, pos, lenA, lenB, pause, mark, auxwrite);
+        else Rotations.cycleReverse(array, pos, lenA, lenB, pause, mark, auxwrite);
+    }
 }

@@ -196,7 +196,7 @@ public class KPTMergeSort extends Sort {
         int a = this.ptrs[0];
 
         for (int i = 0; i < size; i++)
-			Writes.write(this.heap, i, i, 0, false, true);
+            Writes.write(this.heap, i, i, 0, false, true);
 
         for (int i = (size - 1) / 2; i >= 0; i--)
             this.siftDown(array, this.heap[i], i, size);

@@ -47,18 +47,17 @@ OTHER DEALINGS IN THE SOFTWARE.
  * "Uranium": merge sort, requires n / 2 memory.
  *            The code refers to it as "Strategy 1".
  *
- * "Hydrogen": block merge sort, requires "x" memory with sqrt(n) + n / sqrt(n) <= x < n / 2.
- *             To run optimally, Hydrogen mode requires exactly sqrt(n) + 2n / sqrt(n) memory.
- *             Hydrogen mode might switch to Helium mode if amount of given memory < sqrt(n) + 2n / sqrt(n),
- *             and the array contains less than n / sqrt(n) distinct values.
- *             Hydrogen mode uses two strategies, referred as "2A" and "2B".
+ * "Hydrogen": block merge sort, requires "x" memory with sqrt(n) + 2n / sqrt(n) <= x < n / 2.
+ *             Hydrogen mode can be modified to run with sqrt(n) + n / sqrt(n) memory using
+ *             an internal key buffer, but benchmarking has shown that this variant, in practice,
+ *             is slower than strategy 3A. This mode is referred to as "Strategy 2".
  *
- * "Helium": block merge sort, requires "x" memory with 0 <= x < sqrt(n) + n / sqrt(n).
+ * "Helium": block merge sort, requires "x" memory with 0 <= x < sqrt(n) + 2n / sqrt(n).
  *           Helium mode uses five strategies, referred to as: "3A", "3B", "3C", "4A",
  *           and "4B". Optimal amounts of memory are:
+ *              - sqrt(n) + n / sqrt(n): will use strategy 3A;
  *              - sqrt(n): will use strategy 3B or 4A;
  *              - 0: will use strategy 3C or 4B.
- *           Strategy 3A is only used when Hydrogen mode switches.
  *
  * When a very low amount of distinct values is found or the array size is less or equal than 256,
  * the sort uses an adaptive in-place merge sort referred to as "Strategy 5".
@@ -89,7 +88,7 @@ public class HeliumSort extends Sort {
         this.setQuestion("Insert amount of memory (or 1 .. 4 for default modes)", 0);
     }
 
-    private static final int RUN_SIZE           = 32,
+    private static int RUN_SIZE           = 32,
                              SMALL_SORT         = 256,
                              MIN_SORTED_UNIQUE  = 8,
                              MAX_STRAT5_UNIQUE  = 8,
@@ -107,13 +106,16 @@ public class HeliumSort extends Sort {
                 bufPos,
                 bufLen;
 
+    private boolean strat4A       = false,
+                    rotateInPlace = false;
+
     private void blockSwapFW(int[] array, int a, int b, int len) {
-        for (int i = 0; i < len; i++)
+        for(int i = 0; i < len; i++)
             Writes.swap(array, a + i, b + i, 0.5, true, false);
     }
 
     private void blockSwapBW(int[] array, int a, int b, int len) {
-        for (int i = len - 1; i >= 0; i--)
+        for(int i = len - 1; i >= 0; i--)
             Writes.swap(array, a + i, b + i, 0.5, true, false);
     }
 
@@ -136,13 +138,12 @@ public class HeliumSort extends Sort {
     }
 
     public void rotate(int[] array, int a, int m, int b) {
-        boolean ip = this.buffer == null;
         int rl  = b - m,
             ll  = m - a,
-            bl  = ip ? this.bufLen : this.buffer.length,
+            bl  = this.rotateInPlace ? this.bufLen : (this.buffer == null ? 0 : this.buffer.length),
             min = rl != ll && Math.min(bl, Math.min(rl, ll)) > SMALL_MERGE ? bl : 1;
 
-        while (rl > min && ll > min) {
+        while ((rl > min && ll > min) || (rl < SMALL_MERGE && rl > 1 && ll < SMALL_MERGE && ll > 1)) {
             if (rl < ll) {
                 blockSwapFW(array, a, m, rl);
                 a  += rl;
@@ -158,7 +159,7 @@ public class HeliumSort extends Sort {
         else if (ll == 1) insertToRight(array, a, b - 1);
         if (min == 1 || rl <= 1 || ll <= 1) return;
 
-        if (ip) {
+        if (this.rotateInPlace) {
             if (rl < ll) {
                 blockSwapBW(array, m, this.bufPos, rl);
 
@@ -260,21 +261,21 @@ public class HeliumSort extends Sort {
         return n;
     }
 
-    public int[] findKeys(int[] array, int a, int b, int q, int minSorted) {
+    public int findKeys(int[] array, int a, int b, int q, int minSorted) {
         int p = checkSortedIdx(array, a, b);
-        if (p == a) return null;
+        if (p == a) return -1;
 
         if (b - p < minSorted)
-            return new int[] { findKeysUnsorted(array, a, b - 1, b, q, b), b };
+            return findKeysUnsorted(array, a, b - 1, b, q, b);
         else {
             int n = findKeysSorted(array, p, b, q);
-            if (n == q) return new int[] {n, p};
+            if (n == q) return n;
 
-            return new int[] { findKeysUnsorted(array, a, p, p + n, q, b), p };
+            return findKeysUnsorted(array, a, p, p + n, q, b);
         }
     }
 
-    private int[] findKeys(int[] array, int a, int b, int q) {
+    private int findKeys(int[] array, int a, int b, int q) {
         return findKeys(array, a, b, q, MIN_SORTED_UNIQUE);
     }
 
@@ -516,16 +517,6 @@ public class HeliumSort extends Sort {
         return true;
     }
 
-    private boolean optiMerge(int[] array, int a, int m, int b, int buf) {
-        int[] bounds = reduceMergeBounds(array, a, m, b);
-        a = bounds[0];
-        b = bounds[1];
-
-        Highlights.clearAllMarks();
-
-        return optiSmartMerge(array, a, m, b, buf, true);
-    }
-
     private void getBlocksIndices(int[] array, int a, int leftBlocks, int rightBlocks, int blockLen) {
         int l = 0,
             m = leftBlocks,
@@ -557,18 +548,16 @@ public class HeliumSort extends Sort {
         Highlights.clearMark(0);
     }
 
-    private void blockCycleInPlace(int[] array, int stKey, int a, int leftBlocks, int rightBlocks, int blockLen) {
+    private void blockCycle(int[] array, int a, int leftBlocks, int rightBlocks, int blockLen) {
         int total = leftBlocks + rightBlocks;
         for (int i = 0; i < total; i++) {
             if (Reads.compareOriginalValues(i, this.indices[i]) != 0) {
                 Writes.arraycopy(array, a + i * blockLen, this.buffer, 0, blockLen, 1, true, true);
                 int j = i,
-                    next = this.indices[i],
-                    key  = array[stKey + i];
+                    next = this.indices[i];
 
                 do {
                     Writes.arraycopy(array, a + next * blockLen, array, a + j * blockLen, blockLen, 1, true, false);
-                    Writes.write(array, stKey + j, array[stKey + next], 1, true, false);
                     Writes.write(this.indices, j, j, 1, true, true);
 
                     j = next;
@@ -576,32 +565,6 @@ public class HeliumSort extends Sort {
                 } while (Reads.compareOriginalValues(next, i) != 0);
 
                 Writes.arraycopy(this.buffer, 0, array, a + j * blockLen, blockLen, 1, true, false);
-                Writes.write(array, stKey + j, key, 1, true, false);
-                Writes.write(this.indices, j, j, 1, true, true);
-            }
-        }
-    }
-
-    private void blockCycleOOP(int[] array, int a, int leftBlocks, int rightBlocks, int blockLen) {
-        int total = leftBlocks + rightBlocks;
-        for (int i = 0; i < total; i++) {
-            if (Reads.compareOriginalValues(i, this.indices[i]) != 0) {
-                Writes.arraycopy(array, a + i * blockLen, this.buffer, 0, blockLen, 1, true, true);
-                int j = i,
-                    next = this.indices[i],
-                    key  = this.keys[i];
-
-                do {
-                    Writes.arraycopy(array, a + next * blockLen, array, a + j * blockLen, blockLen, 1, true, false);
-                    Writes.write(this.keys, j, this.keys[next], 1, true, true);
-                    Writes.write(this.indices, j, j, 1, true, true);
-
-                    j = next;
-                    next = this.indices[next];
-                } while (Reads.compareOriginalValues(next, i) != 0);
-
-                Writes.arraycopy(this.buffer, 0, array, a + j * blockLen, blockLen, 1, true, false);
-                Writes.write(this.keys, j, key, 1, true, true);
                 Writes.write(this.indices, j, j, 1, true, true);
             }
         }
@@ -718,14 +681,24 @@ public class HeliumSort extends Sort {
         }
     }
 
-    private void prepareOOPKeys(int blockQty) {
-        for (int i = 0; i < blockQty; i++)
-            Writes.write(this.keys, i, i, 0, false, true);
+    private int[] combineReduce(int[] array, int a, int m, int b) {
+        if (checkMergeBounds(array, a, m, b)) return null;
+        int[] bounds = reduceMergeBounds(array, a, m, b);
+        int oldA = a;
+        a = bounds[0];
+        b = bounds[1];
+
+        if (optiSmartMerge(array, a, m, b, this.bufPos, true)) return null;
+
+        a = Math.max(oldA, m - ((m - a) / this.blockLen + 1) * this.blockLen); // round to nearest blockLen
+        return new int[] {a, b};
     }
 
     private void hydrogenCombine(int[] array, int a, int m, int b) {
-        if (checkMergeBounds(array, a, m, b)) return;
-        if (optiMerge(array, a, m, b, this.bufPos)) return;
+        int[] bounds = combineReduce(array, a, m, b);
+        if (bounds == null) return;
+        a = bounds[0];
+        b = bounds[1];
 
         int leftBlocks  = (m - a) / this.blockLen,
             rightBlocks = (b - m) / this.blockLen,
@@ -733,33 +706,22 @@ public class HeliumSort extends Sort {
             frag        = (b - a) - blockQty * this.blockLen;
 
         this.getBlocksIndices(array, a, leftBlocks, rightBlocks, this.blockLen);
+        Writes.arraycopy(this.indices, 0, this.keys, 0, blockQty, 0.25, false, true);
 
-        if (this.keys == null) {
-            insertSort(array, this.keyPos, this.keyPos + blockQty + 1);
+        this.blockCycle(array, a, leftBlocks, rightBlocks, this.blockLen);
+        this.mergeBlocks(array, a, leftBlocks, blockQty, this.blockLen, frag, 0, this.keys);
+    }
 
-            int midKey = array[this.keyPos + leftBlocks];
-
-            this.blockCycleInPlace(
-                array, this.keyPos, a,
-                leftBlocks, rightBlocks, this.blockLen
-            );
-
-            this.mergeBlocks(array, a, midKey, blockQty, this.blockLen, frag, this.keyPos, array);
-        } else {
-            this.prepareOOPKeys(blockQty);
-
-            this.blockCycleOOP(
-                array, a, leftBlocks,
-                rightBlocks, this.blockLen
-            );
-
-            this.mergeBlocks(array, a, leftBlocks, blockQty, this.blockLen, frag, 0, this.keys);
-        }
+    private void prepareOOPKeys(int blockQty) {
+        for (int i = 0; i < blockQty; i++)
+            Writes.write(this.keys, i, i, 0, false, true);
     }
 
     private void heliumCombine(int[] array, int a, int m, int b) {
-        if (checkMergeBounds(array, a, m, b)) return;
-        if (optiMerge(array, a, m, b, this.bufPos)) return;
+        int[] bounds = combineReduce(array, a, m, b);
+        if (bounds == null) return;
+        a = bounds[0];
+        b = bounds[1];
 
         int leftBlocks  = (m - a) / this.blockLen,
             rightBlocks = (b - m) / this.blockLen,
@@ -823,14 +785,6 @@ public class HeliumSort extends Sort {
 
             r = twoR;
         }
-
-        if (this.keyLen != 0) {
-            int s = this.keyPos,
-                e = s + this.keyLen;
-
-            insertSort(array, s, e);
-            mergeOOP(array, a, s, e);
-        }
     }
 
     private void heliumLoop(int[] array, int a, int b) {
@@ -857,32 +811,35 @@ public class HeliumSort extends Sort {
             r = twoR;
         }
 
-        boolean strat4       = this.blockLen == 0,
-                internalKeys = this.keys == null;
+        boolean strat4 = this.blockLen == 0 || strat4A;
 
         while (r < b - a) {
             int twoR = r * 2, i;
 
             if (strat4) {
-                int kLen = this.keyLen == 0 ? this.bufLen : this.keyLen,
-                    kBuf = (kLen + (kLen & 1)) / 2,
-                    bLen = 1, target;
+                if (strat4A) {
+                    int bLen = this.blockLen;
+                    // double until keys are enough (if they aren't)
+                    for (; twoR / bLen + 1 > this.keyLen; bLen *= 2);
+                    this.blockLen = bLen;
+                } else {
+                    // get sqrt(current subarray size)
+                    int sqrtTwoR = 1;
+                    for (; sqrtTwoR * sqrtTwoR < twoR; sqrtTwoR *= 2);
 
-                if (kBuf >= twoR / kBuf) {
-                    if (internalKeys) {
-                        this.bufLen = kBuf;
-                        this.bufPos = this.keyPos + this.keyLen - kBuf;
+                    // try to use internal buffer
+                    int kCnt = twoR / sqrtTwoR + 1;
+                    if (kCnt < this.keyLen) {
+                        this.bufLen = this.keyLen - kCnt;
+                        this.bufPos = this.keyPos + kCnt;
+                    } else {
+                        // if not able to, double blocklen until keys are enough (if they aren't)
+                        for (; twoR / sqrtTwoR + 1 > this.keyLen; sqrtTwoR *= 2);
+                        this.bufLen = 0;
                     }
 
-                    target = kBuf;
-                } else {
-                    if (internalKeys) this.bufLen = 0;
-
-                    target = twoR / kLen;
+                    this.blockLen = sqrtTwoR;
                 }
-
-                for (; bLen <= target; bLen *= 2);
-                this.blockLen = bLen;
             }
 
             for (i = a; i < b - twoR; i += twoR)
@@ -901,8 +858,9 @@ public class HeliumSort extends Sort {
         }
 
         if (this.keyLen != 0 || this.bufLen != 0) {
-            int s = this.keyPos == -1 ? this.bufPos : this.keyPos,
-                e = s + this.keyLen + this.bufLen;
+            int s = this.keyPos, e;
+            if (strat4) e = s + this.keyLen;
+            else        e = s + this.keyLen + this.bufLen;
 
             this.bufLen = 0;
 
@@ -918,13 +876,13 @@ public class HeliumSort extends Sort {
     }
 
     // strategy 5
-    private void inPlaceMergeSort(int[] array, int a, int b, int check) {
-        if (check == -1) {
+    private void inPlaceMergeSort(int[] array, int a, int b, boolean check) {
+        if (check) {
             int p = checkSortedIdx(array, a, b);
             if (p == a) return;
 
             sortRuns(array, a, b, p);
-        } else sortRuns(array, a, b, check);
+        } else sortRuns(array, a, b, b);
 
         int r = RUN_SIZE;
         while (r < b - a) {
@@ -939,13 +897,13 @@ public class HeliumSort extends Sort {
     }
 
     public void inPlaceMergeSort(int[] array, int a, int b) {
-        inPlaceMergeSort(array, a, b, -1);
+        inPlaceMergeSort(array, a, b, true);
     }
 
     public void sort(int[] array, int a, int b, int mem) {
         int n = b - a;
         if (n <= SMALL_SORT) {
-            inPlaceMergeSort(array, a, b, -1);
+            inPlaceMergeSort(array, a, b);
             return;
         }
 
@@ -990,7 +948,7 @@ public class HeliumSort extends Sort {
             this.keyLen   = 0;
             this.keyPos   = -1;
 
-            // strat 2a
+            // strat 2
             this.hydrogenLoop(array, a, b);
 
             Writes.deleteExternalArrays(this.indices, this.keys, this.buffer);
@@ -1005,42 +963,23 @@ public class HeliumSort extends Sort {
                 keySize = n / sqrtn;
             }
 
-            int[] res = findKeys(array, a, b, keySize);
-            if (res == null) return;
-            int keysFound = res[0],
-                        p = res[1];
+            int p = checkSortedIdx(array, a, b);
+            if (p == a) return;
+            sortRuns(array, a, b, p);
 
+            this.buffer = Writes.createExternalArray(mem - keySize);
+            this.keys   = Writes.createExternalArray(keySize);
+
+            this.bufLen   = 0;
+            this.bufPos   = -1;
+            this.keyLen   = 0;
+            this.keyPos   = -1;
             this.blockLen = sqrtn;
 
-            if (keysFound == keySize) {
-                sortRuns(array, a, b - keysFound, p);
+            // strat 3a
+            this.heliumLoop(array, a, b);
 
-                this.indices = Writes.createExternalArray(keySize);
-                this.buffer  = Writes.createExternalArray(mem - keySize);
-
-                this.keyLen = keysFound;
-                this.keyPos = b - keysFound;
-
-                // strat 2b
-                this.hydrogenLoop(array, a, b - keysFound);
-
-                Writes.deleteExternalArrays(this.indices, this.buffer);
-            } else {
-                sortRuns(array, a, b, p);
-
-                this.keys   = Writes.createExternalArray(keySize);
-                this.buffer = Writes.createExternalArray(mem - keySize);
-
-                this.bufLen = 0;
-                this.bufPos = -1;
-                this.keyLen = 0;
-                this.keyPos = -1;
-
-                // strat 3a
-                this.heliumLoop(array, a, b);
-
-                Writes.deleteExternalArrays(this.keys, this.buffer);
-            }
+            Writes.deleteExternalArrays(this.keys, this.buffer);
 
             return;
         }
@@ -1053,27 +992,25 @@ public class HeliumSort extends Sort {
                 keySize = n / sqrtn;
             }
 
-            int[] res = findKeys(array, a, b, keySize);
-            if (res == null) return;
-            int keysFound = res[0],
-                        p = res[1];
+            this.buffer = Writes.createExternalArray(mem);
+
+            int keysFound = findKeys(array, a, b, keySize);
+            if (keysFound == -1) return;
 
             if (keysFound != keySize && keysFound <= MAX_STRAT5_UNIQUE) {
-                inPlaceMergeSort(array, a, b, p);
+                inPlaceMergeSort(array, a, b);
+                Writes.deleteExternalArray(this.buffer);
                 return;
             }
 
-            sortRuns(array, a, b - keysFound, p);
+            sortRuns(array, a, b - keysFound, b - keysFound);
 
-            this.buffer = Writes.createExternalArray(mem);
-
-            this.bufLen = 0;
-            this.bufPos = -1;
-            this.keyLen = keysFound;
-            this.keyPos = b - keysFound;
-
-            if (keysFound == keySize) this.blockLen = sqrtn; // strat 3b
-            else                      this.blockLen = 0;     // strat 4a
+            this.bufLen   = 0;
+            this.bufPos   = -1;
+            this.keyLen   = keysFound;
+            this.keyPos   = b - keysFound;
+            this.blockLen = sqrtn;
+            this.strat4A  = keysFound != keySize;
 
             this.heliumLoop(array, a, b - keysFound);
 
@@ -1081,21 +1018,20 @@ public class HeliumSort extends Sort {
             return;
         }
 
+        boolean hasMem = mem > 0;
+        if (hasMem) this.buffer = Writes.createExternalArray(mem);
+
         int ideal = sqrtn + keySize;
-        int[] res = findKeys(array, a, b, ideal);
-        if (res == null) return;
-        int keysFound = res[0],
-                    p = res[1];
+        int keysFound = findKeys(array, a, b, ideal);
+        if (keysFound == -1) return;
 
         if (keysFound <= MAX_STRAT5_UNIQUE) {
-            inPlaceMergeSort(array, a, b, p);
+            inPlaceMergeSort(array, a, b);
+            if (hasMem) Writes.deleteExternalArray(this.buffer);
             return;
         }
 
-        sortRuns(array, a, b - keysFound, p);
-
-        boolean hasMem = mem > 0;
-        if (hasMem) this.buffer = Writes.createExternalArray(mem);
+        sortRuns(array, a, b - keysFound, b - keysFound);
 
         if (keysFound == ideal) {
             // strat 3c
@@ -1113,6 +1049,7 @@ public class HeliumSort extends Sort {
             this.keyPos   = b - keysFound;
         }
 
+        this.rotateInPlace = this.bufLen > (mem * 2);
         this.heliumLoop(array, a, b - keysFound);
 
         if (hasMem) Writes.deleteExternalArray(this.buffer);

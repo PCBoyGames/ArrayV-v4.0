@@ -3,7 +3,7 @@ package sorts.insert;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class OnlineAdaptiveInsertionSort extends Sort {
+public class OnlineAdaptiveInsertionSort extends Sort {
     public OnlineAdaptiveInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

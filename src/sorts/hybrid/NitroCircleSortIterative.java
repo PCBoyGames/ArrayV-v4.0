@@ -32,7 +32,7 @@ public class NitroCircleSortIterative extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
+    
     void shellPass(int[] array, int a, int b, int gap) {
         for (int i = a + gap; i < b; i++) {
             int tmp = array[i];
@@ -47,43 +47,43 @@ public class NitroCircleSortIterative extends Sort {
             if (j != i) Writes.write(array, j, tmp, 0.7, true, false);
         }
     }
-
+    
     public void shellSort(int[] array, int a, int b) {
         for (int gap = (int) Math.sqrt(b - a); gap >= 2; gap /= 2.3601) shellPass(array, a, b, gap);
         shellPass(array, a, b, 1);
     }
-
-    protected int circlePass(int[] array, int a, int n, int b) {
-        int swapCnt = 0;
+    
+    protected boolean circlePass(int[] array, int a, int n, int b) {
+        boolean anySwaps = false;
         for (int g = n / 2; g > 0; g /= 2) {
             for (int s = a; s + g < b; s += 2 * g) {
                 int i = s, j = s + 2 * g - 1;
                 while (i < j) {
                     if (j < b && Reads.compareIndices(array, i, j, 0.5, true) > 0) {
                         Writes.swap(array, i, j, 1, true, false);
-                        swapCnt++;
+                        anySwaps = true;
                     }
                     i++;
                     j--;
                 }
             }
         }
-        return swapCnt;
+        return anySwaps;
     }
-
+    
     public void sort(int[] array, int a, int b) {
         int length = b - a;
         int threshold = 0, n = 1;
-        for (; n < length; n*=2, threshold++);
+        for(; n < length; n*=2, threshold++);
         threshold /= 2;
         int iterations = 0;
         do {
             iterations++;
-            if (iterations >= threshold) {
+            if(iterations >= threshold) {
                 shellSort(array, a, b);
                 break;
             }
-        } while (circlePass(array, a, n, b) != 0);
+        } while (circlePass(array, a, n, b));
     }
 
     @Override

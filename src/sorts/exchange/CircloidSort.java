@@ -64,7 +64,7 @@ public class CircloidSort extends Sort {
         return swapped;
     }
 
-    private boolean circlePass(int[] array, int left, int right) {
+    public boolean circlePass(int[] array, int left, int right) {
         if (left >= right) return false;
         int mid = (left + right) / 2;
         boolean l = this.circlePass(array, left, mid);

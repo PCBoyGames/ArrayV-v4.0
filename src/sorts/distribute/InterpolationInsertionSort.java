@@ -45,34 +45,34 @@ public class InterpolationInsertionSort extends Sort {
         this.setBogoSort(false);
     }
 
-	private void insertTo(int[] array, int a, int b) {
-		int temp = array[a];
-		while (a > b) Writes.write(array, a, array[--a], 0.05, true, false);
-		Writes.write(array, b, temp, 0.05, true, false);
-		Highlights.clearMark(1);
-	}
+    private void insertTo(int[] array, int a, int b) {
+        int temp = array[a];
+        while (a > b) Writes.write(array, a, array[--a], 0.05, true, false);
+        Writes.write(array, b, temp, 0.05, true, false);
+        Highlights.clearMark(1);
+    }
 
-	private int interpSearch(int[] array, int a, int b, int val) {
-		while (a < b) {
-			int min = array[a], max = array[b-1];
-			if (min == max) {
-				Highlights.markArray(2, a);
-				Delays.sleep(1);
-				if (Reads.compareValues(val, min) < 0) b = a;
-				else a = b;
-			} else {
-				int m = a + (int) ((b - a - 1) * ((double) Math.max(0, Math.min(val, max) - min) / (max - min)));
-				Highlights.markArray(2, m);
-				Delays.sleep(1);
-				if (Reads.compareValues(val, array[m]) < 0) b = m;
-				else a = m+1;
-			}
-		}
-		return a;
-	}
+    private int interpSearch(int[] array, int a, int b, int val) {
+        while (a < b) {
+            int min = array[a], max = array[b-1];
+            if (min == max) {
+                Highlights.markArray(2, a);
+                Delays.sleep(1);
+                if (Reads.compareValues(val, min) < 0) b = a;
+                else a = b;
+            } else {
+                int m = a + (int) ((b - a - 1) * ((double) Math.max(0, Math.min(val, max) - min) / (max - min)));
+                Highlights.markArray(2, m);
+                Delays.sleep(1);
+                if (Reads.compareValues(val, array[m]) < 0) b = m;
+                else a = m+1;
+            }
+        }
+        return a;
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-		for (int i = 1; i < currentLength; i++) this.insertTo(array, i, this.interpSearch(array, 0, i, array[i]));
+        for (int i = 1; i < currentLength; i++) this.insertTo(array, i, this.interpSearch(array, 0, i, array[i]));
     }
 }

@@ -39,7 +39,7 @@ public class ItRotMerge extends Sort {
             if (pair(array, p+m-1-(l+r)>>1, (l+r)>>1) == 1) r = (l+r)>>1;
             else l = (l+r)>>1;
         }
-        IndexedRotations.adaptable(array, r, m, p + m - r, 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, r, m, p + m - r, 0.5, true, false);
     }
 
     protected int findSplit(int[] array, int l, int r){

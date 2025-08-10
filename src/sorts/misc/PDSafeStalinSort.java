@@ -138,7 +138,7 @@ public class PDSafeStalinSort extends Sort {
             int size = stacks.size();
             reciteStacks(array, 0, n, stacks);
             if (size > 2) {
-                IndexedRotations.adaptable(array, 0, firstlen, n, 1, true, false);
+                IndexedRotations.adaptableRevised(array, 0, firstlen, n, 1, true, false);
                 if (!check) n -= stepDown(array, n);
                 Statistics.resetStat("Stack");
             } else {

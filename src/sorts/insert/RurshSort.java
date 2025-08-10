@@ -38,9 +38,9 @@ public class RurshSort extends MadhouseTools {
                 else l = (int) Math.floor((l + r) / 2);
             }
             m += i - r;
-            IndexedRotations.adaptable(array, 0, r % i, i, 0.5, true, false);
+            IndexedRotations.adaptableRevised(array, 0, r % i, i, 0.5, true, false);
             i++;
         }
-        IndexedRotations.adaptable(array, 0, m, i, 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, 0, m, i, 0.5, true, false);
     }
 }

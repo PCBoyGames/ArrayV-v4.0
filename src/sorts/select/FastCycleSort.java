@@ -17,7 +17,7 @@ Free Documentation License".
  *
  */
 
-final public class FastCycleSort extends Sort {
+public class FastCycleSort extends Sort {
     public FastCycleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -35,24 +35,24 @@ final public class FastCycleSort extends Sort {
 
     @Override
     public void runSort(int[] array, int n, int bucketCount) {
-		Random r = new Random();
+        Random r = new Random();
 
         for (int j = 0; j < n-1; ) {
-			Highlights.markArray(1, j);
-			int k = j;
+            Highlights.markArray(1, j);
+            int k = j;
 
-			for (int i = j+1; i < n; i++) if (array[i] < array[j]) k++;
-			Reads.setComparisons(Reads.getComparisons().intValue() + n-j-1);
+            for (int i = j+1; i < n; i++) if (array[i] < array[j]) k++;
+            Reads.setComparisons(Reads.getComparisons().intValue() + n-j-1);
 
-			Highlights.markArray(2, j + r.nextInt(n-j));
-			Delays.sleep((double)(n-j)/n);
+            Highlights.markArray(2, j + r.nextInt(n-j));
+            Delays.sleep((double)(n-j)/n);
 
-			if (k == j) j++;
+            if (k == j) j++;
 
-			else {
-				while (array[k] == array[j]) { k++; }
-				Writes.swap(array, j, k, (double)(n-j)/n, true, false);
-			}
-		}
+            else {
+                while (array[k] == array[j]) { k++; }
+                Writes.swap(array, j, k, (double)(n-j)/n, true, false);
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ public class RandomizedGnomeSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int s = 0;
-        while (s < currentLength && Reads.compareIndices(array, s, s + 1, 0.1, true) <= 0) s++;
+        while (s + 1 < currentLength && Reads.compareIndices(array, s, s + 1, 0.1, true) <= 0) s++;
         for (int i = s; i < currentLength; i++) {
             Writes.multiSwap(array, randInt(i, currentLength), i, 0.1, true, false);
             int j = i - 1;

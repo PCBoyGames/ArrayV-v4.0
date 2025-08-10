@@ -49,7 +49,7 @@ public class TernarySingularityQuickSort extends Sort {
     int replimit;
 
     protected void rotate(int[] array, int a, int m, int b) {
-        IndexedRotations.adaptable(array, a, m, b, 1, true, false);
+        IndexedRotations.adaptableRevised(array, a, m, b, 1, true, false);
     }
 
     protected void insertTo(int[] array, int a, int b) {

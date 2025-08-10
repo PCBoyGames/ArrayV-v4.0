@@ -36,7 +36,7 @@ public class BinaryInvaSort extends BogoSorting {
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         int s = 0;
-        while (s < currentLength && Reads.compareIndices(array, s, s + 1, 0.1, true) <= 0) s++;
+        while (s+1 < currentLength && Reads.compareIndices(array, s, s + 1, 0.1, true) <= 0) s++;
         for (int i = 1; i < currentLength; i++) {
             int r = randInt(i, currentLength);
             int num = array[r];

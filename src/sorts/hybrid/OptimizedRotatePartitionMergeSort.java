@@ -3,6 +3,29 @@ package sorts.hybrid;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
+/*
+
+Coded for ArrayV by Haruki
+in collaboration with aphitorite and Control
+
++---------------------------+
+| Sorting Algorithm Scarlet |
++---------------------------+
+
+ */
+
+/**
+ * An adaptive stable merge sort with O(1) dynamic external buffer.
+ * <p>
+ * To use this algorithm in another, use {@code mergeSort()},
+ * {@code mergeSortWithBuf()} or {@code mergeSortNoBuf()} from a reference
+ * instance.
+ *
+ * @author Haruki (a.k.a. Ayako-chan)
+ * @author aphitorite
+ * @author Control
+ *
+ */
 public class OptimizedRotatePartitionMergeSort extends Sort {
 
     public OptimizedRotatePartitionMergeSort(ArrayVisualizer arrayVisualizer) {
@@ -19,6 +42,8 @@ public class OptimizedRotatePartitionMergeSort extends Sort {
         this.setBogoSort(false);
         this.setQuestion("Enter the external buffer size (0 for in-place):", 64);
     }
+
+    static int MIN_RUN = 16;
 
     @Override
     public int validateAnswer(int answer) {
@@ -284,35 +309,35 @@ public class OptimizedRotatePartitionMergeSort extends Sort {
     }
 
     public int findRun(int[] array, int start, int end) {
-        int i = start;
-        if (i + 1 >= end) return i + 1;
+        int i = start + 1;
+        if (i >= end) return i;
         boolean lessunique = false;
         boolean different = false;
-        int cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
-        while (cmp == 0 && i + 1 < end) {
+        int cmp = Reads.compareIndices(array, i - 1, i, 0.5, true);
+        while (cmp == 0 && i < end) {
             lessunique = true;
             i++;
-            if (i + 1 < end) cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
+            if (i < end) cmp = Reads.compareIndices(array, i - 1, i, 0.5, true);
         }
         if (cmp > 0) {
-            while (cmp >= 0 && i + 1 < end) {
+            while (cmp >= 0 && i < end) {
                 if (cmp == 0) lessunique = true;
                 else different = true;
                 i++;
-                if (i + 1 < end) cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
+                if (i < end) cmp = Reads.compareIndices(array, i - 1, i, 0.5, true);
             }
-            if (i > start && different) {
-                if (lessunique) stableSegmentReversal(array, start, i);
-                else if (i < start + 3) Writes.swap(array, start, i, 0.75, true, false);
-                else Writes.reversal(array, start, i, 0.75, true, false);
+            if (i - start > 1 && different) {
+                if (lessunique) stableSegmentReversal(array, start, i - 1);
+                else if (i - start < 4) Writes.swap(array, start, i - 1, 0.75, true, false);
+                else Writes.reversal(array, start, i - 1, 0.75, true, false);
             }
         } else {
             while (cmp <= 0 && i < end) {
                 i++;
-                if (i + 1 < end) cmp = Reads.compareIndices(array, i, i + 1, 0.5, true);
+                if (i < end) cmp = Reads.compareIndices(array, i - 1, i, 0.5, true);
             }
         }
-        return i + 1;
+        return i;
     }
 
     protected boolean buildRuns(int[] array, int a, int b, int mRun) {
@@ -334,11 +359,10 @@ public class OptimizedRotatePartitionMergeSort extends Sort {
     }
 
     public void mergeSortWithBuf(int[] array, int[] buf, int a, int b) {
-        int j = b - a;
-        while (j >= 32) j = (j - 1) / 2 + 1;
+        int j = MIN_RUN;
         if (buildRuns(array, a, b, j)) return;
-        for (; j < b - a; j *= 2) {
-            for (int i = a; i+j < b; i += 2*j)
+        for(; j < b - a; j *= 2) {
+            for(int i = a; i+j < b; i += 2*j)
                 rotateMerge(array, buf, i, i + j, Math.min(i + 2 * j, b));
         }
     }
@@ -347,6 +371,10 @@ public class OptimizedRotatePartitionMergeSort extends Sort {
         int[] buf = (auxSize > 0) ? Writes.createExternalArray(auxSize) : null;
         mergeSortWithBuf(array, buf, a, b);
         if (buf != null) Writes.deleteExternalArray(buf);
+    }
+
+    public void mergeSortNoBuf(int[] array, int a, int b) {
+        mergeSortWithBuf(array, null, a, b);
     }
 
     @Override

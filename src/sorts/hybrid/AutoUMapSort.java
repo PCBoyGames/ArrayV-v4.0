@@ -63,7 +63,7 @@ public class AutoUMapSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private static final int SMALL_SORT = 256;
+    private static int SMALL_SORT = 256;
 
     private Random rng;
 
@@ -72,10 +72,10 @@ public class AutoUMapSort extends Sort {
     }
 
     private class BitArray {
-        private final int[] array;
-        private final int pa, pb, w;
+        private int[] array;
+        private int pa, pb, w;
 
-        public final int size, length;
+        public int size, length;
 
         public BitArray(int[] array, int pa, int pb, int size, int w) {
             this.array  = array;
@@ -244,83 +244,83 @@ public class AutoUMapSort extends Sort {
     }
 
     private int medianOf3(int[] array, int[] indices) {
-		// small length cases
+        // small length cases
 
-		// maybe an error would be better but w/e
-		if (indices.length == 0) return -1;
+        // maybe an error would be better but w/e
+        if (indices.length == 0) return -1;
 
-		// median of 1 or 2 elements can just be the first
-		if (indices.length < 3) return indices[0];
+        // median of 1 or 2 elements can just be the first
+        if (indices.length < 3) return indices[0];
 
-		// 3 element case (common)
-		// only first 3 elements are considered if given an array of 4+ indices
-		if (Reads.compareIndices(array, indices[0], indices[1], 0.5, true) <= 0) {
-			if (Reads.compareIndices(array, indices[1], indices[2], 0.5, true) <= 0)
-				return indices[1];
-			if (Reads.compareIndices(array, indices[0], indices[2], 0.5, true) < 0)
-				return indices[2];
-			return indices[0];
-		}
-		if (Reads.compareIndices(array, indices[1], indices[2], 0.5, true) >= 0) {
-			return indices[1];
-		}
-		if (Reads.compareIndices(array, indices[0], indices[2], 0.5, true) <= 0) {
-			return indices[0];
-		}
-		return indices[2];
-	}
+        // 3 element case (common)
+        // only first 3 elements are considered if given an array of 4+ indices
+        if (Reads.compareIndices(array, indices[0], indices[1], 0.5, true) <= 0) {
+            if (Reads.compareIndices(array, indices[1], indices[2], 0.5, true) <= 0)
+                return indices[1];
+            if (Reads.compareIndices(array, indices[0], indices[2], 0.5, true) < 0)
+                return indices[2];
+            return indices[0];
+        }
+        if (Reads.compareIndices(array, indices[1], indices[2], 0.5, true) >= 0) {
+            return indices[1];
+        }
+        if (Reads.compareIndices(array, indices[0], indices[2], 0.5, true) <= 0) {
+            return indices[0];
+        }
+        return indices[2];
+    }
 
-	private int medianOf9(int[] array, int start, int end) {
-		// anti-overflow with good rounding
-		int  length = end - start;
-		int    half =  length / 2;
-		int quarter =    half / 2;
-		int  eighth = quarter / 2;
+    private int medianOf9(int[] array, int start, int end) {
+        // anti-overflow with good rounding
+        int  length = end - start;
+        int    half =  length / 2;
+        int quarter =    half / 2;
+        int  eighth = quarter / 2;
 
-		int[] elements0 = {start, start + eighth, start + quarter};
-		int med0 = medianOf3(array, elements0);
+        int[] elements0 = {start, start + eighth, start + quarter};
+        int med0 = medianOf3(array, elements0);
 
-		int[] elements1 = {start + quarter + eighth, start + half, start + half + eighth};
-		int med1 = medianOf3(array, elements1);
+        int[] elements1 = {start + quarter + eighth, start + half, start + half + eighth};
+        int med1 = medianOf3(array, elements1);
 
-		int[] elements2 = {start + half + quarter, start + half + quarter + eighth, end - 1};
-		int med2 = medianOf3(array, elements2);
+        int[] elements2 = {start + half + quarter, start + half + quarter + eighth, end - 1};
+        int med2 = medianOf3(array, elements2);
 
-		return medianOf3(array, new int[] {med0, med1, med2});
-	}
+        return medianOf3(array, new int[] {med0, med1, med2});
+    }
 
-	private int mOMHelper(int[] array, int start, int length) {
-		if (length == 1) return start;
+    private int mOMHelper(int[] array, int start, int length) {
+        if (length == 1) return start;
 
-		int[] meds = new int[3];
-		int third = length / 3;
-		meds[0] = mOMHelper(array, start, third);
-		meds[1] = mOMHelper(array, start + third, third);
-		meds[2] = mOMHelper(array, start + 2 * third, third);
+        int[] meds = new int[3];
+        int third = length / 3;
+        meds[0] = mOMHelper(array, start, third);
+        meds[1] = mOMHelper(array, start + third, third);
+        meds[2] = mOMHelper(array, start + 2 * third, third);
 
-		return medianOf3(array, meds);
-	}
+        return medianOf3(array, meds);
+    }
 
-	private int medianOfMedians(int[] array, int start, int length) {
-		if (length == 1) return start;
+    private int medianOfMedians(int[] array, int start, int length) {
+        if (length == 1) return start;
 
-		int[] meds = new int[3];
+        int[] meds = new int[3];
 
-		int nearPower = (int) Math.pow(3, Math.round(Math.log(length)/Math.log(3)));
-		if (nearPower == length)
-			return mOMHelper(array, start, length);
+        int nearPower = (int) Math.pow(3, Math.round(Math.log(length)/Math.log(3)));
+        if (nearPower == length)
+            return mOMHelper(array, start, length);
 
-		nearPower /= 3;
-		// uncommon but can happen with numbers slightly smaller than 2*3^k
-		// (e.g., 17 < 18 or 47 < 54)
-		if (2*nearPower >= length) nearPower /= 3;
+        nearPower /= 3;
+        // uncommon but can happen with numbers slightly smaller than 2*3^k
+        // (e.g., 17 < 18 or 47 < 54)
+        if (2*nearPower >= length) nearPower /= 3;
 
-		meds[0] = mOMHelper(array, start, nearPower);
-		meds[2] = mOMHelper(array, start + length - nearPower, nearPower);
-		meds[1] = medianOfMedians(array, start + nearPower, length - 2 * nearPower);
+        meds[0] = mOMHelper(array, start, nearPower);
+        meds[2] = mOMHelper(array, start + length - nearPower, nearPower);
+        meds[1] = medianOfMedians(array, start + nearPower, length - 2 * nearPower);
 
-		return medianOf3(array, meds);
-	}
+        return medianOf3(array, meds);
+    }
 
     private int partition(int[] array, int a, int b) {
         int i = a,
@@ -345,21 +345,21 @@ public class AutoUMapSort extends Sort {
     }
 
     private void quickSelect(int[] array, int a, int b, boolean badPartition, int k, int k0) {
-		int a1 = a,
+        int a1 = a,
             b1 = b;
 
         while (b - a > 32) {
-			int p;
+            int p;
 
-			if (badPartition) {
-				int n = b - a;
-				n -= ~n & 1; // even lengths bad
-				p = this.medianOfMedians(array, a, n);
-				badPartition = false;
-			} else p = this.medianOf9(array, a, b);
+            if (badPartition) {
+                int n = b - a;
+                n -= ~n & 1; // even lengths bad
+                p = this.medianOfMedians(array, a, n);
+                badPartition = false;
+            } else p = this.medianOf9(array, a, b);
 
             Writes.swap(array, p, a, 0.5, true, false);
-			int m = this.partition(array, a, b);
+            int m = this.partition(array, a, b);
 
             if      (m > k0 && m < b1)     b1 = m;
             else if (m < k0 && m + 1 > a1) a1 = m + 1;
@@ -375,22 +375,22 @@ public class AutoUMapSort extends Sort {
 
             if (k < m) b = m;
             else       a = m + 1;
-		}
+        }
 
         if (b - a <= 32) insertSort(array, a, b);
 
         while (b1 - a1 > 32) {
-			int p;
+            int p;
 
-			if (badPartition) {
-				int n = b1 - a1;
-				n -= ~n & 1; // even lengths bad
-				p = this.medianOfMedians(array, a1, n);
-				badPartition = false;
-			} else p = this.medianOf9(array, a1, b1);
+            if (badPartition) {
+                int n = b1 - a1;
+                n -= ~n & 1; // even lengths bad
+                p = this.medianOfMedians(array, a1, n);
+                badPartition = false;
+            } else p = this.medianOf9(array, a1, b1);
 
             Writes.swap(array, p, a1, 0.5, true, false);
-			int m = this.partition(array, a1, b1);
+            int m = this.partition(array, a1, b1);
 
             if (m == k0) return;
 
@@ -402,10 +402,10 @@ public class AutoUMapSort extends Sort {
 
             if (k0 < m) b1 = m;
             else        a1 = m + 1;
-		}
+        }
 
         if (b1 - a1 <= 32) insertSort(array, a1, b1);
-	}
+    }
 
     private void sort(int[] array, int a, int b, int g, int f, BitArray bits) {
         MaxHeapSort heapSorter = new MaxHeapSort(arrayVisualizer);

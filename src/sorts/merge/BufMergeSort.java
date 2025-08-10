@@ -38,24 +38,24 @@ public class BufMergeSort extends Sort {
     }
 
     public int binarySearch(int[] array, int start, int end, int value, boolean left) {
-		int lo = start, hi = end;
+        int lo = start, hi = end;
 
-		while (lo < hi) {
-			int mid = lo + ((hi - lo) / 2);
-			Highlights.markArray(4, mid);
+        while (lo < hi) {
+            int mid = lo + ((hi - lo) / 2);
+            Highlights.markArray(4, mid);
 
-			Delays.sleep(1);
-			if (Reads.compareValues(value, array[mid]) < (left ? 1 : 0)) {
-				hi = mid;
-			}
-			else {
-				lo = mid + 1;
-			}
-		}
+            Delays.sleep(1);
+            if (Reads.compareValues(value, array[mid]) < (left ? 1 : 0)) {
+                hi = mid;
+            }
+            else {
+                lo = mid + 1;
+            }
+        }
 
-		Highlights.clearMark(4);
-		return lo;
-	}
+        Highlights.clearMark(4);
+        return lo;
+    }
 
     public int floorLog(int value) {
         int result = -1;

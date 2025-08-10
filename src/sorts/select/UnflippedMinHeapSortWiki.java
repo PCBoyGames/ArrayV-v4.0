@@ -4,7 +4,7 @@ import main.ArrayVisualizer;
 import sorts.templates.Sort;
 import sorts.insert.InsertionSort;
 
-final public class UnflippedMinHeapSortWiki extends Sort {
+public class UnflippedMinHeapSortWiki extends Sort {
     public UnflippedMinHeapSortWiki(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class FastInsertionSort extends Sort {
+public class FastInsertionSort extends Sort {
     public FastInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -49,26 +49,26 @@ final public class FastInsertionSort extends Sort {
 
     @Override
     public void runSort(int[] array, int n, int bucketCount) {
-		Random r = new Random();
+        Random r = new Random();
 
-		for (int j = 1; j < n; j++) {
-			Highlights.markArray(1, j);
+        for (int j = 1; j < n; j++) {
+            Highlights.markArray(1, j);
 
-			if (Reads.compareIndices(array, j-1, j, 0.5, false) > 0) {
-				Highlights.clearMark(1);
+            if (Reads.compareIndices(array, j-1, j, 0.5, false) > 0) {
+                Highlights.clearMark(1);
 
-				int i = j;
-				int t = array[j];
+                int i = j;
+                int t = array[j];
 
-				do array[i] = array[--i];
-				while (i > 0 && array[i-1] > t);
+                do array[i] = array[--i];
+                while (i > 0 && array[i-1] > t);
 
-				Reads.setComparisons(Reads.getComparisons().intValue() + j-i);
-				Writes.changeWrites(j-i);
+                Reads.setComparisons(Reads.getComparisons().intValue() + j-i);
+                Writes.changeWrites(j-i);
 
-				Highlights.markArray(2, i+r.nextInt(j-i));
-				Writes.write(array, i, t, (double)j/n, true, false);
-			}
-		}
+                Highlights.markArray(2, i+r.nextInt(j-i));
+                Writes.write(array, i, t, (double)j/n, true, false);
+            }
+        }
     }
 }

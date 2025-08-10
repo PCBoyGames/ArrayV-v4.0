@@ -37,7 +37,7 @@ public class FifthMergeSort2 extends Sort {
         this.setBogoSort(false);
     }
 
-    static final int MIN_RUN = 8;
+    static int MIN_RUN = 8;
 
     protected void shiftFWExt(int[] array, int a, int m, int b) {
         while (m < b) {
@@ -87,6 +87,7 @@ public class FifthMergeSort2 extends Sort {
                 else
                     Writes.write(array, p++, array[m++], 1, true, false);
             }
+            Highlights.clearMark(2);
             while (a < i) Writes.write(array, p++, array[a++], 1, true, false);
         }
     }
@@ -141,7 +142,6 @@ public class FifthMergeSort2 extends Sort {
             Highlights.markArray(2, j);
             Writes.write(to, p++, from[j++], 1, true, aux);
         }
-        Highlights.clearMark(2);
     }
 
     public void mergePP(int[] array, int[] tmp, int a, int b, int o) {
@@ -150,15 +150,15 @@ public class FifthMergeSort2 extends Sort {
             insertionSort(array, i, Math.min(i + j, b), 0.5, false);
         while (j < len) {
             int i;
-            for (i = 0; i + j < len; i += 2 * j)
-                mergeTo(array, tmp, a + i, a + i + j, a + Math.min(i + 2 * j, len), o + i, true);
+            for (i = 0; i < len; i += 2 * j)
+                mergeTo(array, tmp, a + i, a + Math.min(i + j, len), a + Math.min(i + 2 * j, len), o + i, true);
             j *= 2;
             if (j >= len) {
                 Writes.arraycopy(tmp, o, array, a, len, 1, true, false);
                 break;
             }
-            for (i = 0; i + j < len; i += 2 * j)
-                mergeTo(tmp, array, o + i, o + i + j, o + Math.min(i + 2 * j, len), a + i, false);
+            for (i = 0; i < len; i += 2 * j)
+                mergeTo(tmp, array, o + i, o + Math.min(i + j, len), o + Math.min(i + 2 * j, len), a + i, false);
             j *= 2;
         }
     }
@@ -166,7 +166,7 @@ public class FifthMergeSort2 extends Sort {
     /**
      * Sorts the range {@code [left, right)} of {@code array} using Fifth Merge
      * Sort.
-     * 
+     *
      * @param array the array
      * @param left  the start of the range, inclusive
      * @param right the end of the range, exclusive

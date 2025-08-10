@@ -40,9 +40,9 @@ public class LoopSortAlternative extends GrailSorting {
 
     @Override
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
-        Rotations.adaptable(array, pos, lenA, lenB, 0.5, true, false);
+        Rotations.adaptableRevised(array, pos, lenA, lenB, 0.5, true, false);
     }
-    
+
     protected int loot(int[] array, int start, int end) {
         int collect = 0;
         int i = start;
@@ -59,10 +59,10 @@ public class LoopSortAlternative extends GrailSorting {
             }
             else Writes.insert(array, i + collect + 1, i, 0.1, true, false);
         }
-        IndexedRotations.adaptable(array, start, i, end, 0.1, true, false);
+        IndexedRotations.adaptableRevised(array, start, i, end, 0.1, true, false);
         return start + collect;
     }
-    
+
     public void sort(int[] array, int a, int b) {
         int i = a, j = a;
         while (i < b - 1) {

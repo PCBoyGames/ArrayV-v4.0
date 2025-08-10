@@ -50,37 +50,64 @@ public class FastCocktailShakerSort extends Sort {
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
 		Random r = new Random();
-		boolean fw = true;
 
-		for (int j = 0, k = length; k-j > 1; fw = !fw)  {
-			if (fw) {
-				int t = array[j];
+		for(int start = 0, end = length-1; start < end; ) {
+            int consecSorted = 1;
+			int w = 0;
 
-				for (int i = j+1; i < k; i++) {
-					if (t > array[i]) array[i-1] = array[i];
-					else { array[i-1] = t; t = array[i]; }
-				}
-				Reads.setComparisons(Reads.getComparisons().longValue() + k-j-1);
-				Writes.changeWrites(k-j-1);
+			int rIdx = start + r.nextInt(Math.max(1, end-start-1));
+			Highlights.markArray(1, rIdx);
+			Highlights.markArray(2, rIdx+1);
+			Delays.sleep(Math.max(0, (double)(end-start)/length));
 
-				Writes.write(array, k-1, t, (double)(k-j)/length, true, false);
-				Highlights.markArray(1, j+r.nextInt(k-j));
-				k--;
-			}
-			else {
-				int t = array[k-1];
+            for(int i = start; i < end; i++) {
+				consecSorted++;
 
-				for (int i = k-2; i >= j; i--) {
-					if (t < array[i]) array[i+1] = array[i];
-					else { array[i+1] = t; t = array[i]; }
-				}
-				Reads.setComparisons(Reads.getComparisons().longValue() + k-j-1);
-				Writes.changeWrites(k-j-1);
+                if(array[i] > array[i+1]){
+					int t = array[i]; array[i] = array[i+1]; array[i+1] = t;
+                    consecSorted = 1; w++;
+                }
+            }
+			//Reads.setComparisons(Reads.getComparisons() + end-start);
+            Reads.addComparisons(end - start);
+			//Writes.changeSwaps(w);
+            Writes.swaps += w;
+            Writes.writes += 2 * w;
 
-				Writes.write(array, j, t, (double)(k-j)/length, true, false);
-				Highlights.markArray(1, j+r.nextInt(k-j));
-				j++;
-			}
-		}
+			Highlights.markArray(1, end);
+			Highlights.markArray(2, end-1);
+			Delays.sleep(Math.max(0, (double)(end-start)/length));
+
+			w = 0;
+            end -= consecSorted;
+
+            consecSorted = 1;
+
+			rIdx = start + r.nextInt(Math.max(1, end-start-1));
+			Highlights.markArray(1, rIdx);
+			Highlights.markArray(2, rIdx+1);
+			Delays.sleep(Math.max(0, (double)(end-start)/length));
+
+            for(int i = end; i > start; i--) {
+				consecSorted++;
+
+                if(array[i-1] > array[i]){
+                    int t = array[i]; array[i] = array[i-1]; array[i-1] = t;
+                    consecSorted = 1; w++;
+                }
+            }
+			//Reads.setComparisons(Reads.getComparisons() + end-start);
+            Reads.addComparisons(end - start);
+			//Writes.changeSwaps(w);
+            Writes.swaps += w;
+            Writes.writes += 2 * w;
+
+			Highlights.markArray(1, start);
+			Highlights.markArray(2, start+1);
+			Delays.sleep(Math.max(0, (double)(end-start)/length));
+
+			w = 0;
+            start += consecSorted;
+        }
     }
 }

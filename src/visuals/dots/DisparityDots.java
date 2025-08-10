@@ -68,6 +68,9 @@ public class DisparityDots extends Visual {
                 else if (ArrayVisualizer.colorEnabled())
                     this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
 
+                else if (ArrayVisualizer.colorCoding && Highlights.hasColor(array, i))
+                    this.mainRender.setColor(Highlights.colorAt(array, i));
+
                 else this.mainRender.setColor(Color.WHITE);
 
                 disp = (1 + Math.cos((Math.PI * (array[i] - i)) / (ArrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
@@ -91,6 +94,9 @@ public class DisparityDots extends Visual {
 
                 else if (ArrayVisualizer.colorEnabled())
                     this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
+
+                else if (ArrayVisualizer.colorCoding && Highlights.hasColor(array, i))
+                    this.mainRender.setColor(Highlights.colorAt(array, i));
 
                 else this.mainRender.setColor(Color.WHITE);
 

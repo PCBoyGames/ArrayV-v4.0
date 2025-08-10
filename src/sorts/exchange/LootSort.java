@@ -46,7 +46,7 @@ public class LootSort extends Sort {
             }
             else Writes.insert(array, i + collect + 1, i, 0.1, true, false);
         }
-        IndexedRotations.adaptable(array, 0, i, currentLength, 0.1, true, false);
+        IndexedRotations.adaptableRevised(array, 0, i, currentLength, 0.1, true, false);
         PDBinaryInsertionSort binsert = new PDBinaryInsertionSort(arrayVisualizer);
         binsert.pdbinsert(array, 0, currentLength, 0.5, false);
     }

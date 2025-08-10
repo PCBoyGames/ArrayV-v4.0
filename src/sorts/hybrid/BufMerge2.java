@@ -43,7 +43,7 @@ public class BufMerge2 extends Sort {
         this.setBogoSort(false);
     }
 
-    private static final int RUN_SIZE = 32;
+    private static int RUN_SIZE = 32;
 
     private int sqrtn;
 

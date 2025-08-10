@@ -62,6 +62,9 @@ public class FhellSort extends MadhouseTools {
             shellPass(array, currentLength, 1, true);
             return;
         }
-        for (int i = currentLength / 2; i >= 1; i--) if (currentLength % i == 0) shellPass(array, currentLength, i, false);
+        for (int i = currentLength / 2; i >= 1; i--) if (currentLength % i == 0) {
+            arrayVisualizer.setExtraHeading(" / Gap: " + i);
+            shellPass(array, currentLength, i, false);
+        }
     }
 }

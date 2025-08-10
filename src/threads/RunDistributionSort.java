@@ -133,8 +133,15 @@ public class RunDistributionSort {
             public void run() {
                 try {
                     Class<?> sortClass = arrayVisualizer.getDistributionSorts()[selection].sortClass;
-                    Constructor<?> newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
-                    Sort sort = (Sort) newSort.newInstance(RunDistributionSort.this.arrayVisualizer);
+                    Constructor<?> newSort;
+                    Sort sort;
+                    try {
+                    	newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class, int.class, boolean.class});
+                		sort = (Sort) newSort.newInstance(RunDistributionSort.this.arrayVisualizer, selection, false);
+                    } catch (NoSuchMethodException e) {
+                        newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
+                        sort = (Sort) newSort.newInstance(RunDistributionSort.this.arrayVisualizer);
+                    }
 
                     int bucketCount;
 
@@ -225,6 +232,17 @@ public class RunDistributionSort {
                     }
                     else {
                         goAhead = true;
+                    }
+
+                    if (goAhead) {
+                        if (sort.isPathogenic()) {
+                            Object[] options = { "Yes", "No" };
+                                int warning = JOptionPane.showOptionDialog(arrayVisualizer.getMainWindow(), sort.getRunSortName() + " is known pathogen " + sort.getPathogenName() + ", and it may infect every single algorithm in this build as a copy of itself. Are you sure you want to continue?", "Warning!", 2, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                                if (warning == 0) goAhead = true;
+                                else goAhead = false;
+                        } else {
+                            goAhead = true;
+                        }
                     }
 
                     if (sort.getRunSortName().equals("In-Place LSD Radix")) {

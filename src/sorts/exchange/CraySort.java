@@ -34,28 +34,19 @@ public class CraySort extends Sort {
     }
 
     public int ray(int[] array, int a, int b, int d, int swaps, boolean dir) {
-        if (a >= b) return swaps;
         Writes.recordDepth(d++);
-        if (dir) {
-            for (int i = a; i < b; i++) {
-                if (Reads.compareValues(array[i], array[i+1]) > 0) {
-                    Writes.swap(array, i, i+1, 1, true, false);
-                    swaps++;
-                }
-            }
-        } else {
-            for (int i = b; i > a; i--) {
-                if (Reads.compareValues(array[i-1], array[i]) > 0) {
-                    Writes.swap(array, i-1, i, 1, true, false);
-                    swaps++;
-                }
+        if (a >= b) return swaps;
+        for (int i = dir ? a : b-1; dir ? i < b : i >= a; i += dir ? 1 : -1) {
+            if (Reads.compareIndices(array, i, i+1, 1, true) > 0) {
+                Writes.swap(array, i, i+1, 1, true, false);
+                swaps++;
             }
         }
-        int m = (b - a) / 2;
+        int m = (a+b)/2;
         Writes.recursion();
-        swaps = ray(array, a, a+m, d, swaps, !dir);
+        swaps = ray(array, a, m, d, swaps, !dir);
         Writes.recursion();
-        swaps = ray(array, b-m, b, d, swaps, dir);
+        swaps = ray(array, m+1, b, d, swaps, !dir);
         return swaps;
     }
 

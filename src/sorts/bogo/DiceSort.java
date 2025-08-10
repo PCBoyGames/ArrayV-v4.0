@@ -47,29 +47,29 @@ public class DiceSort extends BogoSorting {
     }
 
     public int factorial(int num) {
-    	int fact = 1;
-    	for (int i = 2; i <= num; i++) {
-    	    fact *= i;
+        int fact = 1;
+        for (int i = 2; i <= num; i++) {
+            fact *= i;
         }
         return fact;
     }
 
     public int rollDie() {
-    	return (int)(Math.random() * 6) + 1;
+        return (int)(Math.random() * 6) + 1;
     }
 
     //Generate permutations using heap's algorithm
     public int genPerms(int[] array, int[][] output, int size, int length, int i) {
-    	if (size == 1) {
-    	    Writes.arraycopy(array, 0, output[i++], 0, length, 0.0001, true, true);
+        if (size == 1) {
+            Writes.arraycopy(array, 0, output[i++], 0, length, 0.0001, true, true);
             return i;
         }
         for (int j = 0; j < size; j++) {
-        	i = genPerms(array, output, size - 1, length, i);
+            i = genPerms(array, output, size - 1, length, i);
             if (size % 2 == 1) {
-            	Writes.swap(array, 0, size - 1, 0.0001, true, false);
+                Writes.swap(array, 0, size - 1, 0.0001, true, false);
             } else {
-            	Writes.swap(array, j, size - 1, 0.0001, true, false);
+                Writes.swap(array, j, size - 1, 0.0001, true, false);
             }
         }
         return i;
@@ -81,27 +81,27 @@ public class DiceSort extends BogoSorting {
         genPerms(array, perms, length, length, 0);
         boolean sorted = false;
         while (!sorted) {
-        	int num = Math.min(rollDie(), perms.length);
-        	int[][] samples = new int[num][length];
+            int num = Math.min(rollDie(), perms.length);
+            int[][] samples = new int[num][length];
             Set<Integer> indices = new HashSet<Integer>(num);
             Writes.startLap();
             for (int i = 0; i < num; i++) {
-            	int gen;
-            	do {
-            	    gen = (int) (Math.random() * perms.length);
+                int gen;
+                do {
+                    gen = (int) (Math.random() * perms.length);
                 } while (indices.contains(gen));
                 indices.add(gen);
             }
             Writes.stopLap();
             int i = 0;
             for (int index : indices) {
-            	Writes.arraycopy(perms[index], 0, samples[i], 0, length, 0, false, true);
-            	i++;
+                Writes.arraycopy(perms[index], 0, samples[i], 0, length, 0, false, true);
+                i++;
             }
             for (i = 0; i < samples.length; i++) {
-            	Writes.arraycopy(samples[i], 0, array, 0, length, 0.0001, true, false);
+                Writes.arraycopy(samples[i], 0, array, 0, length, 0.0001, true, false);
                 if (isArraySorted(array, length)) {
-                	sorted = true;
+                    sorted = true;
                     break;
                 }
             }

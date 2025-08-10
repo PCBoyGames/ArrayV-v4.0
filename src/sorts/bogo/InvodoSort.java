@@ -34,7 +34,7 @@ public class InvodoSort extends BogoSorting {
         while (s + 1 < currentLength) {
             Writes.multiSwap(array, randInt(s + 1, currentLength), randInt(0, s + 1), delay, true, false);
             s = 0;
-            while (s < currentLength && Reads.compareIndices(array, s, s + 1, delay, true) <= 0) s++;
+            while (s + 1 < currentLength && Reads.compareIndices(array, s, s + 1, delay, true) <= 0) s++;
         }
     }
 }

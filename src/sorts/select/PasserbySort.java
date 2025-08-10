@@ -43,13 +43,7 @@ public class PasserbySort extends MadhouseTools {
     }
 
     protected boolean tryPasserby(int[] array, int currentLength) {
-        for (int i = currentLength - 1; i >= 1; i--) {
-            for (int j = 0; j < i; j++) {
-                if (currentLength % i == 0 && trial(array, currentLength, i, j)) {
-                    return true;
-                }
-            }
-        }
+        for (int i = currentLength / 2; i >= 1; i--) for (int j = 0; j < i; j++) if (currentLength % i == 0 && trial(array, currentLength, i, j)) return true;
         return false;
     }
 

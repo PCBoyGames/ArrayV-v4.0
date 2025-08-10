@@ -5,7 +5,8 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Haruki
+Coded for ArrayV by Flanlaina
+in collaboration with PCBoy
 
 +---------------------------+
 | Sorting Algorithm Scarlet |
@@ -14,7 +15,8 @@ Coded for ArrayV by Haruki
  */
 
 /**
- * @author Haruki
+ * @author Flanlaina
+ * @author PCBoy
  *
  */
 public class BubbleQuickSort extends Sort {
@@ -35,14 +37,12 @@ public class BubbleQuickSort extends Sort {
 
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int t;
-        if(Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
             t = i1;
             i1 = i0;
-        } else
-            t = i0;
-        if(Reads.compareIndices(array, i1, i2, 1, true) > 0) {
-            if(Reads.compareIndices(array, t, i2, 1, true) > 0)
-                return t;
+        } else t = i0;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, t, i2, 1, true) > 0) return t;
             return i2;
         }
         return i1;
@@ -64,31 +64,29 @@ public class BubbleQuickSort extends Sort {
     
     protected int pivCmpHelper(int v, int piv) {
         int c = Reads.compareValues(v, piv);
-        if (c > 0) return 1;
-        if (c < 0) return -1;
-        return 0;
+        return c > 0 ? 1 : (c < 0 ? -1 : 0);
     }
 
     protected int pivCmp(int[] array, int a, int b, int piv) {
         Highlights.markArray(1, a);
         Highlights.markArray(2, b);
+        Delays.sleep(0.125);
         int c1 = pivCmpHelper(array[a], piv);
         int c2 = pivCmpHelper(array[b], piv);
-        if (c1 > c2) return 1;
-        if (c1 < c2) return -1;
-        return 0;
+        return c1 > c2 ? 1 : (c1 < c2 ? -1 : 0);
     }
 
     protected int[] partition(int[] array, int a, int b, int piv) {
-        int c = 1;
-        for (int i = b - 1; i > a; i -= c) {
+        for (int i = b - 1, c = 1, s, f = a; i > a; i -= c) {
             c = 1;
-            for (int j = a; j < i; j++) {
+            s = Math.max(f - 1, a);
+            boolean fChange = false;
+            for (int j = s; j < i; j++) {
                 if (pivCmp(array, j, j + 1, piv) > 0) {
-                    Writes.swap(array, j, j + 1, 1, true, false);
+                    if (!fChange) f = j;
+                    Writes.swap(array, j, j + 1, 0.125, fChange = true, false);
                     c = 1;
-                } else
-                    c++;
+                } else c++;
             }
         }
         int rIdx = binSearch(array, a, b, piv, false);

@@ -20,17 +20,17 @@ public class InPlaceStrandSort extends Sort {
     }
 
     private int binarySearch(int[] array, int start, int end, int value, boolean left) {
-		int a = start, b = end;
-		while (a < b) {
-			int m = (a+b)/2;
-			boolean comp;
-			if (left) comp = Reads.compareValues(value, array[m]) <= 0;
-			else     comp = Reads.compareValues(value, array[m]) < 0;
-			if (comp) b = m;
-			else     a = m+1;
-		}
-		return a;
-	}
+        int a = start, b = end;
+        while (a < b) {
+            int m = (a+b)/2;
+            boolean comp;
+            if (left) comp = Reads.compareValues(value, array[m]) <= 0;
+            else     comp = Reads.compareValues(value, array[m]) < 0;
+            if (comp) b = m;
+            else     a = m+1;
+        }
+        return a;
+    }
 
     public void rotate(int[] array, int start, int split, int end) {
         int temp;
@@ -55,16 +55,16 @@ public class InPlaceStrandSort extends Sort {
     }
 
     private void mergeForward(int[] array, int a, int m, int b) {
-		int i = a, j = m, k;
-		while (i < j && j < b) {
-			if (Reads.compareValues(array[i], array[j]) == 1) {
-				k = this.binarySearch(array, j, b, array[i], true);
-				this.rotate(array, i, j, k);
-				i += k-j;
-				j = k;
-			}
-			else i++;
-		}
+        int i = a, j = m, k;
+        while (i < j && j < b) {
+            if (Reads.compareValues(array[i], array[j]) == 1) {
+                k = this.binarySearch(array, j, b, array[i], true);
+                this.rotate(array, i, j, k);
+                i += k-j;
+                j = k;
+            }
+            else i++;
+        }
     }
 
     private void mergeBackward(int[] array, int a, int m, int b) {

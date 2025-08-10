@@ -79,6 +79,9 @@ public class DisparityCircle extends Visual {
             else if (ArrayVisualizer.colorEnabled())
                 this.mainRender.setColor(getIntColor(array[i], ArrayVisualizer.getCurrentLength()));
 
+            else if (ArrayVisualizer.colorCoding && Highlights.hasColor(array, i))
+                this.mainRender.setColor(Highlights.colorAt(array, i));
+
             else this.mainRender.setColor(Color.WHITE);
 
             this.mainRender.fillPolygon(x, y, 3);

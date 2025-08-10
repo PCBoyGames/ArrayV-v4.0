@@ -70,7 +70,7 @@ public class InPlaceOptimizedSmartSafeStalinSortInserts extends Sort {
                 if (segmentcount < 2) break;
             }
             if (pass) pass = scan(array, collection, currentLength);
-            if (!pass) IndexedRotations.adaptable(array, 0, collection, currentLength, 0.25, true, false);
+            if (!pass) IndexedRotations.adaptableRevised(array, 0, collection, currentLength, 0.25, true, false);
             currentLength--;
             if (currentLength - 1 > 0) {
                 int cmp = Reads.compareIndices(array, currentLength - 1, currentLength, 1, true);

@@ -125,6 +125,7 @@ public class UtilFrame extends javax.swing.JFrame {
         this.jCheckBox8 = new javax.swing.JCheckBox();
         this.jCheckBox9 = new javax.swing.JCheckBox();
         this.jCheckBox10 = new javax.swing.JCheckBox();
+        this.jCheckBox11 = new javax.swing.JCheckBox();
         this.jSlider = new javax.swing.JSlider(SwingConstants.VERTICAL, 1, 12, 11);
         this.jComboBox1 = new javax.swing.JComboBox();
 
@@ -268,6 +269,15 @@ public class UtilFrame extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox11.setSelected(true);
+        jCheckBox11.setText("Enable Color Coding");
+        jCheckBox11.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox11ActionPerformed();
+            }
+        });
+
         jCheckBox6.setSelected(true);
         jCheckBox6.setText("Display Stats");
         jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +297,7 @@ public class UtilFrame extends javax.swing.JFrame {
         });
 
         jCheckBox8.setSelected(false);
-        jCheckBox8.setText("Enable Color");
+        jCheckBox8.setText("Enable Rainbow");
         jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,6 +350,7 @@ public class UtilFrame extends javax.swing.JFrame {
                                         .addComponent(this.jCheckBox8)
                                         .addComponent(this.jCheckBox9)
                                         .addComponent(this.jCheckBox10)
+                                        .addComponent(this.jCheckBox11)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, true)
                                                 .addComponent(this.jCheckBox5)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -366,6 +377,8 @@ public class UtilFrame extends javax.swing.JFrame {
                         .addComponent(this.jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(this.jCheckBox8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(this.jCheckBox11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(this.jCheckBox9)
                         .addGap(7, 7, 7)
@@ -568,6 +581,10 @@ public class UtilFrame extends javax.swing.JFrame {
         ArrayVisualizer.toggleRecursionStats(jCheckBox10.isSelected());
     }
 
+    private void jCheckBox11ActionPerformed() {
+        ArrayVisualizer.toggleColorCoding(jCheckBox11.isSelected());
+    }
+
     private void jComboBox1ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         switch ((String)jComboBox1.getSelectedItem()) {
             case "Sorting":
@@ -644,6 +661,7 @@ public class UtilFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JCheckBox jCheckBox10;
+    private javax.swing.JCheckBox jCheckBox11;
     private javax.swing.JSlider jSlider;
     @SuppressWarnings("rawtypes")
     private javax.swing.JComboBox jComboBox1;

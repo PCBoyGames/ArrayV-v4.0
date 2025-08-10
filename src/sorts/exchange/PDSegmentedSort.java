@@ -50,7 +50,7 @@ public class PDSegmentedSort extends GrailSorting {
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
         Statistics.addStat("Rotation");
-        Rotations.adaptable(array, pos, lenA, lenB, 0.1, true, false);
+        Rotations.adaptableRevised(array, pos, lenA, lenB, 0.1, true, false);
     }
 
     protected void rotateReversal(int[] array, int a, int b, int depth) {

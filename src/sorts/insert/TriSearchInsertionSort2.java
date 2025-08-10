@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Haruki
+Coded for ArrayV by Flanlaina
 extending code by thatsOven
 
 +---------------------------+
@@ -15,7 +15,7 @@ extending code by thatsOven
  */
 
 /**
- * @author Haruki
+ * @author Flanlaina
  * @author thatsOven
  * 
  */
@@ -24,8 +24,8 @@ public class TriSearchInsertionSort2 extends Sort {
     public TriSearchInsertionSort2(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("TriSearch Insertion 2");
-        this.setRunAllSortsName("Haruki's TriSearch Insertion Sort");
-        this.setRunSortName("Haruki's TriSearch Insertion Sort");
+        this.setRunAllSortsName("Flanlaina's TriSearch Insertion Sort");
+        this.setRunSortName("Flanlaina's TriSearch Insertion Sort");
         this.setCategory("Insertion Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);

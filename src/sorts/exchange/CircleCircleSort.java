@@ -18,12 +18,15 @@ import sorts.templates.Sort;
  */
 
 public class CircleCircleSort extends Sort {
+
+    int zwaps = 0, n;
+
     public CircleCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
         this.setSortListName("Circle Circle");
         this.setRunAllSortsName("Circle Circle Sort");
-        this.setRunSortName("Circlecirclesort");
+        this.setRunSortName("Circle Circlesort");
         this.setCategory("Exchange Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -33,48 +36,46 @@ public class CircleCircleSort extends Sort {
         this.setBogoSort(false);
     }
 
-    private int circlePass(int[] array, int a, int b, int zwapz, int d) {
-        if (a >= b) return zwapz;
-        Writes.recordDepth(d++);
-        int l = a; int h = b;
-        while (a < b) {
-            if (Reads.compareValues(array[a], array[b]) > 0) {
-                Writes.swap(array, a, b, 1, true, false);
-                zwapz++;
-            }
-            a++;
-            b--;
+    private void c(int[] array, int a, int b) {
+        if (b < n && Reads.compareIndices(array, a, b, 0.5, true) > 0) {
+            Writes.swap(array, a, b, 0.5, true, false);
+            zwaps++;
         }
-        int m = l + (h - l) / 2;
-        Writes.recursion();
-        zwapz = circlePass(array, l, m, zwapz, d);
-        Writes.recursion();
-        zwapz = circlePass(array, m+1, h, zwapz, d);
-        return zwapz;
     }
 
-    public int circleCircle(int[] array, int a, int b, int swapz, int d) {
-        if (a >= b) return swapz;
+    public void circle(int[] array, int a, int b, int d) {
         Writes.recordDepth(d++);
-        int l = a; int h = b;
-        while (a < b) {
-            swapz = circlePass(array, a, b, 0, 0);
-            a++;
-            b--;
-        }
-        int m = l + (h - l) / 2;
+        if (a >= b) return;
+        int l = a, h = b;
+        int m = (l+h) >> 1;
+        while (a < b) c(array, a++, b--);
         Writes.recursion();
-        swapz = circleCircle(array, l, m, swapz, d);
+        circle(array, l, m, d);
         Writes.recursion();
-        swapz = circleCircle(array, m+1, h, swapz, d);
-        return swapz;
+        circle(array, m+1, h, d);
+    }
+
+    public void circleCircle(int[] array, int a, int b, int d) {
+        Writes.recordDepth(d++);
+        if (a >= b) return;
+        int l = a, h = b;
+        int m = (l+h) >> 1;
+        while (a < b) circle(array, a++, b--, 0);
+        Writes.recursion();
+        circleCircle(array, l, m, d);
+        Writes.recursion();
+        circleCircle(array, m+1, h, d);
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int zwaps = 0;
+        int l = 1;
+        for (; (l << 1) < currentLength; l <<= 1);
+        n = currentLength;
+        currentLength = l << 1;
         do {
-            zwaps = circleCircle(array, 0, currentLength-1, 0, 0);
+            zwaps = 0;
+            circleCircle(array, 0, currentLength-1, 0);
         } while (zwaps != 0);
     }
 }

@@ -56,4 +56,8 @@ public class IndexedRotations {
     public static void simpleRot(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.simpleRot(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
+
+    public static void adaptableRevised(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
+        Rotations.adaptableRevised(array, start, mid - start, end - mid, pause, mark, auxwrite);
+    }
 }

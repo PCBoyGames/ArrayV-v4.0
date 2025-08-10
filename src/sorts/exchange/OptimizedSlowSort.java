@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-public final class OptimizedSlowSort extends Sort {
+public class OptimizedSlowSort extends Sort {
     public OptimizedSlowSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

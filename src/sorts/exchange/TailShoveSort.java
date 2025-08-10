@@ -33,6 +33,13 @@ public class TailShoveSort extends Sort {
         this.setBogoSort(false);
     }
 
+    public void tailShove(int[] array, int start, int end, double time) {
+        for (int i = end - 1; i > start;) {
+            if (Reads.compareIndices(array, i - 1, i, time, true) > 0) Writes.multiSwap(array, i - 1, i = end - 1, time, true, false);
+            else i--;
+        }
+    }
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int i = currentLength-1; i > 0;) {

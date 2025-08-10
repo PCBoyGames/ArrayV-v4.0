@@ -30,24 +30,24 @@ public class RoomStoogeSort extends Sort {
 
     public void stoogeBubble(int[] A, int i, int j) {
         if (Reads.compareValues(A[i], A[j]) == 1) {
-	        Writes.swap(A, i, j, 0.005, true, false);
-	    }
+            Writes.swap(A, i, j, 0.005, true, false);
+        }
 
-	    Delays.sleep(0.0025);
+        Delays.sleep(0.0025);
 
-	    Highlights.markArray(1, i);
+        Highlights.markArray(1, i);
         Highlights.markArray(2, j);
 
         if (j - i + 1 >= 3) {
-	        int t = (j - i + 1) / 3;
+            int t = (j - i + 1) / 3;
 
-	        Highlights.markArray(3, j - t);
-	        Highlights.markArray(4, i + t);
+            Highlights.markArray(3, j - t);
+            Highlights.markArray(4, i + t);
 
-	        this.stoogeBubble(A, i, j-t);
-	        this.stoogeBubble(A, i+t, j);
-	    }
-	}
+            this.stoogeBubble(A, i, j-t);
+            this.stoogeBubble(A, i+t, j);
+        }
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {

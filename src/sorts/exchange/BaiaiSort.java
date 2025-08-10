@@ -11,7 +11,7 @@ Ported to ArrayV by gooflang.
 
  */
 
-public final class BaiaiSort extends Sort {
+public class BaiaiSort extends Sort {
     public BaiaiSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

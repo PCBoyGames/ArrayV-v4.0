@@ -38,7 +38,7 @@ public class PDLaziestSort extends Sort {
 
     private void rotate(int[] array, int a, int m, int b) {
         Highlights.clearAllMarks();
-        IndexedRotations.adaptable(array, a, m, b, 1.0, true, false);
+        IndexedRotations.adaptableRevised(array, a, m, b, 1.0, true, false);
     }
 
     private int binSearch(int[] array, int a, int b, int val, boolean left) {

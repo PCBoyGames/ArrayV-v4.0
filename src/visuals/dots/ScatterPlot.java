@@ -61,6 +61,9 @@ public class ScatterPlot extends Visual {
                     this.mainRender.setColor(getIntColor(val, ArrayVisualizer.getCurrentLength()));
                 }
 
+                else if (ArrayVisualizer.colorCoding && Highlights.hasColor(array, i))
+                    this.mainRender.setColor(Highlights.colorAt(array, i));
+
                 else this.mainRender.setColor(Color.WHITE);
 
                 int val = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getStabilityValue(array[i]): array[i];
@@ -89,6 +92,10 @@ public class ScatterPlot extends Visual {
                     int val = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getIndexValue(array[i]): array[i];
                     this.mainRender.setColor(getIntColor(val, ArrayVisualizer.getCurrentLength()));
                 }
+
+                else if (ArrayVisualizer.colorCoding && Highlights.hasColor(array, i))
+                    this.mainRender.setColor(Highlights.colorAt(array, i));
+
                 else this.mainRender.setColor(Color.WHITE);
 
                 int val = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getStabilityValue(array[i]): array[i];

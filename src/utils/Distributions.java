@@ -238,7 +238,7 @@ public enum Distributions {
 
             for (int i = 0; i < currentLen; i++) {
                 int val = (int) (n * (Math.tan(c * i) + 1) / 32) + (n / 2);
-                if (val > currentLen) array[i] = currentLen;
+                if (val > n) array[i] = n;
                 else if (val < 0) array[i] = 0;
                 else array[i] = val;
             }
@@ -257,7 +257,7 @@ public enum Distributions {
 
             for (int i = 0; i < currentLen; i++) {
                 int val = (int) (n * (1 / Math.tan(c * i) + 1) / 32) + (n / 2);
-                if (val > currentLen) array[i] = currentLen;
+                if (val > n) array[i] = n;
                 else if (val < 0) array[i] = 0;
                 else array[i] = val;
             }
@@ -276,7 +276,7 @@ public enum Distributions {
 
             for (int i = 0; i < currentLen; i++) {
                 int val = (int) (n * (1 / Math.sin(c * i) + 1) / 32) + (n / 2);
-                if (val > currentLen) array[i] = currentLen;
+                if (val > n) array[i] = n;
                 else if (val < 0) array[i] = 0;
                 else array[i] = val;
             }
@@ -295,7 +295,7 @@ public enum Distributions {
 
             for (int i = 0; i < currentLen; i++) {
                 int val = (int) (n * (1 / Math.cos(c * i) + 1) / 32) + (n / 2);
-                if (val > currentLen) array[i] = currentLen;
+                if (val > n) array[i] = n;
                 else if (val < 0) array[i] = 0;
                 else array[i] = val;
             }

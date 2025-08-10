@@ -73,10 +73,10 @@ public class CrimeSort extends BogoSorting {
     public void interp(int[] array, int length) {
         while (!isArraySorted(array, length)) {
             for (int i = 1; i < length - 1; i+=2) {
-                Writes.write(array, i, avg(array[i-1], array[i+1]), 1, false, true);
+                Writes.write(array, i, avg(array[i-1], array[i+1]), 1, true, false);
             }
             for (int i = 2; i < length - 1; i+=2) {
-                Writes.write(array, i, avg(array[i-1], array[i+1]), 1, false, true);
+                Writes.write(array, i, avg(array[i-1], array[i+1]), 1, true, false);
             }
         }
     }

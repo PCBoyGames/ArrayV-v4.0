@@ -32,7 +32,7 @@ SOFTWARE.
 /**
  * Bofosort combs through the array with a random gap and reverses until sorted.
  */
-public final class BofoSort extends BogoSorting {
+public class BofoSort extends BogoSorting {
     public BofoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -49,17 +49,17 @@ public final class BofoSort extends BogoSorting {
     }
 
     private void selectiveSwap(int[] array, int length) {
-    	int rand2 = randInt(1, length),
-    		rand = randInt(0, length-rand2);
-    	while (Reads.compareValues(array[rand], array[rand+rand2]) == 1) {
-    		Writes.swap(array, rand, rand+rand2, 1, true, false);
-    		rand = randInt(0, length-rand2);
-    	}
-    	Writes.reversal(array, 0, rand, 1, true, false);
+        int rand2 = randInt(1, length),
+            rand = randInt(0, length-rand2);
+        while (Reads.compareValues(array[rand], array[rand+rand2]) == 1) {
+            Writes.swap(array, rand, rand+rand2, 1, true, false);
+            rand = randInt(0, length-rand2);
+        }
+        Writes.reversal(array, 0, rand, 1, true, false);
     }
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
         while (!this.isArraySorted(array, length))
-        	this.selectiveSwap(array, length);
+            this.selectiveSwap(array, length);
     }
 }

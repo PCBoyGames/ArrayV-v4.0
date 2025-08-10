@@ -29,7 +29,7 @@ public class ZipperSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int gap = 2;
+        int gap = currentLength;
         int first = 0;
         while (gap > 1) {
             gap = 1;

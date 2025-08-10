@@ -20,7 +20,7 @@ in collaboration with aphitorite and Gaming32
  * @author Gaming32
  *
  */
-public final class MiniTimSort extends Sort {
+public class MiniTimSort extends Sort {
 
     public MiniTimSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -35,13 +35,13 @@ public final class MiniTimSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     public static int getMinLevel(int n) {
         while (n >= 32) n = (n - 1) / 2 + 1;
         return n;
     }
 
-    final int M = 7;
+    int M = 7;
 
     int highlight = 0;
 
@@ -271,7 +271,7 @@ public final class MiniTimSort extends Sort {
         }
         return i;
     }
-    
+
     public void mergeSortWithBuf(int[] array, int[] buf, int a, int b) {
         if (b - a < 32) {
             insertSort(array, a, b);
@@ -295,7 +295,7 @@ public final class MiniTimSort extends Sort {
         }
         Writes.deleteExternalArray(runs);
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int[] buf = Writes.createExternalArray((b - a) / 2);
         mergeSortWithBuf(array, buf, a, b);

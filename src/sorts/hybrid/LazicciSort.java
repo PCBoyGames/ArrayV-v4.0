@@ -68,7 +68,7 @@ public class LazicciSort extends GrailSorting {
         int right;
         while (i < end) {
             left = i;
-            while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
+            while (i < end && Reads.compareIndices(array, i, i + 1, 0.25, true) == 0) i++;
             right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);

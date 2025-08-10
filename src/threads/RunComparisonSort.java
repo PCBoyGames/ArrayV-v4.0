@@ -9,7 +9,6 @@ import main.ArrayManager;
 import main.ArrayVisualizer;
 import panes.JEnhancedOptionPane;
 import panes.JErrorPane;
-import sorts.bogo.PathOwOgenSort;
 import sorts.templates.Sort;
 import utils.Delays;
 import utils.SortingNetworkGenerator;
@@ -43,7 +42,7 @@ SOFTWARE.
  *
  */
 
-public class RunComparisonSort {
+final public class RunComparisonSort {
     private ArrayManager arrayManager;
     private ArrayVisualizer arrayVisualizer;
     private Delays delayOps;
@@ -84,15 +83,14 @@ public class RunComparisonSort {
             public void run() {
                 try {
                     Class<?> sortClass = arrayVisualizer.getComparisonSorts()[selection].sortClass;
-                    Constructor<?> newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
-                    Sort sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer);
-                    if (sort instanceof PathOwOgenSort.Sowort) {
-                        newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class, int.class, boolean.class});
-                        try {
-                            sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer, selection, true);
-                        } catch(Exception f) {
-                            return;
-                        }
+                    Constructor<?> newSort;
+                    Sort sort;
+                    try {
+                    	newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class, int.class, boolean.class});
+                		sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer, selection, true);
+                    } catch (NoSuchMethodException e) {
+                        newSort = sortClass.getConstructor(new Class[] {ArrayVisualizer.class});
+                        sort = (Sort) newSort.newInstance(RunComparisonSort.this.arrayVisualizer);
                     }
 
                     int extra = 0;

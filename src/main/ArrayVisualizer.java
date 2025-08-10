@@ -96,6 +96,7 @@ public class ArrayVisualizer {
     int[] validateArray;
     int[] stabilityTable;
     int[] indexTable;
+    int[] heatmap;
     ArrayList<int[]> arrays;
 
     private SortPair[] AllSorts; // First row of Comparison/DistributionSorts arrays consists of class names
@@ -187,6 +188,7 @@ public class ArrayVisualizer {
 
     private volatile boolean recursionStats = true;
     private volatile boolean moreStats = false;
+    public volatile boolean colorCoding = true;
 
     private volatile boolean autoSkip = true;
     public volatile boolean blaze = false;
@@ -316,10 +318,12 @@ public class ArrayVisualizer {
         int[] array;
         try {
             array = new int[this.MAX_ARRAY_VAL];
+            this.heatmap = new int[this.MAX_ARRAY_VAL];
         } catch (OutOfMemoryError e) {
             JErrorPane.invokeCustomErrorMessage("Failed to allocate main array. The program will now exit.");
             System.exit(1);
             array = null;
+            this.heatmap = null;
         }
         this.array = array;
 
@@ -443,7 +447,7 @@ public class ArrayVisualizer {
                 background.setColor(Color.BLACK);
                 int coltmp = 255;
 
-                ArrayVisualizer.this.visualClasses = new Visual[18];
+                ArrayVisualizer.this.visualClasses = new Visual[21];
 
                 ArrayVisualizer.this.visualClasses[0]  = new           BarGraph(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[1]  = new            Rainbow(ArrayVisualizer.this);
@@ -463,6 +467,9 @@ public class ArrayVisualizer {
                 ArrayVisualizer.this.visualClasses[15] = new       TriangleMesh(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[16] = new       HilbertCurve(ArrayVisualizer.this);
                 ArrayVisualizer.this.visualClasses[17] = new          DataTrace(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[18] = new          ImageGrid(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[19] = new            Heatmap(ArrayVisualizer.this);
+                ArrayVisualizer.this.visualClasses[20] = new      ScatterChords(ArrayVisualizer.this);
 
                 while (ArrayVisualizer.this.visualsEnabled) {
                     if (ArrayVisualizer.this.updateVisualsForced == 0) {
@@ -509,6 +516,23 @@ public class ArrayVisualizer {
 
         this.Sounds.startAudioThread();
         this.drawWindows();
+    }
+
+    private int MIN_TEMP = 3000;
+    private int MAX_TEMP = 10000;
+    private double HEAT_RATE = 1.1;
+    private double COOL_RATE = 0.9925;
+
+    public int[] getHeatmap() {
+        return this.heatmap;
+    }
+
+    public void hmHit(int i) {
+        this.heatmap[i] = Math.min(MAX_TEMP, Math.max(MIN_TEMP, (int)(this.heatmap[i] * HEAT_RATE)));
+    }
+
+    public void hmCool(int i) {
+        this.heatmap[i] = (int)(this.heatmap[i] * COOL_RATE);
     }
 
     public static ArrayVisualizer getInstance() {
@@ -605,6 +629,33 @@ public class ArrayVisualizer {
         for (int i=0, offset = 0; i<Stats.size(); i++) {
             offset += magicNumbers.get(i);
             this.mainRender.drawString(Stats.get(i), xOffset, (int) (windowRatio * offset) + yOffset);
+        }
+
+        if (colorCoding && Highlights.getDeclaredColors().size() > 0) {
+            int startOffset = currentWidth(), metricFontHeight = mainRender.getFontMetrics().getHeight(),
+                startStat = mainRender.getFontMetrics().stringWidth("") + xOffset + 24,
+                copyYPos = (int)(currentHeight() - 45) + yOffset, textWidth;
+
+            for (String color : Highlights.getDeclaredColors()) {
+                textWidth = mainRender.getFontMetrics().stringWidth(color);
+                startOffset -= textWidth + metricFontHeight + 20;
+                if (startOffset <= startStat) {
+                    startOffset = currentWidth() - textWidth - metricFontHeight - 20;
+                    copyYPos -= metricFontHeight + 8;
+                }
+
+                if (!dropShadow) {
+                    mainRender.setColor(Highlights.getColorFromName(color));
+                }
+
+                mainRender.fillRect(startOffset, copyYPos - metricFontHeight + (metricFontHeight / 3), metricFontHeight, metricFontHeight);
+
+                if (!dropShadow) {
+                    mainRender.setColor(textColor);
+                }
+
+                mainRender.drawString(color, startOffset + metricFontHeight + 6, copyYPos);
+            }
         }
     }
 
@@ -1184,6 +1235,8 @@ public class ArrayVisualizer {
     public void endSort() {
         this.Timer.disableRealTimer();
         this.Highlights.clearAllMarks();
+        this.Highlights.clearAllColorsReferenced();
+        this.Highlights.clearColorList();
         System.out.println(formatTimes());
 
         this.isCanceled = false;
@@ -1230,6 +1283,9 @@ public class ArrayVisualizer {
     }
     public void toggleExternalArrays(boolean Bool) {
         this.EXTARRAYS = Bool;
+    }
+    public void toggleColorCoding(boolean Bool) {
+        this.colorCoding = Bool;
     }
 
     public void setVisual(VisualStyles choice) {
@@ -1307,7 +1363,7 @@ public class ArrayVisualizer {
 
         this.window.setLocation(0, 0);
         this.window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.window.setTitle("w0rthy's Array Visualizer (PCBoy's Personal Mod) - " + (this.ComparisonSorts.length + this.DistributionSorts.length) + " Sorts, 18 Visual Styles, and Infinite Inputs to Sort");
+        this.window.setTitle("w0rthy's Array Visualizer (PCBoy's Personal Mod) - " + (this.ComparisonSorts.length + this.DistributionSorts.length) + " Sorts, 21 Visual Styles, and Infinite Inputs to Sort");
         this.window.setBackground(Color.BLACK);
         this.window.setIgnoreRepaint(true);
 

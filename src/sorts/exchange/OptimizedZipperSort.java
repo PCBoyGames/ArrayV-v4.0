@@ -1,7 +1,7 @@
 package sorts.exchange;
 
 import main.ArrayVisualizer;
-import sorts.templates.Sort;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -12,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public class OptimizedZipperSort extends Sort {
+public class OptimizedZipperSort extends MadhouseTools {
     public OptimizedZipperSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Optimized Zipper");
@@ -34,32 +34,26 @@ public class OptimizedZipperSort extends Sort {
         return n;
     }
 
-    protected int binarySearch(int[] array, int a, int b, int value) {
-        while (a < b) {
-            int m = a + ((b - a) / 2);
-            Highlights.markArray(1, a);
-            Highlights.markArray(3, m);
-            Highlights.markArray(2, b);
-            Delays.sleep(0.1);
-            if (Reads.compareValues(value, array[m]) < 0) b = m;
-            else a = m + 1;
-        }
-        Highlights.clearMark(3);
-        return a;
-    }
-
-    private void ending(int[] array, int first, int currentLength) {
-        for (int right = first; right < currentLength; right++) {
-            if (right < 1) right++;
-            if (Reads.compareIndices(array, right - 1, right, 0.1, true) > 0) {
-                int left = binarySearch(array, 0, right - 1, array[right]);
-                while (left < right) Writes.swap(array, left++, right, 0.05, true, false);
+    protected void ending(int[] array, int currentLength) {
+        if (findRun(array, 0, currentLength, 0.1, true, false) >= currentLength) return;
+        Highlights.clearAllMarks();
+        for (int gap = currentLength; gap >= 1; ) {
+            for (int h = gap, i = h; i < currentLength; i++) {
+                int v = array[i], j = i;
+                boolean w = false;
+                for (; j >= h && j - h >= 0 && Reads.compareValues(array[j - h], v) > 0; j -= h) Writes.write(array, j, array[j - h], 1, w = true, false);
+                if (w) Writes.write(array, j, v, 1, true, false);
             }
+            if (gap == 1) break;
+            int newG = (int) Math.max(1, gap / 2.3601);
+            while (newG > 1 && !coprime(gap, newG)) newG--;
+            gap = newG;
         }
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
+        if (patternDefeat(array, 0, currentLength, false, 0.1, true, false)) return;
         int gap = currentLength;
         int first = 0;
         while (gap > Math.max(2 * log2(currentLength), Math.sqrt(currentLength))) {
@@ -73,6 +67,6 @@ public class OptimizedZipperSort extends Sort {
                 } else i++;
             }
         }
-        if (gap != 1) ending(array, first, currentLength);
+        if (gap != 1) ending(array, currentLength);
     }
 }

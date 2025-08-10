@@ -31,7 +31,7 @@ SOFTWARE.
  *
  */
 
-final public class FastDoubleInsertionSort extends Sort {
+public class FastDoubleInsertionSort extends Sort {
     public FastDoubleInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -49,63 +49,63 @@ final public class FastDoubleInsertionSort extends Sort {
 
     @Override
     public void runSort(int[] array, int n, int bucketCount) {
-		Random r = new Random();
-		int k = n/2, j = k-1+n%2;
+        Random r = new Random();
+        int k = n/2, j = k-1+n%2;
 
-		if (n%2 == 0 && Reads.compareIndices(array, j, k, 0.5, true) > 0)
-			Writes.swap(array, j, k, 1, false, false);
+        if (n%2 == 0 && Reads.compareIndices(array, j, k, 0.5, true) > 0)
+            Writes.swap(array, j, k, 1, false, false);
 
-		for (j--, k++; k < n; j--, k++) {
-			int i;
-			int t;
+        for (j--, k++; k < n; j--, k++) {
+            int i;
+            int t;
 
-			if (Reads.compareIndices(array, j, k, 0.5, true) > 0) {
-				t = array[k];
-				Writes.write(array, k, array[j], 0, false, false);
+            if (Reads.compareIndices(array, j, k, 0.5, true) > 0) {
+                t = array[k];
+                Writes.write(array, k, array[j], 0, false, false);
 
-				for (i = j; array[i+1] <= t; i++) array[i] = array[i+1];
+                for (i = j; array[i+1] <= t; i++) array[i] = array[i+1];
 
-				Reads.setComparisons(Reads.getComparisons().intValue() + i-j+1);
-				Writes.changeWrites(i-j);
+                Reads.setComparisons(Reads.getComparisons().intValue() + i-j+1);
+                Writes.changeWrites(i-j);
 
-				if (i-j > 0) Highlights.markArray(2, j+r.nextInt(i-j));
-				else        Highlights.clearMark(2);
-				Writes.write(array, i, t, 2d*k/n-1, true, false);
+                if (i-j > 0) Highlights.markArray(2, j+r.nextInt(i-j));
+                else        Highlights.clearMark(2);
+                Writes.write(array, i, t, 2d*k/n-1, true, false);
 
-				t = array[k];
+                t = array[k];
 
-				for (i = k; array[i-1] >= t; i--) array[i] = array[i-1];
+                for (i = k; array[i-1] >= t; i--) array[i] = array[i-1];
 
-				Reads.setComparisons(Reads.getComparisons().intValue() + k-i+1);
-				Writes.changeWrites(k-i);
+                Reads.setComparisons(Reads.getComparisons().intValue() + k-i+1);
+                Writes.changeWrites(k-i);
 
-				if (k-i > 0) Highlights.markArray(2, k-r.nextInt(k-i));
-				else        Highlights.clearMark(2);
-				Writes.write(array, i, t, 2d*k/n-1, true, false);
-			}
-			else {
-				t = array[j];
+                if (k-i > 0) Highlights.markArray(2, k-r.nextInt(k-i));
+                else        Highlights.clearMark(2);
+                Writes.write(array, i, t, 2d*k/n-1, true, false);
+            }
+            else {
+                t = array[j];
 
-				for (i = j; array[i+1] < t; i++) array[i] = array[i+1];
+                for (i = j; array[i+1] < t; i++) array[i] = array[i+1];
 
-				Reads.setComparisons(Reads.getComparisons().intValue() + i-j+1);
-				Writes.changeWrites(i-j);
+                Reads.setComparisons(Reads.getComparisons().intValue() + i-j+1);
+                Writes.changeWrites(i-j);
 
-				if (i-j > 0) Highlights.markArray(2, j+r.nextInt(i-j));
-				else        Highlights.clearMark(2);
-				Writes.write(array, i, t, 2d*k/n-1, true, false);
+                if (i-j > 0) Highlights.markArray(2, j+r.nextInt(i-j));
+                else        Highlights.clearMark(2);
+                Writes.write(array, i, t, 2d*k/n-1, true, false);
 
-				t = array[k];
+                t = array[k];
 
-				for (i = k; array[i-1] > t; i--) array[i] = array[i-1];
+                for (i = k; array[i-1] > t; i--) array[i] = array[i-1];
 
-				Reads.setComparisons(Reads.getComparisons().intValue() + k-i+1);
-				Writes.changeWrites(k-i);
+                Reads.setComparisons(Reads.getComparisons().intValue() + k-i+1);
+                Writes.changeWrites(k-i);
 
-				if (k-i > 0) Highlights.markArray(2, k-r.nextInt(k-i));
-				else        Highlights.clearMark(2);
-				Writes.write(array, i, t, 2d*k/n-1, true, false);
-			}
-		}
+                if (k-i > 0) Highlights.markArray(2, k-r.nextInt(k-i));
+                else        Highlights.clearMark(2);
+                Writes.write(array, i, t, 2d*k/n-1, true, false);
+            }
+        }
     }
 }

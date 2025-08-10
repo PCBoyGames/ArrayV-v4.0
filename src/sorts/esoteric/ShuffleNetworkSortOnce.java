@@ -426,7 +426,7 @@ public class ShuffleNetworkSortOnce extends BogoSorting {
     }
 
     public void rotate(int[] array, int a, int m, int b, double sleep) {
-        IndexedRotations.adaptable(array, a, m, b, 0.1, true, true);
+        IndexedRotations.adaptableRevised(array, a, m, b, 0.1, true, true);
     }
 
     public void push(int[] array, int a, int b, int bLen, double sleep) {

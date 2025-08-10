@@ -1,8 +1,7 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.templates.GrailSorting;
-import utils.IndexedRotations;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -13,7 +12,7 @@ CODED FOR ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public class CookieSort extends GrailSorting {
+public class CookieSort extends MadhouseTools {
 
     public CookieSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -138,46 +137,21 @@ public class CookieSort extends GrailSorting {
         return a;
     }
 
-    protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
-        IndexedRotations.adaptable(array, pos, lenA, lenB, 1, true, false);
-    }
-
     // SHELL
-    protected int shellPass(int[] array, int a, int b, int gap, int par, int lastgap) {
-        if (gap >= lastgap) return lastgap;
-        if (gap == lastgap - 1 && gap != 1) return lastgap;
-        lastgap = gap;
-        for (int i = a + gap; i < b; i++) {
-            int key = array[i];
-            int j = i - gap;
-            boolean change = false;
-            for (; j >= a && Reads.compareValues(key, array[j]) < 0; j -= gap) Writes.write(array, j + gap, array[j], 1, change = true, false);
-            if (change) Writes.write(array, j + gap, key, 1, true, false);
-        }
-        Highlights.clearAllMarks();
-        return gap;
-    }
-
     public void shellSort(int[] array, int a, int b) {
+        if (findRun(array, a, b, 0.1, true, false) >= b) return;
         Highlights.clearAllMarks();
-        int pd = pdUnstableNF(array, a, b);
-        if (pd + 1 < b) {
-            Highlights.clearAllMarks();
-            double truediv = 3;
-            int lastpar = b - a;
-            int lastgap = b - a;
-            while (true) {
-                int par = par(array, a, b);
-                int passpar = par;
-                if (par >= lastpar) par = lastpar - (int) truediv;
-                if (par / (int) truediv <= 1) {
-                    shellPass(array, a, b, 1, par, lastgap);
-                    break;
-                }
-                lastgap = shellPass(array, a, b, (int) ((par / (int) truediv) + par % (int) truediv), passpar, lastgap);
-                if (lastpar - par <= Math.sqrt(lastpar)) truediv *= 1.5;
-                lastpar = par;
+        for (int gap = b - a; gap >= 1; ) {
+            for (int h = gap, i = h + a; i < b; i++) {
+                int v = array[i], j = i;
+                boolean w = false;
+                for (; j >= h && j - h >= a && Reads.compareValues(array[j - h], v) > 0; j -= h) Writes.write(array, j, array[j - h], 1, w = true, false);
+                if (w) Writes.write(array, j, v, 1, true, false);
             }
+            if (gap == 1) break;
+            int newG = (int) Math.max(1, gap / 2.3601);
+            while (newG > 1 && !coprime(gap, newG)) newG--;
+            gap = newG;
         }
     }
 

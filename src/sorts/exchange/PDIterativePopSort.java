@@ -34,7 +34,7 @@ public class PDIterativePopSort extends Sort {
         else Writes.reversal(array, start, end, 0.075, true, false);
         for (int i = start; i < end; i++) {
             int left = i;
-            while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
+            while (i < end && Reads.compareIndices(array, i, i + 1, 0.25, true) == 0) i++;
             int right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);

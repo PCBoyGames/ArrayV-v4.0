@@ -1,7 +1,7 @@
 package sorts.hybrid;
 
 import main.ArrayVisualizer;
-import sorts.merge.OptimizedNaturalRotateMergeSort;
+import sorts.merge.PseudoRecursiveOptimizedNaturalRotateMergeSort;
 import sorts.templates.Sort;
 
 /*
@@ -73,7 +73,7 @@ public class PebbleSort extends Sort {
                 }
             }
             Highlights.clearAllMarks();
-            OptimizedNaturalRotateMergeSort natural = new OptimizedNaturalRotateMergeSort(arrayVisualizer);
+            PseudoRecursiveOptimizedNaturalRotateMergeSort natural = new PseudoRecursiveOptimizedNaturalRotateMergeSort(arrayVisualizer);
             natural.runSort(array, currentLength, 0);
         }
     }

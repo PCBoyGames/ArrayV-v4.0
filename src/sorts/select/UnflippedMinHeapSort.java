@@ -3,7 +3,7 @@ package sorts.select;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class UnflippedMinHeapSort extends Sort {
+public class UnflippedMinHeapSort extends Sort {
     public UnflippedMinHeapSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

@@ -18,7 +18,7 @@ Coded for ArrayV by Kiriko-chan
  * @author Kiriko-chan
  *
  */
-public final class LazierQuickSort extends Sort {
+public class LazierQuickSort extends Sort {
 
     public LazierQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

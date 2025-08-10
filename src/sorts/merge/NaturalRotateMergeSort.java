@@ -37,7 +37,7 @@ public class NaturalRotateMergeSort extends Sort {
     }
 
     protected void rotate(int[] array, int a, int m, int b) {
-        IndexedRotations.adaptable(array, a, m, b, 1.0, true, false);
+        IndexedRotations.adaptableRevised(array, a, m, b, 1.0, true, false);
     }
 
     protected int binarySearch(int[] array, int a, int b, int value, boolean left) {

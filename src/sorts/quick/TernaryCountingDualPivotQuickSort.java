@@ -116,53 +116,53 @@ public class TernaryCountingDualPivotQuickSort extends MadhouseTools {
 
     protected int[] partition(int[] array, int a, int b, int piv1, int piv2) {
         int i1 = a, i = a, j = b, j1 = b;
-		for (int k = i; k < j; k++) {
-			int cmp1 = Reads.compareIndexValue(array, k, piv1, 1, true);
-			if (cmp1 <= 0) {
-				int t = array[k];
-				Writes.write(array, k, array[i], 0.5, true, false);
-				if (cmp1 == 0) {
-					Writes.write(array, i, array[i1], 0.5, true, false);
-					Writes.write(array, i1++, t, 0.5, true, false);
-				} else Writes.write(array, i, t, 0.5, true, false);
-				i++;
-			} else {
-				int cmp2 = Reads.compareIndexValue(array, k, piv2, 1, true);
-				if (cmp2 >= 0) {
-					while (--j > k) {
-						int cmp = Reads.compareIndexValue(array, j, piv2, 1, true);
-						if (cmp == 0) {
+        for (int k = i; k < j; k++) {
+            int cmp1 = Reads.compareIndexValue(array, k, piv1, 1, true);
+            if (cmp1 <= 0) {
+                int t = array[k];
+                Writes.write(array, k, array[i], 0.5, true, false);
+                if (cmp1 == 0) {
+                    Writes.write(array, i, array[i1], 0.5, true, false);
+                    Writes.write(array, i1++, t, 0.5, true, false);
+                } else Writes.write(array, i, t, 0.5, true, false);
+                i++;
+            } else {
+                int cmp2 = Reads.compareIndexValue(array, k, piv2, 1, true);
+                if (cmp2 >= 0) {
+                    while (--j > k) {
+                        int cmp = Reads.compareIndexValue(array, j, piv2, 1, true);
+                        if (cmp == 0) {
                             if (j1 - 1 != j) Writes.swap(array, --j1, j, 1, true, false);
                             else j1--;
                         }
-						else if (cmp < 0) break;
-					}
-					Highlights.clearMark(2);
-					int t = array[k];
-					Writes.write(array, k, array[j], 0.5, true, false);
-					if (cmp2 == 0) {
-						Writes.write(array, j, array[--j1], 0.5, true, false);
-						Writes.write(array, j1, t, 0.5, true, false);
-					} else Writes.write(array, j, t, 0.5, true, false);
-					cmp1 = Reads.compareIndexValue(array, k, piv1, 1, true);
-					if (cmp1 <= 0) {
-						t = array[k];
-						Writes.write(array, k, array[i], 0.5, true, false);
-						if (cmp1 == 0) {
-							Writes.write(array, i, array[i1], 0.5, true, false);
-							Writes.write(array, i1++, t, 0.5, true, false);
-						}
-						else Writes.write(array, i, t, 0.5, true, false);
-						i++;
-					}
-				}
-			}
-		}
+                        else if (cmp < 0) break;
+                    }
+                    Highlights.clearMark(2);
+                    int t = array[k];
+                    Writes.write(array, k, array[j], 0.5, true, false);
+                    if (cmp2 == 0) {
+                        Writes.write(array, j, array[--j1], 0.5, true, false);
+                        Writes.write(array, j1, t, 0.5, true, false);
+                    } else Writes.write(array, j, t, 0.5, true, false);
+                    cmp1 = Reads.compareIndexValue(array, k, piv1, 1, true);
+                    if (cmp1 <= 0) {
+                        t = array[k];
+                        Writes.write(array, k, array[i], 0.5, true, false);
+                        if (cmp1 == 0) {
+                            Writes.write(array, i, array[i1], 0.5, true, false);
+                            Writes.write(array, i1++, t, 0.5, true, false);
+                        }
+                        else Writes.write(array, i, t, 0.5, true, false);
+                        i++;
+                    }
+                }
+            }
+        }
         int iS = i;
         if (i1 - a > i - i1) {
-			i = a;
-			while (i1 < iS) Writes.swap(array, i++, i1++, 1, true, false);
-		} else {
+            i = a;
+            while (i1 < iS) Writes.swap(array, i++, i1++, 1, true, false);
+        } else {
             while (i1 > a) {
                 if (i != i1) Writes.swap(array, --i, --i1, 1, true, false);
                 else {
@@ -173,9 +173,9 @@ public class TernaryCountingDualPivotQuickSort extends MadhouseTools {
         }
         int jS = j;
         if (b - j1 > j1 - j) {
-			j = b;
-			while (j1 > jS) Writes.swap(array, --j, --j1, 1, true, false);
-		} else {
+            j = b;
+            while (j1 > jS) Writes.swap(array, --j, --j1, 1, true, false);
+        } else {
             while (j1 < b) {
                 if (j != j1) Writes.swap(array, j++, j1++, 1, true, false);
                 else {

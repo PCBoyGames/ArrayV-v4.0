@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /*
 
-Coded for ArrayV by Haruki
+Coded for ArrayV by Flanlaina
 extending code by Anonymous0726
 
 +---------------------------+
@@ -20,8 +20,8 @@ extending code by Anonymous0726
  * <p>
  * To use this algorithm in another, use {@code treeSort()} from a reference
  * instance.
- * 
- * @author Haruki (Flandre-chan0331 on GitHub)
+ *
+ * @author Flanlaina
  */
 public class RedBlackTreeSortIterative extends Sort {
 
@@ -38,11 +38,11 @@ public class RedBlackTreeSortIterative extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
-    private static final int COLOR_BLACK = 0, COLOR_RED = 1;
-    
+
+    private static int COLOR_BLACK = 0, COLOR_RED = 1;
+
     private Node nilNode = new Node(); // sentinel value to simplify logic
-    
+
     /**
      * The fundamental building block of any programming tree. Each node is the root
      * of its own subtree.
@@ -53,18 +53,18 @@ public class RedBlackTreeSortIterative extends Sort {
      * boolean telling the node's "color": red or black.
      */
     class Node {
-        int idx; // index in main array of the element contained here 
+        int idx; // index in main array of the element contained here
         int color; // color of node, can be either COLOR_RED or COLOR_BLACK
         Node left, right;
         Node parent; // required for iterative insertion and traversal
-        
+
         // Default constructor, and constructor for nilNode
         public Node() {
             this.idx = -1; // Shouldn't point to anything by default
             this.left = this.right = this.parent = null;
             this.color = COLOR_BLACK; // All nilNodes being black will not violate black balance
         }
-        
+
         // Constructor for a node with a pointer
         public Node(int idx) {
             this();
@@ -72,7 +72,7 @@ public class RedBlackTreeSortIterative extends Sort {
             this.color = COLOR_RED; // A node with data, when first created, is red
         }
     }
-    
+
     /**
      * The class containing the info for a red-black tree.
      */
@@ -83,7 +83,7 @@ public class RedBlackTreeSortIterative extends Sort {
             root = nilNode;
             this.array = array;
         }
-        
+
         // Wrapper for counting node writes and timing them
         private Node treeWrite(Node element) {
             Node node;
@@ -122,7 +122,7 @@ public class RedBlackTreeSortIterative extends Sort {
             else g.left = treeWrite(s);
             return s;
         }
-        
+
         // iterative (Anonymous0726's RedBlackTreeSort.java goes recursive)
         private void insertFixup(Node n) { // color of node n is red
             // While the Red-Black tree invariants are violated...
@@ -184,12 +184,16 @@ public class RedBlackTreeSortIterative extends Sort {
         }
         public void insert(int idx) {
             Node x = root, y = nilNode;
+            boolean goLeft = false;
             while (x != nilNode) {
                 y = x;
-                if (Reads.compareIndices(array, idx, x.idx, 0.25, true) < 0)
-                    x = x.left;
-                else
-                    x = x.right;
+                if (Reads.compareIndices(array, idx, x.idx, 0.25, true) < 0) {
+                    x = x.left; // x == y.left
+                    goLeft = true;
+                } else {
+                    x = x.right; // x == y.right
+                    goLeft = false;
+                }
             }
             Node z = new Node(idx); // z's color is red
             z.left = z.right = nilNode;
@@ -197,16 +201,16 @@ public class RedBlackTreeSortIterative extends Sort {
             z.parent = treeWrite(y);
             if (y == nilNode)
                 this.root = treeWrite(z);
-            else if (Reads.compareIndices(array, z.idx, y.idx, 0.25, true) < 0)
+            else if (goLeft)
                 y.left = treeWrite(z);
             else
                 y.right = treeWrite(z);
             insertFixup(z);
         }
         private Node bstMinimum(Node p) {
-            if (p != nilNode)
-                while (p.left != nilNode)
-                    p = p.left;
+            if (p == nilNode) return nilNode;
+            while (p.left != nilNode)
+                p = p.left;
             return p;
         }
         private Node bstSucessor(Node x) {
@@ -220,7 +224,7 @@ public class RedBlackTreeSortIterative extends Sort {
             }
             return y;
         }
-        
+
         // also iterative (requires the parent node)
         public void writeToArray(int[] tmpArray) {
             int idx = 0;
@@ -230,10 +234,10 @@ public class RedBlackTreeSortIterative extends Sort {
             }
         }
     }
-    
+
     /**
      * Sorts the range {@code [a, b)} of {@code array} using Red-Black Tree Sort.
-     * 
+     *
      * @param array the array
      * @param a     the start of the range, inclusive
      * @param b     the end of the range, exclusive

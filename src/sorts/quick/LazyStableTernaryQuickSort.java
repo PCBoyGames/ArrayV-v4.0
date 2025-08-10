@@ -18,7 +18,7 @@ Coded for ArrayV by Kiriko-chan
  * @author Kiriko-chan
  *
  */
-public final class LazyStableTernaryQuickSort extends Sort {
+public class LazyStableTernaryQuickSort extends Sort {
 
     public LazyStableTernaryQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -74,7 +74,7 @@ public final class LazyStableTernaryQuickSort extends Sort {
         v2 = medianOf3(array, a + div * 6, a + div * 7, a + div * 8);
         return medianOf3(array, v0, v1, v2);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;

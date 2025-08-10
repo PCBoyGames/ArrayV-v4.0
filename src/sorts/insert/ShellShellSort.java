@@ -50,11 +50,14 @@ public class ShellShellSort extends Sort {
 
     protected void shellShellPass(int[] array, int currentLength, int gap, int set) {
         int init = gap;
-        if (set == 2) set++;
-        else set--;
+        boolean was2 = false;
+        if (set == 2) {
+            set++;
+            was2 = true;
+        } else set--;
         for (; gap <= currentLength; gap *= set);
         for (; gap >= init; gap /= set) {
-            if (set == 3) combPass(array, currentLength, gap);
+            if (was2) combPass(array, currentLength, gap);
             else shellPass(array, currentLength, gap);
         }
     }

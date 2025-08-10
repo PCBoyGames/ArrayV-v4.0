@@ -56,7 +56,7 @@ public class InPlaceOptimizedSafeStalinSortSwaps extends Sort {
             while (mid > 0 && Reads.compareIndices(array, mid, right, 1, true) >= 0) {
                 mid--;
             }
-            IndexedRotations.adaptable(array, 0, left+1, currentLength, 1, true, false);
+            IndexedRotations.adaptableRevised(array, 0, left+1, currentLength, 1, true, false);
             currentLength -= left-mid;
         } while (runs > 2);
         if (runs == 2) {

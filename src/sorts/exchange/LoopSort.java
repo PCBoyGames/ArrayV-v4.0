@@ -45,7 +45,7 @@ public class LoopSort extends Sort {
             }
             else Writes.insert(array, i + collect + 1, i, 0.1, true, false);
         }
-        IndexedRotations.adaptable(array, start, i, end, 0.1, true, false);
+        IndexedRotations.adaptableRevised(array, start, i, end, 0.1, true, false);
         return start + collect;
     }
 

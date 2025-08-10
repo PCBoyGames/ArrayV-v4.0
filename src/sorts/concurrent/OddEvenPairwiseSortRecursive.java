@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author PiotrGrochowski
  *
  */
-public final class OddEvenPairwiseSortRecursive extends Sort {
+public class OddEvenPairwiseSortRecursive extends Sort {
 
     public OddEvenPairwiseSortRecursive(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -22,7 +22,7 @@ public final class OddEvenPairwiseSortRecursive extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     private void pairwisemerge2(int[] array, int start, int end, int gap, int depth, double sleep) {
         if (start >= end - gap) return;
         if ((end - start)/gap <= depth) return;
@@ -36,7 +36,7 @@ public final class OddEvenPairwiseSortRecursive extends Sort {
             a += (gap * depth);
         }
     }
-    
+
     private void pairwiserecursive2(int[] array, int start, int end, int gap, double sleep) {
         if (start == end - gap) return;
         int b = start + gap;
@@ -54,7 +54,7 @@ public final class OddEvenPairwiseSortRecursive extends Sort {
         }
         this.pairwisemerge2(array, start, end, gap, 2, sleep);
     }
-    
+
     public void customSort(int[] array, int start, int end) {
         this.pairwiserecursive2(array, start, end, 1, 0.5);
     }

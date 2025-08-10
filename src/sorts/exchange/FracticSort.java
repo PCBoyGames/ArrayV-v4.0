@@ -48,11 +48,11 @@ public class FracticSort extends Sort {
     public void fractic(int[] array, int a, int b, int d) {
         if (a >= b) return;
         Writes.recordDepth(d++);
-        int m = (b - a) / 2;
+        int m = (a+b)/2;
         Writes.recursion();
-        fractic(array, a, a+m, d);
+        fractic(array, a, m, d);
         Writes.recursion();
-        fractic(array, b-m, b, d);
+        fractic(array, m+1, b, d);
         cPush(array, a, b, 2, 0);
     }
 

@@ -34,85 +34,85 @@ SOFTWARE.
  *
  */
 
-final public class DataTrace extends Visual {
-	public DataTrace(ArrayVisualizer ArrayVisualizer) {
-		super(ArrayVisualizer);
-	}
+public class DataTrace extends Visual {
+    public DataTrace(ArrayVisualizer ArrayVisualizer) {
+        super(ArrayVisualizer);
+    }
 
-	private final int X_OFFSET = 20;
-	private final int Y_OFFSET = 40;
+    private int X_OFFSET = 20;
+    private int Y_OFFSET = 40;
 
-	private int cachedLen = 0, cachedHeight = 0, cachedWidth, offset;
-	private double idxScale, widthScale;
-	private long cachedWrites = 0;
-	private boolean change = false;
+    private int cachedLen = 0, cachedHeight = 0, cachedWidth, offset;
+    private double idxScale, widthScale;
+    private long cachedWrites = 0;
+    private boolean change = false;
 
-	private BufferedImage trace;
+    private BufferedImage trace;
 
-	private Color getGray(int t, int n) { //can be added to Visual.java
-		int c = (int)(255 * (double)Math.max(0, Math.min(t, n))/n);
-		return new Color(c, c, c);
-	}
+    private Color getGray(int t, int n) { //can be added to Visual.java
+        int c = (int)(255 * (double)Math.max(0, Math.min(t, n))/n);
+        return new Color(c, c, c);
+    }
 
-	@Override
-	public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
-		if (Renderer.auxActive) return;
+    @Override
+    public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+        if (Renderer.auxActive) return;
 
-		int w = ArrayVisualizer.windowWidth()  - 20;
-		int h = ArrayVisualizer.windowHeight() - 50;
-		int n = ArrayVisualizer.getCurrentLength();
+        int w = ArrayVisualizer.windowWidth()  - 20;
+        int h = ArrayVisualizer.windowHeight() - 50;
+        int n = ArrayVisualizer.getCurrentLength();
 
-		int imgW = Math.min(w, n);
+        int imgW = Math.min(w, n);
 
-		if (n != this.cachedLen || h != this.cachedHeight || w != this.cachedWidth) {
-			this.cachedLen    = n;
-			this.cachedHeight = h;
-			this.cachedWidth  = w;
-			imgW = Math.min(w, n);
+        if (n != this.cachedLen || h != this.cachedHeight || w != this.cachedWidth) {
+            this.cachedLen    = n;
+            this.cachedHeight = h;
+            this.cachedWidth  = w;
+            imgW = Math.min(w, n);
 
-			this.idxScale   = (double)imgW/n;
-			this.widthScale = (double)w/n;
-			this.offset = 0;
+            this.idxScale   = (double)imgW/n;
+            this.widthScale = (double)w/n;
+            this.offset = 0;
 
-			this.trace = new BufferedImage(imgW, h, BufferedImage.TYPE_INT_RGB);
-		}
-		this.mainRender.drawImage(this.trace,
-		                          0 + X_OFFSET, Y_OFFSET,
-		                          w + X_OFFSET, h - this.offset - 1 + Y_OFFSET,
-		                          0, this.offset + 1,
-		                          imgW, h,
-		                          null);
+            this.trace = new BufferedImage(imgW, h, BufferedImage.TYPE_INT_RGB);
+        }
+        this.mainRender.drawImage(this.trace,
+                                  0 + X_OFFSET, Y_OFFSET,
+                                  w + X_OFFSET, h - this.offset - 1 + Y_OFFSET,
+                                  0, this.offset + 1,
+                                  imgW, h,
+                                  null);
 
-		this.mainRender.drawImage(this.trace,
-		                          0 + X_OFFSET, h - this.offset - 1 + Y_OFFSET,
-		                          w + X_OFFSET, h + Y_OFFSET,
-		                          0, 0,
-		                          imgW, this.offset + 1,
-		                          null);
+        this.mainRender.drawImage(this.trace,
+                                  0 + X_OFFSET, h - this.offset - 1 + Y_OFFSET,
+                                  w + X_OFFSET, h + Y_OFFSET,
+                                  0, 0,
+                                  imgW, this.offset + 1,
+                                  null);
 
-		if (this.change) this.offset = (this.offset+1) % h;
+        if (this.change) this.offset = (this.offset+1) % h;
 
-		long c = ArrayVisualizer.getWrites().writes;
-		this.change = this.cachedWrites != (this.cachedWrites = c);
+        long c = ArrayVisualizer.getWrites().writes;
+        this.change = this.cachedWrites != (this.cachedWrites = c);
 
-		int rectW = (int)Math.max(4, Math.ceil(this.widthScale));
+        int rectW = (int)Math.max(4, Math.ceil(this.widthScale));
 
-		for (int i = 0; i < n; i++) {
-			int idx = (int)(i * this.widthScale);
-			int currColor = ArrayVisualizer.colorEnabled() ? getIntColor(array[i], n).getRGB()
-			                                               : this.getGray(array[i], n).getRGB();
+        for (int i = 0; i < n; i++) {
+            int idx = (int)(i * this.widthScale);
+            int currColor = ArrayVisualizer.colorEnabled() ? getIntColor(array[i], n).getRGB()
+                                                           : this.getGray(array[i], n).getRGB();
 
-			this.trace.setRGB((int)(i * this.idxScale), this.offset, currColor);
+            this.trace.setRGB((int)(i * this.idxScale), this.offset, currColor);
 
-			if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
-				this.mainRender.setColor(Color.WHITE);
-				this.mainRender.fillRect(idx + X_OFFSET, h-6 + Y_OFFSET, rectW, 6);
-			}
-			if (Highlights.containsPosition(i)) {
-				this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? (ArrayVisualizer.analysisEnabled() ? Color.LIGHT_GRAY : getIntColor(array[idx], n, 0.25f, 1))
-				                                                        : (ArrayVisualizer.analysisEnabled() ? Color.BLUE       : Color.RED  ));
-				this.mainRender.fillRect(idx + X_OFFSET, h-6 + Y_OFFSET, rectW, 6);
-			}
-		}
-	}
+            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
+                this.mainRender.setColor(Color.WHITE);
+                this.mainRender.fillRect(idx + X_OFFSET, h-6 + Y_OFFSET, rectW, 6);
+            }
+            if (Highlights.containsPosition(i)) {
+                this.mainRender.setColor(ArrayVisualizer.colorEnabled() ? (ArrayVisualizer.analysisEnabled() ? Color.LIGHT_GRAY : getIntColor(array[idx], n, 0.25f, 1))
+                                                                        : (ArrayVisualizer.analysisEnabled() ? Color.BLUE       : Color.RED  ));
+                this.mainRender.fillRect(idx + X_OFFSET, h-6 + Y_OFFSET, rectW, 6);
+            }
+        }
+    }
 }

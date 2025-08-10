@@ -30,7 +30,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-public final class SambaSort extends BogoSorting {
+public class SambaSort extends BogoSorting {
     public SambaSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -45,7 +45,7 @@ public final class SambaSort extends BogoSorting {
         this.setBogoSort(true);
     }
 
-    private final boolean WORST_CASE_MOV_AMT = false;
+    private boolean WORST_CASE_MOV_AMT = false;
 
     private Random rng;
 

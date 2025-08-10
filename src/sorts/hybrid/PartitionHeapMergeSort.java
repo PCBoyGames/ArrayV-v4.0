@@ -209,7 +209,7 @@ public class PartitionHeapMergeSort extends Sort {
 
     protected void rotateLeft(int[] array, int sidx, int eidx, int num) {
         Writes.reversal(array, sidx - 1, sidx + num - 2, 0.5, true, false);
-        IndexedRotations.adaptable(array, sidx - 1, sidx + num - 1, eidx, 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, sidx - 1, sidx + num - 1, eidx, 0.5, true, false);
     }
 
     // init.lua

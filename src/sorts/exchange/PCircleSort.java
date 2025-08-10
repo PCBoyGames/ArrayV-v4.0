@@ -3,7 +3,7 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
-final public class PCircleSort extends Sort {
+public class PCircleSort extends Sort {
     public PCircleSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -20,41 +20,41 @@ final public class PCircleSort extends Sort {
     }
 
     private boolean c(int[] array, int left, int right) {
-    	if (left >= right)
-    		return false;
-    	int L = left, R = right;
-    	boolean a, s;
-    	a = s = false;
-    	while (left < right) {
-    		int l = left, r = right;
-    		while (left < right - 1 && Reads.compareIndices(array, left, right, 0, true) <= 0) {
-    			if (a) left++;
-    			else right--;
-    		}
-    		a = !a;
-    		do {
-    			if (Reads.compareIndices(array, left, right, 0, true) > 0) {
-    				s = true;
-    				Writes.swap(array, left++, right--, 1, true, false);
-    			} else {
-    				left++; right--;
-    				break;
-    			}
-    		} while (left < right);
-    		if (left < right) {
-    			c(array, l, left);
-        		c(array, right, r);
-    		}
-    	}
-    	if (right < R) {
-    		s |= c(array, L, right);
-    		s |= c(array, left, R);
-    	}
-    	return s;
+        if (left >= right)
+            return false;
+        int L = left, R = right;
+        boolean a, s;
+        a = s = false;
+        while (left < right) {
+            int l = left, r = right;
+            while (left < right - 1 && Reads.compareIndices(array, left, right, 0, true) <= 0) {
+                if (a) left++;
+                else right--;
+            }
+            a = !a;
+            do {
+                if (Reads.compareIndices(array, left, right, 0, true) > 0) {
+                    s = true;
+                    Writes.swap(array, left++, right--, 1, true, false);
+                } else {
+                    left++; right--;
+                    break;
+                }
+            } while (left < right);
+            if (left < right) {
+                c(array, l, left);
+                c(array, right, r);
+            }
+        }
+        if (right < R) {
+            s |= c(array, L, right);
+            s |= c(array, left, R);
+        }
+        return s;
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-    	while (c(array, 0, sortLength-1));
+        while (c(array, 0, sortLength-1));
     }
 }

@@ -3,9 +3,21 @@ package sorts.exchange;
 import main.ArrayVisualizer;
 import sorts.templates.Sort;
 
+/*
+
++---------------------------+
+| SORTING ALGORITHM SCARLET |
++---------------------------+
+|    A sorting algorithm    |
+|    studio by Flanlaina    |
+|    (a.k.a Ayako-chan)     |
++---------------------------+
+
+ */
 
 /**
- * @author mingyue12
+ * @author Flanlaina
+ * @author fungamer2
  *
  */
 public class FibonacciGnomeSort extends Sort {
@@ -13,8 +25,8 @@ public class FibonacciGnomeSort extends Sort {
     public FibonacciGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Fibonacci Gnome");
-        this.setRunAllSortsName("Fibonacci Gnome Sort");
-        this.setRunSortName("Fibonacci Gnome Sort");
+        this.setRunAllSortsName("Optimized Gnome Sort + Fibonacci Search");
+        this.setRunSortName("Optimized Gnomesort + Fibonacci Search");
         this.setCategory("Exchange Sorts");
         this.setComparisonBased(true);
         this.setBucketSort(false);
@@ -33,16 +45,11 @@ public class FibonacciGnomeSort extends Sort {
             fibM1 = fibM;
             fibM = fibM2 + fibM1;
         }
-
         int offset = start - 1;
-
         while (fibM > 1) {
-
             int i = Math.min(offset + fibM2, end);
-
             Highlights.markArray(1, offset + 1);
             Highlights.markArray(2, i);
-
             if (Reads.compareValues(array[i], item) <= 0) {
                 fibM = fibM1;
                 fibM1 = fibM2;
@@ -57,18 +64,17 @@ public class FibonacciGnomeSort extends Sort {
         }
         int position = ++offset;
         if (Reads.compareValues(array[position], item) <= 0) {
-            ++position;
+            position++;
         }
         return position;
     }
 
-    public void fibonacciGnomeSort(int[] array, int length) {
-        for (int i = 1; i < length; i++) {
-            int tmp = array[i];
-            int position = this.fibonacciSearch(array, 0, i - 1, tmp);
+    public void fibonacciGnomeSort(int[] array, int start, int end) {
+        for (int i = start + 1; i < end; i++) {
+            int position = this.fibonacciSearch(array, start, i - 1, array[i]);
             int j = i;
             while (j > position) {
-                Writes.swap(array, j, j - 1, 0, true, false);
+                Writes.swap(array, j, j - 1, 0.15, true, false);
                 j--;
             }
 
@@ -77,7 +83,7 @@ public class FibonacciGnomeSort extends Sort {
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        fibonacciGnomeSort(array, sortLength);
+        fibonacciGnomeSort(array, 0, sortLength);
 
     }
 

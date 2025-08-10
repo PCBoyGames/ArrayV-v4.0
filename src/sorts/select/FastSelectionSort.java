@@ -51,9 +51,9 @@ public class FastSelectionSort extends Sort {
             int min = i;
 
             for (int j = i + 1; j < length; j++)
-				if (array[j] < array[min]) min = j;
+                if (array[j] < array[min]) min = j;
 
-			Reads.setComparisons(Reads.getComparisons().longValue() + length-i-1);
+            Reads.setComparisons(Reads.getComparisons().longValue() + length-i-1);
             Writes.swap(array, i, min, (double)(length-i)/length, true, false);
         }
     }

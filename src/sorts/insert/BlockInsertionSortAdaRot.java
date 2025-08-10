@@ -21,7 +21,7 @@ public class BlockInsertionSortAdaRot extends GrailSorting {
     }
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {
-        Rotations.adaptable(array, pos, lenA, lenB, 1, true, false);
+        Rotations.adaptableRevised(array, pos, lenA, lenB, 1, true, false);
     }
 
     private int findRun(int[] array, int a, int b) {

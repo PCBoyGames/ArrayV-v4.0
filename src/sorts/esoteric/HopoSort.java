@@ -18,6 +18,9 @@ Worse than WorstWorstsort!
  */
 
 public class HopoSort extends BogoSorting {
+
+    int[] aux;
+
     public HopoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -33,12 +36,30 @@ public class HopoSort extends BogoSorting {
         this.setBogoSort(true);
     }
 
+    public boolean bogoIsSorted(int[] array, int a, int b) {
+        int r;
+        while (true) {
+            boolean loop = false;
+            r = a != b ? randInt(a, b) : a;
+            switch (Reads.compareIndices(array, r, r+1, 0.5, true)) {
+                case 1: Writes.write(aux, r, 1, 0.5, true, true); break;
+                default: Writes.write(aux, r, -1, 0.5, true, true); break;
+            }
+            for (int i = 0; i < b; i++) {
+                switch (Reads.compareIndexValue(aux, i, 0, 0.1, true)) {
+                    case -1: break;
+                    case 0: loop = true; break;
+                    default: return false;
+                }
+            }
+            if (loop) continue;
+            return true;
+        }
+    }
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-    while (!isArraySorted(array, currentLength)) {
-        int i = randInt(1, currentLength);
-        int j = randInt(0, i);
-        Reads.compareIndices(array, i, j, this.delay, true);
-        }
+        aux = Writes.createExternalArray(currentLength-1);
+        while (!bogoIsSorted(array, 0, currentLength-1));
     }
 }

@@ -3,6 +3,7 @@ package visuals;
 import main.ArrayVisualizer;
 import utils.Highlights;
 import utils.Renderer;
+import visuals.image.ImageGrid;
 import visuals.misc.PixelMeshRectangle;
 
 /*
@@ -139,7 +140,26 @@ public enum VisualStyles {
         public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
             ArrayVisualizer.getVisuals()[17].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
         }
-    };
+    },
+    IMAGE_GRID{
+        @Override
+        public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+            ArrayVisualizer.getVisuals()[18].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
+        }
+    },
+    HEATMAP{
+        @Override
+        public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+            ArrayVisualizer.getVisuals()[19].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
+        }
+    },
+    SCATTER_CHORDS{
+        @Override
+        public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
+            ArrayVisualizer.getVisuals()[20].drawVisual(array, ArrayVisualizer, Renderer, Highlights);
+        }
+    }
+    ;
 
     public VisualStyles getCurrentVisual() {
         return this;
@@ -149,9 +169,11 @@ public enum VisualStyles {
 
     public void swapvals() {
         PixelMeshRectangle.swapvals = !PixelMeshRectangle.swapvals;
+        ImageGrid.swapvals = !ImageGrid.swapvals;
     }
 
     public void resetvals() {
         PixelMeshRectangle.swapvals = false;
+        ImageGrid.swapvals = false;
     }
 }

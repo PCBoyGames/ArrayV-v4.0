@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-final public class FastInPlaceLSDRadixSort extends Sort {
+public class FastInPlaceLSDRadixSort extends Sort {
     public FastInPlaceLSDRadixSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -69,22 +69,22 @@ final public class FastInPlaceLSDRadixSort extends Sort {
                 }
                 else {
                     for (int j = 0; j < vregs.length;j++) {
-						if (vregs[j] == sortLength-1) break;
+                        if (vregs[j] == sortLength-1) break;
                         Highlights.markArray(j+1, vregs[j]);
                     }
 
-					int t = array[pos];
-					int k = vregs[digit - 1];
-					for (int j = pos; j < k; j++) array[j] = array[j+1];
+                    int t = array[pos];
+                    int k = vregs[digit - 1];
+                    for (int j = pos; j < k; j++) array[j] = array[j+1];
 
-					Writes.changeWrites(k-pos);
-					Writes.write(array, k, t, 0.5, true, false);
+                    Writes.changeWrites(k-pos);
+                    Writes.write(array, k, t, 0.5, true, false);
 
                     for (int j = digit - 1; j > 0; j--)
                         Writes.write(vregs, j-1, vregs[j-1] - 1, 0, false, true);
                 }
             }
-			Highlights.clearAllMarks();
+            Highlights.clearAllMarks();
         }
         Writes.changeAllocAmount(-vregs.length);
     }

@@ -56,7 +56,7 @@ public class LazicciSortAdaRot extends GrailSorting {
 
     @Override
     protected void grailRotate(int[] array, int pos, int len1, int len2) {
-        Rotations.adaptable(array, pos, len1, len2, 0.5, true, false);
+        Rotations.adaptableRevised(array, pos, len1, len2, 0.5, true, false);
     }
 
     // taken from PDIPop
@@ -68,7 +68,7 @@ public class LazicciSortAdaRot extends GrailSorting {
         int right;
         while (i < end) {
             left = i;
-            while (Reads.compareIndices(array, i, i + 1, 0.25, true) == 0 && i < end) i++;
+            while (i < end && Reads.compareIndices(array, i, i + 1, 0.25, true) == 0) i++;
             right = i;
             if (left != right) {
                 if (right - left < 3) Writes.swap(array, left, right, 0.75, true, false);

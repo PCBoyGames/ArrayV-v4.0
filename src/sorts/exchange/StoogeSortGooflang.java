@@ -42,7 +42,7 @@ public class StoogeSortGooflang extends Sort {
         if (O == 1) {
             if (b - a + 1 >= 3) {
                 Writes.recursion();
-            	goofStooge(1, array, a, b - 1, depth);
+                goofStooge(1, array, a, b - 1, depth);
                 Writes.recursion();
                 goofStooge(1, array, a + 1, b, depth);
                 Writes.recursion();

@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * @author aphitorite
  *
  */
-public final class LazyLogSort extends Sort {
+public class LazyLogSort extends Sort {
 
     public LazyLogSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

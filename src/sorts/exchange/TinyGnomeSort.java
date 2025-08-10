@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  * @author aphitorite
  *
  */
-public final class TinyGnomeSort extends Sort {
+public class TinyGnomeSort extends Sort {
 
     public TinyGnomeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);

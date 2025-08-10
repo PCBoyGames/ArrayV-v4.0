@@ -49,20 +49,20 @@ public class FastBubbleSort extends Sort {
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		Random r = new Random();
+        Random r = new Random();
 
-		for (int j = length; j > 1; j--) {
-			int t = array[0];
+        for (int j = length; j > 1; j--) {
+            int t = array[0];
 
-			for (int i = 1; i < j; i++) {
-				if (t > array[i]) array[i-1] = array[i];
-				else { array[i-1] = t; t = array[i]; }
-			}
-			Reads.setComparisons(Reads.getComparisons().longValue() + j-1);
-			Writes.changeWrites(j-1);
+            for (int i = 1; i < j; i++) {
+                if (t > array[i]) array[i-1] = array[i];
+                else { array[i-1] = t; t = array[i]; }
+            }
+            Reads.setComparisons(Reads.getComparisons().longValue() + j-1);
+            Writes.changeWrites(j-1);
 
-			Writes.write(array, j-1, t, (double)j/length, true, false);
-			Highlights.markArray(1, r.nextInt(j));
-		}
+            Writes.write(array, j-1, t, (double)j/length, true, false);
+            Highlights.markArray(1, r.nextInt(j));
+        }
     }
 }

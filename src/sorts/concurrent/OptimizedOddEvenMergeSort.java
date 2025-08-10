@@ -7,7 +7,7 @@ import sorts.templates.Sort;
  *
 MIT License
 
-Copyright (c) 2020 aphitorite
+Copyright (c) 2020-2025 aphitorite
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,86 +30,73 @@ SOFTWARE.
  */
 
 public class OptimizedOddEvenMergeSort extends Sort {
-    public OptimizedOddEvenMergeSort(ArrayVisualizer arrayVisualizer) {
-        super(arrayVisualizer);
+	public OptimizedOddEvenMergeSort(ArrayVisualizer arrayVisualizer) {
+		super(arrayVisualizer);
 
-        this.setSortListName("Optimized Odd-Even Merge");
-        this.setRunAllSortsName("Optimized Odd-Even Merge Sort");
-        this.setRunSortName("Optimized Odd-Even Mergesort");
-        this.setCategory("Concurrent Sorts");
-        this.setComparisonBased(true);
-        this.setBucketSort(false);
-        this.setRadixSort(false);
-        this.setUnreasonablySlow(false);
-        this.setUnreasonableLimit(0);
-        this.setBogoSort(false);
-    }
+		this.setSortListName("Optimized Odd-Even Merge");
+		this.setRunAllSortsName("Optimized Odd-Even Merge Sort");
+		this.setRunSortName("Optimized Odd-Even Mergesort");
+		this.setCategory("Concurrent Sorts");
+		this.setComparisonBased(true);
+		this.setBucketSort(false);
+		this.setRadixSort(false);
+		this.setUnreasonablySlow(false);
+		this.setUnreasonableLimit(0);
+		this.setBogoSort(false);
+	}
 
-    private void compSwap(int[] array, int a, int b) {
-        if (Reads.compareIndices(array, a, b, 0.5, true) == 1)
-            Writes.swap(array, a, b, 0.5, true, false);
-    }
+	private void ce(int[] array, int a, int b) {
+		if(Reads.compareIndices(array, a, b, 0.5, true) > 0)
+			Writes.swap(array, a, b, 0.5, true, false);
+	}
 
-    private void compRange(int[] array, int a, int m, int s) {
-        for (int i = s; a+i < m; i++)
-            this.compSwap(array, a+i, m+i);
-    }
+	private void mergePass(int[] array, int a, int b) {
+		int h = (b-a)/2;
 
-    private void compRangeExtd(int[] array, int a, int m, int p) {
-        int l = m-a;
+		for(int i = 0; i < h; i++)
+			this.ce(array, a+i, b-h+i);
+	}
 
-        if (l > p) {
-            int i = a, j, d = l-p;
+	//precondition: diff(m-a, b-m) <= 1
+	private void mergePassLevel(int[] array, int a, int m, int b, int k) {
+		if(m-a < b-m) a--;
+		if(b-m < m-a) b++;
 
-            for (j = 0; j < d;   j++, i++) this.compSwap(array, i, i+p);
-            for (j = 0; j < p-d; j++, i++) this.compSwap(array, i, i+l);
-            for (j = 0; j < d;   j++, i++) this.compSwap(array, i+d, i+l);
-        }
-        else this.compRange(array, a, m, 0);
-    }
+		int n = b-a, p = m;
 
-    private void merge(int[] array, int a, int b) {
-        int m, s = (b-a)%2;
+		for(int j = a+k; j < m; j += 2*k) {
+			for(int i = j; i < Math.min(m, j+k); i++) {
+				if(i+k < m) {
+					int mi = a+(n-1)-(i-a);
+					this.ce(array, i, i+k);
+					this.ce(array, mi-k, mi);
+					if(j + 2*k > m) p++;
+				}
+				else this.ce(array, i, p++);
+			}
+		}
+	}
 
-        a -= s;
-        m = (a+b)/2;
-        this.compRange(array, a, m, s);
+	@Override
+	public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
+		int a = 0, b = sortLength;
+		int n = b-a;
 
-        int l = b-a;
-        if (l < 4) return;
+		for(int d = 1 << 32-Integer.numberOfLeadingZeros(n-1), k = 1; d > 1; d /= 2, k *= 2) {
+			for(int j = k; j > 0; j /= 2) {
+				for(int i = a, dec = 0; i < b; ) {
+					int im = i + (dec += n)/d;
+					dec %= d;
 
-        int p;
-        for (p = 1; 2*p < l; p *= 2);
+					int ib = im + (dec += n)/d;
+					dec %= d;
 
-        while (p > 0) {
-            int i = a+p;
+					if(j == k) this.mergePass(array, i, ib);
+					else this.mergePassLevel(array, i, im, ib, j);
 
-            while (i + 2*p <= m) {
-                this.compRange(array, i, i+p, 0);
-                i += 2*p;
-            }
-            this.compRangeExtd(array, i, m, p);
-            i = 2*m - i;
-
-            while (i < b-p) {
-                this.compRange(array, i, i+p, 0);
-                i += 2*p;
-            }
-            p /= 2;
-        }
-    }
-
-    private void mergeSort(int[] array, int a, int b) {
-        int m = (a+b)/2;
-
-        if (m-a > 1) this.mergeSort(array, a, m);
-        if (b-m > 1) this.mergeSort(array, m, b);
-
-        this.merge(array, a, b);
-    }
-
-    @Override
-    public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
-        this.mergeSort(array, 0, sortLength);
-    }
+					i = ib;
+				}
+			}
+		}
+	}
 }

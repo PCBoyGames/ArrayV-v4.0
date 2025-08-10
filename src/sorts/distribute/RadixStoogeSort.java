@@ -29,7 +29,7 @@ SOFTWARE.
  *
  */
 
-public final class RadixStoogeSort extends Sort {
+public class RadixStoogeSort extends Sort {
     public RadixStoogeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 

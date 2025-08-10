@@ -33,7 +33,7 @@ public class RotateSelectSort extends Sort {
         for (int i = start + 1; i < end; i++) if (Reads.compareIndices(array, i, min, 0.1, true) < 0) min = i;
         if (min != start) {
             Highlights.clearAllMarks();
-            IndexedRotations.adaptable(array, start, min, end, 0.1, true, false);
+            IndexedRotations.adaptableRevised(array, start, min, end, 0.1, true, false);
         }
     }
 

@@ -14,13 +14,13 @@ CODED FOR ARRAYV BY PCBOYGAMES
 public class BismuthSortNoBuffers extends BismuthSort {
     public BismuthSortNoBuffers(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
-        this.setSortListName("Bismuth [WIP] (No Buffers)");
-        this.setRunAllSortsName("Bismuth Sort (No Buffers)");
-        this.setRunSortName("Bismuth Sort (No Buffers)");
+        this.setSortListName("Bismuth [WIP] (No Main Buffers)");
+        this.setRunAllSortsName("Bismuth Sort (No Main Buffers)");
+        this.setRunSortName("Bismuth Sort (No Main Buffers)");
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int getSize) {
-        bismuthSort(array, 0, currentLength, getSize, false);
+        bismuthSort(array, 0, currentLength, getSize, false, false, 0);
     }
 }

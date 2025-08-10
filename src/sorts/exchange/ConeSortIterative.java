@@ -33,25 +33,25 @@ public class ConeSortIterative extends Sort {
         this.setBogoSort(false);
     }
 
-	private boolean compSwap(int[] array, int a, int b) {
-		if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
-			Writes.swap(array, a, b, 0.5, true, false);
-			return true;
-		}
-		return false;
-	}
+    private boolean compSwap(int[] array, int a, int b) {
+        if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
+            Writes.swap(array, a, b, 0.5, true, false);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-		int n = 1;
-    	for (; n < currentLength; n *= 2);
+        int n = 1;
+        for (; n < currentLength; n *= 2);
 
-		for (boolean s = true; s;) {
-			s = false;
-			for (int k = 0; k < n/2; k++)
-				for (int j = n; j > 1 && k < j-1-k; j /= 2)
-					for (int i = 0; i+j-1-k < currentLength; i += j)
-						s |= this.compSwap(array, i+k, i+j-1-k);
-		}
+        for (boolean s = true; s;) {
+            s = false;
+            for (int k = 0; k < n/2; k++)
+                for (int j = n; j > 1 && k < j-1-k; j /= 2)
+                    for (int i = 0; i+j-1-k < currentLength; i += j)
+                        s |= this.compSwap(array, i+k, i+j-1-k);
+        }
     }
 }

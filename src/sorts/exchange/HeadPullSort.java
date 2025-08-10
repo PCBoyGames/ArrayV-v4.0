@@ -47,6 +47,14 @@ public class HeadPullSort extends Sort {
         this.setUnreasonableLimit(32);
         this.setBogoSort(false);
     }
+
+    public void headPull(int[] array, int start, int end, double time) {
+        for (int i = start; i + 1 < end;) {
+            if (Reads.compareIndices(array, i, i + 1, time, true) > 0) Writes.multiSwap(array, i + 1, i = start, time, true, false);
+            else i++;
+        }
+    }
+
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
         for (int i = 0; i + 1 < currentLength;) {

@@ -32,7 +32,7 @@ public class NitroCircleSortRecursive extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-
+    
     void shellPass(int[] array, int a, int b, int gap) {
         for (int i = a + gap; i < b; i++) {
             int tmp = array[i];
@@ -47,42 +47,42 @@ public class NitroCircleSortRecursive extends Sort {
             if (j != i) Writes.write(array, j, tmp, 0.7, true, false);
         }
     }
-
+    
     public void shellSort(int[] array, int a, int b) {
         for (int gap = (int) Math.sqrt(b - a); gap >= 2; gap /= 2.3601) shellPass(array, a, b, gap);
         shellPass(array, a, b, 1);
     }
-
-    protected int circlePass(int[] array, int a, int b, int bnd) {
-        if (a >= b) return 0;
-        int swapCnt = 0;
+    
+    protected boolean circlePass(int[] array, int a, int b, int bnd) {
+        if (a >= b) return false;
+        boolean anySwaps = false;
         int l = a, r = b, m = (b - a) / 2;
         while (l < r) {
             if (r < bnd && Reads.compareIndices(array, l, r, 0.5, true) > 0) {
                 Writes.swap(array, l, r, 1, true, false);
-                swapCnt++;
+                anySwaps = true;
             }
             l++;
             r--;
         }
-        swapCnt += circlePass(array, a, a + m, bnd);
-        if (a + m + 1 < bnd) swapCnt += circlePass(array, a + m + 1, b, bnd);
-        return swapCnt;
+        anySwaps |= circlePass(array, a, a + m, bnd);
+        if (a + m + 1 < bnd) anySwaps |= circlePass(array, a + m + 1, b, bnd); 
+        return anySwaps;
     }
-
+    
     public void sort(int[] array, int a, int b) {
         int length = b - a;
         int threshold = 0, n = 1;
-        for (; n < length; n*=2, threshold++);
+        for(; n < length; n*=2, threshold++);
         threshold /= 2;
         int iterations = 0;
         do {
             iterations++;
-            if (iterations >= threshold) {
+            if(iterations >= threshold) {
                 shellSort(array, a, b);
                 break;
             }
-        } while (circlePass(array, a, a + n - 1, b) != 0);
+        } while (circlePass(array, a, a + n - 1, b));
     }
 
     @Override

@@ -17,7 +17,7 @@ based off of the distributive property
 
  */
 
-public final class DistributiveSort extends Sort {
+public class DistributiveSort extends Sort {
     public DistributiveSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -33,7 +33,7 @@ public final class DistributiveSort extends Sort {
         this.setBogoSort(false);
     }
 
-    public void distribuive(int[] array, int a, int b, int d) {
+    public void distributive(int[] array, int a, int b, int d) {
         if (a >= b) return;
         Writes.recordDepth(d++);
         int m = (b - a) / 2;
@@ -42,13 +42,13 @@ public final class DistributiveSort extends Sort {
                 if (Reads.compareIndices(array, i, j, 0.5, true) > 0)
                     Writes.swap(array, i, j, 0.5, true, false);
         Writes.recursion();
-        distribuive(array, a, a+m, d);
+        distributive(array, a, a+m, d);
         Writes.recursion();
-        distribuive(array, b-m, b, d);
+        distributive(array, b-m, b, d);
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        distribuive(array, 0, currentLength-1, 0);
+        distributive(array, 0, currentLength-1, 0);
     }
 }

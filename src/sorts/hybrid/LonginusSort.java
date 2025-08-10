@@ -60,21 +60,21 @@ public class LonginusSort extends Sort {
             }
             if (c != 0) {
                 if ((b + 6) * (b + 3) > currentLength) {
-                    IndexedRotations.adaptable(array, p - 1, p, r, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, p - 1, p, r, 0.5, true, false);
                     i--;
                 } else if (r == i + b) {
-                    IndexedRotations.adaptable(array, p - 1, i, i + b, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, p - 1, i, i + b, 0.5, true, false);
                     i = p - 1;
                 } else {
-                    IndexedRotations.adaptable(array, p, i, i + b, 0.5, true, false);
-                    IndexedRotations.adaptable(array, p - 1, p, p + (r - i), 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, p, i, i + b, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, p - 1, p, p + (r - i), 0.5, true, false);
                     i = p - 1;
                 }
                 b++;
             }
             p--;
         }
-        IndexedRotations.adaptable(array, i, i + b, currentLength, 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, i, i + b, currentLength, 0.5, true, false);
         if (Math.pow(2, b) <= currentLength) {
             // I'll do you one better.
             LazicciSortAdaRot lazy = new LazicciSortAdaRot(arrayVisualizer);
@@ -111,17 +111,17 @@ public class LonginusSort extends Sort {
                 else r = (int) Math.floor((l + r) / 2);
             }
             if (c != 0) {
-                if (k > b - 3 || r == i) IndexedRotations.adaptable(array, r, p, p + 1, 0.5, true, false);
+                if (k > b - 3 || r == i) IndexedRotations.adaptableRevised(array, r, p, p + 1, 0.5, true, false);
                 else {
-                    IndexedRotations.adaptable(array, i, i + k, p, 0.5, true, false);
-                    IndexedRotations.adaptable(array, (p + r) - (i + k), p, p + 1, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, i, i + k, p, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, (p + r) - (i + k), p, p + 1, 0.5, true, false);
                     i = p - k;
                 }
                 k++;
             }
             p++;
         }
-        IndexedRotations.adaptable(array, 0, i, i + k, 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, 0, i, i + k, 0.5, true, false);
         phase2(array, currentLength, s, b, k, p, c, l, m, r, i);
     }
 
@@ -154,7 +154,7 @@ public class LonginusSort extends Sort {
                             if (p == c) p = r;
                             c++;
                             if (r - m == s - 1) {
-                                IndexedRotations.adaptable(array, c, p, r + 1, 0.5, true, false);
+                                IndexedRotations.adaptableRevised(array, c, p, r + 1, 0.5, true, false);
                                 i = 0;
                             }
                         } else {
@@ -165,22 +165,22 @@ public class LonginusSort extends Sort {
                         if (i == 1) {
                             if (r - p > p - c && p > c) {
                                 Writes.swap(array, c, r, 0.5, true, false);
-                                IndexedRotations.adaptable(array, c, c + 1, p, 0.5, true, false);
+                                IndexedRotations.adaptableRevised(array, c, c + 1, p, 0.5, true, false);
                             } else {
-                                IndexedRotations.adaptable(array, p, r, r + 1, 0.5, true, false);
+                                IndexedRotations.adaptableRevised(array, p, r, r + 1, 0.5, true, false);
                                 p++;
                             }
                             if (r - c > Math.sqrt(s)) {
-                                IndexedRotations.adaptable(array, c, p, r + 1, 0.5, true, false);
+                                IndexedRotations.adaptableRevised(array, c, p, r + 1, 0.5, true, false);
                                 if (m - r - s > c - m) {
-                                    IndexedRotations.adaptable(array, m, c, r + 1, 0.5, true, false);
+                                    IndexedRotations.adaptableRevised(array, m, c, r + 1, 0.5, true, false);
                                     m += r + 1 - c;
                                 } else if (r + 1 - c > m - r - s) {
                                     blockSwap(array, r - s, (r - m) + (r - s) + 1, true, m - r - s);
-                                    IndexedRotations.adaptable(array, c, (r - m) + (r - s) + 1, r + 1, 0.5, true, false);
+                                    IndexedRotations.adaptableRevised(array, c, (r - m) + (r - s) + 1, r + 1, 0.5, true, false);
                                 } else {
                                     blockSwap(array, r - s, c, true, (r + 1) - c);
-                                    IndexedRotations.adaptable(array, r - s, (r - s) + (r - c) + 1, m, 0.5, true, false);
+                                    IndexedRotations.adaptableRevised(array, r - s, (r - s) + (r - c) + 1, m, 0.5, true, false);
                                 }
                                 i = 0;
                             }
@@ -188,11 +188,11 @@ public class LonginusSort extends Sort {
                             // Really, though. That takes thought. I don't normally do it this way.
                             if (r - m == s);
                             else if (r - m <= Math.sqrt(s)) {
-                                IndexedRotations.adaptable(array, m, r, r + 1, 0.5, true, false);
+                                IndexedRotations.adaptableRevised(array, m, r, r + 1, 0.5, true, false);
                                 m++;
                             } else if (m - r - s <= Math.sqrt(s)) {
                                 Writes.swap(array, r - s, r, 0.5, true, false);
-                                IndexedRotations.adaptable(array, r - s, r - s + 1, m, 0.5, true, false);
+                                IndexedRotations.adaptableRevised(array, r - s, r - s + 1, m, 0.5, true, false);
                             } else {
                                 i = 1;
                                 c = r;
@@ -204,8 +204,8 @@ public class LonginusSort extends Sort {
                     r++;
                 }
                 if (i == 1) {
-                    IndexedRotations.adaptable(array, c, p, r, 0.5, true, false);
-                    IndexedRotations.adaptable(array, m, c, r, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, c, p, r, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, m, c, r, 0.5, true, false);
                     m += r - c;
                     i = 0;
                 }
@@ -214,7 +214,7 @@ public class LonginusSort extends Sort {
                     if (r - m == s) m = r;
                     r++;
                 }
-                IndexedRotations.adaptable(array, r - s, m, r, 0.5, true, false);
+                IndexedRotations.adaptableRevised(array, r - s, m, r, 0.5, true, false);
                 l -= s;
             }
         }
@@ -259,7 +259,7 @@ public class LonginusSort extends Sort {
         i = 0;
         m = 1;
         while (!(i * k >= Math.floor((currentLength - k) / b) - 2)) {
-            if (m == 0) IndexedRotations.adaptable(array, k + ((i - 1) * k * b), k + ((((i - 1) * k) + 1) * b), k + (((i * k) + 1) * b), 0.5, true, false);
+            if (m == 0) IndexedRotations.adaptableRevised(array, k + ((i - 1) * k * b), k + ((((i - 1) * k) + 1) * b), k + (((i * k) + 1) * b), 0.5, true, false);
             else m = 0;
             while (!(m + 2 > k || k + (((i * k) + m + 3) * b) > currentLength - ((currentLength - k) % b))) {
                 mergeWithBuffer(array, k + (((i * k) + m + 1) * b), k + (((i * k) + m + 2) * b), k + (((i * k) + m + 3) * b), b, true);
@@ -338,7 +338,7 @@ public class LonginusSort extends Sort {
     // I can't believe I have to port things like this. I mean, yes, I like doing ports of these algorithms.
     // Just... when the code is not text-based, it means I have to write all of this by hand! And it hurts!
     protected int right(int[] array, int currentLength, int s, int b, int k, int p, int c, int l, int m, int r, int i) {
-        IndexedRotations.adaptable(array, k + (i * k * b), k + (i * k * b) + (m * b), k + (i * k * b) + ((m + 1) * b), 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, k + (i * k * b), k + (i * k * b) + (m * b), k + (i * k * b) + ((m + 1) * b), 0.5, true, false);
         m = 0;
         while (!(m + Math.pow(2, s) >= k || k + ((1 + (i * k) + m + Math.pow(2, s)) * b) >= currentLength - ((currentLength - k) % b))) {
             l = m;
@@ -411,8 +411,8 @@ public class LonginusSort extends Sort {
         // Another one we talked about, except the previous form was buggy.
         c = Math.min(k, (int) Math.floor((currentLength - k) / b) - 1 - i * k);
         if (c % Math.pow(2, s + 1) <= Math.pow(2, s)) c -= c % Math.pow(2, s + 1);
-        if (c > m) IndexedRotations.adaptable(array, k + (((i * k) + m) * b), k + (((i * k) + m + 1) * b), k + (((i * k) + c + 1) * b), 0.5, true, false);
-        else IndexedRotations.adaptable(array, k + (((i * k) + c) * b), k + (((i * k) + m) * b), k + (((i * k) + m + 1) * b), 0.5, true, false);
+        if (c > m) IndexedRotations.adaptableRevised(array, k + (((i * k) + m) * b), k + (((i * k) + m + 1) * b), k + (((i * k) + c + 1) * b), 0.5, true, false);
+        else IndexedRotations.adaptableRevised(array, k + (((i * k) + c) * b), k + (((i * k) + m) * b), k + (((i * k) + m + 1) * b), 0.5, true, false);
         // This set to was in both of the if else cases from above. It's now isolated to appear only once.
         m = c;
         while (!(m == 0)) {
@@ -480,7 +480,7 @@ public class LonginusSort extends Sort {
     }
 
     protected void phase4(int[] array, int currentLength, int s, int b, int k, int p, int c, int l, int m, int r, int i) {
-        IndexedRotations.adaptable(array, k + ((((i - 1) * k) + m) * b), k + ((((i - 1) * k) + m + 1) * b), currentLength, 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, k + ((((i - 1) * k) + m) * b), k + ((((i - 1) * k) + m + 1) * b), currentLength, 0.5, true, false);
         inner(array, currentLength - b, currentLength);
         if (currentLength - k >= (i * k + 2) * b) i++;
         merge(array, (currentLength - b) - (currentLength - k) % b, currentLength - b, currentLength);
@@ -507,7 +507,7 @@ public class LonginusSort extends Sort {
                 if (l < m) {
                     p = m;
                     while (!(m == r || pair(array, m, l) < 1)) m++;
-                    IndexedRotations.adaptable(array, l, p, m, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, l, p, m, 0.5, true, false);
                     l += m - p;
                 }
             } else {
@@ -515,7 +515,7 @@ public class LonginusSort extends Sort {
                 if (m < r) {
                     p = m;
                     while (!(m == l || pair(array, r - 1, m - 1) < 1)) m--;
-                    IndexedRotations.adaptable(array, m, p, r, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, m, p, r, 0.5, true, false);
                     r += m - p;
                 }
             }
@@ -550,14 +550,14 @@ public class LonginusSort extends Sort {
         while (l < w && w + r < e - s) {
             if (pair(array, s + l + r, s) == 1) l++;
             else {
-                IndexedRotations.adaptable(array, s, s + r, s + r + l, 0.5, true, false);
+                IndexedRotations.adaptableRevised(array, s, s + r, s + r + l, 0.5, true, false);
                 s += l;
                 w -= l;
                 l = 0;
                 r++;
             }
         }
-        IndexedRotations.adaptable(array, s, s + r, (l < w) ? e : (s + r + l), 0.5, true, false);
+        IndexedRotations.adaptableRevised(array, s, s + r, (l < w) ? e : (s + r + l), 0.5, true, false);
     }
 
     // Replaced with an insertion sort combination upon request of talinuva.
@@ -596,7 +596,7 @@ public class LonginusSort extends Sort {
                             else b = (int) Math.floor((b + t) / 2);
                         }
                     }
-                    IndexedRotations.adaptable(array, t, m, p + 1, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, t, m, p + 1, 0.5, true, false);
                     Writes.recursion();
                     depthMerge(array, l, t, t + p - m, d - 1, depth + 1);
                     l = t + p + 1 - m;
@@ -611,7 +611,7 @@ public class LonginusSort extends Sort {
                             else t = (int) Math.floor((b + t) / 2);
                         }
                     } else t = m;
-                    IndexedRotations.adaptable(array, p, m, t, 0.5, true, false);
+                    IndexedRotations.adaptableRevised(array, p, m, t, 0.5, true, false);
                     Writes.recursion();
                     depthMerge(array, l, p, p + t - m, d - 1, depth + 1);
                     l = p + t + 1 - m;

@@ -1,7 +1,7 @@
 package sorts.quick;
 
 import main.ArrayVisualizer;
-import sorts.templates.Sort;
+import sorts.templates.MadhouseTools;
 
 /*
 
@@ -12,7 +12,7 @@ PORTED TO ARRAYV BY PCBOYGAMES
 ------------------------------
 
 */
-public class HeadPullQuickSort extends Sort {
+public class HeadPullQuickSort extends MadhouseTools {
     public HeadPullQuickSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Head Pull Quick");
@@ -29,12 +29,13 @@ public class HeadPullQuickSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        int left = 1;
-        while (left != currentLength) {
-            boolean anyswaps = false;
-            for (int right = left + 1; right <= currentLength; right++) if (Reads.compareIndices(array, left - 1, right - 1, 0.001, true) > 0) Writes.multiSwap(array, right - 1, 0, 0.001, anyswaps = true, false);
-            if (anyswaps) left = 1;
-            else left++;
+        int left = 0;
+        while (left < currentLength) {
+            for (int right = left; right < currentLength; right++) if (Reads.compareIndices(array, left, right, 0.001, true) > 0) {
+                Writes.multiSwap(array, right, 0, 0.001, true, false);
+                left++;
+            }
+            left = minSorted(array, 0, currentLength, 0.001, true);
         }
     }
 }

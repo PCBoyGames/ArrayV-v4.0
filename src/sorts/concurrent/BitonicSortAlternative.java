@@ -30,71 +30,71 @@ SOFTWARE.
  */
 
 public class BitonicSortAlternative extends Sort {
-	public BitonicSortAlternative(ArrayVisualizer arrayVisualizer) {
-		super(arrayVisualizer);
+    public BitonicSortAlternative(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
 
-		this.setSortListName("Bitonic (Alternative)");
-		this.setRunAllSortsName("Alternative Bitonic Sort");
-		this.setRunSortName("Alternative Bitonic Sort");
-		this.setCategory("Concurrent Sorts");
-		this.setComparisonBased(true);
-		this.setBucketSort(false);
-		this.setRadixSort(false);
-		this.setUnreasonablySlow(false);
-		this.setUnreasonableLimit(0);
-		this.setBogoSort(false);
-	}
+        this.setSortListName("Bitonic (Alternative)");
+        this.setRunAllSortsName("Alternative Bitonic Sort");
+        this.setRunSortName("Alternative Bitonic Sort");
+        this.setCategory("Concurrent Sorts");
+        this.setComparisonBased(true);
+        this.setBucketSort(false);
+        this.setRadixSort(false);
+        this.setUnreasonablySlow(false);
+        this.setUnreasonableLimit(0);
+        this.setBogoSort(false);
+    }
 
-	private void compSwap(int[] array, int a, int b) {
-		if (Reads.compareIndices(array, a, b, 0.5, true) > 0)
-			Writes.swap(array, a, b, 0.5, false, false);
-	}
+    private void compSwap(int[] array, int a, int b) {
+        if (Reads.compareIndices(array, a, b, 0.5, true) > 0)
+            Writes.swap(array, a, b, 0.5, false, false);
+    }
 
-	private void bitonicMergeL(int[] array, int a, int a1, int b) {
-		int m = b-a1;
+    private void bitonicMergeL(int[] array, int a, int a1, int b) {
+        int m = b-a1;
 
-		if (m < 1) return;
+        if (m < 1) return;
 
-		for (int i = a1, j = b; i > a && j > a1; )
-			this.compSwap(array, --i, --j);
+        for (int i = a1, j = b; i > a && j > a1; )
+            this.compSwap(array, --i, --j);
 
-		this.bitonicMergeL(array, a, b-m/2, b);
-		this.bitonicMergeL(array, a, a1-m/2, a1);
-	}
-	private void bitonicMergeR(int[] array, int a, int b1, int b) {
-		int m = b1-a;
+        this.bitonicMergeL(array, a, b-m/2, b);
+        this.bitonicMergeL(array, a, a1-m/2, a1);
+    }
+    private void bitonicMergeR(int[] array, int a, int b1, int b) {
+        int m = b1-a;
 
-		if (m < 1) return;
+        if (m < 1) return;
 
-		for (int i = a, j = b1; i < b1 && j < b; )
-			this.compSwap(array, i++, j++);
+        for (int i = a, j = b1; i < b1 && j < b; )
+            this.compSwap(array, i++, j++);
 
-		this.bitonicMergeR(array, a, a+m/2, b);
-		this.bitonicMergeR(array, b1, b1+m/2, b);
-	}
+        this.bitonicMergeR(array, a, a+m/2, b);
+        this.bitonicMergeR(array, b1, b1+m/2, b);
+    }
 
-	private void bitonicSort(int[] array, int a, int b) {
-		if (b-a < 2) return;
+    private void bitonicSort(int[] array, int a, int b) {
+        if (b-a < 2) return;
 
-		int m = (a+b)/2;
+        int m = (a+b)/2;
 
-		this.bitonicSort(array, a, m);
-		this.bitonicSort(array, m, b);
+        this.bitonicSort(array, a, m);
+        this.bitonicSort(array, m, b);
 
-		for (int i = m-1, j = m; i >= a; i--, j++)
-			this.compSwap(array, i, j);
+        for (int i = m-1, j = m; i >= a; i--, j++)
+            this.compSwap(array, i, j);
 
-		int k;
+        int k;
 
-		for (k = 1; 2*k < m-a; k *= 2);
-		this.bitonicMergeL(array, a, m-k, m);
+        for (k = 1; 2*k < m-a; k *= 2);
+        this.bitonicMergeL(array, a, m-k, m);
 
-		for (k = 1; 2*k < b-m; k *= 2);
-		this.bitonicMergeR(array, m, m+k, b);
-	}
+        for (k = 1; 2*k < b-m; k *= 2);
+        this.bitonicMergeR(array, m, m+k, b);
+    }
 
-	@Override
-	public void runSort(int[] array, int sortLength, int bucketCount) {
-		this.bitonicSort(array, 0, sortLength);
-	}
+    @Override
+    public void runSort(int[] array, int sortLength, int bucketCount) {
+        this.bitonicSort(array, 0, sortLength);
+    }
 }

@@ -102,7 +102,7 @@ public class OptimizedSafeStalinSort extends Sort {
             int size = stacks.size();
             reciteStacks(array, 0, workinglength, stacks);
             if (size > 2) {
-                IndexedRotations.adaptable(array, 0, firstlen, workinglength, 1, true, false);
+                IndexedRotations.adaptableRevised(array, 0, firstlen, workinglength, 1, true, false);
                 if (!check) workinglength -= stepDown(array, workinglength);
                 Statistics.resetStat("Stack");
             } else {

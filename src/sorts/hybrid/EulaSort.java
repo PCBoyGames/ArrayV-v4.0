@@ -54,7 +54,7 @@ public class EulaSort extends Sort {
         if (len < 2) return;
         // TreeSets allow for me to take all the uniques without dupes.
         // It *also* allows me to check if there are dupes at all. AT THE SAME TIME!
-        TreeSet<Integer> uSet = new TreeSet<>(new Comparator<Integer>(){
+        TreeSet<Integer> uSet = new TreeSet<>(new Comparator<Integer>() {
             @Override
             public int compare(Integer lhs, Integer rhs) {
                 return Reads.compareValues(lhs, rhs);

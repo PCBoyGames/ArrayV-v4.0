@@ -1195,7 +1195,7 @@ public enum Shuffles {
 			Writes.arraycopy(temp, 0, array, 0, currentLength, sleep, true, false);
         }
 		public void traverse(int[] array, int[] temp, int[] idx, int a, int b, Highlights Highlights, Delays Delays, double sleep) {
-			if(b-a < 1) return;
+			if (b-a < 1) return;
 
 			int m = (a+b)/2;
 			temp[idx[0]++] = array[m];
@@ -1232,8 +1232,8 @@ public enum Shuffles {
 			Highlights.markArray(1, r);
 			Delays.sleep(sleep);
 
-			if(lower[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, lower[r], sleep);
-			if(upper[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, upper[r], sleep);
+			if (lower[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, lower[r], sleep);
+			if (upper[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, upper[r], sleep);
 		}
 	},
 	RBST_BREADTH {
@@ -1268,8 +1268,8 @@ public enum Shuffles {
 
 				Writes.write(temp, i++, array[r], 0, true, false);
 
-                if(lower[r] != 0) q.add(lower[r]);
-                if(upper[r] != 0) q.add(upper[r]);
+                if (lower[r] != 0) q.add(lower[r]);
+                if (upper[r] != 0) q.add(upper[r]);
             }
 			Writes.arraycopy(temp, 0, array, 0, currentLength, sleep, true, false);
         }
@@ -2970,8 +2970,8 @@ public enum Shuffles {
 			Highlights.markArray(1, r);
 			Delays.sleep(sleep);
 
-			if(lower[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, lower[r], sleep);
-			if(upper[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, upper[r], sleep);
+			if (lower[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, lower[r], sleep);
+			if (upper[r] != 0) traverse(Writes, Highlights, Delays, array, idx, temp, lower, upper, upper[r], sleep);
 		}
 	},
 	SEEDED_RBST_BREADTH {
@@ -3000,8 +3000,8 @@ public enum Shuffles {
 
 				Writes.write(temp, i++, array[r], 0, true, false);
 
-                if(lower[r] != 0) q.add(lower[r]);
-                if(upper[r] != 0) q.add(upper[r]);
+                if (lower[r] != 0) q.add(lower[r]);
+                if (upper[r] != 0) q.add(upper[r]);
             }
 			Writes.arraycopy(temp, 0, array, 0, currentLength, sleep, true, false);
         }
@@ -3213,7 +3213,7 @@ public enum Shuffles {
     }
 
     public void treesort(int[] array, int[] lower, int[] upper, int currentLength, double sleep, Reads Reads, Highlights Highlights, Delays Delays, Writes Writes) {
-		for(int i = 1; i < currentLength; i++) {
+		for (int i = 1; i < currentLength; i++) {
 			Highlights.markArray(2, i);
 			int c = 0;
 
@@ -3223,7 +3223,7 @@ public enum Shuffles {
 
 				int[] next = Reads.compareValues(array[i], array[c]) < 0 ? lower : upper;
 
-				if(next[c] == 0) {
+				if (next[c] == 0) {
 					next[c] = i;
                     Writes.auxWrites++;
 					break;

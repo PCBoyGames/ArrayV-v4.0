@@ -99,12 +99,12 @@ public class SwaplessIntroSort extends Sort {
 
     protected int medOf3(int[] array, int i0, int i1, int i2) {
         int tmp;
-        if(Reads.compareIndices(array, i0, i1, 1, true) > 0) {
+        if (Reads.compareIndices(array, i0, i1, 1, true) > 0) {
             tmp = i1;
             i1 = i0;
         } else tmp = i0;
-        if(Reads.compareIndices(array, i1, i2, 1, true) > 0) {
-            if(Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
+        if (Reads.compareIndices(array, i1, i2, 1, true) > 0) {
+            if (Reads.compareIndices(array, tmp, i2, 1, true) > 0) return tmp;
             return i2;
         }
         return i1;

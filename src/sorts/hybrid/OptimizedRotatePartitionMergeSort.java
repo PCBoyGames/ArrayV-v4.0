@@ -361,8 +361,8 @@ public class OptimizedRotatePartitionMergeSort extends Sort {
     public void mergeSortWithBuf(int[] array, int[] buf, int a, int b) {
         int j = MIN_RUN;
         if (buildRuns(array, a, b, j)) return;
-        for(; j < b - a; j *= 2) {
-            for(int i = a; i+j < b; i += 2*j)
+        for (; j < b - a; j *= 2) {
+            for (int i = a; i+j < b; i += 2*j)
                 rotateMerge(array, buf, i, i + j, Math.min(i + 2 * j, b));
         }
     }

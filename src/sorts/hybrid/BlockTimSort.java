@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * <p>
  * To use this algorithm in another, use {@code blockMergeSort()} from a
  * reference instance.
- * 
+ *
  * @author Haruki (a.k.a. Ayako-chan)
  * @author aphitorite
  *
@@ -155,7 +155,7 @@ public class BlockTimSort extends Sort {
     protected void mergeFromBuf(int[] array, int[] buf, int a, int m, int b, int bufLen) {
         int i = 0;
         while(i < bufLen && m < b)
-            if(Reads.compareValues(buf[i], array[m]) <= 0)
+            if (Reads.compareValues(buf[i], array[m]) <= 0)
                 Writes.write(array, a++, buf[i++], 1, true, false);
             else
                 Writes.write(array, a++, array[m++], 1, true, false);
@@ -168,7 +168,7 @@ public class BlockTimSort extends Sort {
         while(i < m && j < b) {
             Highlights.markArray(2, i);
             Highlights.markArray(3, j);
-            if(Reads.compareValues(from[i], from[j]) <= 0)
+            if (Reads.compareValues(from[i], from[j]) <= 0)
                 Writes.write(to, p++, from[i++], 1, true, aux);
             else
                 Writes.write(to, p++, from[j++], 1, true, aux);
@@ -273,7 +273,7 @@ public class BlockTimSort extends Sort {
         }
         return mKey;
     }
-    
+
     protected int mergeBlocks(int[] array, int a, int m, int b, int p, boolean fwEq) {
         int i = a, j = m;
         while (i < m && j < b) {
@@ -283,7 +283,7 @@ public class BlockTimSort extends Sort {
             else
                 Writes.write(array, p++, array[j++], 1.0, true, false);
         }
-        if(i > p) shiftFWExt(array, p, i, m);
+        if (i > p) shiftFWExt(array, p, i, m);
         return j;
     }
 
@@ -302,7 +302,7 @@ public class BlockTimSort extends Sort {
         int mKey = blockSelect(array, tags, i, 1, bLen - 1, lCnt, bCnt, bLen);
         boolean frag = true;
         while(l < lCnt && r < bCnt) {
-            if(frag) {
+            if (frag) {
                 do {
                     j += bLen;
                     l++;
@@ -338,13 +338,13 @@ public class BlockTimSort extends Sort {
 
     protected void pingPongMerge(int[] array, int[] buf, int a, int m1, int m2, int m3, int b) {
         int p = 0, p1 = p + m2-a, pEnd = p + b-a;
-        if(Reads.compareIndices(array, m1-1, m1, 1, true) > 0
+        if (Reads.compareIndices(array, m1-1, m1, 1, true) > 0
         || (m3 < b && Reads.compareIndices(array, m3-1, m3, 1, true) > 0)) {
             mergeTo(array, buf, a, m1, m2, p, true);
             mergeTo(array, buf, m2, m3, b, p1, true);
             mergeTo(buf, array, p, p1, pEnd, a, false);
         }
-        else 
+        else
             smartMerge(array, buf, a, m2, b);
     }
 
@@ -393,7 +393,7 @@ public class BlockTimSort extends Sort {
         int[] buf = Writes.createExternalArray(bLen);
         int i;
         for (; 4 * j <= bLen; j *= 4) {
-            for(i = a; i+2*j < b; i += 4*j)
+            for (i = a; i+2*j < b; i += 4*j)
                 pingPongMerge(array, buf, i, i+j, i+2*j, Math.min(i+3*j, b), Math.min(i+4*j, b));
             if (i + j < b)
                 smartMerge(array, buf, i, i + j, b);

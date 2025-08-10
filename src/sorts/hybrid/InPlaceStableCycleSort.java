@@ -51,7 +51,7 @@ public class InPlaceStableCycleSort extends Sort {
 	//O(n^2) comparisons and O(n) moves in O(1) space
 
 	private void multiSwap(int[] array, int a, int b, int len) {
-		for(int i = 0; i < len; i++)
+		for (int i = 0; i < len; i++)
 			Writes.swap(array, a+i, b+i, 1, true, false);
 	}
 
@@ -63,8 +63,8 @@ public class InPlaceStableCycleSort extends Sort {
 	private long getRank(int[] array, int a, int b, int r) {
 		int c = 0, ce = 0;
 
-		for(int i = a; i < b; i++) {
-			if(i == r) continue;
+		for (int i = a; i < b; i++) {
+			if (i == r) continue;
 
 			Highlights.markArray(2, i);
 			Delays.sleep(0.01);
@@ -83,37 +83,37 @@ public class InPlaceStableCycleSort extends Sort {
 		int med = (b-a)/2;
 		int min = a, max = min;
 
-		for(int i = a+1; i < b; i++) {
-			if(Reads.compareIndices(array, i, min, 0.25, true) < 0)
+		for (int i = a+1; i < b; i++) {
+			if (Reads.compareIndices(array, i, min, 0.25, true) < 0)
 				min = i;
-			else if(Reads.compareIndices(array, i, max, 0.25, true) > 0)
+			else if (Reads.compareIndices(array, i, max, 0.25, true) > 0)
 				max = i;
 		}
 		//max or min might be the median
 		long rank = this.getRank(array, a, b, min);
 		int r = (int)rank, re = (int)(rank >> 32);
 
-		if(med >= r && med <= re) return array[min];
+		if (med >= r && med <= re) return array[min];
 
 		rank = this.getRank(array, a, b, max);
 		r = (int)rank; re = (int)(rank >> 32);
 
-		if(med >= r && med <= re) return array[max];
+		if (med >= r && med <= re) return array[max];
 
-		for(int i = a;; i++) {
+		for (int i = a;; i++) {
 			Highlights.markArray(1, i);
 			Delays.sleep(0.5);
 
-			if(Reads.compareValues(array[i], array[min]) > 0
+			if (Reads.compareValues(array[i], array[min]) > 0
 			   && Reads.compareValues(array[i], array[max]) < 0) {
 
 				rank = this.getRank(array, a, b, i);
 				r = (int)rank; re = (int)(rank >> 32);
 
-				if(med >= r && med <= re)
+				if (med >= r && med <= re)
 					return array[i];
 
-				else if(re < med)
+				else if (re < med)
 					min = i;
 
 				else max = i;
@@ -129,8 +129,8 @@ public class InPlaceStableCycleSort extends Sort {
 
 	private void resetBits(int[] array, int pa, int pb, int bLen) {
 		pa--; pb--;
-		for(int i = 0; i < bLen; i++)
-			if(Reads.compareIndices(array, ++pa, ++pb, 0.5, true) > 0)
+		for (int i = 0; i < bLen; i++)
+			if (Reads.compareIndices(array, ++pa, ++pb, 0.5, true) > 0)
 				Writes.swap(array, pa, pb, 0.5, true, false);
 	}
 
@@ -138,15 +138,15 @@ public class InPlaceStableCycleSort extends Sort {
 		int p = b, aCnt = 0, bCnt = 0, tCnt = 0;
 
 		//find lesser and greater elements
-		for(int i = b; i > a && tCnt < 2*bLen; i--) {
+		for (int i = b; i > a && tCnt < 2*bLen; i--) {
 			int pCmp = Reads.compareIndexValue(array, i-1, piv, 1, true);
 
-			if(aCnt < bLen && pCmp < 0) {
+			if (aCnt < bLen && pCmp < 0) {
 				this.rotate(array, i, p-tCnt, p);
 				p = i+tCnt++;
 				aCnt++;
 			}
-			else if(bCnt < bLen && pCmp > 0) {
+			else if (bCnt < bLen && pCmp > 0) {
 				this.rotate(array, i, p-tCnt, p);
 				p = i+tCnt++;
 				this.rotate(array, i-1, i, p-bCnt);
@@ -154,14 +154,14 @@ public class InPlaceStableCycleSort extends Sort {
 			}
 		}
 		this.rotate(array, p-tCnt, p, b);
-		if(tCnt == 2*bLen) return false;
+		if (tCnt == 2*bLen) return false;
 
 		//if not enough were found either terminate or search equal elements
 
 		int b1 = b-tCnt;
 
 		//redistribute
-		if(aCnt < bLen && bCnt < bLen) {
+		if (aCnt < bLen && bCnt < bLen) {
 			BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 			smallSort.customBinaryInsert(array, b1, b, 0.125);
 			this.rotate(array, a, b1, b-bCnt);
@@ -173,8 +173,8 @@ public class InPlaceStableCycleSort extends Sort {
 		int eCnt = 0, eLen = tCnt-bLen;
 		p = b1;
 
-		for(int i = b1; eCnt < eLen; i--) {
-			if(Reads.compareIndexValue(array, i-1, piv, 1, true) == 0) {
+		for (int i = b1; eCnt < eLen; i--) {
+			if (Reads.compareIndexValue(array, i-1, piv, 1, true) == 0) {
 				this.rotate(array, i, p-eCnt, p);
 				p = i+eCnt++;
 				eCnt++;
@@ -191,12 +191,12 @@ public class InPlaceStableCycleSort extends Sort {
 		int d = a1, e = 0;
 		int pCmp = Reads.compareValues(array[a1], piv);
 
-		for(int i = a1+bLen; i < b; i += bLen) {
+		for (int i = a1+bLen; i < b; i += bLen) {
 			Highlights.markArray(2, i);
 			int vCmp = Reads.compareValues(array[i], piv);
 
-			if(vCmp < pCmp) d += bLen;
-			else if(i < b1 && Reads.compareIndices(array, pa+(i-a)/bLen, pb+(i-a)/bLen, 0.01, true) != cmp
+			if (vCmp < pCmp) d += bLen;
+			else if (i < b1 && Reads.compareIndices(array, pa+(i-a)/bLen, pb+(i-a)/bLen, 0.01, true) != cmp
 						   && vCmp == pCmp) e++;
 
 			Highlights.markArray(3, d);
@@ -213,16 +213,16 @@ public class InPlaceStableCycleSort extends Sort {
 	}
 	//b-a is divisible by bLen
 	private void blockCyclePartition(int[] array, int a, int b, int pa, int pb, int piv, int bLen, int cmp) {
-		for(int i = a; i < b; i += bLen) {
-			if(Reads.compareIndices(array, pa+(i-a)/bLen, pb+(i-a)/bLen, 1, true) != cmp) {
+		for (int i = a; i < b; i += bLen) {
+			if (Reads.compareIndices(array, pa+(i-a)/bLen, pb+(i-a)/bLen, 1, true) != cmp) {
 				Highlights.markArray(1, i);
 				int j = i;
 
-				for(;;) {
+				for (;;) {
 					int k = this.blockCyclePartitionDest(array, a, i, j, b, pa, pb, piv, bLen, cmp);
 
 					Writes.swap(array, pa+(k-a)/bLen, pb+(k-a)/bLen, 0.02, true, false);
-					if(k == i) break;
+					if (k == i) break;
 					this.multiSwap(array, i, k, bLen);
 
 					j = k;
@@ -235,7 +235,7 @@ public class InPlaceStableCycleSort extends Sort {
 		while(a < b) {
 			int m = a+(b-a)/2;
 
-			if(Reads.compareValues(val, array[m]) <= 0)
+			if (Reads.compareValues(val, array[m]) <= 0)
 				b = m;
 			else
 				a = m+1;
@@ -246,7 +246,7 @@ public class InPlaceStableCycleSort extends Sort {
 		while(a < b) {
 			int m = a+(b-a)/2;
 
-			if(Reads.compareValues(val, array[m]) < 0)
+			if (Reads.compareValues(val, array[m]) < 0)
 				b = m;
 			else
 				a = m+1;
@@ -283,14 +283,14 @@ public class InPlaceStableCycleSort extends Sort {
 		//create bit buffer
 
 		int n = b-a, bLen = (int)Math.sqrt(n-1)+1;
-		if(this.initBitBuffer(array, a, b, piv, bLen)) return true;
+		if (this.initBitBuffer(array, a, b, piv, bLen)) return true;
 
 		int b1 = b-2*bLen, pa = b1, pb = b1+bLen;
 		int cmp = 1;
 
 		//partition blocks
 
-		for(int i = a; i < b1; i += bLen, cmp = -cmp)
+		for (int i = a; i < b1; i += bLen, cmp = -cmp)
 			this.blockCyclePartition(array, i, Math.min(i+bLen, b1), pa, pb, piv, 1, cmp);
 		this.resetBits(array, pa, pb, bLen);
 
@@ -299,7 +299,7 @@ public class InPlaceStableCycleSort extends Sort {
 		int p = a;
 		int[] cnt = {0, 0, 0};
 
-		for(int i = a; i < b1; i += bLen) {
+		for (int i = a; i < b1; i += bLen) {
 			this.merge(array, cnt, p, i, Math.min(i+bLen, b1), piv);
 
 			while(cnt[0] >= bLen) {
@@ -339,7 +339,7 @@ public class InPlaceStableCycleSort extends Sort {
 	private int stableCycleDest(int[] array, int a, int a1, int b1, int b, int p, int piv, int cmp) {
 		int d = a1, e = 0;
 
-		for(int i = a1+1; i < b; i++) {
+		for (int i = a1+1; i < b; i++) {
 			Highlights.markArray(2, i);
 
 			int pCmp = Reads.compareValues(array[i], piv);
@@ -348,17 +348,17 @@ public class InPlaceStableCycleSort extends Sort {
 			int val  = bit ? array[p+i-a] : array[i];
 			int vCmp = Reads.compareValues(val, array[a1]);
 
-			if(vCmp == -1) d++;
-			else if(i < b1 && !bit && vCmp == 0) e++;
+			if (vCmp == -1) d++;
+			else if (i < b1 && !bit && vCmp == 0) e++;
 
 			Highlights.markArray(3, d);
 			Delays.sleep(0.01);
 		}
-		for(;;) {
+		for (;;) {
 			int pCmp = Reads.compareValues(array[d], piv);
 			boolean bit = pCmp == cmp || pCmp == 0;
 
-			if(!bit && e-- == 0) break;
+			if (!bit && e-- == 0) break;
 			d++;
 
 			Highlights.markArray(3, d);
@@ -368,18 +368,18 @@ public class InPlaceStableCycleSort extends Sort {
 		return d;
 	}
 	private void stableCycle(int[] array, int a, int b, int p, int piv, int cmp) {
-		for(int i = a; i < b; i++) {
+		for (int i = a; i < b; i++) {
 			int pCmp = Reads.compareValues(array[i], piv);
 			boolean bit = pCmp == cmp || pCmp == 0;
 
-			if(!bit) {
+			if (!bit) {
 				Highlights.markArray(1, i);
 				int j = i;
 
-				for(;;) {
+				for (;;) {
 					int k = this.stableCycleDest(array, a, i, j, b, p, piv, cmp);
 
-					if(k == i) break;
+					if (k == i) break;
 
 					int t = array[i];
 					Writes.write(array, i, array[k], 0.01, true, false);
@@ -397,14 +397,14 @@ public class InPlaceStableCycleSort extends Sort {
 	public void runSort(int[] array, int length, int bucketCount) {
 		int a = 0, b = length;
 
-		if(length <= 32) {
+		if (length <= 32) {
 			BinaryInsertionSort smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 			smallSort.customBinaryInsert(array, a, b, 0.25);
 			return;
 		}
 
 		int piv = this.selectMedian(array, a, b);
-		if(this.partition(array, a, b, piv)) return;
+		if (this.partition(array, a, b, piv)) return;
 
 		int m2 = this.rightBinSearch(array, a, b, piv);
 		int m1 = this.leftBinSearch(array, a, m2, piv);

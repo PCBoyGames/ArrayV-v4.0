@@ -122,13 +122,13 @@ public class HalfEctaSort extends Sort {
     private void blockMerge(int[] array, int[] buf, int[] tags, int a, int m, int b, int bLen) {
         int b1 = b-(b-m)%bLen;
 
-        if(b1-m <= bLen)
+        if (b1-m <= bLen)
             this.mergeBWExt(array, buf, a, m, b1);
 
         else {
             int i = a, j = m, l = a, r = m, tp = 1;
 
-            for(int k = 0; k < bLen; k++) {
+            for (int k = 0; k < bLen; k++) {
                 int t = Reads.compareIndices(array, i, j, 0.5, true) <= 0 ?
                         array[i++] : array[j++];
 
@@ -138,14 +138,14 @@ public class HalfEctaSort extends Sort {
                 boolean left = i-l > 0 && (i-l == bLen || Reads.compareIndices(array, l+bLen-1, r+bLen-1, 1, true) <= 0);
                 int p = left ? l : r;
 
-                for(int k = 0; k < bLen; k++) {
+                for (int k = 0; k < bLen; k++) {
                     int t = j == b1 || (i < m && Reads.compareIndices(array, i, j, 0.5, true) <= 0) ?
                             array[i++] : array[j++];
 
                     Highlights.markArray(3, p);
                     Writes.write(array, p++, t, 0.5, false, false);
                 }
-                if(left) l = p;
+                if (left) l = p;
                 else     r = p;
 
                 Highlights.clearMark(3);

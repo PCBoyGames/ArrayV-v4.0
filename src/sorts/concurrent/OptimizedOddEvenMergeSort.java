@@ -46,31 +46,31 @@ public class OptimizedOddEvenMergeSort extends Sort {
 	}
 
 	private void ce(int[] array, int a, int b) {
-		if(Reads.compareIndices(array, a, b, 0.5, true) > 0)
+		if (Reads.compareIndices(array, a, b, 0.5, true) > 0)
 			Writes.swap(array, a, b, 0.5, true, false);
 	}
 
 	private void mergePass(int[] array, int a, int b) {
 		int h = (b-a)/2;
 
-		for(int i = 0; i < h; i++)
+		for (int i = 0; i < h; i++)
 			this.ce(array, a+i, b-h+i);
 	}
 
 	//precondition: diff(m-a, b-m) <= 1
 	private void mergePassLevel(int[] array, int a, int m, int b, int k) {
-		if(m-a < b-m) a--;
-		if(b-m < m-a) b++;
+		if (m-a < b-m) a--;
+		if (b-m < m-a) b++;
 
 		int n = b-a, p = m;
 
-		for(int j = a+k; j < m; j += 2*k) {
-			for(int i = j; i < Math.min(m, j+k); i++) {
-				if(i+k < m) {
+		for (int j = a+k; j < m; j += 2*k) {
+			for (int i = j; i < Math.min(m, j+k); i++) {
+				if (i+k < m) {
 					int mi = a+(n-1)-(i-a);
 					this.ce(array, i, i+k);
 					this.ce(array, mi-k, mi);
-					if(j + 2*k > m) p++;
+					if (j + 2*k > m) p++;
 				}
 				else this.ce(array, i, p++);
 			}
@@ -82,16 +82,16 @@ public class OptimizedOddEvenMergeSort extends Sort {
 		int a = 0, b = sortLength;
 		int n = b-a;
 
-		for(int d = 1 << 32-Integer.numberOfLeadingZeros(n-1), k = 1; d > 1; d /= 2, k *= 2) {
-			for(int j = k; j > 0; j /= 2) {
-				for(int i = a, dec = 0; i < b; ) {
+		for (int d = 1 << 32-Integer.numberOfLeadingZeros(n-1), k = 1; d > 1; d /= 2, k *= 2) {
+			for (int j = k; j > 0; j /= 2) {
+				for (int i = a, dec = 0; i < b; ) {
 					int im = i + (dec += n)/d;
 					dec %= d;
 
 					int ib = im + (dec += n)/d;
 					dec %= d;
 
-					if(j == k) this.mergePass(array, i, ib);
+					if (j == k) this.mergePass(array, i, ib);
 					else this.mergePassLevel(array, i, im, ib, j);
 
 					i = ib;

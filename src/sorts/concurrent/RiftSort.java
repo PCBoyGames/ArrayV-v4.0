@@ -46,7 +46,7 @@ public class RiftSort extends Sort {
     }
 
 	private void compSwap(int[] array, int a, int b) {
-		if(Reads.compareIndices(array, a, b, 0.5, true) == 1)
+		if (Reads.compareIndices(array, a, b, 0.5, true) == 1)
 			Writes.swap(array, a, b, 0.5, true, false);
 	}
 
@@ -54,13 +54,13 @@ public class RiftSort extends Sort {
 		int m = (a+b)/2;
 		int h = (b-a+1)/2;
 
-		for(int i = h; i > 0; i--)
-			for(int j = 0; j < i; j++)
-				if(m-i+j >= a) this.compSwap(array, m-i+j, m+j);
+		for (int i = h; i > 0; i--)
+			for (int j = 0; j < i; j++)
+				if (m-i+j >= a) this.compSwap(array, m-i+j, m+j);
 	}
 
 	private void riftSortRec(int[] array, int a, int b) {
-		if(b-a < 2) return;
+		if (b-a < 2) return;
 
 		int m = (a+b)/2;
 

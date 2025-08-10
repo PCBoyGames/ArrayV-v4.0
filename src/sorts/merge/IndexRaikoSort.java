@@ -35,7 +35,7 @@ public class IndexRaikoSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     protected boolean keyLessThan(int[] src, int[] pa, int a, int b) {
         int cmp = Reads.compareValues(src[pa[a]], src[pa[b]]);
         return cmp < 0 || (cmp == 0 && Reads.compareOriginalValues(a, b) < 0);
@@ -45,14 +45,14 @@ public class IndexRaikoSort extends Sort {
         while(2*r+2 < size) {
             int nxt = 2*r+1;
             int min = nxt + (this.keyLessThan(src, pa, heap[nxt], heap[nxt+1]) ? 0 : 1);
-            if(this.keyLessThan(src, pa, heap[min], t)) {
+            if (this.keyLessThan(src, pa, heap[min], t)) {
                 Writes.write(heap, r, heap[min], 0.25, true, true);
                 r = min;
             }
             else break;
         }
         int min = 2*r+1;
-        if(min < size && this.keyLessThan(src, pa, heap[min], t)) {
+        if (min < size && this.keyLessThan(src, pa, heap[min], t)) {
             Writes.write(heap, r, heap[min], 0.25, true, true);
             r = min;
         }
@@ -60,22 +60,22 @@ public class IndexRaikoSort extends Sort {
     }
 
     protected void kWayMerge(int[] arr, int[] idx, int[] heap, int[] pa, int[] pb, int size, int o) {
-        for(int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++)
             Writes.write(heap, i, i, 0, false, true);
-        for(int i = (size-1)/2; i >= 0; i--)
+        for (int i = (size-1)/2; i >= 0; i--)
             this.siftDown(arr, heap, pa, heap[i], i, size);
-        for(int i = 0; size > 0; i++) {
+        for (int i = 0; size > 0; i++) {
             int min = heap[0];
             Highlights.markArray(2, pa[min]);
             Writes.write(idx, i, pa[min] - o, 0.5, false, true);
             Writes.write(pa, min, pa[min]+1, 0, false, true);
-            if(pa[min] == pb[min])
+            if (pa[min] == pb[min])
                 this.siftDown(arr, heap, pa, heap[--size], 0, size);
-            else 
+            else
                 this.siftDown(arr, heap, pa, heap[0], 0, size);
         }
     }
-    
+
     protected int findRun(int[] array, int a, int b) {
         int i = a + 1;
         if (i >= b) return i;
@@ -91,7 +91,7 @@ public class IndexRaikoSort extends Sort {
         Highlights.clearMark(2);
         return i;
     }
-    
+
     protected void indexSort(int[] array, int[] keys, int a, int b) {
         for (int i = 0; i < b - a; i++) {
             Highlights.markArray(2, a + i);
@@ -110,7 +110,7 @@ public class IndexRaikoSort extends Sort {
         }
         Highlights.clearMark(2);
     }
-    
+
     public void mergeSort(int[] array, int a, int b) {
         int len = b - a;
         if (len < 2) return;

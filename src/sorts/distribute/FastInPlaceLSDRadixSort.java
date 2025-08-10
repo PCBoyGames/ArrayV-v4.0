@@ -54,13 +54,13 @@ public class FastInPlaceLSDRadixSort extends Sort {
 
         int maxpower = Reads.analyzeMaxLog(array, sortLength, bucketCount, 0.5, true);
 
-        for (int p = 0; p <= maxpower; p++){
+        for (int p = 0; p <= maxpower; p++) {
             for (int i = 0; i < vregs.length; i++)
                 Writes.write(vregs, i, sortLength-1, 0, false, true);
 
             pos = 0;
 
-            for (int i = 0; i < sortLength; i++){
+            for (int i = 0; i < sortLength; i++) {
                 int digit = Reads.getDigit(array[pos], p, bucketCount);
 
                 if (digit == 0) {

@@ -382,7 +382,7 @@ public class LithiumSort extends Sort {
             else Writes.swap(array, k++, j++, 0.5, true, false);
         }
 
-        if(k < i)
+        if (k < i)
             shift(array, j - r, j, b, false);
         else {
             int i2 = m - 1,

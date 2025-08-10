@@ -62,7 +62,7 @@ public class PacheSort2 extends Sort {
 			Highlights.markArray(2, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) <= 0)
+			if (Reads.compareValues(val, array[m]) <= 0)
 				b = m;
 			else
 				a = m+1;
@@ -75,7 +75,7 @@ public class PacheSort2 extends Sort {
 			Highlights.markArray(2, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) < 0)
+			if (Reads.compareValues(val, array[m]) < 0)
 				b = m;
 			else
 				a = m+1;
@@ -92,7 +92,7 @@ public class PacheSort2 extends Sort {
 		this.blockSwap(array, a, p, pLen);
 
 		while(p < pEnd && m < b) {
-			if(Reads.compareValues(array[p], array[m]) <= 0)
+			if (Reads.compareValues(array[p], array[m]) <= 0)
 				Writes.swap(array, a++, p++, 1, true, false);
 
 			else Writes.swap(array, a++, m++, 1, true, false);
@@ -123,13 +123,13 @@ public class PacheSort2 extends Sort {
 			return Reads.compareIndices(array, a, b, 0, false) > 0;
 		}
 		private void setBit(int a, int b, boolean bit) {
-			if(this.getBit(a, b) ^ bit)
+			if (this.getBit(a, b) ^ bit)
 				this.flipBit(a, b);
 		}
 
 		public void free() {
 			int i1 = pa+length;
-			for(int i = pa, j = pb; i < i1; i++, j++)
+			for (int i = pa, j = pb; i < i1; i++, j++)
 				this.setBit(i, j, false);
 		}
 
@@ -137,16 +137,16 @@ public class PacheSort2 extends Sort {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
 				this.setBit(i, j, (uInt & 1) == 1);
 
-			if(uInt > 0) System.out.println("Warning: Word too large");
+			if (uInt > 0) System.out.println("Warning: Word too large");
 		}
 		public int get(int idx) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int r = 0, s = idx*w;
-			for(int k = 0, i = pa+s, j = pb+s; k < w; k++, i++, j++)
+			for (int k = 0, i = pa+s, j = pb+s; k < w; k++, i++, j++)
 				r |= (this.getBit(i, j) ? 1 : 0) << k;
 			return r;
 		}
@@ -155,9 +155,9 @@ public class PacheSort2 extends Sort {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++) {
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
 				this.flipBit(i, j);
-				if(this.getBit(i, j)) return;
+				if (this.getBit(i, j)) return;
 			}
 			System.out.println("Warning: Integer overflow");
 		}
@@ -165,9 +165,9 @@ public class PacheSort2 extends Sort {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++) {
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
 				this.flipBit(i, j);
-				if(!this.getBit(i, j)) return;
+				if (!this.getBit(i, j)) return;
 			}
 			System.out.println("Warning: Integer underflow");
 		}
@@ -183,16 +183,16 @@ public class PacheSort2 extends Sort {
 			int next = left;
 			int gChild = 2*left + 1;
 
-			for(int node : new int[] {left+1, gChild, gChild+1, gChild+2, gChild+3} ) {
-				if(node >= len) break;
+			for (int node : new int[] {left+1, gChild, gChild+1, gChild+2, gChild+3} ) {
+				if (node >= len) break;
 
-				if(Reads.compareIndices(array, pos+node, pos+next, 0.25, true) == cmp)
+				if (Reads.compareIndices(array, pos+node, pos+next, 0.25, true) == cmp)
 					next = node;
 			}
 			Highlights.clearMark(2);
 
-			if(next >= gChild) {
-				if(Reads.compareIndexValue(array, pos+next, t, 0.25, true) == cmp) {
+			if (next >= gChild) {
+				if (Reads.compareIndexValue(array, pos+next, t, 0.25, true) == cmp) {
 					Writes.write(array, pos+curr, array[pos+next], 0.75, true, false);
 
 					curr = next;
@@ -200,7 +200,7 @@ public class PacheSort2 extends Sort {
 
 					int parent = (next-1) / 2;
 
-					if(Reads.compareIndexValue(array, pos+parent, t, 0.25, true) == cmp) {
+					if (Reads.compareIndexValue(array, pos+parent, t, 0.25, true) == cmp) {
 						Writes.write(array, pos+curr, t, 0.75, true, false);
 						t = array[pos+parent];
 						Writes.write(array, pos+parent, array[pos+curr], 0.75, true, false);
@@ -209,7 +209,7 @@ public class PacheSort2 extends Sort {
 				else break;
 			}
 			else {
-				if(Reads.compareIndexValue(array, pos+next, t, 0.25, true) == cmp) {
+				if (Reads.compareIndexValue(array, pos+next, t, 0.25, true) == cmp) {
 					Writes.write(array, pos+curr, array[pos+next], 0.75, true, false);
 					curr = next;
 				}
@@ -219,7 +219,7 @@ public class PacheSort2 extends Sort {
 		Writes.write(array, pos+curr, t, 0.75, true, false);
 	}
 	private void heapify(int[] array, int pos, int len) {
-		for(int i = (len-1)/2; i >= 0; i--)
+		for (int i = (len-1)/2; i >= 0; i--)
 			this.siftDown(array, pos, len, i, array[pos+i]);
 	}
 
@@ -228,7 +228,7 @@ public class PacheSort2 extends Sort {
 
 		this.heapify(array, pos, len);
 
-		for(int i = len; i > 1; ) {
+		for (int i = len; i > 1; ) {
 			int t = array[pos+(--i)];
 			Highlights.markArray(3, pos+i);
 			Writes.write(array, pos+i, array[pos], 1, true, false);
@@ -239,7 +239,7 @@ public class PacheSort2 extends Sort {
 	private void selectMinMax(int[] array, int a, int b, int s) {
 		this.heapify(array, a, b-a);
 
-		for(int i = 0; i < s; i++) {
+		for (int i = 0; i < s; i++) {
 			int t = array[--b];
 			Highlights.markArray(3, b);
 			Writes.write(array, b, array[a], 1, true, false);
@@ -247,11 +247,11 @@ public class PacheSort2 extends Sort {
 		}
 		Highlights.clearMark(3);
 
-		for(int i = 0; i < s; i++) {
+		for (int i = 0; i < s; i++) {
 			int t = array[--b];
 			int c = 1;
 
-			if(Reads.compareIndices(array, a+c+1, a+c, 0.5, true) < 0) c++;
+			if (Reads.compareIndices(array, a+c+1, a+c, 0.5, true) < 0) c++;
 			Highlights.clearMark(2);
 			Highlights.markArray(3, b);
 
@@ -265,31 +265,31 @@ public class PacheSort2 extends Sort {
 	}
 
 	private void optiLazyHeap(int[] array, int a, int b, int s) {
-		for(int j = a; j < b; j += s) {
+		for (int j = a; j < b; j += s) {
 			int max = j;
 
-			for(int i = max+1; i < Math.min(j+s, b); i++)
-				if(Reads.compareIndices(array, i, max, 0.125, true) > 0)
+			for (int i = max+1; i < Math.min(j+s, b); i++)
+				if (Reads.compareIndices(array, i, max, 0.125, true) > 0)
 					max = i;
 
 			Writes.swap(array, j, max, 1, true, false);
 		}
-		for(int j = b; j > a; ) {
+		for (int j = b; j > a; ) {
 			int k = a;
 
-			for(int i = k+s; i < j; i += s)
-				if(Reads.compareIndices(array, i, k, 0.125, true) > 0)
+			for (int i = k+s; i < j; i += s)
+				if (Reads.compareIndices(array, i, k, 0.125, true) > 0)
 					k = i;
 
 			int k1 = --j;
 
-			for(int i = k+1; i < Math.min(k+s, j); i++)
-				if(Reads.compareIndices(array, i, k1, 0.125, true) > 0)
+			for (int i = k+1; i < Math.min(k+s, j); i++)
+				if (Reads.compareIndices(array, i, k1, 0.125, true) > 0)
 					k1 = i;
 
 			Highlights.markArray(3, j);
 
-			if(k1 == j) {
+			if (k1 == j) {
 				Writes.swap(array, k, j, 1, true, false);
 			}
 			else {
@@ -305,8 +305,8 @@ public class PacheSort2 extends Sort {
 	}
 
 	private void sortBucket(int[] array, int a, int b, int s, int val) {
-		for(int i = b-1; i >= a; i--)
-			if(Reads.compareIndexValue(array, i, val, 0.5, true) == 0)
+		for (int i = b-1; i >= a; i--)
+			if (Reads.compareIndexValue(array, i, val, 0.5, true) == 0)
 				Writes.swap(array, i, --b, 0.5, true, false);
 
 		this.optiLazyHeap(array, a, b, s);
@@ -316,7 +316,7 @@ public class PacheSort2 extends Sort {
 	public void runSort(int[] array, int length, int bucketCount) {
 		int a = 0, b = length;
 
-		if(length <= this.MIN_HEAP) {
+		if (length <= this.MIN_HEAP) {
 			this.minMaxHeap(array, a, b);
 			return;
 		}
@@ -331,33 +331,33 @@ public class PacheSort2 extends Sort {
 
 		this.selectMinMax(array, a, b, bitLen);
 
-		if(Reads.compareIndices(array, a1-1, b1, 1, true) < 0) {
+		if (Reads.compareIndices(array, a1-1, b1, 1, true) < 0) {
 			int a2 = a1;
 
-			for(int i = 0; i < pCnt; i++)
+			for (int i = 0; i < pCnt; i++)
 				Writes.swap(array, a2, a2+this.rng.nextInt(b1-(a2++)), 1, true, false);
 
 			this.minMaxHeap(array, a1, a2);
 
 			BitArray cnts = new BitArray(array, a, b1, pCnt+1, log);
 
-			for(int i = a2; i < b1; i++) {
+			for (int i = a2; i < b1; i++) {
 				Highlights.markArray(3, i);
 				cnts.incr(this.leftBinSearch(array, a1, a2, array[i])-a1);
 			}
 			Highlights.clearMark(3);
 
-			for(int i = 1, sum = cnts.get(0); i < pCnt+1; i++) {
+			for (int i = 1, sum = cnts.get(0); i < pCnt+1; i++) {
 				sum += cnts.get(i);
 				cnts.set(i, sum);
 			}
-			for(int i = 0, j = 0; i < pCnt; i++) {
+			for (int i = 0, j = 0; i < pCnt; i++) {
 				Highlights.markArray(3, a1+i);
 				int cur = cnts.get(i);
 				int loc = this.leftBinSearch(array, a1+i, a2, array[a2+j])-a1;
 
 				while(j < cur) {
-					if(loc == i) {
+					if (loc == i) {
 						j++;
 						loc = this.leftBinSearch(array, a1+i, a2, array[a2+j])-a1;
 					}
@@ -368,7 +368,7 @@ public class PacheSort2 extends Sort {
 						while(true) {
 							int newLoc = this.leftBinSearch(array, a1+i, a2, array[a2+dest])-a1;
 
-							if(newLoc != loc) {
+							if (newLoc != loc) {
 								loc = newLoc;
 								break;
 							}
@@ -385,7 +385,7 @@ public class PacheSort2 extends Sort {
 
 			int j = a2;
 
-			for(int i = 0; i < pCnt; i++) {
+			for (int i = 0; i < pCnt; i++) {
 				Highlights.markArray(3, a1+i);
 				int j1 = this.rightBinSearch(array, j, b1, array[a1+i]);
 				this.sortBucket(array, j, j1, log, array[a1+i]);

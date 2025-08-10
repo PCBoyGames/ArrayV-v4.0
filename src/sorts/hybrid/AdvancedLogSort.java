@@ -40,12 +40,12 @@ public class AdvancedLogSort extends Sort {
 
 	private int medOf3(int[] array, int a, int b, int c) {
     	int d;
-    	if(Reads.compareIndices(array, a, b, 0.5, true) > 0) {
+    	if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
     		d = b; b = a;
     	} else
     		d = a;
-    	if(Reads.compareIndices(array, b, c, 0.5, true) > 0) {
-    		if(Reads.compareIndices(array, d, c, 0.5, true) > 0) {
+    	if (Reads.compareIndices(array, b, c, 0.5, true) > 0) {
+    		if (Reads.compareIndices(array, d, c, 0.5, true) > 0) {
         		return d;
         	}
     		return c;
@@ -54,7 +54,7 @@ public class AdvancedLogSort extends Sort {
 	}
 
     private int ninther(int[] array, int a, int b) {
-    	if(b-a<=9)
+    	if (b-a<=9)
     		return a+(b-a)/2;
     	int len = b - a, half = len / 2, quart = len / 4, eight = len / 8;
     	int c = medOf3(array, a, a+eight, a+quart);
@@ -119,8 +119,8 @@ public class AdvancedLogSort extends Sort {
     private int gaprank(int[] array, int a, int b, int g, int r) {
     	int re = 0;
     	while(a < b) {
-    		if(a != r) {
-    			if(Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
+    		if (a != r) {
+    			if (Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
     		}
     		a += g;
     	}
@@ -134,13 +134,13 @@ public class AdvancedLogSort extends Sort {
     	while(s*s<b-a) s*=2;
 
     	// low n: return ninther
-    	if((s/=2) < 2) return ninther(array, a, b);
+    	if ((s/=2) < 2) return ninther(array, a, b);
     	int mid = (b-a-1)/(2*s)+1, e = (b-a) / 8, cm = a+(b-a)/2, cr = 0;
 
     	// select pmo243 with gapped rank closest to middle
-    	for(int i=0; i<e; i+=s) {
+    	for (int i=0; i<e; i+=s) {
     		int p = pseudomo243(array, a+i, b-e+i), r = gaprank(array, a, b, s, p);
-    		if(Math.abs(cr-mid)>Math.abs(r-mid)) {
+    		if (Math.abs(cr-mid)>Math.abs(r-mid)) {
     			cm = p;
     			cr = r;
     		}
@@ -150,7 +150,7 @@ public class AdvancedLogSort extends Sort {
 
     private void encode(int[] array, int a, int b, int v) {
     	while(v>0) {
-    		if(v%2==1) Writes.swap(array, a, b, 1, true, false);
+    		if (v%2==1) Writes.swap(array, a, b, 1, true, false);
     		v/=2; a++; b++;
     	}
     }
@@ -165,8 +165,8 @@ public class AdvancedLogSort extends Sort {
     }
 
 	private void blockcycle(int[] array, int a, int m, int b, int frag, int l, int w, int p, int c, boolean i) {
-		if(frag!=b-1) multiSwap(array, a+frag*l, a+(b-1)*l, l);
-		for(int k = 0; k < b - 1; k++) {
+		if (frag!=b-1) multiSwap(array, a+frag*l, a+(b-1)*l, l);
+		for (int k = 0; k < b - 1; k++) {
 			int z = get(array, a+k*l, p, w, c, i);
 			while(z != k) {
 				multiSwap(array, a+k*l, a+z*l, l);
@@ -177,7 +177,7 @@ public class AdvancedLogSort extends Sort {
 	}
 
 	private int rotatePart(int[] array, int a, int b, int p, int c) {
-		if(a < b) {
+		if (a < b) {
 			int m = a + (b - a) / 2;
 			int l1 = rotatePart(array, a,   m, p, c);
 			int l2 = rotatePart(array, m+1, b, p, c);
@@ -194,12 +194,12 @@ public class AdvancedLogSort extends Sort {
     private int partition(int[] array, int[] tmp, int a, int B, int p, int c, int s) {
     	int b = B - (B - a) % s;
 
-		if(a == b) { // easy partition
+		if (a == b) { // easy partition
 			int tt = 0;
-			for(int i = a; i < B; i++) {
-	    		if(Reads.compareIndexValue(array, i, p, 0.5, true) < c) {
+			for (int i = a; i < B; i++) {
+	    		if (Reads.compareIndexValue(array, i, p, 0.5, true) < c) {
 	    			Writes.write(array, i - tt, array[i], 2, true, false);
-        			if(tt > 0) Writes.visualClear(array, i);
+        			if (tt > 0) Writes.visualClear(array, i);
 	    		} else {
 	    			Writes.write(tmp, tt++, array[i], 2, true, true);
 	    			Writes.visualClear(array, i);
@@ -216,16 +216,16 @@ public class AdvancedLogSort extends Sort {
     		li = 0, ri = 0, // muku block index
     		ii = -1;        // tracker index
     	while(id < b && t < s) {
-    		if(Reads.compareIndexValue(array, id, p, 0.5, true) < c) {
-    			if(lc < 0) lc++;
-    			if(lc == 0) { // if block marked full, go to next
+    		if (Reads.compareIndexValue(array, id, p, 0.5, true) < c) {
+    			if (lc < 0) lc++;
+    			if (lc == 0) { // if block marked full, go to next
     				li = ++ii;
     				lb++;
     			}
     			int x = id - t;
     			Writes.write(array, x, array[id], 2, true, false);
-    			if(id != x) Writes.visualClear(array, id);
-    			if(++lc == s) { // if block full, mark as such
+    			if (id != x) Writes.visualClear(array, id);
+    			if (++lc == s) { // if block full, mark as such
     				lc = -1;
     			}
     		} else {
@@ -237,28 +237,28 @@ public class AdvancedLogSort extends Sort {
 
     	// muku typing
     	while(id < b) {
-    		if(Reads.compareIndexValue(array, id, p, 0.5, true) < c) {
-    			if(lc < 0) lc++;
-    			if(lc == 0) { // if block marked full, go to next
+    		if (Reads.compareIndexValue(array, id, p, 0.5, true) < c) {
+    			if (lc < 0) lc++;
+    			if (lc == 0) { // if block marked full, go to next
     				li = ++ii;
     				lb++;
     			}
     			int x = a + li * s + lc++;
     			Writes.write(array, x, array[id], 1, true, false);
-    			if(id != x) Writes.visualClear(array, id);
-    			if(lc == s) { // if block full, mark as such
+    			if (id != x) Writes.visualClear(array, id);
+    			if (lc == s) { // if block full, mark as such
     				lc = -1;
     			}
     		} else {
-    			if(rc < 0) rc++;
-    			if(rc == 0) { // if block marked full, go to next
+    			if (rc < 0) rc++;
+    			if (rc == 0) { // if block marked full, go to next
     				ri = ++ii;
     				rb++;
     			}
     			int x = a + ri * s + rc++;
     			Writes.write(array, x, array[id], 1, true, false);
-    			if(id != x) Writes.visualClear(array, id);
-    			if(rc == s) { // if block full, mark as such
+    			if (id != x) Writes.visualClear(array, id);
+    			if (rc == s) { // if block full, mark as such
     				rc = -1;
     			}
     		}
@@ -269,31 +269,31 @@ public class AdvancedLogSort extends Sort {
     		rb_c = rb - (rf ? 1 : 0); // corrected vars (block tally minus fragments)
     	int min  = Math.min(lb, rb);
 		int M    = log(min);
-    	if(min > 0) {
+    	if (min > 0) {
     		// tag blocks
-    		for(int i = 0, j = 0, k = 0; i < min - 1; i++) {
+    		for (int i = 0, j = 0, k = 0; i < min - 1; i++) {
     			while(j == ri || Reads.compareIndexValue(array, a+j*s+M, p, 0.5, true) >= c) j++;
     			while(k == li || Reads.compareIndexValue(array, a+k*s+M, p, 0.5, true) < c) k++;
     			encode(array, a+j++*s, a+k++*s, i);
     		}
     		int ca, cm, cf;
     		// sort blocks
-    		if(lb < rb) {
-    			for(int i = lb + rb - 1, j = 0; i >= 0; i--) {
-    				if(i != li && (i == ri || Reads.compareIndexValue(array, a+i*s+M, p, 0.5, true) >= c)) {
+    		if (lb < rb) {
+    			for (int i = lb + rb - 1, j = 0; i >= 0; i--) {
+    				if (i != li && (i == ri || Reads.compareIndexValue(array, a+i*s+M, p, 0.5, true) >= c)) {
     					multiSwap(array, a+i*s, a+(i+j)*s, s);
-    					if(i + j == li) li = i;
-    					if(i == ri) ri = i + j;
+    					if (i + j == li) li = i;
+    					if (i == ri) ri = i + j;
     				} else j++;
     			}
     			ca = a;
     			cm = a + lb * s;
     			cf = li;
     		} else {
-    			for(int i = 0, j = 0; i < lb + rb; i++) {
-    				if(i != ri && (i == li || Reads.compareIndexValue(array, a+i*s+M, p, 0.5, true) < c)) {
-    					if(i == li) li = j;
-    					if(j == ri) ri = i;
+    			for (int i = 0, j = 0; i < lb + rb; i++) {
+    				if (i != ri && (i == li || Reads.compareIndexValue(array, a+i*s+M, p, 0.5, true) < c)) {
+    					if (i == li) li = j;
+    					if (j == ri) ri = i;
     					multiSwap(array, a+i*s, a+j++*s, s);
     				}
     			}
@@ -302,7 +302,7 @@ public class AdvancedLogSort extends Sort {
     			cf = ri - lb;
     		}
     		// block cycle with fragment
-			if(min > 1) blockcycle(array, ca, cm, min, cf, s, M, p, c, lb<rb);
+			if (min > 1) blockcycle(array, ca, cm, min, cf, s, M, p, c, lb<rb);
     	}
 
 		int mid,
@@ -311,10 +311,10 @@ public class AdvancedLogSort extends Sort {
 			fm = lc < 0 ? 0 : s - lc;
 
 		// handle fragment
-    	if(b < B) {
+    	if (b < B) {
     		// in-place
     		int lo = rotatePart(array, b, B-1, p, c);
-			if(rb == 0) { // missing full buffer
+			if (rb == 0) { // missing full buffer
     			Writes.arraycopy(array, b, array, a + bm, lo, 1, true, false);
     			Writes.arraycopy(tmp, 0, array, a + bm + lo, t, 1, true, false);
 			} else {
@@ -325,7 +325,7 @@ public class AdvancedLogSort extends Sort {
 
     			// a
     			int vi = a + lb * s + be;
-    			if(lo <= fm) {
+    			if (lo <= fm) {
     				Writes.arraycopy(array, a + lb * s, array, b + lo - be, be, 1, true, false);
     				Writes.arraycopy(tmp, 0, array, a + bm + lo, t, 1, true, false);
     			} else {
@@ -350,20 +350,20 @@ public class AdvancedLogSort extends Sort {
 		int p, m;
 		boolean bad = false;
 		while(b - a > 32) {
-			if(bad) {
+			if (bad) {
 				p = array[rankof243s(array, a, b)];
 				bad = false;
 			} else
 				p = array[pseudomo81(array, a, b)];
 			m = partition(array, tmp, a, b, p, 1, s);
-			if(m == b) { // pivot is highest rank
+			if (m == b) { // pivot is highest rank
 				// repartition with different bias
 				b = m = partition(array, tmp, a, b, p, 0, s);
 				continue;
 			}
 			int left = m - a, right = b - m;
 			bad = left >= 8 * right || right >= 8 * left;
-			if(left > right) {
+			if (left > right) {
 				Writes.recursion();
 				advLogSort(array, tmp, m, b, s, depth);
 				b = m;

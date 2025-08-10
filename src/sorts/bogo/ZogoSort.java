@@ -35,7 +35,7 @@ public class ZogoSort extends BogoSorting {
 
     	Writes.swap(array, rand, head, 0.05, true, false);
     	Writes.swap(array, rand, tail, 0.05, true, false);
-    	if(randBoolean())
+    	if (randBoolean())
     		Writes.swap(array, rand, head, 0.05, true, false);
     }
 

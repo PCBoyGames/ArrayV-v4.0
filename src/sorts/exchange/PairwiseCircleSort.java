@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 
 /**
  * @author aphitorite
- * 
+ *
  */
 public class PairwiseCircleSort extends Sort {
     public PairwiseCircleSort(ArrayVisualizer arrayVisualizer) {
@@ -27,20 +27,20 @@ public class PairwiseCircleSort extends Sort {
         if (end - start < 2) return false;
         int b = start + 1;
         boolean anySwap = false;
-        while (b < end){
-            if(Reads.compareIndices(array, b - 1, b, sleep, true) > 0)
+        while (b < end) {
+            if (Reads.compareIndices(array, b - 1, b, sleep, true) > 0)
                 Writes.swap(array, b - 1, b, sleep, anySwap = true, false);
             b += 2;
         }
         int a = 1;
         while (a < (end - start)) a = (a * 2) + 1;
         b = start + 1;
-        while (b + 1 < end){
+        while (b + 1 < end) {
             int c = a;
-            while (c > 1){
+            while (c > 1) {
                 c /= 2;
-                if (b + c < end){
-                    if(Reads.compareIndices(array, b, b + c, sleep, true) > 0)
+                if (b + c < end) {
+                    if (Reads.compareIndices(array, b, b + c, sleep, true) > 0)
                         Writes.swap(array, b, b + c, sleep, anySwap = true, false);
                 }
             }

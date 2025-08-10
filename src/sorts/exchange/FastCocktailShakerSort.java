@@ -51,7 +51,7 @@ public class FastCocktailShakerSort extends Sort {
     public void runSort(int[] array, int length, int bucketCount) {
 		Random r = new Random();
 
-		for(int start = 0, end = length-1; start < end; ) {
+		for (int start = 0, end = length-1; start < end; ) {
             int consecSorted = 1;
 			int w = 0;
 
@@ -60,10 +60,10 @@ public class FastCocktailShakerSort extends Sort {
 			Highlights.markArray(2, rIdx+1);
 			Delays.sleep(Math.max(0, (double)(end-start)/length));
 
-            for(int i = start; i < end; i++) {
+            for (int i = start; i < end; i++) {
 				consecSorted++;
 
-                if(array[i] > array[i+1]){
+                if (array[i] > array[i+1]) {
 					int t = array[i]; array[i] = array[i+1]; array[i+1] = t;
                     consecSorted = 1; w++;
                 }
@@ -88,10 +88,10 @@ public class FastCocktailShakerSort extends Sort {
 			Highlights.markArray(2, rIdx+1);
 			Delays.sleep(Math.max(0, (double)(end-start)/length));
 
-            for(int i = end; i > start; i--) {
+            for (int i = end; i > start; i--) {
 				consecSorted++;
 
-                if(array[i-1] > array[i]){
+                if (array[i-1] > array[i]) {
                     int t = array[i]; array[i] = array[i-1]; array[i-1] = t;
                     consecSorted = 1; w++;
                 }

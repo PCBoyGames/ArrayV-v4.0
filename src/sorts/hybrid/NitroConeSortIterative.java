@@ -36,7 +36,7 @@ public class NitroConeSortIterative extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     void shellPass(int[] array, int a, int b, int gap) {
         for (int i = a + gap; i < b; i++) {
             int tmp = array[i];
@@ -51,12 +51,12 @@ public class NitroConeSortIterative extends Sort {
             if (j != i) Writes.write(array, j, tmp, 0.7, true, false);
         }
     }
-    
+
     public void shellSort(int[] array, int a, int b) {
         for (int gap = (int) Math.sqrt(b - a); gap >= 2; gap /= 2.3601) shellPass(array, a, b, gap);
         shellPass(array, a, b, 1);
     }
-    
+
     boolean compSwap(int[] array, int a, int b) {
         if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
             Writes.swap(array, a, b, 0.5, true, false);
@@ -64,7 +64,7 @@ public class NitroConeSortIterative extends Sort {
         }
         return false;
     }
-    
+
     public void sort(int[] array, int a, int b) {
         int currentLength = b - a;
         int threshold = 0, n = 1;
@@ -73,7 +73,7 @@ public class NitroConeSortIterative extends Sort {
         int iterations = 0;
         for (boolean s = true; s;) {
             iterations++;
-            if(iterations >= threshold) {
+            if (iterations >= threshold) {
                 shellSort(array, a, b);
                 break;
             }

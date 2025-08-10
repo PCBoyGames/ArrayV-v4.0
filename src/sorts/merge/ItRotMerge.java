@@ -19,7 +19,7 @@ public class ItRotMerge extends Sort {
         this.setBogoSort(false);
     }
 
-    protected void itRotMerSort(int[] array, int currentLength){
+    protected void itRotMerSort(int[] array, int currentLength) {
         int l = 0;
         while (1 << l <= currentLength) l++;
         for (int u = l; u >= 0; u--)
@@ -28,25 +28,25 @@ public class ItRotMerge extends Sort {
                     rotatePartition(array, (i * currentLength)>>d, ((2 * i + 1) * currentLength) >> (d + 1), ((i + 1) * currentLength) >> d, u==d);
     }
 
-    protected void rotatePartition(int[] array, int l, int p, int r, boolean top){
+    protected void rotatePartition(int[] array, int l, int p, int r, boolean top) {
         if (l == p || p == r || (top && pair(array, p-1, p) >= 0)) return;
         int m = (top)?p:findSplit(array,l,r);
         if (m == r) return;
         if (p + m > r + l) l = p + m - r - 1;
         else l--;
         r = Math.min(p,m);
-        while (r-l>1){
+        while (r-l>1) {
             if (pair(array, p+m-1-(l+r)>>1, (l+r)>>1) == 1) r = (l+r)>>1;
             else l = (l+r)>>1;
         }
         IndexedRotations.adaptableRevised(array, r, m, p + m - r, 0.5, true, false);
     }
 
-    protected int findSplit(int[] array, int l, int r){
-        if (r - l > 3 && pair(array, r - (int) Math.floor((r - l) / 3),l + (int) Math.floor((r - l) / 3)) == 1){
+    protected int findSplit(int[] array, int l, int r) {
+        if (r - l > 3 && pair(array, r - (int) Math.floor((r - l) / 3),l + (int) Math.floor((r - l) / 3)) == 1) {
             l+=(int) Math.floor((r - l) / 3);
             r-=(int) Math.floor((r - l) / 3);
-            while (r-l > 1){
+            while (r-l > 1) {
                 if (pair(array, (r + l) >> 1, l) == 1) r = (r + l)>>1;
                 else l = (r + l) >> 1;
             }

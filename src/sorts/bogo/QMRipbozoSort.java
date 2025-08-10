@@ -33,7 +33,7 @@ import sorts.templates.BogoSorting;
 
 		   ArrayList<int[]> p = new ArrayList<>();
 
-		   for(int i=n; i>0; i--) {
+		   for (int i=n; i>0; i--) {
 			   p.add(Writes.createExternalArray(length));
 		   }
 
@@ -45,16 +45,16 @@ import sorts.templates.BogoSorting;
 		   while(!isArraySorted(array, length)) {
 			 packwatch:
 			   while(true) {
-				   for(int i=0; i<length; i++) {
+				   for (int i=0; i<length; i++) {
 					   Writes.arraycopy(array, 0, f[i], 0, length, 0.005, true, true);
 					   Writes.write(swaps, 2*i, randInt(0, length), 0.05, true, true);
 					   Writes.write(swaps, 2*i+1, randInt(0, length), 0.05, true, true);
 					   Writes.swap(f[i], swaps[2*i], swaps[2*i+1], 0.05, true, true);
 				   }
 
-				   for(int i=0; i<length; i++) {
-					   if(!isArraySorted(f[i], length)) {
-						   for(int j=0; j<2*length; j+=2) {
+				   for (int i=0; i<length; i++) {
+					   if (!isArraySorted(f[i], length)) {
+						   for (int j=0; j<2*length; j+=2) {
 							   Writes.swap(array, swaps[j], swaps[j+1], 0.05, true, false);
 						   }
 						   continue packwatch;

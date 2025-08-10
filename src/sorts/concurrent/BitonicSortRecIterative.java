@@ -37,9 +37,9 @@ public class BitonicSortRecIterative extends Sort {
             this.bitonicSort(A, lo + m, n - m, dir);
 
             int g = 1 << (31 - Integer.numberOfLeadingZeros(n - 1));
-            for(int j = g; j > 0; j /= 2) {
-            	for(int i = 0; i < n; i++) {
-            		if(i % (j * 2) < j && (i + j) < n && (dir ^ Reads.compareIndices(A, lo + i, lo + i + j, 1, true) > 0)) {
+            for (int j = g; j > 0; j /= 2) {
+            	for (int i = 0; i < n; i++) {
+            		if (i % (j * 2) < j && (i + j) < n && (dir ^ Reads.compareIndices(A, lo + i, lo + i + j, 1, true) > 0)) {
             			Writes.swap(A, lo + i, lo + i + j, 1, true, false);
             		}
             	}

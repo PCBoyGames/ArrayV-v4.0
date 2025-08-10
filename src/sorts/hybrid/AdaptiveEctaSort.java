@@ -19,7 +19,7 @@ in collaboration with aphitorite
  * <p>
  * To use this algorithm in another, use {@code blockMergeSort()} from a
  * reference instance.
- * 
+ *
  * @author Haruki (a.k.a. Ayako-chan)
  * @author aphitorite
  *
@@ -50,7 +50,7 @@ public class AdaptiveEctaSort extends Sort {
             Writes.write(array, i, array[i + d], 0.5, true, false);
         if (a != b) Writes.write(array, b, temp, 0.5, true, false);
     }
-    
+
     protected void multiSwap(int[] array, int a, int b, int len) {
         for (int i = 0; i < len; i++)
             Writes.swap(array, a + i, b + i, 1, true, false);
@@ -74,7 +74,7 @@ public class AdaptiveEctaSort extends Sort {
         if (r == 1) this.insertTo(array, m, a);
         else if (l == 1) this.insertTo(array, a, b - 1);
     }
-    
+
     protected int binSearch(int[] array, int a, int b, int val, boolean left) {
         while (a < b) {
             int m = a + (b - a) / 2;
@@ -130,13 +130,13 @@ public class AdaptiveEctaSort extends Sort {
         }
         return false;
     }
-    
+
     protected void mergeTo(int[] from, int[] to, int a, int m, int b, int p, boolean aux) {
         int i = a, j = m;
         while(i < m && j < b) {
             Highlights.markArray(2, i);
             Highlights.markArray(3, j);
-            if(Reads.compareValues(from[i], from[j]) <= 0)
+            if (Reads.compareValues(from[i], from[j]) <= 0)
                 Writes.write(to, p++, from[i++], 1, true, aux);
             else
                 Writes.write(to, p++, from[j++], 1, true, aux);
@@ -303,10 +303,10 @@ public class AdaptiveEctaSort extends Sort {
         }
         merge(array, buf, a, m, b);
     }
-    
+
     protected void pingPongMerge(int[] array, int[] buf, int a, int m1, int m2, int m3, int b) {
         int p = 0, p1 = p + m2-a, pEnd = p + b-a;
-        if(Reads.compareIndices(array, m1-1, m1, 1, true) > 0
+        if (Reads.compareIndices(array, m1-1, m1, 1, true) > 0
         || (m3 < b && Reads.compareIndices(array, m3-1, m3, 1, true) > 0)) {
             mergeTo(array, buf, a, m1, m2, p, true);
             mergeTo(array, buf, m2, m3, b, p1, true);
@@ -359,7 +359,7 @@ public class AdaptiveEctaSort extends Sort {
         int[] buf  = Writes.createExternalArray(bufLen);
         int i;
         for (; 4 * j <= bufLen; j *= 4) {
-            for(i = a; i+2*j < b; i += 4*j)
+            for (i = a; i+2*j < b; i += 4*j)
                 pingPongMerge(array, buf, i, i+j, i+2*j, Math.min(i+3*j, b), Math.min(i+4*j, b));
             if (i + j < b)
                 smartMerge(array, buf, i, i + j, b);

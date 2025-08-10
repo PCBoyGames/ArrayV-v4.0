@@ -42,7 +42,7 @@ public class OnionStoogeSort extends Sort {
     }
 
     public void onionStooge(int[] array, int start, int length) {
-        for(int ticker = 1; ticker < length; ticker++) {
+        for (int ticker = 1; ticker < length; ticker++) {
             stoogeSort(array, start, start + ticker);
         }
     }

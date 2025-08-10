@@ -81,61 +81,61 @@ public class CatchouliSort2 extends Sort {
 		}
 
 		private void setBit(int a, int b, boolean bit) {
-			if(this.getBit(a, b) ^ bit)
+			if (this.getBit(a, b) ^ bit)
 				this.flipBit(a, b);
 		}
 
 		public void set(int idx, int uInt) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
-			if(cache == idx) {
-				if(INCR) this.clearCache();
+			if (cache == idx) {
+				if (INCR) this.clearCache();
 				else {
 					this.xor(idx, val^uInt);
 					return;
 				}
-			} else if(!INCR) {
+			} else if (!INCR) {
 				cache = idx; val = uInt;
 			}
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
 				this.setBit(i, j, (uInt & 1) == 1);
 
-			if(uInt > 0) System.out.println("Warning: Word too large");
+			if (uInt > 0) System.out.println("Warning: Word too large");
 		}
 
 		public void xor(int idx, int uInt) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
-			if(cache == idx) {
-				if(INCR) this.incrByCache(false);
+			if (cache == idx) {
+				if (INCR) this.incrByCache(false);
 				else     val ^= uInt;
 			}
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>>= 1)
-				if((uInt & 1) == 1) this.flipBit(i, j);
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>>= 1)
+				if ((uInt & 1) == 1) this.flipBit(i, j);
 
-			if(uInt != 0) System.out.println("Warning: Word too large");
+			if (uInt != 0) System.out.println("Warning: Word too large");
 		}
 
 		public int get(int idx) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
-			if(cache == idx) {
-				if(INCR) {
+			if (cache == idx) {
+				if (INCR) {
 					val = this.incrByCache(true);
 					cache = idx;
-					if(val >= 0) return val;
+					if (val >= 0) return val;
 				} else return val;
 			}
 
 			int r = 0, s = idx*w;
-			for(int k = 0, i = pa+s, j = pb+s; k < w; k++, i++, j++)
+			for (int k = 0, i = pa+s, j = pb+s; k < w; k++, i++, j++)
 				r |= (this.getBit(i, j) ? 1 : 0) << k;
 
-			if(!INCR) {
+			if (!INCR) {
 				cache = idx; val = r;
 			}
 			return r;
@@ -143,16 +143,16 @@ public class CatchouliSort2 extends Sort {
 
 		// breaks down an O(b) operation into O(1) [amortized]
 		private int incrByCache(boolean nRet) {
-			if(val == 0) return -1;
+			if (val == 0) return -1;
 			int s = cache*w, i1 = pa+s+w, i = pa+s, j=pb+s, v = 0, k = 0;
             boolean vn = this.val < 0;
-			for(; i < i1; i++, j++, k++) {
+			for (; i < i1; i++, j++, k++) {
 				int valbit = val & 1;
-				if(valbit == 1) this.flipBit(i, j);
+				if (valbit == 1) this.flipBit(i, j);
 
-				if(val == 0) break;
+				if (val == 0) break;
 
-				if(nRet || valbit == 1) {
+				if (nRet || valbit == 1) {
 					boolean set = this.getBit(i, j);
 					v += (set ? 1 : 0) << k;
 					int carry = set ? 0 : valbit;
@@ -160,10 +160,10 @@ public class CatchouliSort2 extends Sort {
 				} else
 					val >>= 1;
 			}
-			for(; nRet && i < i1; i++, j++, k++) {
+			for (; nRet && i < i1; i++, j++, k++) {
 				v += (this.getBit(i, j) ? 1 : 0) << k;
 			}
-			if(val > 0 && !vn) System.out.println("Warning: Integer overflow");
+			if (val > 0 && !vn) System.out.println("Warning: Integer overflow");
 			clearCache();
 			return nRet ? v : -1;
 		}
@@ -171,9 +171,9 @@ public class CatchouliSort2 extends Sort {
 		public void incr(int idx) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
-			if(!INCR) clearCache();
+			if (!INCR) clearCache();
 
-			if(cache != idx) {
+			if (cache != idx) {
 				this.incrByCache(false);
 				cache = idx;
 				val = 0;
@@ -186,8 +186,8 @@ public class CatchouliSort2 extends Sort {
 	private int findMin(int[] array, int p, int a, int b, int s) {
 		int min = p;
 
-		for(int i = a; i < b; i += s)
-			if(Reads.compareIndices(array, i, min, 0.1, true) < 0)
+		for (int i = a; i < b; i += s)
+			if (Reads.compareIndices(array, i, min, 0.1, true) < 0)
 				min = i;
 
 		return min;
@@ -200,27 +200,27 @@ public class CatchouliSort2 extends Sort {
 		int f = a+((n-1)%s+1);
 		int fMin = this.findMin(array, a, a+1, f, 1);
 
-		for(int j = f; j < b; j += s) {
+		for (int j = f; j < b; j += s) {
 			int min = this.findMin(array, j, j+1, j+s, 1);
 
-			if(j != min) Writes.swap(array, j, min, 1, true, false);
+			if (j != min) Writes.swap(array, j, min, 1, true, false);
 		}
 
-		for(int j = a; j < b;) {
+		for (int j = a; j < b;) {
 			int min = this.findMin(array, fMin, f, b, s);
 
-			if(min == fMin) {
-				if(j != min) Writes.swap(array, j, min, 1, true, false);
-				if(++j == f) f += s; //check for bounds if last block is < s
+			if (min == fMin) {
+				if (j != min) Writes.swap(array, j, min, 1, true, false);
+				if (++j == f) f += s; //check for bounds if last block is < s
 
 				fMin = this.findMin(array, j, j+1, f, 1);
 			}
 			else {
-				if(j == fMin) fMin = this.findMin(array, j+1, j+2, f, 1);
+				if (j == fMin) fMin = this.findMin(array, j+1, j+2, f, 1);
 
 				int nMin = this.findMin(array, j, min+1, min+s, 1);
 
-				if(nMin == j) Writes.swap(array, j, min, 1, true, false);
+				if (nMin == j) Writes.swap(array, j, min, 1, true, false);
 
 				else {
 					Highlights.clearMark(2);
@@ -231,49 +231,49 @@ public class CatchouliSort2 extends Sort {
 					Writes.write(array, nMin, t,           0.5, true, false);
 				}
 
-				if(++j == f) f += s;
+				if (++j == f) f += s;
 			}
 		}
 	}
 
     private void baseSort(int[] array, int a, int b, int expectedDist) {
-    	if(b - a > 2 * expectedDist) { // only up to 4x bucket comparisons max before fallback
+    	if (b - a > 2 * expectedDist) { // only up to 4x bucket comparisons max before fallback
     		lazyHeap(array, a, b);
     		return;
     	}
     	// higher move count but less comparison overhead
     	int ll = -1, lh = -1;
-        for(int i = b - 1; b - i - 1 < i - a; i--) {
+        for (int i = b - 1; b - i - 1 < i - a; i--) {
         	int ii = a + b - i - 1, jj = i;
-        	if(Reads.compareIndices(array, ii, jj, 0.5, true) > 0) {
+        	if (Reads.compareIndices(array, ii, jj, 0.5, true) > 0) {
         		Writes.swap(array, ii, jj, 0.5, true, false);
         	}
         }
-        for(int i = b - 1; b - i - 1 < i - a; i--) {
+        for (int i = b - 1; b - i - 1 < i - a; i--) {
         	int ii = a + b - i - 1, jj = i, cl = ii, ch = jj;
         	int lc = b - (ll - a) - 1, hc = a + (b - lh - 1);
-        	if(ll >= ii && ll < lc && Reads.compareIndices(array, ll, lc, 0.5, true) > 0) {
+        	if (ll >= ii && ll < lc && Reads.compareIndices(array, ll, lc, 0.5, true) > 0) {
         		Writes.swap(array, ll, lc, 0.5, true, false);
         	}
-        	if(lh <= jj && hc < lh && Reads.compareIndices(array, hc, lh, 0.5, true) > 0) {
+        	if (lh <= jj && hc < lh && Reads.compareIndices(array, hc, lh, 0.5, true) > 0) {
         		Writes.swap(array, hc, lh, 0.5, true, false);
         	}
-            for(int j = ii + 1, k = jj - 1; j <= k; j++, k--) {
-                if(Reads.compareIndices(array, j, cl, 0.033, true) < 0) {
+            for (int j = ii + 1, k = jj - 1; j <= k; j++, k--) {
+                if (Reads.compareIndices(array, j, cl, 0.033, true) < 0) {
                     cl = j;
                 }
-                if(cl < k && Reads.compareIndices(array, k, ch, 0.033, true) > 0) {
+                if (cl < k && Reads.compareIndices(array, k, ch, 0.033, true) > 0) {
                   	ch = k;
                 }
             }
-            if((ll = cl) > ii) Writes.swap(array, ll, ii, 2.5, true, false);
-            if((lh = ch) < jj) Writes.swap(array, lh, jj, 2.5, true, false);
+            if ((ll = cl) > ii) Writes.swap(array, ll, ii, 2.5, true, false);
+            if ((lh = ch) < jj) Writes.swap(array, lh, jj, 2.5, true, false);
         }
     }
 
     // sort bucket for low uniques
     private void sortBucket(int[] array, int a, int b, int expectedDist) {
-    	if(b - a > maxNoPartition) {
+    	if (b - a > maxNoPartition) {
     		// ternary partition using a pseudomedian
         	int p = b - a > 8 * maxNoPartition ? rankof2187s(array, a, b) : pseudomo243(array, a, b);
         	int[] v = partition(array, a, b, array[p]);
@@ -289,11 +289,11 @@ public class CatchouliSort2 extends Sort {
 	private void insertRun(int[] array, int start, int end, boolean d) {
 		boolean invert = d;
 		int l, r, m, j, t;
-		for(int i=start+1; i<end; i++) {
-			if(invert ^ Reads.compareIndices(array, i-1, i, 0.01, true) <= 0) {
+		for (int i=start+1; i<end; i++) {
+			if (invert ^ Reads.compareIndices(array, i-1, i, 0.01, true) <= 0) {
 				continue;
 			}
-			if(invert ^ Reads.compareIndices(array, start, i, 0.01, true) > 0) {
+			if (invert ^ Reads.compareIndices(array, start, i, 0.01, true) > 0) {
 				Writes.reversal(array, start, i-1, 0.5, true, false);
 				invert = !invert;
 				continue;
@@ -302,7 +302,7 @@ public class CatchouliSort2 extends Sort {
 			r = i - 1;
 			while(l < r) {
 				m = l + (r - l) / 2;
-				if(invert ^ Reads.compareIndices(array, m, i, 0.0625, true) > 0) {
+				if (invert ^ Reads.compareIndices(array, m, i, 0.0625, true) > 0) {
 					r = m;
 				} else {
 					l = m + 1;
@@ -315,18 +315,18 @@ public class CatchouliSort2 extends Sort {
 			}
 			Writes.write(array, l, t, 0.5, true, false);
 		}
-		if(invert ^ d)
+		if (invert ^ d)
 			Writes.reversal(array, start, end-1, 1, true, false);
 	}
 
 	private int medOf3(int[] array, int a, int b, int c) {
     	int d;
-    	if(Reads.compareIndices(array, a, b, 0.5, true) > 0) {
+    	if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
     		d = b; b = a;
     	} else
     		d = a;
-    	if(Reads.compareIndices(array, b, c, 0.5, true) > 0) {
-    		if(Reads.compareIndices(array, d, c, 0.5, true) > 0) {
+    	if (Reads.compareIndices(array, b, c, 0.5, true) > 0) {
+    		if (Reads.compareIndices(array, d, c, 0.5, true) > 0) {
         		return d;
         	}
     		return c;
@@ -335,7 +335,7 @@ public class CatchouliSort2 extends Sort {
     }
 
     private int ninther(int[] array, int a, int b) {
-    	if(b-a<=9)
+    	if (b-a<=9)
     		return array[a+(b-a)/2];
     	int len = b - a, half = len / 2, quart = len / 4, eight = len / 8;
     	int c = medOf3(array, a, a+eight, a+quart);
@@ -398,7 +398,7 @@ public class CatchouliSort2 extends Sort {
 
 	// AHHHHHHHH
     private int pseudomo2187(int[] array, int a, int b) {
-    	if(b-a < 4*2187) {
+    	if (b-a < 4*2187) {
     		return pseudomo243(array, a, b);
     	}
     	int d = (b-a+1)/78,
@@ -449,7 +449,7 @@ public class CatchouliSort2 extends Sort {
     }
 
     private int pseudomo6561(int[] array, int a, int b) {
-    	if(b-a < 16*6561)
+    	if (b-a < 16*6561)
     		return pseudomo2187(array, a, b);
     	int d=(b-a+1)/6,
     		m0 = pseudomo2187(array, a, a+d),
@@ -462,8 +462,8 @@ public class CatchouliSort2 extends Sort {
     private int gaprank(int[] array, int a, int b, int g, int r) {
     	int re = 0;
     	while(a < b) {
-    		if(a != r) {
-    			if(Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
+    		if (a != r) {
+    			if (Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
     		}
     		a += g;
     	}
@@ -477,13 +477,13 @@ public class CatchouliSort2 extends Sort {
     	while(s*s<b-a) s*=2;
 
     	// low n: return ninther
-    	if((s/=2) < 2) return ninther(array, a, b);
+    	if ((s/=2) < 2) return ninther(array, a, b);
     	int mid = (b-a-1)/(2*s)+1, e = (b-a) / 8, cm = a+(b-a)/2, cr = 0;
 
     	// select pmo243 with gapped rank closest to middle
-    	for(int i=0; i<e; i+=s) {
+    	for (int i=0; i<e; i+=s) {
     		int p = pseudomo2187(array, a+i, b-e+i), r = gaprank(array, a, b, s, p);
-    		if(Math.abs(cr-mid)>Math.abs(r-mid)) {
+    		if (Math.abs(cr-mid)>Math.abs(r-mid)) {
     			cm = p;
     			cr = r;
     		}
@@ -514,7 +514,7 @@ public class CatchouliSort2 extends Sort {
 		multiSwap(array, m, t, b-m);
 		int l = m-1, r = t+b-m-1;
 		while(l>=a && r>=t) {
-			if(Reads.compareIndices(array, l, r, 0.5, true) > 0) {
+			if (Reads.compareIndices(array, l, r, 0.5, true) > 0) {
 				Writes.swap(array, --b, l--, 0.5, true, false);
 			} else {
 				Writes.swap(array, --b, r--, 0.5, true, false);
@@ -525,11 +525,11 @@ public class CatchouliSort2 extends Sort {
 	}
 
     private void blockMerge(int[] array, int t, int a, int m, int b, int p, int w, int piv, boolean invert, int bias) {
-        if(Reads.compareIndices(array, m-1, m, 1, true) <= 0)
+        if (Reads.compareIndices(array, m-1, m, 1, true) <= 0)
             return;
         int l = a, r = m, bufs[] = new int[] {a, m}, j = p, wc = 1, ml = log((b-a)/w-1)+1;
-        for(int i = 0; i < w && (l < m || r < b); i++) {
-            if(l < m && (r == b || Reads.compareValues(array[l], array[r]) <= 0)) {
+        for (int i = 0; i < w && (l < m || r < b); i++) {
+            if (l < m && (r == b || Reads.compareValues(array[l], array[r]) <= 0)) {
                 Writes.swap(array, t + i, l++, 1, true, false);
             } else {
                 Writes.swap(array, t + i, r++, 1, true, false);
@@ -537,8 +537,8 @@ public class CatchouliSort2 extends Sort {
         }
         while(l < m || r < b) {
             int idx = l - bufs[0] > 0 && (l - bufs[0] == w || Reads.compareIndices(array, bufs[0] + w - 1, bufs[1] + w - 1, 1, true) <= 0) ? 0 : 1;
-            for(int c = 0; c < w; c++) {
-                if(l < m && (r == b || Reads.compareValues(array[l], array[r]) <= 0)) {
+            for (int c = 0; c < w; c++) {
+                if (l < m && (r == b || Reads.compareValues(array[l], array[r]) <= 0)) {
                     Writes.swap(array, bufs[idx]++, l++, 1, true, false);
                 } else {
                     Writes.swap(array, bufs[idx]++, r++, 1, true, false);
@@ -551,7 +551,7 @@ public class CatchouliSort2 extends Sort {
         multiSwap(array, t, bufs[bufs[0] < m ? 0 : 1], w);
 
         int i = a, h = 0;
-        for(j = p; i < b - w; i += w, h++) {
+        for (j = p; i < b - w; i += w, h++) {
             int dst = get(array, i, piv, ml, bias, invert);
             while(h != dst) {
                 multiSwap(array, i, a+dst*w, w);
@@ -573,10 +573,10 @@ public class CatchouliSort2 extends Sort {
     	b--;
     	int A, B;
     	int c = A = a, d = B = b, c1 = 0, d1 = 0, C = 0;
-    	for(;;) {
+    	for (;;) {
     		// find next out-of-place element
     		while(a <= b && (C = Reads.compareIndexValue(array, a, p, 0.5, true)) <= 0) {
-    			if(C == 0) { // swap to c if equal to pivot
+    			if (C == 0) { // swap to c if equal to pivot
     				Writes.swap(array, c++, a, 0.25, true, false);
     				c1++;
     			}
@@ -584,30 +584,30 @@ public class CatchouliSort2 extends Sort {
     		}
     		// find next out-of-place element
     		while(a <= b && (C = Reads.compareIndexValue(array, b, p, 0.5, true)) >= 0) {
-    			if(C == 0) { // swap to d if equal to pivot
+    			if (C == 0) { // swap to d if equal to pivot
     				Writes.swap(array, d--, b, 0.25, true, false);
     				d1++;
     			}
     			b--;
     		}
-    		if(a == b) b--;
-    		if(a < b) {
+    		if (a == b) b--;
+    		if (a < b) {
     			// swap both elements
     			Writes.swap(array, a++, b--, 1, true, false);
     		} else {
-    			if(b-c>=c1) // transport equals to middle left
-	    			for(int i=c; c1-->0;)
+    			if (b-c>=c1) // transport equals to middle left
+	    			for (int i=c; c1-->0;)
 	    				Writes.swap(array, b--, --i, 0.1, true, false);
     			else { // transport inequals to left
-    				for(int i=A, j=c; j<=b;)
+    				for (int i=A, j=c; j<=b;)
     					Writes.swap(array, i++, j++, 0.1, true, false);
     				b -= c1;
     			}
-    			if(d-a>=d1) // transport equals to middle right
-	    			for(int i=d; d1-->0;)
+    			if (d-a>=d1) // transport equals to middle right
+	    			for (int i=d; d1-->0;)
 	    				Writes.swap(array, a++, ++i, 0.1, true, false);
     			else { // transport inequals to right
-    				for(int i=B, j=d; j>=a;)
+    				for (int i=B, j=d; j>=a;)
     					Writes.swap(array, i--, j--, 0.1, true, false);
     				a += d1;
     			}
@@ -622,13 +622,13 @@ public class CatchouliSort2 extends Sort {
     	assert e > 0 : "No ranks provided for quickselect";
     	int q[][] = new int[e][], p[] = new int[2*e];
     	int[] d = new int[e];
-    	for(int i=0; i<e; i++) {
+    	for (int i=0; i<e; i++) {
     		q[i] = new int[] {a, b};
     	}
     	boolean bad;
     	int c = 0, j = 2 * potlt(e), i = 0;
     	do {
-    		if(i+j/2 < e && d[i+j/2] == 0) {
+    		if (i+j/2 < e && d[i+j/2] == 0) {
     			int v = i+j/2;
     			bad = false;
     			int ak = q[v][0], bk = q[v][1];
@@ -636,22 +636,22 @@ public class CatchouliSort2 extends Sort {
     	    		int mp = array[bad ? rankof2187s(array, ak, bk) : pseudomo6561(array, ak, bk)];
     	    		int[] m = partition(array, ak, bk, mp);
     	    		bad = (m[0] - ak) * 8 <= bk - ak || (bk - m[1]) * 8 < bk - ak;
-    	    		for(int k = 0; k < e; k++) {
-    	    			if(k != v && d[k] == 0) {
+    	    		for (int k = 0; k < e; k++) {
+    	    			if (k != v && d[k] == 0) {
     	    				// cavernous' tri-pivot quickselect broke because would set boundaries wrong
     	    				// this is likely the correct method, but it has not been thoroughly stresstested
-    	    				if(m[0] <= r[k] && r[k] <= m[1]) {
+    	    				if (m[0] <= r[k] && r[k] <= m[1]) {
     	    					p[2*k] = m[0]; p[2*k+1] = m[1] + 1; d[k] = 1; c++; continue;
-    	    				} else if(r[k] < m[0] && m[0] < q[k][1])      q[k][1] = m[0];
-  	    				  	  else if(r[k] > m[1] + 1 && m[1] >= q[k][0]) q[k][0] = m[1] + 1;
+    	    				} else if (r[k] < m[0] && m[0] < q[k][1])      q[k][1] = m[0];
+  	    				  	  else if (r[k] > m[1] + 1 && m[1] >= q[k][0]) q[k][0] = m[1] + 1;
     	    			}
     	    		}
-    	    		if(m[0] <= r[v] && r[v] <= m[1]) {
+    	    		if (m[0] <= r[v] && r[v] <= m[1]) {
     	    			p[2*v] = m[0]; p[2*v+1] = m[1] + 1; d[v] = 1; c++; break;
-    	    		} else if(r[v] < m[0]) bk = m[0];
+    	    		} else if (r[v] < m[0]) bk = m[0];
     	    		else                   ak = m[0] + 1;
     			}
-    			if(d[v] == 0) {
+    			if (d[v] == 0) {
     				insertRun(array, ak, bk, false);
     		    	int m2, m1 = m2 = r[v];
     		    	do m1--; while(Reads.compareIndices(array, m1, r[v], 0.1, true) == 0);
@@ -661,7 +661,7 @@ public class CatchouliSort2 extends Sort {
     			}
     		}
     		i += j;
-    		if(i >= e) {
+    		if (i >= e) {
     			i = 0; j /= 2;
     		}
     	} while(c < e);
@@ -697,10 +697,10 @@ public class CatchouliSort2 extends Sort {
 	private void heap(int[] array, int start, int end) {
 		// heapify
 		int p = end - start;
-		for(int j = (p - 1) / 2; j >= 0; --j) {
+		for (int j = (p - 1) / 2; j >= 0; --j) {
 			 sift(array, start, j, p, array[start + j]);
 		}
-		for(int j = p - 1; j > 0; --j) {
+		for (int j = p - 1; j > 0; --j) {
 			 // pick out root, re-sift using last element in heap
 			 int t = array[start + j];
 			 Writes.write(array, start + j, array[start], 1.0, true, false);
@@ -709,18 +709,18 @@ public class CatchouliSort2 extends Sort {
 	}
 
     private int licd(int v, int x) {
-    	if(v <= 0) return x;
+    	if (v <= 0) return x;
     	int n = 0;
     	do {
     		int mc = LP[x - 1]; // size of first child
-    		if(n == v) { // v found in first trail
+    		if (n == v) { // v found in first trail
     			return x;
     		}
-    		if(++n + mc == v) { // v found in second trail
+    		if (++n + mc == v) { // v found in second trail
     			return x - 1;
     		}
 
-    		if(v >= n + mc) {
+    		if (v >= n + mc) {
     			n += mc; // close in on v
     			x--;
     		} else x -= 2;
@@ -731,29 +731,29 @@ public class CatchouliSort2 extends Sort {
     private void lSiftDown(int[] array, int a, int b, int hl, int tmp, boolean step) {
     	while(hl > 0) {
 	    	int l = a + 1, ll = l, hc = LP[hl - 1], d = 2;
-	    	if(l + hc < b && Reads.compareIndices(array, ll, l + hc, 0.25, true) < 0) {
+	    	if (l + hc < b && Reads.compareIndices(array, ll, l + hc, 0.25, true) < 0) {
 	    		ll = l + hc;
 	    		d--;
 	    	}
-	    	if(ll < b && Reads.compareValueIndex(array, tmp, ll, 0.5, true) < 0) {
+	    	if (ll < b && Reads.compareValueIndex(array, tmp, ll, 0.5, true) < 0) {
 	    		Writes.write(array, a, array[ll], 0.618d, true, false);
 	    		a = ll; step = true; hl -= d;
 	    	} else {
 	    		break;
 	    	}
     	}
-		if(step) Writes.write(array, a, tmp, 1, true, false);
+		if (step) Writes.write(array, a, tmp, 1, true, false);
     }
 
     private void lHeap(int[] array, int a, int b) {
     	int m = 0;
     	while(LP[++m+1] < b - a);
-		for(int i = b - 1; i >= a; i--) {
+		for (int i = b - 1; i >= a; i--) {
 			int d = licd(i - a, m);
-			if(d > 0)
+			if (d > 0)
 				lSiftDown(array, i, b, d, array[i], false);
 		}
-    	for(int i = b - 1; i > a + m / 2; i--) {
+    	for (int i = b - 1; i > a + m / 2; i--) {
     		int t = array[i];
     		Writes.write(array, i, array[a], 2.5, true, false);
     		lSiftDown(array, a, i, m, t, true);
@@ -765,7 +765,7 @@ public class CatchouliSort2 extends Sort {
     private int b(int[] array, int a, int b, int v, boolean r) {
     	while(a<b) {
     		int m = a+(b-a)/2;
-    		if(Reads.compareIndices(array, m, v, 0.25, true) > (r ? 0 : -1)) b = m;
+    		if (Reads.compareIndices(array, m, v, 0.25, true) > (r ? 0 : -1)) b = m;
     		else a = m + 1;
     	}
     	return a;
@@ -777,7 +777,7 @@ public class CatchouliSort2 extends Sort {
     	int a=0, b=v;
     	while(a<b) {
     		int m=a+(b-a)/2;
-    		if(m+(m+1)*log(v-m) > v) b = m;
+    		if (m+(m+1)*log(v-m) > v) b = m;
     		else a = m + 1;
     	}
     	while(a+(a+1)*log(v-a) > v) a--; // just to be sure
@@ -827,8 +827,8 @@ public class CatchouliSort2 extends Sort {
          **/
 
     	int lg = log(b-a+1);
-    	if(p2 - p1 < 2) {
-    		if(a < b) heap(array, a, b);
+    	if (p2 - p1 < 2) {
+    		if (a < b) heap(array, a, b);
     		return;
     	}
 
@@ -836,21 +836,21 @@ public class CatchouliSort2 extends Sort {
     	BitArray cntpos = new BitArray(array, iv?pb:pa, iv?pa:pb, (p2-p1)+1, lg);
 
     	// count elements
-    	for(int i=a; i<b; i++) {
+    	for (int i=a; i<b; i++) {
     		int B = b(array, p1, p2, i, false) - p1;
     		cntpos.incr(B); max = Math.max(max, B);
     	}
     	Highlights.clearMark(3);
 
     	// set positions
-    	for(int i=0, s=0; i<=max; i++) {
+    	for (int i=0, s=0; i<=max; i++) {
     		int cv = cntpos.get(i);
-    		if(cv > 0)
+    		if (cv > 0)
     			cntpos.xor(i, cv ^ (s += cv));
     	}
 
     	// pache shared-space bucketsort
-    	for(int i=0, j=a; i<max;) {
+    	for (int i=0, j=a; i<max;) {
     		int v1 = cntpos.get(i), v = v1 + a - 1;
 
     		while(j <= v) {
@@ -864,7 +864,7 @@ public class CatchouliSort2 extends Sort {
     				while(t-->0 && (b1 = b(array, p1, p2, t1 = t + a, false) - p1) == x);
 
     				// failsafe
-    				if(t<0) t++;
+    				if (t<0) t++;
 
     				// put the correct element into v
     				int nv = array[t1];
@@ -878,7 +878,7 @@ public class CatchouliSort2 extends Sort {
     			}
 
     			// put temporary variable back
-    			if(s > 0) Writes.write(array, v, V, 0.5, true, false);
+    			if (s > 0) Writes.write(array, v, V, 0.5, true, false);
     			v--;
     		}
 
@@ -886,7 +886,7 @@ public class CatchouliSort2 extends Sort {
     		cntpos.xor(i, v1);
 
     		// binary search to next bucket
-    		if(i < max - 1)
+    		if (i < max - 1)
     			j = b(array, v1 + a, b, p1 + i, true);
 
     		// iterate until next unique pivot found
@@ -902,7 +902,7 @@ public class CatchouliSort2 extends Sort {
     	int dist = (b - a) / (p2 - p1) + 1;
 
     	int j = a;
-    	for(int i = p1; i < p2; i++) {
+    	for (int i = p1; i < p2; i++) {
     		int j1 = b(array, a, b, i, true);
     		//               ! OOB ISSUE !
     		//!!! MIGHT BE IN THE ORIGINAL OPTILAZYHEAP !!!
@@ -914,13 +914,13 @@ public class CatchouliSort2 extends Sort {
 
     // really slow but I don't have anything much faster
     private void remerge(int[] array, int a, int a1, int m, int t, boolean doHp) {
-    	for(int i = a; i < a1; i++) {
+    	for (int i = a; i < a1; i++) {
     		Writes.swap(array, i, i + t - a, 2.5, true, false);
     	}
 
     	int l = t, le = t + a1 - a, r = a1, re = m;
     	while(l < le && r < re) {
-    		if(Reads.compareIndices(array, l, r, 0.5, true) <= 0) {
+    		if (Reads.compareIndices(array, l, r, 0.5, true) <= 0) {
     			Writes.swap(array, a++, l++, 0.5, true, false);
     		} else {
     			Writes.swap(array, a++, r++, 0.5, true, false);
@@ -929,7 +929,7 @@ public class CatchouliSort2 extends Sort {
     	while(l < le)
 			Writes.swap(array, a++, l++, 0.5, true, false);
 
-    	if(doHp) lHeap(array, t, le);
+    	if (doHp) lHeap(array, t, le);
     }
 
     public void catchouli(int[] array, int a, int b) {
@@ -938,9 +938,9 @@ public class CatchouliSort2 extends Sort {
     	// quickselect 3 pivots
     	int[] p = quickselect(array, a, b, a1, b1);
 
-    	if(p[1] >= b-1 || Reads.compareIndices(array, a, b-1, 0.1, true) == 0) return;
+    	if (p[1] >= b-1 || Reads.compareIndices(array, a, b-1, 0.1, true) == 0) return;
 
-    	if(l2 > pivs(p[2]-p[1])) {
+    	if (l2 > pivs(p[2]-p[1])) {
     		lHeap(array, a, b);
     		return;
     	}

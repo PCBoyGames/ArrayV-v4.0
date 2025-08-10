@@ -86,10 +86,10 @@ public class FlanSort2 extends Sort {
 
 			int cmp = Reads.compareValues(val, array[m]);
 
-			if(cmp < 0)      b = m;
-			else if(cmp > 0) a = m+s;
+			if (cmp < 0)      b = m;
+			else if (cmp > 0) a = m+s;
 
-			else if(randCnt++ < 1) { // if we hit an equal element then pick a random gap within range
+			else if (randCnt++ < 1) { // if we hit an equal element then pick a random gap within range
 			                         // we can randomize a constant number of times but one seems enough
 
 				m = a+this.rng.nextInt((b-a)/s)*s;
@@ -98,8 +98,8 @@ public class FlanSort2 extends Sort {
 
 				cmp = Reads.compareValues(val, array[m]);
 
-				if(cmp < 0)      b = m; // continue with binary search as usual with the random mid index
-				else if(cmp > 0) a = m+s;
+				if (cmp < 0)      b = m; // continue with binary search as usual with the random mid index
+				else if (cmp > 0) a = m+s;
 				else { a = m; break; } // if the random gap is equal again that means
 				                       // we successfully picked a random equal gap so we can just return m
 			}
@@ -117,7 +117,7 @@ public class FlanSort2 extends Sort {
 			Highlights.markArray(3, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) == cmp)
+			if (Reads.compareValues(val, array[m]) == cmp)
 				b = m;
 			else
 				a = m+1;
@@ -136,7 +136,7 @@ public class FlanSort2 extends Sort {
 	}
 
 	private void binaryInsertion(int[] array, int a, int b) {
-		for(int i = a+1; i < b; i++)
+		for (int i = a+1; i < b; i++)
 			this.insertTo(array, array[i], i, this.rightBinSearch(array, a, i, array[i], false));
 	}
 
@@ -151,7 +151,7 @@ public class FlanSort2 extends Sort {
 
 		int j = b-1, m;
 
-		for(int k = pEnd-(G+1); k > p+G;) {
+		for (int k = pEnd-(G+1); k > p+G;) {
 			m = this.rightBinSearch(array, k-G, k, bsv, bw)-1;
 			k -= G+1;
 
@@ -166,7 +166,7 @@ public class FlanSort2 extends Sort {
 
 		int j = i-2*(G+1), m;
 
-		for(int k = pEnd-(G+1); k > p+G;) {
+		for (int k = pEnd-(G+1); k > p+G;) {
 			m = this.rightBinSearch(array, k-G, k, bsv, bw)-1;
 			k -= G+1;
 
@@ -193,13 +193,13 @@ public class FlanSort2 extends Sort {
 		int baseCnt  = gapElems/gCnt;
 		int extra    = gapElems - gCnt*baseCnt;
 
-		for(int k = p+G;; k += G+1) {
+		for (int k = p+G;; k += G+1) {
 			int iter = baseCnt + (extra-- > 0 ? 1 : 0);
 
-			for(int j = 0; j < iter; j++)
+			for (int j = 0; j < iter; j++)
 				Writes.swap(array, a++, k-G+j, 1, true, false);
 
-			if(k < pb-(G+1))
+			if (k < pb-(G+1))
 				Writes.swap(array, a++, k, 1, true, false);
 
 			else break;
@@ -210,7 +210,7 @@ public class FlanSort2 extends Sort {
 	private void librarySort(int[] array, int a, int b, int p, int pb, int bsv, boolean bw) {
 		int len = b-a;
 
-		if(len <= this.MIN_INSERT) {
+		if (len <= this.MIN_INSERT) {
 			this.binaryInsertion(array, a, b);
 			return;
 		}
@@ -220,15 +220,15 @@ public class FlanSort2 extends Sort {
 
 		int i = a+s, j = a+R*s, pEnd = p + (s+1)*(G+1)+G;
 		this.binaryInsertion(array, a, i);
-		for(int k = 0; k < s; k++) // scatter elements to make G sized gaps b/w them
+		for (int k = 0; k < s; k++) // scatter elements to make G sized gaps b/w them
 			Writes.swap(array, a+k, p + k*(G+1)+G, 1, true, false);
 
 		while(i < b) {
-			if(i == j) { // rebalancing: scatter elements evenly
+			if (i == j) { // rebalancing: scatter elements evenly
 				s = i-a;
 				int pEndNew = p + (s+1)*(G+1)+G;
 
-				if(pEndNew > pb) { // handle accordingly if not enough buffer space for a rescatter
+				if (pEndNew > pb) { // handle accordingly if not enough buffer space for a rescatter
 					this.rebalance(array, a, i, p, pEnd, pb, bsv, bw);
 					pEnd = pb;
 					j = a;
@@ -245,17 +245,17 @@ public class FlanSort2 extends Sort {
 
 			int loc  = this.rightBinSearch(array, bLoc-G, bLoc, bsv, bw);	 // search next empty space in gap
 
-			if(loc == bLoc) { // if there is no empty space filled elements in gap are split
+			if (loc == bLoc) { // if there is no empty space filled elements in gap are split
 			                  // dont increment i since no elements are inserted in this case
 				int rotP = -1;
 
 				do bLoc += G+1;
 				while(bLoc < pEnd && (rotP = this.rightBinSearch(array, bLoc-G, bLoc, bsv, bw)) == bLoc);
 
-				if(bLoc == pb) // weve reached the end of buffer: force a rebalance
+				if (bLoc == pb) // weve reached the end of buffer: force a rebalance
 					this.rebalance(array, a, i, p, pEnd, pb, bsv, bw);
 
-				else if(bLoc == pEnd) { // otherwise: append new gap after last gap
+				else if (bLoc == pEnd) { // otherwise: append new gap after last gap
 					int rotS = G/2 + 1; // any amount such that 1 <= rotS <= G
 					this.shiftBW(array, loc-rotS, bLoc-(G+1), bLoc-(G+1)+rotS);
 					pEnd += G+1;
@@ -281,18 +281,18 @@ public class FlanSort2 extends Sort {
 	////////////////////
 
 	private int medianOfThree(int[] array, int a, int m, int b) {
-		if(Reads.compareValues(array[m], array[a]) > 0) {
-			if(Reads.compareValues(array[m], array[b]) < 0)
+		if (Reads.compareValues(array[m], array[a]) > 0) {
+			if (Reads.compareValues(array[m], array[b]) < 0)
 				return m;
-			if(Reads.compareValues(array[a], array[b]) > 0)
+			if (Reads.compareValues(array[a], array[b]) > 0)
 				return a;
 			else
 				return b;
 		}
 		else {
-			if(Reads.compareValues(array[m], array[b]) > 0)
+			if (Reads.compareValues(array[m], array[b]) > 0)
 				return m;
-			if(Reads.compareValues(array[a], array[b]) < 0)
+			if (Reads.compareValues(array[a], array[b]) < 0)
 				return a;
 			else
 				return b;
@@ -325,7 +325,7 @@ public class FlanSort2 extends Sort {
 	////////////////
 
 	private void quickLibrarySort(int[] array, int a, int b, int p, int pb, int minSize, int bsv, boolean bw) {
-		if(b-a <= minSize) {
+		if (b-a <= minSize) {
 			this.librarySort(array, a, b, p, pb, bsv, bw);
 			return;
 		}
@@ -348,7 +348,7 @@ public class FlanSort2 extends Sort {
 			}
 			while(j >= i && Reads.compareIndexValue(array, j, piv, 0, false) > 0);
 
-			if(i < j) Writes.swap(array, i, j, 1, true, false);
+			if (i < j) Writes.swap(array, i, j, 1, true, false);
 			else break;
 		}
 		while(true);
@@ -369,7 +369,7 @@ public class FlanSort2 extends Sort {
 
 		// shuffle to almost always guarantee O(n log n) performance
 
-		//for(int i = a+1; i < b; i++)
+		//for (int i = a+1; i < b; i++)
 		//	Writes.swap(array, i, a+this.rng.nextInt(i-a+1), 1, true, false);
 
 		while(b-a > this.MIN_INSERT) {
@@ -378,28 +378,28 @@ public class FlanSort2 extends Sort {
 			// partition -> [a][E < piv][i][E == piv][j][E > piv][b]
 			int i1 = a, i = a-1, j = b, j1 = b;
 
-			for(;;) {
+			for (;;) {
 				while(++i < j) {
 					int cmp = Reads.compareIndexValue(array, i, piv, 0.5, true);
-					if(cmp == 0) Writes.swap(array, i1++, i, 1, true, false);
-					else if(cmp > 0) break;
+					if (cmp == 0) Writes.swap(array, i1++, i, 1, true, false);
+					else if (cmp > 0) break;
 				}
 				Highlights.clearMark(2);
 
 				while(--j > i) {
 					int cmp = Reads.compareIndexValue(array, j, piv, 0.5, true);
-					if(cmp == 0) Writes.swap(array, --j1, j, 1, true, false);
-					else if(cmp < 0) break;
+					if (cmp == 0) Writes.swap(array, --j1, j, 1, true, false);
+					else if (cmp < 0) break;
 				}
 				Highlights.clearMark(2);
 
-				if(i < j) {
+				if (i < j) {
 					Writes.swap(array, i, j, 1, true, false);
 					Highlights.clearMark(2);
 				}
 				else {
-					if(i1 == b) return;
-					else if(j < i) j++;
+					if (i1 == b) return;
+					else if (j < i) j++;
 
 					while(i1 > a) Writes.swap(array, --i, --i1, 1, true, false);
 					while(j1 < b) Writes.swap(array, j++, j1++, 1, true, false);
@@ -410,7 +410,7 @@ public class FlanSort2 extends Sort {
 
 			int left = i-a, right = b-j;
 
-			if(left <= right) { // sort the smaller partition using larger partition as space
+			if (left <= right) { // sort the smaller partition using larger partition as space
 				right -= (right+1)%(G+1) + (G+1);
 				left  =  Math.max(right/(G+1) * R, this.MIN_INSERT);
 

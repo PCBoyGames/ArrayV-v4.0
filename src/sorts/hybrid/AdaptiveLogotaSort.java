@@ -114,7 +114,7 @@ public class AdaptiveLogotaSort extends Sort {
 
     private void pivBufXor(int[] array, int pa, int pb, int v, int wLen) {
         while(wLen-- > 0) {
-            if((v&1) == 1) Writes.swap(array, pa+wLen, pb+wLen, 1, true, false);
+            if ((v&1) == 1) Writes.swap(array, pa+wLen, pb+wLen, 1, true, false);
             v >>= 1;
         }
     }
@@ -130,7 +130,7 @@ public class AdaptiveLogotaSort extends Sort {
     }
 
     private void blockCycle(int[] array, int p, int n, int p1, int bLen, int wLen, int piv, int pCmp, int bit) {
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             int dest = this.pivBufGet(array, p+i*bLen, piv, pCmp, wLen, bit);
 
             while(dest != i) {
@@ -161,7 +161,7 @@ public class AdaptiveLogotaSort extends Sort {
         while(i < s && j < b) {
             Highlights.markArray(2, j);
 
-            if(Reads.compareValues(tmp[i], array[j]) <= 0)
+            if (Reads.compareValues(tmp[i], array[j]) <= 0)
                 Writes.write(array, a++, tmp[i++], 1, true, false);
             else
                 Writes.write(array, a++, array[j++], 1, true, false);
@@ -180,7 +180,7 @@ public class AdaptiveLogotaSort extends Sort {
         while(i >= 0 && j >= a) {
             Highlights.markArray(2, j);
 
-            if(Reads.compareValues(tmp[i], array[j]) >= 0)
+            if (Reads.compareValues(tmp[i], array[j]) >= 0)
                 Writes.write(array, --b, tmp[i--], 1, true, false);
             else
                 Writes.write(array, --b, array[j--], 1, true, false);
@@ -191,7 +191,7 @@ public class AdaptiveLogotaSort extends Sort {
     }
 
     private void blockMergeHelper(int[] array, int[] swap, int a, int m, int b, int p, int bLen, int piv, int pCmp, int bit) {
-        if(m-a <= 2*bLen) {
+        if (m-a <= 2*bLen) {
             this.mergeFWExt(array, swap, a, m, b);
             return;
         }
@@ -204,7 +204,7 @@ public class AdaptiveLogotaSort extends Sort {
         int c = 0;
 
         while(c++ < 2*bLen) { //merge 2 blocks into buffer to create 2 buffers
-            if(Reads.compareValues(array[i], array[j]) <= 0) {
+            if (Reads.compareValues(array[i], array[j]) <= 0) {
                 Writes.write(swap, k++, array[i++], 1, true, true);
                 l++;
             }
@@ -222,7 +222,7 @@ public class AdaptiveLogotaSort extends Sort {
         c = 0;
 
         do {
-            if(j == b || Reads.compareValues(array[i], array[j]) <= 0) {
+            if (j == b || Reads.compareValues(array[i], array[j]) <= 0) {
                 Writes.write(array, k++, array[i++], 1, true, false);
                 l++;
             }
@@ -230,11 +230,11 @@ public class AdaptiveLogotaSort extends Sort {
                 Writes.write(array, k++, array[j++], 1, true, false);
                 r++;
             }
-            if(++c == bLen) { //change buffer after every block
+            if (++c == bLen) { //change buffer after every block
                 this.pivBufXor(array, k-bLen, pc, t++, wLen);
                 pc += bLen;
 
-                if(left) l -= bLen;
+                if (left) l -= bLen;
                 else     r -= bLen;
 
                 left = l >= r;
@@ -262,12 +262,12 @@ public class AdaptiveLogotaSort extends Sort {
     private void blockMergeEasy(int[] array, int[] swap, int a, int m, int b, int p, int bLen, int piv, int pCmp, int bit) {
         if (Reads.compareIndices(array, m - 1, m, 0.5, true) <= 0) return;
         b = maxExpSearch(array, m, b, array[m - 1], true);
-        if(b-m <= 2*bLen) {
+        if (b-m <= 2*bLen) {
             this.mergeBWExt(array, swap, a, m, b);
             return;
         }
         a = minExpSearch(array, a, m, array[m], false);
-        if(m-a <= 2*bLen) {
+        if (m-a <= 2*bLen) {
             this.mergeFWExt(array, swap, a, m, b);
             return;
         }
@@ -357,8 +357,8 @@ public class AdaptiveLogotaSort extends Sort {
         bLen = Math.max(this.productLog(length), Math.min(bLen, length));
         if (buildRuns(array, left, right, j)) return;
         int[] swap = Writes.createExternalArray(bLen * 2);
-        for(; j < length; j *= 2)
-            for(int i = left; i+j < right; i += 2*j)
+        for (; j < length; j *= 2)
+            for (int i = left; i+j < right; i += 2*j)
                 this.blockMerge(array, swap, i, i+j, Math.min(right, i+2*j), bLen);
         Writes.deleteExternalArray(swap);
     }

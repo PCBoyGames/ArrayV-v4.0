@@ -104,9 +104,9 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     private static String iceberg(String output, boolean cached) {
     	String v = icebergStrings[randInt(0, icebergStrings.length)];
-    	if(cached) {
-        	if(output == null) return null;
-    		if(maps.containsKey(output))
+    	if (cached) {
+        	if (output == null) return null;
+    		if (maps.containsKey(output))
     			return maps.get(output);
     		maps.put(output, v);
     	}
@@ -122,7 +122,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	}
     	public Epsilonite(ArrayVisualizer arrayVisualizer, int index, boolean compare) {
     		super(arrayVisualizer);
-    		if(compare)
+    		if (compare)
     			wrapped = wrapsCompare[index];
     		else
     			wrapped = wrapsDistr[index];
@@ -130,7 +130,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	}
     	private void instantiate() {
 			Object v;
-    		for(Field i : wrapped.getClass().getDeclaredFields()) {
+    		for (Field i : wrapped.getClass().getDeclaredFields()) {
 				try {
 					v = i.get(wrapped);
 	    			i.set(this, v);
@@ -165,13 +165,13 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	wrapsCompare = new Sort[sorts0.size()];
     	wrapsDistr = new Sort[sorts1.size()];
 
-    	for(int i=0; i<sorts0.size(); i++) {
+    	for (int i=0; i<sorts0.size(); i++) {
     		Epsilonite s = new Epsilonite(arrayVisualizer);
     		s.wrapped = sorts0.get(i);
     		s.instantiate();
     		sorts0.set(i, s);
     	}
-    	for(int i=0; i<sorts1.size(); i++) {
+    	for (int i=0; i<sorts1.size(); i++) {
     		Epsilonite s = new Epsilonite(arrayVisualizer);
     		s.wrapped = sorts1.get(i);
     		s.instantiate();
@@ -179,9 +179,9 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	}
     	arrayVisualizer.getSortAnalyzer().sortSorts();
         arrayVisualizer.refreshSorts();
-    	for(int i=0; i<sorts0.size(); i++)
+    	for (int i=0; i<sorts0.size(); i++)
     		wrapsCompare[i] = ((Epsilonite) sorts0.get(i)).wrapped;
-    	for(int i=0; i<sorts1.size(); i++)
+    	for (int i=0; i<sorts1.size(); i++)
     		wrapsDistr[i] = ((Epsilonite) sorts1.get(i)).wrapped;
     }
 
@@ -269,7 +269,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     }
 
     private int findRun(int[] array, int start, int end) {
-    	if(start >= end - 1)
+    	if (start >= end - 1)
     		return start + 1;
     	int cmp = -Reads.compareIndices(array, start++, start, 1, true) | 1,
     		k = start - 1, d;
@@ -278,7 +278,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	} while(start < end && d != cmp);
     	int m = (start - k) / 2,
     		q = sig(k, start-1, -cmp);
-    	for(int i=0; i<m; i++) {
+    	for (int i=0; i<m; i++) {
     		Writes.swap(array, k+i, q+cmp*i, 1, true, false);
     	}
     	return start;
@@ -399,7 +399,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     private int b(int[] array, int l, int r, int k) {
     	while(l<r) {
     		int m=(l&r)+((l^r)>>1);
-    		if(Reads.compareValues(array[m], k) < 0) {
+    		if (Reads.compareValues(array[m], k) < 0) {
     			r=m;
     		} else {
     			l=m+1;
@@ -414,7 +414,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 		if ((e-s <= 16 || s == m || m == e) && s < e) {
 			cloakOpti(array, s, e);
 			return;
-		} else if(s >= e)
+		} else if (s >= e)
 			return;
 		int rz = e-m, r = m, z = s+(m-s)-rz, l = z;
 		while (rz > 0) {
@@ -450,8 +450,8 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	int swap = end, comp = right ? 1 : -1;
     	while(swap > start) {
     		int lastSwap = start;
-    		for(int i=start; i<swap-1; i++) {
-    			if(Reads.compareValues(array[i], array[i+1]) == comp) {
+    		for (int i=start; i<swap-1; i++) {
+    			if (Reads.compareValues(array[i], array[i+1]) == comp) {
     				Writes.swap(array, i, i+1, 0.025, true, false);
     				lastSwap = i+1;
     			}
@@ -464,11 +464,11 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	int swap = end, comp = right ? 1 : -1;
     	while(swap > start) {
     		int lastSwap = start;
-    		for(int i=start; i<swap-1; i++) {
-    			if(Reads.compareValues(array[i], array[i+1]) == comp) {
+    		for (int i=start; i<swap-1; i++) {
+    			if (Reads.compareValues(array[i], array[i+1]) == comp) {
     				Writes.swap(array, i, i+1, 0.025, true, false);
     				lastSwap = i+1;
-    			} else if(lastSwap > start)
+    			} else if (lastSwap > start)
     				break;
     		}
     		swap = lastSwap;
@@ -477,14 +477,14 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     // DEEP POPSORT
     private void dPop(int[] array, int start, int end, int order, boolean invert) {
-    	if(start >= end)
+    	if (start >= end)
     		return;
-    	if(end-start <= 4 || order < 1) {
+    	if (end-start <= 4 || order < 1) {
     		this.bubbleSort(array, start, end, !invert);
     		return;
     	}
     	int quarter = (end - start + 1) / 4, half = (end - start + 1) / 2;
-    	if(order == 1) {
+    	if (order == 1) {
     		this.dPop(array, start, start + quarter, order, !invert);
     		this.dPop(array, start + quarter, start + half, order, invert);
     		this.dPop(array, start + half, end - quarter, order, !invert);
@@ -511,7 +511,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	while(L<R-1) {
     		M = L + ((R - L) >> 1);
     		C = Reads.compareValues(A[P+M*G], A[K]);
-    		if(C == 1 || (i && C == 0)) {
+    		if (C == 1 || (i && C == 0)) {
     			R = M;
     		} else {
     			L = M;
@@ -521,31 +521,31 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     }
     private void GSFW(int[] A, int P, int L, int G) {
     	int t=A[P];
-    	for(int i=0; i<L; i++) {
+    	for (int i=0; i<L; i++) {
     		Writes.write(A, P+i*G, A[P+(i+1)*G], 1, true, false);
     	}
     	Writes.write(A, P+L*G, t, 1, true, false);
     }
     private void GSBW(int[] A, int P, int L, int G) {
     	int t=A[P+L*G];
-    	for(int i=L; i>0; i--) {
+    	for (int i=L; i>0; i--) {
     		Writes.write(A, P+i*G, A[P+(i-1)*G], 1, true, false);
     	}
     	Writes.write(A, P, t, 1, true, false);
     }
     private void GMSFW(int[] A, int lA, int lB, int L, int G) {
-    	for(int i=0; i<L; i++) {
+    	for (int i=0; i<L; i++) {
     		Writes.swap(A, lA+i*G, lB+i*G, 1, true, false);
     	}
     }
     private void GMSBW(int[] A, int lA, int lB, int L, int G) {
-    	for(int i=0; i<L; i++) {
+    	for (int i=0; i<L; i++) {
     		Writes.swap(A, lA+i*G, lB+i*G, 1, true, false);
     	}
     }
     private void rotate(int[] A, int P, int L, int R, int G) {
     	while(L > 1 && R > 1) {
-    		if(L <= R) {
+    		if (L <= R) {
     			GMSFW(A, P, P + L * G, L, G);
     			P += L * G;
     			R -= L;
@@ -554,24 +554,24 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     			L -= R;
     		}
     	}
-    	if(L>0&&R>0) {
-	    	if(L==1)
+    	if (L>0&&R>0) {
+	    	if (L==1)
 	    		GSFW(A,P,R,G);
-	    	else if(R==1)
+	    	else if (R==1)
 	    		GSBW(A,P,L,G);
     	}
     }
     private void lazyMerge(int[] array, int P, int L0, int L1, int G) {
     	int S;
-    	if(L0 < L1) {
+    	if (L0 < L1) {
     		while(L0 != 0) {
     			S = gappedBinary(array, P + L0 * G, L1, P, G, true);
-    			if(S != 0) {
+    			if (S != 0) {
     				rotate(array, P, L0, S, G);
     				P += S * G;
     				L1 -= S;
     			}
-    			if(L1 == 0)
+    			if (L1 == 0)
     				break;
     			do {
     				P += G;
@@ -581,11 +581,11 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	} else {
     		while(L1 != 0) {
     			S = gappedBinary(array, P, L0, P + (L0+L1-1) * G, G, false);
-    			if(S != L0) {
+    			if (S != L0) {
     				rotate(array, P+S*G, L0-S, L1, G);
     				L0 = S;
     			}
-    			if(L0 == 0)
+    			if (L0 == 0)
     				break;
     			do {
     				L1--;
@@ -605,37 +605,37 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	int t = start,
     		iD = -Reads.compareValues(array[start], array[start+gap]),
     		len = 1;
-    	if(end-start<gap)
+    	if (end-start<gap)
     		return 1;
-    	if(iD == 0) iD = 1;
+    	if (iD == 0) iD = 1;
     	do {
     		len++;
     		start+=gap;
     	} while(start <= end - gap && Reads.compareValues(array[start], array[start+gap]) != iD);
-    	if(iD == -1) {
+    	if (iD == -1) {
     		gappedReverse(array, t, start, gap);
     	}
     	return len;
     }
 
 	public void shellPass(int[] array, int start, int end, int gap) {
-		if(end-start < gap)
+		if (end-start < gap)
 			return;
 		int[] starts = new int[gap], lens = new int[gap], ends = new int[gap];
-		for(int i=0; i<gap; i++) {
+		for (int i=0; i<gap; i++) {
 			starts[i] = start+i;
 			lens[i] = 0;
 			ends[i] = (end-(end%gap))+i;
-			if(ends[i] >= end) {
+			if (ends[i] >= end) {
 				ends[i]-=gap;
 			}
 		}
 		boolean done;
 		do {
 			done = true;
-			for(int i=0; i<gap; i++) {
+			for (int i=0; i<gap; i++) {
 				int v=starts[i]+lens[i]*gap;
-				if(v > ends[i] || ends[i] == -1)
+				if (v > ends[i] || ends[i] == -1)
 					continue;
 				done=false;
 				int r=getGappedRun(array, v, ends[i], gap);
@@ -708,7 +708,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	}
 
 	private void multiSwapSt(int[] array, int a, int b, int s) {
-		for(int i = 0; i < s; i++) {
+		for (int i = 0; i < s; i++) {
 			Writes.swap(array, a + i, b + i, 0.5, true, false);
 		}
 	}
@@ -716,11 +716,11 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	public void rotateNe(int[] array, int a, int l, int m, int p, int l1, int l2, double sleep, boolean mark, boolean aux) {
 		int r, k;
 		while(l1 > 0 && l2 > 0) {
-			if(l1 > l2) {
+			if (l1 > l2) {
 				r = l1 % l2;
-				for(int i = 0; i < l2; i++) {
+				for (int i = 0; i < l2; i++) {
 					int t = array[pos(a, l, m, p+i+l1)];
-					for(int j = l2; j <= l1 - r; j += l2) {
+					for (int j = l2; j <= l1 - r; j += l2) {
 						k = p + i + l1 - j;
 						Writes.write(array, pos(a, l, m, k+l2), array[pos(a, l, m, k)], sleep, mark, aux);
 					}
@@ -729,9 +729,9 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 				l1 %= l2;
 			} else {
 				r = l2 % l1;
-				for(int i = 0; i < l1; i++) {
+				for (int i = 0; i < l1; i++) {
 					int t = array[pos(a, l, m, p+i)];
-					for(int j = l1; j <= l2 - r; j += l1) {
+					for (int j = l1; j <= l2 - r; j += l1) {
 						k = p + i + j;
 						Writes.write(array, pos(a, l, m, k-l1), array[pos(a, l, m, k)], sleep, mark, aux);
 					}
@@ -1002,7 +1002,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     		gamma(array, start, end, false);
     		return -1L;
     	}
-    	if(sleft - start >= tolerableLength) {
+    	if (sleft - start >= tolerableLength) {
     		sleft = sfirst; runsGot = 1;
     	}
     	// Merging
@@ -1019,7 +1019,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     				runsGot--;
     				for (; runEnd < sleft;) {
     					int runFirst = findRun(array, runEnd, sleft);
-    					if(runFirst < sleft) {
+    					if (runFirst < sleft) {
     						int runNextEnd = findRun(array, runFirst, sleft);
     	    				inPlaceMergeV(array, runEnd, runFirst - runEnd, runFirst, runNextEnd - runFirst);
     	    				runsGot--; runEnd = runNextEnd;
@@ -1083,7 +1083,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     		int l3 = l2 > b - a || Reads.compareIndices(array, b - l, b - l2, 1, true) > 0 ? l : l2;
 
-    		if(l3 <= b - a && Reads.compareIndices(array, b - t, b - l3, 1, true) < 0) {
+    		if (l3 <= b - a && Reads.compareIndices(array, b - t, b - l3, 1, true) < 0) {
     			s = 1;
     			Writes.swap(array, b - l3, b - t, 1, true, false);
     		}
@@ -1114,7 +1114,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     		int l3 = l2 > b - a || compareIndicesTo(array, b - l, b - l2, piv, BIAS.G, 0.5d) > 0 ? l : l2;
 
-    		if(l3 <= b - a && compareIndicesTo(array, b - t, b - l3, piv, BIAS.G, 0.5d) < 0) {
+    		if (l3 <= b - a && compareIndicesTo(array, b - t, b - l3, piv, BIAS.G, 0.5d) < 0) {
     			s = 1;
     			Writes.swap(array, b - l3, b - t, 1, true, false);
     		}
@@ -1178,7 +1178,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
 	   while(true) {
 		   while(true) {
-			   for(int i=0; i<m; i++) {
+			   for (int i=0; i<m; i++) {
 				   Writes.write(swaps, 2*i, randInt(0, n), 0.05, true, true);
 				   Writes.write(swaps, 2*i+1, randInt(0, n), 0.05, true, true);
 				   Highlights.markArray(1, swaps[2*i]);
@@ -1186,32 +1186,32 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 			   }
 
 			   boolean sorted = true;
-			   for(int i=0; i<n-1; i++) {
-				   for(int j=0; j<m; j++) {
+			   for (int i=0; i<n-1; i++) {
+				   for (int j=0; j<m; j++) {
 					   int inda =     i == swaps[2*j] ? swaps[2*j+1] :     i == swaps[2*j+1] ? swaps[2*j] : i,
 						   indb = (i+1) == swaps[2*j] ? swaps[2*j+1] : (i+1) == swaps[2*j+1] ? swaps[2*j] : (i+1);
 					   sorted = sorted && Reads.compareIndices(array, inda + a, indb + a, 0.005, true) <= 0;
 				   }
 			   }
-			   if(sorted) {
+			   if (sorted) {
 				   Writes.swap(array, randInt(a, b), randInt(a, b), 1, true, false);
 				   break;
 			   } else {
-				   for(int j=0; j<2*m; j+=2) {
+				   for (int j=0; j<2*m; j+=2) {
 					   Writes.swap(array, swaps[j]+a, swaps[j+1]+a, 1, true, false);
 				   }
 			   }
 		   }
-		   if(isRangeSorted(array, a, b)) {
+		   if (isRangeSorted(array, a, b)) {
 			   boolean unique = true, sorted = true;
-			   for(int i = 0; i < 2 * m - 1; i++) {
+			   for (int i = 0; i < 2 * m - 1; i++) {
 				   int c = Reads.compareOriginalIndices(swaps, i, i+1, 0, false);
-				   if(c == 0) unique = false;
-				   if(c > 0) sorted = false;
+				   if (c == 0) unique = false;
+				   if (c > 0) sorted = false;
 			   }
-			   if(n == m && sorted) break;
+			   if (n == m && sorted) break;
 
-			   if(unique) {
+			   if (unique) {
 				   n++;
 				   continue;
 			   }
@@ -1227,8 +1227,8 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
  	   while(a>s && Reads.compareIndices(array, a, --a, 0.05, true) < 0) {
  		   Writes.swap(array, a, a+1, 0.05, true, true); d++;
  	   }
- 	   if(d<gmin) gmin=d;
- 	   if(d>gmax) gmax=d;
+ 	   if (d<gmin) gmin=d;
+ 	   if (d>gmax) gmax=d;
     }
     protected Void gnomeSingle(Object... vals) {
  	   assert vals.length == 3;
@@ -1242,7 +1242,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	ArrayList<int[]> p = new ArrayList<>();
     	int fc = fact(n);
     	Func[] pool = new Func[fc];
-    	for(int i=fc; i>0; i--) {
+    	for (int i=fc; i>0; i--) {
     		bogoSwap(array, a, b, true);
     		p.add(Writes.copyOfRangeArray(array, a, b));
     	}
@@ -1263,7 +1263,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	    				Thread.currentThread().interrupt();
 	    			}
 			   	}
-			   	if(gmin != gmax) {
+			   	if (gmin != gmax) {
 			   		for (int j = 0; j < fc; j++) {
 			   			bogoSwap(f[j], 0, n, true);
 			   		}
@@ -1275,7 +1275,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     			int qa = randInt(0, n),
     				qb = randInt(0, n),
     				c = Math.abs(qb - qa);
-    			if(c>m) {m=c; mi=i;}
+    			if (c>m) {m=c; mi=i;}
     			Writes.multiSwap(f[i], qa, qb, 0.01, true, true);
     		}
     		Writes.arraycopy(f[mi], 0, array, a, n, 1, true, false);
@@ -1286,8 +1286,8 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     // JUGGLING PIVOT PARTITION (clause: pivot must exist in list[l:r])
 	public int jPart(int[] array, int l, int m, int r, int piv, int d) {
 		int a = m, b = r;
-        for(int i = l; i < m; i++) {
-        	if(Reads.compareIndexValue(array, i, piv, 0.5, true) == 0) {
+        for (int i = l; i < m; i++) {
+        	if (Reads.compareIndexValue(array, i, piv, 0.5, true) == 0) {
         		Writes.multiSwap(array, i, m, 0.25, true, false);
         		break;
         	}
@@ -1296,13 +1296,13 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
         	while(a < b && Reads.compareIndices(array, a, b, 0.25, true) <= 0) {
         		b--;
         	}
-        	if(a < b) {
+        	if (a < b) {
 	    		Writes.swap(array, a, b, 1, true, false);
         	}
         	while(a == b || (a < b && Reads.compareIndices(array, a, b, 0.25, true) <= 0)) {
         		a++;
         	}
-        	if(a < b) {
+        	if (a < b) {
 	    		Writes.swap(array, a, b, 1, true, false);
         	} else {
         		pcboyGamesIsYourNewGod(array, a, r, --d);
@@ -1317,8 +1317,8 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 		while(m-- > l) {
 			int p = m + 1, pe = m;
 			int piv = array[m];
-			for(; p < r; p++) {
-				if(Reads.compareIndexValue(array, p, piv, 0.5, true) <= 0) {
+			for (; p < r; p++) {
+				if (Reads.compareIndexValue(array, p, piv, 0.5, true) <= 0) {
 					Writes.swap(array, pe++, p, 0.5, true, false);
 				}
 			}
@@ -1357,12 +1357,12 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
 	// STANILE REVERSAL
     public void stableRev(int[] array, int a, int b, double sleep) {
-    	if(b - a == 1) {
-    		if(Reads.compareIndices(array, a, b, sleep, true) != 0)
+    	if (b - a == 1) {
+    		if (Reads.compareIndices(array, a, b, sleep, true) != 0)
     			Writes.swap(array, a, b, 0, true, false);
     		return;
     	}
-    	if(a >= b) return;
+    	if (a >= b) return;
     	int m = b - (b - a) / 2;
     	LinkedList<ImplQueue<Integer>> headloc = new LinkedList<>()
     	                             , tailloc = new LinkedList<>();
@@ -1370,7 +1370,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	headloc.getFirst().add(a);
     	Writes.changeAllocAmount(1);
     	Writes.changeAuxWrites(1);
-    	for(int i = a + 1; i <= m; i++) {
+    	for (int i = a + 1; i <= m; i++) {
     		int l = 0, r = headloc.size();
     		boolean eq = false;
     		z:
@@ -1389,14 +1389,14 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     					break;
     			}
     		}
-    		if(!eq)
+    		if (!eq)
     			headloc.add(l, new ImplQueue<>());
     		headloc.get(l).add(i);
         	Writes.changeAllocAmount(1);
         	Writes.changeAuxWrites(1);
     	}
     	z:
-    	for(int i = b; i > m; i--) {
+    	for (int i = b; i > m; i--) {
     		int l = 0, r = tailloc.size();
     		boolean eq = false;
     		y:
@@ -1428,18 +1428,18 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     					int j = eq ? tailloc.get(l).shift() : i;
     					Writes.swap(array, headloc.get(M).shift(), j, sleep, true, false);
     			    	Writes.changeAllocAmount(eq?-2:-1);
-    					if(headloc.get(M).isEmpty()) headloc.remove(M);
-    					if(eq && tailloc.get(l).isEmpty()) {
+    					if (headloc.get(M).isEmpty()) headloc.remove(M);
+    					if (eq && tailloc.get(l).isEmpty()) {
     						tailloc.remove(l);
     						continue z;
-    					} else if(!eq) continue z;
+    					} else if (!eq) continue z;
     					break y;
     				case -1:
     					l2 = M + 1;
     					break;
     			}
     		}
-    		if(!eq)
+    		if (!eq)
     			tailloc.add(l, new ImplQueue<>());
     		tailloc.get(l).add(i);
 	    	Writes.changeAllocAmount(1);
@@ -1449,7 +1449,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     		ImplQueue<Integer> p = headloc.removeFirst();
     		while(!p.isEmpty()) {
 		    	Writes.changeAllocAmount(p.size()==1?-1:-2);
-    			if(p.size() > 1)
+    			if (p.size() > 1)
     				Writes.swap(array, p.shift(), p.pop(), sleep, true, false);
     			else
     				p.pop();
@@ -1459,7 +1459,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     		ImplQueue<Integer> p = tailloc.removeFirst();
     		while(!p.isEmpty()) {
 		    	Writes.changeAllocAmount(p.size()==1?-1:-2);
-    			if(p.size() > 1)
+    			if (p.size() > 1)
     				Writes.swap(array, p.shift(), p.pop(), sleep, true, false);
     			else
     				p.pop();
@@ -1470,22 +1470,22 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     // CALIFORNIUM SORT *STANILE, WITH GPART COMPARATORS*
 	private void californiumGP(int[] array, int a, int b, int piv, int d, int d2) {
-		if(b - a == 2) {
-			if(compareIndicesTo(array, a, a+1, piv, BIAS.G, 0.5d) > 0)
+		if (b - a == 2) {
+			if (compareIndicesTo(array, a, a+1, piv, BIAS.G, 0.5d) > 0)
 				Writes.swap(array, a, a+1, 1, true, false);
 		}
 		Writes.recordDepth(d++);
-		if(--d2 < 1) {
+		if (--d2 < 1) {
 			// TINY GNOME
-			for(int i=a; ++i<b;) {
-				if(compareIndicesTo(array, i - 1, i, piv, BIAS.G, 0.05d) > 0) {
+			for (int i=a; ++i<b;) {
+				if (compareIndicesTo(array, i - 1, i, piv, BIAS.G, 0.05d) > 0) {
 					Writes.swap(array, i-1, i, 0.1d, true, false);
 					i=a;
 				}
 			}
 			return;
 		}
-		if(a >= b - 2)
+		if (a >= b - 2)
 			return;
 		LinkedList<Integer> recurse = new LinkedList<>(), // stack to recursively Californium on
 		                    maxstack = new LinkedList<>(); // list of sqrt(n) maximum items (dupes not included)
@@ -1498,20 +1498,20 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 			recurse.addFirst(i = b0);
 			Writes.changeAuxWrites(1);
 			maxstack.clear();
-			for(k = sqrtrnd(i - a); k-- > 0;) {
+			for (k = sqrtrnd(i - a); k-- > 0;) {
 				shd = !maxstack.isEmpty() && compareIndexValueTo(array, a, maxstack.getFirst(), piv, BIAS.G, 0.01) >= 0;
 				me = 0;
-				for(j = (m = a) + 1; j < i; j++) {
+				for (j = (m = a) + 1; j < i; j++) {
 					int p = Reads.compareIndices(array, m, j, 0.01, true);
-					if(p == 0) me++;
-					if(p < 0 || shd)
-						if(maxstack.isEmpty() || compareIndexValueTo(array, j, maxstack.getFirst(), piv, BIAS.G, 0.01) < 0) {
+					if (p == 0) me++;
+					if (p < 0 || shd)
+						if (maxstack.isEmpty() || compareIndexValueTo(array, j, maxstack.getFirst(), piv, BIAS.G, 0.01) < 0) {
 							m = j;
 							shd = false;
 							me = 0;
 						}
 				}
-				if(shd)
+				if (shd)
 					break bndchk;
 				maxstack.addFirst(array[m]);
 				Writes.changeAllocAmount(1);
@@ -1519,9 +1519,9 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 				k -= me;
 			}
 			cnt:
-			for(j = b0 = a; j < i; j++) {
-				for(int v : maxstack) {
-					if(compareIndexValueTo(array, j, v, piv, BIAS.G, 0.01) == 0) {
+			for (j = b0 = a; j < i; j++) {
+				for (int v : maxstack) {
+					if (compareIndexValueTo(array, j, v, piv, BIAS.G, 0.01) == 0) {
 						stableRev(array, b0, j - 1, 0.1);
 						continue cnt;
 					}
@@ -1530,10 +1530,10 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 				stableRev(array, b0++, j, 0.001);
 			}
 		}
-		if(me == b - a - 1)
+		if (me == b - a - 1)
 			return;
 		j = a;
-		for(k = 0; k < recurse.size(); k++) {
+		for (k = 0; k < recurse.size(); k++) {
 			Writes.recursion();
 			californiumGP(array, j, j = recurse.get(k), piv, d, d2);
 		}
@@ -1600,7 +1600,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	   	int[][] perms = p.toArray(new int[0][]);
 	   	while (!isBogoBogoRangeSorted(array, a, b, aux)) {
 		   	do {
-			   	for(int[] i : perms)
+			   	for (int[] i : perms)
 				   this.wtfBogo(i, 0, n, true);
 		   	} while (!allMatch(perms, n));
 		   Writes.arraycopy(perms[0], 0, array, a, n, 1, true, aux);
@@ -1625,7 +1625,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	if (k == 0) {
     		omegaPush(array, start, end);
     	} else
-	    	for(int i=0; i<end-start-1; i++) {
+	    	for (int i=0; i<end-start-1; i++) {
 	    		omegaPushBW(array, start, end, k-1);
 	    	}
     }
@@ -1634,7 +1634,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     	if (k == 0) {
     		omegaPushBW(array, start, end);
     	} else
-	    	for(int i=0; i<end-start-1; i++) {
+	    	for (int i=0; i<end-start-1; i++) {
 	    		omegaPush(array, start, end, k-1);
 	    	}
     }
@@ -1658,27 +1658,27 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     private void omegaOmegaPushBW1(int[] array, int start, int end, int depth) {
     	depth++;
-    	for(int j=start+1; j<end; j++) {
+    	for (int j=start+1; j<end; j++) {
     		omegaSwap(array, start, j, depth);
     	}
     }
 
     private void omegaOmegaPush(int[] array, int start, int end, int depth) {
     	depth++;
-    	for(int i=start; i<end-1; i++) {
+    	for (int i=start; i<end-1; i++) {
     		omegaOmegaPushBW1(array, start, end, depth);
     	}
     }
 
     private void omegaOmegaPushBW(int[] array, int start, int end, int depth) {
     	depth++;
-    	for(int i=start; i<end-1; i++) {
+    	for (int i=start; i<end-1; i++) {
     		omegaOmegaPush1(array, start, end, depth);
     	}
     }
 
     private void omegaOmegaSwap(int[] array, int start, int end, int r) {
-    	if(start >= end)
+    	if (start >= end)
     		return;
     	Writes.recordDepth(r++);
     	this.omegaOmegaPush(array, start, end+1, r);
@@ -1689,7 +1689,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     private void omegaOmegaOmegaPushBW(int[] array, int start, int end, int depth) {
     	depth++;
-    	for(int j=start+1; j<end; j++) {
+    	for (int j=start+1; j<end; j++) {
     		omegaOmegaSwap(array, start, j, depth);
     	}
     }
@@ -1697,9 +1697,9 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     private void what_why(int[] array, int start, int end, int d) {
     	Writes.recordDepth(d++);
     	int m=(end-start)/2;
-    	if(m==0)
+    	if (m==0)
     		return;
-    	for(int i=0;i<m;i++) {
+    	for (int i=0;i<m;i++) {
     		omegaOmegaOmegaPushBW(array, start, end, d);
     	}
     	what_why(array, start, start+m, d);
@@ -1715,25 +1715,25 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	private int[] generateNegligiblyUnchangingList(int[] array) { // O((m^2)^^2) avg.
 		int[][] lists = new int[array.length][];
 	  regenLists:
-		for(int ID=0; ID<lists.length;) {
+		for (int ID=0; ID<lists.length;) {
 			lists[ID] = Writes.createExternalArray(array.length);
-			for(int i=0; i<array.length; i++) {
+			for (int i=0; i<array.length; i++) {
 				int r;
 			  rejectSample:
-				for(;;) {
+				for (;;) {
 					r = randInt(0, array.length);
-					for(int j=0; j<i; j++) {
-						if(Reads.compareOriginalValueIndex(lists[ID], r, j, 0.01, true) == 0)
+					for (int j=0; j<i; j++) {
+						if (Reads.compareOriginalValueIndex(lists[ID], r, j, 0.01, true) == 0)
 							continue rejectSample;
 					}
 					break;
 				}
 				Writes.write(lists[ID], i, r, 0.01, true, true);
 			}
-			if(ID > 0) {
-				for(int i=0; i<array.length; i++) {
-					if(Reads.compareOriginalValues(lists[ID-1][i], lists[ID][i]) != 0) {
-						for(int ii=0; ii<=ID; ii++) {
+			if (ID > 0) {
+				for (int i=0; i<array.length; i++) {
+					if (Reads.compareOriginalValues(lists[ID-1][i], lists[ID][i]) != 0) {
+						for (int ii=0; ii<=ID; ii++) {
 							Writes.deleteExternalArray(lists[ID]);
 						}
 						ID=0; continue regenLists;
@@ -1742,24 +1742,24 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 			}
 			ID++;
 		}
-		for(int ID=1; ID<lists.length; ID++) {
+		for (int ID=1; ID<lists.length; ID++) {
 			Writes.deleteExternalArray(lists[ID]);
 		}
 		return lists[0];
 	}
 
 	private int randomSearchInTable(int[] array, int a, int b, int k) {
-		if(Reads.compareOriginalIndices(array, b-1, k, 0.1, true) <= 0)
+		if (Reads.compareOriginalIndices(array, b-1, k, 0.1, true) <= 0)
 			return b;
 		int l = a, r = b;
 		while(l < r) {
 			int m = randInt(a, b);
-			if(m <= l || m > r) continue;
+			if (m <= l || m > r) continue;
 			int c = Reads.compareOriginalIndices(array, m, k, 0.1, true);
-			if(c <= 0) {
+			if (c <= 0) {
 				l = m + 1;
 			}
-			if(c >= 0) {
+			if (c >= 0) {
 				r = m;
 			}
 		}
@@ -1767,7 +1767,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	}
 
 	private void insertTable(int[] table, int[] array, int a, int b) {
-		for(int i=a+1; i<b; i++) {
+		for (int i=a+1; i<b; i++) {
 			int l = randomSearchInTable(table, a, i, table[i]);
 			wotateOwO(table, a+l, i-l, 1, 1);
 			wotateOwO(array, a+l, i-l, 1, 1);
@@ -1785,8 +1785,8 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 			Writes.recursion();
 			int[] indice = generateNegligiblyUnchangingList(array);
 			// if this works as intended, the chance of this passing is 1/((m/n)^n)
-			for(int i=a; i<b; i++) {
-				if(Reads.compareOriginalIndexValue(indice, i, a, 0.01, true) < 0 ||
+			for (int i=a; i<b; i++) {
+				if (Reads.compareOriginalIndexValue(indice, i, a, 0.01, true) < 0 ||
 				   Reads.compareOriginalIndexValue(indice, i, b, 0.01, true) >= 0) {
 					Writes.deleteExternalArray(indice);
 					continue doProbableCheck;
@@ -2130,12 +2130,12 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     // BLOCK SHELL SORT (w/ GATE gaps)
     public void blockShellGate(int[] array, int a, int b, int stop) {
-    	if(b - a >= 3 * GATE_GAPS[0]) {
+    	if (b - a >= 3 * GATE_GAPS[0]) {
     		int n = GATE_GAPS[0];
     		while(3 * n <= b - a) n *= 3;
-    		for(; n > GATE_GAPS[0]; n /= 2.3601) shellPass(array, a, b, n);
+    		for (; n > GATE_GAPS[0]; n /= 2.3601) shellPass(array, a, b, n);
     	}
-    	for(int i = 0; i < GATE_GAPS.length && GATE_GAPS[i] > stop; i++) shellPass(array, a, b, GATE_GAPS[i]);
+    	for (int i = 0; i < GATE_GAPS.length && GATE_GAPS[i] > stop; i++) shellPass(array, a, b, GATE_GAPS[i]);
     }
 
 
@@ -2209,23 +2209,23 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 	private int shellPassC(int[] array, int start, int end, int gap, int lastgap) {
         if (gap >= lastgap) return lastgap;
         if (gap == lastgap - 1 && gap != 1) return lastgap;
-		if(end-start < gap)
+		if (end-start < gap)
 			return gap;
 		int[] starts = new int[gap], lens = new int[gap], ends = new int[gap];
-		for(int i=0; i<gap; i++) {
+		for (int i=0; i<gap; i++) {
 			starts[i] = start+i;
 			lens[i] = 0;
 			ends[i] = (end-(end%gap))+i;
-			if(ends[i] >= end) {
+			if (ends[i] >= end) {
 				ends[i]-=gap;
 			}
 		}
 		boolean done;
 		do {
 			done = true;
-			for(int i=0; i<gap; i++) {
+			for (int i=0; i<gap; i++) {
 				int v=starts[i]+lens[i]*gap;
-				if(v > ends[i] || ends[i] == -1)
+				if (v > ends[i] || ends[i] == -1)
 					continue;
 				done=false;
 				int r=getGappedRun(array, v, ends[i], gap);
@@ -2342,12 +2342,12 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
         while (endpoint + blockLen < length) endpoint += blockLen;
         for (int i = 0; i + blockLen <= endpoint; i += blockLen) {
         	if (start + i + blockLen > pd) {
-        		if(tainted) packwatch(array, start + i, start + i + blockLen);
+        		if (tainted) packwatch(array, start + i, start + i + blockLen);
         		else ins(array, start + i, start + i + blockLen);
         	}
         }
         for (int i = 0; i + 2 * blockLen <= endpoint; i += 2 * blockLen) manageSize(array, start + i, blockLen, start + endpoint);
-		if(tainted) packwatch(array, start + endpoint, start + length);
+		if (tainted) packwatch(array, start + endpoint, start + length);
 		else ins(array, start + endpoint, start + length);
         milkPass(array, start + endpoint - blockLen, start + length);
         milkSortLen(array, start, start + length, 4 * blockLen);
@@ -2357,10 +2357,10 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     public void cookieSort(int[] array, int start, int end, int depth, boolean tainted) {
         Writes.recordDepth(depth);
         if (par(array, start, end) <= (end - start) / 8) {
-        	if(tainted) gnotAGnoblin(array, start, end);
+        	if (tainted) gnotAGnoblin(array, start, end);
         	else blockShellPar(array, start, end);
         } else if (end - start <= 32) {
-        	if(tainted) packwatch(array, start, end);
+        	if (tainted) packwatch(array, start, end);
         	else ins(array, start, end);
         } else {
             int pd = pdUnstableCNF(array, start, end);
@@ -2500,7 +2500,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
         initializeCurve(array, length);
         linearInvert(array, length);
         linearInvert(array, length);
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
         	Writes.write(array, i, array[i] + pos, 0, false, true);
         }
     }
@@ -2562,19 +2562,19 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     		// efficient depthsorts only come into play when it runs out
     		// with sufficiently large n. that's where Bismuth and Cookie
     		// get used.
-    		if(n >= 1048576) {
+    		if (n >= 1048576) {
     			bismuthSort(array, a, b, 0, true);
-    		} else if(n >= 131072) {
+    		} else if (n >= 131072) {
     			cookieSort(array, a, b, 0, true);
-    		} else if(n >= 16384) {
+    		} else if (n >= 16384) {
     			strange(array, a, b, 16);
-    		} else if(n >= 2048) {
+    		} else if (n >= 2048) {
     			issaSort(array, a, b);
-    		} else if(n >= 256) {
+    		} else if (n >= 256) {
     			pdsBogo(array, a, b);
-    		} else if(n >= 32) {
+    		} else if (n >= 32) {
     			cospo(array, a, b);
-    		} else if(n >= 4) {
+    		} else if (n >= 4) {
     			dPop(array, a, b, n, false);
     		} else {
     			vubuPhon(array, a, b);
@@ -2588,7 +2588,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
 
     	long pinfo = getPivotSnCnt(array, a, b);
 
-    	if(pinfo == -1L) return;
+    	if (pinfo == -1L) return;
 
     	int pmed = (int)pinfo, pleft = (int)(pinfo >> 32), pval;
 
@@ -2637,7 +2637,7 @@ public class pcboygamesisyournewgodSort extends BestForNSorting implements Paral
     }
 
 	public void runSort(int[] array, int currentLength, int bucketCount) {
-		if(self != null)
+		if (self != null)
 			return;
     	infect();
     	self = this;

@@ -130,14 +130,14 @@ public class ImageGrid extends Visual {
     public void loadCustomImage(ImageFrame menu) {
         CustomImageDialog dialog = new CustomImageDialog();
         this.imageFile = dialog.getFile();
-        if(this.imageFile != null) {
+        if (this.imageFile != null) {
             this.currentImage = this.imageFile.getName();
             this.refreshCustomImage(menu);
         }
     }
     public void loadCustomImage(File file) {
         this.imageFile = file;
-        if(this.imageFile != null) {
+        if (this.imageFile != null) {
             this.currentImage = this.imageFile.getName();
             this.refreshCustomImage(ImageFrame.defaultFrame);
         }
@@ -226,8 +226,8 @@ public class ImageGrid extends Visual {
         boolean success = true;
 
         // Only fetch a fresh copy of the image if it's been previously scaled.
-        if(this.imgScaled) {
-            if(!this.fetchBufferedImage(false, null)) {
+        if (this.imgScaled) {
+            if (!this.fetchBufferedImage(false, null)) {
                 throw new Exception();
             }
         }
@@ -261,7 +261,7 @@ public class ImageGrid extends Visual {
     }
 
     public static void markCustomBar(ArrayVisualizer ArrayVisualizer, Graphics2D bar, Renderer Renderer, int width, boolean analysis) {
-        if(analysis) {
+        if (analysis) {
             bar.setColor(new Color(0, 0, 1, .5f));
         }
         else {
@@ -274,22 +274,22 @@ public class ImageGrid extends Visual {
     //The longer the array length, the more bars marked. Makes the visual easier to see when bars are thinner.
     public static void colorCustomBars(int logOfLen, int index, Highlights Highlights, ArrayVisualizer ArrayVisualizer, Graphics2D bar, Renderer Renderer, int width, boolean analysis) {
         switch(logOfLen) {
-        case 15: if(Highlights.containsPosition(index - 15)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 14)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 13)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 12)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 11)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 14: if(Highlights.containsPosition(index - 10)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 9))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 8))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 13: if(Highlights.containsPosition(index - 7))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 6))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 5))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 12: if(Highlights.containsPosition(index - 4))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-                 if(Highlights.containsPosition(index - 3))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 11: if(Highlights.containsPosition(index - 2))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        case 10: if(Highlights.containsPosition(index - 1))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
-        default: if(Highlights.containsPosition(index))        markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis);
+        case 15: if (Highlights.containsPosition(index - 15)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 14)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 13)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 12)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 11)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+        case 14: if (Highlights.containsPosition(index - 10)) { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 9))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 8))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+        case 13: if (Highlights.containsPosition(index - 7))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 6))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 5))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+        case 12: if (Highlights.containsPosition(index - 4))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+                 if (Highlights.containsPosition(index - 3))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+        case 11: if (Highlights.containsPosition(index - 2))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+        case 10: if (Highlights.containsPosition(index - 1))  { markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis); break; }
+        default: if (Highlights.containsPosition(index))        markCustomBar(ArrayVisualizer, bar, Renderer, width, analysis);
         }
     }
 
@@ -331,7 +331,7 @@ public class ImageGrid extends Visual {
 
     @Override
     public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
-        if(Renderer.auxActive) return;
+        if (Renderer.auxActive) return;
 
         try {
             /*
@@ -339,8 +339,8 @@ public class ImageGrid extends Visual {
              * Gives debuggers the ability to try another file without having to restart the program. This also is a safe way of
              * handling exceptions whenever the user clicks the 'Custom Image' button.
              */
-            if(!this.imgImported) {
-                if(!this.fetchBufferedImage(true, ArrayVisualizer.getMainWindow())) {
+            if (!this.imgImported) {
+                if (!this.fetchBufferedImage(true, ArrayVisualizer.getMainWindow())) {
                     throw new Exception();
                 }
                 else {
@@ -351,14 +351,14 @@ public class ImageGrid extends Visual {
              * Use a fast image scaling method if the window was resized. If an ImagingOpException is thrown, don't continue with
              * the 'Custom Image' visual.
              */
-            if(this.windowHeight != ArrayVisualizer.currentHeight() || this.windowWidth != ArrayVisualizer.currentWidth()) {
-                if(!this.getScaledImage(ArrayVisualizer.currentWidth(), ArrayVisualizer.currentHeight())) {
+            if (this.windowHeight != ArrayVisualizer.currentHeight() || this.windowWidth != ArrayVisualizer.currentWidth()) {
+                if (!this.getScaledImage(ArrayVisualizer.currentWidth(), ArrayVisualizer.currentHeight())) {
                     throw new Exception();
                 }
                 this.updateWindowDims(ArrayVisualizer);
             }
 
-            if(this.openImgMenu) {
+            if (this.openImgMenu) {
                 this.pictureMenu = new ImageFrame(this);
                 this.pictureMenu.setVisible(true);
                 this.pictureMenu.updatePreview(this);

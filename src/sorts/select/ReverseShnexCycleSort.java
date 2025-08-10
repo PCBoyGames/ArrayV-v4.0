@@ -37,18 +37,18 @@ public class ReverseShnexCycleSort extends Sort {
 
     int countLesser(int[] array, int a, int b, int idx) {
         int r = a;
-        
-        for(int i = a+1; i < b; i++) {
+
+        for (int i = a+1; i < b; i++) {
             Highlights.markArray(1, r);
             Highlights.markArray(2, i);
             Delays.sleep(0.01);
-            
+
             r += Reads.compareValues(array[i], array[idx]) < 0 ? 1 : 0;
         }
         Highlights.clearMark(2);
         return r;
     }
-    
+
     public void cycleSort(int[] array, int a, int b) {
         for (int i = a; i < b - 1; i++) {
             int r = countLesser(array, i, b, i);

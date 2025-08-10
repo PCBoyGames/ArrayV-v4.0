@@ -66,13 +66,13 @@ public class ImprovedDragSort extends Sort {
 
 		// find sorted indices
 
-		for(int j = a; j < b; j++) {
+		for (int j = a; j < b; j++) {
 			int c = 0;
 
-			for(int i = a; i < b; i++) {
-				if(i == j) continue;
+			for (int i = a; i < b; i++) {
+				if (i == j) continue;
 				int cmp = Reads.compareIndices(array, i, j, sleep, true);
-				if(cmp < 0 || (cmp == 0 && i < j)) c++;
+				if (cmp < 0 || (cmp == 0 && i < j)) c++;
 			}
 			Writes.write(keys, j-a, c, 0, false, true);
 		}
@@ -86,10 +86,10 @@ public class ImprovedDragSort extends Sort {
 
 			while(i < b && this.isSorted(array, keys, a, i, sleep)) i++;
 
-			if(i == b) break;
+			if (i == b) break;
 
-			for(int j = i++; i < b; i++) {
-				if(!this.isSorted(array, keys, a, i, sleep)) {
+			for (int j = i++; i < b; i++) {
+				if (!this.isSorted(array, keys, a, i, sleep)) {
 					this.dualSwap(array, keys, j, i, sleep);
 					j = i;
 				}

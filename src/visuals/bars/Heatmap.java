@@ -17,10 +17,10 @@ public class Heatmap extends Visual {
     public void drawVisual(int[] array, ArrayVisualizer ArrayVisualizer, Renderer Renderer, Highlights Highlights) {
 		int n = Renderer.getArrayLength();
 
-        for(int i = 0, j = 0, k = 0; i < n; i++) {
+        for (int i = 0, j = 0, k = 0; i < n; i++) {
 			int width = (int) (Renderer.getXScale() * (i + 1)) - j;
 
-			if(width == 0) continue;
+			if (width == 0) continue;
 
 			this.mainRender.setColor(getHeatColor(ArrayVisualizer.getHeatmap()[i]));
 
@@ -32,7 +32,7 @@ public class Heatmap extends Visual {
 
 			ArrayVisualizer.hmCool(i);
         }
-		if(ArrayVisualizer.externalArraysEnabled()) {
+		if (ArrayVisualizer.externalArraysEnabled()) {
 			this.mainRender.setColor(Color.BLUE);
 			this.mainRender.fillRect(0, Renderer.getYOffset() + Renderer.getViewSize() - 20, ArrayVisualizer.currentWidth(), 1);
 		}

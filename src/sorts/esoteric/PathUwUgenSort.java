@@ -50,7 +50,7 @@ final public class PathUwUgenSort extends Sort {
     	private void instantiate() {
     		Sort wrapped = PathUwUgenSort.self.sorts[idxSort];
 			Object v;
-    		for(Field i : wrapped.getClass().getDeclaredFields()) {
+    		for (Field i : wrapped.getClass().getDeclaredFields()) {
 				try {
 					v = i.get(wrapped);
 	    			i.set(this, v);
@@ -103,7 +103,7 @@ final public class PathUwUgenSort extends Sort {
 
     private int[] newShuffledArr(int size) {
     	int[] a = new int[size];
-    	for(int i = 1; i < size; i++) {
+    	for (int i = 1; i < size; i++) {
     		a[i] = i;
     		int rv = r.nextInt(i+1);
     		Writes.swap(a, rv, i, 0, false, false);
@@ -128,12 +128,12 @@ final public class PathUwUgenSort extends Sort {
 
     	int j = 0;
 
-    	for(int i = 0; i < sorts0.size(); i++, j++) {
+    	for (int i = 0; i < sorts0.size(); i++, j++) {
     		Shuffled v = new Shuffled(arrayVisualizer);
     		v.setSortIndices(new int[] {idxsName[j], idxsCat[j], idxsSort[j]});
     		sorts0.set(i, v);
     	}
-    	for(int i = 0; i < sorts1.size(); i++, j++) {
+    	for (int i = 0; i < sorts1.size(); i++, j++) {
     		Shuffled v = new Shuffled(arrayVisualizer);
     		v.setSortIndices(new int[] {idxsName[j], idxsCat[j], idxsSort[j]});
     		sorts1.set(i, v);
@@ -143,11 +143,11 @@ final public class PathUwUgenSort extends Sort {
     	// arrayVisualizer.getSortAnalyzer().sortSorts();
 
     	// then set the index table to what you'd expect
-    	for(int i = j = 0; i < sorts0.size(); i++, j++) {
+    	for (int i = j = 0; i < sorts0.size(); i++, j++) {
     		Shuffled sf = (Shuffled)(sorts0.get(i));
     		idxTable[j] = new int[] {sf.idxName, sf.idxCat, sf.idxSort};
     	}
-    	for(int i = 0; i < sorts1.size(); i++, j++) {
+    	for (int i = 0; i < sorts1.size(); i++, j++) {
     		Shuffled sf = (Shuffled)(sorts1.get(i));
     		idxTable[j] = new int[] {sf.idxName, sf.idxCat, sf.idxSort};
     	}
@@ -156,7 +156,7 @@ final public class PathUwUgenSort extends Sort {
     }
 
 	private void horror(int[] A, int a, int b, int a1, int b1, int v, int d) {
-		if(a > b1 || b > b1 || a < a1 || b < a1)
+		if (a > b1 || b > b1 || a < a1 || b < a1)
 			return;
 
 		if (a != b && Reads.compareValues(A[a], A[b]) == -v) {
@@ -172,7 +172,7 @@ final public class PathUwUgenSort extends Sort {
 	}
 
 	private void the_horror(int[] A, int a, int b, int a1, int b1, int v, int d) {
-		if(a > b1 || b > b1 || a < a1 || b < a1)
+		if (a > b1 || b > b1 || a < a1 || b < a1)
 			return;
 
 		if (a != b && Reads.compareValues(A[a], A[b]) == -1) {
@@ -182,21 +182,21 @@ final public class PathUwUgenSort extends Sort {
 		Writes.recordDepth(d++);
 		Highlights.markArray(1, a);
 		Highlights.markArray(2, b);
-		for(int i = 0; i < b1 - a1; i++) {
-			for(int j = 0; j < b1 - a1; j++) {
-				if(i+j>0) {
+		for (int i = 0; i < b1 - a1; i++) {
+			for (int j = 0; j < b1 - a1; j++) {
+				if (i+j>0) {
 					Writes.recursion(2);
 					the_horror(A, b - v * i, a + v * j, a1, b1, -v, d);
 					the_horror(A, a + v * j, b - v * i, a1, b1, v, d);
 				}
 			}
 		}
-		if(d<2)horror(A, a, b, a1, b1, v, d);
+		if (d<2)horror(A, a, b, a1, b1, v, d);
 	}
 
 	@Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-		if(self == null) {
+		if (self == null) {
 	    	self = this;
 	    	infect();
 		}

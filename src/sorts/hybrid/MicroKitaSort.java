@@ -50,7 +50,7 @@ public class MicroKitaSort extends Sort {
     private void inc(int[] val, int[] tval, int[] tag, int[] offs, int[] toffs, int w, int indice) {
     	int nt = tag[tval[indice] + toffs[indice]];
     	if (val[indice] >= 0 && (++val[indice] - offs[indice]) % w == 0)
-    		if(nt == 0)
+    		if (nt == 0)
     			val[indice] = -1;
     		else
     			val[indice] = offs[indice] + (tval[indice] = nt) * w;
@@ -116,7 +116,7 @@ public class MicroKitaSort extends Sort {
     	for (i = a + w, i1 = 1; i < b - w; i += w, i1++) {
 			t = tags[i1];
     		while (Reads.compareOriginalValues(t, i1) != 0) {
-    			for(j = 0; j < w; j++)
+    			for (j = 0; j < w; j++)
     				Writes.swap(array, i + j, a + j + t * w, 1, true, false);
     			j = tags[t];
     			Writes.write(tags, t, t, 1, true, true);
@@ -151,7 +151,7 @@ public class MicroKitaSort extends Sort {
     	}
     	index(array, tags, s, a, b);
     	Writes.deleteExternalArray(tags);
-    	if(b < c) {
+    	if (b < c) {
     		microkita(array, b, c);
     		merge(array, buf, a, b, c);
     	}

@@ -61,26 +61,26 @@ public class AlternateLibrarySort extends Sort {
         while(first <= last) {
             middle = (first+last)/2;
 
-            if(IS_EMPTY(sorted[middle])) {
+            if (IS_EMPTY(sorted[middle])) {
                 int tmp = middle + 1;
 
                 //Look to the right
                 while(tmp < last && IS_EMPTY(sorted[tmp])) tmp++;
 
-                if(Reads.compareValues(sorted[tmp], e) > 0) {
+                if (Reads.compareValues(sorted[tmp], e) > 0) {
                     tmp = middle - 1;
 
                     while(middle > first && IS_EMPTY(sorted[middle])) middle--;
 
                     //Look to the left
-                    if(Reads.compareValues(sorted[middle], e) < 0) //Found intermediate position
+                    if (Reads.compareValues(sorted[middle], e) < 0) //Found intermediate position
 						return middle;
 
                     last = middle - 1;
                 }
 				else first = tmp + 1;
             }
-			else if(Reads.compareValues(sorted[middle], e) < 0) {
+			else if (Reads.compareValues(sorted[middle], e) < 0) {
                 first = middle + 1;
             }
 			else {
@@ -88,12 +88,12 @@ public class AlternateLibrarySort extends Sort {
             }
         }
         //If no position was found return -1 or if a lower position was found, return that
-        if(last >= 0 && IS_EMPTY(sorted[last])) last--;
+        if (last >= 0 && IS_EMPTY(sorted[last])) last--;
         return last;
     }
 
     void libSort(int[] A, int N, int[] S, int EPSILON) {
-        if(N == 0) return;
+        if (N == 0) return;
 
         int j, k, step;
 
@@ -114,7 +114,7 @@ public class AlternateLibrarySort extends Sort {
         while(pos < N) {
             // ------ ROUND ------
             //Each round i will end with goal=2^i sorted elements. i starts with 1
-            for(j = 0; j < goal; j++) {
+            for (j = 0; j < goal; j++) {
                 //Search where to insert A[pos] (with binary search)
 				Highlights.markArray(2, pos);
 				Delays.sleep(1);
@@ -124,15 +124,15 @@ public class AlternateLibrarySort extends Sort {
                 //Because our binary search returns us the location of an smaller item than the one we search...
                 insPos++;
 
-                if(!IS_EMPTY(S[insPos])) {//There is no place where we wanted to insert that element
+                if (!IS_EMPTY(S[insPos])) {//There is no place where we wanted to insert that element
                     int nextFree = insPos + 1;//Search a free space forward
                     while(!IS_EMPTY(S[nextFree])) nextFree++;
 
                     //At 'nextFree' there is a place, translate all elements one position to the right
-                    if(nextFree >= sLen) {//Wait! nextFree is out of bounds
+                    if (nextFree >= sLen) {//Wait! nextFree is out of bounds
                         insPos--;
 
-                        if(!IS_EMPTY(S[insPos])) {
+                        if (!IS_EMPTY(S[insPos])) {
                             //Search backward
                             nextFree = insPos - 1;
                             while(!IS_EMPTY(S[nextFree])) nextFree--;
@@ -155,7 +155,7 @@ public class AlternateLibrarySort extends Sort {
                     }
                     //Now nextFree is insPos; in other words, insPos is free
                 }
-				else if(insPos >= sLen) {//insPos is out of bounds
+				else if (insPos >= sLen) {//insPos is out of bounds
                     //Search a free space backwards
                     insPos--; //This place must be between the limits
                     int nextFree = insPos - 1;
@@ -173,13 +173,13 @@ public class AlternateLibrarySort extends Sort {
 				Highlights.markArray(1, insPos/(1+EPSILON));
 				Writes.write(S, insPos, A[pos++], 0.5, false, true); //We insert the element and increment our counter
 
-                if(pos >= N)
+                if (pos >= N)
                     return;//That element was the last, return from the function
             }
 
             // ----- REBALANCE -----
             //It takes linear time. Tries to spread the elements as much as possible
-            for(j = sLen-1, k = Math.min(goal*(2+2*EPSILON), (1+EPSILON)*N) - 1,
+            for (j = sLen-1, k = Math.min(goal*(2+2*EPSILON), (1+EPSILON)*N) - 1,
 			    step = (k+1)/(j+1); j >= 0; j--, k -= step) {
 
 				Highlights.markArray(1, k/(1+EPSILON));
@@ -207,8 +207,8 @@ public class AlternateLibrarySort extends Sort {
 		libSort(A, n, S, epsilon);
 		Highlights.clearMark(2);
 
-		for(i = 0, j = 0; i < sLen && j < n; i++)
-            if(!IS_EMPTY(S[i]))
+		for (i = 0, j = 0; i < sLen && j < n; i++)
+            if (!IS_EMPTY(S[i]))
 				Writes.write(A, j++, S[i], 0.5, true, false);
 
 		Writes.deleteExternalArray(S);

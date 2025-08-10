@@ -475,7 +475,7 @@ public class AutoUMapSort extends Sort {
         mergeInPlaceBW(array, a, b, b0);
     }
 
-    private void shuffle(int[] array, int a, int b){
+    private void shuffle(int[] array, int a, int b) {
         for (int i = a; i < b; ++i)
             Writes.swap(array, i, this.rng.nextInt(b - i) + i, 0.25, true, false);
     }

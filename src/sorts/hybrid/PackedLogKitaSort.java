@@ -43,12 +43,12 @@ public class PackedLogKitaSort extends Sort {
 
 	private int medOf3(int[] array, int a, int b, int c) {
     	int d;
-    	if(Reads.compareIndices(array, a, b, 0.5, true) > 0) {
+    	if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
     		d = b; b = a;
     	} else
     		d = a;
-    	if(Reads.compareIndices(array, b, c, 0.5, true) > 0) {
-    		if(Reads.compareIndices(array, d, c, 0.5, true) > 0) {
+    	if (Reads.compareIndices(array, b, c, 0.5, true) > 0) {
+    		if (Reads.compareIndices(array, d, c, 0.5, true) > 0) {
         		return d;
         	}
     		return c;
@@ -57,7 +57,7 @@ public class PackedLogKitaSort extends Sort {
     }
 
     private int ninther(int[] array, int a, int b) {
-    	if(b-a<=9)
+    	if (b-a<=9)
     		return array[a+(b-a)/2];
     	int len = b - a, half = len / 2, quart = len / 4, eight = len / 8;
     	int c = medOf3(array, a, a+eight, a+quart);
@@ -69,7 +69,7 @@ public class PackedLogKitaSort extends Sort {
 
     // median of medians with customizable depth
     private int medianDepth(int[] array, int start, int end, int depth) {
-        if(end-start < 9 || depth <= 0) {
+        if (end-start < 9 || depth <= 0) {
             return medOf3(array, start, start+(end-start)/2, end);
         }
         int e = (end - start) / 8;
@@ -83,8 +83,8 @@ public class PackedLogKitaSort extends Sort {
     private int gaprank(int[] array, int a, int b, int g, int r) {
     	int re = 0;
     	while(a < b) {
-    		if(a != r) {
-    			if(Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
+    		if (a != r) {
+    			if (Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
     		}
     		a += g;
     	}
@@ -98,13 +98,13 @@ public class PackedLogKitaSort extends Sort {
     	while(s*s<b-a) s*=2;
 
     	// low n: return ninther
-    	if((s/=2) < 2) return ninther(array, a, b);
+    	if ((s/=2) < 2) return ninther(array, a, b);
     	int mid = (b-a-1)/(2*s)+1, e = (b-a) / 8, cm = a+(b-a)/2, cr = 0;
 
     	// select pmo243 with gapped rank closest to middle
-    	for(int i=0; i<e; i+=s) {
+    	for (int i=0; i<e; i+=s) {
     		int p = medianDepth(array, a+i, b-e+i-1, 4), r = gaprank(array, a, b, s, p);
-    		if(Math.abs(cr-mid)>Math.abs(r-mid)) {
+    		if (Math.abs(cr-mid)>Math.abs(r-mid)) {
     			cm = p;
     			cr = r;
     		}
@@ -113,7 +113,7 @@ public class PackedLogKitaSort extends Sort {
     }
 
 	private void blockcycle(int[] array, int a, int m, int b, int l, int w, int p, int c, boolean i) {
-		for(int k = 0; k < b - 1; k++) {
+		for (int k = 0; k < b - 1; k++) {
 			int z = get(array, a+k*l, p, w, c, i);
 			while(z != k) {
 				multiSwap(array, a+k*l, a+z*l, l);
@@ -127,11 +127,11 @@ public class PackedLogKitaSort extends Sort {
 	private int partitionEasy(int[] array, int[] tmp, int a, int b, int p, int c) {
 		int j = 0;
 
-		for(int i = a; i < b; i++) {
+		for (int i = a; i < b; i++) {
 			Highlights.markArray(1, i);
 			Delays.sleep(0.25);
 
-			if(Reads.compareIndexValue(array, i, p, 0.5, true) < c)
+			if (Reads.compareIndexValue(array, i, p, 0.5, true) < c)
 				Writes.write(array, a++, array[i], 0.25, true, false);
 			else
 				Writes.write(tmp, j++, array[i], 0.25, false, true);
@@ -144,20 +144,20 @@ public class PackedLogKitaSort extends Sort {
 	// log partition with +1 blocksize technique applied
     private int partition(int[] array, int[] tmp, int a, int b, int p, int c) {
     	int blk = tmp.length + 1;
-    	if(b-a < blk) return partitionEasy(array, tmp, a, b, p, c);
+    	if (b-a < blk) return partitionEasy(array, tmp, a, b, p, c);
     	int l = 0, r = 0, t = a, lb = 0, rb = 0;
     	// type blocks
-    	for(int i=a; i<b; i++) {
-    		if(Reads.compareIndexValue(array, i, p, 0.5, true) < c) {
+    	for (int i=a; i<b; i++) {
+    		if (Reads.compareIndexValue(array, i, p, 0.5, true) < c) {
     			// build low block using swapspace in main list
     			Writes.write(array, t+l++, array[i], 0.25, true, false);
-    			if(l == blk) {
+    			if (l == blk) {
     				l = 0;
     				t += blk;
     				lb++;
     			}
     		} else {
-    			if(r == blk - 1) {
+    			if (r == blk - 1) {
     				// shift incomplete low block over, copy over complete high block
     				int t2 = array[i];
     				Writes.arraycopy(array, t, array, t+blk, l, 0.25, true, false);
@@ -174,25 +174,25 @@ public class PackedLogKitaSort extends Sort {
     	}
 		// sort blocks
     	int min = Math.min(lb, rb);
-    	if(min > 0) {
+    	if (min > 0) {
     		int M = log(min);
     		// tag blocks with indices
-    		for(int i=0, j=0, k=0; i<min; i++) {
+    		for (int i=0, j=0, k=0; i<min; i++) {
     			while(Reads.compareIndexValue(array, a+j*blk+M, p, 0.5, true) >= c) j++;
     			while(Reads.compareIndexValue(array, a+k*blk+M, p, 0.5, true) < c) k++;
     			encode(array, a+j++*blk, a+k++*blk, i);
     		}
-    		if(lb < rb) {
-    			for(int i=lb+rb-1, j=0; i>=0; i--) {
-    				if(Reads.compareIndexValue(array, a+i*blk+M, p, 0.5, true) >= c)
+    		if (lb < rb) {
+    			for (int i=lb+rb-1, j=0; i>=0; i--) {
+    				if (Reads.compareIndexValue(array, a+i*blk+M, p, 0.5, true) >= c)
     					multiSwap(array, a+i*blk, a+(i+j)*blk, blk);
     				else j++;
     			}
     			// indexsort blocks
     			blockcycle(array, a, a+lb*blk, lb, blk, M, p, c, lb<rb);
     		} else {
-    			for(int i=0, j=0; i<lb+rb; i++) {
-    				if(Reads.compareIndexValue(array, a+i*blk+M, p, 0.5, true) < c)
+    			for (int i=0, j=0; i<lb+rb; i++) {
+    				if (Reads.compareIndexValue(array, a+i*blk+M, p, 0.5, true) < c)
     					multiSwap(array, a+i*blk, a+j++*blk, blk);
     			}
     			// indexsort blocks
@@ -201,7 +201,7 @@ public class PackedLogKitaSort extends Sort {
     	}
     	// redistribute fragment
     	Writes.arraycopy(tmp, 0, array, b-r, r, 1, true, false);
-    	if(l > 0) {
+    	if (l > 0) {
     		Writes.arraycopy(array, t, tmp, 0, l, 0.5, true, true);
     		Writes.arraycopy(array, a+lb*blk, array, a+lb*blk+l, rb*blk, 0.5, true, false);
     		Writes.arraycopy(tmp, 0, array, a+lb*blk, l, 0.5, true, false);
@@ -217,14 +217,14 @@ public class PackedLogKitaSort extends Sort {
     		int m = array[bad ? rankof243s(array, a, b) : medianDepth(array, a, b-1, 4)];
     		// partition using either bias, whichever one yields results
     		int p = partition(array, tmp, a, b, m, 0);
-    		if(p == a) p = partition(array, tmp, a, b, m, 1);
-    		if(p == b) {
+    		if (p == a) p = partition(array, tmp, a, b, m, 1);
+    		if (p == b) {
     			// return boundary if no uniques
     			return new int[] {a, b};
     		}
     		// bad ratio is 6:1 instead of 8:1
     		bad = 6*(p-a)<b-a||6*(b-p)<b-a;
-    		if(p <= r) a = p;
+    		if (p <= r) a = p;
     		else b = p;
     	}
     	// binary insert and find boundaries on small n
@@ -239,7 +239,7 @@ public class PackedLogKitaSort extends Sort {
     private void merge(int[] array, int[] tmp, int a, int m, int b, int t, boolean aux) {
     	int l = a, r = m;
     	while(l < m && r < b) {
-    		if(Reads.compareIndices(array, l, r, 0.5, true) <= 0) {
+    		if (Reads.compareIndices(array, l, r, 0.5, true) <= 0) {
     			Writes.write(tmp, t++, array[l++], 0.5, true, aux);
     		} else {
     			Writes.write(tmp, t++, array[r++], 0.5, true, aux);
@@ -255,7 +255,7 @@ public class PackedLogKitaSort extends Sort {
     	Writes.arraycopy(array, m, tmp, 0, b-m, 1, true, true);
     	int l = m-1, r = b-m-1;
     	while(l >= a && r >= 0) {
-    		if(Reads.compareIndexValue(array, l, tmp[r], 0.5, true) > 0) {
+    		if (Reads.compareIndexValue(array, l, tmp[r], 0.5, true) > 0) {
     			Writes.write(array, --b, array[l--], 0.5, true, false);
     		} else {
     			Writes.write(array, --b, tmp[r--], 0.5, true, false);
@@ -267,7 +267,7 @@ public class PackedLogKitaSort extends Sort {
 
     private void encode(int[] array, int a, int b, int v) {
     	while(v>0) {
-    		if(v%2==1) Writes.swap(array, a, b, 1, true, false);
+    		if (v%2==1) Writes.swap(array, a, b, 1, true, false);
     		v/=2; a++; b++;
     	}
     }
@@ -276,9 +276,9 @@ public class PackedLogKitaSort extends Sort {
     private void packedxor(int[] array, int a, int p, int v, int lo, int m) {
     	// pos:swap:val:localoffset:maxval
     	int op = 0, lv = v + lo;
-    	for(int i = 0; 1 << i <= v; i++) {
+    	for (int i = 0; 1 << i <= v; i++) {
     		int count = (lv & (-2 << i)) / 2 + (lv % (1 << i)); // unsafe and jank as hell, but good enough
-    		if(((v >>> i) & 1) == 1) {
+    		if (((v >>> i) & 1) == 1) {
     			Writes.swap(array, a + i, p + count + op, 1, true, false);
     		}
     		op += (m & (-2 << i)) / 2 + ((m & (1 << i)) > 0 ? ((m % (1 << i)) + 1) : 0);
@@ -301,7 +301,7 @@ public class PackedLogKitaSort extends Sort {
     }
     private boolean ratioBad(int a, int b, int l, int r, int blk) {
     	int max = (r - l) / blk, bitcount = 0;
-    	for(int i = 0, v; (v = (max & (-2 << i)) / 2 + ((max & (1 << i)) > 0 ? (max % (1 << i) + 1) : 0)) > 0; i++, bitcount += v);
+    	for (int i = 0, v; (v = (max & (-2 << i)) / 2 + ((max & (1 << i)) > 0 ? (max % (1 << i) + 1) : 0)) > 0; i++, bitcount += v);
         return bitcount > b - a;
     }
 
@@ -323,14 +323,14 @@ public class PackedLogKitaSort extends Sort {
 		Writes.changeAuxWrites(1);
 
 		// merge 2 blocks into buffer
-    	for(; cc<2*w; cc++) {
+    	for (; cc<2*w; cc++) {
     		// put lower element into tmp[cc]
-    		if(jb == 0 || (ib > 0 && Reads.compareIndices(array, l, r, 0.5, true) <= 0)) {
+    		if (jb == 0 || (ib > 0 && Reads.compareIndices(array, l, r, 0.5, true) <= 0)) {
     			Writes.write(tmp, cc, array[l++], 0.5, true, true);
     			lc++;
     			// if block complete, go to next block according to linkedlist
-    			if(++ld == w) {
-    				if(--ib==0) continue;
+    			if (++ld == w) {
+    				if (--ib==0) continue;
     				ld = 0;
     				lt[ltt++%3] = ln;
         			Writes.changeAuxWrites(1);
@@ -341,8 +341,8 @@ public class PackedLogKitaSort extends Sort {
     			Writes.write(tmp, cc, array[r++], 0.5, true, true);
     			rc++;
     			// if block complete, go to next block according to linkedlist
-    			if(++rd == w) {
-    				if(--jb==0) continue;
+    			if (++rd == w) {
+    				if (--jb==0) continue;
     				rd = 0;
     				rt[rtt++%3] = rn + mb;
         			Writes.changeAuxWrites(1);
@@ -359,14 +359,14 @@ public class PackedLogKitaSort extends Sort {
     			// shift out first buffer tag in lt
     			bt = lt[lth++%3];
     			bb = i + bt * w;
-    			for(cc=0; cc<w; cc++) {
+    			for (cc=0; cc<w; cc++) {
     	    		// put lower element into array[bb+cc]
-    				if(jb == 0 || (ib > 0 && Reads.compareIndices(array, l, r, 0.5, true) <= 0)) {
+    				if (jb == 0 || (ib > 0 && Reads.compareIndices(array, l, r, 0.5, true) <= 0)) {
     	    			Writes.write(array, bb+cc, array[l++], 0.5, true, false);
     	    			lc++;
     	    			// if block complete, go to next block according to linkedlist
-    	    			if(++ld == w) {
-    	    				if(--ib==0) continue;
+    	    			if (++ld == w) {
+    	    				if (--ib==0) continue;
     	    				ld = 0;
     	    				lt[ltt++%3] = ln;
     	        			Writes.changeAuxWrites(1);
@@ -377,8 +377,8 @@ public class PackedLogKitaSort extends Sort {
     	    			Writes.write(array, bb+cc, array[r++], 0.5, true, true);
     	    			rc++;
     	    			// if block complete, go to next block according to linkedlist
-    	    			if(++rd == w) {
-    	    				if(--jb==0) continue;
+    	    			if (++rd == w) {
+    	    				if (--jb==0) continue;
     	    				rd = 0;
     	    				rt[rtt++%3] = rn + mb;
     	        			Writes.changeAuxWrites(1);
@@ -389,8 +389,8 @@ public class PackedLogKitaSort extends Sort {
     			}
     			// left has one block less of buffer
     			lc -= w;
-    			if(tc++>0) {
-    				if(bt == 0) {
+    			if (tc++>0) {
+    				if (bt == 0) {
     					// track connecting blocks
     					ft = ls;
     				} else {
@@ -408,14 +408,14 @@ public class PackedLogKitaSort extends Sort {
     			// shift out first buffer tag in rt
     			bt = rt[rth++%3];
     			bb = i + bt * w;
-    			for(cc=0; cc<w; cc++) {
+    			for (cc=0; cc<w; cc++) {
     	    		// put lower element into array[bb+cc]
-    				if(jb == 0 || (ib > 0 && Reads.compareIndices(array, l, r, 0.5, true) <= 0)) {
+    				if (jb == 0 || (ib > 0 && Reads.compareIndices(array, l, r, 0.5, true) <= 0)) {
     	    			Writes.write(array, bb+cc, array[l++], 0.5, true, false);
     	    			lc++;
     	    			// if block complete, go to next block according to linkedlist
-    	    			if(++ld == w) {
-    	    				if(--ib==0) continue;
+    	    			if (++ld == w) {
+    	    				if (--ib==0) continue;
     	    				ld = 0;
     	    				lt[ltt++%3] = ln;
     	        			Writes.changeAuxWrites(1);
@@ -426,8 +426,8 @@ public class PackedLogKitaSort extends Sort {
     	    			Writes.write(array, bb+cc, array[r++], 0.5, true, true);
     	    			rc++;
     	    			// if block complete, go to next block according to linkedlist
-    	    			if(++rd == w) {
-    	    				if(--jb==0) continue;
+    	    			if (++rd == w) {
+    	    				if (--jb==0) continue;
     	    				rd = 0;
     	    				rt[rtt++%3] = rn + mb;
     	        			Writes.changeAuxWrites(1);
@@ -438,7 +438,7 @@ public class PackedLogKitaSort extends Sort {
     			}
     			// right has one block less of buffer
     			rc -= w;
-    			if(tc++>0) {
+    			if (tc++>0) {
     				// tag last block made with current buffer tag
     				packedxor(array, ls, x, bt, bi, bj);
     			} else {
@@ -451,17 +451,17 @@ public class PackedLogKitaSort extends Sort {
 
     	// re-encode connecting blocks with target position tags,
     	// copy 0 block to target position
-    	if(ltt-lth > 0) {
+    	if (ltt-lth > 0) {
     		// change fbt accordingly
-    		if(fbt == 0) fbt = lt[lth%3];
-    		if(ft >= 0)
+    		if (fbt == 0) fbt = lt[lth%3];
+    		if (ft >= 0)
 				packedxor(array, ft, x, lt[lth%3], bi, bj);
     		Writes.arraycopy(array, i, array, i+lt[lth%3]*w, w, 1, true, false);
     		sb = rtt-rth > 0 ? rt[rth%3] : lt[++lth%3];
     	} else {
     		// change fbt accordingly
-    		if(fbt == 0) fbt = rt[rth%3];
-    		if(ft >= 0)
+    		if (fbt == 0) fbt = rt[rth%3];
+    		if (ft >= 0)
 				packedxor(array, ft, x, rt[rth%3], bi, bj);
     		Writes.arraycopy(array, i, array, i+rt[rth%3]*w, w, 1, true, false);
 	    	sb = rt[++rth%3];
@@ -477,7 +477,7 @@ public class PackedLogKitaSort extends Sort {
 
     // the only O(n) solution I have, and it's O(n/log n) space :sadge:
     private void stacktranscode(int[] array, int a, int a1, int x, int m, int bc, int w, int w1, int p, int c, boolean y) {
-    	if(bc == m) return;
+    	if (bc == m) return;
 		int k = get(array, a1, p, w1, c, y);
 		packedxor(array, a1, x, k, 0, m);
 		stacktranscode(array, a, a + k * w, x, m, bc + 1, w, w1, p, c, y);
@@ -489,9 +489,9 @@ public class PackedLogKitaSort extends Sort {
     	// traverse linkedlist, transcode to index order
     	stacktranscode(array, a, a, x, m, 0, w, w1, p, c, y);
     	int i = a + w, i1 = 1;
-    	for(; i < b; i += w, i1++) {
+    	for (; i < b; i += w, i1++) {
     		int j = get(array, i, p, w1, c, y);
-    		if(j == 0) continue; // pre-encoded check
+    		if (j == 0) continue; // pre-encoded check
     		while(j != i1) {
     			int k = get(array, a+j*w, p, w1, c, y);
     			// clear bitbuffer using last index and swap block
@@ -507,41 +507,41 @@ public class PackedLogKitaSort extends Sort {
     	int B = b, s = tmp.length / 2, si = (s < 12 ? s : 8);
     	b -= (b - a) % s;
     	BinaryInsertionSort bi = new BinaryInsertionSort(arrayVisualizer);
-    	for(int i = a; i < b; i += si) {
+    	for (int i = a; i < b; i += si) {
     		// binary insert small n
         	bi.customBinaryInsert(array, i, Math.min(i+si, b), 0.5);
     	}
     	int j = si;
-    	for(; j <= tmp.length / 4; j *= 4) {
-    		for(int i = a; i + j < b; i += 4 * j) {
+    	for (; j <= tmp.length / 4; j *= 4) {
+    		for (int i = a; i + j < b; i += 4 * j) {
     			// ping-pong merge groups of 4
     			merge(array, tmp, i, i+j, Math.min(i+2*j, b), 0, true);
     			merge(array, tmp, Math.min(i+2*j, b), Math.min(i+3*j, b), Math.min(i+4*j, b), 2*j, true);
     			merge(tmp, array, 0, Math.min(2*j, b-i), Math.min(4*j, b-i), i, false);
     		}
     	}
-    	for(; j <= tmp.length; j *= 2) {
-    		for(int i = a; i + j < b; i += 2 * j) {
+    	for (; j <= tmp.length; j *= 2) {
+    		for (int i = a; i + j < b; i += 2 * j) {
     			// tailmerge pairs
     			tailmerge(array, tmp, i, i+j, Math.min(i+2*j, b));
     		}
     	}
     	int blks = (b-a)/s;
     	// encode linkedlist indices
-    	for(int i = a, ii = j / s, ij = 0; i < b; i += j, ij += ii) {
-    		for(int i1 = i, j1 = 1; i1 + s < b && j1 < ii; i1 += s, j1++) {
+    	for (int i = a, ii = j / s, ij = 0; i < b; i += j, ij += ii) {
+    		for (int i1 = i, j1 = 1; i1 + s < b && j1 < ii; i1 += s, j1++) {
     			packedxor(array, i1, x, j1, ij, blks);
     		}
     	}
-    	for(; j < b - a; j *= 2) {
-    		for(int i = a; i + j < b; i += 2 * j) {
+    	for (; j < b - a; j *= 2) {
+    		for (int i = a; i + j < b; i += 2 * j) {
     			// kitamerge pairs
     			kitamerge(array, tmp, x, (i - a) / s, i, j/s, i+j, Math.min(j, b-i-j)/s, blks, p, c, s, log(j/s), iv);
     		}
     	}
 
     	indexll(array, a, b, blks, x, s, w, p, c, iv);
-    	if(b < B) {
+    	if (b < B) {
     		// merge remaining fragment
     		bi.customBinaryInsert(array, b, B, 0.5);
     		tailmerge(array, tmp, a, b, B);
@@ -553,27 +553,27 @@ public class PackedLogKitaSort extends Sort {
             int m = medianDepth(array, a, b-1, logb(b-a, 7));
             piv = array[m];
 	        p = partition(array, buf, a, b, piv, 1);
-	        if(p == b) {
+	        if (p == b) {
 	            p = partition(array, buf, a, b, piv, 0);
-		        if(p == a) return;
+		        if (p == a) return;
 		        b = p;
 	        } else break;
         } while(a < b);
-        if(a >= b)
+        if (a >= b)
         	return;
 	    int[] p2 = new int[] {p, p};
-        if(ratioBad(a, p, p, b, blk) || ratioBad(p, b, a, p, blk)) {
+        if (ratioBad(a, p, p, b, blk) || ratioBad(p, b, a, p, blk)) {
             int M = a + (b - a) / 2;
-            if(p > M) {
+            if (p > M) {
                 p2 = quickselect(array, buf, a, p, M);
             } else {
                 p2 = quickselect(array, buf, p, b, M);
             }
             piv = array[M];
         }
-        if(p2[0] >= 0)
+        if (p2[0] >= 0)
         	kitaHalf(array, buf, a, p2[0], p2[0], blk, piv, 1, true);
-        if(p2[1] >= 0)
+        if (p2[1] >= 0)
         	kitaHalf(array, buf, p2[1], b, a, blk, piv, 0, false);
     }
 

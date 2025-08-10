@@ -43,8 +43,8 @@ public class OddEvenBitonicSort extends Sort {
     }
 
     private void oddEvenBitonic(int[] array, int start, int end, int gap, boolean reverse) {
-    	if(start == end - gap) return;
-    	if(!reverse) {
+    	if (start == end - gap) return;
+    	if (!reverse) {
     		oddEvenBitonic(array, start, start + ((end - start) / 2), gap, true);
     		oddEvenBitonic(array, start + ((end - start) / 2), end, gap, false);
     		oddEvenMerge(array, start, end, gap, false);
@@ -57,36 +57,36 @@ public class OddEvenBitonicSort extends Sort {
     }
 
     private void oddEvenMerge(int[] array, int start, int end, int gap, boolean reverse) {
-    	if(start >= end - gap) return;
-    	if(!reverse) {
-    		if(((end - start) / gap) % 2 == 0) {
+    	if (start >= end - gap) return;
+    	if (!reverse) {
+    		if (((end - start) / gap) % 2 == 0) {
     			oddEvenMerge(array, start, end, gap * 2, false);
     			oddEvenMerge(array, start + gap, end + gap, gap * 2, false);
     		} else {
     			oddEvenMerge(array, start, end + gap, gap * 2, false);
     			oddEvenMerge(array, start + gap, end, gap * 2, false);
     		}
-    		for(int i = start;i < end - gap;i += 2 * gap) {
+    		for (int i = start;i < end - gap;i += 2 * gap) {
     			Delays.sleep(1);
     			Highlights.markArray(1, i);
     			Highlights.markArray(2, i + gap);
-    			if(Reads.compareValues(array[i], array[i + gap]) == 1) {
+    			if (Reads.compareValues(array[i], array[i + gap]) == 1) {
     				Writes.swap(array, i, i + gap, 1, true, false);
     			}
     		}
     	} else {
-    		if(((end - start) / gap) % 2 == 0) {
+    		if (((end - start) / gap) % 2 == 0) {
     			oddEvenMerge(array, start, end, gap * 2, true);
     			oddEvenMerge(array, start + gap, end + gap, gap * 2, true);
     		} else {
     			oddEvenMerge(array, start, end + gap, gap * 2, true);
     			oddEvenMerge(array, start + gap, end, gap * 2, true);
     		}
-    		for(int i = start;i < end - gap;i += 2 * gap) {
+    		for (int i = start;i < end - gap;i += 2 * gap) {
     			Delays.sleep(1);
     			Highlights.markArray(1, i);
     			Highlights.markArray(2, i + gap);
-    			if(Reads.compareValues(array[i], array[i + gap]) == -1) {
+    			if (Reads.compareValues(array[i], array[i + gap]) == -1) {
     				Writes.swap(array, i, i + gap, 1, true, false);
     			}
     		}

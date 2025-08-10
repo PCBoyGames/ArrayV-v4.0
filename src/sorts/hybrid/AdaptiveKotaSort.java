@@ -47,7 +47,7 @@ public class AdaptiveKotaSort extends Sort {
         while(a < b) {
             int m = (a+b)/2;
 
-            if(n1-m < (m+3)*bLen) b = m;
+            if (n1-m < (m+3)*bLen) b = m;
             else                  a = m+1;
         }
         return a;
@@ -360,12 +360,12 @@ public class AdaptiveKotaSort extends Sort {
     void blockMerge(int[] array, int a, int m, int b, int t, int p, int bLen) {
         if (Reads.compareValues(array[m - 1], array[m]) <= 0) return;
         b = rightExpSearch(array, m, b, array[m - 1], true);
-        if(b - m <= 2 * bLen) {
+        if (b - m <= 2 * bLen) {
             mergeBW(array, a, m, b, p);
             return;
         }
         int a1 = leftExpSearch(array, a, m, array[m], false);
-        if(m - a1 <= 2 *bLen) {
+        if (m - a1 <= 2 *bLen) {
             mergeFW(array, a1, m, b, p);
             return;
         }
@@ -401,7 +401,7 @@ public class AdaptiveKotaSort extends Sort {
             if (++c == bLen) { //change buffer after every block
                 Writes.swap(array, k-bLen, tp++, 10, true, false);
 
-                if(left) l -= bLen;
+                if (left) l -= bLen;
                 else     r -= bLen;
 
                 left = l >= r;
@@ -427,17 +427,17 @@ public class AdaptiveKotaSort extends Sort {
     void blockMergeNoBuf(int[] array, int a, int m, int b, int t, int bLen) { //from wiki sort
         if (Reads.compareValues(array[m - 1], array[m]) <= 0) return;
         b = rightExpSearch(array, m, b, array[m - 1], true);
-        if(b - m <= 2 * bLen) {
+        if (b - m <= 2 * bLen) {
             inPlaceMergeBW(array, a, m, b);
             return;
         }
         int a1 = leftExpSearch(array, a, m, array[m], false);
-        if(m - a1 <= 2 * bLen) {
+        if (m - a1 <= 2 * bLen) {
             inPlaceMergeFW(array, a1, m, b);
             return;
         }
         a = a1 - (a1 - a) % bLen;
-        for(int i = a+bLen, j = t; i < m; i += bLen, j++) //tag blocks
+        for (int i = a+bLen, j = t; i < m; i += bLen, j++) //tag blocks
             Writes.swap(array, i, j, 10, true, false);
 
         int i = a+bLen, b1 = b-(b-m)%bLen;
@@ -477,7 +477,7 @@ public class AdaptiveKotaSort extends Sort {
         int i = a, j = m;
 
         while(i < m && j < b) {
-            if(Reads.compareValues(array[i], array[j]) <= 0)
+            if (Reads.compareValues(array[i], array[j]) <= 0)
                 Writes.swap(array, p++, i++, 1, true, false);
             else
                 Writes.swap(array, p++, j++, 1, true, false);
@@ -541,7 +541,7 @@ public class AdaptiveKotaSort extends Sort {
             lazyStableSort(array, a, b);
             return;
         }
-        if(keys < ideal) {
+        if (keys < ideal) {
             while(bufLen > 2*(keys-bufLen)) bufLen /= 2;
 
             bLen = bufLen/2;
@@ -549,7 +549,7 @@ public class AdaptiveKotaSort extends Sort {
         }
         int i, j = 16, t, p, a1, b1;
         length -= keys;
-        if(bwBuf) {
+        if (bwBuf) {
             p = b-bufLen; a1 = a; b1 = p-tLen; t = b1;
         } else {
             p = a+tLen; a1 = p+bufLen; b1 = b; t = a;

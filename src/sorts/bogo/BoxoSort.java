@@ -49,7 +49,7 @@ public class BoxoSort extends BogoSorting {
     }
 
     private int selectiveSwap(int[] array, int length, boolean k) {
-    	if(length > 1 && ((!k)^this.isArraySorted(array, length)))
+    	if (length > 1 && ((!k)^this.isArraySorted(array, length)))
     		return length+1;
     	int rand = randInt(0, length),
     		rand2 = randInt(rand, length);
@@ -68,7 +68,7 @@ public class BoxoSort extends BogoSorting {
         while(!this.isArraySorted(array, length)) {
         	k = this.selectiveSwap(array, k, d);
         	d=!d;
-        	if(k <= 1 || k > length)
+        	if (k <= 1 || k > length)
         		k = length;
         }
     }

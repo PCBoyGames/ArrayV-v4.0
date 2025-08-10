@@ -35,7 +35,7 @@ public class NitroConeSortRecursive extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
     }
-    
+
     void shellPass(int[] array, int a, int b, int gap) {
         for (int i = a + gap; i < b; i++) {
             int tmp = array[i];
@@ -50,12 +50,12 @@ public class NitroConeSortRecursive extends Sort {
             if (j != i) Writes.write(array, j, tmp, 0.7, true, false);
         }
     }
-    
+
     public void shellSort(int[] array, int a, int b) {
         for (int gap = (int) Math.sqrt(b - a); gap >= 2; gap /= 2.3601) shellPass(array, a, b, gap);
         shellPass(array, a, b, 1);
     }
-    
+
     public boolean conePass(int[] array, int a, int b, int c, int d, int bnd) {
         Writes.recordDepth(d++);
         if (a >= b || a+c >= b-c) return false;
@@ -78,16 +78,16 @@ public class NitroConeSortRecursive extends Sort {
         for (int i = 0; i <= (b-a) >> 1; i++) swaps |= conePass(array, a, b, i, 0, bnd);
         return swaps;
     }
-    
+
     public void sort(int[] array, int a, int b) {
         int length = b - a;
         int threshold = 0, n = 1;
-        for(; n < length; n*=2, threshold++);
+        for (; n < length; n*=2, threshold++);
         threshold /= 2;
         int iterations = 0;
         do {
             iterations++;
-            if(iterations >= threshold) {
+            if (iterations >= threshold) {
                 shellSort(array, a, b);
                 break;
             }

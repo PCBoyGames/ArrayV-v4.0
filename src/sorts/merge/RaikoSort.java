@@ -45,13 +45,13 @@ public class RaikoSort extends Sort {
         while(2*r+2 < size) {
             int nxt = 2*r+1;
             int min = nxt + (this.keyLessThan(src, pa, heap[nxt], heap[nxt+1]) ? 0 : 1);
-            if(this.keyLessThan(src, pa, heap[min], t)) {
+            if (this.keyLessThan(src, pa, heap[min], t)) {
                 Writes.write(heap, r, heap[min], 0.25, true, true);
                 r = min;
             } else break;
         }
         int min = 2*r+1;
-        if(min < size && this.keyLessThan(src, pa, heap[min], t)) {
+        if (min < size && this.keyLessThan(src, pa, heap[min], t)) {
             Writes.write(heap, r, heap[min], 0.25, true, true);
             r = min;
         }
@@ -59,18 +59,18 @@ public class RaikoSort extends Sort {
     }
 
     protected void kWayMerge(int[] src, int[] dest, int[] heap, int[] pa, int[] pb, int size, boolean aux) {
-        for(int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++)
             Writes.write(heap, i, i, 0, false, true);
-        for(int i = (size-1)/2; i >= 0; i--)
+        for (int i = (size-1)/2; i >= 0; i--)
             this.siftDown(src, heap, pa, heap[i], i, size);
-        for(int i = 0; size > 0; i++) {
+        for (int i = 0; size > 0; i++) {
             int min = heap[0];
             Highlights.markArray(2, pa[min]);
             Writes.write(dest, i, src[pa[min]], 0.5, !aux, aux);
             Writes.write(pa, min, pa[min]+1, 0, false, true);
-            if(pa[min] == pb[min])
+            if (pa[min] == pb[min])
                 this.siftDown(src, heap, pa, heap[--size], 0, size);
-            else 
+            else
                 this.siftDown(src, heap, pa, heap[0], 0, size);
         }
     }

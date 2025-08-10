@@ -27,11 +27,11 @@ public class EgootsSort extends Sort {
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
     }
-    
+
     protected void stoogeSort(int[] array, int a, int b) {
-        if(Reads.compareIndices(array, a, b, 0.005, true) > 0)
+        if (Reads.compareIndices(array, a, b, 0.005, true) > 0)
             Writes.swap(array, a, b, 0.01, true, false);
-        if(b - a + 1 >= 3) {
+        if (b - a + 1 >= 3) {
             int t = (b - a + 1) / 3;
             stoogeSort(array, a + t, b);
             stoogeSort(array, a, b - t);

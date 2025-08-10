@@ -67,7 +67,7 @@ public class ClassicLibrarySort extends Sort {
 			Highlights.markArray(2, m/s);
 			Delays.sleep(0.5);
 
-			if(Reads.compareValues(val, array[m]) <= 0)
+			if (Reads.compareValues(val, array[m]) <= 0)
 				b = m;
 			else
 				a = m+s;
@@ -84,7 +84,7 @@ public class ClassicLibrarySort extends Sort {
 			Highlights.markArray(2, m/s);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) < 0)
+			if (Reads.compareValues(val, array[m]) < 0)
 				b = m;
 			else
 				a = m+s;
@@ -98,7 +98,7 @@ public class ClassicLibrarySort extends Sort {
 		while(a < b) {
 			int m = a+(b-a)/2;
 
-			if(Reads.compareOriginalValues(this.max, array[m]) <= 0)
+			if (Reads.compareOriginalValues(this.max, array[m]) <= 0)
 				b = m;
 			else
 				a = m+1;
@@ -110,7 +110,7 @@ public class ClassicLibrarySort extends Sort {
 		while(a < b) {
 			int m = a+(b-a)/2;
 
-			if(Reads.compareValues(val, array[m]) < 0)
+			if (Reads.compareValues(val, array[m]) < 0)
 				b = m;
 			else
 				a = m+1;
@@ -127,7 +127,7 @@ public class ClassicLibrarySort extends Sort {
 			Highlights.markArray(2, m/s);
 			Delays.sleep(0.25);
 
-			if(this.locSearch(array, m-G, m) < m)
+			if (this.locSearch(array, m-G, m) < m)
 				b = m;
 			else
 				a = m+s;
@@ -145,14 +145,14 @@ public class ClassicLibrarySort extends Sort {
 	}
 
 	private void binaryInsertion(int[] array, int a, int b) {
-    	for(int i = a+1; i < b; i++)
+    	for (int i = a+1; i < b; i++)
 			this.insertTo(array, i, this.rightBinSearch(array, a, i, array[i]), false);
     }
 
 	private void retrieve(int[] array, int[] tmp, int i, int pEnd) {
 		int loc = i-1;
 
-		for(int k = pEnd-(G+1); k > G;) {
+		for (int k = pEnd-(G+1); k > G;) {
 			int m = this.locSearch(tmp, k-G, k)-1;
 			k -= G+1;
 
@@ -185,20 +185,20 @@ public class ClassicLibrarySort extends Sort {
 		int i = s, j = R*i, pEnd = (s+1)*(G+1)+G;
 		this.binaryInsertion(array, 0, s);
 
-		for(int k = 0; k < s; k++) {
+		for (int k = 0; k < s; k++) {
 			Highlights.markArray(1, k);
 			Writes.write(tmp, k*(G+1)+G, array[k], 1, false, true);
 		}
 
-		for(; i < length; i++) {
-			if(i == j) {
+		for (; i < length; i++) {
+			if (i == j) {
 				this.retrieve(array, tmp, i, pEnd);
 
 				s = i;
 				pEnd = (s+1)*(G+1)+G;
 				j *= R;
 
-				for(int k = 0; k < s; k++) {
+				for (int k = 0; k < s; k++) {
 					Highlights.markArray(1, k);
 					Writes.write(tmp, k*(G+1)+G, array[k], 1, false, true);
 				}
@@ -207,24 +207,24 @@ public class ClassicLibrarySort extends Sort {
 			Highlights.markArray(1, i);
 			int bLoc = this.leftBlockSearch(tmp, G, pEnd-(G+1), array[i]);
 
-			if(Reads.compareValues(array[i], tmp[bLoc]) == 0) {
+			if (Reads.compareValues(array[i], tmp[bLoc]) == 0) {
 				int eqEnd = this.rightBlockSearch(tmp, bLoc, pEnd-(G+1), array[i]);
 				bLoc = this.eqNextGapSearch(tmp, bLoc, eqEnd);
 			}
 			int loc  = this.locSearch(tmp, bLoc-G, bLoc);
 
-			if(loc == bLoc) {
+			if (loc == bLoc) {
 				do bLoc += G+1;
 				while(bLoc < pEnd && this.locSearch(tmp, bLoc-G, bLoc) == bLoc);
 
-				if(bLoc == pEnd) {
+				if (bLoc == pEnd) {
 					this.retrieve(array, tmp, i, pEnd);
 
 					s = i;
 					pEnd = (s+1)*(G+1)+G;
 					j = R*i;
 
-					for(int k = 0; k < s; k++) {
+					for (int k = 0; k < s; k++) {
 						Highlights.markArray(1, k);
 						Writes.write(tmp, k*(G+1)+G, array[k], 1, false, true);
 					}

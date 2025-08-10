@@ -20,13 +20,13 @@ public class RankSort extends Sort {
     }
 
     public void rankSort(int[] array, int[] swap, int a, int b, double sleep) {
-		for(int j = a; j < b; j++) {
+		for (int j = a; j < b; j++) {
 			int c = 0;
-			
-			for(int i = a; i < b; i++) {
-				if(i == j) continue;
+
+			for (int i = a; i < b; i++) {
+				if (i == j) continue;
 				int cmp = Reads.compareIndices(array, i, j, sleep, true);
-				if(cmp < 0 || (cmp == 0 && i < j)) c++;
+				if (cmp < 0 || (cmp == 0 && i < j)) c++;
 			}
 			Writes.write(swap, c, array[j], 0, false, true);
 		}

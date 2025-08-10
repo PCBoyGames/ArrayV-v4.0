@@ -80,7 +80,7 @@ public class IzaSort extends Sort {
 			Highlights.markArray(2, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) <= 0)
+			if (Reads.compareValues(val, array[m]) <= 0)
 				b = m;
 			else
 				a = m+1;
@@ -95,7 +95,7 @@ public class IzaSort extends Sort {
 			Highlights.markArray(3, m);
 			Delays.sleep(0.25);
 
-			if(Reads.compareValues(val, array[m]) == cmp)
+			if (Reads.compareValues(val, array[m]) == cmp)
 				b = m;
 			else
 				a = m+1;
@@ -108,7 +108,7 @@ public class IzaSort extends Sort {
 		int i = a, j = m;
 
 		while(i < m && j < b) {
-			if(Reads.compareValues(array[i], array[j]) <= 0)
+			if (Reads.compareValues(array[i], array[j]) <= 0)
 				Writes.swap(array, p++, i++, 1, true, false);
 			else
 				Writes.swap(array, p++, j++, 1, true, false);
@@ -122,13 +122,13 @@ public class IzaSort extends Sort {
 			int max = val;
 			int next = i, child = 4*i+1;
 
-			for(int j = child; j < Math.min(child+4, n); j++) {
-				if(Reads.compareValues(array[p+j], max) > 0) {
+			for (int j = child; j < Math.min(child+4, n); j++) {
+				if (Reads.compareValues(array[p+j], max) > 0) {
 					max  = array[p+j];
 					next = j;
 				}
 			}
-			if(next == i) break;
+			if (next == i) break;
 
 			Writes.write(array, p+i, max, 0.25, true, false);
 			i = next;
@@ -138,10 +138,10 @@ public class IzaSort extends Sort {
 	private void optiHeapSort(int[] array, int a, int b) {
 		int n = b-a;
 
-		for(int i = (n-1)/4; i >= 0; i--)
+		for (int i = (n-1)/4; i >= 0; i--)
 			this.siftDown(array, array[a+i], i, a, n);
 
-		for(int i = n-1; i > 0; i--) {
+		for (int i = n-1; i > 0; i--) {
 			Highlights.markArray(2, a+i);
 			int t = array[a+i];
 			Writes.write(array, a+i, array[a], 1, false, false);
@@ -171,13 +171,13 @@ public class IzaSort extends Sort {
 			return Reads.compareIndices(array, a, b, 0, false) > 0;
 		}
 		private void setBit(int a, int b, boolean bit) {
-			if(this.getBit(a, b) ^ bit)
+			if (this.getBit(a, b) ^ bit)
 				this.flipBit(a, b);
 		}
 
 		public void free() {
 			int i1 = pa+length;
-			for(int i = pa, j = pb; i < i1; i++, j++)
+			for (int i = pa, j = pb; i < i1; i++, j++)
 				this.setBit(i, j, false);
 		}
 
@@ -185,16 +185,16 @@ public class IzaSort extends Sort {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
 				this.setBit(i, j, (uInt & 1) == 1);
 
-			if(uInt > 0) System.out.println("Warning: Word too large");
+			if (uInt > 0) System.out.println("Warning: Word too large");
 		}
 		public int get(int idx) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int r = 0, s = idx*w;
-			for(int k = 0, i = pa+s, j = pb+s; k < w; k++, i++, j++)
+			for (int k = 0, i = pa+s, j = pb+s; k < w; k++, i++, j++)
 				r |= (this.getBit(i, j) ? 1 : 0) << k;
 			return r;
 		}
@@ -203,9 +203,9 @@ public class IzaSort extends Sort {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++) {
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
 				this.flipBit(i, j);
-				if(this.getBit(i, j)) return;
+				if (this.getBit(i, j)) return;
 			}
 			System.out.println("Warning: Integer overflow");
 		}
@@ -213,9 +213,9 @@ public class IzaSort extends Sort {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 
 			int s = idx*w, i1 = pa+s+w;
-			for(int i = pa+s, j = pb+s; i < i1; i++, j++) {
+			for (int i = pa+s, j = pb+s; i < i1; i++, j++) {
 				this.flipBit(i, j);
-				if(!this.getBit(i, j)) return;
+				if (!this.getBit(i, j)) return;
 			}
 			System.out.println("Warning: Integer underflow");
 		}
@@ -278,13 +278,13 @@ public class IzaSort extends Sort {
 		private void exchange(int a, int b) { //same function is used to swap in and out tree elements
 			int po = this.o;
 
-			for(int i = a;; i++) {
+			for (int i = a;; i++) {
 				int s = this.gSize.get(i);
 				int j = this.gapPos(i);
 
 				while(s-- > 0) Writes.swap(array, po++, j++, 1, true, false);
 
-				if(i == b-1) return;
+				if (i == b-1) return;
 
 				Writes.swap(array, po++, this.keyPos(i), 1, true, false);
 			}
@@ -308,7 +308,7 @@ public class IzaSort extends Sort {
 				Highlights.markArray(2, this.keyPos(m));
 				Delays.sleep(0.25);
 
-				if(Reads.compareValues(val, array[this.keyPos(m)]) < 0)
+				if (Reads.compareValues(val, array[this.keyPos(m)]) < 0)
 					b = m;
 				else
 					a = m+1;
@@ -327,20 +327,20 @@ public class IzaSort extends Sort {
 		private int minGap(int a, int b) {
 			int min = this.gSize.get(a);
 
-			for(int i = a+1; i < b; i++) {
+			for (int i = a+1; i < b; i++) {
 				int minI = this.gSize.get(i);
-				if(minI < min) min = minI;
+				if (minI < min) min = minI;
 			}
 			return min;
 		}
 		private void incrRange(int a, int b) {
-			for(int i = a; i < b; i++) this.gSize.incr(i);
+			for (int i = a; i < b; i++) this.gSize.incr(i);
 		}
 		private void decrRange(int a, int b) {
-			for(int i = a; i < b; i++) this.gSize.decr(i);
+			for (int i = a; i < b; i++) this.gSize.decr(i);
 		}
 		private void rebalance(int idx) {
-			for(int lvl = 0, curPos = idx; lvl < this.g-2; lvl++) {
+			for (int lvl = 0, curPos = idx; lvl < this.g-2; lvl++) {
 				int s = 1 << lvl;
 				int sibPos = curPos ^ s;
 				int minPos = Math.min(curPos, sibPos);
@@ -348,12 +348,12 @@ public class IzaSort extends Sort {
 				int curMin = this.minGap(curPos, curPos+s);
 				int sibMin = this.minGap(sibPos, sibPos+s);
 
-				if(curMin >= sibMin) {
+				if (curMin >= sibMin) {
 					int diff = curMin-sibMin;
 
-					if(diff == 1) return;
+					if (diff == 1) return;
 
-					if(diff > 1) {
+					if (diff > 1) {
 						this.exchange(minPos, minPos+s*2);
 						this.incrRange(sibPos, sibPos+s);
 						this.decrRange(curPos, curPos+s);
@@ -363,9 +363,9 @@ public class IzaSort extends Sort {
 				else {
 					int diff = sibMin-curMin;
 
-					if(diff == 1) return;
+					if (diff == 1) return;
 
-					if(diff > 1) {
+					if (diff > 1) {
 						this.exchange(minPos, minPos+s*2);
 						this.incrRange(curPos, curPos+s);
 						this.decrRange(sibPos, sibPos+s);
@@ -394,7 +394,7 @@ public class IzaSort extends Sort {
 
 			this.rebalance(loc); //rebalance after insertion
 
-			if(this.size == this.kSize+1) this.increaseSize(); //resize if size limit is reached
+			if (this.size == this.kSize+1) this.increaseSize(); //resize if size limit is reached
 		}
 
 		public void free() {
@@ -411,18 +411,18 @@ public class IzaSort extends Sort {
 			        false - if the tree already contains the element (no insertion)
 		*/
 		public boolean insertDistinct(int idx) { //key collection exclusive
-			if(this.size == this.kSize+1) this.increaseSize();
+			if (this.size == this.kSize+1) this.increaseSize();
 
 			int val = array[idx];
 			int loc = this.keySearch(val);
 
-			if(loc > 0 && Reads.compareValues(val, array[this.keyPos(loc-1)]) == 0)
+			if (loc > 0 && Reads.compareValues(val, array[this.keyPos(loc-1)]) == 0)
 				return false;
 
 			int[] t  = this.gapSearch(loc, val);
 			int gPos = t[0], gTail = t[1];
 
-			if(gPos > 0 && Reads.compareValues(val, array[this.gapPos(loc)+gPos-1]) == 0)
+			if (gPos > 0 && Reads.compareValues(val, array[this.gapPos(loc)+gPos-1]) == 0)
 				return false;
 
 			//we found key:
@@ -445,8 +445,8 @@ public class IzaSort extends Sort {
 			int gPos = this.gapPos(loc), gTail = gPos+this.gSize.get(loc);
 			int gLoc = rightBinSearch(array, gPos, gTail, val, false);
 
-			if(gLoc == gTail) {
-				if(loc == this.kSize)
+			if (gLoc == gTail) {
+				if (loc == this.kSize)
 					kp = gLoc-1;
 				else {
 					kp = this.keyPos(loc);
@@ -465,7 +465,7 @@ public class IzaSort extends Sort {
 		}
 
 		/*public void print() {
-			for(int i = 0; i < this.kSize; i++) {
+			for (int i = 0; i < this.kSize; i++) {
 				int gPos = this.gapPos(i);
 				System.out.print(Arrays.toString(Arrays.copyOfRange(array, gPos, gPos+this.gSize.get(i))));
 				System.out.printf("{%d}", array[this.keyPos(i)]);
@@ -482,17 +482,17 @@ public class IzaSort extends Sort {
 	//////////////////////////////////////
 
 	private int medianOfThree(int[] array, int a, int m, int b) {
-		if(Reads.compareValues(array[m], array[a]) > 0) {
-			if(Reads.compareValues(array[m], array[b]) < 0)
+		if (Reads.compareValues(array[m], array[a]) > 0) {
+			if (Reads.compareValues(array[m], array[b]) < 0)
 				return m;
-			if(Reads.compareValues(array[a], array[b]) > 0)
+			if (Reads.compareValues(array[a], array[b]) > 0)
 				return a;
 			else
 				return b;
 		}
-		if(Reads.compareValues(array[m], array[b]) > 0)
+		if (Reads.compareValues(array[m], array[b]) > 0)
 			return m;
-		if(Reads.compareValues(array[a], array[b]) < 0)
+		if (Reads.compareValues(array[a], array[b]) < 0)
 			return a;
 
 		return b;
@@ -507,7 +507,7 @@ public class IzaSort extends Sort {
 		return this.medianOfThree(array, a1, m1, b1);
 	}
 	private void pivotSelect(int[] array, int a, int b) {
-		if(b-a <= 256)
+		if (b-a <= 256)
 			Writes.swap(array, a, this.ninther(array, a, b), 1, true, false);
 
 		else {
@@ -524,7 +524,7 @@ public class IzaSort extends Sort {
 		while(b-a > 2) {
 			int m = a, i = a;
 
-			for(; i+2 < b; i += 3)
+			for (; i+2 < b; i += 3)
 				Writes.swap(array, m++, this.medianOfThree(array, i, i+1, i+2), 1, true, false);
 			while(i < b)
 				Writes.swap(array, m++, i++, 1, true, false);
@@ -552,7 +552,7 @@ public class IzaSort extends Sort {
 			}
 			while(j >= i && Reads.compareValues(array[j], array[a]) > 0);
 
-			if(i < j) Writes.swap(array, i, j, 1, false, false);
+			if (i < j) Writes.swap(array, i, j, 1, false, false);
 			else {
 				Highlights.clearMark(3);
 				Writes.swap(array, a, j, 1, true, false);
@@ -566,7 +566,7 @@ public class IzaSort extends Sort {
 		boolean badPartition = false;
 
 		while(b-a > this.MIN_INSERT) {
-			if(badPartition) {
+			if (badPartition) {
 				this.medianOfMedians(array, a, b);
 				badPartition = false;
 			}
@@ -574,23 +574,23 @@ public class IzaSort extends Sort {
 
 			int m = this.partition(array, a, b);
 
-			if(m > r2 && m < b1)        b1 = m;
-			else if(m < r2 && m+1 > a1) a1 = m+1;
-			else if(m == r2)            a1 = b1;
+			if (m > r2 && m < b1)        b1 = m;
+			else if (m < r2 && m+1 > a1) a1 = m+1;
+			else if (m == r2)            a1 = b1;
 
-			if(m == r1) break;
+			if (m == r1) break;
 
 			int left = m-a, right = b-m-1;
 			badPartition = 16*Math.min(left, right) < Math.max(left, right);
 
-			if(m > r1) b = m;
+			if (m > r1) b = m;
 			else       a = m+1;
 		}
-		if(b-a <= this.MIN_INSERT)
+		if (b-a <= this.MIN_INSERT)
 			this.smallSort.customBinaryInsert(array, a, b, 0.25);
 
 		while(b1-a1 > this.MIN_INSERT) {
-			if(badPartition) {
+			if (badPartition) {
 				this.medianOfMedians(array, a1, b1);
 				badPartition = false;
 			}
@@ -598,15 +598,15 @@ public class IzaSort extends Sort {
 
 			int m = this.partition(array, a1, b1);
 
-			if(m == r2) return;
+			if (m == r2) return;
 
 			int left = m-a1, right = b1-m-1;
 			badPartition = 16*Math.min(left, right) < Math.max(left, right);
 
-			if(m > r2) b1 = m;
+			if (m > r2) b1 = m;
 			else       a1 = m+1;
 		}
-		if(b1-a1 <= this.MIN_INSERT)
+		if (b1-a1 <= this.MIN_INSERT)
 			this.smallSort.customBinaryInsert(array, a1, b1, 0.25);
 	}
 
@@ -619,7 +619,7 @@ public class IzaSort extends Sort {
 	private void unshuffleWithBuf(int[] array, int a, int b) { //precondition: b-a is even
 		int i = a, j = b;
 
-		for(int k = a+1; k < b; k += 2) {
+		for (int k = a+1; k < b; k += 2) {
 			Writes.swap(array, i++, k-1, 1, true, false);
 			Writes.swap(array, j++, k,   1, true, false);
 		}
@@ -630,38 +630,38 @@ public class IzaSort extends Sort {
 
 		this.blockSwap(array, a, b, m-a);
 
-		for(int k = a+1; k < b; k += 2) {
+		for (int k = a+1; k < b; k += 2) {
 			Writes.swap(array, i++, k-1, 1, true, false);
 			Writes.swap(array, j++, k,   1, true, false);
 		}
 	}
 
 	private void optiLazyHeap(int[] array, int a, int b, int s) {
-		for(int j = a; j < b; j += s) {
+		for (int j = a; j < b; j += s) {
 			int max = j;
 
-			for(int i = max+1; i < Math.min(j+s, b); i++)
-				if(Reads.compareIndices(array, i, max, 0.125, true) > 0)
+			for (int i = max+1; i < Math.min(j+s, b); i++)
+				if (Reads.compareIndices(array, i, max, 0.125, true) > 0)
 					max = i;
 
 			Writes.swap(array, j, max, 1, true, false);
 		}
-		for(int j = b; j > a; ) {
+		for (int j = b; j > a; ) {
 			int k = a;
 
-			for(int i = k+s; i < j; i += s)
-				if(Reads.compareIndices(array, i, k, 0.125, true) > 0)
+			for (int i = k+s; i < j; i += s)
+				if (Reads.compareIndices(array, i, k, 0.125, true) > 0)
 					k = i;
 
 			int k1 = --j;
 
-			for(int i = k+1; i < Math.min(k+s, j); i++)
-				if(Reads.compareIndices(array, i, k1, 0.125, true) > 0)
+			for (int i = k+1; i < Math.min(k+s, j); i++)
+				if (Reads.compareIndices(array, i, k1, 0.125, true) > 0)
 					k1 = i;
 
 			Highlights.markArray(3, j);
 
-			if(k1 == j) {
+			if (k1 == j) {
 				Writes.swap(array, k, j, 1, true, false);
 			}
 			else {
@@ -685,7 +685,7 @@ public class IzaSort extends Sort {
 		int c = n/2;
 
 		while(c-- > 0) {
-			if(Reads.compareValues(array[i], array[j]) > 0)
+			if (Reads.compareValues(array[i], array[j]) > 0)
 				Writes.swap(array, --p, i--, 1, true, false);
 			else
 				Writes.swap(array, --p, j--, 1, true, false);
@@ -693,7 +693,7 @@ public class IzaSort extends Sort {
 		int m1 = m;
 
 		while(i >= a && j >= m) {
-			if(Reads.compareValues(array[i], array[j]) > 0)
+			if (Reads.compareValues(array[i], array[j]) > 0)
 				Writes.swap(array, --m1, i--, 1, true, false);
 			else
 				Writes.swap(array, --m1, j--, 1, true, false);
@@ -704,7 +704,7 @@ public class IzaSort extends Sort {
 	private void gridSort(int[] array, int a, int b, int ia, int im, int pk, int t1, int t2, int pa1, int pb1, int pa2, int pb2, int p, int bLen, int log, int bsv, boolean bw) {
 		int bLen2X = 2*bLen;
 
-		if(b-a <= bLen2X) {
+		if (b-a <= bLen2X) {
 			this.optiHeapSort(array, a, b);
 			return;
 		}
@@ -726,7 +726,7 @@ public class IzaSort extends Sort {
 
 		int kSize = 2;
 
-		for(int i = a+bLen2X; i < b; i++) {
+		for (int i = a+bLen2X; i < b; i++) {
 			int[] tmp = keyBuf.gridSearch(array[i]); //search tree, find index, decode index
 			int loc  = tmp[0];
 			int idx  = this.leftBinSearch(array, im, im+kSize, array[t2+loc])-im;
@@ -736,7 +736,7 @@ public class IzaSort extends Sort {
 
 			Writes.swap(array, i, bPos+gPos, 1, true, false); //swap sorting element to bucket
 
-			if(gPos == bLen-1) { //if after inserting element and gap is full, split
+			if (gPos == bLen-1) { //if after inserting element and gap is full, split
 
 				Writes.swap(array, bPos-1, t1+loc, 1, true, false); //swap key back to bucket block
 
@@ -754,7 +754,7 @@ public class IzaSort extends Sort {
 		keyBuf.free();
 		idxBuf.free();
 
-		for(int i = 0, j = a; i < kSize; i++) { //retrieve elements in sorted order
+		for (int i = 0, j = a; i < kSize; i++) { //retrieve elements in sorted order
 
 			int idx  = this.leftBinSearch(array, im, im+kSize, array[ia+i])-im;
 			int bPos = p+idx*bLen2X+bLen;
@@ -768,7 +768,7 @@ public class IzaSort extends Sort {
 
 		//sort index buffer
 
-		for(int i = 0; i < kSize-1; i++) {
+		for (int i = 0; i < kSize-1; i++) {
 			int idx = this.leftBinSearch(array, im+i, im+kSize, array[ia+i])-im;
 
 			while(idx != i) {
@@ -789,12 +789,12 @@ public class IzaSort extends Sort {
 		int a = 0, b = length;
 		this.smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 
-		if(length <= this.MIN_INSERT) {
+		if (length <= this.MIN_INSERT) {
 			this.smallSort.customBinaryInsert(array, a, b, 0.25);
 			return;
 		}
 
-		if(length <= this.MIN_HEAP) {
+		if (length <= this.MIN_HEAP) {
 			this.optiHeapSort(array, a, b);
 			return;
 		}
@@ -815,16 +815,16 @@ public class IzaSort extends Sort {
 		//[ bit buffer ][ buf ][ tree buffer ][            array             ][ bit buffer ]
 		//a             a1     a2             a3                              b1            b
 
-		if(Reads.compareIndices(array, a3-1, b1, 1, true) < 0) {
+		if (Reads.compareIndices(array, a3-1, b1, 1, true) < 0) {
 			Writes.swap(array, a1, a3, 1, true, false);
 			GAVLTree tree = new GAVLTree(array, a1, a2, a, b1);
 
 			int c = 1;
-			for(int i = a3+1, j = a3+1; i < b1 && c < bufLen; i++) {
+			for (int i = a3+1, j = a3+1; i < b1 && c < bufLen; i++) {
 				Highlights.markArray(1, i);
 				Delays.sleep(0.5);
 
-				if(tree.insertDistinct(i)) {
+				if (tree.insertDistinct(i)) {
 					Writes.swap(array, j++, i, 1, true, false);
 					c++;
 				}
@@ -832,9 +832,9 @@ public class IzaSort extends Sort {
 			tree.free();
 			a2 = a1+c; a3 += c;
 
-			if(c < 2) {}
+			if (c < 2) {}
 
-			else if(c < bufLen) {
+			else if (c < bufLen) {
 
 				//[ bit buffer ][ keys ][ tree buffer ][            array             ][ bit buffer ]
 				//a             a1      a2             a3                              b1            b
@@ -843,25 +843,25 @@ public class IzaSort extends Sort {
 
 				//perform bucket sort for every unique key
 
-				for(int i = a3; i < b1; i++) { //count elements
+				for (int i = a3; i < b1; i++) { //count elements
 					Highlights.markArray(1, i);
 					Delays.sleep(0.5);
 
 					int loc = this.leftBinSearch(array, a1, a2, array[i])-a1;
 					cnts.incr(loc);
 				}
-				for(int i = 1, sum = cnts.get(0); i < c; i++) { //prefix sum
+				for (int i = 1, sum = cnts.get(0); i < c; i++) { //prefix sum
 					sum += cnts.get(i);
 					cnts.set(i, sum);
 				}
-				for(int i = 0, j = 0; i < c-1; i++) { //transport elements
+				for (int i = 0, j = 0; i < c-1; i++) { //transport elements
 					Highlights.markArray(3, a3+j);
 
 					int cur = cnts.get(i);
 					int loc = this.leftBinSearch(array, a1+i, a2, array[a3+j])-a1;
 
 					while(j < cur) {
-						if(loc == i) {
+						if (loc == i) {
 							j++;
 							loc = this.leftBinSearch(array, a1+i, a2, array[a3+j])-a1;
 						}
@@ -872,7 +872,7 @@ public class IzaSort extends Sort {
 							while(true) {
 								int newLoc = this.leftBinSearch(array, a1+i, a2, array[a3+dest])-a1;
 
-								if(newLoc != loc) {
+								if (newLoc != loc) {
 									loc = newLoc;
 									break;
 								}
@@ -909,28 +909,28 @@ public class IzaSort extends Sort {
 					while(true) {
 						while(++i < j) {
 							int cmp = Reads.compareIndexValue(array, i, piv, 0.5, true);
-							if(cmp == 0) Writes.swap(array, i1++, i, 1, true, false);
-							else if(cmp > 0) break;
+							if (cmp == 0) Writes.swap(array, i1++, i, 1, true, false);
+							else if (cmp > 0) break;
 						}
 						Highlights.clearMark(2);
 
 						while(--j > i) {
 							int cmp = Reads.compareIndexValue(array, j, piv, 0.5, true);
-							if(cmp == 0) Writes.swap(array, --j1, j, 1, true, false);
-							else if(cmp < 0) break;
+							if (cmp == 0) Writes.swap(array, --j1, j, 1, true, false);
+							else if (cmp < 0) break;
 						}
 						Highlights.clearMark(2);
 
-						if(i < j) {
+						if (i < j) {
 							Writes.swap(array, i, j, 1, true, false);
 							Highlights.clearMark(2);
 						}
 						else {
-							if(i1 == b3) {
+							if (i1 == b3) {
 								a6 = b3;
 								break sortLoop;
 							}
-							else if(j < i) j++;
+							else if (j < i) j++;
 
 							while(i1 > a6) Writes.swap(array, --i, --i1, 1, true, false);
 							while(j1 < b3) Writes.swap(array, j++, j1++, 1, true, false);
@@ -943,14 +943,14 @@ public class IzaSort extends Sort {
 
 					int left = i-a6, right = b3-j;
 
-					if(left <= right) { //sort the smaller partition using larger partition as space
+					if (left <= right) { //sort the smaller partition using larger partition as space
 						int ma = a6, mb = i;
 
 						while(mb-ma > right/2) {
 							this.pivotSelect(array, ma, mb);
 							int m = this.partition(array, ma, mb);
 
-							if(mb-(m+1) < m-ma) {
+							if (mb-(m+1) < m-ma) {
 								this.gridSort(array, m+1, mb, a1, a5, a2, t1, t2, a, b1, a4, b2, j, bLen, log, piv, false);
 								mb = m;
 							}
@@ -970,7 +970,7 @@ public class IzaSort extends Sort {
 							this.pivotSelect(array, ma, mb);
 							int m = this.partition(array, ma, mb);
 
-							if(mb-(m+1) < m-ma) {
+							if (mb-(m+1) < m-ma) {
 								this.gridSort(array, m+1, mb, a1, a5, a2, t1, t2, a, b1, a4, b2, a6, bLen, log, piv, true);
 								mb = m;
 							}
@@ -997,7 +997,7 @@ public class IzaSort extends Sort {
 			int i = a3, j = a3+c;
 
 			while(a1 < a2 && j < b1) {
-				if(Reads.compareValues(array[a1], array[j]) <= 0)
+				if (Reads.compareValues(array[a1], array[j]) <= 0)
 					Writes.swap(array, i++, a1++, 1, true, false);
 				else
 					Writes.swap(array, i++, j++, 1, true, false);

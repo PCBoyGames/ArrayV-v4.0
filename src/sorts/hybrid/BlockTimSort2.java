@@ -5,7 +5,7 @@ import sorts.templates.Sort;
 import utils.IndexedRotations;
 
 /*
- * 
+ *
 MIT License
 
 Copyright (c) 2021 aphitorite, Scandum
@@ -36,11 +36,11 @@ SOFTWARE.
  * <p>
  * To use this algorithm in another, use {@code blockMergeSort()} from a
  * reference instance.
- * 
+ *
  * @author aphitorite
  * @author Flanlaina
  * @author Scandum
- * 
+ *
  */
 public class BlockTimSort2 extends Sort {
 
@@ -225,13 +225,13 @@ public class BlockTimSort2 extends Sort {
         int i = m;
 
         while(a < m && i < b) {
-            if(Reads.compareIndices(array, a, i, 0.0, true) <= 0)
+            if (Reads.compareIndices(array, a, i, 0.0, true) <= 0)
                 Writes.write(array, p++, array[a++], 1, true, false);
             else
                 Writes.write(array, p++, array[i++], 1, true, false);
         }
-        if(a < m) {
-            if(a > p) this.shiftFWExt(array, p, a, m);
+        if (a < m) {
+            if (a > p) this.shiftFWExt(array, p, a, m);
             Writes.arraycopy(tmp, 0, array, b-bLen, bLen, 1, true, false);
         }
         else {
@@ -240,7 +240,7 @@ public class BlockTimSort2 extends Sort {
             while(a < bLen && i < b) {
                 Highlights.markArray(2, i);
 
-                if(Reads.compareValues(tmp[a], array[i]) <= 0)
+                if (Reads.compareValues(tmp[a], array[i]) <= 0)
                     Writes.write(array, p++, tmp[a++], 1, true, false);
                 else
                     Writes.write(array, p++, array[i++], 1, true, false);

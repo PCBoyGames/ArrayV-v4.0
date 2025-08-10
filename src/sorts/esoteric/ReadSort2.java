@@ -21,8 +21,8 @@ public class ReadSort2 extends BogoSorting {
     }
 
     public void bogoSwapTSoS(int[] array, int start, int end, int[] aux, double sleep) {
-        for(int k = 0; k < (end - start); k += 2) {
-            if(Reads.compareValues(array[k], array[k + 1]) > 0) {
+        for (int k = 0; k < (end - start); k += 2) {
+            if (Reads.compareValues(array[k], array[k + 1]) > 0) {
                 Writes.write(aux, k, array[k + 1], sleep, true, true);
                 Writes.write(aux, k + 1, array[k], sleep, true, true);
             } else {
@@ -30,8 +30,8 @@ public class ReadSort2 extends BogoSorting {
                 Writes.write(aux, k + 1, array[k + 1], sleep, true, true);
             }
         }
-        for(int k = 0; k < (end - start); k += 2) {
-            if(aux[k] < aux[k + 1]) {
+        for (int k = 0; k < (end - start); k += 2) {
+            if (aux[k] < aux[k + 1]) {
                 Highlights.markArray(3, k);
                 Highlights.markArray(4, k + 1);
                 Writes.swap(array, aux[k], aux[k + 1], sleep*160, true, false);
@@ -50,7 +50,7 @@ public class ReadSort2 extends BogoSorting {
             sleep /= 2;
         }
         Writes.deleteExternalArray(tSoS);
-        
+
         new InsertionSort(arrayVisualizer).customInsertSort(array, 0, length, delay, false);
     }
 }

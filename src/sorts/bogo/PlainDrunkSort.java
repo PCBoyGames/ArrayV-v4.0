@@ -30,9 +30,9 @@ public class PlainDrunkSort extends BogoSorting {
 
     @Override
     public int validateAnswer(int answer) {
-    	if(answer < 0)
+    	if (answer < 0)
     		return 0;
-    	if(answer > 99)
+    	if (answer > 99)
     		return 100;
     	return answer;
     }
@@ -48,11 +48,11 @@ public class PlainDrunkSort extends BogoSorting {
     }
 
     private boolean drunkPass(int[] array, int a, int b, int luck, boolean invert) {
-    	if(a >= b - 1) return !invert;
+    	if (a >= b - 1) return !invert;
 
-    	for(int i = a + 1; i <= b; i++) {
-    		for(int j = 0; invert?!isRangeReversed(array, a, i, true, false):!isRangeSorted(array, a, i); ) {
-    			if(Reads.compareIndices(array, a + j, a + (j + 1) % (i - a), 0.5, true) > 0 ^ invert) {
+    	for (int i = a + 1; i <= b; i++) {
+    		for (int j = 0; invert?!isRangeReversed(array, a, i, true, false):!isRangeSorted(array, a, i); ) {
+    			if (Reads.compareIndices(array, a + j, a + (j + 1) % (i - a), 0.5, true) > 0 ^ invert) {
     				invert ^= (randInt(0, 101) > luck);
     				Writes.swap(array, a + j, a + (j + 1) % (i - a), 0.5, true, false);
     			}

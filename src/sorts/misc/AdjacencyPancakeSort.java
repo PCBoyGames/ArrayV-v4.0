@@ -54,7 +54,7 @@ public class AdjacencyPancakeSort extends Sort {
 	}
 
 	private void reversal(int[] array, int[] keys, int a, int b, double sleep) {
-		if(b-a > 1) Writes.changeReversals(1);
+		if (b-a > 1) Writes.changeReversals(1);
 		while(b-a > 1) this.dualSwap(array, keys, a++, --b, sleep);
 	}
 
@@ -71,8 +71,8 @@ public class AdjacencyPancakeSort extends Sort {
 	public void runSort(int[] array, int N, int bucketCount) {
 		int a = 0, b = N;
 
-		if(N == 2) {
-			if(Reads.compareIndices(array, a, a+1, 0.5, true) > 0)
+		if (N == 2) {
+			if (Reads.compareIndices(array, a, a+1, 0.5, true) > 0)
 				Writes.reversal(array, a, a+1, 1, true, false);
 			return;
 		}
@@ -83,13 +83,13 @@ public class AdjacencyPancakeSort extends Sort {
 
 		// find sorted indices
 
-		for(int j = a; j < b; j++) {
+		for (int j = a; j < b; j++) {
 			int c = 0;
 
-			for(int i = a; i < b; i++) {
-				if(i == j) continue;
+			for (int i = a; i < b; i++) {
+				if (i == j) continue;
 				int cmp = Reads.compareIndices(array, i, j, sleep, true);
-				if(cmp < 0 || (cmp == 0 && i < j)) c++;
+				if (cmp < 0 || (cmp == 0 && i < j)) c++;
 			}
 			Writes.write(keys, j-a, c, 0, false, true);
 		}
@@ -102,19 +102,19 @@ public class AdjacencyPancakeSort extends Sort {
 			int i = a;
 			while(i < b-1 && this.isAdjacent(keys, i, i+1, N)) i++;
 
-			if(i == b-1) break; // n-1 adjacencies -> break
+			if (i == b-1) break; // n-1 adjacencies -> break
 
-			if(i == a) { // singleton case (block of size 1)
+			if (i == a) { // singleton case (block of size 1)
 
 				int j = this.findAdjacent(keys, a, a+2, N);
 
-				if(!this.isAdjacent(keys, j-1, j, N)) // case 1, 2
+				if (!this.isAdjacent(keys, j-1, j, N)) // case 1, 2
 					this.reversal(array, keys, a, j, sleep);
 
 				else {
 					int k = this.findAdjacent(keys, a, j+1, N);
 
-					if(!this.isAdjacent(keys, k-1, k, N)) // case 1, 2
+					if (!this.isAdjacent(keys, k-1, k, N)) // case 1, 2
 						this.reversal(array, keys, a, k, sleep);
 
 					else { // case 3
@@ -129,13 +129,13 @@ public class AdjacencyPancakeSort extends Sort {
 
 				int j = this.findAdjacent(keys, a, i+1, N);
 
-				if(!this.isAdjacent(keys, j-1, j, N)) // case 4, 5
+				if (!this.isAdjacent(keys, j-1, j, N)) // case 4, 5
 					this.reversal(array, keys, a, j, sleep);
 
 				else {
 					int k = this.findAdjacent(keys, i, i+2, N);
 
-					if(k+1 < b && this.isAdjacent(keys, k+1, k, N)) { // case 6
+					if (k+1 < b && this.isAdjacent(keys, k+1, k, N)) { // case 6
 						this.reversal(array, keys, a, i+1, sleep);
 						this.reversal(array, keys, a, k+1, sleep);
 					}
@@ -143,8 +143,8 @@ public class AdjacencyPancakeSort extends Sort {
 						this.reversal(array, keys, a, k+1,   sleep); // case 7
 						this.reversal(array, keys, a, a+k-i, sleep);
 
-						if(!this.isAdjacent(keys, k-1, k, N)) {
-							if(j < k) { // case 8
+						if (!this.isAdjacent(keys, k-1, k, N)) {
+							if (j < k) { // case 8
 								this.reversal(array, keys, a, k+1,     sleep);
 								this.reversal(array, keys, a, i+k-j+1, sleep);
 							}
@@ -163,15 +163,15 @@ public class AdjacencyPancakeSort extends Sort {
 		int i = a;
 		while(keys[i] != 0 && keys[i] != N-1) i++;
 
-		if(keys[i] == 0) {
-			if(i == a) {
+		if (keys[i] == 0) {
+			if (i == a) {
 				Writes.deleteExternalArray(keys);
 				return;
 			}
 			this.reversal(array, keys, a, b, sleep);
 			i = b-2 - (i-a);
 		}
-		else if(i == a) {
+		else if (i == a) {
 			this.reversal(array, keys, a, b, sleep);
 			Writes.deleteExternalArray(keys);
 			return;
